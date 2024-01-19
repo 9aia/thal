@@ -1,0 +1,23 @@
+name = "maratongue"
+main = "./renderer/adapters/worker.ts"
+compatibility_date = "2021-09-29"
+workers_dev = true
+node_compat = true
+
+[site]
+bucket = "./dist/client"
+
+[dev]
+port = 8787
+
+[vars]
+TURNSTILE_SECRET_KEY = ""
+GOOGLE_CLIENT_ID = ""
+GOOGLE_CLIENT_SECRET = ""
+GOOGLE_OAUTH_REDIRECT_URI = ""
+GEMINI_API_KEY = ""
+
+[[d1_databases]]
+binding = "DB"
+database_name = ""
+database_id = ""
