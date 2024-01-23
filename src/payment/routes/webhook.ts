@@ -1,29 +1,78 @@
+import { ApiContext } from "#framework/api";
 import { Hono } from "hono";
+import { StripeWebhookTypes } from "../types/stripeWebhookTypes";
+import { PLANS } from "../constants/plans";
+import { checkoutCompleted, subscriptionCanceled } from "../controllers/payments";
 
-export default new Hono().post("/stripe", async (c) => {
-  const data = await c.req.json()
+const webhookRoutes = new Hono<ApiContext>();
 
-  const userId = data?.data?.object?.client_reference_id
+export default webhookRoutes.post("/stripe", async (c) => {
+  const request = await c.req.json() as StripeWebhookTypes.Root
+
+  const orm = c.get('orm')
+  const eventObject = request.data.object
 
   const eventsOptions: Record<string, any> = {
-    'payment_intent.succeeded': async () => {
-      console.log('payment_intent.succeeded', userId)
+    'checkout.session.completed': async () => {
+      const stripeCustomerId = eventObject.customer
+      const userId = eventObject.client_reference_id
+      const plan = Object.values(PLANS).find(plan => plan.amount === eventObject.amount_subtotal)
+
+      if (!userId) {
+        throw new Error('userId not found')
+      }
+
+      if (!plan) {
+        throw new Error('plan not found')
+      }
+
+      const isPaid = eventObject.payment_status === 'paid'
+
+      await checkoutCompleted(
+        orm,
+        userId,
+        stripeCustomerId,
+        plan,
+        isPaid,
+      )
     },
-    'subscription_schedule.canceled': async () => {
-      console.log('payment_intent.succeeded', userId)
+    'checkout.session.async_payment_succeeded': async () => {
+      const stripeCustomerId = eventObject.customer
+      const userId = request.data.object.client_reference_id
+      const plan = Object.values(PLANS).find(plan => plan.amount === eventObject.amount_subtotal)
+
+      if (!userId) {
+        throw new Error('userId not found')
+      }
+
+      if (!plan) {
+        throw new Error('plan not found')
+      }
+
+      const isPaid = eventObject.payment_status === 'paid'
+
+      await checkoutCompleted(
+        orm,
+        userId,
+        stripeCustomerId,
+        plan,
+        isPaid,
+      )
     },
-    'invoice.upcoming': async () => {
-      console.log('invoice.upcoming', userId)
-    },
-    'charge.captured': async () => {
-      console.log('charge.captured', userId)
-    },
-    'invoice.payment_succeeded': async () => {
-      console.log('invoice.payment_succeeded', userId)
+    'customer.subscription.deleted': async () => {
+      const stripeCustomerId = eventObject.customer
+
+      if (!stripeCustomerId) {
+        throw new Error('stripeCustomerId not found')
+      }
+
+      await subscriptionCanceled(orm, stripeCustomerId)
     }
   }
 
-  eventsOptions[data.type]?.()
+  if (eventsOptions.hasOwnProperty(request.type)) {
+    eventsOptions[request.type]()
+  }
 
-  return c.json({ message: "Received!" });
+  return c.json({ message: "Received" });
 });
