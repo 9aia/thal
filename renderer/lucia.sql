@@ -1,7 +1,9 @@
 -- @block
 CREATE TABLE IF NOT EXISTS Users (
   id VARCHAR(15) NOT NULL PRIMARY KEY,
-  username VARCHAR(255) NOT NULL UNIQUE
+  username VARCHAR(255) NOT NULL UNIQUE,
+  plan VARCHAR(255) DEFAULT 'Free',
+  payment_gateway_customer_id VARCHAR(255)
 );
 
 -- @block
