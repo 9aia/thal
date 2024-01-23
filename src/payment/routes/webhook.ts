@@ -1,78 +1,53 @@
 import { ApiContext } from "#framework/api";
 import { Hono } from "hono";
-import { StripeWebhookTypes } from "../types/stripeWebhookTypes";
-import { PLANS } from "../constants/plans";
-import { checkoutCompleted, subscriptionCanceled } from "../controllers/payments";
+import { env } from "hono/adapter";
+import * as stripeHandlers from "../handlers/stripe";
+import { getStripe, webCrypto } from "../utils/stripe";
+import Stripe from "stripe";
 
 const webhookRoutes = new Hono<ApiContext>();
 
 export default webhookRoutes.post("/stripe", async (c) => {
-  const request = await c.req.json() as StripeWebhookTypes.Root
+  const { STRIPE_SECRET_KEY } = env(c);
 
-  const orm = c.get('orm')
-  const eventObject = request.data.object
+  const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY });
+  const body = await c.req.text();
+  const sig = c.req.header("stripe-signature")!;
 
-  const eventsOptions: Record<string, any> = {
-    'checkout.session.completed': async () => {
-      const stripeCustomerId = eventObject.customer
-      const userId = eventObject.client_reference_id
-      const plan = Object.values(PLANS).find(plan => plan.amount === eventObject.amount_subtotal)
+  let event: Stripe.Event;
 
-      if (!userId) {
-        throw new Error('userId not found')
-      }
-
-      if (!plan) {
-        throw new Error('plan not found')
-      }
-
-      const isPaid = eventObject.payment_status === 'paid'
-
-      await checkoutCompleted(
-        orm,
-        userId,
-        stripeCustomerId,
-        plan,
-        isPaid,
-      )
-    },
-    'checkout.session.async_payment_succeeded': async () => {
-      const stripeCustomerId = eventObject.customer
-      const userId = request.data.object.client_reference_id
-      const plan = Object.values(PLANS).find(plan => plan.amount === eventObject.amount_subtotal)
-
-      if (!userId) {
-        throw new Error('userId not found')
-      }
-
-      if (!plan) {
-        throw new Error('plan not found')
-      }
-
-      const isPaid = eventObject.payment_status === 'paid'
-
-      await checkoutCompleted(
-        orm,
-        userId,
-        stripeCustomerId,
-        plan,
-        isPaid,
-      )
-    },
-    'customer.subscription.deleted': async () => {
-      const stripeCustomerId = eventObject.customer
-
-      if (!stripeCustomerId) {
-        throw new Error('stripeCustomerId not found')
-      }
-
-      await subscriptionCanceled(orm, stripeCustomerId)
-    }
+  try {
+    event = await stripe.webhooks.constructEventAsync(
+      body,
+      sig,
+      STRIPE_SECRET_KEY,
+      undefined,
+      webCrypto
+    );
+  } catch (e) {
+    console.log(`⚠️  Webhook signature verification failed.`, (e as any).message);
+    return c.body(null, 400);
   }
 
-  if (eventsOptions.hasOwnProperty(request.type)) {
-    eventsOptions[request.type]()
+  const eventsOptions: Partial<Record<typeof event.type, () => void>> = {
+    "checkout.session.completed": async () => {
+      stripeHandlers.handleCheckoutCompleted(event as any, c);
+    },
+    "checkout.session.async_payment_succeeded": async () => {
+      stripeHandlers.handleAsyncPaymentSucceeded(event as any, c);
+    },
+    "customer.subscription.deleted": async () => {
+      stripeHandlers.handleCustomerSubscriptionDeleted(event as any, c);
+    },
+  };
+
+  const handler = eventsOptions[event.type];
+
+  if (handler) {
+    handler();
+  } else {
+    console.log(`Unhandled event type ${event.type}`);
   }
 
-  return c.json({ message: "Received" });
+  return c.json({ received: true });
 });
