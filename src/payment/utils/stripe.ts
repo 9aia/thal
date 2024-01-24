@@ -1,8 +1,6 @@
 import Stripe from "stripe";
 import { PLANS } from "../constants/plans";
 
-export const webCrypto = Stripe.createSubtleCryptoProvider();
-
 export function getStripe({ stripeKey }: { stripeKey: string }) {
   if (!stripeKey) {
     throw new Error("Can not initialize Stripe without stripe key");

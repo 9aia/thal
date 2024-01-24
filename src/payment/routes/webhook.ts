@@ -2,7 +2,7 @@ import { ApiContext } from "#framework/api";
 import { Hono } from "hono";
 import { env } from "hono/adapter";
 import * as stripeHandlers from "../handlers/stripe";
-import { getStripe, webCrypto } from "../utils/stripe";
+import { getStripe } from "../utils/stripe";
 import Stripe from "stripe";
 
 const webhookRoutes = new Hono<ApiContext>();
@@ -12,7 +12,7 @@ export default webhookRoutes.post("/stripe", async (c) => {
 
   const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY });
   const body = await c.req.text();
-  const sig = c.req.header("stripe-signature")!;
+  const sig = c.req.raw.headers.get("stripe-signature")!;
 
   let event: Stripe.Event;
 
@@ -22,11 +22,15 @@ export default webhookRoutes.post("/stripe", async (c) => {
       sig,
       STRIPE_SECRET_KEY,
       undefined,
-      webCrypto
+      Stripe.createSubtleCryptoProvider()
     );
-  } catch (e) {
-    console.log(`⚠️  Webhook signature verification failed.`, (e as any).message);
-    return c.body(null, 400);
+  } catch (err) {
+    const errorMessage = `⚠️  Webhook signature verification failed. ${
+      err instanceof Error ? err.message : "Internal server error"
+    }`;
+    console.log(errorMessage);
+
+    return c.body(errorMessage, 400);
   }
 
   const eventsOptions: Partial<Record<typeof event.type, () => void>> = {
