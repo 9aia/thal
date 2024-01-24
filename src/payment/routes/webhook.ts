@@ -36,9 +36,12 @@ export default webhookRoutes.post("/stripe", async (c) => {
     "checkout.session.async_payment_succeeded": async () => {
       stripeHandlers.handleAsyncPaymentSucceeded(event as any, c);
     },
+    "customer.subscription.trial_will_end": () => {},
     "customer.subscription.deleted": async () => {
       stripeHandlers.handleCustomerSubscriptionDeleted(event as any, c);
     },
+    "customer.subscription.created": () => {},
+    "customer.subscription.updated": () => {},
   };
 
   const handler = eventsOptions[event.type];
