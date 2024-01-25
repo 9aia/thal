@@ -8,7 +8,14 @@
     "**/Thumbs.db": true,
     "**/node_modules": true,
     "**/.wrangler": true,
-    "**/dist": true
+    "**/dist": true,
+  },
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "package.json": "package-lock.json, pnpm-lock.yaml, .gitignore, tsconfig.json",
+    "vite.config.ts": "postcss.config.js, tailwind.config.js",
+    "wrangler.toml": "wrangler.*, .env*"
   },
   "editor.tabSize": 2,
   "sqltools.connections": [
