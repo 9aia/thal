@@ -8,7 +8,7 @@ import Stripe from "stripe";
 const webhookRoutes = new Hono<ApiContext>();
 
 export default webhookRoutes.post("/stripe", async (c) => {
-  const { STRIPE_SECRET_KEY } = env(c);
+  const { STRIPE_ENDPOINT_SECRET, STRIPE_SECRET_KEY } = env(c);
 
   const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY });
   const body = await c.req.text();
@@ -20,7 +20,7 @@ export default webhookRoutes.post("/stripe", async (c) => {
     event = await stripe.webhooks.constructEventAsync(
       body,
       sig,
-      STRIPE_SECRET_KEY,
+      STRIPE_ENDPOINT_SECRET,
       undefined,
       Stripe.createSubtleCryptoProvider()
     );

@@ -17,6 +17,7 @@ type Bindings = {
   TURNSTILE_SECRET_KEY: string;
   GOOGLE_OAUTH_REDIRECT_URI: string;
   STRIPE_SECRET_KEY: string;
+  STRIPE_ENDPOINT_SECRET: string;
 };
 type Variables = {
   orm: DrizzleD1Database;
