@@ -40,6 +40,14 @@ export default createSessionRoutes
   .post("/stripe/create-portal-session", async (c) => {
     const { STRIPE_SECRET_KEY } = env(c);
 
+    const { lucia } = c.get('auth')
+
+    const authRequest = lucia.handleRequest(c)
+    const session = await authRequest.validate()
+
+    console.log(session, 'session')
+    // TODO - session
+
     const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY });
 
     // For demonstration purposes, we're using the Checkout session to retrieve the customer ID.

@@ -1,6 +1,7 @@
 import { ApiContext } from "#framework/api";
 import { OAuthRequestError } from "@lucia-auth/oauth";
 import { Hono } from "hono";
+import { env } from "hono/adapter";
 import { getCookie, setCookie } from "hono/cookie";
 
 const authRouter = new Hono<ApiContext>();
@@ -8,12 +9,13 @@ const authRouter = new Hono<ApiContext>();
 export default authRouter
   .get("/google", async (c) => {
     const auth = c.get("auth");
+    const { DEV } = env(c);
 
     const [url, state] = await auth.googleAuth.getAuthorizationUrl();
 
     setCookie(c, "google_oauth_state", state, {
       httpOnly: true,
-      secure: !import.meta.env.DEV,
+      secure: !DEV,
       path: "/",
       maxAge: 60 * 60,
     });
@@ -56,7 +58,7 @@ export default authRouter
       const sessionCookie = auth.lucia.createSessionCookie(session);
 
       c.header("set-cookie", sessionCookie.serialize());
-      
+
       return c.redirect("/");
     } catch (e) {
       if (e instanceof OAuthRequestError) {

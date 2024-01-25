@@ -5,7 +5,7 @@ declare module "*.vue" {
 
 /// <reference types="lucia" />
 declare namespace Lucia {
-  type Auth = import("./renderer/middlewares/lucia").Auth;
+  type Auth = import("./renderer/utils/initAuth").Auth;
   type DatabaseUserAttributes = {
     username: string;
   };
