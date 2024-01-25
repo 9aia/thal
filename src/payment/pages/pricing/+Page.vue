@@ -23,13 +23,7 @@
             </ul>
           </div>
 
-          <form action="/create-checkout-session" method="POST">
-            <!-- Add a hidden field with the lookup_key of your Price -->
-            <input
-              type="hidden"
-              name="lookup_key"
-              value="{{PRICE_LOOKUP_KEY}}"
-            />
+          <form action="/api/payment/stripe/create-checkout-session" method="POST">
             <button
               id="checkout-and-portal-button"
               type="submit"
@@ -66,12 +60,11 @@
             </ul>
           </div>
 
-          <form action="/create-checkout-session" method="POST">
-            <!-- Add a hidden field with the lookup_key of your Price -->
+          <form action="/api/payment/stripe/create-checkout-session" method="POST">
             <input
               type="hidden"
               name="lookup_key"
-              value="{{PRICE_LOOKUP_KEY}}"
+              value="standard"
             />
             <button
               id="checkout-and-portal-button"
@@ -102,12 +95,11 @@
             </ul>
           </div>
 
-          <form action="/create-checkout-session" method="POST">
-            <!-- Add a hidden field with the lookup_key of your Price -->
+          <form action="/api/payment/stripe/create-checkout-session" method="POST">
             <input
               type="hidden"
               name="lookup_key"
-              value="{{PRICE_LOOKUP_KEY}}"
+              value="premium"
             />
             <button
               id="checkout-and-portal-button"
@@ -122,13 +114,6 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  name: "PricingPage",
-  // Add your data, methods, etc. here
-};
-</script>
 
 <style scoped>
 /* Add your custom styles here */

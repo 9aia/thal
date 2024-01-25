@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { useSearchParams } from "#framework/composables/useSearchParams";
+import { onMounted, ref } from "vue";
+
+const searchParams = useSearchParams();
+
+const sessionIdRef = ref<HTMLInputElement>()
 
 onMounted(() => {
-  // In production, this should check CSRF, and not pass the session ID.
-  // The customer ID for the portal should be pulled from the authenticated user on the server.
-  document.addEventListener("DOMContentLoaded", async () => {
-    let searchParams = new URLSearchParams(window.location.search);
-    if (searchParams.has("session_id")) {
-      const session_id = searchParams.get("session_id") as string;
-      document.getElementById("session-id")!.setAttribute("value", session_id);
-    }
-  });
+  const sessionId = searchParams.value["session_id"]
+
+  sessionIdRef.value!.value = sessionId
 });
 </script>
 
@@ -26,8 +25,12 @@ onMounted(() => {
       </div>
     </div>
 
-    <form action="/create-portal-session" method="POST">
-      <input type="hidden" id="session-id" name="session_id" value="" />
+    <form action="/api/payment/stripe/create-portal-session" method="POST">
+      <input
+        ref="sessionIdRef"
+        type="hidden"
+        name="session_id"
+      />
 
       <button id="checkout-and-portal-button" type="submit">
         Manage your billing information
