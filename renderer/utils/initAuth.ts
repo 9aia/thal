@@ -5,7 +5,7 @@ import { lucia as luciaFn } from "lucia";
 import { hono } from "lucia/middleware";
 import { GOOGLE_OAUTH_REDIRECT_URI } from "../../public_keys.json"
 
-export type Auth = ReturnType<typeof initAuth>;
+export type Auth = ReturnType<typeof initAuth>["lucia"];
 
 export const initAuth = (ENV: ApiContext["Bindings"]) => {
   const lucia = luciaFn({

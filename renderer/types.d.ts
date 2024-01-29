@@ -1,4 +1,6 @@
 import type { defineComponent } from "vue";
+import type { Auth as _Auth } from "#framework/utils/initAuth";
+import { Component } from "vue";
 
 type AnyFunction = (...args: any) => any;
 
@@ -27,4 +29,16 @@ declare global {
       beforeRenderMode?: "client-only" | "server-only" | "server-and-client";
     }
   }
+  namespace Lucia {
+    type Auth = _Auth;
+    type DatabaseUserAttributes = {
+      username: string;
+    };
+    type DatabaseSessionAttributes = {};
+  }
+}
+
+declare module "*.vue" {
+  const Component: import("vue").Component;
+  export default Component;
 }
