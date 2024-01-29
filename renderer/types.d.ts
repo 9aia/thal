@@ -23,6 +23,10 @@ declare global {
       config: Config;
 
       routeParams: Record<string, string>;
+
+      abortReason?:
+      | string
+      | { notAdmin: true }
     }
     interface Config {
       Wrapper?: Component;
