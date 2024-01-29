@@ -1,7 +1,13 @@
+<script setup lang="ts">
+import { t } from '#framework/i18n';
+</script>
+
 <template>
   <div class="">
     <div class="container mx-auto py-12">
-      <h2 class="text-3xl font-semibold text-center mb-6">Escolha seu plano</h2>
+      <h2 class="text-3xl font-semibold text-center mb-6">
+        {{ t("Choose your plan") }}
+      </h2>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div

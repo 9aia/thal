@@ -77,7 +77,7 @@ export default {
 
   prefetchStaticAssets: "viewport",
 
-  passToClient: ["title", "routeParams"],
+  passToClient: ["title", "routeParams", "i18n", "acceptLanguage"],
 
   clientRouting: true,
   hydrationCanBeAborted: true,
@@ -98,9 +98,6 @@ export default {
       env: { server: true },
     },
     favicon: {
-      env: { server: true },
-    },
-    lang: {
       env: { server: true },
     },
     ssr: {
@@ -143,13 +140,6 @@ declare global {
 
       /** &lt;link rel="icon" href="${favicon}" /> */
       favicon?: string;
-
-      /** &lt;html lang="${lang}">
-       *
-       *  @default 'en'
-       *
-       */
-      lang?: string;
 
       /**
        * If true, render mode is SSR or pre-rendering (aka SSG). In other words, the

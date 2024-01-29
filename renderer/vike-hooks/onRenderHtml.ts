@@ -1,3 +1,4 @@
+import onI18n from "#framework/i18n/onI18n.js";
 import { renderToNodeStream, renderToString } from "@vue/server-renderer";
 import { dangerouslySkipEscape, escapeInject, version } from "vike/server";
 import type { OnRenderHtmlAsync } from "vike/types";
@@ -44,14 +45,18 @@ const onRenderHtml: OnRenderHtmlAsync = async (
 
   let headHtml: ReturnType<typeof dangerouslySkipEscape> | string = "";
   if (!!pageContext.config.Head) {
-    const app = createAppIsomorphic(pageContext, /*ssrApp*/ true, /*renderHead*/ true);
+    const app = createAppIsomorphic(
+      pageContext,
+      /*ssrApp*/ true,
+      /*renderHead*/ true
+    );
     headHtml = dangerouslySkipEscape(await renderToString(app));
   }
 
-  const lang = pageContext.config.lang || "en";
+  const lang = onI18n(pageContext);
 
   const documentHtml = escapeInject`<!DOCTYPE html>
-    <html lang='${lang}'>
+    <html lang="${lang}">
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no,user-scalable=0">

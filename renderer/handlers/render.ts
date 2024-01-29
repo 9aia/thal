@@ -4,6 +4,7 @@ import { renderPage } from "vike/server";
 export const render: MiddlewareHandler = async (c, next) => {
   const pageContextInit = {
     urlOriginal: c.req.url,
+    acceptLanguage: c.req.header('accept-language')
   };
   const pageContext = await renderPage(pageContextInit);
   const { httpResponse } = pageContext;

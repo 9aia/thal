@@ -1,6 +1,7 @@
 import type { Component as _Component } from "vue";
 import type { Auth as _Auth } from "#framework/utils/initAuth";
 import { Component } from "vue";
+import { I18nGlobal } from "./i18n";
 
 type AnyFunction = (...args: any) => any;
 
@@ -23,6 +24,8 @@ declare global {
       config: Config;
 
       routeParams: Record<string, string>;
+      i18n: I18nGlobal;
+      acceptLanguage: string;
 
       abortReason?:
       | string
