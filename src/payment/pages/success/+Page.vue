@@ -25,16 +25,11 @@ onMounted(() => {
       </div>
     </div>
 
-    <form action="/api/payment/stripe/create-portal-session" method="POST">
-      <input
-        ref="sessionIdRef"
-        type="hidden"
-        name="session_id"
-      />
-
-      <button id="checkout-and-portal-button" type="submit">
-        Manage your billing information
-      </button>
-    </form>
+    <a
+      type="submit"
+      href="/api/payment/stripe/create-portal-session"
+    >
+      Manage your billing information
+    </a>
   </section>
 </template>

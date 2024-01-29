@@ -1,4 +1,5 @@
 {
   "STRIPE_PUBLIC_KEY": "pk_test_51OapVFAE9EIB0bgGuG2FKz22s2R2zHMDjKRzSCgZ9gG09CAwldQZGYEk9AqiGzpAufarlSvRFgoN8o7030W7DyED00gFO9yzeA",
-  "GOOGLE_OAUTH_REDIRECT_URI": "https://dc8b-2804-15e4-9107-c800-00-1001.ngrok-free.app/api/auth/google/callback"
+  "GOOGLE_OAUTH_REDIRECT_URI": "https://d21f-177-124-33-9.ngrok-free.app/api/auth/google/callback",
+  "APP_URL": "https://d21f-177-124-33-9.ngrok-free.app"
 }

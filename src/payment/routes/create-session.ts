@@ -2,18 +2,37 @@ import { ApiContext } from "#framework/api";
 import { Hono } from "hono";
 import { env } from "hono/adapter";
 import { getStripe } from "../utils/stripe";
+import { APP_URL } from '../../../public_keys.json';
+import { zValidator } from "@hono/zod-validator";
+import { z } from "zod";
+import { users } from "~/auth/schemas/auth.schemas";
+import { eq } from "drizzle-orm";
+import { getCookie } from "hono/cookie";
 
 const createSessionRoutes = new Hono<ApiContext>();
 
 export default createSessionRoutes
+  .get("/stripe/redirect/:type", zValidator("param", z.object({
+    type: z.enum(['success', 'canceled'])
+  })), async (c) => {
+    const { type } = c.req.valid('param')
+
+    const url = `${APP_URL}/checkout/${type}`
+
+    return c.html(`<meta http-equiv="refresh" content="1;URL='${url}'" />`)
+  })
   .post("/stripe/create-checkout-session", async (c) => {
     const { STRIPE_SECRET_KEY } = env(c);
-    const URL_START = 'http://localhost:3000/checkout';
+    const orm = c.get("orm");
+
+    const sessionId = getCookie(c, 'auth_session') as string
+
+    const { lucia } = c.get('auth')
+    const auth = await lucia.validateSession(sessionId)
 
     const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY });
 
     const data = await c.req.formData();
-
     const lookup_key = data.get('lookup_key') as string;
 
     const prices = await stripe.prices.list({
@@ -26,46 +45,41 @@ export default createSessionRoutes
       line_items: [
         {
           price: prices.data[0].id,
-          // For metered billing, do not pass quantity
           quantity: 1,
         },
       ],
+      client_reference_id: auth.user.userId,
       mode: 'subscription',
-      success_url: `${URL_START}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${URL_START}/canceled`,
+      success_url: `${APP_URL}/api/payment/stripe/redirect/success`,
+      cancel_url: `${APP_URL}/api/payment/stripe/redirect/canceled`,
     });
+
+    await orm.update(users).set({
+      payment_gateway_session_id: session.id
+    }).where(eq(users.id, auth.user.userId))
 
     return c.redirect(session.url!);
   })
-  .post("/stripe/create-portal-session", async (c) => {
+  .get("/stripe/create-portal-session", async (c) => {
     const { STRIPE_SECRET_KEY } = env(c);
+    const orm = c.get("orm");
+    const sessionId = getCookie(c, 'auth_session') as string
 
     const { lucia } = c.get('auth')
+    const auth = await lucia.validateSession(sessionId)
 
-    const authRequest = lucia.handleRequest(c)
-    const session = await authRequest.validate()
+    const user = (await orm.select().from(users).where(eq(users.id, auth.user.userId))).at(0)
 
-    console.log(session, 'session')
-    // TODO - session
+    if(!user) {
+      throw new Error('User not found')
+    }
 
     const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY });
-
-    // For demonstration purposes, we're using the Checkout session to retrieve the customer ID.
-    // Typically this is stored alongside the authenticated user in your database.
-    const data = await c.req.formData();
-
-    const session_id = data.get('session_id') as string;
-
-    console.log(session_id, 'asdas')
-
-    const checkoutSession = await stripe.checkout.sessions.retrieve(session_id);
-
-    // This is the url to which the customer will be redirected when they are done managing their billing with the portal.
-    const returnUrl = 'http://localhost:3000/';
+    const checkoutSession = await stripe.checkout.sessions.retrieve(user.payment_gateway_session_id as string);
 
     const portalSession = await stripe.billingPortal.sessions.create({
       customer: checkoutSession.customer as string,
-      return_url: returnUrl,
+      return_url: APP_URL,
     });
 
     return c.redirect(portalSession.url);
