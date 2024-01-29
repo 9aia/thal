@@ -13,7 +13,7 @@
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
-    "package.json": "package-lock.json, pnpm-lock.yaml, .gitignore, tsconfig.json",
+    "package.json": "package-lock.json, pnpm-lock.yaml, .gitignore, tsconfig.json, shims.d.ts",
     "vite.config.ts": "postcss.config.js, tailwind.config.js",
     "wrangler.toml": "wrangler.*, .env*"
   },
