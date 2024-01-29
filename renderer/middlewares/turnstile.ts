@@ -1,7 +1,7 @@
 import { ApiContext } from "#framework/api";
 import { MiddlewareHandler } from "hono";
 import { env } from "hono/adapter";
-import { forbidden } from "#framework/utils/httpThrowers";
+import { unauthorized } from "#framework/utils/httpThrowers";
 
 export const turnstile = (): MiddlewareHandler<ApiContext> => {
   return async (c, next) => {
@@ -12,7 +12,7 @@ export const turnstile = (): MiddlewareHandler<ApiContext> => {
     const { TURNSTILE_SECRET_KEY } = env(c);
 
     if (!token) {
-      throw forbidden("Token is required");
+      throw unauthorized("Token is required");
     }
 
     const formData = new FormData();
@@ -30,7 +30,7 @@ export const turnstile = (): MiddlewareHandler<ApiContext> => {
     if (result.success) {
       await next();
     } else {
-      throw forbidden("Invalid token");
+      throw unauthorized("Invalid token");
     }
   };
 };

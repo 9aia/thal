@@ -2,11 +2,32 @@ import { ApiContext } from "#framework/api";
 import { OAuthRequestError } from "@lucia-auth/oauth";
 import { Hono } from "hono";
 import { env } from "hono/adapter";
-import { getCookie, setCookie } from "hono/cookie";
+import { deleteCookie, getCookie, setCookie } from "hono/cookie";
+import { APP_URL } from "../../../public_keys.json"
 
 const authRouter = new Hono<ApiContext>();
 
 export default authRouter
+  .get("/logout", async (c) => {
+    const auth = c.get("auth");
+
+    const sessionId = getCookie(c, "auth_session");
+
+    if (!sessionId) {
+      return c.redirect("/authentication")
+    }
+
+    const session = await auth.lucia.getSession(sessionId);
+    
+    if (!session) {
+      return c.redirect("/authentication")
+    }
+
+    deleteCookie(c, "auth_session")
+    deleteCookie(c, "google_oauth_state")
+
+    return c.redirect(APP_URL)
+  })
   .get("/google", async (c) => {
     const auth = c.get("auth");
     const { DEV } = env(c);
