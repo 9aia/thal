@@ -6,7 +6,7 @@ import Header from "#design/components/layout/Header.vue";
 <template>
   <Header>
     <template #navbar-end>
-      <a class="btn btn-primary text-neutral-content" href="/auth">
+      <a class="btn btn-primary text-neutral-content" href="/authentication">
         Experimente Maratongue
       </a>
     </template>
