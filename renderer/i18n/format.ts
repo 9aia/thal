@@ -6,7 +6,7 @@ export const DEFAULT_PLURAL_RULE: PluralRule = (plurals, count) => {
 
 export const format = (
   text: string,
-  values: Record<string, string | number> = {},
+  values: Partial<Record<string, string | number>> = {},
   pluralRule = DEFAULT_PLURAL_RULE
 ) => {
   // escaping

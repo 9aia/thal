@@ -15,7 +15,7 @@ const v = ref("Hello world!");
       <A locale="pt" href="/pricing" active-class="text-red-500">Preços</A>
     </div>
 
-    <p>{{ t("You have {n} (apple|apples) and {m} (box|boxes)", { m: 1, n: 2 }) }}</p>
+    <p>{{ t("You have {n} (apple|apples) and {m} (box|boxes)", { m: 1, n: 2, a: 3 }) }}</p>
 
     <p>{{ t("Hello, {user}", { user: "Luis" }) }}</p>
   </div>

@@ -3,9 +3,16 @@ import { format } from "./format";
 import { ExtractVariables } from "./types";
 import useI18n from "./useI18n";
 
-function t(
-  text: keyof I18n.MessageSchema,
-  values?: ExtractVariables<typeof text>
+type ValueOf<T> = T[keyof T];
+
+type EveryTranslationOf<D extends string & keyof I18n.MessageSchema> = Extract<
+  ValueOf<I18n.MessageSchema[D]>,
+  string
+>;
+
+function t<T extends string & keyof I18n.MessageSchema>(
+  text: T,
+  values?: Partial<ExtractVariables<T | EveryTranslationOf<T>>>
 ) {
   const i18n = useI18n();
   const locale = i18n.locale;
@@ -16,9 +23,10 @@ function t(
     return format(text, values, pluralRule);
   }
 
-  const translation = translations[text];
+  const messages = (translations as any)[text];
+  const message = messages?.[locale];
 
-  if (!translation) {
+  if (!messages || !message) {
     if (!i18nConfig.fallbackLocale) {
       throw new Error(
         "No translation found for: `" +
@@ -30,7 +38,7 @@ function t(
     return format(text, values, pluralRule);
   }
 
-  return format(translation[locale], values, pluralRule);
+  return format(message, values, pluralRule);
 }
 
 export default t;
