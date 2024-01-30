@@ -18,8 +18,8 @@ export const format = (
   Object.keys(values).forEach((key) => {
     const value = values[key];
 
-    const pluralPattern = new RegExp(`{${key}}\\s{([^}|]+(\\|[^}|]+)*)}`, "g");
-
+    const pluralPattern = new RegExp(`{${key}}\\s\\(([^}|]+(\\|[^}|]+)*)\\)`, "g");
+    
     // pluralization
     text = text.replace(pluralPattern, (match, plurals) => {
       const pluralForms = plurals.split("|");

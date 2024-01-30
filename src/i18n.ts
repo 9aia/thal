@@ -7,8 +7,8 @@ const translations = {
   "Choose your plan": {
     pt: "Escolha seu plano",
   },
-  "You have {n} {apple|apples} and {m} {box|boxes}": {
-    pt: "Você tem {n} {maçã|maçãs} e {m} {caixa|caixas}" 
+  "You have {n} (apple|apples) and {m} (box|boxes)": {
+    pt: "Você tem {n} (maçã|maçãs) e {m} (caixa|caixas)" 
   }
 } as const;
 
