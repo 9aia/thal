@@ -15,6 +15,8 @@ const v = ref("Hello world!");
       <A locale="pt" href="/pricing" active-class="text-red-500">Preços</A>
     </div>
 
+    <p>{{ t("You have {n} {apple|apples} and {m} {box|boxes}", { n: 3, m: 3 }) }}</p>
+
     <p>{{ t("Hello, {user}", { user: "Luis" }) }}</p>
   </div>
 </template>
