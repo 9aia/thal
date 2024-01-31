@@ -18,11 +18,11 @@ const props = withDefaults(defineProps<Props>(), {
 const attrs = useAttrs();
 const i18n = useI18n();
 
-const isActive = computed(() => i18n.urlWithoutLocale === props.href);
+const isActive = computed(() => i18n.value.urlWithoutLocale === props.href);
 
 const normalHref = computed(() => {
   return props.localizeHref ?? true
-    ? localizeHref(props.href as string, props.locale || i18n.locale)
+    ? localizeHref(props.href as string, props.locale || i18n.value.locale)
     : (props.href as string);
 });
 

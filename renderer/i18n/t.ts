@@ -15,7 +15,7 @@ function t<T extends string & keyof I18n.MessageSchema>(
   values?: Partial<ExtractVariables<T | EveryTranslationOf<T>>>
 ) {
   const i18n = useI18n();
-  const locale = i18n.locale;
+  const locale = i18n.value.locale;
   const { defaultPluralRule, defaultLocale, translations } = getConfig();
   const pluralRule = i18nConfig.pluralRules?.[locale] || defaultPluralRule;
 
