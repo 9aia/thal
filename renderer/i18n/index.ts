@@ -7,3 +7,5 @@ export { default as useI18n } from "./useI18n";
 export * from "./utils";
 
 export * from "./types.d";
+
+export { default as T } from "./T.vue";
