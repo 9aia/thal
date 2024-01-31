@@ -1,54 +1,118 @@
-import { PluralRule } from "./types";
+import { FormatCallback, NumberDeclensionRule } from "./types";
 
-export const DEFAULT_PLURAL_RULE: PluralRule = (plurals, count) => {
-  return count === 1 ? 0 : plurals.length - 1;
+export const MESSAGE_PATTERN = /{[^{}]+}\s?(?:\([^)]+\))?|[^{}]+/g;
+
+export const DEFAULT_NUMBER_DECLENSION_RULE: NumberDeclensionRule = (
+  forms,
+  count
+) => {
+  return count === 1 ? 0 : forms.length - 1;
 };
 
-export const format = (
+export const startEscaping = (text: string) => {
+  return (text = text
+    .replaceAll("\\{", "__CURLY_OPEN")
+    .replaceAll("\\}", "__CURLY_CLOSE")
+    .replaceAll("\\|", "__PIPE")
+    .replaceAll("\\(", "__PARENTHESES_OPEN")
+    .replaceAll("\\)", "__PARENTHESES_CLOSE"));
+};
+
+export const endEscaping = (text: string) => {
+  return (text = text
+    .replaceAll("__CURLY_OPEN", "{")
+    .replaceAll("__CURLY_CLOSE", "}")
+    .replaceAll("__PIPE", "|")
+    .replaceAll("__PARENTHESES_OPEN", "(")
+    .replaceAll("__PARENTHESES_CLOSE", ")"));
+};
+
+export const interpolate = (
+  text: string,
+  key: string,
+  value: string | number
+) => {
+  return text.replaceAll(`{${key}}`, String(value));
+};
+
+export const declineForNumber = (
+  text: string,
+  formsString: string,
+  value: any,
+  numberDeclensionRule: NumberDeclensionRule
+) => {
+  const forms = formsString.split("|");
+  const i = numberDeclensionRule(forms, value);
+
+  if (i > forms.length || typeof value !== "number") {
+    return { text };
+  }
+
+  const form = forms[i];
+
+  text = text.replaceAll(`(${formsString})`, form);
+  return { text, form };
+};
+
+export const format = <T>(
   text: string,
   values: Partial<Record<string, string | number>> = {},
-  pluralRule = DEFAULT_PLURAL_RULE
+  callbackFn: FormatCallback<T>,
+  initialValue: T,
+  options?: { numberDeclensionRule?: NumberDeclensionRule }
 ) => {
-  // escaping
-  const PIPE = "\\p";
-  text = text.replaceAll("\\|", PIPE);
+  const numberDeclensionRule =
+    options?.numberDeclensionRule || DEFAULT_NUMBER_DECLENSION_RULE;
 
-  console.log(text);
+  text = startEscaping(text);
 
-  Object.keys(values).forEach((key) => {
-    const value = values[key];
+  return text.match(MESSAGE_PATTERN)?.reduce((prev, part) => {
+    const isNamed = part.startsWith("{");
 
-    const pluralPattern = new RegExp(`{${key}}\\s\\(([^}|]+(\\|[^}|]+)*)\\)`, "g");
-    
-    // pluralization
-    text = text.replace(pluralPattern, (match, plurals) => {
-      const pluralForms = plurals.split("|");
+    if (!isNamed) {
+      part = endEscaping(part);
+      return callbackFn({ prev, part });
+    }
 
-      if (typeof value !== "number") {
-        return match;
-      }
+    const key = part.substring(1, part.indexOf("}"));
+    const value = (values as any)[key];
 
-      const i = pluralRule(pluralForms, value);
-      
-      if(i > pluralForms.length) {
-        return match;
-      }
+    if (value === undefined) {
+      part = endEscaping(part);
+      return callbackFn({ prev, part, key });
+    }
 
-      const pluralForm = pluralForms[i];
+    const pluralFormMatch = part.match(/\(([^)]+)\)/);
 
-      return `${value} ${pluralForm}`;
+    let declension: ReturnType<typeof declineForNumber> = { text: part };
+
+    if (pluralFormMatch) {
+      const forms = pluralFormMatch[1];
+      declension = declineForNumber(part, forms, value, numberDeclensionRule);
+    }
+
+    part = interpolate(declension.text, key, value);
+
+    part = endEscaping(part);
+
+    return callbackFn({
+      prev,
+      part,
+      key,
+      dynamic: true,
+      form: declension.form,
     });
+  }, initialValue);
+};
 
-    // vars alone
-    text = text.replaceAll(`{${key}}`, String(value));
-  });
+export const formatToString = (
+  text: string,
+  values: Partial<Record<string, string | number>> = {},
+  options?: { numberDeclensionRule?: NumberDeclensionRule }
+) => {
+  const cb: FormatCallback<string> = (options) => {
+    return options.prev + options.part;
+  };
 
-  // escaping
-  text = text
-    .replaceAll("\\{", "{")
-    .replaceAll("\\}", "}")
-    .replaceAll(PIPE, "|")
-    .replaceAll("\\b", "\\");
-
-  return text;
+  return format(text, values, cb, "", options);
 };

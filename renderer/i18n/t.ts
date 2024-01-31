@@ -1,7 +1,7 @@
-import { i18nConfig as _translations, getConfig, i18nConfig } from "./config";
-import { format } from "./format";
+import { format, formatToString } from "./format";
 import { ExtractVariables } from "./types";
 import useI18n from "./useI18n";
+import { getMessage, getNumberDeclensionRule, getConfig } from "./utils";
 
 type ValueOf<T> = T[keyof T];
 
@@ -14,31 +14,14 @@ function t<T extends string & keyof I18n.MessageSchema>(
   text: T,
   values?: Partial<ExtractVariables<T | EveryTranslationOf<T>>>
 ) {
+  const options = getConfig();
   const i18n = useI18n();
+
   const locale = i18n.value.locale;
-  const { defaultPluralRule, defaultLocale, translations } = getConfig();
-  const pluralRule = i18nConfig.pluralRules?.[locale] || defaultPluralRule;
+  const message = getMessage(text, locale, options);
+  const numberDeclensionRule = getNumberDeclensionRule(locale, options);
 
-  if (locale === defaultLocale) {
-    return format(text, values, pluralRule);
-  }
-
-  const messages = (translations as any)[text];
-  const message = messages?.[locale];
-
-  if (!messages || !message) {
-    if (!i18nConfig.fallbackLocale) {
-      throw new Error(
-        "No translation found for: `" +
-          text +
-          "`. To use the default locale, you can enable fallback in the i18n config."
-      );
-    }
-
-    return format(text, values, pluralRule);
-  }
-
-  return format(message, values, pluralRule);
+  return formatToString(message, values, { numberDeclensionRule });
 }
 
 export default t;

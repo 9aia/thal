@@ -2,8 +2,8 @@
 import { SafeProps } from "#framework/utils/types";
 import { tv } from "tailwind-variants";
 import { computed, useAttrs, type AnchorHTMLAttributes } from "vue";
-import localizeHref from "./localizeHref";
 import useI18n from "./useI18n";
+import { localizeHref } from "./utils";
 
 type Props = SafeProps<AnchorHTMLAttributes> & {
   href: string;

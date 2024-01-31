@@ -1,3 +1,4 @@
+import { onI18n } from "#framework/i18n";
 import type { OnRenderClientAsync } from "vike/types";
 import { createAppIsomorphic } from "../utils/createAppIsomorphic.js";
 import { getTitle } from "../utils/getTitle.js";
@@ -25,6 +26,9 @@ const onRenderClient: OnRenderClientAsync = async (
 
     const title = getTitle(pageContext);
     document.title = title || "";
+
+    const { lang } = onI18n(pageContext);
+    document.documentElement.lang = lang;
   }
 };
 

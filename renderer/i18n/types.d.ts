@@ -4,8 +4,6 @@ export type Locale = string;
 export type Translation = Record<Locale, string>;
 export type Translations = Record<string, Translation>;
 
-export type PluralRuleSchema<T extends Locale> = Record<T[number], PluralRule>;
-
 namespace I18n {
   export type MessageSchema = {};
 }
@@ -15,8 +13,8 @@ export type I18nConfig = {
   fallbackLocale?: boolean;
   locales?: Locale[];
   translations?: I18n.MessageSchema;
-  pluralRules?: Record<Locale, PluralRule>;
-  defaultPluralRule: PluralRule;
+  numberDeclensionRules?: Record<Locale, NumberDeclensionRule>;
+  defaultNumberDeclensionRule: NumberDeclensionRule;
 };
 
 export type I18nGlobal = {
@@ -37,4 +35,12 @@ export type ExtractVariables<
   ? ExtractVariables<Rest, Vars & { [K in Var]: string | number }>
   : Vars;
 
-export type PluralRule = (plurals: string[], count: number) => number;
+export type NumberDeclensionRule = (forms: string[], count: number) => number;
+
+export type FormatCallback<T> = (options: {
+  prev: T;
+  part: string;
+  dynamic?: boolean;
+  form?: string;
+  key?: string;
+}) => T;

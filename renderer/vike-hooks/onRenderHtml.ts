@@ -1,4 +1,4 @@
-import onI18n from "#framework/i18n/onI18n.js";
+import { onI18n } from "#framework/i18n";
 import { renderToNodeStream, renderToString } from "@vue/server-renderer";
 import { dangerouslySkipEscape, escapeInject, version } from "vike/server";
 import type { OnRenderHtmlAsync } from "vike/types";
@@ -53,7 +53,7 @@ const onRenderHtml: OnRenderHtmlAsync = async (
     headHtml = dangerouslySkipEscape(await renderToString(app));
   }
 
-  const lang = onI18n(pageContext);
+  const { lang } = onI18n(pageContext);
 
   const documentHtml = escapeInject`<!DOCTYPE html>
     <html lang="${lang}">
