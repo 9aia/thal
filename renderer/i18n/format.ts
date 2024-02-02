@@ -102,7 +102,7 @@ export const format = <T>(
       dynamic: true,
       form: declension.form,
     });
-  }, initialValue);
+  }, initialValue) || initialValue;
 };
 
 export const formatToString = (

@@ -9,6 +9,7 @@ import { auth } from "#framework/middlewares/auth";
 import { initAuth } from "#framework/utils/initAuth";
 import externalApiRoutes from "~/apiRoutes";
 import authRoute from "./routes/auth/auth.route";
+import translateRoute from "./i18n/routes/translate";
 
 type Bindings = {
   ENVIRONMENT: 'DEV' | 'PROD';
@@ -37,6 +38,7 @@ apiRoutes.get("/", index);
 
 export const route = apiRoutes
   .route("/auth", authRoute)
+  .route("/translate", translateRoute)
   .route("/", externalApiRoutes);
 
 export type AppType = typeof route;

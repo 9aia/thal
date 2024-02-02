@@ -1,6 +1,7 @@
 import express from "express";
 import { renderPage } from "vike/server";
 import { createServer } from "vite";
+import { saveTranslationsFile } from "./saveTranslations.js";
 
 startServer();
 
@@ -13,6 +14,14 @@ async function startServer() {
     })
   ).middlewares;
   app.use(viteDevMiddleware);
+
+  app.post("/__translate", express.json(), async (req, res) => {
+    const data = req.body;
+
+    saveTranslationsFile(data.content);
+
+    res.sendStatus(200);
+  });
 
   app.get("*", async (req, res, next) => {
     const userAgent = req.headers["user-agent"];

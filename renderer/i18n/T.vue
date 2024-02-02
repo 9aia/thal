@@ -8,6 +8,7 @@ import { format } from "./format";
 import { getConfig, useI18n } from "./index";
 import { ExtractVariables } from "./types";
 import { getMessage, getNumberDeclensionRule } from "./utils";
+import collect from "./collect";
 
 const props = withDefaults(
   defineProps<{
@@ -28,6 +29,10 @@ const slots = useSlots();
 const i18n = useI18n();
 
 const TextLocalized = () => {
+  if(import.meta.env.DEV) {
+    collect(props.text, props.values);
+  }
+
   const options = getConfig();
 
   const locale = i18n.value.locale;

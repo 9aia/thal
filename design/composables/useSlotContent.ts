@@ -1,20 +1,27 @@
-import { ComponentInternalInstance, computed, getCurrentInstance } from "vue";
+import {
+  Slot,
+  computed,
+  useSlots
+} from "vue";
 
-const getSlotContent = (
-  vm: ComponentInternalInstance | null = getCurrentInstance()
-) => {
-  const slots = vm?.slots.default?.();
-
-  if (slots && slots.length > 0) {
-    const f = slots[0];
-    return f.children;
+const getSlotContent = (slot?: Slot) => {
+  if (!slot) {
+    return null;
   }
 
-  return null;
+  const node = slot()[0];
+
+  if (!node) {
+    return null;
+  }
+
+  return node.children;
 };
 
 export function useSlotContent(fallback?: () => string | undefined) {
+  const slots = useSlots();
+
   return computed(() => {
-    return getSlotContent() || fallback?.();
+    return getSlotContent(slots.default) || fallback?.();
   });
 }

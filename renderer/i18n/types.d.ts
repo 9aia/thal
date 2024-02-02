@@ -8,11 +8,11 @@ namespace I18n {
   export type MessageSchema = {};
 }
 
-export type I18nConfig = {
+export type I18nConfig<T = I18n.MessageSchema> = {
   defaultLocale?: string;
   fallbackLocale?: boolean;
   locales?: Locale[];
-  translations?: I18n.MessageSchema;
+  translations?: T | I18n.MessageSchema;
   numberDeclensionRules?: Record<Locale, NumberDeclensionRule>;
   defaultNumberDeclensionRule: NumberDeclensionRule;
 };
