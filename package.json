@@ -17,6 +17,7 @@
     "@lucia-auth/adapter-sqlite": "^2.0.1",
     "@lucia-auth/oauth": "^3.5.1",
     "@vue/server-renderer": "^3.3.13",
+    "@vueuse/core": "^10.7.2",
     "clientjs": "^0.2.1",
     "drizzle-orm": "^0.28.6",
     "drizzle-zod": "^0.5.1",
@@ -30,7 +31,6 @@
     "vee-validate": "^4.12.3",
     "vike": "^0.4.158",
     "vue": "^3.3.13",
-    "vue-i18n": "9",
     "vue-turnstile": "^1.0.6",
     "zod": "^3.22.4"
   },
