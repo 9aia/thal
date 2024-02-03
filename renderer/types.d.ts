@@ -27,6 +27,8 @@ declare global {
       i18n: I18nGlobal;
       acceptLanguage: string;
 
+      cookies: string;
+
       abortReason?:
       | string
       | { notAdmin: true }

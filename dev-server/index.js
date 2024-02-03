@@ -26,11 +26,13 @@ async function startServer() {
   app.get("*", async (req, res, next) => {
     const userAgent = req.headers["user-agent"];
     const acceptLanguage = req.headers["accept-language"];
+    const cookies = req.headers["cookie"];
 
     const pageContextInit = {
       urlOriginal: req.originalUrl,
       userAgent,
       acceptLanguage,
+      cookies,
     };
     const pageContext = await renderPage(pageContextInit);
     const { httpResponse } = pageContext;

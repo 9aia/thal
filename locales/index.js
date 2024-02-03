@@ -28,5 +28,17 @@ export default {
   },
   "Hello, {name}! You are {age} (year|years) old.": {
     "pt": "Olá, {name}! Você possui {age} (ano|anos) de idade."
+  },
+  "Logout": {
+    "pt": "Sair"
+  },
+  "You have {n} (apple|apples) and {m} (box|boxes)": {
+    "pt": "Você possui {n} (apple|apples) e {m} (box|boxes)"
+  },
+  "Hello, {user}": {
+    "pt": "Olá, {user}"
+  },
+  "Sign in": {
+    "pt": "Entrar"
   }
 };
