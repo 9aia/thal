@@ -20,6 +20,11 @@ export function getConfig() {
     defaultLocale,
     defaultNumberDeclensionRule,
     numberDeclensionRules: i18nConfig.numberDeclensionRules,
+    datetimeFormats:
+      i18nConfig.datetimeFormats || DEFAULT_I18N_CONFIG.datetimeFormats,
+    defaultDatetimeFormat:
+      i18nConfig.defaultDatetimeFormat ||
+      DEFAULT_I18N_CONFIG.defaultDatetimeFormat,
   } satisfies I18nConfig;
 }
 
@@ -109,4 +114,10 @@ export function getNumberDeclensionRule(locale: Locale, options?: I18nConfig) {
     options || getConfig();
 
   return numberDeclensionRules?.[locale] || defaultNumberDeclensionRule;
+}
+
+export function getDatetimeFormat(locale: Locale, options?: I18nConfig) {
+  const { datetimeFormats, defaultDatetimeFormat } = options || getConfig();
+
+  return datetimeFormats?.[locale] || defaultDatetimeFormat;
 }

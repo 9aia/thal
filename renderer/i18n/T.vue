@@ -7,7 +7,11 @@ import { VNode, createTextVNode, h, useSlots } from "vue";
 import { format } from "./format";
 import { getConfig, useI18n } from "./index";
 import { ExtractVariables } from "./types";
-import { getMessage, getNumberDeclensionRule } from "./utils";
+import {
+  getDatetimeFormat,
+  getMessage,
+  getNumberDeclensionRule,
+} from "./utils";
 import collect from "./collect";
 
 const props = withDefaults(
@@ -29,7 +33,7 @@ const slots = useSlots();
 const i18n = useI18n();
 
 const TextLocalized = () => {
-  if(import.meta.env.DEV) {
+  if (import.meta.env.DEV) {
     collect(props.text, props.values);
   }
 
@@ -37,8 +41,10 @@ const TextLocalized = () => {
 
   const locale = i18n.value.locale;
   const values = props.values || {};
-  const numberDeclensionRule = getNumberDeclensionRule(locale, options);
   const text = getMessage(props.text, locale, options);
+  const numberDeclensionRule = getNumberDeclensionRule(locale, options);
+  const datetimeFormat = getDatetimeFormat(locale, options);
+  const formatOptions = { numberDeclensionRule, datetimeFormat };
 
   const children = format<VNode[]>(
     text,
@@ -57,7 +63,7 @@ const TextLocalized = () => {
       return [...prev, ...nodes];
     },
     [],
-    { numberDeclensionRule }
+    formatOptions
   );
 
   const root = h(props.tag, children);

@@ -15,6 +15,8 @@ export type I18nConfig<T = I18n.MessageSchema> = {
   translations?: T | I18n.MessageSchema;
   numberDeclensionRules?: Record<Locale, NumberDeclensionRule>;
   defaultNumberDeclensionRule: NumberDeclensionRule;
+  datetimeFormats?: Record<Locale, string>;
+  defaultDatetimeFormat: string;
 };
 
 export type I18nGlobal = {

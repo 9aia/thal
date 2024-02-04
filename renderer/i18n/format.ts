@@ -1,3 +1,4 @@
+import { DEFAULT_I18N_CONFIG, i18nConfig } from "./config";
 import { FormatCallback, NumberDeclensionRule } from "./types";
 
 export const MESSAGE_PATTERN = /{[^{}]+}\s?(?:\([^)]+\))?|[^{}]+/g;
@@ -27,12 +28,26 @@ export const endEscaping = (text: string) => {
     .replaceAll("__PARENTHESES_CLOSE", ")"));
 };
 
+export const formatDate = (date: Date, datetimeFormat: string) => {
+  console.log(datetimeFormat)
+  return date.toLocaleDateString(datetimeFormat);
+};
+
 export const interpolate = (
   text: string,
   key: string,
-  value: string | number
+  value: string | number | Date,
+  options: { datetimeFormat: string }
 ) => {
-  return text.replaceAll(`{${key}}`, String(value));
+  let formattedValue: string;
+
+  if (value instanceof Date) {
+    formattedValue = formatDate(value, options?.datetimeFormat);
+  } else {
+    formattedValue = String(value);
+  }
+
+  return text.replaceAll(`{${key}}`, formattedValue);
 };
 
 export const declineForNumber = (
@@ -54,61 +69,72 @@ export const declineForNumber = (
   return { text, form };
 };
 
+type FormatOptions = {
+  numberDeclensionRule?: NumberDeclensionRule;
+  datetimeFormat?: string;
+};
+
 export const format = <T>(
   text: string,
   values: Partial<Record<string, string | number>> = {},
   callbackFn: FormatCallback<T>,
   initialValue: T,
-  options?: { numberDeclensionRule?: NumberDeclensionRule }
+  options?: FormatOptions
 ) => {
   const numberDeclensionRule =
     options?.numberDeclensionRule || DEFAULT_NUMBER_DECLENSION_RULE;
+  const datetimeFormat =
+    options?.datetimeFormat ||
+    i18nConfig.defaultDatetimeFormat ||
+    DEFAULT_I18N_CONFIG.defaultDatetimeFormat;
 
   text = startEscaping(text);
 
-  return text.match(MESSAGE_PATTERN)?.reduce((prev, part) => {
-    const isNamed = part.startsWith("{");
+  return (
+    text.match(MESSAGE_PATTERN)?.reduce((prev, part) => {
+      const isNamed = part.startsWith("{");
 
-    if (!isNamed) {
+      if (!isNamed) {
+        part = endEscaping(part);
+        return callbackFn({ prev, part });
+      }
+
+      const key = part.substring(1, part.indexOf("}"));
+      const value = (values as any)[key];
+
+      if (value === undefined) {
+        part = endEscaping(part);
+        return callbackFn({ prev, part, key });
+      }
+
+      const pluralFormMatch = part.match(/\(([^)]+)\)/);
+
+      let declension: ReturnType<typeof declineForNumber> = { text: part };
+
+      if (pluralFormMatch) {
+        const forms = pluralFormMatch[1];
+        declension = declineForNumber(part, forms, value, numberDeclensionRule);
+      }
+
+      part = interpolate(declension.text, key, value, { datetimeFormat });
+
       part = endEscaping(part);
-      return callbackFn({ prev, part });
-    }
 
-    const key = part.substring(1, part.indexOf("}"));
-    const value = (values as any)[key];
-
-    if (value === undefined) {
-      part = endEscaping(part);
-      return callbackFn({ prev, part, key });
-    }
-
-    const pluralFormMatch = part.match(/\(([^)]+)\)/);
-
-    let declension: ReturnType<typeof declineForNumber> = { text: part };
-
-    if (pluralFormMatch) {
-      const forms = pluralFormMatch[1];
-      declension = declineForNumber(part, forms, value, numberDeclensionRule);
-    }
-
-    part = interpolate(declension.text, key, value);
-
-    part = endEscaping(part);
-
-    return callbackFn({
-      prev,
-      part,
-      key,
-      dynamic: true,
-      form: declension.form,
-    });
-  }, initialValue) || initialValue;
+      return callbackFn({
+        prev,
+        part,
+        key,
+        dynamic: true,
+        form: declension.form,
+      });
+    }, initialValue) || initialValue
+  );
 };
 
 export const formatToString = (
   text: string,
   values: Partial<Record<string, string | number>> = {},
-  options?: { numberDeclensionRule?: NumberDeclensionRule }
+  options?: FormatOptions
 ) => {
   const cb: FormatCallback<string> = (options) => {
     return options.prev + options.part;
