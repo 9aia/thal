@@ -1,8 +1,9 @@
 import { ApiContext } from "#framework/api";
 import { Context } from "hono";
 import Stripe from "stripe";
-import { activePlan, cancelSubscription } from "../services/plan";
+import { activePlan, cancelSubscription, updateSubscription } from "../services/plan";
 import { getPlan } from "../utils/stripe";
+import { fromSToMillis } from "#framework/utils/date";
 
 export async function handleCheckoutCompleted(
   e: Stripe.CheckoutSessionCompletedEvent,
@@ -72,4 +73,25 @@ export async function handleCustomerSubscriptionDeleted(
   }
 
   await cancelSubscription(orm, stripeCustomerId);
+}
+
+export async function handleCustomerSubscriptionUpdated(
+  e: Stripe.CustomerSubscriptionUpdatedEvent,
+  c: Context<ApiContext>
+) {
+  const orm = c.get("orm");
+  const session = e.data.object;
+  const stripeCustomerId = session.customer as string;
+
+  if (!stripeCustomerId) {
+    throw new Error("stripeCustomerId not found");
+  }
+
+  const cancelAt = session.cancel_at;
+
+  const cancelAtDate = cancelAt
+    ? new Date(fromSToMillis(cancelAt)).toISOString() 
+    : undefined;
+
+  await updateSubscription(orm, stripeCustomerId, cancelAtDate);
 }

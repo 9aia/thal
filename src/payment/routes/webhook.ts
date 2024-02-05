@@ -45,7 +45,9 @@ export default webhookRoutes.post("/stripe", async (c) => {
       stripeHandlers.handleCustomerSubscriptionDeleted(event as any, c);
     },
     "customer.subscription.created": () => {},
-    "customer.subscription.updated": () => {},
+    "customer.subscription.updated": () => {
+      stripeHandlers.handleCustomerSubscriptionUpdated(event as any, c);
+    },
   };
 
   const handler = eventsOptions[event.type];

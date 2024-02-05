@@ -10,6 +10,7 @@ import { initAuth } from "#framework/utils/initAuth";
 import externalApiRoutes from "~/apiRoutes";
 import authRoute from "./routes/auth/auth.route";
 import translateRoute from "./i18n/routes/translate";
+import { Session } from "lucia";
 
 type Bindings = {
   ENVIRONMENT: 'DEV' | 'PROD';
@@ -24,6 +25,8 @@ type Variables = {
   orm: DrizzleD1Database;
   auth: ReturnType<typeof initAuth>;
   valid: any;
+  session: Session;
+  isPlanExpired: boolean;
 };
 
 export type ApiContext = { Bindings: Bindings; Variables: Variables };

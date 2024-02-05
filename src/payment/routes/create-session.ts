@@ -9,6 +9,7 @@ import { users } from "~/auth/schemas/auth.schemas";
 import { eq } from "drizzle-orm";
 import { getCookie } from "hono/cookie";
 import { notFound } from "#framework/utils/httpThrowers";
+import { verifyAuthentication } from "#framework/middlewares/verifyAuthentication";
 
 const createSessionRoutes = new Hono<ApiContext>();
 
@@ -70,23 +71,11 @@ export default createSessionRoutes
 
     return c.redirect(checkoutSession.url!);
   })
-  .get("/stripe/create-portal-session", async (c) => {
+  .get("/stripe/create-portal-session", verifyAuthentication({ redirect: true }), async (c) => {
     const { STRIPE_SECRET_KEY } = env(c);
     const orm = c.get("orm");
 
-    const { lucia } = c.get('auth')
-
-    const sessionId = getCookie(c, 'auth_session')
-
-    if (!sessionId) {
-      return c.redirect('/authentication')
-    }
-
-    const session = await lucia.validateSession(sessionId)
-
-    if (!session) {
-      return c.redirect('/authentication')
-    }
+    const session = c.get('session')
 
     const user = (await orm.select().from(users).where(eq(users.id, session.user.userId))).at(0)
 

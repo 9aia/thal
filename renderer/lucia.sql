@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS Users (
   plan VARCHAR(255) DEFAULT 'FREE',
   payment_gateway_customer_id VARCHAR(255),
   payment_gateway_session_id VARCHAR(255),
+  plan_expires VARCHAR(255),
 );
 
 -- @block
