@@ -80,9 +80,11 @@ export default authRouter
         const existingUser = await getExistingUser();
         if (existingUser) return existingUser;
 
+        const username = googleUser.email?.split("@")[0] as string;
+
         const user = await createUser({
           attributes: {
-            username: googleUser.email as string,
+            username,
           },
         });
         return user;
