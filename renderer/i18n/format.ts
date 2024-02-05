@@ -1,5 +1,5 @@
 import { DEFAULT_I18N_CONFIG, i18nConfig } from "./config";
-import { FormatCallback, NumberDeclensionRule } from "./types";
+import { FormatCallback, NumberDeclensionRule, VarValue } from "./types";
 
 export const MESSAGE_PATTERN = /{[^{}]+}\s?(?:\([^)]+\))?|[^{}]+/g;
 
@@ -28,21 +28,33 @@ export const endEscaping = (text: string) => {
     .replaceAll("__PARENTHESES_CLOSE", ")"));
 };
 
-export const formatDate = (date: Date, datetimeFormat: string) => {
-  console.log(datetimeFormat)
-  return date.toLocaleDateString(datetimeFormat);
+export const formatDate = (
+  date: Date,
+  datetimeFormat: string,
+  options?: Intl.DateTimeFormatOptions
+) => {
+  return date.toLocaleDateString(datetimeFormat, options);
 };
+
+type InterpolateOptions = { datetimeFormat: string };
 
 export const interpolate = (
   text: string,
   key: string,
-  value: string | number | Date,
-  options: { datetimeFormat: string }
+  value: VarValue,
+  options: InterpolateOptions
 ) => {
   let formattedValue: string;
 
+  const isDataObject = typeof value === "object" && "date" in value;
+
   if (value instanceof Date) {
     formattedValue = formatDate(value, options?.datetimeFormat);
+  } else if (isDataObject) {
+    const formatOptions: any = {...value};
+    delete formatOptions['date'];
+
+    formattedValue = formatDate(value.date, options?.datetimeFormat, formatOptions)
   } else {
     formattedValue = String(value);
   }
@@ -76,7 +88,7 @@ type FormatOptions = {
 
 export const format = <T>(
   text: string,
-  values: Partial<Record<string, string | number>> = {},
+  values: Partial<Record<string, VarValue>> = {},
   callbackFn: FormatCallback<T>,
   initialValue: T,
   options?: FormatOptions
@@ -133,7 +145,7 @@ export const format = <T>(
 
 export const formatToString = (
   text: string,
-  values: Partial<Record<string, string | number>> = {},
+  values: Partial<Record<string, VarValue>> = {},
   options?: FormatOptions
 ) => {
   const cb: FormatCallback<string> = (options) => {

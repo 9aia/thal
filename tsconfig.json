@@ -9,6 +9,7 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    "allowJs": true,
     "paths": {
       "#framework/*": ["./renderer/*"],
       "#design/*": ["./design/*"],

@@ -27,7 +27,6 @@ export async function saveTranslationsFile(requestTranslations) {
   }
 
   fs.writeFileSync(FILE_NAME, mergedContent);
-  fs.writeFileSync(FILE_NAME.replaceAll(".js", ".ts"), mergedContent);
 
   console.log(`File ${FILE_NAME} saved successfully.`);
 }

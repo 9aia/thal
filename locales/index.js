@@ -40,5 +40,14 @@ export default {
   },
   "Sign in": {
     "pt": "Entrar"
+  },
+  "Choose your plan": {
+    "pt": "Escolha seu plano"
+  },
+  "Choose premium": {
+    "pt": "Escolha o premium"
+  },
+  "Here since {signupDate}": {
+    "pt": "Aqui desde {signupDate}"
   }
 };

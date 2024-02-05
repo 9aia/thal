@@ -30,11 +30,13 @@ export type ILocale = {
   region?: string;
 };
 
+export type VarValue = string | number | Date | DateObject;
+
 export type ExtractVariables<
   S extends string,
   Vars extends Record<string, string> = {}
 > = S extends `${infer Text}{${infer Var}}${infer Rest}`
-  ? ExtractVariables<Rest, Vars & { [K in Var]: string | number }>
+  ? ExtractVariables<Rest, Vars & { [K in Var]: VarValue }>
   : Vars;
 
 export type NumberDeclensionRule = (forms: string[], count: number) => number;
@@ -46,3 +48,7 @@ export type FormatCallback<T> = (options: {
   form?: string;
   key?: string;
 }) => T;
+
+export type DateObject = {
+  date: Date,
+} & Intl.DateTimeFormatOptions;

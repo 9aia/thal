@@ -11,13 +11,9 @@ export function mergeTranslations(requestTranslations, currentTranslations) {
 
       if (requestTranslations[text][locale] !== "") {
         mergedTranslations[text][locale] = requestTranslations[text][locale];
-      } else {
-        console.log("skipping", text);
       }
     });
   });
-
-  console.log(mergedTranslations);
 
   return mergedTranslations;
 }
