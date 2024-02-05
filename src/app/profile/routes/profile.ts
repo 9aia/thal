@@ -18,7 +18,7 @@ export default new Hono().post("/", async (c) => {
 
     ## INPUT
 
-    The user's profile data contains input of various kiunds, usually about them and interests. This will be highly varied by individuals, but your output must be super consistent.
+    The user's profile data contains input of various kinds, usually about them and interests. This will be highly varied by individuals, but your output must be super consistent.
 
     Here is the user's profile data:
 
@@ -28,6 +28,7 @@ export default new Hono().post("/", async (c) => {
 
     - A succint and direct brief about the user;
     - 1 paragraph of 2 lines;
+    - Plain text;
     - Example should be only referred as format, not inspirational for content - each individual are different;
     - The text should be in first-person.
 

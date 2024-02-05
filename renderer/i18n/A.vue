@@ -6,7 +6,7 @@ import useI18n from "./useI18n";
 import { localizeHref } from "./utils";
 
 type Props = SafeProps<AnchorHTMLAttributes> & {
-  href: string;
+  href?: string;
   activeClass?: string;
   localizeHref?: boolean | undefined;
   locale?: string;
