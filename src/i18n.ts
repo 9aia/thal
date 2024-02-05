@@ -7,7 +7,11 @@ i18nConfig.translations = locales;
 i18nConfig.datetimeFormats = {
   en: "en-US",
   pt: "pt-BR",
-}
+};
+i18nConfig.numberFormats = {
+  en: "en-US",
+  pt: "pt-BR",
+};
 
 declare global {
   namespace I18n {

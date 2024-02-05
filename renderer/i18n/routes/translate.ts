@@ -36,6 +36,8 @@ export default new Hono().post(
 
       - Valid JSON that follows exactly the pattern in the example.
       - Don't leave empty values.
+      - Don't translate interpolation (variables), eg. {price}
+      - Translate plurals, but keep the pluralization format, eg. '{amount} (apple|apples)' -> '{amount} (maçã|maçãs)'
 
       ## OUTPUT EXAMPLE
 

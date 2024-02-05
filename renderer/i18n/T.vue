@@ -4,15 +4,11 @@
   generic="T extends string & keyof I18n.MessageSchema, V extends ExtractVariables<T>"
 >
 import { VNode, createTextVNode, h, useSlots } from "vue";
+import collect from "./collect";
 import { format } from "./format";
 import { getConfig, useI18n } from "./index";
 import { ExtractVariables } from "./types";
-import {
-  getDatetimeFormat,
-  getMessage,
-  getNumberDeclensionRule,
-} from "./utils";
-import collect from "./collect";
+import { getFormatOptions, getMessage } from "./utils";
 
 const props = withDefaults(
   defineProps<{
@@ -42,9 +38,7 @@ const TextLocalized = () => {
   const locale = i18n.value.locale;
   const values = props.values || {};
   const text = getMessage(props.text, locale, options);
-  const numberDeclensionRule = getNumberDeclensionRule(locale, options);
-  const datetimeFormat = getDatetimeFormat(locale, options);
-  const formatOptions = { numberDeclensionRule, datetimeFormat };
+  const formatOptions = getFormatOptions(locale, options);
 
   const children = format<VNode[]>(
     text,

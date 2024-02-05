@@ -2,7 +2,7 @@ import collect from "./collect";
 import { formatToString } from "./format";
 import { ExtractVariables } from "./types";
 import useI18n from "./useI18n";
-import { getConfig, getDatetimeFormat, getMessage, getNumberDeclensionRule } from "./utils";
+import { getConfig, getFormatOptions, getMessage } from "./utils";
 
 type ValueOf<T> = T[keyof T];
 
@@ -24,10 +24,7 @@ function t<T extends string & keyof I18n.MessageSchema>(
 
   const locale = i18n.value.locale;
   const message = getMessage(text, locale, options);
-  const numberDeclensionRule = getNumberDeclensionRule(locale, options);
-  const datetimeFormat = getDatetimeFormat(locale, options);
-
-  const formatOptions = { numberDeclensionRule, datetimeFormat };
+  const formatOptions = getFormatOptions(locale, options);
 
   return formatToString(message, values, formatOptions);
 }

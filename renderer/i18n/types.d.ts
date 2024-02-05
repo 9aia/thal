@@ -17,6 +17,8 @@ export type I18nConfig<T = I18n.MessageSchema> = {
   defaultNumberDeclensionRule: NumberDeclensionRule;
   datetimeFormats?: Record<Locale, string>;
   defaultDatetimeFormat: string;
+  numberFormats?: Record<Locale, string>;
+  defaultNumberFormat: string;
 };
 
 export type I18nGlobal = {
@@ -30,7 +32,7 @@ export type ILocale = {
   region?: string;
 };
 
-export type VarValue = string | number | Date | DateObject;
+export type VarValue = string | number | Date | DateObject | NumberObject;
 
 export type ExtractVariables<
   S extends string,
@@ -52,3 +54,7 @@ export type FormatCallback<T> = (options: {
 export type DateObject = {
   date: Date,
 } & Intl.DateTimeFormatOptions;
+
+export type NumberObject = {
+  number: number,
+} & Intl.NumberFormatOptions;

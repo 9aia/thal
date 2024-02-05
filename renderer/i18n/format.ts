@@ -36,7 +36,15 @@ export const formatDate = (
   return date.toLocaleDateString(datetimeFormat, options);
 };
 
-type InterpolateOptions = { datetimeFormat: string };
+export const formatNumber = (
+  number: number,
+  numberFormat: string,
+  options?: Intl.NumberFormatOptions
+) => {
+  return number.toLocaleString(numberFormat, options);
+};
+
+type InterpolateOptions = { datetimeFormat: string; numberFormat: string };
 
 export const interpolate = (
   text: string,
@@ -47,14 +55,28 @@ export const interpolate = (
   let formattedValue: string;
 
   const isDataObject = typeof value === "object" && "date" in value;
+  const isNumberObject = typeof value === "object" && "number" in value;
 
   if (value instanceof Date) {
     formattedValue = formatDate(value, options?.datetimeFormat);
   } else if (isDataObject) {
-    const formatOptions: any = {...value};
-    delete formatOptions['date'];
+    const formatOptions: any = { ...value };
+    delete formatOptions["date"];
 
-    formattedValue = formatDate(value.date, options?.datetimeFormat, formatOptions)
+    formattedValue = formatDate(
+      value.date,
+      options?.datetimeFormat,
+      formatOptions
+    );
+  } else if (isNumberObject) {
+    const formatOptions: any = { ...value };
+    delete formatOptions["number"];
+
+    formattedValue = formatNumber(
+      value.number,
+      options?.numberFormat,
+      formatOptions
+    );
   } else {
     formattedValue = String(value);
   }
@@ -84,6 +106,7 @@ export const declineForNumber = (
 type FormatOptions = {
   numberDeclensionRule?: NumberDeclensionRule;
   datetimeFormat?: string;
+  numberFormat?: string;
 };
 
 export const format = <T>(
@@ -99,6 +122,10 @@ export const format = <T>(
     options?.datetimeFormat ||
     i18nConfig.defaultDatetimeFormat ||
     DEFAULT_I18N_CONFIG.defaultDatetimeFormat;
+  const numberFormat =
+    options?.numberFormat ||
+    i18nConfig.defaultNumberFormat ||
+    DEFAULT_I18N_CONFIG.defaultNumberFormat;
 
   text = startEscaping(text);
 
@@ -128,7 +155,8 @@ export const format = <T>(
         declension = declineForNumber(part, forms, value, numberDeclensionRule);
       }
 
-      part = interpolate(declension.text, key, value, { datetimeFormat });
+      const interpolateOptions = { datetimeFormat, numberFormat };
+      part = interpolate(declension.text, key, value, interpolateOptions);
 
       part = endEscaping(part);
 
