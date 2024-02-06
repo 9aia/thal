@@ -17,7 +17,7 @@ import Header from "./Header.vue";
       <Summary />
     </aside>
 
-    <main class="w-full md:w-1/2 lg:w-2/3 p-8 space-y-6 divide-y divide-teal-500">
+    <main class="w-full md:w-1/2 lg:w-2/3 p-8 space-y-6 divide-y divide-gray-400">
       <AboutMe />
       <Interests />
     </main>

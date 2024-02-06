@@ -1,5 +1,11 @@
-import { EXAMPLE } from "../utils";
+import client from "#framework/client";
 
-export default () => {
-  return EXAMPLE;
+export default async () => {
+  const res = await client.app.profile[':username'].$get({
+    param: {
+      username: "luisfloat"
+    }
+  });
+  const profile = await res.json();
+  return profile;
 };

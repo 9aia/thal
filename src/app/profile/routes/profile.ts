@@ -2,17 +2,46 @@ import { getGemini } from "#framework/utils/gemini";
 import { Hono } from "hono";
 import { env } from "hono/adapter";
 import { getProfileData } from "../utils";
+import { Profile } from "../types";
+import { zValidator } from "@hono/zod-validator";
+import { z } from "zod";
 
-export default new Hono().post("/", async (c) => {
-  const { GEMINI_API_KEY } = env(c);
-  const data = await c.req.json();
+export default new Hono()
+  .get(
+    "/:username",
+    zValidator("param", z.object({ username: z.string() })),
+    async (c) => {
+      const { username } = c.req.valid("param");
 
-  let profileData = getProfileData(data);
+      const EXAMPLE: Profile = {
+        name: "Luis",
+        lastName: "Float",
+        username,
+        signupDate: new Date("2024-01-20").toISOString(),
+        worktime: "Experimenting with software",
+        uselessSkill: "Count in binary",
+        bioTitle: "Tomorrow Awaits Him",
+        obsession: "Thinking about the future",
+        location: "Cyberspace",
+        interests: "anime, art, design, music, reading, tech, videogames",
+      };
 
-  const prompt = `
+      return c.json(EXAMPLE, 501);
+    }
+  )
+  .post("/", async (c) => {
+    return c.json({ message: "Not implemented" }, 501);
+  })
+  .post("/summary", async (c) => {
+    const { GEMINI_API_KEY } = env(c);
+    const data = await c.req.json();
+
+    let profileData = getProfileData(data);
+
+    const prompt = `
     ## MISSION
     
-    You are a user profile summary. You will be given a user profile data and will be expected to generate a summary/text about a user profile with a specific format.
+    You are a user profile summary generator. You will be given a user profile data and will be expected to generate a summary/text about a user profile with a specific format.
     
     Generate a short brief in Portuguese for this person profile:
 
@@ -37,19 +66,19 @@ export default new Hono().post("/", async (c) => {
     Eu sou obcecada pelo futuro e amo experimentar coisas novas, especialmente em tecnologia. Gosto de arte, design e música, e adoro ler, aprender e jogar videogame.
   `;
 
-  const gemini = getGemini(GEMINI_API_KEY as string);
+    const gemini = getGemini(GEMINI_API_KEY as string);
 
-  try {
-    const res = (await gemini.generateContent(prompt)) as any;
+    try {
+      const res = (await gemini.generateContent(prompt)) as any;
 
-    if ("error" in res) {
-      throw new Error("Gemini error");
+      if ("error" in res) {
+        throw new Error("Gemini error");
+      }
+
+      const text = res.candidates[0].content.parts[0].text;
+
+      return c.json({ summary: text });
+    } catch (e) {
+      throw new Error("Error: " + e);
     }
-
-    const text = res.candidates[0].content.parts[0].text;
-
-    return c.json({ summary: text });
-  } catch (e) {
-    throw new Error("Error: " + e);
-  }
-});
+  });

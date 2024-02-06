@@ -19,7 +19,7 @@ const generateSummary = async () => {
   delete profileData.name;
   delete profileData.lastName;
 
-  const res = await client.app.profile.$post({
+  const res = await client.app.profile.summary.$post({
     json: profileData,
   });
 

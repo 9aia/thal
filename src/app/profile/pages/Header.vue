@@ -10,21 +10,24 @@ const profile = useData<typeof Data>();
 const signupDate = computed(() => {
   return profile.value.signupDate;
 });
+console.log(signupDate.value)
 </script>
 
 <template>
-  <div class="shadow-lg bg-base-100 p-4 rounded-lg flex items-center gap-4">
+  <div class="shadow-lg bg-base-100 p-4 rounded-lg flex gap-4 items-center">
     <Avatar :name="profile.name" class="w-24 text-3xl" />
 
     <div>
       <h2 class="text-lg font-bold">{{ profile.name }}</h2>
-      <p class="text-gray-600">
+      <div class="text-sm">{{ profile.username }}</div>
+
+      <small class="text-gray-600">
         {{
-          t("Here since {signupDate}", {
-            signupDate: { date: signupDate, year: "numeric", month: "long" },
+          t("Joined {signupDate}", {
+            signupDate: { date: new Date(signupDate), year: "numeric", month: "long" },
           })
         }}
-      </p>
+      </small>
     </div>
   </div>
 </template>

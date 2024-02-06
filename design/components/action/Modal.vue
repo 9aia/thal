@@ -16,7 +16,7 @@ const props = withDefaults(
     confirmText: "Confirm",
     cancelText: "Cancel",
     hideConfirm: false,
-    shwoCancel: false,
+    showCancel: false,
   }
 );
 

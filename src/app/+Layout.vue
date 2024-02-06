@@ -4,7 +4,6 @@ import Logo from "#design/components/display/Logo.vue";
 import NavbarMenu from "#design/components/layout/NavbarMenu.vue";
 import { NavbarMenuItem } from "#design/components/layout/types";
 import { A } from "#framework/i18n";
-import { ref } from "vue";
 
 const items: NavbarMenuItem[] = [
   { id: "profile", name: "Profile", icon: "person", href: "/app/profile" },

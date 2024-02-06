@@ -1,8 +1,10 @@
+import { INTERESTS } from "./utils";
+
 export type Profile = {
   name: string;
   lastName: string;
   username: string;
-  signupDate: Date;
+  signupDate: string;
   worktime: string;
   uselessSkill: string;
   bioTitle: string;
