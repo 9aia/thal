@@ -11,7 +11,7 @@ import { parseInterests } from "../utils";
 const profile = useData<typeof Data>();
 
 const interestModal = ref<InstanceType<typeof InterestModal>>();
-const interests = ref<Interest[]>(parseInterests(profile.value.interests));
+const interests = ref<Interest[]>(parseInterests(profile.value.interests || ""));
 </script>
 
 <template>
@@ -44,7 +44,7 @@ const interests = ref<Interest[]>(parseInterests(profile.value.interests));
     </label>
 
     <InterestModal
-      :selected="profile.interests"
+      :selected="profile.interests || ''"
       ref="interestModal"
       v-model="interests"
     />

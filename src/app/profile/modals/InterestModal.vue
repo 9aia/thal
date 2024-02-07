@@ -7,7 +7,10 @@ import { useForm } from "vee-validate";
 import { computed, ref } from "vue";
 import { Interest } from "../types";
 import { INTERESTS, MAX_INTERESTS_AMOUNT, parseInterests } from "../utils";
-import { ellipsis } from "#design/utils/text.ts";
+import { ellipsis } from "#design/utils/text";
+import client from "#framework/client";
+import { useParams } from "#framework/composables/useParams";
+import { useToast } from "#design/composables/useToast";
 
 const props = defineProps<{
   selected: string;
@@ -50,8 +53,27 @@ const open = () => {
   modal.value?.show();
 };
 
-const confirm = () => {
-  interests.value = parseInterests(keys.value);
+const params = useParams();
+const toast = useToast();
+
+const ERROR_MESSAGE = t("An error occurred while updating interests.");
+const SUCCESS_MESSAGE = t("Interests were updated successfully.");
+
+const confirm = async () => {
+  const res = await client.app.profile[":username"].$patch({
+    param: {
+      username: params.value.username as string,
+    },
+    json: {
+      interests: keys.value,
+    },
+  });
+  if(!res.ok) {
+    toast.error(ERROR_MESSAGE)
+  } else {
+    interests.value = parseInterests(keys.value);
+    toast.success(SUCCESS_MESSAGE)
+  }
 };
 
 defineExpose({
@@ -68,7 +90,10 @@ defineExpose({
       <p class="text-gray-700 mb-4">
         {{
           t(
-            "Pick up to 7 interests or sports you enjoy that you want to AI know about you."
+            "Pick up to {max} interests or sports you enjoy that you want to AI know about you.",
+            {
+              max: MAX_INTERESTS_AMOUNT,
+            }
           )
         }}
       </p>
@@ -117,7 +142,9 @@ defineExpose({
           }}
         </p>
 
-        <small class="text-xs">{{ ellipsis(interestNames.join(", "), 60) }}</small>
+        <small class="text-xs">{{
+          ellipsis(interestNames.join(", "), 60)
+        }}</small>
       </div>
     </template>
   </Modal>

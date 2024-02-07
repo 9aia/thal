@@ -1,16 +1,10 @@
 <script setup lang="ts">
+import Avatar from "#design/components/display/Avatar.vue";
 import { useData } from "#framework/composables/useData";
 import { t } from "#framework/i18n";
-import { computed } from "vue";
 import Data from "./+data";
-import Avatar from "#design/components/display/Avatar.vue";
 
 const profile = useData<typeof Data>();
-
-const signupDate = computed(() => {
-  return profile.value.signupDate;
-});
-console.log(signupDate.value)
 </script>
 
 <template>
@@ -24,7 +18,7 @@ console.log(signupDate.value)
       <small class="text-gray-600">
         {{
           t("Joined {signupDate}", {
-            signupDate: { date: new Date(signupDate), year: "numeric", month: "long" },
+            signupDate: { date: new Date(profile.signupDate), year: "numeric", month: "long" },
           })
         }}
       </small>

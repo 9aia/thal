@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import AboutMe from "./AboutMe.vue";
-import Interests from "./Interests.vue";
-import Summary from "./Summary.vue";
-import Header from "./Header.vue";
+import AboutMe from "../AboutMe.vue";
+import Interests from "../Interests.vue";
+import Summary from "../Summary.vue";
+import Header from "../Header.vue";
 </script>
 
 <template>
