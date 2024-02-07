@@ -29,7 +29,7 @@ const data = useData<typeof Data>();
     </template>
   </Header>
 
-  <main class="min-h-screen">
+  <main class="min-h-screen pt-[64px]">
     <slot />
   </main>
 
