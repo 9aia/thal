@@ -63,6 +63,16 @@ export function detectLocale(acceptLanguageHeader: string) {
   return LocaleSerializer.parse(lang);
 }
 
+export function detectLocaleClient(language: string) {
+  const preferred = LocaleSerializer.parse(language)
+
+  if (!i18nConfig.locales?.includes(preferred.lang)) {
+    return null;
+  }
+
+  return preferred;
+}
+
 export function extractLocale(pathname: string) {
   const urlPaths = pathname.split("/");
   const firstPath = urlPaths[1];

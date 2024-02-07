@@ -10,9 +10,7 @@ export default defineConfig({
         defineModel: true,
       },
     }),
-    vike({
-      prerender: true,
-    }),
+    vike({ prerender: { partial: true } }),
   ],
   resolve: {
     alias: {
