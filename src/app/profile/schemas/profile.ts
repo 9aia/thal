@@ -1,5 +1,6 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
-import { createSelectSchema } from "drizzle-zod";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
+import { z } from "zod";
 
 export const profiles = sqliteTable("Profiles", {
   id: integer("id").primaryKey({ autoIncrement: true }),
@@ -7,6 +8,8 @@ export const profiles = sqliteTable("Profiles", {
   lastName: text("lastName").notNull(),
   username: text("username").notNull().unique(),
   signupDate: text("signupDate").notNull(),
+  pronouns: text("pronouns"),
+  goals: text("goals"),
   worktime: text("worktime"),
   uselessSkill: text("uselessSkill"),
   bioTitle: text("bioTitle"),
@@ -15,9 +18,13 @@ export const profiles = sqliteTable("Profiles", {
   interests: text("interests"),
 });
 
-export const profileUpdateSchema = createSelectSchema(profiles, {
+export const profileUpdateSchema = createInsertSchema(profiles, {
   interests: (schema) =>
     schema.interests.refine((interests) => interests.split(",").length <= 7, {
       message: "Interests must contain at most 7 items separated by commas",
     }),
 }).partial();
+
+export const profileSelectSchema = createSelectSchema(profiles);
+
+export type Profile = z.infer<typeof profileSelectSchema>;

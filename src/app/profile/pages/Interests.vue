@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import Icon from "#design/components/display/Icon.vue";
-import { useData } from "#framework/composables/useData";
 import { t } from "#framework/i18n";
-import { ref } from "vue";
+import { Ref, computed, inject, ref } from "vue";
 import InterestModal from "../modals/InterestModal.vue";
-import Data from "./+data";
-import { Interest } from "../types";
+import { Profile } from "../schemas/profile";
 import { parseInterests } from "../utils";
 
-const profile = useData<typeof Data>();
+const profile = inject<Ref<Profile>>("profile")!;
 
 const interestModal = ref<InstanceType<typeof InterestModal>>();
-const interests = ref<Interest[]>(parseInterests(profile.value.interests || ""));
+const interests = computed(() => {
+  return parseInterests(profile.value.interests || "");
+});
 </script>
 
 <template>
@@ -43,10 +43,6 @@ const interests = ref<Interest[]>(parseInterests(profile.value.interests || ""))
       </div>
     </label>
 
-    <InterestModal
-      :selected="profile.interests || ''"
-      ref="interestModal"
-      v-model="interests"
-    />
+    <InterestModal ref="interestModal" />
   </section>
 </template>

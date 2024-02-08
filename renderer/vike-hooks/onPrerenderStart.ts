@@ -1,4 +1,4 @@
-import { i18nConfig } from "./i18n";
+import { i18nConfig } from "../i18n";
 import { OnPrerenderStartSync, PageContextServer } from "vike/types";
 
 const onPrerenderStart: OnPrerenderStartSync = (

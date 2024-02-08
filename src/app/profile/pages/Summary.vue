@@ -1,21 +1,23 @@
 <script setup lang="ts">
 import Btn from "#design/components/action/Btn.vue";
 import Icon from "#design/components/display/Icon.vue";
+import Skeleton from "#design/components/feedback/Skeleton.vue";
 import { useToast } from "#design/composables/useToast";
 import client from "#framework/client";
-import { useData } from "#framework/composables/useData";
-import { onMounted, ref } from "vue";
-import Data from "./+data";
 import { t } from "#framework/i18n";
-import Skeleton from "#design/components/feedback/Skeleton.vue";
+import { Ref, inject, onMounted, ref } from "vue";
+import { Profile } from "../schemas/profile";
 
 const toast = useToast();
-const profile = useData<typeof Data>();
+
+const profile = inject<Ref<Profile>>("profile");
+
 const loading = ref(true);
 const summary = ref("");
 
 const generateSummary = async () => {
-  const profileData: any = { ...profile.value };
+  console.log(profile?.value)
+  const profileData: any = { ...profile?.value };
   delete profileData.name;
   delete profileData.lastName;
 

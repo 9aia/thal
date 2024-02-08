@@ -6,7 +6,7 @@ import {
   detectLocaleClient,
   extractLocale,
   i18nConfig,
-} from "./i18n";
+} from "../i18n";
 import { OnBeforeRouteSync } from "vike/types";
 
 const onBeforeRoute: OnBeforeRouteSync = (

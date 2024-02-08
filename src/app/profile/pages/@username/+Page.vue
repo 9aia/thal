@@ -3,6 +3,13 @@ import AboutMe from "../AboutMe.vue";
 import Interests from "../Interests.vue";
 import Summary from "../Summary.vue";
 import Header from "../Header.vue";
+import { useData } from "#framework/composables/useData";
+import Data from "../+data";
+import { ref, provide } from "vue";
+
+const data = useData<typeof Data>();
+const profile = ref(data.value);
+provide("profile", profile);
 </script>
 
 <template>

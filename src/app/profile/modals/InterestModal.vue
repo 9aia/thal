@@ -2,19 +2,15 @@
 import Modal from "#design/components/action/Modal.vue";
 import Checkbox from "#design/components/data-input/Checkbox.vue";
 import Icon from "#design/components/display/Icon.vue";
-import { t } from "#framework/i18n";
-import { useForm } from "vee-validate";
-import { computed, ref } from "vue";
-import { Interest } from "../types";
-import { INTERESTS, MAX_INTERESTS_AMOUNT, parseInterests } from "../utils";
+import { useToast } from "#design/composables/useToast";
 import { ellipsis } from "#design/utils/text";
 import client from "#framework/client";
 import { useParams } from "#framework/composables/useParams";
-import { useToast } from "#design/composables/useToast";
-
-const props = defineProps<{
-  selected: string;
-}>();
+import { t } from "#framework/i18n";
+import { useForm } from "vee-validate";
+import { Ref, computed, inject, ref } from "vue";
+import { Profile } from "../schemas/profile";
+import { INTERESTS, MAX_INTERESTS_AMOUNT, parseInterests } from "../utils";
 
 const parseInitialValues = (selected: string) => {
   return selected.split(", ").reduce<Record<string, boolean>>((acc, key) => {
@@ -23,7 +19,11 @@ const parseInitialValues = (selected: string) => {
   }, {});
 };
 
-const initialValues = parseInitialValues(props.selected);
+const profile = inject<Ref<Profile>>("profile")!;
+
+const params = useParams();
+const toast = useToast();
+const initialValues = parseInitialValues(profile.value.interests || "");
 const form = useForm<Record<string, boolean | undefined>>({
   initialValues,
 });
@@ -38,8 +38,6 @@ const interestNames = computed(() => {
   return interests.map((interest) => interest.name);
 });
 
-const interests = defineModel<Interest[]>();
-
 const search = ref("");
 const filteredList = computed(() => {
   return INTERESTS.filter((interest) =>
@@ -53,9 +51,6 @@ const open = () => {
   modal.value?.show();
 };
 
-const params = useParams();
-const toast = useToast();
-
 const ERROR_MESSAGE = t("An error occurred while updating interests.");
 const SUCCESS_MESSAGE = t("Interests were updated successfully.");
 
@@ -68,16 +63,16 @@ const confirm = async () => {
       interests: keys.value,
     },
   });
-  if(!res.ok) {
-    toast.error(ERROR_MESSAGE)
+  if (!res.ok) {
+    toast.error(ERROR_MESSAGE);
   } else {
-    interests.value = parseInterests(keys.value);
-    toast.success(SUCCESS_MESSAGE)
+    profile.value = { ...profile.value, interests: keys.value };
+
+    toast.success(SUCCESS_MESSAGE);
   }
 };
 
 defineExpose({
-  form,
   open,
 });
 </script>
@@ -107,7 +102,7 @@ defineExpose({
         />
       </div>
 
-      <form class="h-[200px] overflow-auto">
+      <form class="h-[200px] px-2 overflow-auto">
         <Checkbox
           :path="interest.id"
           :label="interest.name"

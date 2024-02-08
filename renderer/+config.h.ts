@@ -74,6 +74,8 @@ export default {
   onHydrationEnd: "import:./vike-hooks/onHydrationEnd:onHydrationEnd",
   onPageTransitionStart: "import:./vike-hooks/onPageTransition:onPageTransitionStart",
   onPageTransitionEnd: "import:./vike-hooks/onPageTransition:onPageTransitionEnd",
+  onBeforeRoute: "import:./vike-hooks/onBeforeRoute:default",
+  onPrerenderStart: "import:./vike-hooks/onPrerenderStart:default",
 
   prefetchStaticAssets: "viewport",
 
