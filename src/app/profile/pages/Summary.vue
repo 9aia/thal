@@ -16,7 +16,6 @@ const loading = ref(true);
 const summary = ref("");
 
 const generateSummary = async () => {
-  console.log(profile?.value)
   const profileData: any = { ...profile?.value };
   delete profileData.name;
   delete profileData.lastName;

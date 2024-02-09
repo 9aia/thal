@@ -17,22 +17,22 @@ const form = useForm<Profile>({
   initialValues: profile?.value,
 });
 
-const modal = ref<InstanceType<typeof Modal>>();
-
-const open = () => {
-  modal.value?.show();
-};
-
 const ERROR_MESSAGE = t("An error occurred while updating personal data.");
 const SUCCESS_MESSAGE = t("Personal data has been updated successfully.");
 
-const confirm = async () => {
+const isOpen = defineModel({ default: false });
+const loading = ref(false);
+
+const submit = form.handleSubmit(async () => {
+  loading.value = true;
+
   const res = await client.app.profile[":username"].$patch({
     param: {
       username: params.value.username as string,
     },
     json: form.values,
   });
+
   if (!res.ok) {
     toast.error(ERROR_MESSAGE);
   } else {
@@ -45,15 +45,19 @@ const confirm = async () => {
 
     toast.success(SUCCESS_MESSAGE);
   }
-};
 
-defineExpose({
-  open,
+  isOpen.value = false;
+  loading.value = false;
 });
 </script>
 
 <template>
-  <Modal ref="modal" :confirm-text="t('Save')" @confirm="confirm">
+  <Modal
+    :confirm-text="t('Save')"
+    @confirm="submit"
+    v-model="isOpen"
+    :loading="loading"
+  >
     <template #default>
       <h3 class="font-bold text-2xl mb-2 mt-4">{{ t("Personal Data") }}</h3>
 

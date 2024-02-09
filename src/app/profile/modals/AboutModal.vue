@@ -17,22 +17,22 @@ const form = useForm<Profile>({
   initialValues: profile?.value,
 });
 
-const modal = ref<InstanceType<typeof Modal>>();
-
-const open = () => {
-  modal.value?.show();
-};
-
 const ERROR_MESSAGE = t("An error occurred while updating about me.");
 const SUCCESS_MESSAGE = t("About me has been updated successfully.");
 
-const confirm = async () => {
+const isOpen = defineModel({ default: false });
+const loading = ref(false);
+
+const submit = form.handleSubmit(async () => {
+  loading.value = true;
+
   const res = await client.app.profile[":username"].$patch({
     param: {
       username: params.value.username as string,
     },
     json: form.values,
   });
+
   if (!res.ok) {
     toast.error(ERROR_MESSAGE);
   } else {
@@ -45,25 +45,33 @@ const confirm = async () => {
 
     toast.success(SUCCESS_MESSAGE);
   }
-};
-
-defineExpose({
-  open,
+  
+  loading.value = false;
+  isOpen.value = false;
 });
 </script>
 
 <template>
-  <Modal ref="modal" :confirm-text="t('Save')" @confirm="confirm">
+  <Modal
+    :confirm-text="t('Save')"
+    @confirm="submit"
+    v-model="isOpen"
+    :loading="loading"
+  >
     <template #default>
       <h3 class="font-bold text-2xl mb-2 mt-4">{{ t("About me") }}</h3>
 
-      <form class="h-[200px] px-2 pb-2 space-y-2 overflow-y-auto">
-        <TextField path="worktime" :label="t('Spending too much time on')" />
+      <div class="h-[200px] px-2 pb-2 space-y-2 overflow-y-auto">
+        <TextField
+          path="worktime"
+          :label="t('Spending too much time on')"
+          :rules="(v) => !!v"
+        />
         <TextField path="uselessSkill" :label="t('Most useless skill')" />
         <TextField path="bioTitle" :label="t('Title of my biography')" />
         <TextField path="obsession" :label="t('I\'m obsessed with')" />
         <TextField path="location" :label="t('Where I live')" />
-      </form>
+      </div>
     </template>
   </Modal>
 </template>

@@ -45,16 +45,15 @@ const filteredList = computed(() => {
   );
 });
 
-const modal = ref<InstanceType<typeof Modal>>();
-
-const open = () => {
-  modal.value?.show();
-};
-
 const ERROR_MESSAGE = t("An error occurred while updating interests.");
 const SUCCESS_MESSAGE = t("Interests were updated successfully.");
 
-const confirm = async () => {
+const isOpen = defineModel({ default: false });
+const loading = ref(false);
+
+const submit = form.handleSubmit(async () => {
+  loading.value = true;
+
   const res = await client.app.profile[":username"].$patch({
     param: {
       username: params.value.username as string,
@@ -70,15 +69,19 @@ const confirm = async () => {
 
     toast.success(SUCCESS_MESSAGE);
   }
-};
 
-defineExpose({
-  open,
+  loading.value = false;
+  isOpen.value = false;
 });
 </script>
 
 <template>
-  <Modal ref="modal" :confirm-text="t('Save')" @confirm="confirm">
+  <Modal
+    :confirm-text="t('Save')"
+    @confirm="submit"
+    v-model="isOpen"
+    :loading="loading"
+  >
     <template #default>
       <h3 class="font-bold text-2xl mb-2 mt-4">{{ t("Interests") }}</h3>
 
@@ -102,7 +105,7 @@ defineExpose({
         />
       </div>
 
-      <form class="h-[200px] px-2 overflow-auto">
+      <div class="h-[200px] px-2 overflow-auto">
         <Checkbox
           :path="interest.id"
           :label="interest.name"
@@ -123,7 +126,7 @@ defineExpose({
         <div class="item error" v-if="search && !filteredList.length">
           <p>{{ t("No results found.") }}</p>
         </div>
-      </form>
+      </div>
     </template>
 
     <template #footer>

@@ -7,8 +7,7 @@ import { Profile } from "../schemas/profile";
 import { parseInterests } from "../utils";
 
 const profile = inject<Ref<Profile>>("profile")!;
-
-const interestModal = ref<InstanceType<typeof InterestModal>>();
+const isModalOpen = ref(false);
 const interests = computed(() => {
   return parseInterests(profile.value.interests || "");
 });
@@ -22,7 +21,7 @@ const interests = computed(() => {
 
         <button
           type="button"
-          @click="interestModal?.open()"
+          @click="isModalOpen = true"
           :aria-label="t('Edit interests')"
           :title="t('Edit interests')"
           class="text-black flex items-center"
@@ -43,6 +42,6 @@ const interests = computed(() => {
       </div>
     </label>
 
-    <InterestModal ref="interestModal" />
+    <InterestModal v-model="isModalOpen" />
   </section>
 </template>

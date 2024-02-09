@@ -7,7 +7,7 @@ import PersonalModal from "../modals/PersonalModal.vue";
 import { Profile } from "../schemas/profile";
 
 const personal = inject<Ref<Profile>>("profile")!;
-const personalModal = ref<InstanceType<typeof PersonalModal>>();
+const isModalOpen = ref(false);
 </script>
 
 <template>
@@ -23,7 +23,7 @@ const personalModal = ref<InstanceType<typeof PersonalModal>>();
 
       <button
         type="button"
-        @click="personalModal?.open()"
+        @click="isModalOpen = true"
         :aria-label="t('Edit personal data')"
         :title="t('Edit personal data')"
         class="text-black flex items-center absolute top-0 right-0"
@@ -44,6 +44,6 @@ const personalModal = ref<InstanceType<typeof PersonalModal>>();
       </small>
     </label>
 
-    <PersonalModal ref="personalModal" />
+    <PersonalModal v-model="isModalOpen" />
   </div>
 </template>

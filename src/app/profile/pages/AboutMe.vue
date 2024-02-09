@@ -6,8 +6,8 @@ import AboutModal from "../modals/AboutModal.vue";
 import { ITEMS } from "../utils";
 import { Profile } from "../schemas/profile";
 
-const aboutModal = ref<InstanceType<typeof AboutModal>>();
 const profile = inject<Ref<Profile>>("profile")!;
+const isModalOpen = ref(false);
 </script>
 
 <template>
@@ -18,7 +18,7 @@ const profile = inject<Ref<Profile>>("profile")!;
 
         <button
           type="button"
-          @click="aboutModal?.open()"
+          @click="isModalOpen = true"
           :aria-label="t('Edit about me')"
           :title="t('Edit about me')"
           class="text-black flex items-center"
@@ -39,6 +39,6 @@ const profile = inject<Ref<Profile>>("profile")!;
       </div>
     </label>
 
-    <AboutModal ref="aboutModal" />
+    <AboutModal v-model="isModalOpen" />
   </section>
 </template>

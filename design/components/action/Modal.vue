@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { readonly, ref } from "vue";
+import { ref, watch } from "vue";
+import Btn from "./Btn.vue";
 
 const dialog = ref<HTMLDialogElement>();
 
@@ -10,6 +11,7 @@ const props = withDefaults(
     cancelText?: string;
     hideConfirm?: boolean;
     showCancel?: boolean;
+    loading?: boolean;
   }>(),
   {
     classes: "",
@@ -19,30 +21,16 @@ const props = withDefaults(
     showCancel: false,
   }
 );
+const emit = defineEmits(["cancel", "confirm"]);
 
-const visible = ref(false);
+const visible = defineModel({ default: false });
 
-const show = () => {
-  dialog.value?.showModal();
-  visible.value = true;
-};
-
-const emit = defineEmits(["confirm", "cancel"]);
-
-const cancel = () => {
-  dialog.value?.close();
-  emit("cancel");
-};
-
-const confirm = () => {
-  dialog.value?.close();
-  emit("confirm");
-};
-
-defineExpose({
-  show,
-  close: (returnVal?: string): void => dialog.value?.close(returnVal),
-  visible: readonly(visible),
+watch(visible, () => {
+  if (visible.value) {
+    dialog.value?.showModal();
+  } else {
+    dialog.value?.close();
+  }
 });
 </script>
 
@@ -59,6 +47,7 @@ defineExpose({
         'modal-box rounded-none': true,
         [props.classes]: props.classes,
       }"
+      @submit="emit('confirm')"
     >
       <slot />
 
@@ -66,28 +55,29 @@ defineExpose({
         <slot name="footer" />
 
         <slot name="actions">
-          <button
+          <Btn
             v-if="props.showCancel"
             value="false"
             class="btn"
-            @click.prevent="cancel"
+            @click.prevent="visible = false"
           >
             {{ props.cancelText }}
-          </button>
+          </Btn>
 
-          <button
+          <Btn
             v-if="!props.hideConfirm"
             value="true"
-            class="btn btn-primary"
-            @click.prevent="confirm"
+            class="btn-primary"
+            @click.prevent="emit('confirm')"
+            :loading="loading"
           >
             {{ props.confirmText }}
-          </button>
+          </Btn>
         </slot>
       </div>
     </form>
     <form method="dialog" class="modal-backdrop">
-      <button>close</button>
+      <button @click.prevent="visible = false">close</button>
     </form>
   </dialog>
 </template>
