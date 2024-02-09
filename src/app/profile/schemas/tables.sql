@@ -6,11 +6,10 @@ CREATE TABLE IF NOT EXISTS Profiles (
   username VARCHAR(255) NOT NULL UNIQUE,
   signupDate DATETIME NOT NULL,
   pronouns VARCHAR(24),
-  goals VARCHAR(255),
-  worktime VARCHAR(255),
-  uselessSkill VARCHAR(255),
-  bioTitle VARCHAR(255),
-  obsession VARCHAR(255),
   location VARCHAR(255),
-  interests TEXT
+  goals VARCHAR(127),
+  hobbies VARCHAR(127),
+  profession VARCHAR(20)
 );
+
+UPDATE Profiles SET hobbies = ''

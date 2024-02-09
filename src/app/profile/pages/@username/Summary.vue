@@ -6,7 +6,7 @@ import { useToast } from "#design/composables/useToast";
 import client from "#framework/client";
 import { t } from "#framework/i18n";
 import { Ref, inject, onMounted, ref } from "vue";
-import { Profile } from "../schemas/profile";
+import { Profile } from "../../schemas/profile";
 
 const toast = useToast();
 

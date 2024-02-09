@@ -44,7 +44,7 @@ const items: NavbarMenuItem[] = [
       </div>
     </div>
   </header>
-  <main>
+  <main class="p-4">
     <slot />
   </main>
 </template>

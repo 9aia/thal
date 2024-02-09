@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import AboutMe from "../AboutMe.vue";
-import Interests from "../Interests.vue";
-import Summary from "../Summary.vue";
-import Header from "../Header.vue";
+import AboutMe from "./AboutMe.vue";
+import Interests from "./Interests.vue";
+import Summary from "./Summary.vue";
+import Header from "./Header.vue";
 import { useData } from "#framework/composables/useData";
 import Data from "../+data";
 import { ref, provide } from "vue";
+import Goals from "./Goals.vue";
 
 const data = useData<typeof Data>();
 const profile = ref(data.value);
@@ -23,9 +24,10 @@ provide("profile", profile);
       <Header />
       <Summary />
     </aside>
-
+    
     <main class="w-full md:w-1/2 lg:w-2/3 p-8 space-y-6 divide-y divide-gray-400">
       <AboutMe />
+      <Goals />
       <Interests />
     </main>
   </div>

@@ -1,5 +1,5 @@
 import { Profile } from "./schemas/profile";
-import { INTERESTS } from "./utils";
+import { HOBBIES } from "./utils";
 
 export type Item = { id: keyof Profile; icon: string; label: string };
-export type Interest = typeof INTERESTS[number];
+export type Interest = typeof HOBBIES[number];

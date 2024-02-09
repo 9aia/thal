@@ -10,20 +10,23 @@ import { t } from "#framework/i18n";
 import { useForm } from "vee-validate";
 import { Ref, computed, inject, ref } from "vue";
 import { Profile } from "../schemas/profile";
-import { INTERESTS, MAX_INTERESTS_AMOUNT, parseInterests } from "../utils";
+import { parseJoin } from "../utils";
+import { HOBBIES, MAX_HOBBIES_AMOUNT } from "../constants";
 
 const parseInitialValues = (selected: string) => {
   return selected.split(", ").reduce<Record<string, boolean>>((acc, key) => {
+    if (key === "") return acc;
     acc[key] = true;
     return acc;
   }, {});
 };
 
-const profile = inject<Ref<Profile>>("profile")!;
-
 const params = useParams();
 const toast = useToast();
-const initialValues = parseInitialValues(profile.value.interests || "");
+
+const profile = inject<Ref<Profile>>("profile")!;
+
+const initialValues = parseInitialValues(profile.value.hobbies || "");
 const form = useForm<Record<string, boolean | undefined>>({
   initialValues,
 });
@@ -33,25 +36,27 @@ const keys = computed(() => {
     .filter((key) => values[key])
     .join(", ");
 });
-const interestNames = computed(() => {
-  const interests = parseInterests(keys.value);
-  return interests.map((interest) => interest.name);
+const hobbyNames = computed(() => {
+  const hobbies = parseJoin(keys.value, HOBBIES);
+  return hobbies.map((hobby) => hobby.name);
 });
 
 const search = ref("");
 const filteredList = computed(() => {
-  return INTERESTS.filter((interest) =>
-    interest.name.toLowerCase().includes(search.value.toLowerCase())
+  return HOBBIES.filter((hobby) =>
+    hobby.name.toLowerCase().includes(search.value.toLowerCase())
   );
 });
 
-const ERROR_MESSAGE = t("An error occurred while updating interests.");
-const SUCCESS_MESSAGE = t("Interests were updated successfully.");
+const ERROR_MESSAGE = t("An error occurred while updating hobbies.");
+const SUCCESS_MESSAGE = t("Hobbies were updated successfully.");
 
 const isOpen = defineModel({ default: false });
 const loading = ref(false);
 
-const submit = form.handleSubmit(async () => {
+const submit = form.handleSubmit(async (data) => {
+  const currentKeys = keys.value;
+  
   loading.value = true;
 
   const res = await client.app.profile[":username"].$patch({
@@ -59,13 +64,14 @@ const submit = form.handleSubmit(async () => {
       username: params.value.username as string,
     },
     json: {
-      interests: keys.value,
+      hobbies: currentKeys,
     },
   });
+
   if (!res.ok) {
     toast.error(ERROR_MESSAGE);
   } else {
-    profile.value = { ...profile.value, interests: keys.value };
+    profile.value = { ...profile.value, hobbies: currentKeys };
 
     toast.success(SUCCESS_MESSAGE);
   }
@@ -83,14 +89,14 @@ const submit = form.handleSubmit(async () => {
     :loading="loading"
   >
     <template #default>
-      <h3 class="font-bold text-2xl mb-2 mt-4">{{ t("Interests") }}</h3>
+      <h1 class="font-bold text-2xl mb-2 mt-4">{{ t("Hobbies") }}</h1>
 
       <p class="text-gray-700 mb-4">
         {{
           t(
-            "Pick up to {max} interests or sports you enjoy that you want to AI know about you.",
+            "Pick up to {max} hobbies or sports you enjoy that you want to AI know about you.",
             {
-              max: MAX_INTERESTS_AMOUNT,
+              max: MAX_HOBBIES_AMOUNT,
             }
           )
         }}
@@ -107,20 +113,19 @@ const submit = form.handleSubmit(async () => {
 
       <div class="h-[200px] px-2 overflow-auto">
         <Checkbox
-          :path="interest.id"
-          :label="interest.name"
-          v-for="interest in INTERESTS"
+          :path="hobby.id"
+          :label="hobby.name"
+          v-for="hobby in HOBBIES"
           :class="{
-            hidden:
-              search && !filteredList.find((o) => o.name === interest.name),
+            hidden: search && !filteredList.find((o) => o.name === hobby.name),
           }"
           :disabled="
-            !interestNames.find((name) => name === interest.name) &&
-            interestNames.length === MAX_INTERESTS_AMOUNT
+            !hobbyNames.find((name) => name === hobby.name) &&
+            hobbyNames.length === MAX_HOBBIES_AMOUNT
           "
         >
-          <Icon>{{ interest.icon }}</Icon>
-          {{ interest.name }}
+          <Icon>{{ hobby.icon }}</Icon>
+          {{ hobby.name }}
         </Checkbox>
 
         <div class="item error" v-if="search && !filteredList.length">
@@ -134,15 +139,13 @@ const submit = form.handleSubmit(async () => {
         <p class="font-bold">
           {{
             t("{selected}/{max} selected", {
-              selected: interestNames.length,
-              max: MAX_INTERESTS_AMOUNT,
+              selected: hobbyNames.length,
+              max: MAX_HOBBIES_AMOUNT,
             })
           }}
         </p>
 
-        <small class="text-xs">{{
-          ellipsis(interestNames.join(", "), 60)
-        }}</small>
+        <small class="text-xs">{{ ellipsis(hobbyNames.join(", "), 60) }}</small>
       </div>
     </template>
   </Modal>

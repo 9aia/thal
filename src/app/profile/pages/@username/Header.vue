@@ -1,13 +1,10 @@
 <script setup lang="ts">
 import Avatar from "#design/components/display/Avatar.vue";
-import Icon from "#design/components/display/Icon.vue";
 import { t } from "#framework/i18n";
 import { Ref, inject, ref } from "vue";
-import PersonalModal from "../modals/PersonalModal.vue";
-import { Profile } from "../schemas/profile";
+import { Profile } from "../../schemas/profile";
 
 const personal = inject<Ref<Profile>>("profile")!;
-const isModalOpen = ref(false);
 </script>
 
 <template>
@@ -21,16 +18,6 @@ const isModalOpen = ref(false);
         <div v-if="personal.pronouns">{{ personal.pronouns }}</div>
       </div>
 
-      <button
-        type="button"
-        @click="isModalOpen = true"
-        :aria-label="t('Edit personal data')"
-        :title="t('Edit personal data')"
-        class="text-black flex items-center absolute top-0 right-0"
-      >
-        <Icon>edit</Icon>
-      </button>
-
       <small class="text-gray-600">
         {{
           t("Joined {signupDate}", {
@@ -43,7 +30,5 @@ const isModalOpen = ref(false);
         }}
       </small>
     </label>
-
-    <PersonalModal v-model="isModalOpen" />
   </div>
 </template>

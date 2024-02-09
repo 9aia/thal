@@ -3,7 +3,7 @@ import { PageContext } from "vike/types";
 import { render } from "vike/abort";
 
 export default async (pageContext: PageContext) => {
-  const username = pageContext.routeParams.username || "luisfloat";
+  const username = pageContext.routeParams.username;
   const res = await client.app.profile[":username"].$get({
     param: {
       username,
