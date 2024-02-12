@@ -1,14 +1,18 @@
 import { ApiContext } from "#framework/api";
 import { Hono } from "hono";
-import example from "./app/routes/example";
 import paymentWebhook from "./payment/routes/webhook";
 import lesson from "./app/lesson/routes/lesson";
+import paymentCreateSessions from "./payment/routes/create-session";
+import profileRoute from "./app/profile/routes/profile";
+import summaryRoute from "./app/profile/routes/summary";
 
 const apiRoutes = new Hono<ApiContext>();
 
 export const route = apiRoutes
-  .route("/app", example)
   .route("/lesson", lesson)
-  .route("/payment/webhook", paymentWebhook);
+  .route("/payment/webhook", paymentWebhook)
+  .route("/payment", paymentCreateSessions)
+  .route("/app/profile", profileRoute)
+  .route("/app/summary", summaryRoute);
 
 export default route;

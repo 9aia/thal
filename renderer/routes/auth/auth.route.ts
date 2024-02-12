@@ -1,19 +1,59 @@
 import { ApiContext } from "#framework/api";
+import { unauthorized } from "#framework/utils/httpThrowers";
 import { OAuthRequestError } from "@lucia-auth/oauth";
 import { Hono } from "hono";
-import { getCookie, setCookie } from "hono/cookie";
+import { env } from "hono/adapter";
+import { deleteCookie, getCookie, setCookie } from "hono/cookie";
 
 const authRouter = new Hono<ApiContext>();
 
 export default authRouter
+  .get("/verify-login", async (c) => {
+    const auth = c.get("auth");
+    const sessionId = getCookie(c, "auth_session");
+
+    if (!sessionId) {
+      throw unauthorized()
+    }
+
+    const session = await auth.lucia.getSession(sessionId);
+
+    if (!session) {
+      throw unauthorized()
+    }
+
+    return c.json({ authenticated: true });
+  })
+  .post("/logout", async (c) => {
+    const auth = c.get("auth");
+
+    const sessionId = getCookie(c, "auth_session");
+
+    if (!sessionId) {
+      return c.redirect("/authentication")
+    }
+
+    const session = await auth.lucia.getSession(sessionId);
+    
+    if (!session) {
+      return c.redirect("/authentication")
+    }
+
+    await auth.lucia.invalidateSession(sessionId);
+    deleteCookie(c, "auth_session")
+    deleteCookie(c, "google_oauth_state")
+
+    return c.redirect("/authentication")
+  })
   .get("/google", async (c) => {
     const auth = c.get("auth");
+    const { DEV } = env(c);
 
     const [url, state] = await auth.googleAuth.getAuthorizationUrl();
 
     setCookie(c, "google_oauth_state", state, {
       httpOnly: true,
-      secure: !import.meta.env.DEV,
+      secure: !DEV,
       path: "/",
       maxAge: 60 * 60,
     });
@@ -40,9 +80,11 @@ export default authRouter
         const existingUser = await getExistingUser();
         if (existingUser) return existingUser;
 
+        const username = googleUser.email?.split("@")[0] as string;
+
         const user = await createUser({
           attributes: {
-            username: googleUser.email as string,
+            username,
           },
         });
         return user;
@@ -56,7 +98,7 @@ export default authRouter
       const sessionCookie = auth.lucia.createSessionCookie(session);
 
       c.header("set-cookie", sessionCookie.serialize());
-      
+
       return c.redirect("/");
     } catch (e) {
       if (e instanceof OAuthRequestError) {

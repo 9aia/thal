@@ -11,6 +11,7 @@ type Props = SafeProps<InputHTMLAttributes> & {
   path: string;
   rules?: MaybeRef<RuleExpression<string>>;
   mandatory?: boolean;
+  feedback?: string | boolean;
 };
 
 const props = defineProps<Props>();
@@ -33,15 +34,23 @@ const { value, errorMessage, handleBlur } = useField(props.path, props.rules);
     </div>
 
     <textarea
-      class="textarea textarea-sm h-20 textarea-bordered w-full"
+      class="textarea textarea-sm h-40 leading-[1.6em] textarea-bordered w-full resize-none"
       :placeholder="placeholder"
       v-model="value"
       @blur="handleBlur"
     />
 
-    <div v-if="errorMessage" class="label">
+    <div v-if="errorMessage && !feedback" class="label">
       <span class="label-text-alt text-error">
         {{ errorMessage }}
+      </span>
+    </div>
+
+    <div v-if="feedback" class="label">
+      <span class="label-text-alt">
+        <slot name="feedback" :v-bind="{ feedback }">
+          {{ feedback }}
+        </slot>
       </span>
     </div>
   </label>

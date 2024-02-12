@@ -9,18 +9,24 @@ import { auth } from "#framework/middlewares/auth";
 import { initAuth } from "#framework/utils/initAuth";
 import externalApiRoutes from "~/apiRoutes";
 import authRoute from "./routes/auth/auth.route";
+import translateRoute from "./i18n/routes/translate";
+import { Session } from "lucia";
 
 type Bindings = {
+  ENVIRONMENT: 'DEV' | 'PROD';
   DB: D1Database;
   GOOGLE_CLIENT_ID: string;
   GOOGLE_CLIENT_SECRET: string;
   TURNSTILE_SECRET_KEY: string;
-  GOOGLE_OAUTH_REDIRECT_URI: string;
+  STRIPE_SECRET_KEY: string;
+  STRIPE_ENDPOINT_SECRET: string;
 };
 type Variables = {
   orm: DrizzleD1Database;
   auth: ReturnType<typeof initAuth>;
   valid: any;
+  session: Session;
+  isPlanExpired: boolean;
 };
 
 export type ApiContext = { Bindings: Bindings; Variables: Variables };
@@ -35,6 +41,7 @@ apiRoutes.get("/", index);
 
 export const route = apiRoutes
   .route("/auth", authRoute)
+  .route("/translate", translateRoute)
   .route("/", externalApiRoutes);
 
 export type AppType = typeof route;

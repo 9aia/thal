@@ -8,7 +8,22 @@
     "**/Thumbs.db": true,
     "**/node_modules": true,
     "**/.wrangler": true,
-    "**/dist": true
+    "**/dist": true,
   },
-  "editor.tabSize": 2
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "package.json": "package-lock.json, pnpm-lock.yaml, .gitignore, tsconfig.json, shims.d.ts",
+    "vite.config.ts": "postcss.config.js, tailwind.config.js",
+    "wrangler.toml": "wrangler.*, .env*"
+  },
+  "editor.tabSize": 2,
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "database": "${workspaceFolder:maratongue}/.wrangler/state/v3/d1/miniflare-D1DatabaseObject/af602ae670dbb4884ec1bde42414fabc5dae2ea49866aa78c4d3791c3c6571d8.sqlite",
+      "name": "maratongue"
+    }
+  ]
 }

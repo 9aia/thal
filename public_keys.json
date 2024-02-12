@@ -1,3 +1,5 @@
 {
-  "STRIPE_PUBLIC_KEY": "pk_test_51OapVFAE9EIB0bgGuG2FKz22s2R2zHMDjKRzSCgZ9gG09CAwldQZGYEk9AqiGzpAufarlSvRFgoN8o7030W7DyED00gFO9yzeA"
+  "STRIPE_PUBLIC_KEY": "pk_test_51OapVFAE9EIB0bgGuG2FKz22s2R2zHMDjKRzSCgZ9gG09CAwldQZGYEk9AqiGzpAufarlSvRFgoN8o7030W7DyED00gFO9yzeA",
+  "GOOGLE_OAUTH_REDIRECT_URI": "https://polite-goat-prompt.ngrok-free.app/api/auth/google/callback",
+  "APP_URL": "https://polite-goat-prompt.ngrok-free.app"
 }

@@ -1,0 +1,83 @@
+<script setup lang="ts">
+import { ref, watch } from "vue";
+import Btn from "./Btn.vue";
+
+const dialog = ref<HTMLDialogElement>();
+
+const props = withDefaults(
+  defineProps<{
+    classes?: string;
+    confirmText?: string;
+    cancelText?: string;
+    hideConfirm?: boolean;
+    showCancel?: boolean;
+    loading?: boolean;
+  }>(),
+  {
+    classes: "",
+    confirmText: "Confirm",
+    cancelText: "Cancel",
+    hideConfirm: false,
+    showCancel: false,
+  }
+);
+const emit = defineEmits(["cancel", "confirm"]);
+
+const visible = defineModel({ default: false });
+
+watch(visible, () => {
+  if (visible.value) {
+    dialog.value?.showModal();
+  } else {
+    dialog.value?.close();
+  }
+});
+</script>
+
+<template>
+  <dialog
+    ref="dialog"
+    @close="visible = false"
+    class="modal modal-bottom sm:modal-middle"
+  >
+    <form
+      class="modal-box"
+      method="dialog"
+      :class="{
+        'modal-box rounded-none': true,
+        [props.classes]: props.classes,
+      }"
+      @submit="emit('confirm')"
+    >
+      <slot />
+
+      <div class="modal-action" v-if="!props.hideConfirm || props.showCancel">
+        <slot name="footer" />
+
+        <slot name="actions">
+          <Btn
+            v-if="props.showCancel"
+            value="false"
+            class="btn"
+            @click.prevent="visible = false"
+          >
+            {{ props.cancelText }}
+          </Btn>
+
+          <Btn
+            v-if="!props.hideConfirm"
+            value="true"
+            class="btn-primary"
+            @click.prevent="emit('confirm')"
+            :loading="loading"
+          >
+            {{ props.confirmText }}
+          </Btn>
+        </slot>
+      </div>
+    </form>
+    <form method="dialog" class="modal-backdrop">
+      <button @click.prevent="visible = false">close</button>
+    </form>
+  </dialog>
+</template>
