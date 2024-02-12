@@ -3,6 +3,7 @@ import { Item } from "./types";
 export const MAX_HOBBIES_AMOUNT = 7;
 export const MAX_PROFESSION_CHARS = 20;
 export const MAX_GOALS_AMOUNT = 7;
+export const MAX_OBSERVATION_CHARS = 300;
 
 export const ITEMS: Item[] = [
   { id: "location", icon: "location_on", label: "Where I live:" },

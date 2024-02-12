@@ -5,6 +5,7 @@ import { computed, provide, ref } from "vue";
 import Data from "../+data";
 import HobbyModal from "../../modals/HobbyModal.vue";
 import ProfessionModal from "../../modals/ProfessionModal.vue";
+import ObservationModal from "../../modals/ObservationModal.vue";
 import { parseJoin } from "../../utils";
 import Icon from "#design/components/display/Icon.vue";
 import { GOALS, HOBBIES } from "../../constants";
@@ -18,6 +19,7 @@ provide("profile", profile);
 const isHobbyModalOpen = ref(false);
 const isProfessionModalOpen = ref(false);
 const isGoalsModalOpen = ref(false);
+const isObservationModalOpen = ref(false);
 
 const hobbies = computed(() => {
   return parseJoin<any>(profile.value.hobbies || "", HOBBIES);
@@ -79,7 +81,11 @@ const goals = computed(() => {
         </h2>
 
         <p class="mb-4">
-          {{ t('What are your hobbies, interests, and profession? This helps personalize content and examples to make learning more engaging.') }}
+          {{
+            t(
+              "What are your hobbies, interests, and profession? This helps personalize content and examples to make learning more engaging."
+            )
+          }}
         </p>
 
         <div class="flex flex-wrap gap-2 items-center">
@@ -136,6 +142,48 @@ const goals = computed(() => {
           </Btn>
 
           <ProfessionModal v-model="isProfessionModalOpen" />
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-2xl mb-4 mt-4 font-bold flex items-center gap-2">
+          {{ t("Observation") }}
+        </h2>
+
+        <p class="mb-4">
+          {{
+            t(
+              "Share any additional details you think might help AI personalize your learning experience."
+            )
+          }}
+        </p>
+
+        <div class="mt-4 space-y-2">
+          <div v-if="profile.observation">
+            <textarea
+              readonly
+              class="textarea text-md leading-[1.6em] h-40 w-full resize-none"
+              :value="profile.observation"
+            >
+            </textarea>
+          </div>
+
+          <Btn
+            @click="isObservationModalOpen = true"
+            class="text-black flex items-center"
+          >
+            <template v-if="!profile.observation">
+              <Icon>add</Icon>
+              {{ t("Add observation") }}
+            </template>
+
+            <template v-else>
+              <Icon>edit</Icon>
+              {{ t("Edit observation") }}
+            </template>
+          </Btn>
+
+          <ObservationModal v-model="isObservationModalOpen" />
         </div>
       </section>
     </div>

@@ -7,6 +7,7 @@ import { useData } from "#framework/composables/useData";
 import Data from "../+data";
 import { ref, provide } from "vue";
 import Goals from "./Goals.vue";
+import Observation from "./Observation.vue";
 
 const data = useData<typeof Data>();
 const profile = ref(data.value);
@@ -29,6 +30,7 @@ provide("profile", profile);
       <AboutMe />
       <Goals />
       <Interests />
+      <Observation />
     </main>
   </div>
 </template>

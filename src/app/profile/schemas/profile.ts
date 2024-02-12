@@ -1,7 +1,12 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
-import { MAX_GOALS_AMOUNT, MAX_HOBBIES_AMOUNT, MAX_PROFESSION_CHARS } from "../constants";
+import {
+  MAX_GOALS_AMOUNT,
+  MAX_HOBBIES_AMOUNT,
+  MAX_OBSERVATION_CHARS,
+  MAX_PROFESSION_CHARS,
+} from "../constants";
 
 export const profiles = sqliteTable("Profiles", {
   id: integer("id").primaryKey({ autoIncrement: true }),
@@ -14,6 +19,7 @@ export const profiles = sqliteTable("Profiles", {
   goals: text("goals"),
   profession: text("profession"),
   hobbies: text("hobbies"),
+  observation: text("observation"),
 });
 
 export const profileUpdateSchema = createInsertSchema(profiles, {
@@ -36,6 +42,13 @@ export const profileUpdateSchema = createInsertSchema(profiles, {
       (goals) => goals.split(",").length <= MAX_GOALS_AMOUNT,
       {
         message: `Goals must contain at most ${MAX_GOALS_AMOUNT} items separated by commas`,
+      }
+    ),
+  observation: (schema) =>
+    schema.profession.refine(
+      (profession) => profession.length <= MAX_OBSERVATION_CHARS,
+      {
+        message: `Observation must contain at most ${MAX_OBSERVATION_CHARS} characters`,
       }
     ),
 }).partial();

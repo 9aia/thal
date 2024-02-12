@@ -12,4 +12,4 @@ CREATE TABLE IF NOT EXISTS Profiles (
   profession VARCHAR(20)
 );
 
-UPDATE Profiles SET hobbies = ''
+ALTER TABLE Profiles ADD COLUMN observation VARCHAR(300)
