@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Avatar from "#design/components/display/Avatar.vue";
 import { t } from "#framework/i18n";
-import { Ref, inject, ref } from "vue";
+import { Ref, inject, onMounted, ref } from "vue";
 import { Profile } from "../../schemas/profile";
 
 const personal = inject<Ref<Profile>>("profile")!;

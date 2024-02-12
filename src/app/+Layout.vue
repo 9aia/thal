@@ -1,20 +1,21 @@
 <script setup lang="ts">
 import Avatar from "#design/components/display/Avatar.vue";
 import Logo from "#design/components/display/Logo.vue";
-import NavbarMenu from "#design/components/layout/NavbarMenu.vue";
-import { NavbarMenuItem } from "#design/components/layout/types";
+import Menu from "#design/components/layout/Menu.vue";
+import { MenuItem } from "#design/components/layout/types";
 import { A } from "#framework/i18n";
 
-const items: NavbarMenuItem[] = [
-  { id: "profile", name: "Profile", icon: "person", href: "/app/profile" },
+const items: MenuItem[] = [
+  { id: "profile", name: "Profile", icon: "face", href: "/app/profile" },
   {
     id: "plan",
     name: "Plan",
     action: "/api/payment/stripe/create-portal-session",
     method: "POST",
     icon: "subscriptions",
-    external: true,
+    type: 'external',
   },
+  { id: "settings", name: "Settings", icon: "settings", href: "/app/settings" },
   {
     id: "logout",
     name: "Logout",
@@ -39,7 +40,7 @@ const items: NavbarMenuItem[] = [
         <div class="dropdown dropdown-end">
           <Avatar type="button" class="w-10" :button="true" />
 
-          <NavbarMenu :items="items" />
+          <Menu :items="items" />
         </div>
       </div>
     </div>
