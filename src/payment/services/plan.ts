@@ -1,9 +1,10 @@
 import { eq } from "drizzle-orm";
 import { DrizzleD1Database } from "drizzle-orm/d1";
 import { users } from "~/auth/schemas/auth.schemas";
-import { PLANS, PlanType } from "../constants/plans";
+import { PlanType } from "../constants/plans";
 import { SQLiteUpdateSetSource } from "drizzle-orm/sqlite-core";
 import { now } from "#framework/utils/date";
+import { notFound } from "#framework/utils/httpThrowers";
 
 export const activePlan = async (
   orm: DrizzleD1Database,
@@ -11,8 +12,18 @@ export const activePlan = async (
   paymentGatewayCustomerId: string,
   plan: PlanType
 ) => {
+  const user = (await orm.select().from(users).where(eq(users.id, userId))).at(0)
+
+  if(!user) {
+    throw notFound("User not found")
+  }
+
   const expirationDate = now();
   expirationDate.setMonth(expirationDate.getMonth() + 1);
+
+  if(user.free_trial_used === 0) {
+    expirationDate.setDate(expirationDate.getDate() + 7);
+  }
 
   await orm
     .update(users)
@@ -20,6 +31,7 @@ export const activePlan = async (
       plan: plan?.name,
       payment_gateway_customer_id: paymentGatewayCustomerId,
       plan_expires: expirationDate.toISOString(),
+      free_trial_used: 1,
     })
     .where(eq(users.id, userId))
 }
@@ -31,9 +43,9 @@ export const cancelSubscription = async (
   await orm
     .update(users)
     .set({
-      plan: PLANS.free.name,
+      plan: null,
       payment_gateway_customer_id: null,
-      plan_expires: null
+      plan_expires: null,
     })
     .where(eq(users.payment_gateway_customer_id, paymentGatewayCustomerId))
 }
