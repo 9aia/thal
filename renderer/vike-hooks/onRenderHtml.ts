@@ -4,6 +4,7 @@ import { dangerouslySkipEscape, escapeInject, version } from "vike/server";
 import type { OnRenderHtmlAsync } from "vike/types";
 import { createAppIsomorphic } from "../utils/createAppIsomorphic.js";
 import { getTitle } from "../utils/getTitle.js";
+import onTheme from "#framework/theme/onTheme.js";
 
 checkVikeVersion();
 
@@ -54,12 +55,14 @@ const onRenderHtml: OnRenderHtmlAsync = async (
   }
 
   const { lang } = onI18n(pageContext);
+  const { themeClass, colorScheme } = onTheme(pageContext);
 
   const documentHtml = escapeInject`<!DOCTYPE html>
-    <html lang="${lang}">
+    <html lang="${lang}" class="${themeClass}">
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no,user-scalable=0">
+        <meta name="color-scheme" content="${colorScheme}" />
         ${faviconTag}
         ${titleTag}
         ${descriptionTag}
