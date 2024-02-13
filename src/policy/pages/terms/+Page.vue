@@ -60,19 +60,33 @@ const i18n = useI18n();
       aplicativo.
     </p>
 
-    <h2>7. Rescisão</h2>
+    <h2>7. Termos de Terceiros</h2>
     <p>
-      Reservamos o direito de rescindir ou suspender seu acesso ao aplicativo a
-      qualquer momento, sem aviso prévio ou responsabilidade, por qualquer
-      motivo que seja, incluindo, sem limitação, se você violar estes Termos de
-      Serviço.
+      Nosso aplicativo utiliza a API Gemini para aprimorar a experiência de aprendizado
+      e fornecer conteúdo personalizado. Ao usar a API Gemini, você concorda em
+      cumprir os Termos de Serviço da Gemini, além da nossa Política de Privacidade.
+    </p>
+    <p>
+      Recomendamos que você revise os
+      <a
+        href="https://support.google.com/gemini/answer/13594961?visit_id=638434421225288685-621180296&p=privacy_notice&rd=1#tos"
+        >Termos de Serviço da Gemini</a
+      >
+      para entender seus direitos e obrigações ao usar a API Gemini.
     </p>
 
-    <h2>8. Alterações nos Termos</h2>
+    <h2>8. Rescisão</h2>
     <p>
-      Reservamos o direito de modificar ou substituir estes Termos de Serviço a
-      qualquer momento. Seu uso contínuo do aplicativo após quaisquer mudanças
-      constitui sua aceitação dos novos termos.
+      Reservamos o direito de rescindir ou suspender seu acesso ao aplicativo a qualquer
+      momento, sem aviso prévio ou responsabilidade, por qualquer motivo, inclusive, sem
+      limitação, se você violar estes Termos de Serviço.
+    </p>
+
+    <h2>9. Alterações nos Termos</h2>
+    <p>
+      Reservamos o direito de modificar ou substituir estes Termos de Serviço a qualquer
+      momento. Seu uso contínuo do aplicativo após quaisquer alterações constitui sua
+      aceitação dos novos termos.
     </p>
 
     <hr class="border-gray-400 mb-4 mt-12" />
@@ -134,14 +148,29 @@ const i18n = useI18n();
       and disclose information about you when you use the app.
     </p>
 
-    <h2>7. Termination</h2>
+    <h2>7. Third-Party Terms</h2>
+    <p>
+      Our application utilizes the Gemini API to enhance the learning experience
+      and provide personalized content. When using the Gemini API, you agree to
+      abide by Gemini's Terms of Service in addition to our Privacy Policy.
+    </p>
+    <p>
+      We encourage you to review
+      <a
+        href="https://support.google.com/gemini/answer/13594961?visit_id=638434421225288685-621180296&p=privacy_notice&rd=1#tos"
+        >Gemini's Terms of Service</a
+      >
+      to understand your rights and obligations when using the Gemini API.
+    </p>
+
+    <h2>8. Termination</h2>
     <p>
       We reserve the right to terminate or suspend your access to the app at any
       time, without prior notice or liability, for any reason whatsoever,
       including without limitation if you breach these Terms of Service.
     </p>
 
-    <h2>8. Changes to Terms</h2>
+    <h2>9. Changes to Terms</h2>
     <p>
       We reserve the right to modify or replace these Terms of Service at any
       time. Your continued use of the app after any such changes constitutes

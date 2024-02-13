@@ -59,7 +59,7 @@ const i18n = useI18n();
       Recomendamos que você revise a
       <a
         href="https://support.google.com/gemini/answer/13594961?visit_id=638434421225288685-621180296&p=privacy_notice&rd=1#privacy_notice"
-        >Política de Privacidade do Gemini</a
+        >Política de Privacidade da Gemini</a
       >
       para entender como eles coletam, usam e divulgam suas informações.
     </p>
@@ -151,14 +151,14 @@ const i18n = useI18n();
       to understand how they collect, use, and disclose your information.
     </p>
 
-    <h2>4. Security</h2>
+    <h2>5. Security</h2>
     <p>
       We take reasonable measures to protect your personal information from
       unauthorized access, use, or disclosure. However, no method of
       transmission over the internet or electronic storage is 100% secure.
     </p>
 
-    <h2>5. Children's Privacy</h2>
+    <h2>6. Children's Privacy</h2>
     <p>
       Maratongue is not intended for children under the age of 13. We do not
       knowingly collect personal information from children under 13. If you
@@ -166,7 +166,7 @@ const i18n = useI18n();
       please contact us immediately.
     </p>
 
-    <h2>6. Changes to This Privacy Policy</h2>
+    <h2>7. Changes to This Privacy Policy</h2>
     <p>
       We reserve the right to update or change our Privacy Policy at any time.
       Your continued use of the Maratongue application after we post any
