@@ -74,6 +74,9 @@ const onRenderHtml: OnRenderHtmlAsync = async (
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
       </head>
       <body>
+        <span id="page-loader" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 loading loading-spinner loading-md ${
+          isSsr ? "hidden" : ""
+        }"></span>
         <div id="page-view">${pageView}</div>
       </body>
     </html>`;
