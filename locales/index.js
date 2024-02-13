@@ -49,5 +49,11 @@ export default {
   },
   "Here since {signupDate}": {
     "pt": "Aqui desde {signupDate}"
-  }
+  },
+  "https://forms.gle/5ePvXjrebyWGUrM26": {
+    "pt": "https://forms.gle/yHaiExzsQvv1mTdM8"
+  },
+  "https://forms.gle/ANMv7qnwTHva1k7L8": {
+    "pt": "https://forms.gle/UyGBzPrBeNfFgwLD6"
+  },
 };
