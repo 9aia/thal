@@ -1,36 +1,43 @@
 <script setup lang="ts">
 import Modal from "#design/components/action/Modal.vue";
-import TextField from "#design/components/data-input/TextField.vue";
+import Textarea from "#design/components/data-input/Textarea.vue";
 import { useToast } from "#design/composables/useToast";
 import client from "#framework/client";
-import { useParams } from "#framework/composables/useParams";
 import { t } from "#framework/i18n";
+import { Cookies } from "#framework/utils/cookies";
 import { useForm } from "vee-validate";
 import { Ref, inject, ref } from "vue";
-import { Profile } from "../schemas/profile";
-import { MAX_PROFESSION_CHARS } from "../constants";
+import { MAX_OBSERVATION_CHARS } from "../../profile/constants";
+import { Profile } from "../../profile/schemas/profile";
 
 const profile = inject<Ref<Profile>>("profile")!;
 
-const params = useParams();
 const toast = useToast();
 const form = useForm<Profile>({
   initialValues: profile?.value,
 });
 
-const ERROR_MESSAGE = t("An error occurred while updating your profession.");
-const SUCCESS_MESSAGE = t("Profession has been updated successfully.");
-const INVALID_PROFESSION_CHAR_AMOUNT = t(`It must contain at most ${MAX_PROFESSION_CHARS} characters`);
+const ERROR_MESSAGE = t("An error occurred while updating your observation.");
+const SUCCESS_MESSAGE = t("Observation has been updated successfully.");
+const INVALID_OBSERVATION_CHAR_AMOUNT = t(
+  `It must contain at most ${MAX_OBSERVATION_CHARS} characters`
+);
+const USERNAME_NOT_FOUND_MESSAGE = t("Username not found.");
 
 const isOpen = defineModel({ default: false });
 const loading = ref(false);
 
 const submit = form.handleSubmit(async (data) => {
+  const username = Cookies.get("username");
+  if (!username) {
+    throw new Error(USERNAME_NOT_FOUND_MESSAGE);
+  }
+
   loading.value = true;
 
   const res = await client.app.profile[":username"].$patch({
     param: {
-      username: params.value.username as string,
+      username,
     },
     json: form.values,
   });
@@ -38,7 +45,7 @@ const submit = form.handleSubmit(async (data) => {
   if (!res.ok) {
     toast.error(ERROR_MESSAGE);
   } else {
-    profile.value = { ...profile.value, profession: data.profession };
+    profile.value = { ...profile.value, observation: data.observation };
 
     toast.success(SUCCESS_MESSAGE);
   }
@@ -57,20 +64,18 @@ const submit = form.handleSubmit(async (data) => {
   >
     <template #default>
       <h1 class="font-bold text-2xl mb-2 mt-4">
-        {{ t("What do you do for work?") }}
+        {{ t("What else would like to share with AI?") }}
       </h1>
 
-      <p class="text-md text-gray-500">
-        {{ t("Tell us what you do (or aspire to do). Example: Teacher.") }}
-      </p>
-
       <div class="px-2 pb-2 space-y-2 overflow-y-auto mt-4">
-        <TextField
-          path="profession"
-          :label="t('Your profession')"
+        <Textarea
+          class="resize-none"
+          path="observation"
+          :label="t('Your observation')"
           :rules="
             (v) =>
-              v.length <= MAX_PROFESSION_CHARS || INVALID_PROFESSION_CHAR_AMOUNT
+              v?.length <= MAX_OBSERVATION_CHARS ||
+              INVALID_OBSERVATION_CHAR_AMOUNT
           "
           :feedback="true"
         >
@@ -78,23 +83,17 @@ const submit = form.handleSubmit(async (data) => {
             <span
               :class="{
                 'text-red-500':
-                  form.values.profession?.length > MAX_PROFESSION_CHARS,
+                  form.values.observation?.length > MAX_OBSERVATION_CHARS,
               }"
             >
-              {{ form.values.profession?.length || 0 }}/{{ MAX_PROFESSION_CHARS }}
+              {{ form.values.observation?.length || 0 }}/{{
+                MAX_OBSERVATION_CHARS
+              }}
               characters
             </span>
           </template>
-        </TextField>
+        </Textarea>
       </div>
-
-      <p class="text-md text-gray-600">
-        {{
-          t(
-            "P.S. Don't have a traditional job? No worries! Share your life's calling - writer, musician, world traveler - anything goes!"
-          )
-        }}
-      </p>
     </template>
   </Modal>
 </template>

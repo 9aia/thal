@@ -4,9 +4,12 @@ import { render } from "vike/abort";
 import { parseCookies } from "#framework/utils/cookies";
 
 export default async (pageContext: PageContext) => {
-  const cookies = parseCookies(pageContext.cookies);
+  const { username } = parseCookies(pageContext.cookies);
 
-  const username = pageContext.routeParams.username || cookies.username;
+  if(!username) {
+    throw render(401, "Forbidden");
+  }
+
   const res = await client.app.profile[":username"].$get({
     param: {
       username,

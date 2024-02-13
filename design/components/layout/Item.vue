@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { A } from "#framework/i18n";
+import { A, t } from "#framework/i18n";
 import MenuItem from "./MenuItem.vue";
 import { MenuItem as MenuItemType } from "./types";
 
@@ -23,7 +23,7 @@ defineProps<{
   
   <template v-else>
     <A
-      :href="is.href"
+      :href="is.href ? t(is.href as any) : undefined"
       class="flex w-full gap-2 justify-between items-center py-2"
       :target="is.newTab ? '_blank' : undefined"
     >

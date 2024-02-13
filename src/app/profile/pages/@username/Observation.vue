@@ -21,10 +21,8 @@ const profile = inject<Ref<Profile>>("profile")!;
           <textarea
             readonly
             class="textarea text-md leading-[1.6em] h-40 w-full resize-none"
-          >
-              {{ profile.observation }}
-            </textarea
-          >
+            :value="profile.observation"
+          />
         </div>
 
         <div v-if="!profile.observation?.trim()">

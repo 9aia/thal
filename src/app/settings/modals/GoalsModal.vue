@@ -4,12 +4,12 @@ import Checkbox from "#design/components/data-input/Checkbox.vue";
 import Icon from "#design/components/display/Icon.vue";
 import { useToast } from "#design/composables/useToast";
 import client from "#framework/client";
-import { useParams } from "#framework/composables/useParams";
 import { t } from "#framework/i18n";
 import { useForm } from "vee-validate";
 import { Ref, computed, inject, ref } from "vue";
-import { GOALS } from "../constants";
-import { Profile } from "../schemas/profile";
+import { GOALS } from "../../profile/constants";
+import { Profile } from "../../profile/schemas/profile";
+import { Cookies } from "#framework/utils/cookies";
 
 const parseInitialValues = (selected: string) => {
   return selected.split(", ").reduce<Record<string, boolean>>((acc, key) => {
@@ -19,7 +19,6 @@ const parseInitialValues = (selected: string) => {
   }, {});
 };
 
-const params = useParams();
 const toast = useToast();
 
 const profile = inject<Ref<Profile>>("profile")!;
@@ -37,18 +36,24 @@ const keys = computed(() => {
 
 const ERROR_MESSAGE = t("An error occurred while updating goals.");
 const SUCCESS_MESSAGE = t("Goals were updated successfully.");
+const USERNAME_NOT_FOUND_MESSAGE = t("Username not found.");
 
 const isOpen = defineModel({ default: false });
 const loading = ref(false);
 
 const submit = form.handleSubmit(async (data) => {
+  const username = Cookies.get("username");
+  if (!username) {
+    throw new Error(USERNAME_NOT_FOUND_MESSAGE);
+  }
+
   const currentKeys = keys.value;
 
   loading.value = true;
 
   const res = await client.app.profile[":username"].$patch({
     param: {
-      username: params.value.username as string,
+      username,
     },
     json: {
       goals: currentKeys,
