@@ -15,7 +15,6 @@ import { Session } from "lucia";
 type Bindings = {
   ENVIRONMENT: 'DEV' | 'PROD';
   DB: D1Database;
-  GOOGLE_CLIENT_ID: string;
   GOOGLE_CLIENT_SECRET: string;
   TURNSTILE_SECRET_KEY: string;
   STRIPE_SECRET_KEY: string;

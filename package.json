@@ -8,9 +8,8 @@
     "build": "vite build",
     "preview": "vite build && wrangler dev",
     "deploy": "vite build && wrangler deploy",
-    "db": "wrangler d1 execute csat --local --file=./design/schemas/schema.sql",
-    "release": "release-it",
-    "dev:host": "ngrok http --domain=polite-goat-prompt.ngrok-free.app 3000"
+    "db": "wrangler d1 execute maratongue --local --file=./renderer/lucia.sql",
+    "release": "release-it"
   },
   "dependencies": {
     "@ark-ui/vue": "^0.9.0",

@@ -3,7 +3,7 @@ import { d1 } from "@lucia-auth/adapter-sqlite";
 import { google } from "@lucia-auth/oauth/providers";
 import { lucia as luciaFn } from "lucia";
 import { hono } from "lucia/middleware";
-import { GOOGLE_OAUTH_REDIRECT_URI } from "../../public_keys.json"
+import { GOOGLE_OAUTH_REDIRECT_URI, GOOGLE_CLIENT_ID } from "../../public_keys.json"
 
 export type Auth = ReturnType<typeof initAuth>["lucia"];
 
@@ -30,7 +30,7 @@ export const initAuth = (ENV: ApiContext["Bindings"]) => {
   const scopeOrigin = "https://www.googleapis.com";
 
   const googleAuth = google(lucia, {
-    clientId: ENV.GOOGLE_CLIENT_ID,
+    clientId: GOOGLE_CLIENT_ID,
     clientSecret: ENV.GOOGLE_CLIENT_SECRET,
     redirectUri: GOOGLE_OAUTH_REDIRECT_URI,
     scope: [
