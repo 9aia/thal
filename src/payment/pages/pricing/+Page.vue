@@ -34,12 +34,7 @@ import { t } from '#framework/i18n';
             </ul>
           </div>
 
-          <form action="/api/payment/stripe/create-checkout-session" method="POST">
-            <input
-              type="hidden"
-              name="lookup_key"
-              value="premium"
-            />
+          <form action="/api/payment/stripe/create-checkout-session" method="GET">
             <button
               id="checkout-and-portal-button"
               type="submit"

@@ -49,6 +49,13 @@ export default authRouter
     const auth = c.get("auth");
     const { DEV } = env(c);
 
+    const requestUrl = new URL(c.req.url);
+    const type = requestUrl.searchParams.get("type") as 'pricing' | null;
+
+    const returnUrl = type === 'pricing'
+      ? `/api/payment/stripe/create-checkout-session`
+      : "/";
+
     const [url, state] = await auth.googleAuth.getAuthorizationUrl();
 
     setCookie(c, "google_oauth_state", state, {
@@ -58,12 +65,16 @@ export default authRouter
       maxAge: 60 * 60,
     });
 
+    setCookie(c, "return_url", returnUrl);
+
     return c.redirect(url.toString());
   })
   .get("/google/callback", async (c) => {
     const auth = c.get("auth");
 
     const storedState = getCookie(c, "google_oauth_state");
+
+    const returnUrl = getCookie(c, "return_url") || '/';
 
     const url = new URL(c.req.url);
     const state = url.searchParams.get("state");
@@ -99,7 +110,7 @@ export default authRouter
 
       c.header("set-cookie", sessionCookie.serialize());
 
-      return c.redirect("/");
+      return c.redirect(returnUrl);
     } catch (e) {
       if (e instanceof OAuthRequestError) {
         return c.body(null, 400);

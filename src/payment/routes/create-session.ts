@@ -24,14 +24,13 @@ export default createSessionRoutes
 
     return c.html(`<meta http-equiv="refresh" content="1;URL='${url}'" />`)
   })
-  .post("/stripe/create-checkout-session", verifyAuthentication({ redirect: true }), async (c) => {
+  .get("/stripe/create-checkout-session", verifyAuthentication({ redirect: true, redirectType: 'pricing' }), async (c) => {
     const { STRIPE_SECRET_KEY } = env(c);
     const orm = c.get("orm");
 
     const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY });
 
-    const data = await c.req.formData();
-    const lookup_key = data.get('lookup_key') as string;
+    const lookup_key = "premium"
 
     const session = c.get('session')
 
