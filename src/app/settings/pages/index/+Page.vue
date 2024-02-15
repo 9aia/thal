@@ -30,18 +30,18 @@ const profile = inject<Profile>("profile")!;
   </a>
 
   <div class="space-y-4">
-    <section class="mb-2">
-      <h2 class="font-bold text-2xl ml-2 mb-3">{{ t("General") }}</h2>
+    <section class="mb-2 pt-2">
+      <h2 class="text-teal-900 font-bold text-2xl ml-2 mb-3">{{ t("General") }}</h2>
       <MenuGroup class="p-0 w-full shadow-none" :items="SETTINGS.general" />
     </section>
 
     <section class="pt-2">
-      <h2 class="font-bold text-lg ml-2 mb-3">{{ t("Support") }}</h2>
+      <h2 class="text-teal-900 font-bold text-lg ml-2 mb-3">{{ t("Support") }}</h2>
       <MenuGroup :items="SETTINGS.support" />
     </section>
 
     <section class="pt-2">
-      <h2 class="font-bold text-lg ml-2 mb-3">{{ t("Legal") }}</h2>
+      <h2 class="text-teal-900 font-bold text-lg ml-2 mb-3">{{ t("Legal") }}</h2>
       <MenuGroup class="p-0 w-full shadow-none" :items="SETTINGS.legal" />
     </section>
 

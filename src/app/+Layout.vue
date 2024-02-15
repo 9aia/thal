@@ -5,6 +5,13 @@ import Menu from "#design/components/layout/Menu.vue";
 import { MenuItem } from "#design/components/layout/types";
 import { A } from "#framework/i18n";
 
+withDefaults(
+  defineProps<{
+    hideHeader: boolean;
+  }>(),
+  { hideHeader: false }
+);
+
 const items: MenuItem[] = [
   { id: "profile", name: "Profile", icon: "face", href: "/app/profile" },
   {
@@ -13,7 +20,7 @@ const items: MenuItem[] = [
     action: "/api/payment/stripe/create-portal-session",
     method: "POST",
     icon: "subscriptions",
-    type: 'external',
+    type: "external",
   },
   { id: "settings", name: "Settings", icon: "settings", href: "/app/settings" },
   {
@@ -27,7 +34,7 @@ const items: MenuItem[] = [
 </script>
 
 <template>
-  <header class="">
+  <header v-if="!hideHeader">
     <div class="navbar bg-base-100">
       <div class="flex-1">
         <a class="btn btn-ghost text-xl" href="/app">
@@ -45,7 +52,8 @@ const items: MenuItem[] = [
       </div>
     </div>
   </header>
-  <main class="p-4">
+
+  <main class="pb-20">
     <slot />
   </main>
 </template>

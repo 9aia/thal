@@ -8,7 +8,7 @@ const personal = inject<Ref<Profile>>("profile")!;
 </script>
 
 <template>
-  <div class="shadow-lg bg-base-100 p-4 rounded-lg flex gap-4 items-center">
+  <div class="sm:shadow-lg pb-4 sm:p-4 bg-base-100 rounded-lg flex gap-4 items-center">
     <Avatar :name="personal.name" class="w-24 text-3xl" />
 
     <label class="relative cursor-pointer">

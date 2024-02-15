@@ -34,9 +34,7 @@ const goals = computed(() => {
 
   <div class="divide-y divide-gray-400 space-y-4">
     <section class="pb-4">
-      <h2 class="text-2xl mb-4 mt-4 font-bold flex items-center gap-2">
-        {{ t("Goals") }}
-      </h2>
+      <h2 class="text-teal-900 font-bold text-lg mb-3">{{ t("Goals") }}</h2>
 
       <p class="mb-4">
         {{
@@ -75,10 +73,8 @@ const goals = computed(() => {
       </div>
     </section>
 
-    <section class="pb-4">
-      <h2 class="text-2xl mb-4 mt-4 font-bold flex items-center gap-2">
-        {{ t("Interests") }}
-      </h2>
+    <section class="pb-4 pt-6">
+      <h2 class="text-teal-900 font-bold text-lg mb-3">{{ t("Interests") }}</h2>
 
       <p class="mb-4">
         {{
@@ -147,10 +143,8 @@ const goals = computed(() => {
       </div>
     </section>
 
-    <section>
-      <h2 class="text-2xl mb-4 mt-4 font-bold flex items-center gap-2">
-        {{ t("Observation") }}
-      </h2>
+    <section class="pt-6">
+      <h2 class="text-teal-900 font-bold text-lg mb-3">{{ t("Observation") }}</h2>
 
       <p class="mb-4">
         {{
@@ -164,7 +158,7 @@ const goals = computed(() => {
         <div v-if="profile.observation">
           <textarea
             readonly
-            class="textarea text-md leading-[1.6em] h-40 w-full resize-none"
+            class="textarea text-md border border-gray-400 leading-[1.6em] h-40 w-full resize-none"
             :value="profile.observation"
           >
           </textarea>

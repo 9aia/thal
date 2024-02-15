@@ -12,4 +12,3 @@ CREATE TABLE IF NOT EXISTS Profiles (
   profession VARCHAR(20)
 );
 
-ALTER TABLE Profiles ADD COLUMN observation VARCHAR(300)
