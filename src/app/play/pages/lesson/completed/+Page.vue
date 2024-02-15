@@ -25,5 +25,10 @@ onMounted(() => {
     </div>
   </div>
 
-  <a href="/app/learn" class="btn btn-primary w-full">Continuar</a>
+  <a
+    @click="confetti.clear()"
+    href="/app/explore"
+    class="btn btn-primary w-full"
+    >Continuar</a
+  >
 </template>

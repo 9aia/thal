@@ -1,9 +1,9 @@
 import { ApiContext } from "#framework/api";
+import { getGemini } from "#framework/utils/gemini";
 import { Hono } from "hono";
 import { env } from "hono/adapter";
-import lessons from "../../lessons";
-import { LessonImplementation, PromptOptions } from "../../types";
-import { content } from "../../utils";
+import lessons from "../lessons";
+import { LessonImplementation, PromptOptions } from "../types";
 
 const lessonRouter = new Hono<ApiContext>();
 
@@ -40,15 +40,9 @@ export default lessonRouter.get("/", async (c) => {
     ${JSON.stringify(promptData.example)}
   `;
 
-  const res = fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`,
-    {
-      body: JSON.stringify(content(prompt)),
-      method: "POST",
-    }
-  );
+  const gemini = getGemini(GEMINI_API_KEY);
 
-  const data = (await (await res).json()) as any;
+  const data = await gemini.generateContent(prompt) as any;
 
   if ("error" in data) {
     throw new Error("Gemini 500");

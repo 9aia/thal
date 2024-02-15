@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useListener } from "#design/composables/useListener";
 import { useMedia } from "#design/composables/useMedia";
+import Kbd from "#design/components/display/Kbd.vue";
 import { ref } from "vue";
 
 const select = defineModel();
@@ -42,18 +43,18 @@ const isTouchable = useMedia("(pointer: coarse) and (hover: none)");
       <button
         ref="btn"
         @click="select = i"
-        class="w-full flex justify-center gap-2 border rounded-lg text-center p-2"
+        class="w-full flex justify-center items-center gap-2 border rounded-lg text-center p-2"
         :class="{
           'border-teal-500 bg-teal-500/20': select === i,
           'border-gray-400': select !== i,
         }"
       >
-        <div
+        <Kbd
           v-if="!isTouchable"
-          class="bg-base-200 rounded-md px-2"
+          class="kbd-sm"
         >
           {{ i + 1 }}
-        </div>
+        </Kbd>
 
         {{ alternative }}
 

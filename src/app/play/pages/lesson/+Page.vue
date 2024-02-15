@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { onMounted, ref, markRaw } from "vue";
-import { data, select } from "../store";
+import { data, select } from "../../store";
 
-const components = import.meta.glob("../components/*.vue");
+const components = import.meta.glob("../../components/*.vue");
 
 const comp = ref<any>();
 
 async function loadComponent(name: string) {
-  const path = `../components/${name}.vue`;
+  const path = `../../components/${name}.vue`;
 
   if (components[path]) {
     try {

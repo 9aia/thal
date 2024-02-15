@@ -22,7 +22,9 @@ const profile = inject<Profile>("profile")!;
 
       <label class="relative cursor-pointer flex flex-col gap-0">
         <h2 class="text-lg font-bold">{{ profile.name }}</h2>
-        <small class="text-gray-600"> Show profile </small>
+        <small class="text-gray-600">
+          {{ t("Show profile") }}
+        </small>
       </label>
     </div>
 

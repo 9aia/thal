@@ -1,0 +1,48 @@
+<script setup lang="ts">
+import Icon from "#design/components/display/Icon.vue";
+import ChevronRight from "#design/components/layout/ChevronRight.vue";
+import { A, t } from "#framework/i18n";
+
+const items = [
+  { name: "Grammar", icon: "book", href: "/app/explore/grammar" },
+  { name: "Stories", icon: "history_edu", href: "/app/explore/stories" },
+  { name: "Conversation Simulation", icon: "chat", href: "/app/explore/chat" },
+];
+</script>
+
+<template>
+  <div class="max-w-lg mx-auto py-2 px-4 py-4">
+    <h1 class="text-primary font-bold text-4xl mb-4">
+      {{ t("Explore") }}
+    </h1>
+
+    <div class="flex gap-2 mb-4">
+      <A
+        href="/app/play/story/1"
+        class="btn btn-primary w-fit flex items-center"
+      >
+        <Icon>history_edu</Icon>
+        {{ t("New story") }}
+      </A>
+      <A
+        href="/app/play/lesson"
+        class="btn btn-primary w-fit flex items-center"
+      >
+        <Icon>book</Icon>
+        {{ t("New lesson") }}
+      </A>
+    </div>
+
+    <ul class="divide-y divide-base-200">
+      <li class="group py-4" v-for="item in items">
+        <A :href="item.href" class="flex justify-between">
+          <div class="flex gap-2 items-center">
+            <Icon>{{ item.icon }}</Icon>
+            {{ t(item.name as any) }}
+          </div>
+          <ChevronRight />
+        </A>
+      </li>
+    </ul>
+  </div>
+</template>

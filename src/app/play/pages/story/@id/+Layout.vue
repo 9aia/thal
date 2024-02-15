@@ -10,7 +10,7 @@ import {
   data,
   implementation,
   select,
-} from "../store";
+} from "../../../store";
 import { useListener } from "#design/composables/useListener";
 import client from "#framework/client";
 
@@ -49,7 +49,7 @@ const next = async () => {
   currentClass.currentLesson++;
 
   if (currentClass.currentLesson >= MAX_LESSON) {
-    navigate("/app/lesson/completed", { overwriteLastHistoryEntry: true });
+    navigate("/app/play/lesson/completed", { overwriteLastHistoryEntry: true });
     select.value = NON_SELECTED;
     data.value = undefined;
     return;

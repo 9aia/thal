@@ -20,6 +20,7 @@ type Bindings = {
   TURNSTILE_SECRET_KEY: string;
   STRIPE_SECRET_KEY: string;
   STRIPE_ENDPOINT_SECRET: string;
+  GEMINI_API_KEY: string;
 };
 type Variables = {
   orm: DrizzleD1Database;

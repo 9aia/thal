@@ -7,12 +7,15 @@ import { A } from "#framework/i18n";
   <header class="absolute top-0 w-full z-10">
     <nav class="px-4 navbar z-100 bg-neutral text-primary-content">
       <div class="navbar-start">
-        <A
-          href="/"
-          class="btn btn-primary !bg-transparent text-xl flex gap-1 items-center justify-center"
-        >
+        <A href="/" class="text-xl flex gap-1 items-center justify-center">
           <Icon name="directions_run" />
           <span class="font-bold">Maratongue</span>
+
+          <div
+            class="badge badge-primary badge-lg badge-outline gap-1 uppercase"
+          >
+            Experimental
+          </div>
         </A>
       </div>
       <div class="navbar-end">

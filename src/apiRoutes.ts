@@ -1,7 +1,7 @@
 import { ApiContext } from "#framework/api";
 import { Hono } from "hono";
 import paymentWebhook from "./payment/routes/webhook";
-import lesson from "./app/lesson/routes/lesson";
+import lesson from "./app/play/routes/lesson";
 import paymentCreateSessions from "./payment/routes/create-session";
 import profileRoute from "./app/profile/routes/profile";
 import summaryRoute from "./app/profile/routes/summary";

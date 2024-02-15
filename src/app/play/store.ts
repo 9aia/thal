@@ -1,10 +1,9 @@
 import { computed, reactive, ref } from "vue";
 import lessons from "./lessons";
-import { generateLesson } from "./utils";
 
-export const MAX_LESSON = 10;
+export const MAX_LESSON = 5;
 
-export const data = ref<Awaited<ReturnType<typeof generateLesson>>>();
+export const data = ref();
 
 export const currentClass = reactive({
   currentLesson: 0,
