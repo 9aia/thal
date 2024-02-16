@@ -1,5 +1,11 @@
-import { ITEMS } from "./constants";
 import { Profile } from "./schemas/profile";
+
+const ITEMS = [
+  { id: "goals", label: "Goals:" },
+  { id: "hobbies", label: "Hobbies:" },
+  { id: "profession", label: "Profession:" },
+  { id: "observation", label: "Observation:" },
+];
 
 export function getProfileData(data: Profile) {
   let profileData = "";

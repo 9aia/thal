@@ -7,42 +7,60 @@ import {
   MAX_LESSON,
   NON_SELECTED,
   currentClass,
-  data,
-  implementation,
+  exercise,
   select,
 } from "../../store";
 import { useListener } from "#design/composables/useListener";
 import client from "#framework/client";
+import { Cookies } from "#framework/utils/cookies";
+import { t } from "#framework/i18n";
 
-async function generateLesson() {
-  const res = await client.lesson.$get();
+async function generateExercise() {
+  const username = Cookies.get("username");
+  if (!username) return;
+
+  const res = await client.exercise.generate.$post({
+    json: {
+      username,
+      lessonId: 0,
+    },
+  });
   const result = await res.json();
 
   return result;
 }
 
+async function verifyExercise() {
+  const res = await client.exercise.verify[':id'].$post({
+    param: {
+      id: exercise.value.id,
+    },
+    json: {
+      answer: select.value,
+    },
+  });
+  const result = await res.json();
+
+  return result.correct;
+}
+
 const finishObj = reactive({
   finished: false,
   correct: false,
-  perfectSuccessMessage: "Bom trabalho!",
+  perfectSuccessMessage: t("Congrats"),
 });
 const nextLesson = ref();
 const btn = ref<HTMLButtonElement>();
 
 const verify = async () => {
-  if (!data.value) return;
+  if (!exercise.value) return;
 
   finishObj.finished = true;
-
-  if (implementation.value?.verify(data.value.obj, select.value)) {
-    finishObj.correct = true;
-  } else {
-    finishObj.correct = false;
-  }
+  finishObj.correct = await verifyExercise();
 
   select.value = NON_SELECTED;
 
-  nextLesson.value = await generateLesson();
+  nextLesson.value = await generateExercise();
 };
 
 const next = async () => {
@@ -51,17 +69,17 @@ const next = async () => {
   if (currentClass.currentLesson >= MAX_LESSON) {
     navigate("/app/play/lesson/completed", { overwriteLastHistoryEntry: true });
     select.value = NON_SELECTED;
-    data.value = undefined;
+    exercise.value = undefined;
     return;
   }
 
   finishObj.finished = false;
-  data.value = nextLesson.value;
+  exercise.value = nextLesson.value;
   nextLesson.value = null;
 };
 
 onMounted(async () => {
-  data.value = await generateLesson();
+  exercise.value = await generateExercise();
 });
 
 useListener("keydown", (e: any) => {
@@ -75,7 +93,7 @@ useListener("keydown", (e: any) => {
     return;
   }
 
-  if (select === NON_SELECTED || !data) return;
+  if (select === NON_SELECTED || !exercise) return;
 
   btn.value?.focus();
   btn.value?.click();
@@ -91,7 +109,7 @@ useListener("keydown", (e: any) => {
       <div
         class="flex gap-2 items-center w-full mb-4 max-w-lg mx-auto pt-4 px-4"
       >
-        <a href="/app/learn" class="flex items-center">
+        <a href="/app/explore" class="flex items-center">
           <Icon>close</Icon>
         </a>
         <progress
@@ -102,7 +120,7 @@ useListener("keydown", (e: any) => {
       </div>
 
       <div class="max-w-lg mx-auto pt-4 px-4">
-        <slot v-if="data" />
+        <slot v-if="exercise" />
         <template v-else>
           <span
             class="loading loading-spinner loading-sm absolute bottom-1/2 right-1/2 translate-x-1/2"
@@ -112,7 +130,7 @@ useListener("keydown", (e: any) => {
     </div>
 
     <div
-      v-if="data"
+      v-if="exercise"
       class="border-t border-t-gray-400"
       :class="{
         'bg-green-300': finishObj.correct && finishObj.finished,
@@ -125,7 +143,7 @@ useListener("keydown", (e: any) => {
             v-model="btn"
             @click="verify"
             class="btn-md btn-primary w-full"
-            :disabled="select === NON_SELECTED || !data"
+            :disabled="select === NON_SELECTED || !exercise"
           >
             Verificar
           </Btn>

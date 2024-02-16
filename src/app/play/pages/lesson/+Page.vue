@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, markRaw } from "vue";
-import { data, select } from "../../store";
+import { exercise, select } from "../../store";
 
 const components = import.meta.glob("../../components/*.vue");
 
@@ -27,10 +27,10 @@ onMounted(() => {
 <template>
   <div class="w-full flex flex-col">
     <component
-      v-if="data"
+      v-if="exercise"
       :is="comp"
       v-model="select"
-      v-bind="data?.obj"
+      v-bind="exercise?.data"
     />
   </div>
 </template>

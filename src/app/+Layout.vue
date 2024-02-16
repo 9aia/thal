@@ -53,7 +53,7 @@ const navItems: BottomNavItem[] = [
     icon: "editor_choice",
     href: "/app/missions",
   },
-  { id: "rank", name: "Rank", icon: "trophy", href: "/app/rank" },
+  //{ id: "rank", name: "Rank", icon: "trophy", href: "/app/rank" },
   { id: "profile", name: "Profile", icon: "face", href: "/app/profile" },
   { id: "settings", name: "Settings", icon: "settings", href: "/app/settings" },
 ];

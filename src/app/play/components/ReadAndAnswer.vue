@@ -3,14 +3,10 @@ import { useListener } from "#design/composables/useListener";
 import { useMedia } from "#design/composables/useMedia";
 import Kbd from "#design/components/display/Kbd.vue";
 import { ref } from "vue";
+import { ExerciseQA } from "../types";
 
 const select = defineModel();
-const props = defineProps<{
-  text: string;
-  question?: string;
-  alternatives: string[];
-  correct?: any;
-}>();
+const props = defineProps<ExerciseQA>();
 const btn = ref<HTMLButtonElement>();
 
 useListener("keydown", (e: any) => {
@@ -49,10 +45,7 @@ const isTouchable = useMedia("(pointer: coarse) and (hover: none)");
           'border-gray-400': select !== i,
         }"
       >
-        <Kbd
-          v-if="!isTouchable"
-          class="kbd-sm"
-        >
+        <Kbd v-if="!isTouchable" class="kbd-sm">
           {{ i + 1 }}
         </Kbd>
 

@@ -1,10 +1,17 @@
 import { Component } from "vue";
 
-export type PromptOptions = {
+export type LessonContent = {
+  name: string;
+} & PromptImplementation;
+
+export type ExercisePromptOptions = {
   languageTo: string;
   languageFrom: string;
   level: "a1" | "a2" | "b1" | "b2" | "c1" | "c2";
-  interests: string;
+  goals: string;
+  hobbies: string;
+  profession: string;
+  observation: string;
 };
 export type PromptImplementation = {
   instructions: string;
@@ -12,26 +19,17 @@ export type PromptImplementation = {
   example: object;
 };
 
-export type LessonImplementation = {
+export type ExerciseImplementation = {
   name: string;
   verify: (question: any, answer: any) => boolean;
   prompt:
-    | ((options: PromptOptions) => PromptImplementation)
+    | ((options: ExercisePromptOptions) => PromptImplementation)
     | (() => PromptImplementation);
 };
 
-export type LessonQA = {
+export type ExerciseQA = {
   text: string;
   question?: string;
   alternatives: string[];
   correct: number;
 };
-
-export type Prompt = {
-  system: string;
-  user: string;
-};
-
-export type LessonContent = {
-  name: string;
-} & PromptImplementation;

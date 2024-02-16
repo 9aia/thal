@@ -1,0 +1,14 @@
+GET http://localhost:3000/api/exercise HTTP/1.1
+
+### 
+
+GET http://localhost:3000/api/exercise/38
+
+### 
+
+POST http://localhost:3000/api/exercise/verify/38
+Content-Type: application/json
+
+{
+  "answer": 1
+}
