@@ -2,6 +2,7 @@ import type { Component as _Component } from "vue";
 import type { Auth as _Auth } from "#framework/utils/initAuth";
 import { Component } from "vue";
 import { I18nGlobal } from "./i18n";
+import { ThemeContext } from "./theme/types";
 
 type AnyFunction = (...args: any) => any;
 
@@ -35,6 +36,7 @@ declare global {
     }
     interface Config {
       Wrapper?: Component;
+      theme?: ThemeContext;
       beforeRenderMode?: "client-only" | "server-only" | "server-and-client";
     }
   }

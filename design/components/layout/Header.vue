@@ -5,14 +5,17 @@ import { A } from "#framework/i18n";
 
 <template>
   <header class="absolute top-0 w-full z-10">
-    <nav class="px-8 navbar z-100 bg-base-100 text-primary-content border-b border-b-teal-500">
+    <nav class="px-4 navbar z-100 bg-neutral text-primary-content">
       <div class="navbar-start">
-        <A
-          href="/"
-          class="text-teal-600 hover:bg-transparent btn-ghost text-xl flex gap-1 items-center justify-center"
-        >
+        <A href="/" class="text-xl flex gap-1 items-center justify-center">
           <Icon name="directions_run" />
           <span class="font-bold">Maratongue</span>
+
+          <div
+            class="badge badge-primary badge-lg badge-outline gap-1 uppercase"
+          >
+            Experimental
+          </div>
         </A>
       </div>
       <div class="navbar-end">

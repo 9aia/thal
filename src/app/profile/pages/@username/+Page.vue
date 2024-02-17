@@ -1,8 +1,24 @@
 <script setup lang="ts">
-import AboutMe from "../AboutMe.vue";
-import Interests from "../Interests.vue";
-import Summary from "../Summary.vue";
-import Header from "../Header.vue";
+import AboutMe from "./AboutMe.vue";
+import Interests from "./Interests.vue";
+import Summary from "./Summary.vue";
+import Header from "./Header.vue";
+import { useData } from "#framework/composables/useData";
+import Data from "../+data";
+import { ref, provide, onMounted } from "vue";
+import Goals from "./Goals.vue";
+import Observation from "./Observation.vue";
+import { Cookies } from "#framework/utils/cookies";
+import Btn from "#design/components/action/Btn.vue";
+import { t } from "#framework/i18n";
+
+const data = useData<typeof Data>();
+const profile = ref(data.value);
+provide("profile", profile);
+
+/* onMounted(() => {
+  Cookies.set("username", profile.value.username, { path: "/" });
+}); */
 </script>
 
 <template>
@@ -15,11 +31,22 @@ import Header from "../Header.vue";
     >
       <Header />
       <Summary />
+
+      <a
+        v-if="Cookies.get('username') === profile.username"
+        href="/app/settings/profile"
+        class="btn btn-sm mt-4"
+        >{{ t("Edit profile") }}</a
+      >
     </aside>
 
-    <main class="w-full md:w-1/2 lg:w-2/3 p-8 space-y-6 divide-y divide-gray-400">
+    <main
+      class="w-full md:w-1/2 lg:w-2/3 p-8 space-y-6 divide-y divide-gray-400"
+    >
       <AboutMe />
+      <Goals />
       <Interests />
+      <Observation />
     </main>
   </div>
 </template>

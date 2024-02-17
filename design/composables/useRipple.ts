@@ -2,27 +2,27 @@
 
 import { onMounted, onUnmounted, ref } from "vue";
 
-export function useRipple() {
-  const elRef = ref<HTMLElement>();
+export function useRipple(elRef?: Ref<HTMLElement>) {
+  const elRef_ = elRef || ref<HTMLElement>();
   const ripple = new Ripple();
 
   const handleRipple = (e: any) => ripple.create(e, "light");
 
   onMounted(() => {
-    if (elRef.value) {
-      const el = elRef.value;
+    if (elRef_.value) {
+      const el = elRef_.value;
       el.addEventListener("click", handleRipple);
     }
   });
 
   onUnmounted(() => {
-    if (elRef.value) {
-      const el = elRef.value;
+    if (elRef_.value) {
+      const el = elRef_.value;
       el.removeEventListener("click", handleRipple);
     }
   });
 
-  return elRef;
+  return elRef_;
 }
 
 export class Ripple {

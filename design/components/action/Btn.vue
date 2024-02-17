@@ -15,8 +15,9 @@ type Props = SafeProps<ButtonHTMLAttributes> &
   };
 
 defineProps<Props>();
+const externalRef = defineModel();
 
-const rippleElRef = useRipple();
+const rippleElRef = useRipple(externalRef);
 const attrs = useAttrs();
 </script>
 

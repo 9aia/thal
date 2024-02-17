@@ -1,20 +1,29 @@
 <script setup lang="ts">
 import Avatar from "#design/components/display/Avatar.vue";
-import Logo from "#design/components/display/Logo.vue";
-import NavbarMenu from "#design/components/layout/NavbarMenu.vue";
-import { NavbarMenuItem } from "#design/components/layout/types";
+import Icon from "#design/components/display/Icon.vue";
+import Menu from "#design/components/layout/Menu.vue";
+import { MenuItem } from "#design/components/layout/types";
+import { usePageContext } from "#framework/composables/usePageContext";
 import { A } from "#framework/i18n";
 
-const items: NavbarMenuItem[] = [
-  { id: "profile", name: "Profile", icon: "person", href: "/app/profile" },
+withDefaults(
+  defineProps<{
+    hideHeader?: boolean;
+  }>(),
+  { hideHeader: false }
+);
+
+const items: MenuItem[] = [
+  { id: "profile", name: "Profile", icon: "face", href: "/app/profile" },
   {
     id: "plan",
     name: "Plan",
     action: "/api/payment/stripe/create-portal-session",
     method: "POST",
     icon: "subscriptions",
-    external: true,
+    type: "external",
   },
+  { id: "settings", name: "Settings", icon: "settings", href: "/app/settings" },
   {
     id: "logout",
     name: "Logout",
@@ -23,28 +32,111 @@ const items: NavbarMenuItem[] = [
     icon: "logout",
   },
 ];
+
+type BottomNavItem = {
+  id: string;
+  name?: string;
+  icon: string;
+  href: string;
+};
+
+const navItems: BottomNavItem[] = [
+  {
+    id: "explore",
+    name: "Explore",
+    icon: "explore",
+    href: "/app/explore",
+  },
+  {
+    id: "missions",
+    name: "Missions",
+    icon: "editor_choice",
+    href: "/app/missions",
+  },
+  //{ id: "rank", name: "Rank", icon: "trophy", href: "/app/rank" },
+  { id: "profile", name: "Profile", icon: "face", href: "/app/profile" },
+  { id: "settings", name: "Settings", icon: "settings", href: "/app/settings" },
+];
+
+const pageContext = usePageContext();
 </script>
 
 <template>
-  <header class="">
-    <div class="navbar bg-base-100">
-      <div class="flex-1">
-        <a class="btn btn-ghost text-xl" href="/app">
-          <Logo />
-          Maratongue
-        </a>
-      </div>
+  <header
+    v-if="!hideHeader"
+    class="z-10 fixed bg-transparent pointer-events-none top-0 w-full"
+  >
+    <div class="navbar bg-transparent">
+      <div class="flex-1"></div>
 
-      <div class="flex-none">
+      <div class="flex-none bg-transparent pointer-events-auto">
+        <div class="flex items-center gap-1">
+          <span class="">2000</span>
+          <Icon class="text-orange-500">trophy</Icon>
+        </div>
+        <!-- <div class="dropdown dropdown-end">
+          <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+            <div class="indicator">
+              <Icon>notifications</Icon>
+              <span class="badge badge-xs badge-primary indicator-item"></span>
+            </div>
+          </div>
+
+          <Menu :items="items" />
+        </div> -->
         <div class="dropdown dropdown-end">
           <Avatar type="button" class="w-10" :button="true" />
 
-          <NavbarMenu :items="items" />
+          <Menu :items="items" />
         </div>
       </div>
     </div>
   </header>
-  <main>
-    <slot />
-  </main>
+
+  <div class="drawer lg:drawer-open">
+    <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+
+    <div class="drawer-content">
+      <main class="pb-20">
+        <slot />
+      </main>
+
+      <!-- <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden"
+        >Open drawer</label
+      > -->
+    </div>
+    <div class="drawer-side">
+      <label
+        for="my-drawer-2"
+        aria-label="close sidebar"
+        class="drawer-overlay"
+      />
+      <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+        <div class="px-4 py-2 flex items-center border-b border-b-base-300 my-2 gap-1">
+          <Icon class="text-primary">directions_run</Icon>
+          <span class="font-bold">Maratongue</span>
+        </div>
+
+        <li v-for="item in navItems">
+          <A
+            :href="item.href"
+            :class="{ active: pageContext.urlPathname === item.href }"
+          >
+            <Icon>{{ item.icon }}</Icon>
+            <span v-if="item.name" class="btm-nav-label">{{ item.name }}</span>
+          </A>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="btm-nav flex lg:hidden">
+    <A
+      v-for="item in navItems"
+      :href="item.href"
+      :class="{ active: pageContext.urlPathname === item.href }"
+    >
+      <Icon>{{ item.icon }}</Icon>
+      <span v-if="item.name" class="hidden sm:flex btm-nav-label">{{ item.name }}</span>
+    </A>
+  </div>
 </template>

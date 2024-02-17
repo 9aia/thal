@@ -4,6 +4,7 @@ import { dangerouslySkipEscape, escapeInject, version } from "vike/server";
 import type { OnRenderHtmlAsync } from "vike/types";
 import { createAppIsomorphic } from "../utils/createAppIsomorphic.js";
 import { getTitle } from "../utils/getTitle.js";
+import onTheme from "#framework/theme/onTheme.js";
 
 checkVikeVersion();
 
@@ -54,12 +55,14 @@ const onRenderHtml: OnRenderHtmlAsync = async (
   }
 
   const { lang } = onI18n(pageContext);
+  const { themeClass, colorScheme } = onTheme(pageContext);
 
   const documentHtml = escapeInject`<!DOCTYPE html>
-    <html lang="${lang}">
+    <html lang="${lang}" class="${themeClass}">
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no,user-scalable=0">
+        <meta name="color-scheme" content="${colorScheme}" />
         ${faviconTag}
         ${titleTag}
         ${descriptionTag}
@@ -71,6 +74,9 @@ const onRenderHtml: OnRenderHtmlAsync = async (
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
       </head>
       <body>
+        <span id="page-loader" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 loading loading-spinner loading-md ${
+          isSsr ? "hidden" : ""
+        }"></span>
         <div id="page-view">${pageView}</div>
       </body>
     </html>`;

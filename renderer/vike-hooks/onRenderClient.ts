@@ -8,6 +8,8 @@ let app: ReturnType<typeof createAppIsomorphic>;
 const onRenderClient: OnRenderClientAsync = async (
   pageContext
 ): ReturnType<OnRenderClientAsync> => {
+  document.querySelector("#page-loader")?.remove();
+
   if (!app) {
     const container = document.getElementById("page-view")!;
     const isSsr = container.innerHTML !== "";

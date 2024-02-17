@@ -1,9 +1,12 @@
 import client from "#framework/client";
 import { PageContext } from "vike/types";
 import { render } from "vike/abort";
+import { parseCookies } from "#framework/utils/cookies";
 
 export default async (pageContext: PageContext) => {
-  const username = pageContext.routeParams.username || "luisfloat";
+  const cookies = parseCookies(pageContext.cookies);
+
+  const username = pageContext.routeParams.username || cookies.username;
   const res = await client.app.profile[":username"].$get({
     param: {
       username,
