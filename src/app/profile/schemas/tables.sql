@@ -9,6 +9,6 @@ CREATE TABLE IF NOT EXISTS Profiles (
   location VARCHAR(255),
   goals VARCHAR(127),
   hobbies VARCHAR(127),
-  profession VARCHAR(20)
+  profession VARCHAR(20),
+  observation VARCHAR(300)
 );
-

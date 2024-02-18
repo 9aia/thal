@@ -109,7 +109,9 @@ export default exerciseRouter
 
       const gemini = getGemini(GEMINI_API_KEY);
 
-      const data = (await gemini.generateContent(prompt)) as any;
+      const data = (await gemini.generateContent(prompt, {
+        temperature: 0.9
+      })) as any;
 
       if ("error" in data) {
         throw new Error("Gemini 500");

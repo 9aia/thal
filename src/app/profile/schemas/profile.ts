@@ -54,5 +54,9 @@ export const profileUpdateSchema = createInsertSchema(profiles, {
 }).partial();
 
 export const profileSelectSchema = createSelectSchema(profiles);
+export const profileInsertSchema = createInsertSchema(profiles, {
+  signupDate: (schema) => schema.signupDate.optional(),
+});
 
+export type ProfileInsert = z.infer<typeof profileInsertSchema>;
 export type Profile = z.infer<typeof profileSelectSchema>;

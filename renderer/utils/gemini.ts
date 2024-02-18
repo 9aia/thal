@@ -1,5 +1,9 @@
+interface Config {
+  temperature?: number;
+}
+
 export function getGemini(apiKey: string) {
-  const generateContent = async (prompt: string) => {
+  const generateContent = async (prompt: string, config?: Config) => {
     const input = clearLeadingSpaces(prompt);
 
     const url =
@@ -14,6 +18,9 @@ export function getGemini(apiKey: string) {
           ],
         },
       ],
+      generationConfig: config ? {
+        temperature: config.temperature || 0.2,
+      } : {},
     };
 
     try {
