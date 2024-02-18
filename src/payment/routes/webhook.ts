@@ -33,27 +33,26 @@ export default webhookRoutes.post("/stripe", async (c) => {
     return c.body(errorMessage, 400);
   }
 
-  const eventsOptions: Partial<Record<typeof event.type, () => void>> = {
+  const eventsOptions: Partial<Record<typeof event.type, () => Promise<void>>> = {
     "checkout.session.completed": async () => {
-      stripeHandlers.handleCheckoutCompleted(event as any, c);
+      await stripeHandlers.handleCheckoutCompleted(event as any, c);
     },
     "checkout.session.async_payment_succeeded": async () => {
-      stripeHandlers.handleAsyncPaymentSucceeded(event as any, c);
+      await stripeHandlers.handleAsyncPaymentSucceeded(event as any, c);
     },
-    "customer.subscription.trial_will_end": () => {},
+    "customer.subscription.trial_will_end": async () => {},
     "customer.subscription.deleted": async () => {
-      stripeHandlers.handleCustomerSubscriptionDeleted(event as any, c);
+      await stripeHandlers.handleCustomerSubscriptionDeleted(event as any, c);
     },
-    "customer.subscription.created": () => {},
-    "customer.subscription.updated": () => {
-      stripeHandlers.handleCustomerSubscriptionUpdated(event as any, c);
+    "customer.subscription.updated": async () => {
+      await stripeHandlers.handleCustomerSubscriptionUpdated(event as any, c);
     },
   };
 
   const handler = eventsOptions[event.type];
 
   if (handler) {
-    handler();
+    await handler();
   } else {
     console.log(`Unhandled event type ${event.type}`);
   }

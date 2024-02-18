@@ -1,5 +1,6 @@
 {
   "STRIPE_PUBLIC_KEY": "pk_test_51OapVFAE9EIB0bgGuG2FKz22s2R2zHMDjKRzSCgZ9gG09CAwldQZGYEk9AqiGzpAufarlSvRFgoN8o7030W7DyED00gFO9yzeA",
-  "GOOGLE_OAUTH_REDIRECT_URI": "https://polite-goat-prompt.ngrok-free.app/api/auth/google/callback",
-  "APP_URL": "https://polite-goat-prompt.ngrok-free.app"
+  "GOOGLE_CLIENT_ID": "466564740770-hcufkm7runm83rkkp2hrja61hu702kf7.apps.googleusercontent.com",
+  "GOOGLE_OAUTH_REDIRECT_URI": "http://localhost:3000/api/auth/google/callback",
+  "APP_URL": "http://localhost:3000"
 }

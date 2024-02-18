@@ -25,7 +25,7 @@ const onBeforeRoute: OnBeforeRouteSync = (
 
   if (!locale) {
     const acceptLanguage =
-      typeof window === undefined
+      typeof window === 'undefined'
         ? null
         : detectLocaleClient(navigator.language)?.lang;
 

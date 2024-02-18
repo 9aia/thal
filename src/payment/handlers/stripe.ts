@@ -4,6 +4,7 @@ import Stripe from "stripe";
 import { activePlan, cancelSubscription, updateSubscription } from "../services/plan";
 import { getPlan } from "../utils/stripe";
 import { fromSToMillis } from "#framework/utils/date";
+import { PLANS } from "../constants/plans";
 
 export async function handleCheckoutCompleted(
   e: Stripe.CheckoutSessionCompletedEvent,
@@ -14,14 +15,9 @@ export async function handleCheckoutCompleted(
   const session = e.data.object;
   const stripeCustomerId = session.customer as string;
   const userId = session.client_reference_id;
-  const plan = getPlan(session);
 
   if (!userId) {
     throw new Error("userId not found");
-  }
-
-  if (!plan) {
-    throw new Error("plan not found");
   }
 
   const isPaymentAsync = session.payment_status !== "paid";
@@ -30,7 +26,9 @@ export async function handleCheckoutCompleted(
     return;
   }
 
-  await activePlan(orm, userId, stripeCustomerId, plan);
+  console.log('executing activePlan', userId, stripeCustomerId, PLANS.premium)
+
+  await activePlan(orm, userId, stripeCustomerId, PLANS.premium);
 }
 
 export async function handleAsyncPaymentSucceeded(

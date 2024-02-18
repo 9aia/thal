@@ -5,9 +5,11 @@ import { getCookie } from "hono/cookie";
 import { users } from "~/auth/schemas/auth.schemas";
 import { eq } from "drizzle-orm";
 import { now } from "#framework/utils/date";
+import { APP_URL } from '../../public_keys.json';
 
 interface Options {
   redirect: boolean
+  redirectType?: 'pricing'
 }
 
 export const verifyAuthentication = (options?: Options): MiddlewareHandler<ApiContext> => {
@@ -17,7 +19,12 @@ export const verifyAuthentication = (options?: Options): MiddlewareHandler<ApiCo
         throw unauthorized()
       }
 
-      return c.redirect('/authentication')
+      const url = new URL(APP_URL)
+
+      url.pathname = "/authentication"
+      if(options.redirectType) url.searchParams.set("type", options.redirectType)
+
+      return c.redirect(url.toString())
     }
 
     const { lucia } = c.get('auth')

@@ -10,6 +10,7 @@ import { eq } from "drizzle-orm";
 import { getCookie } from "hono/cookie";
 import { notFound } from "#framework/utils/httpThrowers";
 import { verifyAuthentication } from "#framework/middlewares/verifyAuthentication";
+import Stripe from "stripe";
 
 const createSessionRoutes = new Hono<ApiContext>();
 
@@ -23,35 +24,32 @@ export default createSessionRoutes
 
     return c.html(`<meta http-equiv="refresh" content="1;URL='${url}'" />`)
   })
-  .post("/stripe/create-checkout-session", async (c) => {
+  .get("/stripe/create-checkout-session", verifyAuthentication({ redirect: true, redirectType: 'pricing' }), async (c) => {
     const { STRIPE_SECRET_KEY } = env(c);
     const orm = c.get("orm");
 
-    const { lucia } = c.get('auth')
-
-    const sessionId = getCookie(c, 'auth_session')
-
-    if (!sessionId) {
-      return c.redirect('/authentication')
-    }
-
-    const session = await lucia.validateSession(sessionId)
-
-    if (!session) {
-      return c.redirect('/authentication')
-    }
-
     const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY });
 
-    const data = await c.req.formData();
-    const lookup_key = data.get('lookup_key') as string;
+    const lookup_key = "premium"
+
+    const session = c.get('session')
+
+    const [ user ] = await orm.select().from(users).where(eq(users.id, session.user.userId))
+
+    if (!user) {
+      throw notFound("User not found")
+    }
+
+    if (getCookie(c, 'free_trial_used') === '1' && user.free_trial_used !== 1) {
+      return c.redirect('/plan/pending')
+    }
 
     const prices = await stripe.prices.list({
       lookup_keys: [lookup_key],
       expand: ['data.product'],
     });
 
-    const checkoutSession = await stripe.checkout.sessions.create({
+    const checkoutData: Stripe.Checkout.SessionCreateParams = {
       billing_address_collection: 'auto',
       line_items: [
         {
@@ -63,7 +61,24 @@ export default createSessionRoutes
       mode: 'subscription',
       success_url: `${APP_URL}/api/payment/stripe/redirect/success`,
       cancel_url: `${APP_URL}/api/payment/stripe/redirect/canceled`,
-    });
+    }
+
+    const hasTrialBeenUsed = user.free_trial_used === 1
+
+    if (!hasTrialBeenUsed) {
+      checkoutData.subscription_data = {
+        trial_period_days: 7,
+        trial_settings: {
+          end_behavior: {
+            missing_payment_method: 'cancel',
+          }
+        }
+      }
+
+      checkoutData.payment_method_collection = 'if_required'
+    }
+
+    const checkoutSession = await stripe.checkout.sessions.create(checkoutData);
 
     await orm.update(users).set({
       payment_gateway_session_id: checkoutSession.id
