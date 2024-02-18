@@ -40,6 +40,10 @@ export default createSessionRoutes
       throw notFound("User not found")
     }
 
+    if (getCookie(c, 'free_trial_used') === '1' && user.free_trial_used !== 1) {
+      return c.redirect('/plan/pending')
+    }
+
     const prices = await stripe.prices.list({
       lookup_keys: [lookup_key],
       expand: ['data.product'],

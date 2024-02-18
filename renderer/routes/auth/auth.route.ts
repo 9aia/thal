@@ -1,9 +1,12 @@
 import { ApiContext } from "#framework/api";
 import { unauthorized } from "#framework/utils/httpThrowers";
 import { OAuthRequestError } from "@lucia-auth/oauth";
+import { eq } from "drizzle-orm";
 import { Hono } from "hono";
 import { env } from "hono/adapter";
 import { deleteCookie, getCookie, setCookie } from "hono/cookie";
+import { createProfile } from "~/app/profile/utils/getProfile";
+import { users } from "~/auth/schemas/auth.schemas";
 
 const authRouter = new Hono<ApiContext>();
 
@@ -71,6 +74,7 @@ export default authRouter
   })
   .get("/google/callback", async (c) => {
     const auth = c.get("auth");
+    const orm = c.get("orm");
 
     const storedState = getCookie(c, "google_oauth_state");
 
@@ -88,20 +92,36 @@ export default authRouter
         await auth.googleAuth.validateCallback(code);
 
       const getUser = async () => {
-        const existingUser = await getExistingUser();
-        if (existingUser) return existingUser;
-
         const username = googleUser.email?.split("@")[0] as string;
+
+        const existingUser = await getExistingUser();
+
+        if (existingUser) {
+          const [ user ] = await orm.select().from(users).where(eq(users.id, existingUser.userId));
+
+          return {
+            user: existingUser,
+            username: user!.username,
+          }
+        };
 
         const user = await createUser({
           attributes: {
             username,
           },
         });
-        return user;
+
+        await createProfile(c, {
+          username,
+          name: googleUser.given_name,
+          lastName: googleUser.family_name,
+        });
+
+        return { user, username };
       };
 
-      const user = await getUser();
+      const { user, username } = await getUser();
+
       const session = await auth.lucia.createSession({
         userId: user.userId,
         attributes: {},
@@ -109,6 +129,9 @@ export default authRouter
       const sessionCookie = auth.lucia.createSessionCookie(session);
 
       c.header("set-cookie", sessionCookie.serialize());
+      setCookie(c, "username", username, {
+        path: '/',
+      })
 
       return c.redirect(returnUrl);
     } catch (e) {

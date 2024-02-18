@@ -19,10 +19,11 @@ export const activePlan = async (
   }
 
   const expirationDate = now();
-  expirationDate.setMonth(expirationDate.getMonth() + 1);
 
   if(user.free_trial_used === 0) {
     expirationDate.setDate(expirationDate.getDate() + 7);
+  } else {
+    expirationDate.setMonth(expirationDate.getMonth() + 1);
   }
 
   await orm
