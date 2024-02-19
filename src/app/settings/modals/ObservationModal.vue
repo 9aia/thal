@@ -6,16 +6,9 @@ import client from "#framework/client";
 import { t } from "#framework/i18n";
 import { Cookies } from "#framework/utils/cookies";
 import { useForm } from "vee-validate";
-import { Ref, inject, ref } from "vue";
+import { inject, ref } from "vue";
 import { MAX_OBSERVATION_CHARS } from "../../profile/constants";
 import { Profile } from "../../profile/schemas/profile";
-
-const profile = inject<Ref<Profile>>("profile")!;
-
-const toast = useToast();
-const form = useForm<Profile>({
-  initialValues: profile?.value,
-});
 
 const ERROR_MESSAGE = t("An error occurred while updating your observation.");
 const SUCCESS_MESSAGE = t("Observation has been updated successfully.");
@@ -23,6 +16,17 @@ const INVALID_OBSERVATION_CHAR_AMOUNT = t(
   `It must contain at most ${MAX_OBSERVATION_CHARS} characters`
 );
 const USERNAME_NOT_FOUND_MESSAGE = t("Username not found.");
+
+const profile = inject<Profile>("profile")!;
+
+const toast = useToast();
+const form = useForm<{
+  observation: Profile['observation'],
+}>({
+  initialValues: {
+    observation: profile.observation
+  },
+});
 
 const isOpen = defineModel({ default: false });
 const loading = ref(false);
@@ -45,7 +49,7 @@ const submit = form.handleSubmit(async (data) => {
   if (!res.ok) {
     toast.error(ERROR_MESSAGE);
   } else {
-    profile.value = { ...profile.value, observation: data.observation };
+    profile.observation = data.observation;
 
     toast.success(SUCCESS_MESSAGE);
   }
@@ -83,7 +87,7 @@ const submit = form.handleSubmit(async (data) => {
             <span
               :class="{
                 'text-red-500':
-                  form.values.observation?.length > MAX_OBSERVATION_CHARS,
+                  (form.values.observation?.length || 0) > MAX_OBSERVATION_CHARS,
               }"
             >
               {{ form.values.observation?.length || 0 }}/{{

@@ -8,24 +8,21 @@ import client from "#framework/client";
 import { t } from "#framework/i18n";
 import { Cookies } from "#framework/utils/cookies";
 import { useForm } from "vee-validate";
-import { Ref, computed, inject, ref } from "vue";
+import { computed, inject, ref } from "vue";
 import { HOBBIES, MAX_HOBBIES_AMOUNT } from "../../profile/constants";
 import { parseJoin } from "../../profile/utils";
-import { Profile } from "../schemas/profile";
+import { Profile } from "../../profile/schemas/profile";
+import { parseInitialValues } from "../utils";
 
-const parseInitialValues = (selected: string) => {
-  return selected.split(", ").reduce<Record<string, boolean>>((acc, key) => {
-    if (key === "") return acc;
-    acc[key] = true;
-    return acc;
-  }, {});
-};
+const ERROR_MESSAGE = t("An error occurred while updating hobbies.");
+const SUCCESS_MESSAGE = t("Hobbies were updated successfully.");
+const USERNAME_NOT_FOUND_MESSAGE = t("Username not found.");
 
 const toast = useToast();
 
-const profile = inject<Ref<Profile>>("profile")!;
+const profile = inject<Profile>("profile")!;
 
-const initialValues = parseInitialValues(profile.value.hobbies || "");
+const initialValues = parseInitialValues(profile.hobbies || "");
 const form = useForm<Record<string, boolean | undefined>>({
   initialValues,
 });
@@ -47,21 +44,17 @@ const filteredList = computed(() => {
   );
 });
 
-const ERROR_MESSAGE = t("An error occurred while updating hobbies.");
-const SUCCESS_MESSAGE = t("Hobbies were updated successfully.");
-const USERNAME_NOT_FOUND_MESSAGE = t("Username not found.");
-
 const isOpen = defineModel({ default: false });
 const loading = ref(false);
 
 const submit = form.handleSubmit(async (data) => {
   const username = Cookies.get("username");
-  if(!username) {
+  if (!username) {
     throw new Error(USERNAME_NOT_FOUND_MESSAGE);
   }
 
   const currentKeys = keys.value;
-  
+
   loading.value = true;
 
   const res = await client.app.profile[":username"].$patch({
@@ -76,7 +69,7 @@ const submit = form.handleSubmit(async (data) => {
   if (!res.ok) {
     toast.error(ERROR_MESSAGE);
   } else {
-    profile.value = { ...profile.value, hobbies: currentKeys };
+    profile.hobbies = currentKeys;
 
     toast.success(SUCCESS_MESSAGE);
   }

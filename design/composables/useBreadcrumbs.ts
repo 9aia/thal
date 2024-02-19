@@ -9,7 +9,7 @@ type Options = {
   config: BreadcrumbItem[];
 };
 
-export const useBreadcrumbs = (options: Options) => {
+function useBreadcrumbs(options: Options) {
   const pageContext = usePageContext();
 
   const path = computed(() => {
@@ -20,14 +20,16 @@ export const useBreadcrumbs = (options: Options) => {
   });
   const items = computed(() => {
     const currentItem = options.config.find((o) => o.id === path.value[0]);
-    if(!currentItem) return [options.root];
+    if (!currentItem) return [options.root];
 
     return [options.root, currentItem];
   });
 
   const back = () => {
     navigate(options?.urlPathname!);
-  }
+  };
 
   return { items, path, back };
-};
+}
+
+export default useBreadcrumbs;

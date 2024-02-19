@@ -3,17 +3,17 @@ import Btn from "#design/components/action/Btn.vue";
 import Icon from "#design/components/display/Icon.vue";
 import Breadcrumbs from "#design/components/navigation/Breadcrumbs.vue";
 import { BreadcrumbItem } from "#design/components/navigation/types";
+import useBreadcrumbs from "#design/composables/useBreadcrumbs";
 import { useData } from "#framework/composables/useData";
 import { t } from "#framework/i18n";
-import { provide, ref } from "vue";
+import { provide, reactive } from "vue";
 import ParentLayout from "../../+Layout.vue";
 import { SETTINGS } from "../constants";
-import { useBreadcrumbs } from "../store";
 import { flattenObject } from "../utils";
 import Data from "./+data";
 
 const data = useData<typeof Data>();
-const profile = ref(data.value);
+const profile = reactive(data.value);
 provide("profile", profile);
 
 const root: BreadcrumbItem = {

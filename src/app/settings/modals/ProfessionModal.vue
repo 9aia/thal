@@ -5,22 +5,26 @@ import { useToast } from "#design/composables/useToast";
 import client from "#framework/client";
 import { t } from "#framework/i18n";
 import { useForm } from "vee-validate";
-import { Ref, inject, ref } from "vue";
+import { inject, ref } from "vue";
 import { MAX_PROFESSION_CHARS } from "../../profile/constants";
 import { Profile } from "../../profile/schemas/profile";
 import { Cookies } from "#framework/utils/cookies";
-
-const profile = inject<Ref<Profile>>("profile")!;
-
-const toast = useToast();
-const form = useForm<Profile>({
-  initialValues: profile?.value,
-});
 
 const ERROR_MESSAGE = t("An error occurred while updating your profession.");
 const SUCCESS_MESSAGE = t("Profession has been updated successfully.");
 const INVALID_PROFESSION_CHAR_AMOUNT = t(`It must contain at most ${MAX_PROFESSION_CHARS} characters`);
 const USERNAME_NOT_FOUND_MESSAGE = t("Username not found.");
+
+const profile = inject<Profile>("profile")!;
+
+const toast = useToast();
+const form = useForm<{
+  profession: Profile['profession']
+}>({
+  initialValues: {
+    profession: profile.profession
+  },
+});
 
 const isOpen = defineModel({ default: false });
 const loading = ref(false);
@@ -43,7 +47,7 @@ const submit = form.handleSubmit(async (data) => {
   if (!res.ok) {
     toast.error(ERROR_MESSAGE);
   } else {
-    profile.value = { ...profile.value, profession: data.profession };
+    profile.profession = data.profession;
 
     toast.success(SUCCESS_MESSAGE);
   }
@@ -83,7 +87,7 @@ const submit = form.handleSubmit(async (data) => {
             <span
               :class="{
                 'text-red-500':
-                  form.values.profession?.length > MAX_PROFESSION_CHARS,
+                  (form.values.profession?.length || 0) > MAX_PROFESSION_CHARS,
               }"
             >
               {{ form.values.profession?.length || 0 }}/{{ MAX_PROFESSION_CHARS }}

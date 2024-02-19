@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import Btn from "#design/components/action/Btn.vue";
 import Icon from "#design/components/display/Icon.vue";
-import { useData } from "#framework/composables/useData";
 import { t } from "#framework/i18n";
-import { computed, provide, ref } from "vue";
-import Data from "../+data";
+import { computed, inject, ref } from "vue";
+import { Profile } from "~/app/profile/schemas/profile";
 import { GOALS, HOBBIES } from "../../../profile/constants";
 import { parseJoin } from "../../../profile/utils";
 import GoalsModal from "../../modals/GoalsModal.vue";
@@ -12,9 +11,7 @@ import HobbyModal from "../../modals/HobbyModal.vue";
 import ObservationModal from "../../modals/ObservationModal.vue";
 import ProfessionModal from "../../modals/ProfessionModal.vue";
 
-const data = useData<typeof Data>();
-const profile = ref(data.value);
-provide("profile", profile);
+const profile = inject<Profile>("profile")!;
 
 const isHobbyModalOpen = ref(false);
 const isProfessionModalOpen = ref(false);
@@ -22,10 +19,10 @@ const isGoalsModalOpen = ref(false);
 const isObservationModalOpen = ref(false);
 
 const hobbies = computed(() => {
-  return parseJoin<any>(profile.value.hobbies || "", HOBBIES);
+  return parseJoin<any>(profile.hobbies || "", HOBBIES);
 });
 const goals = computed(() => {
-  return parseJoin<any>(profile.value.goals || "", GOALS);
+  return parseJoin<any>(profile.goals || "", GOALS);
 });
 </script>
 
@@ -73,7 +70,7 @@ const goals = computed(() => {
       </div>
     </section>
 
-    <section class="pb-4 pt-6">
+    <section class="pt-6">
       <h2 class="text-teal-900 font-bold text-lg mb-3">{{ t("Interests") }}</h2>
 
       <p class="mb-4">
@@ -144,7 +141,9 @@ const goals = computed(() => {
     </section>
 
     <section class="pt-6">
-      <h2 class="text-teal-900 font-bold text-lg mb-3">{{ t("Observation") }}</h2>
+      <h2 class="text-teal-900 font-bold text-lg mb-3">
+        {{ t("Observation") }}
+      </h2>
 
       <p class="mb-4">
         {{

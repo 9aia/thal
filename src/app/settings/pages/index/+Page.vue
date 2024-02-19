@@ -15,7 +15,7 @@ const profile = inject<Profile>("profile")!;
 
   <a
     href="/app/profile"
-    class="group mb-4 shadow-lg bg-base-100 p-4 rounded-lg flex justify-between items-center transition duration-300 hover:shadow-2xl"
+    class="group mb-6 shadow-lg bg-base-100 p-4 rounded-lg flex justify-between items-center transition duration-300 hover:shadow-2xl"
   >
     <div class="flex gap-4 items-center">
       <Avatar :name="profile.name" class="w-16 text-md" />
@@ -32,22 +32,28 @@ const profile = inject<Profile>("profile")!;
   </a>
 
   <div class="space-y-4">
-    <section class="mb-2 pt-2">
-      <h2 class="text-teal-900 font-bold text-2xl ml-2 mb-3">{{ t("General") }}</h2>
+    <section>
+      <h2 class="text-teal-900 font-bold text-2xl ml-2 mb-3">
+        {{ t("General") }}
+      </h2>
       <MenuGroup class="p-0 w-full shadow-none" :items="SETTINGS.general" />
     </section>
 
-    <section class="pt-2">
-      <h2 class="text-teal-900 font-bold text-lg ml-2 mb-3">{{ t("Support") }}</h2>
+    <section>
+      <h2 class="text-teal-900 font-bold text-lg ml-2 mb-3">
+        {{ t("Support") }}
+      </h2>
       <MenuGroup :items="SETTINGS.support" />
     </section>
 
-    <section class="pt-2">
-      <h2 class="text-teal-900 font-bold text-lg ml-2 mb-3">{{ t("Legal") }}</h2>
+    <section>
+      <h2 class="text-teal-900 font-bold text-lg ml-2 mb-3">
+        {{ t("Legal") }}
+      </h2>
       <MenuGroup class="p-0 w-full shadow-none" :items="SETTINGS.legal" />
     </section>
 
-    <section class="pt-2">
+    <section>
       <form action="/api/auth/logout" class="ml-2">
         <button class="underline font-bold text-warning">
           {{ t("Logout") }}

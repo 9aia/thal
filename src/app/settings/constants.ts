@@ -23,13 +23,13 @@ const general: MenuItemType[] = [
     icon: "subscriptions",
     type: "external",
   },
-  {
+  /* {
     id: "privacy",
     icon: "disabled_visible",
     name: "Privacy",
     type: "accordion",
     href: "/app/settings/privacy",
-  },
+  }, */
   /* {
     id: "notifications",
     icon: "notifications",

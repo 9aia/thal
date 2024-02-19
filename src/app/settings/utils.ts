@@ -6,3 +6,11 @@ export function flattenObject<T extends Record<string, any>>(
     []
   ) as T[keyof T][number][];
 }
+
+export function parseInitialValues(selected: string) {
+  return selected.split(", ").reduce<Record<string, boolean>>((acc, key) => {
+    if (key === "") return acc;
+    acc[key] = true;
+    return acc;
+  }, {});
+};

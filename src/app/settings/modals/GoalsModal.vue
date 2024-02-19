@@ -6,24 +6,21 @@ import { useToast } from "#design/composables/useToast";
 import client from "#framework/client";
 import { t } from "#framework/i18n";
 import { useForm } from "vee-validate";
-import { Ref, computed, inject, ref } from "vue";
+import { computed, inject, ref } from "vue";
 import { GOALS } from "../../profile/constants";
 import { Profile } from "../../profile/schemas/profile";
 import { Cookies } from "#framework/utils/cookies";
+import { parseInitialValues } from "../utils";
 
-const parseInitialValues = (selected: string) => {
-  return selected.split(", ").reduce<Record<string, boolean>>((acc, key) => {
-    if (key === "") return acc;
-    acc[key] = true;
-    return acc;
-  }, {});
-};
+const ERROR_MESSAGE = t("An error occurred while updating goals.");
+const SUCCESS_MESSAGE = t("Goals were updated successfully.");
+const USERNAME_NOT_FOUND_MESSAGE = t("Username not found.");
 
 const toast = useToast();
 
-const profile = inject<Ref<Profile>>("profile")!;
+const profile = inject<Profile>("profile")!;
 
-const initialValues = parseInitialValues(profile.value.goals || "");
+const initialValues = parseInitialValues(profile.goals || "");
 const form = useForm<Record<string, boolean | undefined>>({
   initialValues,
 });
@@ -33,10 +30,6 @@ const keys = computed(() => {
     .filter((key) => values[key])
     .join(", ");
 });
-
-const ERROR_MESSAGE = t("An error occurred while updating goals.");
-const SUCCESS_MESSAGE = t("Goals were updated successfully.");
-const USERNAME_NOT_FOUND_MESSAGE = t("Username not found.");
 
 const isOpen = defineModel({ default: false });
 const loading = ref(false);
@@ -63,7 +56,7 @@ const submit = form.handleSubmit(async (data) => {
   if (!res.ok) {
     toast.error(ERROR_MESSAGE);
   } else {
-    profile.value = { ...profile.value, goals: currentKeys };
+    profile.goals = currentKeys;
 
     toast.success(SUCCESS_MESSAGE);
   }

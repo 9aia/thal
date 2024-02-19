@@ -12,7 +12,7 @@ import { A } from "#framework/i18n";
           <span class="font-bold">Maratongue</span>
 
           <div
-            class="badge badge-primary badge-lg badge-outline gap-1 uppercase"
+            class="badge badge-primary badge-outline uppercase"
           >
             Experimental
           </div>

@@ -4,7 +4,7 @@ import { useToast } from "#design/composables/useToast";
 import client from "#framework/client";
 import { t } from "#framework/i18n";
 import { useForm } from "vee-validate";
-import { Ref, inject, ref } from "vue";
+import { Ref, inject, ref, toValue } from "vue";
 import { Profile } from "~/app/profile/schemas/profile";
 import { Cookies } from "#framework/utils/cookies";
 import TextField from "#design/components/data-input/TextField.vue";
@@ -12,7 +12,7 @@ import TextField from "#design/components/data-input/TextField.vue";
 const profile = inject<Ref<Profile>>("profile")!;
 const toast = useToast();
 const form = useForm<Profile>({
-  initialValues: profile?.value,
+  initialValues: toValue(profile),
 });
 
 const ERROR_MESSAGE = t("An error occurred while updating personal data.");
@@ -43,7 +43,7 @@ const submit = form.handleSubmit(async () => {
       // @ts-ignore
       const value = form.values[key];
       // @ts-ignore
-      profile.value[key] = value;
+      profile[key] = value;
     });
 
     toast.success(SUCCESS_MESSAGE);
@@ -59,7 +59,11 @@ const submit = form.handleSubmit(async () => {
   <form @submit="submit" class="block space-y-2">
     <div class="gap-2 grid grid-cols-2">
       <TextField path="name" :label="t('Name')" class="grid-cols-1/2" />
-      <TextField path="lastName" :label="t('Last name')" class="grid-cols-1/2" />
+      <TextField
+        path="lastName"
+        :label="t('Last name')"
+        class="grid-cols-1/2"
+      />
     </div>
     <TextField path="username" :label="t('Username')" />
     <TextField path="pronouns" :label="t('Pronouns')" />
