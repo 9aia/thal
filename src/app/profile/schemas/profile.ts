@@ -8,6 +8,14 @@ import {
   MAX_PROFESSION_CHARS,
 } from "../constants";
 
+export const usernameSchema = z
+  .string()
+  .min(3, { message: "Username must be at least 3 characters long" })
+  .max(20, { message: "Username must be at most 20 characters long" })
+  .regex(/^[a-zA-Z0-9_]+$/, {
+    message: "Username can only contain letters, numbers, and underscores",
+  });
+
 export const profiles = sqliteTable("Profiles", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   name: text("name").notNull(),
@@ -51,12 +59,18 @@ export const profileUpdateSchema = createInsertSchema(profiles, {
         message: `Observation must contain at most ${MAX_OBSERVATION_CHARS} characters`,
       }
     ),
+  username: usernameSchema,
 }).partial();
 
 export const profileSelectSchema = createSelectSchema(profiles);
 export const profileInsertSchema = createInsertSchema(profiles, {
   signupDate: (schema) => schema.signupDate.optional(),
+  username: usernameSchema,
 });
 
 export type ProfileInsert = z.infer<typeof profileInsertSchema>;
 export type Profile = z.infer<typeof profileSelectSchema>;
+
+export const yupUsername = (value: any) => {
+  return usernameSchema.safeParse(value).success;
+};

@@ -4,7 +4,11 @@ import { zValidator } from "@hono/zod-validator";
 import { eq } from "drizzle-orm";
 import { Hono } from "hono";
 import { z } from "zod";
-import { profileUpdateSchema, profiles } from "../schemas/profile";
+import {
+  profileUpdateSchema,
+  profiles,
+  usernameSchema,
+} from "../schemas/profile";
 
 export default new Hono<ApiContext>()
   .get(
@@ -35,11 +39,36 @@ export default new Hono<ApiContext>()
 
       const orm = c.get("orm");
 
-      const profile = await orm.update(profiles).set(data).where(eq(profiles.username, username)).returning();
+      const profile = await orm
+        .update(profiles)
+        .set(data)
+        .where(eq(profiles.username, username))
+        .returning();
 
       return c.json(profile);
     }
   )
-  .post("/", async (c) => {
-    return c.json({ message: "Not implemented" }, 501);
-  });
+  .get(
+    "/validateUsername/:username",
+    zValidator("param", z.object({ username: z.string() })),
+    async (c) => {
+      const orm = c.get("orm");
+      const { username } = c.req.valid("param");
+
+      if(!usernameSchema.safeParse(username).success) {
+        return c.json({ valid: false }); 
+      }
+      
+      const usernameTaken =
+        (
+          await orm
+            .select()
+            .from(profiles)
+            .where(eq(profiles.username, username))
+        ).at(0) !== undefined;
+
+      return c.json({
+        valid: !usernameTaken,
+      });
+    }
+  );

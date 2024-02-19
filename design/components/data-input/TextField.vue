@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useSlotContent } from "#design/composables/useSlotContent";
+import { SafeProps } from "#framework/utils/types";
 import { RuleExpression, useField } from "vee-validate";
 import { MaybeRef, type InputHTMLAttributes } from "vue";
-import { SafeProps } from "#framework/utils/types";
 
 type Props = SafeProps<InputHTMLAttributes> & {
   label?: string;
@@ -12,12 +12,15 @@ type Props = SafeProps<InputHTMLAttributes> & {
   rules?: MaybeRef<RuleExpression<string>>;
   mandatory?: boolean;
   feedback?: string | boolean;
+  iconPosition?: "none" | "right" | "left";
 };
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  iconPosition: "none",
+});
 const label = useSlotContent(() => props.label);
 
-const { value, errorMessage, handleBlur } = useField(props.path, props.rules);
+const { value, errorMessage } = useField(props.path, props.rules);
 </script>
 
 <template>
@@ -33,12 +36,30 @@ const { value, errorMessage, handleBlur } = useField(props.path, props.rules);
       >
     </div>
 
-    <input
-      class="input input-bordered w-full"
-      :placeholder="placeholder"
-      v-model="value"
-      @blur="handleBlur"
-    />
+    <div class="relative">
+      <div
+        v-if="iconPosition === 'left'"
+        class="absolute left-4 bottom-1/2 translate-y-1/2"
+      >
+        <slot name="icon" />
+      </div>
+
+      <input
+        class="input input-bordered w-full"
+        :placeholder="placeholder"
+        v-model="value"
+        :class="{
+          'pr-12': iconPosition === 'right',
+          'pl-12': iconPosition === 'left',
+        }"
+      />
+      <div
+        v-if="iconPosition === 'right'"
+        class="flex absolute right-4 bottom-1/2 translate-y-1/2"
+      >
+        <slot name="icon" :errorMessage="errorMessage" />
+      </div>
+    </div>
 
     <div v-if="errorMessage && !feedback" class="label">
       <span class="label-text-alt text-error">

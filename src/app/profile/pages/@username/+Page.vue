@@ -1,24 +1,19 @@
 <script setup lang="ts">
-import AboutMe from "./AboutMe.vue";
-import Interests from "./Interests.vue";
-import Summary from "./Summary.vue";
-import Header from "./Header.vue";
 import { useData } from "#framework/composables/useData";
-import Data from "../+data";
-import { ref, provide, onMounted } from "vue";
-import Goals from "./Goals.vue";
-import Observation from "./Observation.vue";
-import { Cookies } from "#framework/utils/cookies";
-import Btn from "#design/components/action/Btn.vue";
 import { t } from "#framework/i18n";
+import { Cookies } from "#framework/utils/cookies";
+import { provide, ref } from "vue";
+import Data from "../+data";
+import AboutMe from "./AboutMe.vue";
+import Goals from "./Goals.vue";
+import Header from "./Header.vue";
+import Interests from "./Interests.vue";
+import Observation from "./Observation.vue";
+import Summary from "./Summary.vue";
 
 const data = useData<typeof Data>();
 const profile = ref(data.value);
 provide("profile", profile);
-
-/* onMounted(() => {
-  Cookies.set("username", profile.value.username, { path: "/" });
-}); */
 </script>
 
 <template>
