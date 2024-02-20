@@ -133,13 +133,13 @@ export default exerciseRouter
         data: text,
       });
 
-      delete parsedExercise['correct'];
+      const processedData = exercise.postprocess(parsedExercise);
 
       return c.json({
         id: savedExercise.id,
         lessonId: savedExercise.lessonId,
         type: savedExercise.type,
-        data: parsedExercise,
+        data: processedData,
       });
     }
   );

@@ -10,10 +10,10 @@ import {
   exercise,
   select,
 } from "../../store";
-import { useListener } from "#design/composables/useListener";
 import client from "#framework/client";
 import { Cookies } from "#framework/utils/cookies";
 import { t } from "#framework/i18n";
+import { useEventListener } from "@vueuse/core";
 
 async function generateExercise() {
   const username = Cookies.get("username");
@@ -80,23 +80,23 @@ const next = async () => {
 
 onMounted(async () => {
   exercise.value = await generateExercise();
-});
-
-useListener("keydown", (e: any) => {
-  if (e.key !== "Enter") return;
-
-  if (!btn.value) return;
-
-  if (finishObj.finished) {
+  
+  useEventListener(document, "keydown", (e: any) => {
+    if (e.key !== "Enter") return;
+  
+    if (!btn.value) return;
+  
+    if (finishObj.finished) {
+      btn.value?.focus();
+      btn.value?.click();
+      return;
+    }
+  
+    if (select === NON_SELECTED || !exercise) return;
+  
     btn.value?.focus();
     btn.value?.click();
-    return;
-  }
-
-  if (select === NON_SELECTED || !exercise) return;
-
-  btn.value?.focus();
-  btn.value?.click();
+  });
 });
 </script>
 

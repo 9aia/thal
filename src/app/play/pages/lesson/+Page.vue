@@ -1,27 +1,36 @@
 <script setup lang="ts">
-import { onMounted, ref, markRaw } from "vue";
+import { onMounted, ref, markRaw, watch } from "vue";
 import { exercise, select } from "../../store";
+import { useToast } from "#design/composables/useToast";
+import { t } from "#framework/i18n";
 
-const components = import.meta.glob("../../components/*.vue");
+const LOAD_ERROR_MESSAGE = t("Error loading exercise");
 
+const components = import.meta.glob("../../exercises/*.vue");
+
+const toast = useToast();
 const comp = ref<any>();
 
-async function loadComponent(name: string) {
-  const path = `../../components/${name}.vue`;
+async function loadExercise(name: string) {
+  const path = `../../exercises/${name}.vue`;
 
   if (components[path]) {
     try {
-      const c = await components[path]() as any;
+      const c = (await components[path]()) as any;
       comp.value = markRaw(c.default);
     } catch (error) {
-      console.error("Error loading the component: ", error);
+      toast.error(LOAD_ERROR_MESSAGE);
     }
   }
 }
 
 onMounted(() => {
-  loadComponent("ReadAndAnswer");
+  loadExercise(exercise.value.type);
 });
+
+watch(exercise, () => {
+  loadExercise(exercise.value.type);
+})
 </script>
 
 <template>

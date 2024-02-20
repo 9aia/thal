@@ -27,7 +27,6 @@
     "qrcode.vue": "^3.4.1",
     "stripe": "^14.13.0",
     "tailwind-variants": "^0.1.19",
-    "typescript": "^5.3.3",
     "vee-validate": "^4.12.3",
     "vike": "^0.4.158",
     "vue": "^3.3.13",
@@ -40,6 +39,7 @@
     "@types/node": "^20.10.5",
     "@vitejs/plugin-vue": "^4.5.2",
     "@vue/compiler-sfc": "^3.3.13",
+    "@vue/tsconfig": "^0.5.1",
     "autoprefixer": "^10.4.16",
     "daisyui": "^4.4.23",
     "drizzle-kit": "^0.19.13",
@@ -47,6 +47,7 @@
     "postcss": "^8.4.32",
     "release-it": "^16.3.0",
     "tailwindcss": "^3.4.0",
+    "typescript": "^5.3.3",
     "vite": "^4.5.1",
     "wrangler": "^3.22.1"
   },

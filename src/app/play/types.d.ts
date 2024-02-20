@@ -25,11 +25,22 @@ export type ExerciseImplementation = {
   prompt:
     | ((options: ExercisePromptOptions) => PromptImplementation)
     | (() => PromptImplementation);
+  postprocess: (prev: any) => any;
 };
 
 export type ExerciseQA = {
   text: string;
   question?: string;
   alternatives: string[];
+};
+
+export type ExerciseFillInTheBlank = {
+  text: string;
+  question?: string;
+  alternatives: string[];
+  correctLength: number;
+};
+
+export type ExerciseQAWithCorrect = ExerciseQA & {
   correct: number;
 };

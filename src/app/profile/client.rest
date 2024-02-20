@@ -1,0 +1,14 @@
+GET http://localhost:3000/api/app/profile/luis HTTP/1.1
+
+### 
+
+PATCH http://localhost:3000/api/app/profile/luis
+Content-Type: application/json
+
+{
+  "username": "luis2"
+}
+
+### 
+
+GET http://localhost:3000/api/app/profile/validateUsername/luis

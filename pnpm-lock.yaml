@@ -50,9 +50,6 @@ dependencies:
   tailwind-variants:
     specifier: ^0.1.19
     version: 0.1.19(tailwindcss@3.4.0)
-  typescript:
-    specifier: ^5.3.3
-    version: 5.3.3
   vee-validate:
     specifier: ^4.12.3
     version: 4.12.3(vue@3.3.13)
@@ -85,6 +82,9 @@ devDependencies:
   '@vue/compiler-sfc':
     specifier: ^3.3.13
     version: 3.3.13
+  '@vue/tsconfig':
+    specifier: ^0.5.1
+    version: 0.5.1
   autoprefixer:
     specifier: ^10.4.16
     version: 10.4.16(postcss@8.4.32)
@@ -106,6 +106,9 @@ devDependencies:
   tailwindcss:
     specifier: ^3.4.0
     version: 3.4.0
+  typescript:
+    specifier: ^5.3.3
+    version: 5.3.3
   vite:
     specifier: ^4.5.1
     version: 4.5.1(@types/node@20.10.5)
@@ -1363,6 +1366,10 @@ packages:
 
   /@vue/shared@3.3.13:
     resolution: {integrity: sha512-/zYUwiHD8j7gKx2argXEMCUXVST6q/21DFU0sTfNX0URJroCe3b1UF6vLJ3lQDfLNIiiRl2ONp7Nh5UVWS6QnA==}
+
+  /@vue/tsconfig@0.5.1:
+    resolution: {integrity: sha512-VcZK7MvpjuTPx2w6blwnwZAu5/LgBUtejFOi3pPGQFXQN5Ela03FUtd2Qtg4yWGGissVL0dr6Ro1LfOFh+PCuQ==}
+    dev: true
 
   /@vueuse/core@10.7.2(vue@3.3.13):
     resolution: {integrity: sha512-AOyAL2rK0By62Hm+iqQn6Rbu8bfmbgaIMXcE3TSr7BdQ42wnSFlwIdPjInO62onYsEMK/yDMU8C6oGfDAtZ2qQ==}

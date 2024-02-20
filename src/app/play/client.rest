@@ -6,6 +6,16 @@ GET http://localhost:3000/api/exercise/38
 
 ### 
 
+POST http://localhost:3000/api/exercise/generate
+Content-Type: application/json
+
+{
+  "username": "luis",
+  "lessonId": 0
+}
+
+### 
+
 POST http://localhost:3000/api/exercise/verify/38
 Content-Type: application/json
 
