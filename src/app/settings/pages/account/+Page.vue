@@ -5,17 +5,27 @@ import client from "#framework/client";
 import { t } from "#framework/i18n";
 import { useForm } from "vee-validate";
 import { inject, ref, toValue, watch } from "vue";
-import { Profile } from "~/app/profile/schemas/profile";
+import {
+  Profile,
+  usernameSchema,
+  nameSchema,
+} from "~/app/profile/schemas/profile";
 import { Cookies } from "#framework/utils/cookies";
 import TextField from "#design/components/data-input/TextField.vue";
 import Icon from "#design/components/display/Icon.vue";
 import { useDebounceFn } from "@vueuse/core";
-import { yupUsername } from "../../../profile/schemas/profile";
+import useHasFormErrors from "#framework/composables/useHasFormErrors";
 
 const ERROR_MESSAGE = t("An error occurred while updating personal data.");
 const SUCCESS_MESSAGE = t("Personal data has been updated successfully.");
 const USERNAME_NOT_FOUND_MESSAGE = t("Username not found.");
 const USERNAME_INVALID_MESSAGE = t("Username is invalid.");
+const NAME_INVALID_MESSAGE = t(
+  "Name must contain between 1 and 20 characters."
+);
+const LASTNAME_INVALID_MESSAGE = t(
+  "Last name must contain between 1 and 20 characters."
+);
 const USERNAME_VALIDATION_ERROR_MESSAGE = t(
   "An error occurred while validating username."
 );
@@ -25,13 +35,16 @@ const toast = useToast();
 const form = useForm<Profile>({
   initialValues: toValue(profile),
 });
+const hasErrors = useHasFormErrors(form);
 
 const loading = ref(false);
 
-const invalidUsername = ref(true);
+const invalidUsername = ref(false);
 
 const validateUsername = async (username: string) => {
   if (!username) return;
+
+  const currentUsername = Cookies.get("username");
 
   const res = await client.app.profile.validateUsername[":username"].$get({
     param: {
@@ -39,26 +52,28 @@ const validateUsername = async (username: string) => {
     },
   });
 
-  let valid = false;
+  let invalid = false;
 
   if (!res.ok) {
     toast.error(USERNAME_VALIDATION_ERROR_MESSAGE);
+    invalid = false;
   } else {
     const result = await res.json();
-    valid = result.valid;
+    invalid = !result.valid && currentUsername !== username;
   }
 
-  invalidUsername.value = !valid;
+  invalidUsername.value = invalid;
 
-  form.setFieldError("username", !valid ? USERNAME_INVALID_MESSAGE : undefined);
+  form.setFieldError(
+    "username",
+    invalid ? USERNAME_INVALID_MESSAGE : undefined
+  );
 };
 
 const debouncedValidateUsername = useDebounceFn(validateUsername, 500);
 watch(() => form.values.username, debouncedValidateUsername);
 
 const submit = form.handleSubmit(async (data) => {
-  if (!data.username || invalidUsername.value) return;
-
   const username = Cookies.get("username");
   if (!username) {
     throw new Error(USERNAME_NOT_FOUND_MESSAGE);
@@ -99,17 +114,27 @@ const submit = form.handleSubmit(async (data) => {
 
   <form @submit="submit" class="block space-y-2">
     <div class="gap-2 grid grid-cols-2">
-      <TextField path="name" :label="t('Name')" class="grid-cols-1/2" />
+      <TextField
+        path="name"
+        :label="t('Name')"
+        class="grid-cols-1/2"
+        :rules="(v) => nameSchema.safeParse(v).success || NAME_INVALID_MESSAGE"
+      />
       <TextField
         path="lastName"
         :label="t('Last name')"
         class="grid-cols-1/2"
+        :rules="
+          (v) => nameSchema.safeParse(v).success || LASTNAME_INVALID_MESSAGE
+        "
       />
     </div>
     <TextField
       path="username"
       :label="t('Username')"
-      :rules="v => yupUsername(v) || USERNAME_INVALID_MESSAGE"
+      :rules="
+        (v) => usernameSchema.safeParse(v).success || USERNAME_INVALID_MESSAGE
+      "
       iconPosition="right"
     >
       <template #icon="{ errorMessage }">
@@ -123,6 +148,8 @@ const submit = form.handleSubmit(async (data) => {
 
     <div class="h-2" />
 
-    <Btn :loading="loading" class="btn-primary">{{ t("Save") }}</Btn>
+    <Btn :loading="loading" class="btn-primary" :disabled="hasErrors">{{
+      t("Save")
+    }}</Btn>
   </form>
 </template>

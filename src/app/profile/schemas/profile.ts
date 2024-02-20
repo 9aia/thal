@@ -8,14 +8,6 @@ import {
   MAX_PROFESSION_CHARS,
 } from "../constants";
 
-export const usernameSchema = z
-  .string()
-  .min(3, { message: "Username must be at least 3 characters long" })
-  .max(20, { message: "Username must be at most 20 characters long" })
-  .regex(/^[a-zA-Z0-9_]+$/, {
-    message: "Username can only contain letters, numbers, and underscores",
-  });
-
 export const profiles = sqliteTable("Profiles", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   name: text("name").notNull(),
@@ -30,7 +22,20 @@ export const profiles = sqliteTable("Profiles", {
   observation: text("observation"),
 });
 
+export const usernameSchema = z
+  .string()
+  .min(1, { message: "Username must be at least 1 character long" })
+  .max(20, { message: "Username must be at most 20 characters long" })
+  .regex(/^[a-zA-Z0-9_]+$/, {
+    message: "Username can only contain letters, numbers, and underscores",
+  });
+
+export const nameSchema = z.string().min(1).max(20);
+
 export const profileUpdateSchema = createInsertSchema(profiles, {
+  name: nameSchema,
+  lastName: nameSchema,
+  username: usernameSchema,
   hobbies: (schema) =>
     schema.hobbies.refine(
       (hobbies) => hobbies.split(",").length <= MAX_HOBBIES_AMOUNT,
@@ -59,18 +64,22 @@ export const profileUpdateSchema = createInsertSchema(profiles, {
         message: `Observation must contain at most ${MAX_OBSERVATION_CHARS} characters`,
       }
     ),
-  username: usernameSchema,
 }).partial();
 
-export const profileSelectSchema = createSelectSchema(profiles);
+export const profileSelectSchema = createSelectSchema(profiles, {
+  name: nameSchema,
+  lastName: nameSchema,
+});
 export const profileInsertSchema = createInsertSchema(profiles, {
-  signupDate: (schema) => schema.signupDate.optional(),
+  name: nameSchema,
+  lastName: nameSchema,
   username: usernameSchema,
+  signupDate: (schema) => schema.signupDate.optional(),
 });
 
 export type ProfileInsert = z.infer<typeof profileInsertSchema>;
 export type Profile = z.infer<typeof profileSelectSchema>;
 
-export const yupUsername = (value: any) => {
-  return usernameSchema.safeParse(value).success;
+export const yupName = (value: any) => {
+  return nameSchema.safeParse(value).success;
 };
