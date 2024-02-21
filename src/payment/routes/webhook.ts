@@ -1,11 +1,11 @@
-import { ApiContext } from "#framework/api";
+import { HonoContext } from "#lib/hono/types";
 import { Hono } from "hono";
 import { env } from "hono/adapter";
+import Stripe from "stripe";
 import * as stripeHandlers from "../handlers/stripe";
 import { getStripe } from "../utils/stripe";
-import Stripe from "stripe";
 
-const webhookRoutes = new Hono<ApiContext>();
+const webhookRoutes = new Hono<HonoContext>();
 
 export default webhookRoutes.post("/stripe", async (c) => {
   const { STRIPE_ENDPOINT_SECRET, STRIPE_SECRET_KEY } = env(c);

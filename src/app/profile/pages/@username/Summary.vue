@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import Btn from "#design/components/action/Btn.vue";
-import Icon from "#design/components/display/Icon.vue";
-import Skeleton from "#design/components/feedback/Skeleton.vue";
-import { useToast } from "#design/composables/useToast";
-import client from "#framework/client";
-import { t } from "#framework/i18n";
-import { Ref, inject, onMounted, ref } from "vue";
-import { Profile } from "../../schemas/profile";
+import Btn from "#lib/daisy/components/action/Btn.vue";
+import Icon from "#lib/daisy/components/display/Icon.vue";
+import Skeleton from "#lib/daisy/components/feedback/Skeleton.vue";
+import { useToast } from "#lib/daisy/composables/useToast";
+import client from "#lib/hono/client";
+import { t } from "#lib/i18n";
+import { onMounted, ref } from "vue";
+import useProfile from "../../store";
 
 const toast = useToast();
 
-const profile = inject<Ref<Profile>>("profile");
+const profile = useProfile();
 
 const loading = ref(true);
 const summary = ref("");

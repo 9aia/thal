@@ -13,17 +13,19 @@
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
-    "package.json": "package-lock.json, pnpm-lock.yaml, .gitignore, tsconfig.json, shims.d.ts",
+    "package.json": "package-lock.json, pnpm-lock.yaml, .gitignore, tsconfig.json, *.d.ts, .release-it.json",
     "vite.config.ts": "postcss.config.js, tailwind.config.js",
-    "wrangler.toml": "wrangler.*, .env*"
+    "wrangler.toml": "wrangler.*, .env*, public_keys.json"
   },
   "editor.tabSize": 2,
   "sqltools.connections": [
     {
       "previewLimit": 50,
       "driver": "SQLite",
-      "database": "${workspaceFolder:maratongue}/.wrangler/state/v3/d1/miniflare-D1DatabaseObject/af602ae670dbb4884ec1bde42414fabc5dae2ea49866aa78c4d3791c3c6571d8.sqlite",
-      "name": "maratongue"
+      "database": "${workspaceFolder:maratongue}/.wrangler/state/v3/d1/miniflare-D1DatabaseObject/95763de2ad58e505cd7429d22e8b38bfd585ab0bd389a48d1dd9b093a76f1b56.sqlite",
+      "name": "maratongue",
+      "group": "maratongue"
     }
-  ]
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

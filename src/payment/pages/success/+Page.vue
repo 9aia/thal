@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { A, t } from "#framework/i18n";
-import { Cookies } from "#framework/utils/cookies";
+import { A, t } from "#lib/i18n";
+import { Cookies } from "#lib/web/utils/cookies";
 import { onMounted } from "vue";
 
 onMounted(() => {

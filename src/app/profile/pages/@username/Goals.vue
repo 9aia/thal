@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import Icon from "#design/components/display/Icon.vue";
-import { t } from "#framework/i18n";
-import { Ref, computed, inject } from "vue";
+import Icon from "#lib/daisy/components/display/Icon.vue";
+import { t } from "#lib/i18n";
+import { computed } from "vue";
 import { GOALS } from "../../constants";
-import { Profile } from "../../schemas/profile";
+import useProfile from "../../store";
 import { parseJoin } from "../../utils";
 
-const profile = inject<Ref<Profile>>("profile")!;
+const profile = useProfile();
 const goals = computed(() => {
   return parseJoin(profile.value.goals || "", GOALS);
 });

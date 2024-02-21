@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import Modal from "#design/components/action/Modal.vue";
-import TextField from "#design/components/data-input/TextField.vue";
-import { useToast } from "#design/composables/useToast";
-import client from "#framework/client";
-import { t } from "#framework/i18n";
+import Modal from "#lib/daisy/components/action/Modal.vue";
+import TextField from "#lib/daisy/components/data-input/TextField.vue";
+import { useToast } from "#lib/daisy/composables/useToast";
+import client from "#lib/hono/client";
+import { t } from "#lib/i18n";
 import { useForm } from "vee-validate";
 import { inject, ref } from "vue";
 import { MAX_PROFESSION_CHARS } from "../../profile/constants";
 import { Profile } from "../../profile/schemas/profile";
-import { Cookies } from "#framework/utils/cookies";
+import { Cookies } from "#lib/web/utils/cookies";
 
 const ERROR_MESSAGE = t("An error occurred while updating your profession.");
 const SUCCESS_MESSAGE = t("Profession has been updated successfully.");

@@ -3,16 +3,16 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "node ./dev-server/index.js",
-    "dev:api": "export NO_D1_WARNING=true && wrangler dev ./renderer/api.ts",
+    "dev": "node ./server/dev-server.js",
+    "dev:api": "export NO_D1_WARNING=true && wrangler dev ./server/api.ts",
     "build": "vite build",
     "preview": "vite build && wrangler dev",
     "deploy": "vite build && wrangler deploy",
-    "db": "wrangler d1 execute maratongue --local --file=./renderer/lucia.sql",
     "release": "release-it"
   },
   "dependencies": {
     "@ark-ui/vue": "^0.9.0",
+    "@google/generative-ai": "^0.2.1",
     "@hono/zod-validator": "^0.1.11",
     "@lucia-auth/adapter-sqlite": "^2.0.1",
     "@lucia-auth/oauth": "^3.5.1",
@@ -22,6 +22,7 @@
     "drizzle-orm": "^0.28.6",
     "drizzle-zod": "^0.5.1",
     "hono": "^3.11.9",
+    "lodash-es": "^4.17.21",
     "lucia": "^2.7.6",
     "maska": "^2.1.10",
     "qrcode.vue": "^3.4.1",
@@ -36,6 +37,7 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20231218.0",
     "@types/clientjs": "^0.2.2",
+    "@types/lodash-es": "^4.17.12",
     "@types/node": "^20.10.5",
     "@vitejs/plugin-vue": "^4.5.2",
     "@vue/compiler-sfc": "^3.3.13",
@@ -52,23 +54,8 @@
     "wrangler": "^3.22.1"
   },
   "imports": {
-    "#design/*": "./design/*",
-    "#framework/*": "./renderer/*",
+    "#lib/*": "./lib/*",
     "~/*": "./src/*"
   },
-  "type": "module",
-  "release-it": {
-    "git": {
-      "commit": true,
-      "tag": true,
-      "tagName": "v${version}"
-    },
-    "github": {
-      "release": true,
-      "releaseName": "Release ${version}"
-    },
-    "npm": {
-      "publish": false
-    }
-  }
+  "type": "module"
 }

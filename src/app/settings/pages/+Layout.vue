@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import Btn from "#design/components/action/Btn.vue";
-import Icon from "#design/components/display/Icon.vue";
-import Breadcrumbs from "#design/components/navigation/Breadcrumbs.vue";
-import { BreadcrumbItem } from "#design/components/navigation/types";
-import useBreadcrumbs from "#design/composables/useBreadcrumbs";
-import { useData } from "#framework/composables/useData";
-import { t } from "#framework/i18n";
+import Btn from "#lib/daisy/components/action/Btn.vue";
+import Icon from "#lib/daisy/components/display/Icon.vue";
+import Breadcrumbs from "#lib/daisy/components/navigation/Breadcrumbs.vue";
+import { BreadcrumbItem } from "#lib/daisy/components/navigation/types";
+import useBreadcrumbs from "#lib/daisy/composables/useBreadcrumbs";
+import { useData } from "#lib/vike/composables/useData";
+import { t } from "#lib/i18n";
 import { provide, reactive } from "vue";
 import ParentLayout from "../../+Layout.vue";
 import { SETTINGS } from "../constants";

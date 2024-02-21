@@ -1,4 +1,4 @@
-import client from "#framework/client";
+import client from "#lib/hono/client";
 import { CfProperties } from "@cloudflare/workers-types";
 import { PageContext } from "vike/types";
 

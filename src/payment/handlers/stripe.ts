@@ -1,14 +1,14 @@
-import { ApiContext } from "#framework/api";
+import { HonoContext } from "#lib/hono/types";
+import { fromSToMillis } from "#lib/lang/utils/date";
 import { Context } from "hono";
 import Stripe from "stripe";
+import { PLANS } from "../constants/plans";
 import { activePlan, cancelSubscription, updateSubscription } from "../services/plan";
 import { getPlan } from "../utils/stripe";
-import { fromSToMillis } from "#framework/utils/date";
-import { PLANS } from "../constants/plans";
 
 export async function handleCheckoutCompleted(
   e: Stripe.CheckoutSessionCompletedEvent,
-  c: Context<ApiContext>
+  c: Context<HonoContext>
 ) {
   const orm = c.get("orm");
 
@@ -33,7 +33,7 @@ export async function handleCheckoutCompleted(
 
 export async function handleAsyncPaymentSucceeded(
   e: Stripe.CheckoutSessionAsyncPaymentSucceededEvent,
-  c: Context<ApiContext>
+  c: Context<HonoContext>
 ) {
   const orm = c.get("orm");
   const session = e.data.object;
@@ -60,7 +60,7 @@ export async function handleAsyncPaymentSucceeded(
 
 export async function handleCustomerSubscriptionDeleted(
   e: Stripe.CustomerSubscriptionDeletedEvent,
-  c: Context<ApiContext>
+  c: Context<HonoContext>
 ) {
   const orm = c.get("orm");
   const session = e.data.object;
@@ -75,7 +75,7 @@ export async function handleCustomerSubscriptionDeleted(
 
 export async function handleCustomerSubscriptionUpdated(
   e: Stripe.CustomerSubscriptionUpdatedEvent,
-  c: Context<ApiContext>
+  c: Context<HonoContext>
 ) {
   const orm = c.get("orm");
   const session = e.data.object;

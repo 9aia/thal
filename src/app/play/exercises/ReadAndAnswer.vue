@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { t } from "#framework/i18n";
+import { t } from "#lib/i18n";
 import ExerciseButton from "../components/ExerciseButton.vue";
 import useSingleResponse from "../composables/useSingleResponse";
 import { ExerciseQA } from "../types";

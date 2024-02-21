@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import Modal from "#design/components/action/Modal.vue";
-import Checkbox from "#design/components/data-input/Checkbox.vue";
-import Icon from "#design/components/display/Icon.vue";
-import { useToast } from "#design/composables/useToast";
-import client from "#framework/client";
-import { t } from "#framework/i18n";
+import Modal from "#lib/daisy/components/action/Modal.vue";
+import Checkbox from "#lib/daisy/components/data-input/Checkbox.vue";
+import Icon from "#lib/daisy/components/display/Icon.vue";
+import { useToast } from "#lib/daisy/composables/useToast";
+import client from "#lib/hono/client";
+import { t } from "#lib/i18n";
 import { useForm } from "vee-validate";
 import { computed, inject, ref } from "vue";
 import { GOALS } from "../../profile/constants";
 import { Profile } from "../../profile/schemas/profile";
-import { Cookies } from "#framework/utils/cookies";
+import { Cookies } from "#lib/web/utils/cookies";
 import { parseInitialValues } from "../utils";
 
 const ERROR_MESSAGE = t("An error occurred while updating goals.");

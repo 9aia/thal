@@ -56,4 +56,7 @@ export default {
   "https://forms.gle/ANMv7qnwTHva1k7L8": {
     "pt": "https://forms.gle/UyGBzPrBeNfFgwLD6"
   },
+  "Privacy policy": {
+    "pt": "Política de privacidade"
+  }
 };

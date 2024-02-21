@@ -1,4 +1,4 @@
-import { parseCookies } from "#framework/utils/cookies";
+import { parseCookies } from "#lib/web/utils/cookies";
 import { redirect } from "vike/abort";
 import { PageContext } from "vike/types";
 

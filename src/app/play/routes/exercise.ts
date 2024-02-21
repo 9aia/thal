@@ -1,5 +1,5 @@
-import { ApiContext } from "#framework/api";
-import { getGemini } from "#framework/utils/gemini";
+import { HonoContext } from "#lib/hono/types";
+import { GenerationConfig, GoogleGenerativeAI } from "@google/generative-ai";
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { env } from "hono/adapter";
@@ -9,8 +9,9 @@ import EXERCISES, { findExerciseImplementation } from "../exercises";
 import { exercises } from "../schemas/exercises";
 import { getExercise, saveExercise } from "../services/exercise";
 import { ExerciseImplementation, ExercisePromptOptions } from "../types";
+import { getGemini } from "#lib/gemini";
 
-const exerciseRouter = new Hono<ApiContext>();
+const exerciseRouter = new Hono<HonoContext>();
 
 export default exerciseRouter
   .get("/", async (c) => {
@@ -76,7 +77,6 @@ export default exerciseRouter
 
       const profile = await getProfile(c, username);
 
-      const { GEMINI_API_KEY } = env(c);
       const options: ExercisePromptOptions = {
         goals: profile.goals || "",
         hobbies: profile.hobbies || "",
@@ -107,17 +107,19 @@ export default exerciseRouter
         ${JSON.stringify(promptData.example)}
       `;
 
+      const { GEMINI_API_KEY } = env(c);
       const gemini = getGemini(GEMINI_API_KEY);
+      const generationConfig: GenerationConfig = {
+        temperature: 0.9,
+      };
 
-      const data = (await gemini.generateContent(prompt, {
-        temperature: 0.9
-      })) as any;
+      const result = await gemini.generateContent(prompt, generationConfig);
 
-      if ("error" in data) {
+      if ("error" in result) {
         throw new Error("Gemini 500");
-      }
+      } 
 
-      const text = data.candidates[0].content.parts[0].text;
+      const text = result.candidates[0].content.parts[0].text;
 
       let parsedExercise;
 

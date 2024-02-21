@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import Modal from "#design/components/action/Modal.vue";
-import Timeline from "#design/components/display/Timeline.vue";
-import { TimelineItem } from "#design/components/display/types";
-import { t } from "#framework/i18n";
+import Modal from "#lib/daisy/components/action/Modal.vue";
+import Timeline from "#lib/daisy/components/display/Timeline.vue";
+import { TimelineItem } from "#lib/daisy/components/display/types";
+import { t } from "#lib/i18n";
 
 const course = {
   name: "English Grammar",

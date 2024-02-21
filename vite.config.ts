@@ -14,8 +14,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "#framework": path.join(__dirname, "renderer"),
-      "#design": path.join(__dirname, "design"),
+      "#lib": path.join(__dirname, "lib"),
       "~": path.join(__dirname, "src"),
     },
   },

@@ -1,10 +1,10 @@
-import { ApiContext } from "#framework/api";
-import { getGemini } from "#framework/utils/gemini";
+import { getGemini } from "#lib/gemini";
+import { HonoContext } from "#lib/hono/types";
 import { Hono } from "hono";
 import { env } from "hono/adapter";
 import { getProfileData } from "../utils";
 
-export default new Hono<ApiContext>().post("/", async (c) => {
+export default new Hono<HonoContext>().post("/", async (c) => {
   const { GEMINI_API_KEY } = env(c);
   const data = await c.req.json();
 

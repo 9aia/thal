@@ -1,12 +1,8 @@
 <script setup lang="ts">
-import Icon from "#design/components/display/Icon.vue";
-import { t } from "#framework/i18n";
-import { Ref, computed, inject } from "vue";
-import { HOBBIES } from "../../constants";
-import { Profile } from "../../schemas/profile";
-import { parseJoin } from "../../utils";
+import { t } from "#lib/i18n";
+import useProfile from "../../store";
 
-const profile = inject<Ref<Profile>>("profile")!;
+const profile = useProfile();
 </script>
 
 <template>

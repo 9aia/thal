@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Btn from "#design/components/action/Btn.vue";
-import Icon from "#design/components/display/Icon.vue";
+import Btn from "#lib/daisy/components/action/Btn.vue";
+import Icon from "#lib/daisy/components/display/Icon.vue";
 import { navigate } from "vike/client/router";
 import { onMounted, reactive, ref } from "vue";
 import {
@@ -10,9 +10,9 @@ import {
   exercise,
   select,
 } from "../../store";
-import client from "#framework/client";
-import { Cookies } from "#framework/utils/cookies";
-import { t } from "#framework/i18n";
+import client from "#lib/hono/client";
+import { Cookies } from "#lib/web/utils/cookies";
+import { t } from "#lib/i18n";
 import { useEventListener } from "@vueuse/core";
 
 async function generateExercise() {
@@ -80,6 +80,9 @@ const next = async () => {
 
 onMounted(async () => {
   exercise.value = await generateExercise();
+
+
+  console.log(exercise.value)
   
   useEventListener(document, "keydown", (e: any) => {
     if (e.key !== "Enter") return;

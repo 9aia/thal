@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import Footer from "#design/components/layout/Footer.vue";
-import Header from "#design/components/layout/Header.vue";
-import { t } from "#framework/i18n";
-import { useData } from "#framework/composables/useData";
+import Footer from "#lib/daisy/components/layout/Footer.vue";
+import Header from "#lib/daisy/components/layout/Header.vue";
+import { t } from "#lib/i18n";
+import { useData } from "#lib/vike/composables/useData";
 import Data from "./+data";
 
 const data = useData<typeof Data>();
@@ -12,7 +12,7 @@ const data = useData<typeof Data>();
   <Header>
     <template #navbar-end>
       <div class="flex gap-2">
-        <a class="btn btn-primary" href="/app">
+        <a class="btn btn-primary" href="/app/explore">
           {{ t("Try Maratongue") }}
         </a>
 

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import Btn from "#design/components/action/Btn.vue";
-import { useToast } from "#design/composables/useToast";
-import client from "#framework/client";
-import { t } from "#framework/i18n";
+import Btn from "#lib/daisy/components/action/Btn.vue";
+import { useToast } from "#lib/daisy/composables/useToast";
+import client from "#lib/hono/client";
+import { t } from "#lib/i18n";
 import { useForm } from "vee-validate";
 import { inject, ref, toValue, watch } from "vue";
 import {
@@ -10,11 +10,11 @@ import {
   usernameSchema,
   nameSchema,
 } from "~/app/profile/schemas/profile";
-import { Cookies } from "#framework/utils/cookies";
-import TextField from "#design/components/data-input/TextField.vue";
-import Icon from "#design/components/display/Icon.vue";
+import { Cookies } from "#lib/web/utils/cookies";
+import TextField from "#lib/daisy/components/data-input/TextField.vue";
+import Icon from "#lib/daisy/components/display/Icon.vue";
 import { useDebounceFn } from "@vueuse/core";
-import useHasFormErrors from "#framework/composables/useHasFormErrors";
+import useHasFormErrors from "#lib/vee-validate/composables/useHasFormErrors";
 
 const ERROR_MESSAGE = t("An error occurred while updating personal data.");
 const SUCCESS_MESSAGE = t("Personal data has been updated successfully.");

@@ -1,4 +1,4 @@
-import { i18nConfig } from "#framework/i18n";
+import { i18nConfig } from "#lib/i18n";
 // @ts-ignore
 import locales from "../locales/index.js";
 

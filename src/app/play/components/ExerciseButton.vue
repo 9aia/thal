@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Kbd from "#design/components/display/Kbd.vue";
+import Kbd from "#lib/daisy/components/display/Kbd.vue";
 import { useMediaQuery } from "@vueuse/core";
 import { ref, watch } from "vue";
 

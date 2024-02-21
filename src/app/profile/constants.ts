@@ -9,6 +9,13 @@ export const ITEMS: Item[] = [
   { id: "location", icon: "location_on", label: "Where I live:" },
 ];
 
+export const PROFILE_ITEMS = [
+  { id: "goals", label: "Goals:" },
+  { id: "hobbies", label: "Hobbies:" },
+  { id: "profession", label: "Profession:" },
+  { id: "observation", label: "Observation:" },
+] as const;
+
 export const HOBBIES = [
   { id: "animals", icon: "pets", name: "Animals" },
   { id: "cooking", icon: "cooking", name: "Cooking" },
@@ -169,6 +176,10 @@ export const GOALS = [
   { id: "business", icon: "work", name: "Business" },
   { id: "education", icon: "school", name: "Education" },
   { id: "fun", icon: "sentiment_very_satisfied", name: "Fun" },
-  { id: "personalDevelopment", icon: "self_improvement", name: "Personal Development" },
+  {
+    id: "personalDevelopment",
+    icon: "self_improvement",
+    name: "Personal Development",
+  },
   { id: "travel", icon: "map", name: "Travel" },
 ];

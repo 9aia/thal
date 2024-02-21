@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import Avatar from "#design/components/display/Avatar.vue";
-import Icon from "#design/components/display/Icon.vue";
-import Menu from "#design/components/layout/Menu.vue";
-import { MenuItem } from "#design/components/layout/types";
-import { usePageContext } from "#framework/composables/usePageContext";
-import { A } from "#framework/i18n";
+import Avatar from "#lib/daisy/components/display/Avatar.vue";
+import Icon from "#lib/daisy/components/display/Icon.vue";
+import Menu from "#lib/daisy/components/layout/Menu.vue";
+import { MenuItem } from "#lib/daisy/components/layout/types";
+import { usePageContext } from "#lib/vike/composables/usePageContext";
+import { A } from "#lib/i18n";
 
 withDefaults(
   defineProps<{

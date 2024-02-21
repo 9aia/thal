@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { t } from "#framework/i18n";
+import { t } from "#lib/i18n";
 import { computed } from "vue";
 import { BLANK } from "../constants";
 import ExerciseButton from "../components/ExerciseButton.vue";

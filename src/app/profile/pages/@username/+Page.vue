@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useData } from "#framework/composables/useData";
-import { t } from "#framework/i18n";
-import { Cookies } from "#framework/utils/cookies";
+import { useData } from "#lib/vike/composables/useData";
+import { t } from "#lib/i18n";
+import { Cookies } from "#lib/web/utils/cookies";
 import { provide, ref } from "vue";
 import Data from "../+data";
 import AboutMe from "./AboutMe.vue";

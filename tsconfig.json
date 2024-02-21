@@ -7,8 +7,7 @@
     "types": ["vite/client", "@cloudflare/workers-types"],
 
     "paths": {
-      "#framework/*": ["./renderer/*"],
-      "#design/*": ["./design/*"],
+      "#lib/*": ["./lib/*"],
       "~/*": ["./src/*"]
     }
   }

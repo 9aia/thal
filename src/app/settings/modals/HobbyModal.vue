@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import Modal from "#design/components/action/Modal.vue";
-import Checkbox from "#design/components/data-input/Checkbox.vue";
-import Icon from "#design/components/display/Icon.vue";
-import { useToast } from "#design/composables/useToast";
-import { ellipsis } from "#design/utils/text";
-import client from "#framework/client";
-import { t } from "#framework/i18n";
-import { Cookies } from "#framework/utils/cookies";
+import Modal from "#lib/daisy/components/action/Modal.vue";
+import Checkbox from "#lib/daisy/components/data-input/Checkbox.vue";
+import Icon from "#lib/daisy/components/display/Icon.vue";
+import { useToast } from "#lib/daisy/composables/useToast";
+import * as _ from "lodash-es";
+import client from "#lib/hono/client";
+import { t } from "#lib/i18n";
+import { Cookies } from "#lib/web/utils/cookies";
 import { useForm } from "vee-validate";
 import { computed, inject, ref } from "vue";
 import { HOBBIES, MAX_HOBBIES_AMOUNT } from "../../profile/constants";
@@ -143,7 +143,9 @@ const submit = form.handleSubmit(async (data) => {
           }}
         </p>
 
-        <small class="text-xs">{{ ellipsis(hobbyNames.join(", "), 60) }}</small>
+        <small class="text-xs">{{
+          _.truncate(hobbyNames.join(", "), { length: 60 })
+        }}</small>
       </div>
     </template>
   </Modal>

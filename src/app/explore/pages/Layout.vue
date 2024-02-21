@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Icon from "#design/components/display/Icon.vue";
-import { usePageContext } from "#framework/composables/usePageContext";
+import Icon from "#lib/daisy/components/display/Icon.vue";
+import { usePageContext } from "#lib/vike/composables/usePageContext";
 
 const pageContext = usePageContext();
 

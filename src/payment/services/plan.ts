@@ -1,10 +1,10 @@
 import { eq } from "drizzle-orm";
 import { DrizzleD1Database } from "drizzle-orm/d1";
-import { users } from "~/auth/schemas/auth.schemas";
+import { users } from "~/auth/schemas/user";
 import { PlanType } from "../constants/plans";
 import { SQLiteUpdateSetSource } from "drizzle-orm/sqlite-core";
-import { now } from "#framework/utils/date";
-import { notFound } from "#framework/utils/httpThrowers";
+import { now } from "#lib/lang/utils/date";
+import { notFound } from "#lib/hono/utils/httpStatus";
 
 export const activePlan = async (
   orm: DrizzleD1Database,

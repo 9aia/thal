@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import Btn from "#design/components/action/Btn.vue";
-import Icon from "#design/components/display/Icon.vue";
-import { t } from "#framework/i18n";
+import Btn from "#lib/daisy/components/action/Btn.vue";
+import Icon from "#lib/daisy/components/display/Icon.vue";
+import { t } from "#lib/i18n";
 import { computed, inject, ref } from "vue";
 import { Profile } from "~/app/profile/schemas/profile";
 import { GOALS, HOBBIES } from "../../../profile/constants";

@@ -1,5 +1,5 @@
-import { ApiContext } from "#framework/api";
-import { notFound } from "#framework/utils/httpThrowers";
+import { HonoContext } from "#lib/hono/types";
+import { notFound } from "#lib/hono/utils/httpStatus";
 import { zValidator } from "@hono/zod-validator";
 import { eq } from "drizzle-orm";
 import { Hono } from "hono";
@@ -10,7 +10,7 @@ import {
   usernameSchema,
 } from "../schemas/profile";
 
-export default new Hono<ApiContext>()
+export default new Hono<HonoContext>()
   .get(
     "/:username",
     zValidator("param", z.object({ username: z.string() })),
@@ -55,10 +55,10 @@ export default new Hono<ApiContext>()
       const orm = c.get("orm");
       const { username } = c.req.valid("param");
 
-      if(!usernameSchema.safeParse(username).success) {
-        return c.json({ valid: false }); 
+      if (!usernameSchema.safeParse(username).success) {
+        return c.json({ valid: false });
       }
-      
+
       const usernameTaken =
         (
           await orm

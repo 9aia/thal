@@ -1,5 +1,5 @@
 name = "maratongue"
-main = "./renderer/adapters/worker.ts"
+main = "./renderer/cloudflare/worker.ts"
 compatibility_date = "2021-09-29"
 workers_dev = true
 node_compat = true

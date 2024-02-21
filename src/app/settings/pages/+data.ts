@@ -1,7 +1,7 @@
-import client from "#framework/client";
+import client from "#lib/hono/client";
 import { PageContext } from "vike/types";
 import { render } from "vike/abort";
-import { parseCookies } from "#framework/utils/cookies";
+import { parseCookies } from "#lib/web/utils/cookies";
 
 export default async (pageContext: PageContext) => {
   const { username } = parseCookies(pageContext.cookies);

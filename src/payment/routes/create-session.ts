@@ -1,18 +1,18 @@
-import { ApiContext } from "#framework/api";
+import { HonoContext } from "#lib/hono/types";
+import { notFound } from "#lib/hono/utils/httpStatus";
+import { zValidator } from "@hono/zod-validator";
+import { eq } from "drizzle-orm";
 import { Hono } from "hono";
 import { env } from "hono/adapter";
-import { getStripe } from "../utils/stripe";
-import { APP_URL } from '../../../public_keys.json';
-import { zValidator } from "@hono/zod-validator";
-import { z } from "zod";
-import { users } from "~/auth/schemas/auth.schemas";
-import { eq } from "drizzle-orm";
 import { getCookie } from "hono/cookie";
-import { notFound } from "#framework/utils/httpThrowers";
-import { verifyAuthentication } from "#framework/middlewares/verifyAuthentication";
 import Stripe from "stripe";
+import { z } from "zod";
+import auth from "~/auth/middlewares/auth";
+import { users } from "~/auth/schemas/user";
+import { APP_URL } from '../../../public_keys.json';
+import { getStripe } from "../utils/stripe";
 
-const createSessionRoutes = new Hono<ApiContext>();
+const createSessionRoutes = new Hono<HonoContext>();
 
 export default createSessionRoutes
   .get("/stripe/redirect/:type", zValidator("param", z.object({
@@ -24,7 +24,7 @@ export default createSessionRoutes
 
     return c.html(`<meta http-equiv="refresh" content="1;URL='${url}'" />`)
   })
-  .get("/stripe/create-checkout-session", verifyAuthentication({ redirect: true, redirectType: 'pricing' }), async (c) => {
+  .get("/stripe/create-checkout-session", auth({ redirect: true, redirectType: 'pricing' }), async (c) => {
     const { STRIPE_SECRET_KEY } = env(c);
     const orm = c.get("orm");
 
@@ -86,7 +86,7 @@ export default createSessionRoutes
 
     return c.redirect(checkoutSession.url!);
   })
-  .get("/stripe/create-portal-session", verifyAuthentication({ redirect: true }), async (c) => {
+  .get("/stripe/create-portal-session", auth({ redirect: true }), async (c) => {
     const { STRIPE_SECRET_KEY } = env(c);
     const orm = c.get("orm");
 

@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import Icon from "#design/components/display/Icon.vue";
-import { t } from "#framework/i18n";
-import { Ref, inject } from "vue";
+import Icon from "#lib/daisy/components/display/Icon.vue";
+import { t } from "#lib/i18n";
 import { ITEMS } from "../../constants";
-import { Profile } from "../../schemas/profile";
+import useProfile from "../../store";
 
-const profile = inject<Ref<Profile>>("profile")!;
+const profile = useProfile();
 </script>
 
 <template>

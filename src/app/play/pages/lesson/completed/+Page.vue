@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useConfetti } from "#design/composables/useConfetti";
+import { useConfetti } from "#lib/daisy/composables/useConfetti";
 import { onMounted } from "vue";
 
 const confetti = useConfetti();

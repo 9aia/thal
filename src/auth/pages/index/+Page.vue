@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import Btn from "#design/components/action/Btn.vue";
-import GoogleLogo from "#design/components/display/GoogleLogo.vue";
-import { useData } from "#framework/composables/useData";
+import Btn from "#lib/daisy/components/action/Btn.vue";
+import GoogleLogo from "#lib/daisy/components/display/GoogleLogo.vue";
+import { useData } from "#lib/vike/composables/useData";
 import Data from "./+data";
 
 const data = useData<typeof Data>();
@@ -12,17 +12,9 @@ const data = useData<typeof Data>();
     <h1>Auth</h1>
 
     <form action="/api/auth/google" method="GET">
-      <input
-        v-if="data.type"
-        type="hidden"
-        name="type"
-        value="pricing"
-      />
+      <input v-if="data.type" type="hidden" name="type" value="pricing" />
 
-      <Btn
-        type="submit"
-        class="btn mt-2 w-full flex gap-1"
-      >
+      <Btn type="submit" class="btn mt-2 w-full flex gap-1">
         <GoogleLogo />
         Continuar com Google
       </Btn>

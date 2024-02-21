@@ -1,11 +1,11 @@
+import { HonoContext } from "#lib/hono/types";
+import { notFound } from "#lib/hono/utils/httpStatus";
+import { now } from "#lib/lang/utils/date";
 import { eq } from "drizzle-orm";
 import { Context } from "hono";
 import { ProfileInsert, profiles } from "../schemas/profile";
-import { notFound } from "#framework/utils/httpThrowers";
-import { ApiContext } from "#framework/api";
-import { now } from "#framework/utils/date";
 
-export async function getProfile(c: Context<ApiContext>, username: string) {
+export async function getProfile(c: Context<HonoContext>, username: string) {
   const orm = c.get("orm");
 
   const profile = (
@@ -19,13 +19,19 @@ export async function getProfile(c: Context<ApiContext>, username: string) {
   return profile;
 }
 
-export async function createProfile(c: Context<ApiContext>, insert: ProfileInsert) {
+export async function createProfile(
+  c: Context<HonoContext>,
+  insert: ProfileInsert
+) {
   const orm = c.get("orm");
 
-  const profile = await orm.insert(profiles).values({
-    ...insert,
-    signupDate: now().toString(),
-  }).returning();
+  const profile = await orm
+    .insert(profiles)
+    .values({
+      ...insert,
+      signupDate: now().toString(),
+    })
+    .returning();
 
   return profile;
 }

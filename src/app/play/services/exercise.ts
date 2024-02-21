@@ -1,10 +1,10 @@
+import { HonoContext } from "#lib/hono/types";
+import { notFound } from "#lib/hono/utils/httpStatus";
+import { eq } from "drizzle-orm";
 import { Context } from "hono";
 import { InsertExerciseSchema, exercises } from "../schemas/exercises";
-import { eq } from "drizzle-orm";
-import { notFound } from "#framework/utils/httpThrowers";
-import { ApiContext } from "#framework/api";
 
-export async function getExercise(c: Context<ApiContext>, exerciseId: number) {
+export async function getExercise(c: Context<HonoContext>, exerciseId: number) {
   const orm = c.get("orm");
   const res = await orm
     .select()
@@ -20,13 +20,13 @@ export async function getExercise(c: Context<ApiContext>, exerciseId: number) {
 }
 
 export async function saveExercise(
-  c: Context<ApiContext>,
+  c: Context<HonoContext>,
   insertExercise: InsertExerciseSchema
 ) {
   const orm = c.get("orm");
   const [exercise] = await orm
     .insert(exercises)
-    .values(insertExercise)
+    .values(insertExercise as any)
     .returning();
 
   return exercise;

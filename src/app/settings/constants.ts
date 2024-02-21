@@ -1,4 +1,4 @@
-import type { MenuItem as MenuItemType } from "#design/components/layout/types";
+import type { MenuItem as MenuItemType } from "../../../lib/daisy/components/layout/types";
 
 const general: MenuItemType[] = [
   {
@@ -18,8 +18,7 @@ const general: MenuItemType[] = [
   {
     id: "plan",
     name: "Plan",
-    action: "/api/payment/stripe/create-portal-session",
-    method: "POST",
+    href: "/api/payment/stripe/create-portal-session",
     icon: "subscriptions",
     type: "external",
   },

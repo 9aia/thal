@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { onMounted, ref, markRaw, watch } from "vue";
 import { exercise, select } from "../../store";
-import { useToast } from "#design/composables/useToast";
-import { t } from "#framework/i18n";
+import { useToast } from "#lib/daisy/composables/useToast";
+import { t } from "#lib/i18n";
 
 const LOAD_ERROR_MESSAGE = t("Error loading exercise");
 
