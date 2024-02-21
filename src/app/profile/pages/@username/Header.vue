@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import Avatar from "#lib/daisy/components/display/Avatar.vue";
-import { t } from "#lib/i18n";
-import useProfile from "../../store";
+import useProfile from '../../store'
+import Avatar from '#lib/daisy/components/display/Avatar.vue'
+import { t } from '#lib/i18n'
 
-const profile = useProfile();
+const profile = useProfile()
 </script>
 
 <template>

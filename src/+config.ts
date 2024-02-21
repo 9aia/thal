@@ -1,5 +1,5 @@
-import favicon from "/favicon.png";
+import favicon from '/favicon.png'
 
 export default {
   favicon,
-};
+}

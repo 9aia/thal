@@ -1,22 +1,22 @@
-import { HonoContext } from "#lib/hono/types";
-import { notFound } from "#lib/hono/utils/httpStatus";
-import { zValidator } from "@hono/zod-validator";
-import { eq } from "drizzle-orm";
-import { Hono } from "hono";
-import { env } from "hono/adapter";
-import { getCookie } from "hono/cookie";
-import Stripe from "stripe";
-import { z } from "zod";
-import auth from "~/auth/middlewares/auth";
-import { users } from "~/auth/schemas/user";
-import { APP_URL } from '../../../public_keys.json';
-import { getStripe } from "../utils/stripe";
+import { zValidator } from '@hono/zod-validator'
+import { eq } from 'drizzle-orm'
+import { Hono } from 'hono'
+import { env } from 'hono/adapter'
+import { getCookie } from 'hono/cookie'
+import type Stripe from 'stripe'
+import { z } from 'zod'
+import { APP_URL } from '../../../public_keys.json'
+import { getStripe } from '../utils/stripe'
+import auth from '~/auth/middlewares/auth'
+import { users } from '~/auth/schemas/user'
+import { notFound } from '#lib/hono/utils/httpStatus'
+import type { HonoContext } from '#lib/hono/types'
 
-const createSessionRoutes = new Hono<HonoContext>();
+const createSessionRoutes = new Hono<HonoContext>()
 
 export default createSessionRoutes
-  .get("/stripe/redirect/:type", zValidator("param", z.object({
-    type: z.enum(['success', 'canceled'])
+  .get('/stripe/redirect/:type', zValidator('param', z.object({
+    type: z.enum(['success', 'canceled']),
   })), async (c) => {
     const { type } = c.req.valid('param')
 
@@ -24,30 +24,28 @@ export default createSessionRoutes
 
     return c.html(`<meta http-equiv="refresh" content="1;URL='${url}'" />`)
   })
-  .get("/stripe/create-checkout-session", auth({ redirect: true, redirectType: 'pricing' }), async (c) => {
-    const { STRIPE_SECRET_KEY } = env(c);
-    const orm = c.get("orm");
+  .get('/stripe/create-checkout-session', auth({ redirect: true, redirectType: 'pricing' }), async (c) => {
+    const { STRIPE_SECRET_KEY } = env(c)
+    const orm = c.get('orm')
 
-    const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY });
+    const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY })
 
-    const lookup_key = "premium"
+    const lookup_key = 'premium'
 
     const session = c.get('session')
 
-    const [ user ] = await orm.select().from(users).where(eq(users.id, session.user.userId))
+    const [user] = await orm.select().from(users).where(eq(users.id, session.user.userId))
 
-    if (!user) {
-      throw notFound("User not found")
-    }
+    if (!user)
+      throw notFound('User not found')
 
-    if (getCookie(c, 'free_trial_used') === '1' && user.free_trial_used !== 1) {
+    if (getCookie(c, 'free_trial_used') === '1' && user.free_trial_used !== 1)
       return c.redirect('/plan/pending')
-    }
 
     const prices = await stripe.prices.list({
       lookup_keys: [lookup_key],
       expand: ['data.product'],
-    });
+    })
 
     const checkoutData: Stripe.Checkout.SessionCreateParams = {
       billing_address_collection: 'auto',
@@ -71,40 +69,39 @@ export default createSessionRoutes
         trial_settings: {
           end_behavior: {
             missing_payment_method: 'cancel',
-          }
-        }
+          },
+        },
       }
 
       checkoutData.payment_method_collection = 'if_required'
     }
 
-    const checkoutSession = await stripe.checkout.sessions.create(checkoutData);
+    const checkoutSession = await stripe.checkout.sessions.create(checkoutData)
 
     await orm.update(users).set({
-      payment_gateway_session_id: checkoutSession.id
+      payment_gateway_session_id: checkoutSession.id,
     }).where(eq(users.id, session.user.userId))
 
-    return c.redirect(checkoutSession.url!);
+    return c.redirect(checkoutSession.url!)
   })
-  .get("/stripe/create-portal-session", auth({ redirect: true }), async (c) => {
-    const { STRIPE_SECRET_KEY } = env(c);
-    const orm = c.get("orm");
+  .get('/stripe/create-portal-session', auth({ redirect: true }), async (c) => {
+    const { STRIPE_SECRET_KEY } = env(c)
+    const orm = c.get('orm')
 
     const session = c.get('session')
 
     const user = (await orm.select().from(users).where(eq(users.id, session.user.userId))).at(0)
 
-    if (!user) {
-      throw notFound("User not found")
-    }
+    if (!user)
+      throw notFound('User not found')
 
-    const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY });
-    const checkoutSession = await stripe.checkout.sessions.retrieve(user.payment_gateway_session_id as string);
+    const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY })
+    const checkoutSession = await stripe.checkout.sessions.retrieve(user.payment_gateway_session_id as string)
 
     const portalSession = await stripe.billingPortal.sessions.create({
       customer: checkoutSession.customer as string,
       return_url: APP_URL,
-    });
+    })
 
-    return c.redirect(portalSession.url);
-  });
+    return c.redirect(portalSession.url)
+  })

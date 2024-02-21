@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import Avatar from "#lib/daisy/components/display/Avatar.vue";
-import ChevronRight from "#lib/daisy/components/layout/ChevronRight.vue";
-import MenuGroup from "#lib/daisy/components/layout/MenuGroup.vue";
-import { t } from "#lib/i18n";
-import { Profile } from "~/app/profile/schemas/profile";
-import { SETTINGS } from "../../constants";
-import { inject } from "vue";
+import { inject } from 'vue'
+import { SETTINGS } from '../../constants'
+import Avatar from '#lib/daisy/components/display/Avatar.vue'
+import ChevronRight from '#lib/daisy/components/layout/ChevronRight.vue'
+import MenuGroup from '#lib/daisy/components/layout/MenuGroup.vue'
+import { t } from '#lib/i18n'
+import type { Profile } from '~/app/profile/schemas/profile'
 
-const profile = inject<Profile>("profile")!;
+const profile = inject<Profile>('profile')!
 </script>
 
 <template>
-  <h1 class="text-4xl font-bold mb-4 ml-2">{{ t("Settings") }}</h1>
+  <h1 class="text-4xl font-bold mb-4 ml-2">
+    {{ t("Settings") }}
+  </h1>
 
   <a
     href="/app/profile"

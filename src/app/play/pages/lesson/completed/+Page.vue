@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { useConfetti } from "#lib/daisy/composables/useConfetti";
-import { onMounted } from "vue";
+import { onMounted } from 'vue'
+import { useConfetti } from '#lib/daisy/composables/useConfetti'
 
-const confetti = useConfetti();
+const confetti = useConfetti()
 
 onMounted(() => {
-  confetti.make();
+  confetti.make()
 
-  setTimeout(() => confetti.clear(), 5000);
-});
+  setTimeout(() => confetti.clear(), 5000)
+})
 </script>
 
 <template>
@@ -26,9 +26,8 @@ onMounted(() => {
   </div>
 
   <a
-    @click="confetti.clear()"
     href="/app/explore"
     class="btn btn-primary w-full"
-    >Continuar</a
-  >
+    @click="confetti.clear()"
+  >Continuar</a>
 </template>

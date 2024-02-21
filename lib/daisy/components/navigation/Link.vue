@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { usePageContext } from "#lib/vike/composables/usePageContext";
-const pageContext = usePageContext();
+import { usePageContext } from '#lib/vike/composables/usePageContext'
+
+const pageContext = usePageContext()
 </script>
 
 <template>

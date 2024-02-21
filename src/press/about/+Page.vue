@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { t } from "#lib/i18n";
+import { t } from '#lib/i18n'
 
 const items = [
   {
-    title: "Feasibility",
-    text: "We develop realistic and sustainable solutions to meet the needs of users and ensure financial stability.",
+    title: 'Feasibility',
+    text: 'We develop realistic and sustainable solutions to meet the needs of users and ensure financial stability.',
   },
   {
-    title: "Innovation",
-    text: "We constantly seek new ideas and approaches to evolve our application and offer creative solutions to users.",
+    title: 'Innovation',
+    text: 'We constantly seek new ideas and approaches to evolve our application and offer creative solutions to users.',
   },
   {
-    title: "Continuous Improvement",
-    text: "Committing to ongoing refinement and enhancement of the app.",
+    title: 'Continuous Improvement',
+    text: 'Committing to ongoing refinement and enhancement of the app.',
   },
-];
+]
 </script>
 
 <template>
@@ -28,7 +28,7 @@ const items = [
           <p class="text-3xl leading-13! max-w-2xl sm:text-5xl text-primary text-center">
             {{
               t(
-                "Empowering personalized English learning through AI technology."
+                "Empowering personalized English learning through AI technology.",
               )
             }}
           </p>
@@ -44,7 +44,7 @@ const items = [
         <p class="text-center text-gray-800 mb-2">
           {{
             t(
-              "They represent what we stand for and guide our approach to building technology for our customers."
+              "They represent what we stand for and guide our approach to building technology for our customers.",
             )
           }}
         </p>
@@ -56,8 +56,12 @@ const items = [
             class="card bg-base-100 translate-y-[100px]"
           >
             <div class="card-body">
-              <h2 class="card-title text-primary">{{ t(item.title) }}</h2>
-              <p class="card-text">{{ t(item.text) }}</p>
+              <h2 class="card-title text-primary">
+                {{ t(item.title) }}
+              </h2>
+              <p class="card-text">
+                {{ t(item.text) }}
+              </p>
             </div>
           </div>
         </div>
@@ -69,12 +73,14 @@ const items = [
         class="max-w-4xl md:mx-auto mt-20 gap-8 mb-20 px-4 grid grid-cols-1 md:grid-cols-2"
       >
         <div>
-          <h1 class="text-4xl text-center mb-4">{{ t("Our team") }}</h1>
+          <h1 class="text-4xl text-center mb-4">
+            {{ t("Our team") }}
+          </h1>
 
           <p class="text-center text-gray-800 mb-8">
             {{
               t(
-                "Our team is small but mighty. Comprised of passionate individuals dedicated to revolutionizing English language learning through innovative technology, we are committed to bringing you the best possible experience."
+                "Our team is small but mighty. Comprised of passionate individuals dedicated to revolutionizing English language learning through innovative technology, we are committed to bringing you the best possible experience.",
               )
             }}
           </p>
@@ -89,7 +95,7 @@ const items = [
                 src="/luisfloat-logo-full-bleed-black.png"
                 width="24px"
                 height="24px"
-              />
+              >
               <h2 class="text-center text-2xl text-black font-medium">
                 Luis Float
               </h2>
@@ -105,7 +111,7 @@ const items = [
                 width="24px"
                 height="24px"
                 class="mr--2"
-              />
+              >
               <h2 class="text-center text-2xl text-black font-medium">
                 Vini Center
               </h2>

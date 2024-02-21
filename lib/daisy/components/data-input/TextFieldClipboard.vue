@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import Icon from "../display/Icon.vue";
+import { ref } from 'vue'
+import Icon from '../display/Icon.vue'
 
 const props = defineProps<{
-  text: string;
-  label?: string;
-  tip?: string;
-  copyMessage?: string;
-}>();
+  text: string
+  label?: string
+  tip?: string
+  copyMessage?: string
+}>()
 
-const copyMessage = ref("");
+const copyMessage = ref('')
 
-const copy = () => {
-  navigator.clipboard.writeText(props.text);
+function copy() {
+  navigator.clipboard.writeText(props.text)
 
-  copyMessage.value = props.copyMessage || "";
+  copyMessage.value = props.copyMessage || ''
 
-  setTimeout(() => (copyMessage.value = ""), 2000);
-};
+  setTimeout(() => (copyMessage.value = ''), 2000)
+}
 </script>
 
 <template>
@@ -31,9 +31,9 @@ const copy = () => {
         readonly
         :value="text"
         class="input input-bordered w-full max-w-xs"
-      />
+      >
       <div class="input input-bordered flex items-center justify-center">
-        <Icon @click="copy" class=""> content_copy </Icon>
+        <Icon class="" @click="copy"> content_copy </Icon>
       </div>
     </div>
     <div class="label">

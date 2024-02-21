@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import Icon from "./Icon.vue";
-import type { TimelineItem } from "./types";
+import Icon from './Icon.vue'
+import type { TimelineItem } from './types'
 
 defineProps<{
-  items: TimelineItem[];
-}>();
+  items: TimelineItem[]
+}>()
 </script>
 
 <template>
   <ul class="timeline timeline-vertical">
-    <li v-for="(item, i) in items">
-      <hr v-if="i !== 0" :class="{ 'bg-primary': item.active }" />
+    <li v-for="(item, i) in items" :key="item.id">
+      <hr v-if="i !== 0" :class="{ 'bg-primary': item.active }">
       <div
         class="timeline-box"
         :class="{
@@ -28,12 +28,14 @@ defineProps<{
           'bg-base-300 text-base-300': !item.active,
         }"
       >
-        <Icon class="!text-base">{{ item.icon }}</Icon>
+        <Icon class="!text-base">
+          {{ item.icon }}
+        </Icon>
       </div>
       <hr
         v-if="i < items.length - 1"
         :class="{ 'bg-primary': items[i + 1]?.active }"
-      />
+      >
     </li>
   </ul>
 </template>

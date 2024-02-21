@@ -1,16 +1,18 @@
-import { setPageContext } from "#lib/vike/composables/usePageContext";
-import type { Config, PageContext } from "vike/types";
-import {
+import { setPageContext } from '#lib/vike/composables/usePageContext'
+import type { Config, PageContext } from 'vike/types'
+import type {
   Component,
   VNode,
+} from 'vue'
+import {
   createApp,
   createSSRApp,
   defineComponent,
   h,
   markRaw,
   reactive,
-} from "vue";
-import { PageProps } from "../types";
+} from 'vue'
+import type { PageProps } from '../types'
 
 /**
  * Isomorphic function to create a Vue app.
@@ -23,27 +25,28 @@ import { PageProps } from "../types";
 export function createAppIsomorphic(
   pageContext: PageContext,
   ssrApp = true,
-  renderHead = false
+  renderHead = false,
 ) {
-  const { Page } = pageContext;
-  const Head = renderHead ? (pageContext.config.Head as Component) : undefined;
+  const { Page } = pageContext
+  const Head = renderHead ? (pageContext.config.Head as Component) : undefined
 
   let rootComponent: Component & {
-    Page: Component;
-    pageProps: PageProps;
-    config: Config;
-  };
+    Page: Component
+    pageProps: PageProps
+    config: Config
+  }
   const PageWithLayout = defineComponent({
     data: () => ({
-      Page: markRaw(Head ? Head : Page!),
+      Page: markRaw(Head || (Page!)),
       config: markRaw(pageContext.config),
     }),
     created() {
-      // @ts-ignore
-      rootComponent = this;
+      // @ts-expect-error
+      // eslint-disable-next-line
+      rootComponent = this
     },
     render() {
-      let wrappedNode: VNode;
+      let wrappedNode: VNode
 
       if (!!this.config.Layout && !renderHead) {
         wrappedNode = h(
@@ -51,45 +54,46 @@ export function createAppIsomorphic(
           {},
           {
             default: () => {
-              return h(this.Page);
+              return h(this.Page)
             },
-          }
-        );
-      } else {
-        wrappedNode = h(this.Page);
+          },
+        )
+      }
+      else {
+        wrappedNode = h(this.Page)
       }
 
-      if (!!this.config.Wrapper) {
+      if (this.config.Wrapper) {
         return h(
           this.config.Wrapper,
           {},
           {
             default: () => wrappedNode,
-          }
-        );
+          },
+        )
       }
 
-      return wrappedNode;
+      return wrappedNode
     },
-  });
+  })
 
-  const app = ssrApp ? createSSRApp(PageWithLayout) : createApp(PageWithLayout);
+  const app = ssrApp ? createSSRApp(PageWithLayout) : createApp(PageWithLayout)
+
+  // When doing Client Routing, we mutate pageContext (see usage of `app.changePage()` in `onRenderClient.ts`).
+  // We therefore use a reactive pageContext.
+  const pageContextReactive = reactive(pageContext)
+
+  // Make `pageContext` accessible from any Vue component
+  setPageContext(app, pageContextReactive)
 
   // We use `app.changePage()` to do Client Routing, see `onRenderClient.ts`
   Object.assign(app, {
     changePage: (pageContext: PageContext) => {
-      Object.assign(pageContextReactive, pageContext);
-      rootComponent.Page = markRaw(pageContext.Page!);
-      rootComponent.config = markRaw(pageContext.config);
+      Object.assign(pageContextReactive, pageContext)
+      rootComponent.Page = markRaw(pageContext.Page!)
+      rootComponent.config = markRaw(pageContext.config)
     },
-  });
+  })
 
-  // When doing Client Routing, we mutate pageContext (see usage of `app.changePage()` in `onRenderClient.ts`).
-  // We therefore use a reactive pageContext.
-  const pageContextReactive = reactive(pageContext);
-
-  // Make `pageContext` accessible from any Vue component
-  setPageContext(app, pageContextReactive);
-
-  return app;
+  return app
 }

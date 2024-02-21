@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useI18n } from "#lib/i18n";
+import { useI18n } from '#lib/i18n'
 
-const i18n = useI18n();
+const i18n = useI18n()
 </script>
 
 <template>
@@ -59,8 +59,7 @@ const i18n = useI18n();
       Recomendamos que você revise a
       <a
         href="https://support.google.com/gemini/answer/13594961?visit_id=638434421225288685-621180296&p=privacy_notice&rd=1#privacy_notice"
-        >Política de Privacidade da Gemini</a
-      >
+      >Política de Privacidade da Gemini</a>
       para entender como eles coletam, usam e divulgam suas informações.
     </p>
 
@@ -88,7 +87,7 @@ const i18n = useI18n();
       vinculado à Política de Privacidade modificada.
     </p>
 
-    <hr class="border-gray-400 mb-4 mt-12" />
+    <hr class="border-gray-400 mb-4 mt-12">
     <p>
       Se você tiver alguma dúvida sobre esta Política de Privacidade, entre em
       contato conosco em
@@ -146,8 +145,7 @@ const i18n = useI18n();
       personal information may be shared with Gemini. We encourage you to review
       <a
         href="https://support.google.com/gemini/answer/13594961?visit_id=638434421225288685-621180296&p=privacy_notice&rd=1#privacy_notice"
-        >Gemini's Privacy Policy</a
-      >
+      >Gemini's Privacy Policy</a>
       to understand how they collect, use, and disclose your information.
     </p>
 
@@ -175,7 +173,7 @@ const i18n = useI18n();
       by the modified Privacy Policy.
     </p>
 
-    <hr class="border-gray-400 mb-4 mt-12" />
+    <hr class="border-gray-400 mb-4 mt-12">
     <p>
       If you have any questions about this Privacy Policy, please contact us at
       <a href="mailto:support@maratongue.com">support@maratongue.com</a>.

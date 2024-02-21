@@ -1,21 +1,22 @@
-import { getGemini } from "#lib/gemini";
-import { zValidator } from "@hono/zod-validator";
-import { Hono } from "hono";
-import { env } from "hono/adapter";
-import { z } from "zod";
+import { getGemini } from '#lib/gemini'
+import type { HonoContext } from '#lib/hono/types'
+import { zValidator } from '@hono/zod-validator'
+import { Hono } from 'hono'
+import { env } from 'hono/adapter'
+import { z } from 'zod'
 
-export default new Hono().post(
-  "/",
+export default new Hono<HonoContext>().post(
+  '/',
   zValidator(
-    "json",
+    'json',
     z.object({
       translations: z.any(),
       defaultLocale: z.any(),
-    })
+    }),
   ),
   async (c) => {
-    const { GEMINI_API_KEY } = env(c);
-    const { defaultLocale, translations } = c.req.valid("json");
+    const { GEMINI_API_KEY } = env(c)
+    const { defaultLocale, translations } = c.req.valid('json')
 
     const prompt = `
       ## MISSION
@@ -49,38 +50,37 @@ export default new Hono().post(
           "pt": "Editar interesses"
         }
       }
-      `;
+      `
 
-    const gemini = getGemini(GEMINI_API_KEY as string);
+    const gemini = getGemini(GEMINI_API_KEY as string)
 
     try {
-      const res = (await gemini.generateContent(prompt)) as any;
+      const res = (await gemini.generateContent(prompt)) as any
 
-      if ("error" in res) {
-        throw new Error("Gemini error");
-      }
+      if ('error' in res)
+        throw new Error('Gemini error')
 
-      const text = res.candidates[0].content.parts[0].text;
+      const text = res.candidates[0].content.parts[0].text
 
-      const parsedText = JSON.parse(text);
+      const parsedText = JSON.parse(text)
 
-      const res2 = await fetch("http://localhost:3000/__translate", {
-        method: "POST",
+      const res2 = await fetch('http://localhost:3000/__translate', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ content: parsedText }),
-      });
+      })
 
-      if(!res2.ok) {
-        throw new Error(String(res2));
-      }
+      if (!res2.ok)
+        throw new Error(String(res2))
 
-      const translations = JSON.parse(text);
+      const translations = JSON.parse(text)
 
-      return c.json({ translations });
-    } catch (e) {
-      throw new Error("Error: " + e);
+      return c.json({ translations })
     }
-  }
-);
+    catch (e) {
+      throw new Error(`Error: ${e}`)
+    }
+  },
+)

@@ -1,29 +1,29 @@
-import {
+import type {
   Slot,
+} from 'vue'
+import {
   computed,
-  useSlots
-} from "vue";
+  useSlots,
+} from 'vue'
 
-const getSlotContent = (slot?: Slot) => {
-  if (!slot) {
-    return null;
-  }
+function getSlotContent(slot?: Slot) {
+  if (!slot)
+    return null
 
-  const node = slot()[0];
+  const node = slot()[0]
 
-  if (!node) {
-    return null;
-  }
+  if (!node)
+    return null
 
-  return node.children;
-};
-
-function useSlotContent(fallback?: () => string | undefined) {
-  const slots = useSlots();
-
-  return computed(() => {
-    return getSlotContent(slots.default) || fallback?.();
-  });
+  return node.children
 }
 
-export default useSlotContent;
+function useSlotContent(fallback?: () => string | undefined) {
+  const slots = useSlots()
+
+  return computed(() => {
+    return getSlotContent(slots.default) || fallback?.()
+  })
+}
+
+export default useSlotContent

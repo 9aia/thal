@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed } from 'vue';
 
 const props = defineProps<{
-  placeholder?: string;
-  class?: string;
-  name?: string;
-  url?: string;
-  alt?: string;
-  type?: string;
-}>();
+  placeholder?: string
+  class?: string
+  name?: string
+  url?: string
+  alt?: string
+  type?: string
+}>()
 
 const placeholder = computed(() => {
-  return props.placeholder || props.name?.[0].toUpperCase() || "U";
-});
+  return props.placeholder || props.name?.[0].toUpperCase() || 'U'
+})
 
 const isBtn = computed(() => {
-  return props.type === "button" || props.type === "summary";
-});
+  return props.type === 'button' || props.type === 'summary'
+})
 </script>
 
 <template>
@@ -28,13 +28,13 @@ const isBtn = computed(() => {
     :role="isBtn ? 'button' : undefined"
   >
     <template v-if="url">
-      <div :class="class" class="bg-neutral text-neutral-content rounded-full">
-        <img :src="url" :alt="props.alt" />
+      <div :class="props.class" class="bg-neutral text-neutral-content rounded-full">
+        <img :src="url" :alt="props.alt">
       </div>
     </template>
 
     <template v-else>
-      <div class="bg-neutral text-neutral-content rounded-full" :class="class">
+      <div class="bg-neutral text-neutral-content rounded-full" :class="props.class">
         <span>{{ placeholder }}</span>
       </div>
     </template>

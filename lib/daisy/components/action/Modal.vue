@@ -1,57 +1,56 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
-import Btn from "./Btn.vue";
-
-const dialog = ref<HTMLDialogElement>();
+import { ref, watch } from 'vue'
+import Btn from './Btn.vue'
 
 const props = withDefaults(
   defineProps<{
-    classes?: string;
-    confirmText?: string;
-    cancelText?: string;
-    hideConfirm?: boolean;
-    showCancel?: boolean;
-    loading?: boolean;
+    classes?: string
+    confirmText?: string
+    cancelText?: string
+    hideConfirm?: boolean
+    showCancel?: boolean
+    loading?: boolean
   }>(),
   {
-    classes: "",
-    confirmText: "Confirm",
-    cancelText: "Cancel",
+    classes: '',
+    confirmText: 'Confirm',
+    cancelText: 'Cancel',
     hideConfirm: false,
     showCancel: false,
-  }
-);
-const emit = defineEmits(["cancel", "confirm"]);
+  },
+)
 
-const visible = defineModel({ default: false });
+const emit = defineEmits(['cancel', 'confirm'])
+
+const dialog = ref<HTMLDialogElement>()
+
+const visible = defineModel({ default: false })
 
 watch(visible, () => {
-  if (visible.value) {
-    dialog.value?.showModal();
-  } else {
-    dialog.value?.close();
-  }
-});
+  if (visible.value)
+    dialog.value?.showModal()
+  else
+    dialog.value?.close()
+})
 </script>
 
 <template>
   <dialog
     ref="dialog"
-    @close="visible = false"
     class="modal modal-bottom sm:modal-middle"
+    @close="visible = false"
   >
     <form
-      class="modal-box"
+      class="modal-box modal-box rounded-none"
       method="dialog"
       :class="{
-        'modal-box rounded-none': true,
         [props.classes]: props.classes,
       }"
       @submit="emit('confirm')"
     >
       <slot />
 
-      <div class="modal-action" v-if="!props.hideConfirm || props.showCancel">
+      <div v-if="!props.hideConfirm || props.showCancel" class="modal-action">
         <slot name="footer" />
 
         <slot name="actions">
@@ -68,8 +67,8 @@ watch(visible, () => {
             v-if="!props.hideConfirm"
             value="true"
             class="btn-primary"
-            @click.prevent="emit('confirm')"
             :loading="loading"
+            @click.prevent="emit('confirm')"
           >
             {{ props.confirmText }}
           </Btn>
@@ -77,7 +76,9 @@ watch(visible, () => {
       </div>
     </form>
     <form method="dialog" class="modal-backdrop">
-      <button @click.prevent="visible = false">close</button>
+      <button @click.prevent="visible = false">
+        close
+      </button>
     </form>
   </dialog>
 </template>

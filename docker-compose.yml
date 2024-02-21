@@ -4,4 +4,4 @@ services:
     image: stripe/stripe-cli:latest
     network_mode: host
     container_name: stripe-cli
-    command: "listen --api-key ${STRIPE_SECRET_KEY} --device-name ${STRIPE_DEVICE_NAME} --forward-to localhost:8787/api/payment/webhook/stripe"
+    command: 'listen --api-key ${STRIPE_SECRET_KEY} --device-name ${STRIPE_DEVICE_NAME} --forward-to localhost:8787/api/payment/webhook/stripe'

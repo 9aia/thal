@@ -1,11 +1,11 @@
 export interface PlanType {
-  amount: number,
-  name: string,
+  amount: number
+  name: string
 }
 
 export const PLANS = {
-  "premium": {
+  premium: {
     amount: 3999,
-    name: "PREMIUM",
+    name: 'PREMIUM',
   },
 }

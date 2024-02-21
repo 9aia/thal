@@ -1,14 +1,12 @@
-import type { Config, ConfigEffect, ConfigEnv, PageContext } from "vike/types";
-import type { Component } from "vue";
-import { Plugin } from "vue";
+import type { Config, ConfigEffect, ConfigEnv, PageContext } from 'vike/types'
+import type { Component, Plugin } from 'vue'
 
 const toggleSsrRelatedConfig: ConfigEffect = ({
   configDefinedAt,
   configValue,
 }) => {
-  if (typeof configValue !== "boolean") {
-    throw new Error(`${configDefinedAt} should be a boolean`);
-  }
+  if (typeof configValue !== 'boolean')
+    throw new Error(`${configDefinedAt} should be a boolean`)
 
   return {
     meta: {
@@ -21,43 +19,46 @@ const toggleSsrRelatedConfig: ConfigEffect = ({
           : { client: true },
       },
     },
-  };
-};
+  }
+}
 
 const beforeRenderModeEffect: ConfigEffect = ({
   configDefinedAt,
   configValue,
 }) => {
-  type ConfigValue = "server-only" | "client-only" | "server-and-client";
+  type ConfigValue = 'server-only' | 'client-only' | 'server-and-client'
   const values: Array<ConfigValue> = [
-    "server-only",
-    "client-only",
-    "server-and-client",
-  ];
+    'server-only',
+    'client-only',
+    'server-and-client',
+  ]
 
   if (!values.includes(configValue as ConfigValue) && configValue) {
     throw new Error(
-      `${configDefinedAt} should be 'server-only', 'client-only', or 'server-and-client'`
-    );
+      `${configDefinedAt} should be 'server-only', 'client-only', or 'server-and-client'`,
+    )
   }
 
-  let env: ConfigEnv | undefined;
+  let env: ConfigEnv | undefined
 
-  if (configValue == "server-only")
+  if (configValue === 'server-only') {
     env = {
       server: true,
       client: false,
-    };
-  if (configValue == "client-only")
+    }
+  }
+  if (configValue === 'client-only') {
     env = {
       client: true,
       server: false,
-    };
-  if (configValue == "server-and-client")
+    }
+  }
+  if (configValue === 'server-and-client') {
     env = {
       client: true,
       server: true,
-    };
+    }
+  }
 
   return {
     meta: {
@@ -65,23 +66,23 @@ const beforeRenderModeEffect: ConfigEffect = ({
         env: env || { server: true, client: true },
       },
     },
-  };
-};
+  }
+}
 
 export default {
-  onRenderHtml: "import:./hooks/onRenderHtml:onRenderHtml",
-  onRenderClient: "import:./hooks/onRenderClient:onRenderClient",
-  onHydrationEnd: "import:./hooks/onHydrationEnd:onHydrationEnd",
+  onRenderHtml: 'import:./hooks/onRenderHtml:onRenderHtml',
+  onRenderClient: 'import:./hooks/onRenderClient:onRenderClient',
+  onHydrationEnd: 'import:./hooks/onHydrationEnd:onHydrationEnd',
   onPageTransitionStart:
-    "import:./hooks/onPageTransition:onPageTransitionStart",
+    'import:./hooks/onPageTransition:onPageTransitionStart',
   onPageTransitionEnd:
-    "import:./hooks/onPageTransition:onPageTransitionEnd",
-  onBeforeRoute: "import:./hooks/onBeforeRoute:default",
-  onPrerenderStart: "import:./hooks/onPrerenderStart:default",
+    'import:./hooks/onPageTransition:onPageTransitionEnd',
+  onBeforeRoute: 'import:./hooks/onBeforeRoute:default',
+  onPrerenderStart: 'import:./hooks/onPrerenderStart:default',
 
-  prefetchStaticAssets: "viewport",
+  prefetchStaticAssets: 'viewport',
 
-  passToClient: ["title", "routeParams", "i18n", "acceptLanguage"],
+  passToClient: ['title', 'routeParams', 'i18n', 'acceptLanguage'],
 
   clientRouting: true,
   hydrationCanBeAborted: true,
@@ -119,32 +120,31 @@ export default {
       effect: beforeRenderModeEffect,
     },
   },
-} satisfies Config;
+} satisfies Config
 
-
-type VuePluginWithOptions = {
-  plugin: Plugin;
-  options?: any;
-};
+interface VuePluginWithOptions {
+  plugin: Plugin
+  options?: any
+}
 
 declare global {
   namespace VikePackages {
     interface ConfigVikeVue {
       /** Vue component rendered and appended into &lt;head>&lt;/head> */
-      Head?: Component;
+      Head?: Component
 
-      Layout?: Component;
+      Layout?: Component
 
-      Wrapper?: Component;
+      Wrapper?: Component
 
       /** &lt;title>${title}&lt;/title> */
-      title?: string | ((pageContext: PageContext) => string);
+      title?: string | ((pageContext: PageContext) => string)
 
       /** &lt;meta name="description" content="${description}" /> */
-      description?: string;
+      description?: string
 
       /** &lt;link rel="icon" href="${favicon}" /> */
-      favicon?: string;
+      favicon?: string
 
       /**
        * If true, render mode is SSR or pre-rendering (aka SSG). In other words, the
@@ -157,14 +157,14 @@ declare global {
        * @default true
        *
        */
-      ssr?: boolean;
+      ssr?: boolean
       /**
        * Whether to stream the page's HTML. Requires Server-Side Rendering (`ssr: true`).
        *
        * @default false
        *
        */
-      stream?: boolean;
+      stream?: boolean
 
       /**
        * List of Vue plugins (and their respective options) to be installed with
@@ -175,10 +175,10 @@ declare global {
        * @default []
        *
        */
-      vuePlugins?: VuePluginWithOptions[];
+      vuePlugins?: VuePluginWithOptions[]
 
       /** The page's root Vue component */
-      Page?: Component;
+      Page?: Component
     }
   }
 }
@@ -186,13 +186,15 @@ declare global {
 // This is a workaround for
 // * https://github.com/vuejs/core/issues/8303
 // * https://github.com/esbuild-kit/tsx/issues/113
-const globalName = (target: Object, value: string) =>
-  Object.defineProperty(target, "name", {
+function globalName(target: unknown, value: string) {
+  return Object.defineProperty(target, 'name', {
     value,
     configurable: true,
-  });
+  })
+}
 
 declare global {
-  var __name: typeof globalName;
+  // eslint-disable-next-line
+  var __name: typeof globalName
 }
-globalThis.__name = globalName;
+globalThis.__name = globalName

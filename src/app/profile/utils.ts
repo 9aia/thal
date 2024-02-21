@@ -1,27 +1,26 @@
-import { PROFILE_ITEMS } from "./constants";
-import { Profile } from "./schemas/profile";
+import { PROFILE_ITEMS } from './constants'
+import type { Profile } from './schemas/profile'
 
 export function getProfileData(data: Profile) {
-  let profileData = "";
+  let profileData = ''
 
   PROFILE_ITEMS.forEach((item) => {
-    profileData += `${item.label} ${data[item.id]}\n`;
-  });
-  profileData += `Hobbies: ${data.hobbies}`;
+    profileData += `${item.label} ${data[item.id]}\n`
+  })
+  profileData += `Hobbies: ${data.hobbies}`
 
-  return profileData;
+  return profileData
 }
 
 export function parseJoin<T extends { id: string }>(keys: string, items: T[]) {
-  const array: any = keys.split(", ").reduce<T[]>((prev, interestId) => {
-    const item = items.find((item) => item.id === interestId);
+  const array: any = keys.split(', ').reduce<T[]>((prev, interestId) => {
+    const item = items.find(item => item.id === interestId)
 
-    if (!item) {
-      return prev;
-    }
+    if (!item)
+      return prev
 
-    return [...prev, item];
-  }, []);
+    return [...prev, item]
+  }, [])
 
-  return array as T[];
+  return array as T[]
 }

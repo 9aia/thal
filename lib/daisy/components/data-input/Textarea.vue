@@ -1,23 +1,24 @@
 <script setup lang="ts">
-import useSlotContent from "#lib/vue/composables/useSlotContent";
-import { RuleExpression, useField } from "vee-validate";
-import { MaybeRef, type InputHTMLAttributes } from "vue";
-import { SafeProps } from "#lib/vue/utils/types";
+import { useSlotContent } from '#design/composables/useSlotContent'
+import type { SafeProps } from '#lib/vue/utils/types'
+import type { RuleExpression } from 'vee-validate'
+import { useField } from 'vee-validate'
+import type { InputHTMLAttributes, MaybeRef } from 'vue'
 
 type Props = SafeProps<InputHTMLAttributes> & {
-  label?: string;
-  placeholder?: string;
-  error?: string;
-  path: string;
-  rules?: MaybeRef<RuleExpression<string>>;
-  mandatory?: boolean;
-  feedback?: string | boolean;
-};
+  label?: string
+  placeholder?: string
+  error?: string
+  path: string
+  rules?: MaybeRef<RuleExpression<string>>
+  mandatory?: boolean
+  feedback?: string | boolean
+}
 
-const props = defineProps<Props>();
-const label = useSlotContent(() => props.label);
+const props = defineProps<Props>()
+const label = useSlotContent(() => props.label)
 
-const { value, errorMessage, handleBlur } = useField(props.path, props.rules);
+const { value, errorMessage, handleBlur } = useField(props.path, props.rules)
 </script>
 
 <template>
@@ -29,14 +30,13 @@ const { value, errorMessage, handleBlur } = useField(props.path, props.rules);
       <span
         v-if="mandatory"
         class="absolute bottom-1/2 translate-y-1/2 right-[-0.4em] text-red-500"
-        >*</span
-      >
+      >*</span>
     </div>
 
     <textarea
+      v-model="value"
       class="textarea textarea-sm h-40 leading-[1.6em] textarea-bordered w-full resize-none"
       :placeholder="placeholder"
-      v-model="value"
       @blur="handleBlur"
     />
 
@@ -48,7 +48,7 @@ const { value, errorMessage, handleBlur } = useField(props.path, props.rules);
 
     <div v-if="feedback" class="label">
       <span class="label-text-alt">
-        <slot name="feedback" :v-bind="{ feedback }">
+        <slot name="feedback" :feedback="feedback">
           {{ feedback }}
         </slot>
       </span>

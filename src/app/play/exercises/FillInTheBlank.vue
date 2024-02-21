@@ -1,33 +1,35 @@
 <script setup lang="ts">
-import { t } from "#lib/i18n";
-import { computed } from "vue";
-import { BLANK } from "../constants";
-import ExerciseButton from "../components/ExerciseButton.vue";
-import { ExerciseFillInTheBlank } from "../types.d";
-import useSingleResponse from "../composables/useSingleResponse";
+import { t } from '#lib/i18n'
+import { computed } from 'vue'
+import ExerciseButton from '../components/ExerciseButton.vue'
+import useSingleResponse from '../composables/useSingleResponse'
+import { BLANK } from '../constants'
+import type { ExerciseFillInTheBlank } from '../types.d'
 
-const select = defineModel<number>();
-const props = defineProps<ExerciseFillInTheBlank>();
-
+const props = defineProps<ExerciseFillInTheBlank>()
+const select = defineModel<number>()
 const text = computed(() => {
-  if (!props.alternatives || props.correctLength === undefined) return undefined;
+  if (!props.alternatives || props.correctLength === undefined)
+    return undefined
 
-  return props.text.replaceAll(BLANK, "_".repeat(props.correctLength));
-});
+  return props.text.replaceAll(BLANK, '_'.repeat(props.correctLength))
+})
 
-useSingleResponse(props, select);
+useSingleResponse(props, select)
 </script>
 
 <template>
-  <h1 class="text-2xl font-bold mb-4">{{ t("Fill in the blank:") }}</h1>
+  <h1 class="text-2xl font-bold mb-4">
+    {{ t("Fill in the blank:") }}
+  </h1>
 
   <p class="text-xl mb-4">
     {{ text }}
   </p>
 
   <ul class="flex flex-col gap-2">
-    <li v-for="(alternative, i) in alternatives" class="w-full">
-      <ExerciseButton :alternative="alternative" :i="i" v-model="select" />
+    <li v-for="(alternative, i) in alternatives" :key="i" class="w-full">
+      <ExerciseButton v-model="select" :alternative="alternative" :i="i" />
     </li>
   </ul>
 </template>

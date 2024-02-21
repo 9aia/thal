@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useI18n } from "#lib/i18n";
+import { useI18n } from '#lib/i18n'
 
-const i18n = useI18n();
+const i18n = useI18n()
 </script>
 
 <template>
@@ -70,8 +70,7 @@ const i18n = useI18n();
       Recomendamos que você revise os
       <a
         href="https://support.google.com/gemini/answer/13594961?visit_id=638434421225288685-621180296&p=privacy_notice&rd=1#tos"
-        >Termos de Serviço da Gemini</a
-      >
+      >Termos de Serviço da Gemini</a>
       para entender seus direitos e obrigações ao usar a API Gemini.
     </p>
 
@@ -89,7 +88,7 @@ const i18n = useI18n();
       aceitação dos novos termos.
     </p>
 
-    <hr class="border-gray-400 mb-4 mt-12" />
+    <hr class="border-gray-400 mb-4 mt-12">
     <p>
       Se você tiver alguma dúvida sobre estes Termos de Serviço, entre em
       contato conosco em
@@ -158,8 +157,7 @@ const i18n = useI18n();
       We encourage you to review
       <a
         href="https://support.google.com/gemini/answer/13594961?visit_id=638434421225288685-621180296&p=privacy_notice&rd=1#tos"
-        >Gemini's Terms of Service</a
-      >
+      >Gemini's Terms of Service</a>
       to understand your rights and obligations when using the Gemini API.
     </p>
 
@@ -177,7 +175,7 @@ const i18n = useI18n();
       your acceptance of the new terms.
     </p>
 
-    <hr class="border-gray-400 mb-4 mt-12" />
+    <hr class="border-gray-400 mb-4 mt-12">
     <p>
       If you have any questions about these Terms of Service, please contact us
       at

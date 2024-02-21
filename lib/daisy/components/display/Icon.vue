@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import useSlotContent from "#lib/vue/composables/useSlotContent";
-import { SafeProps } from "#lib/vue/utils/types";
-import { type HTMLAttributes } from "vue";
+import type { HTMLAttributes } from 'vue'
+import useSlotContent from '#lib/vue/composables/useSlotContent'
+import type { SafeProps } from '#lib/vue/utils/types'
 
 type Props = SafeProps<HTMLAttributes> & {
-  name?: string;
-};
+  name?: string
+}
 
-const props = defineProps<Props>();
+const props = defineProps<Props>()
 
-const name = useSlotContent(() => props.name);
+const name = useSlotContent(() => props.name)
 </script>
 
 <template>

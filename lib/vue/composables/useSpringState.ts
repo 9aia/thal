@@ -1,28 +1,29 @@
-import { onUnmounted, ref, Ref, UnwrapRef } from "vue";
+import type { Ref, UnwrapRef } from 'vue'
+import { onUnmounted, ref } from 'vue'
 
 function useSpringState<V>(value: UnwrapRef<V>) {
-  const state: Ref<UnwrapRef<V>> = ref(value as any);
-  const isPending: Ref<boolean> = ref(false);
+  const state: Ref<UnwrapRef<V>> = ref(value as any)
+  const isPending: Ref<boolean> = ref(false)
 
-  let timer: ReturnType<typeof setTimeout>;
+  let timer: ReturnType<typeof setTimeout>
 
   const set = (temporaryValue: UnwrapRef<V>, delay: number) => {
-    state.value = temporaryValue;
-    isPending.value = true;
+    state.value = temporaryValue
+    isPending.value = true
 
     timer = setTimeout(() => {
-      state.value = value;
-      isPending.value = false;
-    }, delay);
-  };
+      state.value = value
+      isPending.value = false
+    }, delay)
+  }
 
   const abort = () => {
-    clearTimeout(timer);
-  };
+    clearTimeout(timer)
+  }
 
-  onUnmounted(abort);
+  onUnmounted(abort)
 
-  return { state, set, abort, isPending };
+  return { state, set, abort, isPending }
 }
 
-export default useSpringState;
+export default useSpringState

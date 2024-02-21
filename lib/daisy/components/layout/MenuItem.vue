@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { t } from "#lib/i18n";
-import Icon from "../display/Icon.vue";
-import ChevronRight from "./ChevronRight.vue";
-import { MenuItem } from "./types";
+import Icon from '../display/Icon.vue'
+import ChevronRight from './ChevronRight.vue'
+import type { MenuItem } from './types'
+import { t } from '#lib/i18n'
 
 defineProps<{
-  is: MenuItem;
-}>();
+  is: MenuItem
+}>()
 </script>
 
 <template>
@@ -17,9 +17,13 @@ defineProps<{
       'text-danger font-bold': is.meaning === 'danger',
     }"
   >
-    <Icon v-if="is.icon">{{ is.icon }}</Icon>
+    <Icon v-if="is.icon">
+      {{ is.icon }}
+    </Icon>
     {{ t(is.name as any) }}
   </div>
-  <Icon v-if="is.type === 'external'">north_east</Icon>
+  <Icon v-if="is.type === 'external'">
+    north_east
+  </Icon>
   <ChevronRight v-if="is.type === 'accordion'" />
 </template>

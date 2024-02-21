@@ -1,15 +1,15 @@
-import type { GenerationConfig } from "@google/generative-ai";
-import * as _ from "lodash-es";
+import type { GenerationConfig } from '@google/generative-ai'
+import * as _ from 'lodash-es'
 
 export function getGemini(apiKey: string) {
   const generateContent = async (
     prompt: string,
-    generationConfig?: GenerationConfig
+    generationConfig?: GenerationConfig,
   ) => {
-    const input = _.trimStart(prompt);
+    const input = _.trimStart(prompt)
 
-    const url =
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent";
+    const url
+      = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent'
     const body = {
       contents: [
         {
@@ -21,26 +21,26 @@ export function getGemini(apiKey: string) {
         },
       ],
       generationConfig,
-    };
+    }
 
     try {
       const response = await fetch(`${url}?key=${apiKey}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
-      });
+      })
 
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
-      }
+      if (!response.ok)
+        throw new Error(`Error: ${response.status}`)
 
-      return await response.json() as any;
-    } catch (error) {
-      throw new Error(`Error generating content:: ${error}`);
+      return await response.json() as any
     }
-  };
+    catch (error) {
+      throw new Error(`Error generating content:: ${error}`)
+    }
+  }
 
   return {
     generateContent,
-  };
+  }
 }

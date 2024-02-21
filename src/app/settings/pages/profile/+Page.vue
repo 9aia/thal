@@ -1,48 +1,52 @@
 <script setup lang="ts">
-import Btn from "#lib/daisy/components/action/Btn.vue";
-import Icon from "#lib/daisy/components/display/Icon.vue";
-import { t } from "#lib/i18n";
-import { computed, inject, ref } from "vue";
-import { Profile } from "~/app/profile/schemas/profile";
-import { GOALS, HOBBIES } from "../../../profile/constants";
-import { parseJoin } from "../../../profile/utils";
-import GoalsModal from "../../modals/GoalsModal.vue";
-import HobbyModal from "../../modals/HobbyModal.vue";
-import ObservationModal from "../../modals/ObservationModal.vue";
-import ProfessionModal from "../../modals/ProfessionModal.vue";
+import Btn from '#lib/daisy/components/action/Btn.vue'
+import Icon from '#lib/daisy/components/display/Icon.vue'
+import { t } from '#lib/i18n'
+import { computed, inject, ref } from 'vue'
+import type { Profile } from '~/app/profile/schemas/profile'
+import { GOALS, HOBBIES } from '../../../profile/constants'
+import { parseJoin } from '../../../profile/utils'
+import GoalsModal from '../../modals/GoalsModal.vue'
+import HobbyModal from '../../modals/HobbyModal.vue'
+import ObservationModal from '../../modals/ObservationModal.vue'
+import ProfessionModal from '../../modals/ProfessionModal.vue'
 
-const profile = inject<Profile>("profile")!;
+const profile = inject<Profile>('profile')!
 
-const isHobbyModalOpen = ref(false);
-const isProfessionModalOpen = ref(false);
-const isGoalsModalOpen = ref(false);
-const isObservationModalOpen = ref(false);
+const isHobbyModalOpen = ref(false)
+const isProfessionModalOpen = ref(false)
+const isGoalsModalOpen = ref(false)
+const isObservationModalOpen = ref(false)
 
 const hobbies = computed(() => {
-  return parseJoin<any>(profile.hobbies || "", HOBBIES);
-});
+  return parseJoin(profile.hobbies || '', HOBBIES)
+})
 const goals = computed(() => {
-  return parseJoin<any>(profile.goals || "", GOALS);
-});
+  return parseJoin(profile.goals || '', GOALS)
+})
 </script>
 
 <template>
-  <h1 class="text-4xl font-bold mb-4">{{ t("Profile") }}</h1>
+  <h1 class="text-4xl font-bold mb-4">
+    {{ t("Profile") }}
+  </h1>
 
   <div class="divide-y divide-gray-400 space-y-4">
     <section class="pb-4">
-      <h2 class="text-teal-900 font-bold text-lg mb-3">{{ t("Goals") }}</h2>
+      <h2 class="text-teal-900 font-bold text-lg mb-3">
+        {{ t("Goals") }}
+      </h2>
 
       <p class="mb-4">
         {{
           t(
-            "What are your learning goals? Are they aiming for basic conversation, business English, reading comprehension, writing skills, or something else?"
+            "What are your learning goals? Are they aiming for basic conversation, business English, reading comprehension, writing skills, or something else?",
           )
         }}
       </p>
 
       <div class="flex flex-wrap gap-2 items-center">
-        <div v-for="goal in goals" class="badge p-4 gap-2">
+        <div v-for="goal in goals" :key="goal.id" class="badge p-4 gap-2">
           <Icon>{{ goal.icon }}</Icon>
           {{ t(goal.name) }}
         </div>
@@ -52,9 +56,9 @@ const goals = computed(() => {
         </div>
 
         <Btn
-          @click="isGoalsModalOpen = true"
           class="text-black flex items-center"
           :class="{ 'btn-primary': !goals?.length }"
+          @click="isGoalsModalOpen = true"
         >
           <template v-if="!goals?.length">
             <Icon>add</Icon>
@@ -71,18 +75,20 @@ const goals = computed(() => {
     </section>
 
     <section class="pt-6">
-      <h2 class="text-teal-900 font-bold text-lg mb-3">{{ t("Interests") }}</h2>
+      <h2 class="text-teal-900 font-bold text-lg mb-3">
+        {{ t("Interests") }}
+      </h2>
 
       <p class="mb-4">
         {{
           t(
-            "What are your hobbies, interests, and profession? This helps personalize content and examples to make learning more engaging."
+            "What are your hobbies, interests, and profession? This helps personalize content and examples to make learning more engaging.",
           )
         }}
       </p>
 
       <div class="flex flex-wrap gap-2 items-center">
-        <div v-for="hobby in hobbies" class="badge p-4 gap-2">
+        <div v-for="hobby in hobbies" :key="hobby.id" class="badge p-4 gap-2">
           <Icon>{{ hobby.icon }}</Icon>
           {{ t(hobby.name) }}
         </div>
@@ -92,9 +98,9 @@ const goals = computed(() => {
         </div>
 
         <Btn
-          @click="isHobbyModalOpen = true"
           class="text-black flex items-center"
           :class="{ 'btn-primary': !hobbies?.length }"
+          @click="isHobbyModalOpen = true"
         >
           <template v-if="!hobbies?.length">
             <Icon>add</Icon>
@@ -121,9 +127,9 @@ const goals = computed(() => {
         </div>
 
         <Btn
-          @click="isProfessionModalOpen = true"
           class="text-black flex items-center"
           :class="{ 'btn-primary': !profile.profession }"
+          @click="isProfessionModalOpen = true"
         >
           <template v-if="!profile.profession">
             <Icon>add</Icon>
@@ -148,7 +154,7 @@ const goals = computed(() => {
       <p class="mb-4">
         {{
           t(
-            "Share any additional details you think might help AI personalize your learning experience."
+            "Share any additional details you think might help AI personalize your learning experience.",
           )
         }}
       </p>
@@ -159,13 +165,12 @@ const goals = computed(() => {
             readonly
             class="textarea text-md border border-gray-400 leading-[1.6em] h-40 w-full resize-none"
             :value="profile.observation"
-          >
-          </textarea>
+          />
         </div>
 
         <Btn
-          @click="isObservationModalOpen = true"
           class="text-black flex items-center"
+          @click="isObservationModalOpen = true"
         >
           <template v-if="!profile.observation">
             <Icon>add</Icon>

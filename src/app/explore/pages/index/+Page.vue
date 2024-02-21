@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import Icon from "#lib/daisy/components/display/Icon.vue";
-import ChevronRight from "#lib/daisy/components/layout/ChevronRight.vue";
-import { A, t } from "#lib/i18n";
+import Icon from '#lib/daisy/components/display/Icon.vue'
+import ChevronRight from '#lib/daisy/components/layout/ChevronRight.vue'
+import { A, t } from '#lib/i18n'
 
 const items = [
-  { name: "Grammar", icon: "book", href: "/app/explore/grammar" },
-  { name: "Stories", icon: "history_edu", href: "/app/explore/stories" },
-  { name: "Conversation Simulation", icon: "chat", href: "/app/explore/chat" },
-];
+  { id: 'grammar', name: 'Grammar', icon: 'book', href: '/app/explore/grammar' },
+  { id: 'stories', name: 'Stories', icon: 'history_edu', href: '/app/explore/stories' },
+  { id: 'chat', name: 'Conversation Simulation', icon: 'chat', href: '/app/explore/chat' },
+]
 </script>
 
 <template>
@@ -34,7 +34,7 @@ const items = [
     </div>
 
     <ul class="divide-y divide-base-200">
-      <li class="group py-4" v-for="item in items">
+      <li v-for="item in items" :key="item.id" class="group py-4">
         <A :href="item.href" class="flex justify-between">
           <div class="flex gap-2 items-center">
             <Icon>{{ item.icon }}</Icon>

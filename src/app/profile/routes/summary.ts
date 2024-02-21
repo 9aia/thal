@@ -1,14 +1,14 @@
-import { getGemini } from "#lib/gemini";
-import { HonoContext } from "#lib/hono/types";
-import { Hono } from "hono";
-import { env } from "hono/adapter";
-import { getProfileData } from "../utils";
+import { Hono } from 'hono'
+import { env } from 'hono/adapter'
+import { getProfileData } from '../utils'
+import type { HonoContext } from '#lib/hono/types'
+import { getGemini } from '#lib/gemini'
 
-export default new Hono<HonoContext>().post("/", async (c) => {
-  const { GEMINI_API_KEY } = env(c);
-  const data = await c.req.json();
+export default new Hono<HonoContext>().post('/', async (c) => {
+  const { GEMINI_API_KEY } = env(c)
+  const data = await c.req.json()
 
-  let profileData = getProfileData(data);
+  const profileData = getProfileData(data)
 
   const prompt = `
     ## MISSION
@@ -36,21 +36,21 @@ export default new Hono<HonoContext>().post("/", async (c) => {
     ## OUTPUT EXAMPLE
 
     Eu sou obcecada pelo futuro e amo experimentar coisas novas, especialmente em tecnologia. Gosto de arte, design e música, e adoro ler, aprender e jogar videogame.
-  `;
+  `
 
-  const gemini = getGemini(GEMINI_API_KEY as string);
+  const gemini = getGemini(GEMINI_API_KEY as string)
 
   try {
-    const res = (await gemini.generateContent(prompt)) as any;
+    const res = (await gemini.generateContent(prompt)) as any
 
-    if ("error" in res) {
-      throw new Error("Gemini error");
-    }
+    if ('error' in res)
+      throw new Error('Gemini error')
 
-    const text = res.candidates[0].content.parts[0].text;
+    const text = res.candidates[0].content.parts[0].text
 
-    return c.json({ summary: text });
-  } catch (e) {
-    throw new Error("Error: " + e);
+    return c.json({ summary: text })
   }
-});
+  catch (e) {
+    throw new Error(`Error: ${e}`)
+  }
+})

@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import Icon from "#lib/daisy/components/display/Icon.vue";
-import { t } from "#lib/i18n";
-import { computed } from "vue";
-import { GOALS } from "../../constants";
-import useProfile from "../../store";
-import { parseJoin } from "../../utils";
+import Icon from '#lib/daisy/components/display/Icon.vue'
+import { t } from '#lib/i18n'
+import { computed } from 'vue'
+import { GOALS } from '../../constants'
+import useProfile from '../../store'
+import { parseJoin } from '../../utils'
 
-const profile = useProfile();
+const profile = useProfile()
 const goals = computed(() => {
-  return parseJoin(profile.value.goals || "", GOALS);
-});
+  return parseJoin(profile.value.goals || '', GOALS)
+})
 </script>
 
 <template>
@@ -20,7 +20,7 @@ const goals = computed(() => {
       </h2>
 
       <div class="flex flex-wrap gap-2">
-        <div v-for="goal in goals" class="badge p-4 gap-2">
+        <div v-for="goal in goals" :key="goal.id" class="badge p-4 gap-2">
           <Icon>{{ goal.icon }}</Icon>
           {{ t(goal.name) }}
         </div>

@@ -1,14 +1,14 @@
 {
   "extends": "@vue/tsconfig/tsconfig.json",
   "compilerOptions": {
-    "verbatimModuleSyntax": false,
 
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
-    "types": ["vite/client", "@cloudflare/workers-types"],
 
     "paths": {
       "#lib/*": ["./lib/*"],
       "~/*": ["./src/*"]
-    }
+    },
+    "types": ["vite/client", "@cloudflare/workers-types"],
+    "verbatimModuleSyntax": false
   }
 }

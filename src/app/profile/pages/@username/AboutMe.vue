@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import Icon from "#lib/daisy/components/display/Icon.vue";
-import { t } from "#lib/i18n";
-import { ITEMS } from "../../constants";
-import useProfile from "../../store";
+import Icon from '#lib/daisy/components/display/Icon.vue'
+import { t } from '#lib/i18n'
+import { ITEMS } from '../../constants'
+import useProfile from '../../store'
 
-const profile = useProfile();
+const profile = useProfile()
 </script>
 
 <template>
@@ -17,8 +17,9 @@ const profile = useProfile();
       <div class="space-y-2">
         <div
           v-for="item in ITEMS"
-          class="flex items-center gap-2"
           v-show="profile[item.id]"
+          :key="item.id"
+          class="flex items-center gap-2"
         >
           <Icon>{{ item.icon }}</Icon>
           <span>{{ item.label }} {{ profile[item.id] }}</span>

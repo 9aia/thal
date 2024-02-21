@@ -1,32 +1,30 @@
 <script setup lang="ts">
-import Icon from "#lib/daisy/components/display/Icon.vue";
-import { usePageContext } from "#lib/vike/composables/usePageContext";
+import Icon from '#lib/daisy/components/display/Icon.vue'
+import { usePageContext } from '#lib/vike/composables/usePageContext'
 
-const pageContext = usePageContext();
+const pageContext = usePageContext()
 
 const items = [
-  { name: "Aprender", icon: "book", href: "/learn" },
-  { name: "Praticar", icon: "exercise", href: "/practice" },
-  { name: "Rank", icon: "trophy", href: "/rank" },
-  { name: "Perfil", icon: "face", href: "/profile" },
-];
+  { id: 'learn', name: 'Aprender', icon: 'book', href: '/learn' },
+  { id: 'practice', name: 'Praticar', icon: 'exercise', href: '/practice' },
+  { id: 'rank', name: 'Rank', icon: 'trophy', href: '/rank' },
+  { id: 'profile', name: 'Perfil', icon: 'face', href: '/profile' },
+]
 </script>
 
 <template>
   <div class="drawer lg:drawer-open">
-    <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+    <input id="my-drawer" type="checkbox" class="drawer-toggle">
     <div class="drawer-content p-4">
       <slot />
-      <label for="my-drawer" class="btn btn-primary drawer-button"
-        >Open drawer</label
-      >
+      <label for="my-drawer" class="btn btn-primary drawer-button">Open drawer</label>
     </div>
     <div class="drawer-side">
       <label
         for="my-drawer"
         aria-label="close sidebar"
         class="drawer-overlay"
-      ></label>
+      />
 
       <ul
         class="flex flex-col gap-2 menu p-4 w-80 min-h-full bg-base-200 text-xl text-base-content"
@@ -44,11 +42,12 @@ const items = [
 
         <li
           v-for="item in items"
+          :key="item.id"
           class="rounded-lg border-2"
           :class="{
             'border-primary text-black':
               pageContext.urlPathname === item.href,
-              'border-transparent': pageContext.urlPathname !== item.href
+            'border-transparent': pageContext.urlPathname !== item.href,
           }"
         >
           <a :href="item.href">

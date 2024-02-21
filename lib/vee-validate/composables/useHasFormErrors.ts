@@ -1,12 +1,12 @@
-import { FormContext, GenericObject } from "vee-validate";
-import { computed } from "vue";
+import type { FormContext, GenericObject } from 'vee-validate'
+import { computed } from 'vue'
 
 function useHasFormErrors<T extends GenericObject = GenericObject>(
-  form: FormContext<T>
+  form: FormContext<T>,
 ) {
-  const hasErrors = computed(() => Object.keys(form.errorBag.value).length > 0);
+  const hasErrors = computed(() => Object.keys(form.errorBag.value).length > 0)
 
-  return hasErrors;
+  return hasErrors
 }
 
-export default useHasFormErrors;
+export default useHasFormErrors

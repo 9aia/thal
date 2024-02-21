@@ -1,35 +1,36 @@
-import { BreadcrumbItem } from "../components/navigation/types";
-import { usePageContext } from "#lib/vike/composables/usePageContext";
-import { navigate } from "vike/client/router";
-import { computed } from "vue";
+import { usePageContext } from '#lib/vike/composables/usePageContext'
+import { navigate } from 'vike/client/router'
+import { computed } from 'vue'
+import type { BreadcrumbItem } from '../components/navigation/types'
 
-type Options = {
-  urlPathname?: string;
-  root: BreadcrumbItem;
-  config: BreadcrumbItem[];
-};
+interface Options {
+  urlPathname?: string
+  root: BreadcrumbItem
+  config: BreadcrumbItem[]
+}
 
 function useBreadcrumbs(options: Options) {
-  const pageContext = usePageContext();
+  const pageContext = usePageContext()
 
   const path = computed(() => {
     return pageContext.urlPathname
-      .replaceAll(options?.urlPathname!, "")
-      .split("/")
-      .filter((o) => o !== "");
-  });
+      .replaceAll(options.urlPathname!, '')
+      .split('/')
+      .filter(o => o !== '')
+  })
   const items = computed(() => {
-    const currentItem = options.config.find((o) => o.id === path.value[0]);
-    if (!currentItem) return [options.root];
+    const currentItem = options.config.find(o => o.id === path.value[0])
+    if (!currentItem)
+      return [options.root]
 
-    return [options.root, currentItem];
-  });
+    return [options.root, currentItem]
+  })
 
   const back = () => {
-    navigate(options?.urlPathname!);
-  };
+    navigate(options.urlPathname!)
+  }
 
-  return { items, path, back };
+  return { items, path, back }
 }
 
-export default useBreadcrumbs;
+export default useBreadcrumbs

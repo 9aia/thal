@@ -1,1 +1,1 @@
-export const BLANK = "{blank}";
+export const BLANK = '{blank}'

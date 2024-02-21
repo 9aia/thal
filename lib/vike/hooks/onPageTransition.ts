@@ -1,15 +1,17 @@
-import { OnPageTransitionEndSync, OnPageTransitionStartSync } from "vike/types";
+import type {
+  OnPageTransitionEndSync,
+  OnPageTransitionStartSync,
+} from 'vike/types'
 
 export const onPageTransitionStart: OnPageTransitionStartSync = (
-  pageContext
+  pageContext,
 ): ReturnType<OnPageTransitionStartSync> => {
-  document.body.classList.add("route-transition");
-  pageContext.isBackwardNavigation &&
-    document.body.classList.add("is-backward-navigation");
-};
+  document.body.classList.add('route-transition')
+  pageContext.isBackwardNavigation
+  && document.body.classList.add('is-backward-navigation')
+}
 
-export const onPageTransitionEnd: OnPageTransitionEndSync = (
-  pageContext
-): ReturnType<OnPageTransitionEndSync> => {
-  document.body.classList.remove("route-transition");
-};
+export const onPageTransitionEnd: OnPageTransitionEndSync
+  = (): ReturnType<OnPageTransitionEndSync> => {
+    document.body.classList.remove('route-transition')
+  }

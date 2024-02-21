@@ -1,34 +1,36 @@
 <script setup lang="ts">
-import { useRipple } from "#lib/daisy/composables/useRipple";
-import { SafeProps, SafeVariantProps } from "#lib/vue/utils/types";
-import { VariantProps, tv } from "tailwind-variants";
-import { useAttrs, type ButtonHTMLAttributes } from "vue";
+import type { VariantProps } from 'tailwind-variants'
+import { tv } from 'tailwind-variants'
+import { type ButtonHTMLAttributes, useAttrs } from 'vue'
+import { useRipple } from '#lib/daisy/composables/useRipple'
+import type { SafeProps, SafeVariantProps } from '#lib/vue/utils/types'
+
+defineProps<Props>()
 
 const styles = tv({
-  base: "btn btn-sm",
-});
+  base: 'btn btn-sm',
+})
 
 type Props = SafeProps<ButtonHTMLAttributes> &
   SafeVariantProps<VariantProps<typeof styles>> & {
-    loading?: boolean;
-    success?: boolean;
-  };
+    loading?: boolean
+    success?: boolean
+  }
 
-defineProps<Props>();
-const externalRef = defineModel();
+const externalRef = defineModel()
 
-const rippleElRef = useRipple(externalRef);
-const attrs = useAttrs();
+const rippleElRef = useRipple(externalRef)
+const attrs = useAttrs()
 </script>
 
 <template>
   <button
-    :class="styles({ class: attrs.class as string })"
     ref="rippleElRef"
+    :class="styles({ class: attrs.class as string })"
     :disabled="loading"
   >
     <slot />
-    <span v-if="loading" class="loading loading-spinner"></span>
+    <span v-if="loading" class="loading loading-spinner" />
     <span v-else-if="success" class="material-symbols-outlined">
       check
     </span>

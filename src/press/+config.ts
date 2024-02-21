@@ -1,5 +1,5 @@
-import { Config } from "vike/types";
+import type { Config } from 'vike/types'
 
 export default {
-  filesystemRoutingRoot: "/",
-} satisfies Config;
+  filesystemRoutingRoot: '/',
+} satisfies Config

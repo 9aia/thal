@@ -1,7 +1,7 @@
-import vue from "@vitejs/plugin-vue";
-import { defineConfig } from "vite";
-import vike from "vike/plugin";
-import path from "path";
+import path from 'node:path'
+import vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite'
+import vike from 'vike/plugin'
 
 export default defineConfig({
   plugins: [
@@ -14,13 +14,13 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "#lib": path.join(__dirname, "lib"),
-      "~": path.join(__dirname, "src"),
+      '#lib': path.join(__dirname, 'lib'),
+      '~': path.join(__dirname, 'src'),
     },
   },
   server: {
     proxy: {
-      "/api": "http://127.0.0.1:8787",
+      '/api': 'http://127.0.0.1:8787',
     },
   },
-});
+})

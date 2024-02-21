@@ -1,68 +1,68 @@
 <script setup lang="ts">
-import Modal from "#lib/daisy/components/action/Modal.vue";
-import TextField from "#lib/daisy/components/data-input/TextField.vue";
-import { useToast } from "#lib/daisy/composables/useToast";
-import client from "#lib/hono/client";
-import { t } from "#lib/i18n";
-import { useForm } from "vee-validate";
-import { inject, ref } from "vue";
-import { MAX_PROFESSION_CHARS } from "../../profile/constants";
-import { Profile } from "../../profile/schemas/profile";
-import { Cookies } from "#lib/web/utils/cookies";
+import { useForm } from 'vee-validate'
+import { inject, ref } from 'vue'
+import { MAX_PROFESSION_CHARS } from '../../profile/constants'
+import type { Profile } from '../../profile/schemas/profile'
+import Modal from '#lib/daisy/components/action/Modal.vue'
+import TextField from '#lib/daisy/components/data-input/TextField.vue'
+import { useToast } from '#lib/daisy/composables/useToast'
+import client from '#lib/hono/client'
+import { t } from '#lib/i18n'
+import { Cookies } from '#lib/web/utils/cookies'
 
-const ERROR_MESSAGE = t("An error occurred while updating your profession.");
-const SUCCESS_MESSAGE = t("Profession has been updated successfully.");
-const INVALID_PROFESSION_CHAR_AMOUNT = t(`It must contain at most ${MAX_PROFESSION_CHARS} characters`);
-const USERNAME_NOT_FOUND_MESSAGE = t("Username not found.");
+const ERROR_MESSAGE = t('An error occurred while updating your profession.')
+const SUCCESS_MESSAGE = t('Profession has been updated successfully.')
+const INVALID_PROFESSION_CHAR_AMOUNT = t(`It must contain at most ${MAX_PROFESSION_CHARS} characters`)
+const USERNAME_NOT_FOUND_MESSAGE = t('Username not found.')
 
-const profile = inject<Profile>("profile")!;
+const profile = inject<Profile>('profile')!
 
-const toast = useToast();
+const toast = useToast()
 const form = useForm<{
   profession: Profile['profession']
 }>({
   initialValues: {
-    profession: profile.profession
+    profession: profile.profession,
   },
-});
+})
 
-const isOpen = defineModel({ default: false });
-const loading = ref(false);
+const isOpen = defineModel({ default: false })
+const loading = ref(false)
 
 const submit = form.handleSubmit(async (data) => {
-  const username = Cookies.get("username");
-  if (!username) {
-    throw new Error(USERNAME_NOT_FOUND_MESSAGE);
-  }
+  const username = Cookies.get('username')
+  if (!username)
+    throw new Error(USERNAME_NOT_FOUND_MESSAGE)
 
-  loading.value = true;
+  loading.value = true
 
-  const res = await client.app.profile[":username"].$patch({
+  const res = await client.app.profile[':username'].$patch({
     param: {
       username,
     },
     json: form.values,
-  });
+  })
 
   if (!res.ok) {
-    toast.error(ERROR_MESSAGE);
-  } else {
-    profile.profession = data.profession;
+    toast.error(ERROR_MESSAGE)
+  }
+  else {
+    profile.profession = data.profession
 
-    toast.success(SUCCESS_MESSAGE);
+    toast.success(SUCCESS_MESSAGE)
   }
 
-  loading.value = false;
-  isOpen.value = false;
-});
+  loading.value = false
+  isOpen.value = false
+})
 </script>
 
 <template>
   <Modal
-    :confirm-text="t('Save')"
-    @confirm="submit"
     v-model="isOpen"
+    :confirm-text="t('Save')"
     :loading="loading"
+    @confirm="submit"
   >
     <template #default>
       <h1 class="font-bold text-2xl mb-2 mt-4">
@@ -100,7 +100,7 @@ const submit = form.handleSubmit(async (data) => {
       <p class="text-md text-gray-600">
         {{
           t(
-            "P.S. Don't have a traditional job? No worries! Share your life's calling - writer, musician, world traveler - anything goes!"
+            "P.S. Don't have a traditional job? No worries! Share your life's calling - writer, musician, world traveler - anything goes!",
           )
         }}
       </p>

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { t } from "#lib/i18n";
-import useProfile from "../../store";
+import useProfile from '../../store'
+import { t } from '#lib/i18n'
 
-const profile = useProfile();
+const profile = useProfile()
 </script>
 
 <template>

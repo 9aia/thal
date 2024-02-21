@@ -1,7 +1,7 @@
-import { computed } from "vue";
-import { usePageContext } from "./usePageContext";
+import { computed } from 'vue'
+import { usePageContext } from './usePageContext'
 
 export function useSearchParams() {
-  const pageContext = usePageContext();
-  return computed(() => pageContext.urlParsed.search);
+  const pageContext = usePageContext()
+  return computed(() => pageContext.urlParsed.search)
 }

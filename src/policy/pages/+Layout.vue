@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ParentLayout from "../../+Layout.vue";
+import ParentLayout from '../../+Layout.vue'
 </script>
 
 <template>

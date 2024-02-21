@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { onMounted, defineSlots, ref } from 'vue'
+import { defineSlots, onMounted, ref } from 'vue'
 
 defineProps<{
   defaultAsFallback?: boolean
 }>()
 
 const slots = defineSlots<{
-  default(): any
-  fallback(): any
+  default: () => any
+  fallback: () => any
 }>()
 
 const component = ref()
@@ -15,11 +15,11 @@ const component = ref()
 onMounted(() => {
   component.value = slots.default
 })
-const isDev = import.meta.env.DEV;
+const isDev = import.meta.env.DEV
 </script>
 
 <template>
-  <component v-if="component && !isDev" :is="component" />
+  <component :is="component" v-if="component && !isDev" />
 
   <template v-else>
     <slot v-if="defaultAsFallback" name="default" />

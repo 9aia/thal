@@ -1,37 +1,37 @@
-import { ref } from "vue";
+import { ref } from 'vue'
 
-type Type = "success" | "error" | "warning" | "info";
+type Type = 'success' | 'error' | 'warning' | 'info'
 
-const message = ref<string>("No information provided.");
-const visible = ref<boolean>(false);
-const type = ref<Type>("success");
-const duration = ref(3000);
+const message = ref<string>('No information provided.')
+const visible = ref<boolean>(false)
+const type = ref<Type>('success')
+const duration = ref(3000)
 
-type ToastOptions = {
-  message: string;
-  type?: Type;
-  duration?: number;
-};
+interface ToastOptions {
+  message: string
+  type?: Type
+  duration?: number
+}
 
 export function useToast() {
   const open = (options: ToastOptions) => {
-    visible.value = true;
-    message.value = options.message;
-    type.value = options.type || "success";
-    duration.value = options.duration ?? 3000;
-  };
+    visible.value = true
+    message.value = options.message
+    type.value = options.type || 'success'
+    duration.value = options.duration ?? 3000
+  }
   const info = (message: string, duration?: number) =>
-    open({ type: "info", message, duration });
+    open({ type: 'info', message, duration })
   const warn = (message: string, duration?: number) =>
-    open({ type: "warning", message, duration });
+    open({ type: 'warning', message, duration })
   const error = (message: string, duration?: number) =>
-    open({ type: "error", message, duration });
+    open({ type: 'error', message, duration })
   const success = (message: string, duration?: number) =>
-    open({ type: "success", message, duration });
+    open({ type: 'success', message, duration })
 
   const close = () => {
-    visible.value = false;
-  };
+    visible.value = false
+  }
 
   return {
     open,
@@ -44,5 +44,5 @@ export function useToast() {
     message,
     duration,
     type,
-  };
+  }
 }

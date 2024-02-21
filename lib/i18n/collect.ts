@@ -1,9 +1,9 @@
-type Values = Record<string, any>;
+type Values = Record<string, any>
 
-export const collected: Record<string, Values> = {};
+export const collected: Record<string, Values> = {}
 
 function collect(text: string, values?: Values) {
-  collected[text] = values || {};
+  collected[text] = values || {}
 }
 
-export default collect;
+export default collect

@@ -1,26 +1,27 @@
 <script setup lang="ts">
-import useSlotContent from "#lib/vue/composables/useSlotContent";
-import { SafeProps } from "#lib/vue/utils/types";
-import { RuleExpression, useField } from "vee-validate";
-import { MaybeRef, type InputHTMLAttributes } from "vue";
+import { useSlotContent } from '#design/composables/useSlotContent'
+import type { SafeProps } from '#lib/vue/utils/types'
+import type { RuleExpression } from 'vee-validate'
+import { useField } from 'vee-validate'
+import type { InputHTMLAttributes, MaybeRef } from 'vue'
 
 type Props = SafeProps<InputHTMLAttributes> & {
-  label?: string;
-  placeholder?: string;
-  error?: string;
-  path: string;
-  rules?: MaybeRef<RuleExpression<string>>;
-  mandatory?: boolean;
-  feedback?: string | boolean;
-  iconPosition?: "none" | "right" | "left";
-};
+  label?: string
+  placeholder?: string
+  error?: string
+  path: string
+  rules?: MaybeRef<RuleExpression<string>>
+  mandatory?: boolean
+  feedback?: string | boolean
+  iconPosition?: 'none' | 'right' | 'left'
+}
 
 const props = withDefaults(defineProps<Props>(), {
-  iconPosition: "none",
-});
-const label = useSlotContent(() => props.label);
+  iconPosition: 'none',
+})
+const label = useSlotContent(() => props.label)
 
-const { value, errorMessage } = useField(props.path, props.rules);
+const { value, errorMessage } = useField(props.path, props.rules)
 </script>
 
 <template>
@@ -32,8 +33,7 @@ const { value, errorMessage } = useField(props.path, props.rules);
       <span
         v-if="mandatory"
         class="absolute bottom-1/2 translate-y-1/2 right-[-0.4em] text-red-500"
-        >*</span
-      >
+      >*</span>
     </div>
 
     <div class="relative">
@@ -45,19 +45,19 @@ const { value, errorMessage } = useField(props.path, props.rules);
       </div>
 
       <input
+        v-model="value"
         class="input input-bordered w-full"
         :placeholder="placeholder"
-        v-model="value"
         :class="{
           'pr-12': iconPosition === 'right',
           'pl-12': iconPosition === 'left',
         }"
-      />
+      >
       <div
         v-if="iconPosition === 'right'"
         class="flex absolute right-4 bottom-1/2 translate-y-1/2"
       >
-        <slot name="icon" :errorMessage="errorMessage" />
+        <slot name="icon" :error-message="errorMessage" />
       </div>
     </div>
 
@@ -69,7 +69,7 @@ const { value, errorMessage } = useField(props.path, props.rules);
 
     <div v-if="feedback" class="label">
       <span class="label-text-alt">
-        <slot name="feedback" :v-bind="{ feedback }">
+        <slot name="feedback" :feedback="feedback">
           {{ feedback }}
         </slot>
       </span>

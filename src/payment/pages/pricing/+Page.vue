@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { t } from '#lib/i18n';
+import { t } from '#lib/i18n'
 </script>
 
 <template>
@@ -14,8 +14,12 @@ import { t } from '#lib/i18n';
           class="bg-white p-6 border border-teal-500 rounded-md shadow-md flex flex-col justify-between"
         >
           <div>
-            <h3 class="text-lg font-semibold mb-4">Plano Premium</h3>
-            <p class="text-gray-600 mb-4">Advanced learning experience</p>
+            <h3 class="text-lg font-semibold mb-4">
+              Plano Premium
+            </h3>
+            <p class="text-gray-600 mb-4">
+              Advanced learning experience
+            </p>
 
             <div class="flex items-center justify-center mb-6">
               <span class="text-4xl font-semibold text-primary">R$29.99</span>

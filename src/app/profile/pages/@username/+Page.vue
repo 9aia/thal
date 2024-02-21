@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { useData } from "#lib/vike/composables/useData";
-import { t } from "#lib/i18n";
-import { Cookies } from "#lib/web/utils/cookies";
-import { provide, ref } from "vue";
-import Data from "../+data";
-import AboutMe from "./AboutMe.vue";
-import Goals from "./Goals.vue";
-import Header from "./Header.vue";
-import Interests from "./Interests.vue";
-import Observation from "./Observation.vue";
-import Summary from "./Summary.vue";
+import { provide, ref } from 'vue'
+import type Data from '../+data'
+import AboutMe from './AboutMe.vue'
+import Goals from './Goals.vue'
+import Header from './Header.vue'
+import Interests from './Interests.vue'
+import Observation from './Observation.vue'
+import Summary from './Summary.vue'
+import { Cookies } from '#lib/web/utils/cookies'
+import { t } from '#lib/i18n'
+import { useData } from '#lib/vike/composables/useData'
 
-const data = useData<typeof Data>();
-const profile = ref(data.value);
-provide("profile", profile);
+const data = useData<typeof Data>()
+const profile = ref(data.value)
+provide('profile', profile)
 </script>
 
 <template>
@@ -31,8 +31,7 @@ provide("profile", profile);
         v-if="Cookies.get('username') === profile.username"
         href="/app/settings/profile"
         class="btn btn-sm mt-4"
-        >{{ t("Edit profile") }}</a
-      >
+      >{{ t("Edit profile") }}</a>
     </aside>
 
     <main

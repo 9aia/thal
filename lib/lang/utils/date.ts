@@ -1,11 +1,11 @@
-export const now = () => {
-  return new Date(new Date().toISOString());
+export function now() {
+  return new Date(new Date().toISOString())
 }
 
-export const fromSToMillis = (seconds: number) => {
-  return seconds * 1000;
+export function fromSToMillis(seconds: number) {
+  return seconds * 1000
 }
 
-export const fromMillisToS = (millis: number) => {
-  return Math.floor(millis / 1000);
+export function fromMillisToS(millis: number) {
+  return Math.floor(millis / 1000)
 }

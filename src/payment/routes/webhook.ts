@@ -1,20 +1,20 @@
-import { HonoContext } from "#lib/hono/types";
-import { Hono } from "hono";
-import { env } from "hono/adapter";
-import Stripe from "stripe";
-import * as stripeHandlers from "../handlers/stripe";
-import { getStripe } from "../utils/stripe";
+import { Hono } from 'hono'
+import { env } from 'hono/adapter'
+import Stripe from 'stripe'
+import * as stripeHandlers from '../handlers/stripe'
+import { getStripe } from '../utils/stripe'
+import type { HonoContext } from '#lib/hono/types'
 
-const webhookRoutes = new Hono<HonoContext>();
+const webhookRoutes = new Hono<HonoContext>()
 
-export default webhookRoutes.post("/stripe", async (c) => {
-  const { STRIPE_ENDPOINT_SECRET, STRIPE_SECRET_KEY } = env(c);
+export default webhookRoutes.post('/stripe', async (c) => {
+  const { STRIPE_ENDPOINT_SECRET, STRIPE_SECRET_KEY } = env(c)
 
-  const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY });
-  const body = await c.req.text();
-  const sig = c.req.raw.headers.get("stripe-signature")!;
+  const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY })
+  const body = await c.req.text()
+  const sig = c.req.raw.headers.get('stripe-signature')!
 
-  let event: Stripe.Event;
+  let event: Stripe.Event
 
   try {
     event = await stripe.webhooks.constructEventAsync(
@@ -22,40 +22,40 @@ export default webhookRoutes.post("/stripe", async (c) => {
       sig,
       STRIPE_ENDPOINT_SECRET,
       undefined,
-      Stripe.createSubtleCryptoProvider()
-    );
-  } catch (err) {
+      Stripe.createSubtleCryptoProvider(),
+    )
+  }
+  catch (err) {
     const errorMessage = `⚠️  Webhook signature verification failed. ${
-      err instanceof Error ? err.message : "Internal server error"
-    }`;
-    console.log(errorMessage);
+      err instanceof Error ? err.message : 'Internal server error'
+    }`
+    console.log(errorMessage)
 
-    return c.body(errorMessage, 400);
+    return c.body(errorMessage, 400)
   }
 
   const eventsOptions: Partial<Record<typeof event.type, () => Promise<void>>> = {
-    "checkout.session.completed": async () => {
-      await stripeHandlers.handleCheckoutCompleted(event as any, c);
+    'checkout.session.completed': async () => {
+      await stripeHandlers.handleCheckoutCompleted(event as any, c)
     },
-    "checkout.session.async_payment_succeeded": async () => {
-      await stripeHandlers.handleAsyncPaymentSucceeded(event as any, c);
+    'checkout.session.async_payment_succeeded': async () => {
+      await stripeHandlers.handleAsyncPaymentSucceeded(event as any, c)
     },
-    "customer.subscription.trial_will_end": async () => {},
-    "customer.subscription.deleted": async () => {
-      await stripeHandlers.handleCustomerSubscriptionDeleted(event as any, c);
+    'customer.subscription.trial_will_end': async () => {},
+    'customer.subscription.deleted': async () => {
+      await stripeHandlers.handleCustomerSubscriptionDeleted(event as any, c)
     },
-    "customer.subscription.updated": async () => {
-      await stripeHandlers.handleCustomerSubscriptionUpdated(event as any, c);
+    'customer.subscription.updated': async () => {
+      await stripeHandlers.handleCustomerSubscriptionUpdated(event as any, c)
     },
-  };
-
-  const handler = eventsOptions[event.type];
-
-  if (handler) {
-    await handler();
-  } else {
-    console.log(`Unhandled event type ${event.type}`);
   }
 
-  return c.json({ received: true });
-});
+  const handler = eventsOptions[event.type]
+
+  if (handler)
+    await handler()
+  else
+    console.log(`Unhandled event type ${event.type}`)
+
+  return c.json({ received: true })
+})

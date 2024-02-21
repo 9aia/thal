@@ -1,32 +1,32 @@
 <script setup lang="ts">
-import { SafeProps } from "#lib/vue/utils/types";
-import { useField } from "vee-validate";
-import { type InputHTMLAttributes } from "vue";
+import { useField } from 'vee-validate'
+import type { InputHTMLAttributes } from 'vue'
+import type { SafeProps } from '#lib/vue/utils/types'
 
 type Props = SafeProps<InputHTMLAttributes> & {
-  path: string;
-  disabled?: boolean;
-};
+  path: string
+  disabled?: boolean
+}
 
-const props = defineProps<Props>();
+const props = defineProps<Props>()
 
-const { value, handleBlur } = useField(props.path);
+const { value, handleBlur } = useField(props.path)
 </script>
 
 <template>
   <div class="form-control">
-    <label class="label" :class="{'cursor-pointer': !disabled}">
+    <label class="label" :class="{ 'cursor-pointer': !disabled }">
       <span class="label-text flex gap-1 items-center">
         <slot />
       </span>
 
       <input
+        v-model="value"
         class="checkbox checkbox-neutral"
         type="checkbox"
-        v-model="value"
         :disabled="disabled"
         @blur="handleBlur"
-      />
+      >
     </label>
   </div>
 </template>
