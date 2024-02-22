@@ -8,7 +8,7 @@ import type { SafeProps, SafeVariantProps } from '#lib/vue/utils/types'
 defineProps<Props>()
 
 const styles = tv({
-  base: 'btn btn-sm',
+  base: 'btn btn-sm h-fit',
 })
 
 type Props = SafeProps<ButtonHTMLAttributes> &
