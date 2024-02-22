@@ -1,12 +1,13 @@
 -- @block
 CREATE TABLE IF NOT EXISTS Users (
   id VARCHAR(15) NOT NULL PRIMARY KEY,
-  username VARCHAR(255) NOT NULL UNIQUE,
+  profile_id INTEGER NOT NULL ,
   plan VARCHAR(255),
   payment_gateway_customer_id VARCHAR(255),
   payment_gateway_session_id VARCHAR(255),
   plan_expires VARCHAR(255),
-  free_trial_used INT DEFAULT 0
+  free_trial_used INT DEFAULT 0,
+  FOREIGN KEY (profile_id) REFERENCES Profiles(id)
 );
 
 -- @block

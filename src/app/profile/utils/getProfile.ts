@@ -25,7 +25,7 @@ export async function createProfile(
 ) {
   const orm = c.get('orm')
 
-  const profile = await orm
+  const [profile] = await orm
     .insert(profiles)
     .values({
       ...insert,

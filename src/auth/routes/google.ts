@@ -5,7 +5,7 @@ import { env } from 'hono/adapter'
 import { getCookie, setCookie } from 'hono/cookie'
 import type { HonoContext } from '#lib/hono/types'
 import { createProfile } from '~/app/profile/utils/getProfile'
-import { users } from '~/auth/schemas/user'
+import { profiles } from '~/app/profile/schemas/profile'
 
 export default new Hono<HonoContext>()
   .get('/google', async (c) => {
@@ -57,24 +57,24 @@ export default new Hono<HonoContext>()
         const existingUser = await getExistingUser()
 
         if (existingUser) {
-          const [user] = await orm.select().from(users).where(eq(users.id, existingUser.userId))
+          const [profile] = await orm.select().from(profiles).where(eq(profiles.id, existingUser.profileId))
 
           return {
             user: existingUser,
-            username: user!.username,
+            username: profile!.username,
           }
         };
 
-        const user = await createUser({
-          attributes: {
-            username,
-          },
-        })
-
-        await createProfile(c, {
+        const profile = await createProfile(c, {
           username,
           name: googleUser.given_name,
           lastName: googleUser.family_name,
+        })
+
+        const user = await createUser({
+          attributes: {
+            profile_id: profile.id,
+          },
         })
 
         return { user, username }

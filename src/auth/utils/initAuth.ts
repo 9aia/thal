@@ -25,7 +25,7 @@ export function initAuth(ENV: HonoContext['Bindings']) {
 
     getUserAttributes: (data) => {
       return {
-        googleUsername: data.username,
+        profileId: data.profile_id,
       }
     },
   })

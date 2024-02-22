@@ -36,6 +36,7 @@ export default authRouter
     await auth.lucia.invalidateSession(sessionId)
     deleteCookie(c, 'auth_session')
     deleteCookie(c, 'google_oauth_state')
+    deleteCookie(c, 'username')
 
     return c.redirect('/authentication')
   })

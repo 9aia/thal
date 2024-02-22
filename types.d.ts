@@ -33,7 +33,7 @@ declare global {
   namespace Lucia {
     type Auth = _Auth
     type DatabaseUserAttributes = {
-      username: string
+      profile_id: number
     }
     // eslint-disable-next-line
     type DatabaseSessionAttributes = {}
@@ -48,7 +48,7 @@ declare global {
       STRIPE_ENDPOINT_SECRET: string
       GEMINI_API_KEY: string
     }
-    type Bindings = {
+    type Variables = {
       orm: DrizzleD1Database
       auth: ReturnType<typeof initAuth>
       session: Session
