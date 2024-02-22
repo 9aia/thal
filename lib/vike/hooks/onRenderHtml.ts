@@ -9,20 +9,20 @@ import onI18n from '#lib/i18n/hooks/onI18n'
 checkVikeVersion()
 
 const onRenderHtml: OnRenderHtmlAsync = async (
-  pageContext,
+  c,
 ): ReturnType<OnRenderHtmlAsync> => {
-  const { stream } = pageContext.config
+  const { stream } = c.config
   let pageView:
     | ReturnType<typeof dangerouslySkipEscape>
     | ReturnType<typeof renderToNodeStream>
     | string = ''
 
-  const isSsr = !!pageContext.Page
+  const isSsr = !!c.Page
 
   if (isSsr) {
-    const app = createAppIsomorphic(pageContext)
-    if (pageContext.config.vuePlugins) {
-      pageContext.config.vuePlugins.forEach(({ plugin, options }) => {
+    const app = createAppIsomorphic(c)
+    if (c.config.vuePlugins) {
+      c.config.vuePlugins.forEach(({ plugin, options }) => {
         app.use(plugin, options)
       })
     }
@@ -32,31 +32,31 @@ const onRenderHtml: OnRenderHtmlAsync = async (
       : renderToNodeStream(app)
   }
 
-  const title = getTitle(pageContext)
+  const title = getTitle(c)
   const titleTag = !title ? '' : escapeInject`<title>${title}</title>`
 
-  const { description } = pageContext.config
+  const { description } = c.config
   const descriptionTag = !description
     ? ''
     : escapeInject`<meta name="description" content="${description}" />`
 
-  const { favicon } = pageContext.config
+  const { favicon } = c.config
   const faviconTag = !favicon
     ? ''
     : escapeInject`<link rel="icon" href="${favicon}" />`
 
   let headHtml: ReturnType<typeof dangerouslySkipEscape> | string = ''
-  if (pageContext.config.Head) {
+  if (c.config.Head) {
     const app = createAppIsomorphic(
-      pageContext,
+      c,
       /* ssrApp */ true,
       /* renderHead */ true,
     )
     headHtml = dangerouslySkipEscape(await renderToString(app))
   }
 
-  const { lang } = onI18n(pageContext)
-  const { themeClass, colorScheme } = onTheme(pageContext)
+  const { lang } = onI18n(c)
+  const { themeClass, colorScheme } = onTheme(c)
 
   const documentHtml = escapeInject`<!DOCTYPE html>
     <html lang="${lang}" class="${themeClass}">

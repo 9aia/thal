@@ -1,15 +1,16 @@
 import type { PageContext } from 'vike/types'
 import { render } from 'vike/abort'
 import client from '#lib/hono/client'
-import type { Profile } from '../schemas/profile'
+import type { Profile } from '../../schemas/profile'
 import { getFetchWithCookies } from '#lib/hono/utils/getFetchWithCookies'
 
-export default async (pageContext: PageContext) => {
+export default async (c: PageContext) => {
   let profile: Profile | undefined
 
-  if (pageContext.routeParams.isMe === 'true') {
+  const isMe = c.routeParams.isMe
+  if (isMe) {
     const res = await client.app.profile.logged.$get(undefined, {
-      fetch: getFetchWithCookies(pageContext),
+      fetch: getFetchWithCookies(c),
     })
 
     const data = await res.json()
@@ -27,7 +28,7 @@ export default async (pageContext: PageContext) => {
     profile = data
   }
   else {
-    const username = pageContext.routeParams.username
+    const username = c.routeParams.username
 
     const res = await client.app.profile[':username'].$get({
       param: {

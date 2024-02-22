@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { useAsyncState } from '@vueuse/core'
-import { getConfig } from '../utils'
-import { collected } from '../collect'
 import Btn from '#lib/daisy/components/action/Btn.vue'
 import Icon from '#lib/daisy/components/display/Icon.vue'
 import client from '#lib/hono/client'
-import useSpringState from '#lib/vue/composables/useSpringState'
+import { refAutoReset, useAsyncState } from '@vueuse/core'
+import { collected } from '../collect'
+import { getConfig } from '../utils'
 
 const translation = useAsyncState(
   async () => {
@@ -25,7 +24,7 @@ const translation = useAsyncState(
   { immediate: false },
 )
 
-const ok = useSpringState<boolean>(false)
+const ok = refAutoReset(false, 3000)
 
 function getBoilerplate() {
   const config = getConfig()
@@ -50,19 +49,19 @@ async function translate() {
   const data = translation.state.value
   console.log(JSON.stringify(data?.translations, null, 2))
 
-  ok.set(true, 1000)
+  ok.value = true
 }
 
 const DEV = import.meta.env.DEV
 </script>
 
 <template>
-  <div class="fixed z-10 bottom-4 left-4">
+  <div class="fixed z-10 bottom-4 left-">
     <Btn
       v-if="DEV"
       :loading="translation.isLoading.value"
-      :success="ok.state.value"
-      class="rounded-full shadow-2xl btn-primary"
+      :success="ok"
+      class="flex rounded-full shadow-2xl btn-primary"
       @click="translate"
     >
       <Icon>translate</Icon>

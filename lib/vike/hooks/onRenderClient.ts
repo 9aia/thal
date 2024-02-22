@@ -6,7 +6,7 @@ import onI18n from '#lib/i18n/hooks/onI18n'
 let app: ReturnType<typeof createAppIsomorphic>
 
 const onRenderClient: OnRenderClientAsync = async (
-  pageContext,
+  c,
 ): ReturnType<OnRenderClientAsync> => {
   document.querySelector('#page-loader')?.remove()
 
@@ -14,10 +14,10 @@ const onRenderClient: OnRenderClientAsync = async (
     const container = document.getElementById('page-view')!
     const isSsr = container.innerHTML !== ''
 
-    app = createAppIsomorphic(pageContext, isSsr)
+    app = createAppIsomorphic(c, isSsr)
 
-    if (pageContext.config.vuePlugins) {
-      pageContext.config.vuePlugins.forEach(({ plugin, options }) => {
+    if (c.config.vuePlugins) {
+      c.config.vuePlugins.forEach(({ plugin, options }) => {
         app.use(plugin, options)
       })
     }
@@ -25,12 +25,12 @@ const onRenderClient: OnRenderClientAsync = async (
     app.mount(container)
   }
   else {
-    (app as any).changePage(pageContext)
+    (app as any).changePage(c)
 
-    const title = getTitle(pageContext)
+    const title = getTitle(c)
     document.title = title || ''
 
-    const { lang } = onI18n(pageContext)
+    const { lang } = onI18n(c)
     document.documentElement.lang = lang
   }
 }

@@ -2,7 +2,7 @@
 import Icon from '#lib/daisy/components/display/Icon.vue'
 import { usePageContext } from '#lib/vike/composables/usePageContext'
 
-const pageContext = usePageContext()
+const c = usePageContext()
 
 const items = [
   { id: 'learn', name: 'Aprender', icon: 'book', href: '/learn' },
@@ -46,8 +46,8 @@ const items = [
           class="rounded-lg border-2"
           :class="{
             'border-primary text-black':
-              pageContext.urlPathname === item.href,
-            'border-transparent': pageContext.urlPathname !== item.href,
+              c.urlPathname === item.href,
+            'border-transparent': c.urlPathname !== item.href,
           }"
         >
           <a :href="item.href">

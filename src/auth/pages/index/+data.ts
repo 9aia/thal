@@ -4,8 +4,8 @@ interface Data {
   type?: 'pricing'
 }
 
-export default async (pageContext: PageContext): Promise<Data> => {
-  const queryParams = pageContext.urlOriginal.split('?')[1]
+export default async (c: PageContext): Promise<Data> => {
+  const queryParams = c.urlOriginal.split('?')[1]
 
   const type = queryParams?.split('=')[1]
 

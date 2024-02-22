@@ -10,10 +10,10 @@ interface Options {
 }
 
 function useBreadcrumbs(options: Options) {
-  const pageContext = usePageContext()
+  const c = usePageContext()
 
   const path = computed(() => {
-    return pageContext.urlPathname
+    return c.urlPathname
       .replaceAll(options.urlPathname!, '')
       .split('/')
       .filter(o => o !== '')

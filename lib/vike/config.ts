@@ -138,7 +138,7 @@ declare global {
       Wrapper?: Component
 
       /** &lt;title>${title}&lt;/title> */
-      title?: string | ((pageContext: PageContext) => string)
+      title?: string | ((c: PageContext) => string)
 
       /** &lt;meta name="description" content="${description}" /> */
       description?: string

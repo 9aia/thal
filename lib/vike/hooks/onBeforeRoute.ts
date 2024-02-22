@@ -5,16 +5,16 @@ import type { I18nGlobal } from '#lib/i18n/types'
 import { detectLocale, detectLocaleClient, extractLocale } from '#lib/i18n/utils'
 
 const onBeforeRoute: OnBeforeRouteSync = (
-  pageContext,
+  c,
 ): ReturnType<OnBeforeRouteSync> => {
-  const { urlWithoutLocale, locale } = extractLocale(pageContext.urlPathname)
+  const { urlWithoutLocale, locale } = extractLocale(c.urlPathname)
 
   const defaultLocale
     = i18nConfig.defaultLocale || DEFAULT_I18N_CONFIG.defaultLocale
 
   const i18n: I18nGlobal = {
     urlWithoutLocale,
-    url: pageContext.urlPathname,
+    url: c.urlPathname,
     locale: locale || defaultLocale,
   }
 
@@ -24,8 +24,8 @@ const onBeforeRoute: OnBeforeRouteSync = (
         ? null
         : detectLocaleClient(navigator.language)?.lang
 
-    const lang = pageContext.acceptLanguage
-      ? detectLocale(pageContext.acceptLanguage)?.lang || defaultLocale
+    const lang = c.acceptLanguage
+      ? detectLocale(c.acceptLanguage)?.lang || defaultLocale
       : acceptLanguage || defaultLocale
 
     if (lang !== defaultLocale) {

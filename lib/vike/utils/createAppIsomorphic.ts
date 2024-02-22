@@ -20,15 +20,15 @@ import type { PageProps } from '../types'
  * @param pageContext Object providing the Vue component to be rendered, the props for that component, and additional
  *                    config and data.
  * @param ssrApp Whether to use `createSSRApp()` or `createApp()`. See https://vuejs.org/api/application.html
- * @param renderHead If true, `pageContext.config.Head` will be rendered instead of `pageContext.Page`.
+ * @param renderHead If true, `c.config.Head` will be rendered instead of `c.Page`.
  */
 export function createAppIsomorphic(
-  pageContext: PageContext,
+  c: PageContext,
   ssrApp = true,
   renderHead = false,
 ) {
-  const { Page } = pageContext
-  const Head = renderHead ? (pageContext.config.Head as Component) : undefined
+  const { Page } = c
+  const Head = renderHead ? (c.config.Head as Component) : undefined
 
   let rootComponent: Component & {
     Page: Component
@@ -38,7 +38,7 @@ export function createAppIsomorphic(
   const PageWithLayout = defineComponent({
     data: () => ({
       Page: markRaw(Head || (Page!)),
-      config: markRaw(pageContext.config),
+      config: markRaw(c.config),
     }),
     created() {
       // @ts-expect-error
@@ -81,17 +81,17 @@ export function createAppIsomorphic(
 
   // When doing Client Routing, we mutate pageContext (see usage of `app.changePage()` in `onRenderClient.ts`).
   // We therefore use a reactive pageContext.
-  const pageContextReactive = reactive(pageContext)
+  const pageContextReactive = reactive(c)
 
   // Make `pageContext` accessible from any Vue component
   setPageContext(app, pageContextReactive)
 
   // We use `app.changePage()` to do Client Routing, see `onRenderClient.ts`
   Object.assign(app, {
-    changePage: (pageContext: PageContext) => {
-      Object.assign(pageContextReactive, pageContext)
-      rootComponent.Page = markRaw(pageContext.Page!)
-      rootComponent.config = markRaw(pageContext.config)
+    changePage: (c: PageContext) => {
+      Object.assign(pageContextReactive, c)
+      rootComponent.Page = markRaw(c.Page!)
+      rootComponent.config = markRaw(c.config)
     },
   })
 

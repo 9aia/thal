@@ -58,7 +58,7 @@ const navItems: BottomNavItem[] = [
   { id: 'settings', name: 'Settings', icon: 'settings', href: '/app/settings' },
 ]
 
-const pageContext = usePageContext()
+const c = usePageContext()
 </script>
 
 <template>
@@ -124,7 +124,7 @@ const pageContext = usePageContext()
         <li v-for="item in navItems" :key="item.id">
           <A
             :href="item.href"
-            :class="{ active: pageContext.urlPathname === item.href }"
+            :class="{ active: c.urlPathname === item.href }"
           >
             <Icon>{{ item.icon }}</Icon>
             <span v-if="item.name" class="btm-nav-label">{{ item.name }}</span>
@@ -138,7 +138,7 @@ const pageContext = usePageContext()
       v-for="item in navItems"
       :key="item.id"
       :href="item.href"
-      :class="{ active: pageContext.urlPathname === item.href }"
+      :class="{ active: c.urlPathname === item.href }"
     >
       <Icon>{{ item.icon }}</Icon>
       <span v-if="item.name" class="hidden sm:flex btm-nav-label">{{ item.name }}</span>

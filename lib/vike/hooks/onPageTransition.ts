@@ -4,10 +4,10 @@ import type {
 } from 'vike/types'
 
 export const onPageTransitionStart: OnPageTransitionStartSync = (
-  pageContext,
+  c,
 ): ReturnType<OnPageTransitionStartSync> => {
   document.body.classList.add('route-transition')
-  pageContext.isBackwardNavigation
+  c.isBackwardNavigation
   && document.body.classList.add('is-backward-navigation')
 }
 

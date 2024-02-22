@@ -3,7 +3,7 @@ import { t } from '#lib/i18n'
 import { usePageContext } from '#lib/vike/composables/usePageContext'
 import { computed } from 'vue'
 
-const pageContext = usePageContext()
+const c = usePageContext()
 
 const errorMessage = computed(() => {
   const makeReturn = (message: string, statusCode: number) => {
@@ -24,14 +24,14 @@ const errorMessage = computed(() => {
     503: 'The server is undergoing maintenance.',
   }
 
-  const statusCode = pageContext.is404
+  const statusCode = c.is404
     ? 404
-    : Object.prototype.hasOwnProperty.call(options, pageContext.abortStatusCode || '')
-      ? pageContext.abortStatusCode
+    : Object.prototype.hasOwnProperty.call(options, c.abortStatusCode || '')
+      ? c.abortStatusCode
       : 500
 
   const message
-    = pageContext.abortReason
+    = c.abortReason
     || (Object.prototype.hasOwnProperty.call(options, statusCode!) ? options[statusCode!] : options[500])
 
   if (typeof message === 'object') {

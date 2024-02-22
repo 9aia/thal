@@ -6,15 +6,15 @@ const onPrerenderStart: OnPrerenderStartSync = (
 ): ReturnType<OnPrerenderStartSync> => {
   const pageContexts: Array<PageContextServer> = []
 
-  prerenderContext.pageContexts.forEach((pageContext: any) => {
+  prerenderContext.pageContexts.forEach((c: any) => {
     i18nConfig.locales?.forEach((locale: string) => {
-      let { urlOriginal } = pageContext
+      let { urlOriginal } = c
 
       if (locale !== i18nConfig.defaultLocale)
-        urlOriginal = `/${locale}${pageContext.urlOriginal}`
+        urlOriginal = `/${locale}${c.urlOriginal}`
 
       pageContexts.push({
-        ...pageContext,
+        ...c,
         urlOriginal,
         locale,
       })

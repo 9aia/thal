@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { provide, ref } from 'vue'
-import type Data from '../+data'
+import type Data from './+data'
 import AboutMe from './AboutMe.vue'
 import Goals from './Goals.vue'
 import Header from './Header.vue'

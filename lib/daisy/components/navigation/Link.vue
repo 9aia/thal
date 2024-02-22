@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { usePageContext } from '#lib/vike/composables/usePageContext'
 
-const pageContext = usePageContext()
+const c = usePageContext()
 </script>
 
 <template>
-  <a :class="{ 'is-active': pageContext.urlPathname === $attrs.href }">
+  <a :class="{ 'is-active': c.urlPathname === $attrs.href }">
     <slot />
   </a>
 </template>

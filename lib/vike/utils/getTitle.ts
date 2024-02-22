@@ -5,11 +5,11 @@ import type { PageContext } from 'vike/types'
  * Get the page's title if defined, either from the additional data fetched by
  * the page's onBeforeRender() hook or from the config.
  */
-export function getTitle(pageContext: PageContext): null | string {
-  if (pageContext.title !== undefined)
-    return pageContext.title
+export function getTitle(c: PageContext): null | string {
+  if (c.title !== undefined)
+    return c.title
 
-  const titleConfig = pageContext.configEntries.title?.[0]
+  const titleConfig = c.configEntries.title?.[0]
   if (!titleConfig)
     return null
 
@@ -22,7 +22,7 @@ export function getTitle(pageContext: PageContext): null | string {
 
   const { configDefinedAt } = titleConfig
   if (_.isFunction(title)) {
-    const val = title(pageContext)
+    const val = title(c)
     if (typeof val !== 'string')
       throw new Error(`${configDefinedAt} should return a string`)
 

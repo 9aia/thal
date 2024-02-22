@@ -3,8 +3,8 @@ import { render } from 'vike/abort'
 import client from '#lib/hono/client'
 import { parseCookies } from '#lib/web/utils/cookies'
 
-export default async (pageContext: PageContext) => {
-  const { username } = parseCookies(pageContext.cookies)
+export default async (c: PageContext) => {
+  const { username } = parseCookies(c.cookies)
 
   if (!username)
     throw render(401, 'Forbidden')
