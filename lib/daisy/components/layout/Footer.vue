@@ -5,7 +5,7 @@ import { A, T } from '#lib/i18n'
 
 <template>
   <footer
-    class="sticky top-[100vh] footer footer-center p-4 bg-base-300 text-base-content"
+    class="sticky top-[100vh] footer footer-center p-4 bg-white text-base-content"
   >
     <aside>
       <p class="flex items-center justify-center gap-1">
