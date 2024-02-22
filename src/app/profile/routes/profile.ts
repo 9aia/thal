@@ -9,8 +9,23 @@ import {
 } from '../schemas/profile'
 import { notFound } from '#lib/hono/utils/httpStatus'
 import type { HonoContext } from '#lib/hono/types'
+import auth from '~/auth/middlewares/auth'
 
 export default new Hono<HonoContext>()
+  .get('/logged', auth(), async (c) => {
+    const session = c.get('session')
+    const orm = c.get('orm')
+
+    const [profile] = await orm
+      .select()
+      .from(profiles)
+      .where(eq(profiles.id, session.user.profileId))
+
+    if (!profile)
+      throw notFound('Profile not found')
+
+    return c.json(profile)
+  })
   .get(
     '/:username',
     zValidator('param', z.object({ username: z.string() })),
