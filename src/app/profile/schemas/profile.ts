@@ -31,11 +31,13 @@ export const usernameSchema = z
   })
 
 export const nameSchema = z.string().min(1).max(20)
+export const pronounsSchema = z.string().max(20).optional()
 
 export const profileUpdateSchema = createInsertSchema(profiles, {
   name: nameSchema,
   lastName: nameSchema,
   username: usernameSchema,
+  pronouns: pronounsSchema,
   hobbies: schema =>
     schema.hobbies.refine(
       hobbies => hobbies.split(',').length <= MAX_HOBBIES_AMOUNT,
@@ -69,17 +71,15 @@ export const profileUpdateSchema = createInsertSchema(profiles, {
 export const profileSelectSchema = createSelectSchema(profiles, {
   name: nameSchema,
   lastName: nameSchema,
+  pronouns: pronounsSchema,
 })
 export const profileInsertSchema = createInsertSchema(profiles, {
   name: nameSchema,
   lastName: nameSchema,
   username: usernameSchema,
+  pronouns: pronounsSchema,
   signupDate: schema => schema.signupDate.optional(),
 })
 
 export type ProfileInsert = z.infer<typeof profileInsertSchema>
 export type Profile = z.infer<typeof profileSelectSchema>
-
-export function yupName(value: any) {
-  return nameSchema.safeParse(value).success
-}

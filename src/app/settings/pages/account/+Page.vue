@@ -11,23 +11,19 @@ import type {
 } from '~/app/profile/schemas/profile'
 import {
   nameSchema,
+  pronounsSchema,
   usernameSchema,
 } from '~/app/profile/schemas/profile'
 import { Cookies } from '#lib/web/utils/cookies'
 import TextField from '#lib/daisy/components/data-input/TextField.vue'
 import Icon from '#lib/daisy/components/display/Icon.vue'
 import useHasFormErrors from '#lib/vee-validate/composables/useHasFormErrors'
+import yupify from '#lib/vee-validate/utils/yupify'
 
 const ERROR_MESSAGE = t('An error occurred while updating personal data.')
 const SUCCESS_MESSAGE = t('Personal data has been updated successfully.')
 const USERNAME_NOT_FOUND_MESSAGE = t('Username not found.')
 const USERNAME_INVALID_MESSAGE = t('Username is invalid.')
-const NAME_INVALID_MESSAGE = t(
-  'Name must contain between 1 and 20 characters.',
-)
-const LASTNAME_INVALID_MESSAGE = t(
-  'Last name must contain between 1 and 20 characters.',
-)
 const USERNAME_VALIDATION_ERROR_MESSAGE = t(
   'An error occurred while validating username.',
 )
@@ -123,15 +119,17 @@ const submit = form.handleSubmit(async (data) => {
         path="name"
         :label="t('Name')"
         class="grid-cols-1/2"
-        :rules="(v) => nameSchema.safeParse(v).success || NAME_INVALID_MESSAGE"
+        :rules="yupify(nameSchema, t(
+          'Name must contain between 1 and 20 characters.',
+        ))"
       />
       <TextField
         path="lastName"
         :label="t('Last name')"
         class="grid-cols-1/2"
-        :rules="
-          (v) => nameSchema.safeParse(v).success || LASTNAME_INVALID_MESSAGE
-        "
+        :rules="yupify(nameSchema, t(
+          'Last name must contain between 1 and 20 characters.',
+        ))"
       />
     </div>
     <TextField
@@ -149,7 +147,13 @@ const submit = form.handleSubmit(async (data) => {
         />
       </template>
     </TextField>
-    <TextField path="pronouns" :label="t('Pronouns')" />
+    <TextField
+      path="pronouns"
+      :label="t('Pronouns')"
+      :rules="yupify(pronounsSchema, t(
+        'Pronouns must contain between 1 and 20 characters.',
+      ))"
+    />
 
     <div class="h-2" />
 
