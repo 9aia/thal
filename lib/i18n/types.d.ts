@@ -57,3 +57,11 @@ export type DateObject = {
 export type NumberObject = {
   number: number
 } & Intl.NumberFormatOptions
+
+export type Segment<T, V> = {
+  type: 'text' | 'placeholder'
+  key?: keyof T
+  part?: string
+  form?: string
+  values?: Partial<V>
+}

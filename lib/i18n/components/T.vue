@@ -3,12 +3,11 @@
   lang="ts"
   generic="T extends string & keyof I18n.MessageSchema, V extends ExtractVariables<T>"
 >
-import type { VNode } from 'vue'
-import { createTextVNode, h, useSlots } from 'vue'
+import { computed, onMounted, useSlots } from 'vue'
 import collect from '../collect'
 import useI18n from '../composables/useI18n'
 import { format } from '../format'
-import type { ExtractVariables } from '../types'
+import type { ExtractVariables, Segment } from '../types'
 import { getConfig, getFormatOptions, getMessage } from '../utils'
 
 const props = withDefaults(
@@ -21,50 +20,64 @@ const props = withDefaults(
 )
 
 defineSlots<Slots>()
+
 type Vars = ExtractVariables<typeof props.text>
-type Context = V & { form?: string }
-type Slots = Record<keyof Vars, (c: Context) => string>
+type SlotProps = V & { form?: string }
+type Slots = Record<keyof Vars, (slotProps: SlotProps) => any>
 
 const slots = useSlots()
 const i18n = useI18n()
 
-function TextLocalized() {
+onMounted(() => {
   if (import.meta.env.DEV)
     collect(props.text, props.values)
+})
 
+const values = props.values || {}
+
+const segments = computed(() => {
   const options = getConfig()
 
   const locale = i18n.value.locale
-  const values = props.values || {}
   const text = getMessage(props.text, locale, options)
   const formatOptions = getFormatOptions(locale, options)
 
-  const children = format<VNode[]>(
+  const segments = format<Segment<Vars, V>[]>(
     text,
     values,
     ({ prev, part, key, form, dynamic }) => {
-      let nodes: VNode[]
       const slot = key && slots[key]
-
-      if (!dynamic || !slot) {
-        nodes = [createTextVNode(part)]
+      const segment: Segment<Vars, V> = {
+        type: !dynamic || !slot ? 'text' : 'placeholder',
+        part,
+        key: key as keyof Vars,
+        form,
+        values,
       }
-      else {
-        const c = { ...values, form }
-        nodes = slot(c)
-      }
 
-      return [...prev, ...nodes]
+      return [...prev, segment]
     },
     [],
     formatOptions,
   )
 
-  const root = h(props.tag, children)
-  return root
-}
+  return segments
+})
 </script>
 
 <template>
-  <TextLocalized />
+  <component :is="props.tag">
+    <template v-for="(segment, i) in segments" :key="i">
+      <template v-if="segment.type === 'text'">
+        {{ segment.part }}
+      </template>
+      <template v-else>
+        <slot
+          :name="(segment.key as keyof Vars)"
+          v-bind="(segment.values as V)"
+          :form="(segment.form)"
+        />
+      </template>
+    </template>
+  </component>
 </template>
