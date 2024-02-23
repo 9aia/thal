@@ -7,19 +7,14 @@ import Modal from '#lib/daisy/components/action/Modal.vue'
 import Textarea from '#lib/daisy/components/data-input/Textarea.vue'
 import { useToast } from '#lib/daisy/composables/useToast'
 import client from '#lib/hono/client'
-import { t } from '#lib/i18n'
+import { useI18n } from '#lib/i18n'
 import { Cookies } from '#lib/web/utils/cookies'
 
-const ERROR_MESSAGE = t('An error occurred while updating your observation.')
-const SUCCESS_MESSAGE = t('Observation has been updated successfully.')
-const INVALID_OBSERVATION_CHAR_AMOUNT = t(
-  `It must contain at most ${MAX_OBSERVATION_CHARS} characters`,
-)
-const USERNAME_NOT_FOUND_MESSAGE = t('Username not found.')
+const { t } = useI18n()
+const toast = useToast()
 
 const profile = inject<Profile>('profile')!
 
-const toast = useToast()
 const form = useForm<{
   observation: Profile['observation']
 }>({
@@ -34,7 +29,7 @@ const loading = ref(false)
 const submit = form.handleSubmit(async (data) => {
   const username = Cookies.get('username')
   if (!username)
-    throw new Error(USERNAME_NOT_FOUND_MESSAGE)
+    throw new Error(t('Username not found.'))
 
   loading.value = true
 
@@ -46,12 +41,12 @@ const submit = form.handleSubmit(async (data) => {
   })
 
   if (!res.ok) {
-    toast.error(ERROR_MESSAGE)
+    toast.error(t('An error occurred while updating your observation.'))
   }
   else {
     profile.observation = data.observation
 
-    toast.success(SUCCESS_MESSAGE)
+    toast.success(t('Observation has been updated successfully.'))
   }
 
   loading.value = false
@@ -79,7 +74,7 @@ const submit = form.handleSubmit(async (data) => {
           :rules="
             (v) =>
               v?.length <= MAX_OBSERVATION_CHARS
-              || INVALID_OBSERVATION_CHAR_AMOUNT
+              || t(`It must contain at most ${MAX_OBSERVATION_CHARS} characters`)
           "
           :feedback="true"
         >

@@ -2,10 +2,9 @@
 import { markRaw, onMounted, ref, watch } from 'vue'
 import { exercise, select } from '../../store'
 import { useToast } from '#lib/daisy/composables/useToast'
-import { t } from '#lib/i18n'
+import { useI18n } from '#lib/i18n'
 
-const LOAD_ERROR_MESSAGE = t('Error loading exercise')
-
+const { t } = useI18n()
 const components = import.meta.glob('../../exercises/*.vue')
 
 const toast = useToast()
@@ -20,7 +19,7 @@ async function loadExercise(name: string) {
       comp.value = markRaw(c.default)
     }
     catch (error) {
-      toast.error(LOAD_ERROR_MESSAGE)
+      toast.error(t('Error loading exercise'))
     }
   }
 }

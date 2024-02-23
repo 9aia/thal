@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import { usePageContext } from '#lib/vike/composables/usePageContext'
+import type { SafeProps } from '#lib/vue/utils/types'
 import { tv } from 'tailwind-variants'
 import { type AnchorHTMLAttributes, computed, useAttrs } from 'vue'
-import useI18n from '../composables/useI18n'
 import { localizeHref } from '../utils'
-import type { SafeProps } from '#lib/vue/utils/types'
 
 type Props = SafeProps<AnchorHTMLAttributes> & {
   href?: string
@@ -16,13 +16,13 @@ const props = withDefaults(defineProps<Props>(), {
   localizeHref: undefined,
 })
 const attrs = useAttrs()
-const i18n = useI18n()
+const c = usePageContext()
 
-const isActive = computed(() => i18n.value.urlWithoutLocale === props.href)
+const isActive = computed(() => c.i18n.urlWithoutLocale === props.href)
 
 const normalHref = computed(() => {
   return props.localizeHref ?? true
-    ? localizeHref(props.href as string, props.locale || i18n.value.locale)
+    ? localizeHref(props.href as string, props.locale || c.i18n.locale)
     : (props.href as string)
 })
 

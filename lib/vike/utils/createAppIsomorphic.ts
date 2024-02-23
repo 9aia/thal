@@ -17,7 +17,7 @@ import type { PageProps } from '../types'
 /**
  * Isomorphic function to create a Vue app.
  *
- * @param pageContext Object providing the Vue component to be rendered, the props for that component, and additional
+ * @param c Object providing the Vue component to be rendered, the props for that component, and additional
  *                    config and data.
  * @param ssrApp Whether to use `createSSRApp()` or `createApp()`. See https://vuejs.org/api/application.html
  * @param renderHead If true, `c.config.Head` will be rendered instead of `c.Page`.

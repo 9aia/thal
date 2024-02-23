@@ -4,7 +4,7 @@ import Checkbox from '#lib/daisy/components/data-input/Checkbox.vue'
 import Icon from '#lib/daisy/components/display/Icon.vue'
 import { useToast } from '#lib/daisy/composables/useToast'
 import client from '#lib/hono/client'
-import { t } from '#lib/i18n'
+import { useI18n } from '#lib/i18n'
 import { Cookies } from '#lib/web/utils/cookies'
 import { useForm } from 'vee-validate'
 import { computed, inject, ref } from 'vue'
@@ -12,10 +12,7 @@ import { GOALS } from '../../profile/constants'
 import type { Profile } from '../../profile/schemas/profile'
 import { parseInitialValues } from '../utils'
 
-const ERROR_MESSAGE = t('An error occurred while updating goals.')
-const SUCCESS_MESSAGE = t('Goals were updated successfully.')
-const USERNAME_NOT_FOUND_MESSAGE = t('Username not found.')
-
+const { t } = useI18n()
 const toast = useToast()
 
 const profile = inject<Profile>('profile')!
@@ -37,7 +34,7 @@ const loading = ref(false)
 const submit = form.handleSubmit(async () => {
   const username = Cookies.get('username')
   if (!username)
-    throw new Error(USERNAME_NOT_FOUND_MESSAGE)
+    throw new Error(t('Username not found.'))
 
   const currentKeys = keys.value
 
@@ -53,12 +50,12 @@ const submit = form.handleSubmit(async () => {
   })
 
   if (!res.ok) {
-    toast.error(ERROR_MESSAGE)
+    toast.error(t('An error occurred while updating goals.'))
   }
   else {
     profile.goals = currentKeys
 
-    toast.success(SUCCESS_MESSAGE)
+    toast.success(t('Goals were updated successfully.'))
   }
 
   loading.value = false

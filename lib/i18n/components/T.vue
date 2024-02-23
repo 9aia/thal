@@ -3,9 +3,9 @@
   lang="ts"
   generic="T extends string & keyof I18n.MessageSchema, V extends ExtractVariables<T>"
 >
+import { usePageContext } from '#lib/vike/composables/usePageContext'
 import { computed, onMounted, useSlots } from 'vue'
 import collect from '../collect'
-import useI18n from '../composables/useI18n'
 import { format } from '../format'
 import type { ExtractVariables, Segment } from '../types'
 import { getConfig, getFormatOptions, getMessage } from '../utils'
@@ -26,7 +26,7 @@ type SlotProps = V & { form?: string }
 type Slots = Record<keyof Vars, (slotProps: SlotProps) => any>
 
 const slots = useSlots()
-const i18n = useI18n()
+const c = usePageContext()
 
 onMounted(() => {
   if (import.meta.env.DEV)
@@ -38,7 +38,7 @@ const values = props.values || {}
 const segments = computed(() => {
   const options = getConfig()
 
-  const locale = i18n.value.locale
+  const locale = c.i18n.locale
   const text = getMessage(props.text, locale, options)
   const formatOptions = getFormatOptions(locale, options)
 

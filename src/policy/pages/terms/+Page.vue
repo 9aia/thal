@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useI18n } from '#lib/i18n'
+import { usePageContext } from '#lib/vike/composables/usePageContext'
 
-const i18n = useI18n()
+const c = usePageContext()
 </script>
 
 <template>
-  <template v-if="i18n.locale === 'pt'">
+  <template v-if="c.i18n.locale === 'pt'">
     <h1>Termos de Serviço</h1>
     <p>
       Estes Termos de Serviço delineiam as regras e regulamentações para o uso

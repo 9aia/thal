@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useI18n } from '#lib/i18n'
+import { usePageContext } from '#lib/vike/composables/usePageContext'
 
-const i18n = useI18n()
+const c = usePageContext()
 </script>
 
 <template>
-  <template v-if="i18n.locale === 'pt'">
+  <template v-if="c.i18n.locale === 'pt'">
     <h1>Política de Privacidade</h1>
     <p>
       Esta Política de Privacidade explica como coletamos, usamos e divulgamos

@@ -1,9 +1,14 @@
-import { computed } from 'vue'
 import { usePageContext } from '#lib/vike/composables/usePageContext'
+import { t as tLocale } from '..'
 
 function useI18n() {
   const c = usePageContext()
-  return computed(() => c.i18n || {})
+
+  const t: typeof tLocale = (text, values, locale) => {
+    return tLocale(text, values, locale || c.i18n.locale)
+  }
+
+  return { t }
 }
 
 export default useI18n

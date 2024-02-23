@@ -5,7 +5,6 @@ import { useDebounceFn } from '@vueuse/core'
 import Btn from '#lib/daisy/components/action/Btn.vue'
 import { useToast } from '#lib/daisy/composables/useToast'
 import client from '#lib/hono/client'
-import { t } from '#lib/i18n'
 import type {
   Profile,
 } from '~/app/profile/schemas/profile'
@@ -19,25 +18,18 @@ import TextField from '#lib/daisy/components/data-input/TextField.vue'
 import Icon from '#lib/daisy/components/display/Icon.vue'
 import useHasFormErrors from '#lib/vee-validate/composables/useHasFormErrors'
 import yupify from '#lib/vee-validate/utils/yupify'
+import { useI18n } from '#lib/i18n'
 
-const ERROR_MESSAGE = t('An error occurred while updating personal data.')
-const SUCCESS_MESSAGE = t('Personal data has been updated successfully.')
-const USERNAME_NOT_FOUND_MESSAGE = t('Username not found.')
-const USERNAME_INVALID_MESSAGE = t('Username is invalid.')
-const USERNAME_VALIDATION_ERROR_MESSAGE = t(
-  'An error occurred while validating username.',
-)
+const { t } = useI18n()
+const toast = useToast()
 
 const profile = inject<Profile>('profile')!
-const toast = useToast()
 const form = useForm<Profile>({
   initialValues: toValue(profile),
 })
 const hasErrors = useHasFormErrors(form)
-
-const loading = ref(false)
-
 const invalidUsername = ref(false)
+const loading = ref(false)
 
 async function validateUsername(username: string) {
   if (!username)
@@ -54,7 +46,9 @@ async function validateUsername(username: string) {
   let invalid = false
 
   if (!res.ok) {
-    toast.error(USERNAME_VALIDATION_ERROR_MESSAGE)
+    toast.error(t(
+      'An error occurred while validating username.',
+    ))
     invalid = false
   }
   else {
@@ -66,7 +60,7 @@ async function validateUsername(username: string) {
 
   form.setFieldError(
     'username',
-    invalid ? USERNAME_INVALID_MESSAGE : undefined,
+    invalid ? t('Username is invalid.') : undefined,
   )
 }
 
@@ -76,7 +70,7 @@ watch(() => form.values.username, debouncedValidateUsername)
 const submit = form.handleSubmit(async (data) => {
   const username = Cookies.get('username')
   if (!username)
-    throw new Error(USERNAME_NOT_FOUND_MESSAGE)
+    throw new Error(t('Username not found.'))
 
   if (username !== data.username)
     Cookies.set('username', data.username, { path: '/' })
@@ -91,7 +85,7 @@ const submit = form.handleSubmit(async (data) => {
   })
 
   if (!res.ok) {
-    toast.error(ERROR_MESSAGE)
+    toast.error(t('An error occurred while updating personal data.'))
   }
   else {
     Object.keys(form.values).forEach((key) => {
@@ -101,7 +95,7 @@ const submit = form.handleSubmit(async (data) => {
       profile[key] = value
     })
 
-    toast.success(SUCCESS_MESSAGE)
+    toast.success(t('Personal data has been updated successfully.'))
   }
 
   loading.value = false
@@ -135,9 +129,7 @@ const submit = form.handleSubmit(async (data) => {
     <TextField
       path="username"
       :label="t('Username')"
-      :rules="
-        (v) => usernameSchema.safeParse(v).success || USERNAME_INVALID_MESSAGE
-      "
+      :rules="yupify(usernameSchema, t('Username is invalid.'))"
       icon-position="right"
     >
       <template #icon="{ errorMessage }">
