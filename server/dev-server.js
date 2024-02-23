@@ -2,6 +2,7 @@ import express from 'express'
 import { renderPage } from 'vike/server'
 import { createServer } from 'vite'
 import { saveTranslationsFile } from './translator/saveTranslations.js'
+import { parseCookie } from 'lucia/utils'
 
 startServer()
 
@@ -33,7 +34,9 @@ async function startServer() {
       userAgent,
       acceptLanguage,
       cookies,
+      cookiesParsed: parseCookie(cookies),
     }
+    console.log(parseCookie(cookies))
     const pageContext = await renderPage(pageContextInit)
     const { httpResponse } = pageContext
 

@@ -236,4 +236,7 @@ export default {
   'Username is invalid.': {
     pt: 'Nome de usuário inválido.',
   },
+  'Language': {
+    pt: 'Linguagem',
+  },
 }

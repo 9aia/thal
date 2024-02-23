@@ -1,13 +1,17 @@
 <script setup lang="ts">
-import { inject } from 'vue'
-import { SETTINGS } from '../../constants'
 import Avatar from '#lib/daisy/components/display/Avatar.vue'
 import ChevronRight from '#lib/daisy/components/layout/ChevronRight.vue'
 import MenuGroup from '#lib/daisy/components/layout/MenuGroup.vue'
-import { t } from '#lib/i18n'
+import MenuItem from '#lib/daisy/components/layout/MenuItem.vue'
+import { A, t } from '#lib/i18n'
+import { inject, ref } from 'vue'
 import type { Profile } from '~/app/profile/schemas/profile'
+import { SETTINGS } from '../../constants'
+import LocaleModal from '../../modals/LocaleModal.vue'
 
 const profile = inject<Profile>('profile')!
+
+const isLocaleModalOpen = ref(false)
 </script>
 
 <template>
@@ -15,7 +19,7 @@ const profile = inject<Profile>('profile')!
     {{ t("Settings") }}
   </h1>
 
-  <a
+  <A
     href="/app/profile"
     class="group mb-6 shadow-lg bg-base-100 p-4 rounded-lg flex justify-between items-center transition duration-300 hover:shadow-2xl"
   >
@@ -31,14 +35,32 @@ const profile = inject<Profile>('profile')!
     </div>
 
     <ChevronRight />
-  </a>
+  </A>
 
   <div class="space-y-4">
     <section>
       <h2 class="text-teal-900 font-bold text-2xl ml-2 mb-3">
         {{ t("General") }}
       </h2>
-      <MenuGroup class="p-0 w-full shadow-none" :items="SETTINGS.general" />
+      <MenuGroup class="p-0 w-full shadow-none" :items="SETTINGS.general">
+        <template #footer>
+          <li class="group" @click="isLocaleModalOpen = true">
+            <div
+              class="px-2 rounded-lg hover:bg-base-200"
+            >
+              <div
+                class="cursor-pointer flex w-full gap-2 justify-between items-center py-2"
+              >
+                <MenuItem
+                  :is="{ id: 'language', name: 'Language', icon: 'globe' }"
+                />
+              </div>
+            </div>
+          </li>
+        </template>
+      </MenuGroup>
+
+      <LocaleModal v-model="isLocaleModalOpen" />
     </section>
 
     <section>

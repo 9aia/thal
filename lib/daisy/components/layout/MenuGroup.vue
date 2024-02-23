@@ -23,5 +23,6 @@ function closeMenu() {
         <Item :is="item" />
       </div>
     </li>
+    <slot name="footer" />
   </ul>
 </template>

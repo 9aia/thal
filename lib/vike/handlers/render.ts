@@ -1,3 +1,4 @@
+import { parseCookie } from 'lucia/utils'
 import type { MiddlewareHandler } from 'hono'
 import { renderPage } from 'vike/server'
 
@@ -6,6 +7,7 @@ export const render: MiddlewareHandler = async (c, next) => {
     urlOriginal: c.req.url,
     acceptLanguage: c.req.header('accept-language'),
     cookies: c.req.header('cookie'),
+    cookiesParsed: parseCookie(c.req.header('cookie') || ''),
     userAgent: c.req.header('user-agent'),
   }
 

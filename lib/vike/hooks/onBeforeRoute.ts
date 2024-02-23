@@ -1,8 +1,9 @@
-import { redirect } from 'vike/abort'
-import type { OnBeforeRouteSync } from 'vike/types'
 import { DEFAULT_I18N_CONFIG, i18nConfig } from '#lib/i18n/config'
 import type { I18nGlobal } from '#lib/i18n/types'
 import { detectLocale, detectLocaleClient, extractLocale } from '#lib/i18n/utils'
+import { getCookies } from '#lib/web/utils/cookies'
+import { redirect } from 'vike/abort'
+import type { OnBeforeRouteSync } from 'vike/types'
 
 const onBeforeRoute: OnBeforeRouteSync = (
   c,
@@ -19,14 +20,23 @@ const onBeforeRoute: OnBeforeRouteSync = (
   }
 
   if (!locale) {
-    const acceptLanguage
+    const cookies = getCookies(c)
+
+    let lang: string
+
+    if (cookies.locale && i18nConfig.locales?.includes(cookies.locale)) {
+      lang = cookies.locale
+    }
+    else {
+      const acceptLanguage
       = typeof window === 'undefined'
         ? null
         : detectLocaleClient(navigator.language)?.lang
 
-    const lang = c.acceptLanguage
-      ? detectLocale(c.acceptLanguage)?.lang || defaultLocale
-      : acceptLanguage || defaultLocale
+      lang = c.acceptLanguage
+        ? detectLocale(c.acceptLanguage)?.lang || defaultLocale
+        : acceptLanguage || defaultLocale
+    }
 
     if (lang !== defaultLocale) {
       if (i18n.url === urlWithoutLocale)

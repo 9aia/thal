@@ -1,10 +1,9 @@
-import type { PageContext } from 'vike/types'
-import { render } from 'vike/abort'
 import client from '#lib/hono/client'
-import { parseCookies } from '#lib/web/utils/cookies'
+import { render } from 'vike/abort'
+import type { PageContext } from 'vike/types'
 
 export default async (c: PageContext) => {
-  const { username } = parseCookies(c.cookies)
+  const { username } = c.cookiesParsed
 
   if (!username)
     throw render(401, 'Forbidden')

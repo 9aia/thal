@@ -93,7 +93,7 @@ const submit = form.handleSubmit(async (data) => {
         </TextField>
       </div>
 
-      <p class="text-md text-gray-600">
+      <p class="text-sm text-gray-600">
         {{
           t(
             "P.S. Don't have a traditional job? No worries! Share your life's calling - writer, musician, world traveler - anything goes!",

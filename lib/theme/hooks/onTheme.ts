@@ -1,9 +1,8 @@
-import { parseCookies } from '#lib/web/utils/cookies'
 import type { PageContext } from 'vike/types'
 import { DEFAULT_COLOR_SCHEME, parseColorScheme } from '../utils'
 
 function onTheme(c: PageContext) {
-  const cookies = parseCookies(c.cookies)
+  const cookies = c.cookiesParsed
   const cookie = cookies.theme
 
   const { primary, secondary } = parseColorScheme(

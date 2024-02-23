@@ -1,3 +1,14 @@
+import type { PageContext } from 'vike/types'
+
+export function getCookies(c: PageContext) {
+  const isServer = typeof globalThis.document === 'undefined'
+
+  if (isServer)
+    return c.cookiesParsed
+
+  return parseCookies(document.cookie)
+}
+
 export function parseCookies(cookie: string = '') {
   const cookies: Record<string, string> = {}
 

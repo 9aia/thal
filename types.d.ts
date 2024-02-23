@@ -21,6 +21,7 @@ declare global {
       acceptLanguage: string
 
       cookies: string
+      cookiesParsed: Record<string, string>
 
       abortReason?: string | { notAdmin: true }
     }
