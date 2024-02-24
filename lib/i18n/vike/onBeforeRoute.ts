@@ -6,7 +6,7 @@ import { getDefaultLocale } from '#lib/i18n/core/utils'
 import { getCookies } from '#lib/web/utils/cookies'
 import { redirect } from 'vike/abort'
 import type { OnBeforeRouteSync } from 'vike/types'
-import { isServer } from '../../vike'
+import { isServer } from './utils'
 
 const onBeforeRoute: OnBeforeRouteSync = (
   c,

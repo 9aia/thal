@@ -33,7 +33,7 @@ onMounted(() => {
             Go to app
           </A>
 
-          <A href="/api/payment/stripe/create-portal-session" :localize-href="false" class="btn">
+          <A href="/api/payment/stripe/create-portal-session" :localize="false" class="btn">
             Manage your billing information
           </A>
         </div>

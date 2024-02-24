@@ -1,20 +1,20 @@
-import type { FormatCallback, FormatOptions, InferPlaceholders, Key, Segment, Values } from '../types.d'
+import type { FormatCallback, FormatOptions, InferValues, Segment, Text, Values } from '../types.d'
 import { format } from './format'
 
-function formatToSegments<T extends Key, V extends Values>(
-  text: T,
-  values: V = {} as V,
+function formatToSegments(
+  text: Text,
+  values: Partial<Values> = {},
   options: FormatOptions,
 ) {
-  type Placeholders = InferPlaceholders<typeof text>
+  type Placeholders = InferValues<typeof text>
 
-  const cb: FormatCallback<Segment<Placeholders, V>[]> = (c) => {
-    const segment: Segment<Placeholders, V> = {
+  const cb: FormatCallback<Segment<Placeholders, Values>[]> = (c) => {
+    const segment: Segment<Placeholders, Values> = {
       type: !c.dynamic ? 'text' : 'placeholder',
       part: c.part,
       key: c.key as keyof Placeholders,
-      form: c.form,
       values,
+      decline: c.decline,
     }
 
     return [...c.prev, segment]

@@ -1,15 +1,23 @@
 <script
   setup
   lang="ts"
-  generic="T extends Key & keyof I18n.MessageSchema, V extends InferPlaceholders<T>"
+  generic="T extends Key & keyof I18n.MessageSchema, V extends InferValues<T | EveryTranslationOf<T>>"
 >
-import { usePageContext } from '#lib/vike/composables/usePageContext'
-import { computed, onMounted, useSlots } from 'vue'
-import collect from '../../collect'
-import formatToSegments from '../../core/format/formatToSegments'
-import type { InferPlaceholders, Key } from '../../core/types.d'
-import { getConfig, getFormatOptions } from '../../core/utils'
-import { getMessage } from '../../utils'
+import { computed, onMounted, useSlots, watch } from 'vue'
+import collect from '#lib/i18n/core/translation/collect'
+import formatToSegments from '#lib/i18n/core/format/formatToSegments'
+import type { FormatContext, InferValues, Key, Values } from '#lib/i18n/core/types.d'
+import { getConfig } from '#lib/i18n/core/utils'
+import localizeKey from '#lib/i18n/core/localization/localizeKey'
+import { getFormatOptions } from '#lib/i18n/core/localization/format'
+import useLocale from '../composables/useLocale'
+
+export type ValueOf<T> = T[keyof T]
+
+export type EveryTranslationOf<D extends string & keyof I18n.MessageSchema> = Extract<
+  ValueOf<I18n.MessageSchema[D]>,
+  string
+>
 
 const props = withDefaults(
   defineProps<{
@@ -22,19 +30,18 @@ const props = withDefaults(
 
 defineSlots<Slots>()
 
-type Placeholders = InferPlaceholders<typeof props.text>
-type SlotProps = V & { form?: string }
+type Placeholders = InferValues<typeof props.text>
+type SlotProps = V & { decline: FormatContext<any>['decline'] }
 type Slots = Record<keyof Placeholders, (slotProps: SlotProps) => any>
 
-const c = usePageContext()
 const slots = useSlots()
 
 const values = props.values || {}
 const options = getConfig()
 
 const segments = computed(() => {
-  const locale = c.locale
-  const text = getMessage(props.text, locale, options)
+  const locale = useLocale().value
+  const text = localizeKey(props.text, locale, options)
   const formatOptions = getFormatOptions(locale, options)
   const segments = formatToSegments(text, values, formatOptions)
 
@@ -43,7 +50,7 @@ const segments = computed(() => {
 
 onMounted(() => {
   if (import.meta.env.DEV)
-    collect(props.text, props.values)
+    collect(props.text, props.values as Values)
 })
 </script>
 
@@ -59,7 +66,7 @@ onMounted(() => {
         <slot
           :name="(segment.key!)"
           v-bind="(segment.values as V)"
-          :form="(segment.form)"
+          :decline="(segment.decline)"
         />
       </template>
     </template>

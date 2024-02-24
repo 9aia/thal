@@ -36,7 +36,7 @@ async function startServer() {
       cookies,
       cookiesParsed: parseCookie(cookies),
     }
-    console.log(parseCookie(cookies))
+
     const pageContext = await renderPage(pageContextInit)
     const { httpResponse } = pageContext
 

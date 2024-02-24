@@ -1,19 +1,19 @@
 <script setup lang="ts">
+import localizeUrl from '#lib/i18n/core/localization/localizeUrl'
 import { usePageContext } from '#lib/vike/composables/usePageContext'
 import type { SafeProps } from '#lib/vue/utils/types'
 import { tv } from 'tailwind-variants'
 import { type AnchorHTMLAttributes, computed, useAttrs } from 'vue'
-import { localizeHref } from '#lib/i18n/utils'
 
 type Props = SafeProps<AnchorHTMLAttributes> & {
   activeClass?: string
   href?: string
-  localizeHref?: boolean | undefined
+  localize?: boolean | undefined
   locale?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  localizeHref: undefined,
+  localize: undefined,
 })
 const attrs = useAttrs()
 const c = usePageContext()
@@ -21,9 +21,9 @@ const c = usePageContext()
 const isActive = computed(() => c.urlWithoutLocale === props.href)
 
 const normalHref = computed(() => {
-  return props.localizeHref ?? true
-    ? localizeHref(props.href as string, props.locale || c.locale)
-    : (props.href as string)
+  return props.localize ?? true
+    ? localizeUrl(props.href, props.locale || c.locale)
+    : props.href
 })
 
 const styles = computed(() =>

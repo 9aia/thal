@@ -24,8 +24,6 @@ export async function handleCheckoutCompleted(
   if (isPaymentAsync)
     return
 
-  console.log('executing activePlan', userId, stripeCustomerId, PLANS.premium)
-
   await activePlan(orm, userId, stripeCustomerId, PLANS.premium)
 }
 

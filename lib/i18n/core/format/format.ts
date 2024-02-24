@@ -1,12 +1,34 @@
 import { i18nConfig } from '../config'
-import { DEFAULT_I18N_CONFIG, DEFAULT_NUMBER_DECLENSION_RULE, MESSAGE_PATTERN } from '../constants'
-import type { FormatCallback, FormatOptions, Value } from '../types'
-import { endEscaping, interpolate, startEscaping } from './interpolate'
-import { declineForNumber } from './number'
+import { DEFAULT_I18N_CONFIG, MESSAGE_PATTERN } from '../constants'
+import type { FormatCallback, FormatOptions, Text, Value, Values } from '../types'
+import { decline } from './decline'
+import { interpolate } from './interpolate'
 
-export function format<T>(text: string, values: Partial<Record<string, Value>> = {}, callbackFn: FormatCallback<T>, initialValue: T, options?: FormatOptions) {
-  const numberDeclensionRule
-    = options?.numberDeclensionRule || DEFAULT_NUMBER_DECLENSION_RULE
+function startEscaping(text: Text) {
+  return (text = text
+    .replaceAll('\\{', '__CURLY_OPEN')
+    .replaceAll('\\}', '__CURLY_CLOSE')
+    .replaceAll('\\|', '__PIPE')
+    .replaceAll('\\(', '__PARENTHESES_OPEN')
+    .replaceAll('\\)', '__PARENTHESES_CLOSE'))
+}
+
+function endEscaping(text: Text) {
+  return (text = text
+    .replaceAll('__CURLY_OPEN', '{')
+    .replaceAll('__CURLY_CLOSE', '}')
+    .replaceAll('__PIPE', '|')
+    .replaceAll('__PARENTHESES_OPEN', '(')
+    .replaceAll('__PARENTHESES_CLOSE', ')'))
+}
+
+export function format<T>(
+  text: Text,
+  values: Partial<Values> = {},
+  callbackFn: FormatCallback<T>,
+  initialValue: T,
+  options?: FormatOptions,
+) {
   const datetimeFormat
     = options?.datetimeFormat
     || i18nConfig.defaultDatetimeFormat
@@ -18,13 +40,15 @@ export function format<T>(text: string, values: Partial<Record<string, Value>> =
 
   text = startEscaping(text)
 
+  const DUMMY_DECLINE = () => ''
+
   return (
     text.match(MESSAGE_PATTERN)?.reduce((prev, part) => {
       const isNamed = part.startsWith('{')
 
       if (!isNamed) {
         part = endEscaping(part)
-        return callbackFn({ prev, part })
+        return callbackFn({ prev, part, decline: DUMMY_DECLINE })
       }
 
       const key = part.substring(1, part.indexOf('}'))
@@ -32,29 +56,28 @@ export function format<T>(text: string, values: Partial<Record<string, Value>> =
 
       if (value === undefined) {
         part = endEscaping(part)
-        return callbackFn({ prev, part, key })
+        return callbackFn({ prev, part, key, decline: DUMMY_DECLINE })
       }
 
-      const pluralFormMatch = part.match(/\(([^)]+)\)/)
-
-      let declension: ReturnType<typeof declineForNumber> = { text: part }
-
-      if (pluralFormMatch) {
-        const forms = pluralFormMatch[1]
-        declension = declineForNumber(part, forms, value, numberDeclensionRule)
-      }
+      const declineOptions = { numberDeclensionRule: options?.numberDeclensionRule }
+      const phrase = part
+      const declension = decline(phrase, value, declineOptions)
 
       const interpolateOptions = { datetimeFormat, numberFormat }
-      part = interpolate(declension.text, key, value, interpolateOptions)
+      part = interpolate(declension.phrase, key, value, interpolateOptions)
 
       part = endEscaping(part)
+
+      const declinePhrase = (v: Value) => {
+        return decline(phrase, v, declineOptions).form || ''
+      }
 
       return callbackFn({
         prev,
         part,
         key,
         dynamic: true,
-        form: declension.form,
+        decline: declinePhrase,
       })
     }, initialValue) || initialValue
   )

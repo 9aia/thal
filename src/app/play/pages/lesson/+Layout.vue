@@ -83,8 +83,6 @@ async function next() {
 onMounted(async () => {
   exercise.value = await generateExercise()
 
-  console.log(exercise.value)
-
   useEventListener(document, 'keydown', (e: any) => {
     if (e.key !== 'Enter')
       return

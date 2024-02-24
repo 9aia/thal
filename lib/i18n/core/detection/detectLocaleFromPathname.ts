@@ -1,3 +1,4 @@
+import type { Locale } from '#lib/i18n'
 import { i18nConfig } from '#lib/i18n'
 
 function detectLocaleFromPathname(pathname: string) {
@@ -5,11 +6,14 @@ function detectLocaleFromPathname(pathname: string) {
   const firstPath = urlPaths[1]
 
   let urlWithoutLocale = pathname
-  let locale
+  let locale: Locale | null
 
   if (i18nConfig.locales?.includes(firstPath)) {
     locale = firstPath
     urlWithoutLocale = `/${urlPaths.slice(2).join('/')}`
+  }
+  else {
+    locale = null
   }
 
   return { locale, urlWithoutLocale }

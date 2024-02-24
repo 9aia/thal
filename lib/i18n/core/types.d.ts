@@ -1,3 +1,6 @@
+import { extend } from 'lodash-es'
+import type { Ref } from 'vue'
+
 export interface I18nConfig<T = I18n.MessageSchema> {
   defaultLocale?: string
   fallbackLocale?: boolean
@@ -12,25 +15,21 @@ export interface I18nConfig<T = I18n.MessageSchema> {
 }
 
 export namespace I18n {
-  export interface MessageSchema {}
-}
-
-export interface I18nGlobal {
-  locale: string
-  urlWithoutLocale: string
-  url: string
-}
-
-export interface ILocale {
-  lang: string
-  region?: string
+  export interface MessageSchema extends Translations {}
 }
 
 export type Locale = string
 export type Text = string
+export type Phrase = string
 export type Key = Text
+export type Message = string
 
-export type Translation = Record<Locale, string>
+export type LocaleObject = {
+  lang: string
+  region?: string
+}
+
+export type Translation = Record<Locale, Text>
 export type Translations = Record<Key, Translation>
 
 export type NumberDeclensionRule = (forms: string[], count: number) => number
@@ -44,15 +43,17 @@ export type NumberObject = {
 } & Intl.NumberFormatOptions
 
 export type Value = string | number | Date | DateObject | NumberObject
-export type Values = Record<string, Value>
+export type Values = Record<Placeholder, Value>
 
-export type InferPlaceholders<
-  S extends string,
+export type Placeholder = string
+
+export type InferValues<
+  S extends Text,
   // eslint-disable-next-line
-  Placeholders extends Record<string, string> = {},
+  P extends Values = {},
 > = S extends `${infer Text}{${infer Var}}${infer Rest}`
-  ? InferPlaceholders<Rest, Placeholders & { [K in Var]: Value }>
-  : Placeholders
+  ? InferValues<Rest, P & { [K in Var]: Value }>
+  : P
 
 export interface FormatOptions {
   numberDeclensionRule?: NumberDeclensionRule
@@ -61,7 +62,7 @@ export interface FormatOptions {
 }
 
 export type FormatFunction<O> = (
-  text: Key,
+  text: Text,
   values?: Partial<Values>,
   options?: FormatOptions,
 ) => O
@@ -70,15 +71,23 @@ export type FormatContext<T> = {
   prev: T
   part: string
   dynamic?: boolean
-  form?: string
   key?: string
+  decline: DeclineFunction
 }
 export type FormatCallback<T> = (c: FormatContext<T>) => T
 
-export type Segment<Placeholders, V> = {
-  type: 'text' | 'placeholder'
-  key?: keyof Placeholders
-  part?: string
-  form?: string
-  values?: Partial<V>
+export type Declension = {
+  phrase: string
+  form: string | undefined
 }
+export type DeclineFunction = (value: Value) => string
+
+export type Segment<P extends Placeholders, V> = {
+  type: 'text' | 'placeholder'
+  key?: keyof P
+  part?: string
+  values?: Partial<V>
+  decline: DeclineFunction
+}
+
+export interface InterpolateOptions { datetimeFormat: string, numberFormat: string }

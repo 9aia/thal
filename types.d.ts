@@ -1,4 +1,3 @@
-import type { I18nGlobal } from '#lib/i18n'
 import type { ThemeContext } from '#lib/theme/types'
 import type { DrizzleD1Database } from 'drizzle-orm/d1'
 import type { Session } from 'lucia'

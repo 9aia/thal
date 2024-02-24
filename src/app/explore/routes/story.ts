@@ -26,8 +26,6 @@ export default new Hono<HonoContext>()
 
       const profileData = getProfileData(profile)
 
-      console.log(profileData)
-
       const prompt = `
         You are a story generator for an English learning app personalized by AI. You will be given a user profile data and will be expected to generate a story based on the user's profile with a specific format.
 

@@ -1,8 +1,8 @@
-import { inject } from 'vue'
-import { t as tLocale } from '../..'
+import { t as tLocale } from '#lib/i18n'
+import useLocale from './useLocale'
 
 function useI18n() {
-  const locale = inject<string>('__locale')!
+  const locale = useLocale().value
 
   const t: typeof tLocale = (text, values, optionLocale) => {
     return tLocale(text, values, optionLocale || locale)

@@ -3,8 +3,9 @@ import Btn from '#lib/daisy/components/action/Btn.vue'
 import Icon from '#lib/daisy/components/display/Icon.vue'
 import client from '#lib/hono/client'
 import { refAutoReset, useAsyncState } from '@vueuse/core'
-import { collected } from '../collect'
-import { getConfig } from '../core/utils'
+import { collection } from '../../core/translation/context'
+import { getConfig } from '../../core/utils'
+import { DEFAULT_I18N_CONFIG } from '#lib/i18n/core/constants'
 
 const translation = useAsyncState(
   async () => {
@@ -30,10 +31,12 @@ function getBoilerplate() {
   const config = getConfig()
   const boilerplate: any = {}
 
-  Object.keys(collected).forEach((text) => {
+  const locales = config.locales || DEFAULT_I18N_CONFIG.locales
+
+  Object.keys(collection).forEach((text) => {
     boilerplate[text] = {}
 
-    config.locales
+    locales
       .filter(locale => locale !== config.defaultLocale)
       .forEach((locale) => {
         boilerplate[text][locale] = ''

@@ -1,34 +1,13 @@
-import type { Key, Value } from '../types'
-import { formatDate } from './date'
-import { formatNumber } from './number'
-
-export function startEscaping(text: string) {
-  return (text = text
-    .replaceAll('\\{', '__CURLY_OPEN')
-    .replaceAll('\\}', '__CURLY_CLOSE')
-    .replaceAll('\\|', '__PIPE')
-    .replaceAll('\\(', '__PARENTHESES_OPEN')
-    .replaceAll('\\)', '__PARENTHESES_CLOSE'))
-}
-
-export function endEscaping(text: string) {
-  return (text = text
-    .replaceAll('__CURLY_OPEN', '{')
-    .replaceAll('__CURLY_CLOSE', '}')
-    .replaceAll('__PIPE', '|')
-    .replaceAll('__PARENTHESES_OPEN', '(')
-    .replaceAll('__PARENTHESES_CLOSE', ')'))
-}
-
-interface InterpolateOptions { datetimeFormat: string, numberFormat: string }
+import type { InterpolateOptions, Placeholder, Text, Value } from '../types'
+import { formatDate, formatNumber } from './formatValues'
 
 export function interpolate(
-  text: string,
-  key: Key,
+  text: Text,
+  placeholder: Placeholder,
   value: Value,
   options: InterpolateOptions,
-) {
-  let formattedValue: string
+): Text {
+  let formattedValue: Text
 
   const isDataObject = typeof value === 'object' && 'date' in value
   const isNumberObject = typeof value === 'object' && 'number' in value
@@ -60,5 +39,5 @@ export function interpolate(
     formattedValue = String(value)
   }
 
-  return text.replaceAll(`{${key}}`, formattedValue)
+  return text.replaceAll(`{${placeholder}}`, formattedValue)
 }

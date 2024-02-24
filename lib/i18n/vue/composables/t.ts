@@ -1,9 +1,10 @@
-import { inject } from 'vue'
-import collect from '../../collect'
-import type { InferPlaceholders, Key } from '../../core/types'
-import { getConfig, getFormatOptions } from '../../core/utils'
-import formatToString from '../../core/format/formatToString'
-import { getMessage } from '../../utils'
+import formatToString from '#lib/i18n/core/format/formatToString'
+import { getFormatOptions } from '#lib/i18n/core/localization/format'
+import localizeKey from '#lib/i18n/core/localization/localizeKey'
+import collect from '#lib/i18n/core/translation/collect'
+import type { InferValues, Key, Locale, Values } from '#lib/i18n/core/types'
+import { getConfig } from '#lib/i18n/core/utils'
+import useLocale from './useLocale'
 
 type ValueOf<T> = T[keyof T]
 
@@ -13,19 +14,19 @@ type EveryTranslationOf<D extends string & keyof I18n.MessageSchema> = Extract<
 >
 
 function t<T extends Key & keyof I18n.MessageSchema>(
-  text: T,
-  values?: Partial<InferPlaceholders<T | EveryTranslationOf<T>>>,
-  locale?: string,
+  key: T,
+  values?: Partial<InferValues<T | EveryTranslationOf<T>>>,
+  locale?: Locale,
 ) {
   if (import.meta.env.DEV)
-    collect(text, values)
+    collect(key, values as Values)
 
   const options = getConfig()
 
   if (!locale)
-    locale = inject<string>('__locale')!
+    locale = useLocale().value
 
-  const message = getMessage(text, locale, options)
+  const message = localizeKey(key, locale, options)
   const formatOptions = getFormatOptions(locale, options)
 
   return formatToString(message, values, formatOptions)
