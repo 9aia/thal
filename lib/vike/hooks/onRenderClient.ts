@@ -1,7 +1,7 @@
+import getLang from '#lib/i18n/vike/getLang'
 import type { OnRenderClientAsync } from 'vike/types'
 import { createAppIsomorphic } from '../utils/createAppIsomorphic'
 import { getTitle } from '../utils/getTitle'
-import onI18n from '#lib/i18n/hooks/onI18n'
 
 let app: ReturnType<typeof createAppIsomorphic>
 
@@ -30,7 +30,7 @@ const onRenderClient: OnRenderClientAsync = async (
     const title = getTitle(c)
     document.title = title || ''
 
-    const { lang } = onI18n(c)
+    const lang = getLang(c)
     document.documentElement.lang = lang
   }
 }

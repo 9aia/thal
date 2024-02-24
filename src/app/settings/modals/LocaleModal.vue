@@ -4,21 +4,20 @@ import Radio from '#lib/daisy/components/data-input/Radio.vue'
 import Icon from '#lib/daisy/components/display/Icon.vue'
 import { useToast } from '#lib/daisy/composables/useToast'
 import { useI18n } from '#lib/i18n'
-import { getConfig } from '#lib/i18n/utils'
 import { Cookies } from '#lib/web/utils/cookies'
 import { useForm } from 'vee-validate'
 import { navigate } from 'vike/client/router'
 import { onMounted, ref } from 'vue'
 import { LOCALES } from '../../profile/constants'
+import { getDefaultLocale } from '#lib/i18n/core/utils'
 
 const { t } = useI18n()
 const toast = useToast()
-const i18nConfig = getConfig()
 
 const form = useForm<Record<string, string>>()
 
 onMounted(() => {
-  form.setFieldValue('locale', Cookies.get('locale') || i18nConfig.defaultLocale)
+  form.setFieldValue('locale', Cookies.get('locale') || getDefaultLocale())
 })
 
 const isOpen = defineModel({ default: false })
@@ -31,7 +30,7 @@ const submit = form.handleSubmit(async (data) => {
 
   loading.value = true
 
-  if (locale === i18nConfig.defaultLocale)
+  if (locale === getDefaultLocale())
     await navigate(`/app/settings`)
   else
     await navigate(`/${locale}/app/settings`)

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import Icon from '#lib/daisy/components/display/Icon.vue'
 import ChevronRight from '#lib/daisy/components/layout/ChevronRight.vue'
-import { A, t } from '#lib/i18n'
+import { t } from '#lib/i18n'
+import A from '#lib/vike/components/A.vue'
 
 const items = [
   { id: 'grammar', name: 'Grammar', icon: 'book', href: '/app/explore/grammar' },

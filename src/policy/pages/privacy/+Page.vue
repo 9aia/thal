@@ -5,7 +5,7 @@ const c = usePageContext()
 </script>
 
 <template>
-  <template v-if="c.i18n.locale === 'pt'">
+  <template v-if="c.locale === 'pt'">
     <h1>Política de Privacidade</h1>
     <p>
       Esta Política de Privacidade explica como coletamos, usamos e divulgamos

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { A, t } from '#lib/i18n'
+import { t } from '#lib/i18n'
+import A from '#lib/vike/components/A.vue'
 import { Cookies } from '#lib/web/utils/cookies'
 
 onMounted(() => {

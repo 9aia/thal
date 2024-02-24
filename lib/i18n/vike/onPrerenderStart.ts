@@ -1,5 +1,6 @@
 import type { OnPrerenderStartSync, PageContextServer } from 'vike/types'
 import { i18nConfig } from '#lib/i18n'
+import { getDefaultLocale } from '#lib/i18n/core/utils'
 
 const onPrerenderStart: OnPrerenderStartSync = (
   prerenderContext,
@@ -10,7 +11,7 @@ const onPrerenderStart: OnPrerenderStartSync = (
     i18nConfig.locales?.forEach((locale: string) => {
       let { urlOriginal } = c
 
-      if (locale !== i18nConfig.defaultLocale)
+      if (locale !== getDefaultLocale())
         urlOriginal = `/${locale}${c.urlOriginal}`
 
       pageContexts.push({

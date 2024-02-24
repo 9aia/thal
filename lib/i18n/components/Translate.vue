@@ -4,7 +4,7 @@ import Icon from '#lib/daisy/components/display/Icon.vue'
 import client from '#lib/hono/client'
 import { refAutoReset, useAsyncState } from '@vueuse/core'
 import { collected } from '../collect'
-import { getConfig } from '../utils'
+import { getConfig } from '../core/utils'
 
 const translation = useAsyncState(
   async () => {

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import MenuItem from './MenuItem.vue'
 import type { MenuItem as MenuItemType } from './types'
-import { A, t } from '#lib/i18n'
+import { t } from '#lib/i18n'
+import A from '#lib/vike/components/A.vue'
 
 defineProps<{
   is: MenuItemType

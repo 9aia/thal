@@ -17,8 +17,6 @@ declare global {
       config: Config
 
       routeParams: Record<string, string>
-      i18n: I18nGlobal
-      acceptLanguage: string
 
       cookies: string
       cookiesParsed: Record<string, string>

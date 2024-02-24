@@ -77,12 +77,10 @@ export default {
     'import:./hooks/onPageTransition:onPageTransitionStart',
   onPageTransitionEnd:
     'import:./hooks/onPageTransition:onPageTransitionEnd',
-  onBeforeRoute: 'import:./hooks/onBeforeRoute:default',
-  onPrerenderStart: 'import:./hooks/onPrerenderStart:default',
 
   prefetchStaticAssets: 'viewport',
 
-  passToClient: ['title', 'routeParams', 'i18n', 'acceptLanguage'],
+  passToClient: ['title', 'routeParams'],
 
   clientRouting: true,
   hydrationCanBeAborted: true,

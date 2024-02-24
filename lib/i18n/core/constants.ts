@@ -1,5 +1,13 @@
-import { DEFAULT_NUMBER_DECLENSION_RULE } from './format'
-import type { I18nConfig } from './types.d'
+import type { I18nConfig, NumberDeclensionRule } from '..'
+
+export const MESSAGE_PATTERN = /{[^{}]+}\s?(?:\([^)]+\))?|[^{}]+/g
+
+export const DEFAULT_NUMBER_DECLENSION_RULE: NumberDeclensionRule = (
+  forms,
+  count,
+) => {
+  return count === 1 ? 0 : forms.length - 1
+}
 
 export const DEFAULT_I18N_CONFIG = {
   locales: ['en'],
@@ -11,7 +19,3 @@ export const DEFAULT_I18N_CONFIG = {
   datetimeFormats: undefined,
   numberFormats: undefined,
 } satisfies I18nConfig
-
-export const i18nConfig: I18nConfig = {
-  ...DEFAULT_I18N_CONFIG,
-}

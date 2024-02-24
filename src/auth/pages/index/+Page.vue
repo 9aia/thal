@@ -3,7 +3,8 @@ import type Data from './+data'
 import Btn from '#lib/daisy/components/action/Btn.vue'
 import GoogleLogo from '#lib/daisy/components/display/GoogleLogo.vue'
 import { useData } from '#lib/vike/composables/useData'
-import { A, T, t } from '#lib/i18n'
+import { T, t } from '#lib/i18n'
+import A from '#lib/vike/components/A.vue'
 
 const data = useData<typeof Data>()
 </script>

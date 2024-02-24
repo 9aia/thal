@@ -1,10 +1,10 @@
+import getLang from '#lib/i18n/vike/getLang'
+import onTheme from '#lib/theme/hooks/onTheme'
 import { renderToNodeStream, renderToString } from '@vue/server-renderer'
 import { dangerouslySkipEscape, escapeInject, version } from 'vike/server'
 import type { OnRenderHtmlAsync } from 'vike/types'
 import { createAppIsomorphic } from '../utils/createAppIsomorphic'
 import { getTitle } from '../utils/getTitle'
-import onTheme from '#lib/theme/hooks/onTheme'
-import onI18n from '#lib/i18n/hooks/onI18n'
 
 checkVikeVersion()
 
@@ -55,7 +55,7 @@ const onRenderHtml: OnRenderHtmlAsync = async (
     headHtml = dangerouslySkipEscape(await renderToString(app))
   }
 
-  const { lang } = onI18n(c)
+  const lang = getLang(c)
   const { themeClass, colorScheme } = onTheme(c)
 
   const documentHtml = escapeInject`<!DOCTYPE html>

@@ -3,7 +3,7 @@ import Avatar from '#lib/daisy/components/display/Avatar.vue'
 import Icon from '#lib/daisy/components/display/Icon.vue'
 import Menu from '#lib/daisy/components/layout/Menu.vue'
 import type { MenuItem } from '#lib/daisy/components/layout/types'
-import { A } from '#lib/i18n'
+import A from '#lib/vike/components/A.vue'
 import { usePageContext } from '#lib/vike/composables/usePageContext'
 
 withDefaults(
