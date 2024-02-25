@@ -3,13 +3,13 @@
   lang="ts"
   generic="T extends Key & keyof I18n.MessageSchema, V extends InferValues<T | EveryTranslationOf<T>>"
 >
-import { computed, onMounted, useSlots, watch } from 'vue'
-import collect from '#lib/i18n/core/translation/collect'
 import formatToSegments from '#lib/i18n/core/format/formatToSegments'
+import { getFormatOptions } from '#lib/i18n/core/localization/format'
+import localizeKey from '#lib/i18n/core/localization/localizeKey'
+import collect from '#lib/i18n/core/translation/collect'
 import type { FormatContext, InferValues, Key, Values } from '#lib/i18n/core/types.d'
 import { getConfig } from '#lib/i18n/core/utils'
-import localizeKey from '#lib/i18n/core/localization/localizeKey'
-import { getFormatOptions } from '#lib/i18n/core/localization/format'
+import { computed, onMounted, useSlots } from 'vue'
 import useLocale from '../composables/useLocale'
 
 export type ValueOf<T> = T[keyof T]
@@ -38,9 +38,10 @@ const slots = useSlots()
 
 const values = props.values || {}
 const options = getConfig()
+const localeRef = useLocale()
 
 const segments = computed(() => {
-  const locale = useLocale().value
+  const locale = localeRef.value
   const text = localizeKey(props.text, locale, options)
   const formatOptions = getFormatOptions(locale, options)
   const segments = formatToSegments(text, values, formatOptions)
