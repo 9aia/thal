@@ -95,15 +95,15 @@ const c = usePageContext()
     </div>
   </header>
 
-  <div class="drawer lg:drawer-open">
+  <div class="drawer md:drawer-open">
     <input id="my-drawer-2" type="checkbox" class="drawer-toggle">
 
     <div class="drawer-content">
-      <main class="pb-20">
+      <main class="pb-20 md:pb-0">
         <slot />
       </main>
 
-      <!-- <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden"
+      <!-- <label for="my-drawer-2" class="btn btn-primary drawer-button md:hidden"
         >Open drawer</label
       > -->
     </div>
@@ -133,7 +133,7 @@ const c = usePageContext()
       </ul>
     </div>
   </div>
-  <div class="btm-nav flex lg:hidden">
+  <div class="btm-nav flex md:hidden">
     <A
       v-for="item in navItems"
       :key="item.id"

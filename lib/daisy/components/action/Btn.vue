@@ -1,9 +1,8 @@
 <script setup lang="ts">
+import type { SafeProps, SafeVariantProps } from '#lib/vue/utils/types'
 import type { VariantProps } from 'tailwind-variants'
 import { tv } from 'tailwind-variants'
 import { type ButtonHTMLAttributes, useAttrs } from 'vue'
-import { useRipple } from '#lib/daisy/composables/useRipple'
-import type { SafeProps, SafeVariantProps } from '#lib/vue/utils/types'
 
 defineProps<Props>()
 
@@ -17,15 +16,11 @@ type Props = SafeProps<ButtonHTMLAttributes> &
     success?: boolean
   }
 
-const externalRef = defineModel()
-
-const rippleElRef = useRipple(externalRef)
 const attrs = useAttrs()
 </script>
 
 <template>
   <button
-    ref="rippleElRef"
     :class="styles({ class: attrs.class as string })"
     :disabled="loading"
   >

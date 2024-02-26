@@ -1,49 +1,67 @@
 <script setup lang="ts">
+import Btn from '#lib/daisy/components/action/Btn.vue'
 import Icon from '#lib/daisy/components/display/Icon.vue'
-import ChevronRight from '#lib/daisy/components/layout/ChevronRight.vue'
 import { t } from '#lib/i18n'
-import A from '#lib/vike/components/A.vue'
+import { onMounted } from 'vue'
+import { getUnits } from '../../utils'
+import { sectionA1 } from '../../data/course'
+import Timeline from '../../components/Timeline.vue'
 
-const items = [
-  { id: 'grammar', name: 'Grammar', icon: 'book', href: '/app/explore/grammar' },
-  { id: 'stories', name: 'Stories', icon: 'history_edu', href: '/app/explore/stories' },
-  { id: 'chat', name: 'Conversation Simulation', icon: 'chat', href: '/app/explore/chat' },
-]
+const section = sectionA1
+const currentSection = 'articles'
+
+onMounted(() => {
+  const unitUiRef = document.querySelector(`#unit-${currentSection}`)
+  if (unitUiRef)
+    unitUiRef.scrollIntoView({ behavior: 'smooth' })
+})
 </script>
 
 <template>
-  <div class="max-w-lg mx-auto py-2 px-4 py-4">
-    <h1 class="text-primary font-bold text-4xl mb-4">
-      {{ t("Explore") }}
-    </h1>
+  <section class="max-w-lg mx-auto mt-6 px-4 mb-8">
+    <h2 class="text-2xl mb-1 font-bold">
+      {{ t(section.name) }}
+    </h2>
 
-    <div class="flex gap-2 mb-4">
-      <A
-        href="/app/play/story/1"
-        class="btn btn-primary w-fit flex items-center"
-      >
-        <Icon>history_edu</Icon>
-        {{ t("New story") }}
-      </A>
-      <A
-        href="/app/play/lesson"
-        class="btn btn-primary w-fit flex items-center"
-      >
-        <Icon>book</Icon>
-        {{ t("New lesson") }}
-      </A>
+    <p class="text-base text-gray-700 mb-4">
+      {{ t(section.description) }}
+    </p>
+  </section>
+
+  <section
+    v-for="unit in section.units"
+    :id="`unit-${unit.id}`"
+    :key="unit.id"
+  >
+    <div class="block bg-white">
+      <div class="max-w-lg mx-auto px-4 bg-white flex justify-between items-center">
+        <h3 class="font-bold mb-4 mt-4">
+          <span class="">{{ t(unit.name) }}</span>
+        </h3>
+        <div>
+          <Btn>
+            <Icon>info</Icon>
+          </Btn>
+        </div>
+      </div>
     </div>
 
-    <ul class="divide-y divide-base-200">
-      <li v-for="item in items" :key="item.id" class="group py-4">
-        <A :href="item.href" class="flex justify-between">
-          <div class="flex gap-2 items-center">
-            <Icon>{{ item.icon }}</Icon>
-            {{ t(item.name as any) }}
-          </div>
-          <ChevronRight />
-        </A>
-      </li>
-    </ul>
+    <Timeline class="my-4" :items="getUnits(unit.nodes)" />
+  </section>
+
+  <div class="card w-96 mx-auto bg-base-200 shadow-xl mt-4 mb-4">
+    <div class="card-body">
+      <h2 class="card-title">
+        Congrats, you completed {{ section.name }}!
+      </h2>
+      <p class="">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt fuga alias labore. Ea, pariatur quaerat.
+      </p>
+      <div class="card-actions justify-end">
+        <button class="btn btn-primary">
+          Next Section
+        </button>
+      </div>
+    </div>
   </div>
 </template>
