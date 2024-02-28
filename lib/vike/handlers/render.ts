@@ -1,14 +1,20 @@
 import { parseCookie } from 'lucia/utils'
 import type { MiddlewareHandler } from 'hono'
 import { renderPage } from 'vike/server'
+import getUser from '../utils/getUser'
+import type { HonoContext } from '#lib/hono/types'
 
-export const render: MiddlewareHandler = async (c, next) => {
+export const render: MiddlewareHandler<HonoContext> = async (c, next) => {
+  const cookies = c.req.header('cookie') || ''
+  const user = getUser(cookies)
+
   const pageContextInit = {
     urlOriginal: c.req.url,
     acceptLanguage: c.req.header('accept-language'),
-    cookies: c.req.header('cookie'),
-    cookiesParsed: parseCookie(c.req.header('cookie') || ''),
+    cookies,
+    cookiesParsed: parseCookie(cookies),
     userAgent: c.req.header('user-agent'),
+    user,
   }
 
   const pageContext = await renderPage(pageContextInit)

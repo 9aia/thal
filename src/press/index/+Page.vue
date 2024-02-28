@@ -162,7 +162,7 @@ import { t } from '#lib/i18n'
     <div class="hero-content text-center w-full">
       <div class="max-w-2xl">
         <h1 class="text-5xl font-bold mb-8">
-          {{ t("Start to learn now") }}
+          {{ t("Start learning now") }}
         </h1>
         <a class="btn btn-primary text-neutral-content" href="/app/explore">
           {{ t("Try Maratongue") }}</a>

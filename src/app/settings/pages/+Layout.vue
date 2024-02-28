@@ -1,19 +1,18 @@
 <script setup lang="ts">
-import { provide, reactive } from 'vue'
-import ParentLayout from '../../+Layout.vue'
-import { SETTINGS } from '../constants'
-import { flattenObject } from '../utils'
-import type Data from './+data'
 import Btn from '#lib/daisy/components/action/Btn.vue'
 import Icon from '#lib/daisy/components/display/Icon.vue'
 import Breadcrumbs from '#lib/daisy/components/navigation/Breadcrumbs.vue'
 import type { BreadcrumbItem } from '#lib/daisy/components/navigation/types'
 import useBreadcrumbs from '#lib/daisy/composables/useBreadcrumbs'
-import { useData } from '#lib/vike/composables/useData'
 import { t } from '#lib/i18n'
+import { usePageContext } from '#lib/vike/composables/usePageContext'
+import { provide, reactive } from 'vue'
+import ParentLayout from '../../+Layout.vue'
+import { SETTINGS } from '../constants'
+import { flattenObject } from '../utils'
 
-const data = useData<typeof Data>()
-const profile = reactive(data.value)
+const c = usePageContext()
+const profile = reactive(c.user!)
 provide('profile', profile)
 
 const root: BreadcrumbItem = {

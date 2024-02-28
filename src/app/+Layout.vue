@@ -19,7 +19,7 @@ const items: MenuItem[] = [
     id: 'plan',
     name: 'Plan',
     action: '/api/payment/stripe/create-portal-session',
-    method: 'POST',
+    method: 'post',
     icon: 'subscriptions',
     type: 'external',
   },
@@ -28,7 +28,7 @@ const items: MenuItem[] = [
     id: 'logout',
     name: 'Logout',
     action: '/api/auth/logout',
-    method: 'POST',
+    method: 'post',
     icon: 'logout',
   },
 ]
@@ -47,12 +47,12 @@ const navItems: BottomNavItem[] = [
     icon: 'explore',
     href: '/app/explore',
   },
-  {
+  /* {
     id: 'missions',
     name: 'Missions',
     icon: 'editor_choice',
     href: '/app/missions',
-  },
+  }, */
   // { id: "rank", name: "Rank", icon: "trophy", href: "/app/rank" },
   { id: 'profile', name: 'Profile', icon: 'face', href: '/app/profile' },
   { id: 'settings', name: 'Settings', icon: 'settings', href: '/app/settings' },
@@ -67,7 +67,9 @@ const c = usePageContext()
     class="z-10 fixed bg-transparent pointer-events-none top-0 w-full"
   >
     <div class="navbar bg-transparent">
-      <div class="flex-1" />
+      <slot name="nav">
+        <div class="flex-1" />
+      </slot>
 
       <div class="flex-none bg-transparent pointer-events-auto">
         <div class="flex items-center gap-1">

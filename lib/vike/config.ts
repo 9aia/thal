@@ -80,7 +80,7 @@ export default {
 
   prefetchStaticAssets: 'viewport',
 
-  passToClient: ['title', 'routeParams'],
+  passToClient: ['title', 'routeParams', 'user'],
 
   clientRouting: true,
   hydrationCanBeAborted: true,

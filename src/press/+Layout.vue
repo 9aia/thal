@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type Data from './+data'
 import Footer from '#lib/daisy/components/layout/Footer.vue'
 import Header from '#lib/daisy/components/layout/Header.vue'
 import { t } from '#lib/i18n'
-import { useData } from '#lib/vike/composables/useData'
+import A from '#lib/vike/components/A.vue'
+import { usePageContext } from '#lib/vike/composables/usePageContext'
 
-const data = useData<typeof Data>()
+const c = usePageContext()
 </script>
 
 <template>
@@ -16,23 +16,28 @@ const data = useData<typeof Data>()
           {{ t("Try Maratongue") }}
         </a>
 
-        <form action="/api/auth/logout" method="POST">
-          <button
-            v-if="data.authenticated"
-            class="btn"
-            type="submit"
+        <div>
+          <form
+            v-if="!!c.user"
+            action="/api/auth/logout"
+            method="post"
           >
-            {{ t("Logout") }}
-          </button>
+            <button
+              class="btn"
+              type="submit"
+            >
+              {{ t("Logout") }}
+            </button>
+          </form>
 
-          <button
+          <A
             v-else
             class="btn"
-            type="submit"
+            href="/authentication"
           >
             {{ t("Sign in") }}
-          </button>
-        </form>
+          </A>
+        </div>
       </div>
     </template>
   </Header>

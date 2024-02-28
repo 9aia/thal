@@ -3,6 +3,7 @@ import { renderPage } from 'vike/server'
 import { createServer } from 'vite'
 import { saveTranslationsFile } from './translator/saveTranslations.js'
 import { parseCookie } from 'lucia/utils'
+import { getUser } from './auth/utils.js'
 
 startServer()
 
@@ -25,16 +26,16 @@ async function startServer() {
   })
 
   app.get('*', async (req, res, next) => {
-    const userAgent = req.headers['user-agent']
-    const acceptLanguage = req.headers['accept-language']
     const cookies = req.headers.cookie
+    const user = await getUser(cookies)
 
     const pageContextInit = {
       urlOriginal: req.originalUrl,
-      userAgent,
-      acceptLanguage,
+      userAgent: req.headers['user-agent'],
+      acceptLanguage: req.headers['accept-language'],
       cookies,
       cookiesParsed: parseCookie(cookies || ''),
+      user,
     }
 
     const pageContext = await renderPage(pageContextInit)

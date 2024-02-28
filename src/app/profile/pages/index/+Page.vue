@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { t } from '#lib/i18n'
+import { useData } from '#lib/vike/composables/useData'
+import { usePageContext } from '#lib/vike/composables/usePageContext'
 import { provide, ref } from 'vue'
 import type Data from './+data'
 import AboutMe from './AboutMe.vue'
@@ -7,10 +10,9 @@ import Header from './Header.vue'
 import Interests from './Interests.vue'
 import Observation from './Observation.vue'
 import Summary from './Summary.vue'
-import { Cookies } from '#lib/web/utils/cookies'
-import { t } from '#lib/i18n'
-import { useData } from '#lib/vike/composables/useData'
+import A from '#lib/vike/components/A.vue'
 
+const c = usePageContext()
 const data = useData<typeof Data>()
 const profile = ref(data.value)
 provide('profile', profile)
@@ -27,11 +29,11 @@ provide('profile', profile)
       <Header />
       <Summary />
 
-      <a
-        v-if="Cookies.get('username') === profile.username"
+      <A
+        v-if="c.user!.username === profile.username"
         href="/app/settings/profile"
         class="btn btn-sm mt-4"
-      >{{ t("Edit profile") }}</a>
+      >{{ t("Edit profile") }}</A>
     </aside>
 
     <main

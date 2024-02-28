@@ -79,7 +79,11 @@ const isLocaleModalOpen = ref(false)
     </section>
 
     <section>
-      <form action="/api/auth/logout" class="ml-2">
+      <form
+        action="/api/auth/logout"
+        method="post"
+        class="ml-2"
+      >
         <button class="underline font-bold text-warning">
           {{ t("Logout") }}
         </button>

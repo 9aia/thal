@@ -1,7 +1,8 @@
 import type { ThemeContext } from '#lib/theme/types'
 import type { DrizzleD1Database } from 'drizzle-orm/d1'
-import type { Session } from 'lucia'
+import type { Session, User } from 'lucia'
 import type { Component } from 'vue'
+import type { Profile } from '~/app/profile/schemas/profile'
 import type { Auth as _Auth, initAuth } from '~/auth/utils/initAuth'
 
 declare global {
@@ -19,6 +20,8 @@ declare global {
 
       cookies: string
       cookiesParsed: Record<string, string>
+
+      user?: Profile | null
 
       abortReason?: string | { notAdmin: true }
     }

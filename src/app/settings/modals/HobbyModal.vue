@@ -5,7 +5,6 @@ import Icon from '#lib/daisy/components/display/Icon.vue'
 import { useToast } from '#lib/daisy/composables/useToast'
 import client from '#lib/hono/client'
 import { useI18n } from '#lib/i18n'
-import { Cookies } from '#lib/web/utils/cookies'
 import * as _ from 'lodash-es'
 import { useForm } from 'vee-validate'
 import { computed, inject, ref } from 'vue'
@@ -45,10 +44,7 @@ const isOpen = defineModel({ default: false })
 const loading = ref(false)
 
 const submit = form.handleSubmit(async () => {
-  const username = Cookies.get('username')
-  if (!username)
-    throw new Error(t('Username not found.'))
-
+  const username = profile.username
   const currentKeys = keys.value
 
   loading.value = true

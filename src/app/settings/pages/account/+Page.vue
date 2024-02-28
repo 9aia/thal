@@ -13,7 +13,6 @@ import {
   pronounsSchema,
   usernameSchema,
 } from '~/app/profile/schemas/profile'
-import { Cookies } from '#lib/web/utils/cookies'
 import TextField from '#lib/daisy/components/data-input/TextField.vue'
 import Icon from '#lib/daisy/components/display/Icon.vue'
 import useHasFormErrors from '#lib/vee-validate/composables/useHasFormErrors'
@@ -35,7 +34,7 @@ async function validateUsername(username: string) {
   if (!username)
     return
 
-  const currentUsername = Cookies.get('username')
+  const currentUsername = profile.username
 
   const res = await client.app.profile.validateUsername[':username'].$get({
     param: {
@@ -67,13 +66,8 @@ async function validateUsername(username: string) {
 const debouncedValidateUsername = useDebounceFn(validateUsername, 500)
 watch(() => form.values.username, debouncedValidateUsername)
 
-const submit = form.handleSubmit(async (data) => {
-  const username = Cookies.get('username')
-  if (!username)
-    throw new Error(t('Username not found.'))
-
-  if (username !== data.username)
-    Cookies.set('username', data.username, { path: '/' })
+const submit = form.handleSubmit(async () => {
+  const username = profile.username
 
   loading.value = true
 

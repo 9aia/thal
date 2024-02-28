@@ -8,7 +8,6 @@ import TextField from '#lib/daisy/components/data-input/TextField.vue'
 import { useToast } from '#lib/daisy/composables/useToast'
 import client from '#lib/hono/client'
 import { useI18n } from '#lib/i18n'
-import { Cookies } from '#lib/web/utils/cookies'
 
 const { t } = useI18n()
 const toast = useToast()
@@ -26,9 +25,7 @@ const isOpen = defineModel({ default: false })
 const loading = ref(false)
 
 const submit = form.handleSubmit(async (data) => {
-  const username = Cookies.get('username')
-  if (!username)
-    throw new Error(t('Username not found.'))
+  const username = profile.username
 
   loading.value = true
 
