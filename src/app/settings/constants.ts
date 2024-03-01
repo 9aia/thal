@@ -60,6 +60,7 @@ const support: MenuItemType[] = [
     type: 'external',
     href: 'https://forms.gle/5ePvXjrebyWGUrM26',
     newTab: true,
+    localize: false,
   },
   {
     id: 'bug_report',
@@ -68,6 +69,7 @@ const support: MenuItemType[] = [
     type: 'external',
     href: 'https://forms.gle/ANMv7qnwTHva1k7L8',
     newTab: true,
+    localize: false,
   },
 ]
 

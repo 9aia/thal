@@ -26,6 +26,7 @@ defineProps<{
       :href="is.href ? t(is.href as any) : undefined"
       class="flex w-full gap-2 justify-between items-center py-2"
       :target="is.newTab ? '_blank' : undefined"
+      :localize="is.localize ?? true"
     >
       <MenuItem :is="is" />
     </A>

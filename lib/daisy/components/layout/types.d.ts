@@ -8,4 +8,5 @@ export interface MenuItem {
   type?: 'external' | 'internal' | 'accordion'
   meaning?: 'warning' | 'danger'
   newTab?: boolean
+  localize?: boolean
 }
