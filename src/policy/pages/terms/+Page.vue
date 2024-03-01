@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import A from '#lib/vike/components/A.vue'
 import { usePageContext } from '#lib/vike/composables/usePageContext'
 
 const c = usePageContext()
@@ -55,7 +56,7 @@ const c = usePageContext()
     <h2>6. Privacidade</h2>
     <p>
       Sua privacidade é importante para nós. Por favor, reveja nossa
-      <a href="/privacy">Política de Privacidade</a>, que explica como
+      <A href="/privacy">Política de Privacidade</A>, que explica como
       coletamos, usamos e divulgamos informações sobre você quando você usa o
       aplicativo.
     </p>
@@ -68,9 +69,9 @@ const c = usePageContext()
     </p>
     <p>
       Recomendamos que você revise os
-      <a
+      <A
         href="https://support.google.com/gemini/answer/13594961?visit_id=638434421225288685-621180296&p=privacy_notice&rd=1#tos"
-      >Termos de Serviço da Gemini</a>
+      >Termos de Serviço da Gemini</A>
       para entender seus direitos e obrigações ao usar a API Gemini.
     </p>
 
@@ -143,7 +144,7 @@ const c = usePageContext()
     <h2>6. Privacy</h2>
     <p>
       Your privacy is important to us. Please review our
-      <a href="/privacy">Privacy Policy</a>, which explains how we collect, use,
+      <A href="/privacy">Privacy Policy</A>, which explains how we collect, use,
       and disclose information about you when you use the app.
     </p>
 

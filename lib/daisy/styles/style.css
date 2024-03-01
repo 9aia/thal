@@ -8,6 +8,10 @@
   font-family: 'Noto Sans', sans-serif;
 }
 
+body {
+  background: #fff;
+}
+
 section {
   scroll-margin: 64px;
 }

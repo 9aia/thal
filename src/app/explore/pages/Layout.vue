@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Icon from '#lib/daisy/components/display/Icon.vue'
+import A from '#lib/vike/components/A.vue'
 import { usePageContext } from '#lib/vike/composables/usePageContext'
 
 const c = usePageContext()
@@ -50,10 +51,10 @@ const items = [
             'border-transparent': c.urlPathname !== item.href,
           }"
         >
-          <a :href="item.href">
+          <A :href="item.href">
             <Icon>{{ item.icon }}</Icon>
             {{ item.name }}
-          </a>
+          </A>
         </li>
       </ul>
     </div>

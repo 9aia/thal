@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { useConfetti } from '#lib/daisy/composables/useConfetti'
+import A from '#lib/vike/components/A.vue'
 
 const confetti = useConfetti()
 
@@ -25,9 +26,9 @@ onMounted(() => {
     </div>
   </div>
 
-  <a
+  <A
     href="/app/explore"
     class="btn btn-primary w-full"
     @click="confetti.clear()"
-  >Continuar</a>
+  >Continuar</A>
 </template>

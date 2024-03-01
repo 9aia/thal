@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { t } from '#lib/i18n'
+import A from '#lib/vike/components/A.vue'
 import { usePageContext } from '#lib/vike/composables/usePageContext'
 import { computed } from 'vue'
 
@@ -49,15 +50,15 @@ const errorMessage = computed(() => {
   <div
     class="flex flex-col items-center absolute right-1/2 translate-x-1/2 bottom-1/2 translate-y-1/2"
   >
-    <h1 class="text-5xl font-bold text-center mb-4" :class="errorMessage.color">
+    <h1 class="text-8xl font-bold text-center mb-4" :class="errorMessage.color">
       {{ errorMessage.statusCode }}
     </h1>
-    <p class="text-center">
+    <p class="text-center text-xl text-slate-900">
       {{ t(errorMessage.message) }}
     </p>
 
-    <a href="/" class="mt-4 btn btn-primary">
+    <A href="/" class="mt-4 btn btn-primary text-slate-900">
       {{ t("Access the home page") }}
-    </a>
+    </A>
   </div>
 </template>

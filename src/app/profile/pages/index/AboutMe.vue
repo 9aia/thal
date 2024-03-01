@@ -10,7 +10,7 @@ const profile = useProfile()
 <template>
   <section>
     <label class="cursor-pointer">
-      <h2 class="text-4xl mb-4 font-bold flex items-center gap-2">
+      <h2 class="text-4xl text-slate-800 mb-4 font-bold flex items-center gap-2">
         {{ t("About me") }}
       </h2>
 

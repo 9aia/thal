@@ -4,14 +4,16 @@ import Header from '#lib/daisy/components/layout/Header.vue'
 </script>
 
 <template>
-  <Header />
+  <div>
+    <Header />
 
-  <main
-    class="flex flex-col mt-[64px]"
-    style="min-height: calc(100vh - 64px - 56px)"
-  >
-    <slot />
-  </main>
+    <main
+      class="bg-white flex flex-col"
+      style="min-height: calc(100vh)"
+    >
+      <slot />
+    </main>
 
-  <Footer />
+    <Footer />
+  </div>
 </template>

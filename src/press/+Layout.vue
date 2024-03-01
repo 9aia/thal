@@ -9,13 +9,13 @@ const c = usePageContext()
 </script>
 
 <template>
+  <div class="text-center bg-teal-500 text-slate-800 py-2 px-4">
+    We're currently undergoing active development!
+  </div>
+
   <Header>
     <template #navbar-end>
-      <div class="flex gap-2">
-        <a class="btn btn-primary" href="/app/explore">
-          {{ t("Try Maratongue") }}
-        </a>
-
+      <div class="flex items-center gap-2">
         <div>
           <form
             v-if="!!c.user"
@@ -23,7 +23,7 @@ const c = usePageContext()
             method="post"
           >
             <button
-              class="btn"
+              class="link"
               type="submit"
             >
               {{ t("Logout") }}
@@ -32,7 +32,7 @@ const c = usePageContext()
 
           <A
             v-else
-            class="btn"
+            class="link"
             href="/authentication"
           >
             {{ t("Sign in") }}
@@ -42,7 +42,7 @@ const c = usePageContext()
     </template>
   </Header>
 
-  <main class="min-h-screen pt-[64px]">
+  <main>
     <slot />
   </main>
 

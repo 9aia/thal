@@ -16,13 +16,13 @@ const isLocaleModalOpen = ref(false)
 </script>
 
 <template>
-  <h1 class="text-4xl font-bold mb-4 ml-2">
+  <h1 class="text-4xl text-slate-800 font-bold mb-4 ml-2">
     {{ t("Settings") }}
   </h1>
 
   <A
     href="/app/profile"
-    class="group mb-6 shadow-lg bg-base-100 p-4 rounded-lg flex justify-between items-center transition duration-300 hover:shadow-2xl"
+    class="group mb-6 shadow-lg bg-slate-300 p-4 rounded-lg flex justify-between items-center transition duration-300 hover:shadow-2xl"
   >
     <div class="flex gap-4 items-center">
       <Avatar :name="profile.name" class="w-16 text-md" />
@@ -40,7 +40,7 @@ const isLocaleModalOpen = ref(false)
 
   <div class="space-y-4">
     <section>
-      <h2 class="text-teal-900 font-bold text-2xl ml-2 mb-3">
+      <h2 class="text-slate-800 font-bold text-2xl ml-2 mb-3">
         {{ t("General") }}
       </h2>
       <MenuGroup class="p-0 w-full shadow-none" :items="SETTINGS.general">
@@ -65,14 +65,14 @@ const isLocaleModalOpen = ref(false)
     </section>
 
     <section>
-      <h2 class="text-teal-900 font-bold text-lg ml-2 mb-3">
+      <h2 class="text-slate-800 font-bold text-lg ml-2 mb-3">
         {{ t("Support") }}
       </h2>
       <MenuGroup :items="SETTINGS.support" />
     </section>
 
     <section>
-      <h2 class="text-teal-900 font-bold text-lg ml-2 mb-3">
+      <h2 class="text-slate-800 font-bold text-lg ml-2 mb-3">
         {{ t("Legal") }}
       </h2>
       <MenuGroup class="p-0 w-full shadow-none" :items="SETTINGS.legal" />

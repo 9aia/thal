@@ -11,7 +11,7 @@ const profile = useProfile()
     <Avatar :name="profile.name" class="w-24 text-3xl" />
 
     <label class="relative cursor-pointer">
-      <h2 class="text-lg font-bold">{{ profile.name }}</h2>
+      <h2 class="text-lg text-slate-800 font-bold">{{ profile.name }}</h2>
       <div class="text-sm flex gap-3">
         <div>@{{ profile.username }}</div>
         <div v-if="profile.pronouns">{{ profile.pronouns }}</div>

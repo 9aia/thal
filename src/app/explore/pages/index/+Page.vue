@@ -18,7 +18,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class="max-w-lg mx-auto mt-6 px-4 mb-8">
+  <section class="mt-20 lg:mt-0 max-w-lg mx-auto px-4 mb-8">
     <h2 class="text-2xl mb-1 font-bold">
       {{ t(section.name) }}
     </h2>
@@ -49,16 +49,16 @@ onMounted(() => {
     <Timeline class="my-4" :items="getUnits(unit.nodes)" />
   </section>
 
-  <div class="card w-96 mx-auto bg-base-200 shadow-xl mt-4 mb-4">
+  <div class="card w-96 mx-auto bg-transparent border border-slate-900 shadow-xl mt-4 mb-4">
     <div class="card-body">
-      <h2 class="card-title">
+      <h2 class="card-title text-slate-800">
         Congrats, you completed {{ section.name }}!
       </h2>
-      <p class="">
+      <p class="text-slate-900">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt fuga alias labore. Ea, pariatur quaerat.
       </p>
       <div class="card-actions justify-end">
-        <button class="btn btn-primary">
+        <button class="btn btn-primary text-slate-900">
           Next Section
         </button>
       </div>

@@ -4,12 +4,8 @@ import A from '#lib/vike/components/A.vue'
 </script>
 
 <template>
-  <header class="absolute top-0 w-full z-10">
-    <div class="text-center bg-teal-500 text-white py-2 px-4">
-      Maratongue is in active development. <A class="link" target="_blank" href="https://forms.gle/ANMv7qnwTHva1k7L8">Report a issue</A>
-    </div>
-
-    <nav class="sticky top-0 px-4 navbar z-100 bg-neutral text-primary-content">
+  <header class="sticky top-0 w-full z-[1000] bg-slate-800 text-primary">
+    <nav class="px-4 navbar max-w-[800px] mx-auto">
       <div class="navbar-start">
         <A href="/" class="text-xl flex gap-1 items-center justify-center">
           <Icon name="directions_run" />

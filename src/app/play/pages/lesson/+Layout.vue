@@ -1,7 +1,11 @@
 <script setup lang="ts">
+import Btn from '#lib/daisy/components/action/Btn.vue'
+import Icon from '#lib/daisy/components/display/Icon.vue'
+import client from '#lib/hono/client'
+import { t } from '#lib/i18n'
+import { useEventListener } from '@vueuse/core'
 import { navigate } from 'vike/client/router'
 import { onMounted, reactive, ref } from 'vue'
-import { useEventListener } from '@vueuse/core'
 import {
   MAX_LESSON,
   NON_SELECTED,
@@ -9,16 +13,13 @@ import {
   exercise,
   select,
 } from '../../store'
-import Btn from '#lib/daisy/components/action/Btn.vue'
-import Icon from '#lib/daisy/components/display/Icon.vue'
-import client from '#lib/hono/client'
-import { Cookies } from '#lib/web/utils/cookies'
-import { t } from '#lib/i18n'
+import { usePageContext } from '#lib/vike/composables/usePageContext'
+import A from '#lib/vike/components/A.vue'
+
+const c = usePageContext()
 
 async function generateExercise() {
-  const username = Cookies.get('username')
-  if (!username)
-    return
+  const username = c.user!.username
 
   const res = await client.exercise.generate.$post({
     json: {
@@ -114,9 +115,9 @@ onMounted(async () => {
       <div
         class="flex gap-2 items-center w-full mb-4 max-w-lg mx-auto pt-4 px-4"
       >
-        <a href="/app/explore" class="flex items-center">
+        <A href="/app/explore" class="flex items-center">
           <Icon>close</Icon>
-        </a>
+        </A>
         <progress
           class="progress progress-success w-full"
           :value="Math.floor((100 / MAX_LESSON) * currentClass.currentLesson)"

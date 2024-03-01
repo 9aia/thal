@@ -29,7 +29,7 @@ const { items, path, back } = useBreadcrumbs({
 </script>
 
 <template>
-  <ParentLayout>
+  <ParentLayout class="bg-slate-300">
     <div class="max-w-lg mx-auto py-2 px-4 py-4">
       <Breadcrumbs v-if="path.length" :items="items" class="mb-4" />
 

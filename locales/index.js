@@ -26,9 +26,6 @@ export default {
   'You have {count} (apple|apples)': {
     pt: 'Você possui {count} (maçã|maçãs)',
   },
-  'Hello, {name}! You are {age} (year|years) old.': {
-    pt: 'Olá, {name}! Você possui {age} (ano|anos) de idade.',
-  },
   'Logout': {
     pt: 'Sair',
   },
@@ -51,10 +48,10 @@ export default {
     pt: 'Aqui desde {signupDate}',
   },
   'https://forms.gle/5ePvXjrebyWGUrM26': {
-    pt: 'https://forms.gle/5ePvXjrebyWGUrM26',
+    pt: 'https://forms.gle/yHaiExzsQvv1mTdM8',
   },
   'https://forms.gle/ANMv7qnwTHva1k7L8': {
-    pt: 'https://forms.gle/ANMv7qnwTHva1k7L8',
+    pt: 'https://forms.gle/UyGBzPrBeNfFgwLD6',
   },
   'Privacy policy': {
     pt: 'Política de privacidade',
@@ -99,13 +96,13 @@ export default {
     pt: 'Relatar um problema',
   },
   '/terms': {
-    pt: '/termos',
+    pt: '/terms',
   },
   'Terms of Service': {
     pt: 'Termos de serviço',
   },
   '/privacy': {
-    pt: '/privacidade',
+    pt: '/privacy',
   },
   'Goals': {
     pt: 'Objetivos',
@@ -228,15 +225,69 @@ export default {
     pt: 'Nenhuma observação adicionada.',
   },
   'By signing in, you agree to our {terms} and {privacy}.': {
-    pt: 'Entrando, você concorda com nossos {terms} and {privacy}.',
+    pt: 'Ao iniciar a sessão, você concorda com nossos {terms} e {privacy}.',
   },
   'Privacy Policy': {
-    pt: 'Políticas de Privacidade',
+    pt: 'Política de privacidade',
   },
   'Username is invalid.': {
     pt: 'Nome de usuário inválido.',
   },
   'Language': {
     pt: 'Linguagem',
+  },
+  'Try Maratongue': {
+    pt: 'Experimente o Maratongue',
+  },
+  'Master English, Transform Your Future.': {
+    pt: 'Domine o inglês, transforme seu futuro.',
+  },
+  'Learn English with Artificial Intelligence effectively and fun!': {
+    pt: 'Aprenda inglês com Inteligência Artificial de forma eficaz e divertida!',
+  },
+  'Learn more': {
+    pt: 'Saiba mais',
+  },
+  'Personalize your Learning Journey': {
+    pt: 'Personalize sua jornada de aprendizado',
+  },
+  'Create your Maratongue profile in moments and start your personalized English learning journey. With advanced AI, Maratongue adapts to your learning style, making each lesson unique. Immerse yourself in a world of English adapted especially for you.': {
+    pt: 'Crie seu perfil Maratongue em instantes e comece sua jornada de aprendizado de inglês personalizada. Com IA avançada, o Maratongue se adapta ao seu estilo de aprendizado, tornando cada aula única. Mergulhe em um mundo de inglês adaptado especialmente para você.',
+  },
+  'Multiplatform Learning Experience': {
+    pt: 'Experiência de aprendizado multiplataforma',
+  },
+  'Learn English on any device - cell phone, tablet or computer. Marathongue offers a learning experience consistent and effective, whether you\'re at home or on the go. Learn flexibly and conveniently, with full compatibility between devices.': {
+    pt: 'Aprenda inglês em qualquer dispositivo - celular, tablet ou computador. O Maratongue oferece uma experiência de aprendizado consistente e eficaz, esteja você em casa ou em trânsito. Aprenda com flexibilidade e conveniência, com total compatibilidade entre dispositivos.',
+  },
+  'Stand out with English Proficiency': {
+    pt: 'Destaque-se com proficiência em inglês',
+  },
+  'By using Maratongue, you are preparing yourself to stand out globally. With fluent English, you open doors to opportunities international, increasing your credibility and professional visibility.': {
+    pt: 'Ao usar o Maratongue, você está se preparando para se destacar globalmente. Com inglês fluente, você abre portas para oportunidades internacionais, aumentando sua credibilidade e visibilidade profissional.',
+  },
+  'Direct and Efficient Learning': {
+    pt: 'Aprendizado direto e eficiente',
+  },
+  'With Maratongue, learning English is straightforward and hassle-free. Without the need for complex registrations, get started quickly and Focus on what really matters: your language progress English.': {
+    pt: 'Com o Maratongue, aprender inglês é simples e descomplicado. Sem a necessidade de registros complexos, comece rapidamente e concentre-se no que realmente importa: seu progresso no idioma inglês.',
+  },
+  'Track your progress': {
+    pt: 'Acompanhe seu progresso',
+  },
+  'Monitor your progress in English with Maratongue. Receive comments snapshot and insights into your learning, allowing you to understand your strengths and areas for improvement, and make strategic decisions in your learning process.': {
+    pt: 'Monitore seu progresso em inglês com o Maratongue. Receba um instantâneo de comentários e insights sobre seu aprendizado, permitindo que você entenda seus pontos fortes e áreas para melhoria, e tome decisões estratégicas em seu processo de aprendizado.',
+  },
+  'Start learning now': {
+    pt: 'Comece a aprender agora',
+  },
+  '{year} - Developed by {teamName}': {
+    pt: '{year} - Desenvolvido por {teamName}',
+  },
+  'Sign in to Your Account': {
+    pt: 'Inicie a sessão na sua conta',
+  },
+  'Sign in with Google': {
+    pt: 'Inicie a sessão com o Google',
   },
 }

@@ -20,11 +20,11 @@ provide('profile', profile)
 
 <template>
   <div
-    class="flex flex-col sm:flex-row"
+    class="bg-slate-300 flex flex-col sm:flex-row md:flex-col lg:flex-row"
     style="min-height: calc(100vh - 64px - 56px)"
   >
     <aside
-      class="w-full md:w-1/2 lg:w-1/3 pt-4 pb-12 px-8 md:p-8 shadow-lg md:shadow-none"
+      class="w-full sm:w-full lg:w-1/2 p-4 pb-12 shadow-lg sm:shadow-none"
     >
       <Header />
       <Summary />
@@ -37,7 +37,7 @@ provide('profile', profile)
     </aside>
 
     <main
-      class="w-full md:w-1/2 lg:w-2/3 p-8 space-y-6 divide-y divide-gray-400"
+      class="w-full sm:w-full lg:w-1/2 p-4 space-y-6 divide-y divide-gray-400"
     >
       <AboutMe />
       <Goals />
