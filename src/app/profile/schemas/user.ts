@@ -1,4 +1,4 @@
-import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
+import { int, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
 import { z } from 'zod'
 import {
@@ -8,8 +8,8 @@ import {
   MAX_PROFESSION_CHARS,
 } from '../constants'
 
-export const profiles = sqliteTable('Profiles', {
-  id: integer('id').primaryKey({ autoIncrement: true }),
+export const users = sqliteTable('Users', {
+  id: text('id').primaryKey(),
   name: text('name').notNull(),
   lastName: text('lastName').notNull(),
   username: text('username').notNull().unique(),
@@ -20,6 +20,11 @@ export const profiles = sqliteTable('Profiles', {
   profession: text('profession'),
   hobbies: text('hobbies'),
   observation: text('observation'),
+  plan: text('plan'),
+  payment_gateway_customer_id: text('payment_gateway_customer_id'),
+  payment_gateway_session_id: text('payment_gateway_session_id'),
+  plan_expires: text('plan_expires'),
+  free_trial_used: int('free_trial_used').default(0),
 })
 
 export const usernameSchema = z
@@ -33,7 +38,7 @@ export const usernameSchema = z
 export const nameSchema = z.string().min(1).max(20)
 export const pronounsSchema = z.string().max(20).optional()
 
-export const profileUpdateSchema = createInsertSchema(profiles, {
+export const userUpdateSchema = createInsertSchema(users, {
   name: nameSchema,
   lastName: nameSchema,
   username: usernameSchema,
@@ -68,12 +73,12 @@ export const profileUpdateSchema = createInsertSchema(profiles, {
     ),
 }).partial()
 
-export const profileSelectSchema = createSelectSchema(profiles, {
+export const userSelectSchema = createSelectSchema(users, {
   name: nameSchema,
   lastName: nameSchema,
   pronouns: pronounsSchema,
 })
-export const profileInsertSchema = createInsertSchema(profiles, {
+export const userInsertSchema = createInsertSchema(users, {
   name: nameSchema,
   lastName: nameSchema,
   username: usernameSchema,
@@ -81,5 +86,5 @@ export const profileInsertSchema = createInsertSchema(profiles, {
   signupDate: schema => schema.signupDate.optional(),
 })
 
-export type ProfileInsert = z.infer<typeof profileInsertSchema>
-export type Profile = z.infer<typeof profileSelectSchema>
+export type UserInsert = z.infer<typeof userInsertSchema>
+export type User = z.infer<typeof userSelectSchema>

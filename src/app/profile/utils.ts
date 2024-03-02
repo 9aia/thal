@@ -1,7 +1,7 @@
 import { PROFILE_ITEMS } from './constants'
-import type { Profile } from './schemas/profile'
+import type { User } from './schemas/user'
 
-export function getProfileData(data: Profile) {
+export function getUserData(data: User) {
   let profileData = ''
 
   PROFILE_ITEMS.forEach((item) => {

@@ -6,9 +6,9 @@ import { GOALS } from '../../constants'
 import useProfile from '../../store'
 import { parseJoin } from '../../utils'
 
-const profile = useProfile()
+const user = useProfile()
 const goals = computed(() => {
-  return parseJoin(profile.value.goals || '', GOALS)
+  return parseJoin(user.value.goals || '', GOALS)
 })
 </script>
 

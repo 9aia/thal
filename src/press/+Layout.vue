@@ -21,7 +21,7 @@ const { logout } = useAuth()
       <div class="flex items-center gap-2">
         <div>
           <button
-            v-if="!!c.profile"
+            v-if="!!c.user"
             class="link"
             @click="logout"
           >

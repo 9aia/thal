@@ -3,10 +3,10 @@ import { eq } from 'drizzle-orm'
 import { Hono } from 'hono'
 import { z } from 'zod'
 import {
-  profileUpdateSchema,
-  profiles,
+  userUpdateSchema,
   usernameSchema,
-} from '../schemas/profile'
+  users,
+} from '../schemas/user'
 import { notFound } from '#lib/hono/utils/httpStatus'
 import type { HonoContext } from '#lib/hono/types'
 import auth from '~/auth/middlewares/auth'
@@ -14,17 +14,8 @@ import auth from '~/auth/middlewares/auth'
 export default new Hono<HonoContext>()
   .get('/logged', auth(), async (c) => {
     const session = c.get('session')
-    const orm = c.get('orm')
 
-    const [profile] = await orm
-      .select()
-      .from(profiles)
-      .where(eq(profiles.id, session.user.profileId))
-
-    if (!profile)
-      throw notFound('Profile not found')
-
-    return c.json(profile)
+    return c.json(session.user)
   })
   .get(
     '/:username',
@@ -33,33 +24,33 @@ export default new Hono<HonoContext>()
       const { username } = c.req.valid('param')
 
       const orm = c.get('orm')
-      const profile = (
-        await orm.select().from(profiles).where(eq(profiles.username, username))
+      const user = (
+        await orm.select().from(users).where(eq(users.username, username))
       ).at(0)
 
-      if (!profile)
-        throw notFound('Profile not found')
+      if (!user)
+        throw notFound('User not found')
 
-      return c.json(profile)
+      return c.json(user)
     },
   )
   .patch(
     '/:username',
     zValidator('param', z.object({ username: z.string() })),
-    zValidator('json', profileUpdateSchema),
+    zValidator('json', userUpdateSchema),
     async (c) => {
       const { username } = c.req.valid('param')
       const data = c.req.valid('json')
 
       const orm = c.get('orm')
 
-      const profile = await orm
-        .update(profiles)
+      const user = await orm
+        .update(users)
         .set(data)
-        .where(eq(profiles.username, username))
+        .where(eq(users.username, username))
         .returning()
 
-      return c.json(profile)
+      return c.json(user)
     },
   )
   .get(
@@ -76,8 +67,8 @@ export default new Hono<HonoContext>()
         = (
           await orm
             .select()
-            .from(profiles)
-            .where(eq(profiles.username, username))
+            .from(users)
+            .where(eq(users.username, username))
         ).at(0) !== undefined
 
       return c.json({

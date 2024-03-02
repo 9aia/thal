@@ -1,6 +1,6 @@
 import { Hono } from 'hono'
 import { env } from 'hono/adapter'
-import { getProfileData } from '../utils'
+import { getUserData } from '../utils'
 import type { HonoContext } from '#lib/hono/types'
 import { getGemini } from '#lib/gemini'
 
@@ -8,7 +8,7 @@ export default new Hono<HonoContext>().post('/', async (c) => {
   const { GEMINI_API_KEY } = env(c)
   const data = await c.req.json()
 
-  const profileData = getProfileData(data)
+  const profileData = getUserData(data)
 
   const prompt = `
     ## MISSION

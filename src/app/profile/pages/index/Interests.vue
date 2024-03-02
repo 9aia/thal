@@ -6,9 +6,9 @@ import { HOBBIES } from '../../constants'
 import useProfile from '../../store'
 import { parseJoin } from '../../utils'
 
-const profile = useProfile()
+const user = useProfile()
 const hobbies = computed(() => {
-  return parseJoin(profile.value.hobbies || '', HOBBIES)
+  return parseJoin(user.value.hobbies || '', HOBBIES)
 })
 </script>
 
@@ -34,7 +34,7 @@ const hobbies = computed(() => {
         <Icon>work</Icon>
         <div>
           <span class="font-bold">My profession</span>:
-          <span>{{ profile.profession }}</span>
+          <span>{{ user.profession }}</span>
         </div>
       </div>
     </label>

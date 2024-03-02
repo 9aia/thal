@@ -7,7 +7,7 @@ import EXERCISES, { findExerciseImplementation } from '../exercises'
 import { exercises } from '../schemas/exercises'
 import { getExercise, saveExercise } from '../services/exercise'
 import type { ExerciseImplementation, ExercisePromptOptions } from '../types'
-import { getProfile } from '~/app/profile/utils/getProfile'
+import { getUser } from '~/app/profile/utils/getUser'
 import type { HonoContext } from '#lib/hono/types'
 import { getGemini } from '#lib/gemini'
 
@@ -75,13 +75,13 @@ export default exerciseRouter
     async (c) => {
       const { username } = c.req.valid('json')
 
-      const profile = await getProfile(c, username)
+      const user = await getUser(c, username)
 
       const options: ExercisePromptOptions = {
-        goals: profile.goals || '',
-        hobbies: profile.hobbies || '',
-        profession: profile.profession || '',
-        observation: profile.observation || '',
+        goals: user.goals || '',
+        hobbies: user.hobbies || '',
+        profession: user.profession || '',
+        observation: user.observation || '',
         level: 'a1',
         languageFrom: 'Português',
         languageTo: 'English',

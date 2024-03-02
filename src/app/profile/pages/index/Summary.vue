@@ -10,13 +10,13 @@ import { t } from '#lib/i18n'
 
 const toast = useToast()
 
-const profile = useProfile()
+const user = useProfile()
 
 const loading = ref(true)
 const summary = ref('')
 
 async function generateSummary() {
-  const profileData: any = { ...profile?.value }
+  const profileData: any = { ...user?.value }
   delete profileData.name
   delete profileData.lastName
 
@@ -25,7 +25,7 @@ async function generateSummary() {
   })
 
   if (!res.ok)
-    throw new Error('An error occurred while fetching your profile data.')
+    throw new Error('An error occurred while fetching your user data.')
 
   const data = await res.json()
 

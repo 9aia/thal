@@ -9,7 +9,7 @@ const EXERCISES: ExerciseImplementation[] = [
       Generate a short text (2 lines) in the language ${languageTo}. The text should be based on user's profile data. Then, generate a comprehension-only question for the text. Finally, generate exactly 3 alternatives with only 1 correct interpretation of the text.
       Be creative and have fun!
       
-      ## Profile Data
+      ## User Data
 
       - Language level: ${level}
       - Learning goals: ${goals}
@@ -43,7 +43,7 @@ const EXERCISES: ExerciseImplementation[] = [
       instructions: `
       You are expected to generate a short text (2 lines) in the language ${languageTo} with exactly one blank placeholder that can be inferred just by reading and English knowledge. Also, generate exactly 3 alternatives with only 1 correct word or short phrase that fills in the blank.
       
-      ## Profile Data
+      ## User Data
 
       - Language level: ${level}
       - Learning goals: ${goals}

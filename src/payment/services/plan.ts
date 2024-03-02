@@ -2,7 +2,7 @@ import { eq } from 'drizzle-orm'
 import type { DrizzleD1Database } from 'drizzle-orm/d1'
 import type { SQLiteUpdateSetSource } from 'drizzle-orm/sqlite-core'
 import type { PlanType } from '../constants/plans'
-import { users } from '~/auth/schemas/user'
+import { users } from '~/app/profile/schemas/user'
 import { now } from '#lib/lang/utils/date'
 import { notFound } from '#lib/hono/utils/httpStatus'
 

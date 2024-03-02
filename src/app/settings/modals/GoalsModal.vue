@@ -8,15 +8,15 @@ import { useI18n } from '#lib/i18n'
 import { useForm } from 'vee-validate'
 import { computed, inject, ref } from 'vue'
 import { GOALS } from '../../profile/constants'
-import type { Profile } from '../../profile/schemas/profile'
+import type { User } from '../../profile/schemas/user'
 import { parseInitialValues } from '../utils'
 
 const { t } = useI18n()
 const toast = useToast()
 
-const profile = inject<Profile>('profile')!
+const user = inject<User>('user')!
 
-const initialValues = parseInitialValues(profile.goals || '')
+const initialValues = parseInitialValues(user.goals || '')
 const form = useForm<Record<string, boolean | undefined>>({
   initialValues,
 })
@@ -31,7 +31,7 @@ const isOpen = defineModel({ default: false })
 const loading = ref(false)
 
 const submit = form.handleSubmit(async () => {
-  const username = profile.username
+  const username = user.username
   const currentKeys = keys.value
 
   loading.value = true
@@ -49,7 +49,7 @@ const submit = form.handleSubmit(async () => {
     toast.error(t('An error occurred while updating goals.'))
   }
   else {
-    profile.goals = currentKeys
+    user.goals = currentKeys
 
     toast.success(t('Goals were updated successfully.'))
   }

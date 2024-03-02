@@ -4,8 +4,9 @@ import { Hono } from 'hono'
 import { env } from 'hono/adapter'
 import { getCookie, setCookie } from 'hono/cookie'
 import type { HonoContext } from '#lib/hono/types'
-import { createProfile } from '~/app/profile/utils/getProfile'
-import { profiles } from '~/app/profile/schemas/profile'
+import { createProfile } from '~/app/profile/utils/getUser'
+import { users } from '~/app/profile/schemas/user'
+import { now } from '#lib/lang/utils/date'
 
 export default new Hono<HonoContext>()
   .get('/google', async (c) => {
@@ -34,7 +35,6 @@ export default new Hono<HonoContext>()
   })
   .get('/google/callback', async (c) => {
     const auth = c.get('auth')
-    const orm = c.get('orm')
 
     const storedState = getCookie(c, 'google_oauth_state')
 
@@ -56,31 +56,23 @@ export default new Hono<HonoContext>()
 
         const existingUser = await getExistingUser()
 
-        if (existingUser) {
-          const [profile] = await orm.select().from(profiles).where(eq(profiles.id, existingUser.profileId))
-
-          return {
-            user: existingUser,
-            username: profile!.username,
-          }
-        };
-
-        const profile = await createProfile(c, {
-          username,
-          name: googleUser.given_name,
-          lastName: googleUser.family_name,
-        })
+        if (existingUser)
+          return existingUser
 
         const user = await createUser({
           attributes: {
-            profile_id: profile.id,
+            username,
+            name: googleUser.given_name,
+            lastName: googleUser.family_name,
+            free_trial_used: 0,
+            signupDate: now().toString(),
           },
         })
 
-        return { user, username }
+        return user
       }
 
-      const { user, username } = await getUser()
+      const user = await getUser()
 
       const session = await auth.lucia.createSession({
         userId: user.userId,
@@ -89,7 +81,7 @@ export default new Hono<HonoContext>()
       const sessionCookie = auth.lucia.createSessionCookie(session)
 
       c.header('set-cookie', sessionCookie.serialize())
-      setCookie(c, 'username', username, {
+      setCookie(c, 'username', user.username!, {
         path: '/',
       })
 

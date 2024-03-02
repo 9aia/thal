@@ -6,12 +6,12 @@ import MenuItem from '#lib/daisy/components/layout/MenuItem.vue'
 import { t } from '#lib/i18n'
 import A from '#lib/vike/components/A.vue'
 import { inject, ref } from 'vue'
-import type { Profile } from '~/app/profile/schemas/profile'
+import type { User } from '~/app/profile/schemas/user'
 import { SETTINGS } from '../../constants'
 import LocaleModal from '../../modals/LocaleModal.vue'
 import useAuth from '~/auth/composables/useAuth'
 
-const profile = inject<Profile>('profile')!
+const user = inject<User>('user')!
 
 const isLocaleModalOpen = ref(false)
 
@@ -28,10 +28,10 @@ const { logout } = useAuth()
     class="group mb-6 shadow-lg bg-slate-300 p-4 rounded-lg flex justify-between items-center transition duration-300 hover:shadow-2xl"
   >
     <div class="flex gap-4 items-center">
-      <Avatar :name="profile.name" class="w-16 text-md" />
+      <Avatar :name="user.name" class="w-16 text-md" />
 
       <label class="relative cursor-pointer flex flex-col gap-0">
-        <h2 class="text-lg font-bold">{{ profile.name }}</h2>
+        <h2 class="text-lg font-bold">{{ user.name }}</h2>
         <small class="text-gray-600">
           {{ t("Show profile") }}
         </small>

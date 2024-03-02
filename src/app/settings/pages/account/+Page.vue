@@ -6,13 +6,13 @@ import Btn from '#lib/daisy/components/action/Btn.vue'
 import { useToast } from '#lib/daisy/composables/useToast'
 import client from '#lib/hono/client'
 import type {
-  Profile,
-} from '~/app/profile/schemas/profile'
+  User,
+} from '~/app/profile/schemas/user'
 import {
   nameSchema,
   pronounsSchema,
   usernameSchema,
-} from '~/app/profile/schemas/profile'
+} from '~/app/profile/schemas/user'
 import TextField from '#lib/daisy/components/data-input/TextField.vue'
 import Icon from '#lib/daisy/components/display/Icon.vue'
 import useHasFormErrors from '#lib/vee-validate/composables/useHasFormErrors'
@@ -22,9 +22,9 @@ import { useI18n } from '#lib/i18n'
 const { t } = useI18n()
 const toast = useToast()
 
-const profile = inject<Profile>('profile')!
-const form = useForm<Profile>({
-  initialValues: toValue(profile),
+const user = inject<User>('user')!
+const form = useForm<User>({
+  initialValues: toValue(user),
 })
 const hasErrors = useHasFormErrors(form)
 const invalidUsername = ref(false)
@@ -34,7 +34,7 @@ async function validateUsername(username: string) {
   if (!username)
     return
 
-  const currentUsername = profile.username
+  const currentUsername = user.username
 
   const res = await client.app.profile.validateUsername[':username'].$get({
     param: {
@@ -67,7 +67,7 @@ const debouncedValidateUsername = useDebounceFn(validateUsername, 500)
 watch(() => form.values.username, debouncedValidateUsername)
 
 const submit = form.handleSubmit(async () => {
-  const username = profile.username
+  const username = user.username
 
   loading.value = true
 
@@ -86,7 +86,7 @@ const submit = form.handleSubmit(async () => {
       // @ts-expect-error
       const value = form.values[key]
       // @ts-expect-error
-      profile[key] = value
+      user[key] = value
     })
 
     toast.success(t('Personal data has been updated successfully.'))

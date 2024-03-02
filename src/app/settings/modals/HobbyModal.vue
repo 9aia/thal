@@ -9,16 +9,16 @@ import * as _ from 'lodash-es'
 import { useForm } from 'vee-validate'
 import { computed, inject, ref } from 'vue'
 import { HOBBIES, MAX_HOBBIES_AMOUNT } from '../../profile/constants'
-import type { Profile } from '../../profile/schemas/profile'
+import type { User } from '../../profile/schemas/user'
 import { parseJoin } from '../../profile/utils'
 import { parseInitialValues } from '../utils'
 
 const { t } = useI18n()
 const toast = useToast()
 
-const profile = inject<Profile>('profile')!
+const user = inject<User>('user')!
 
-const initialValues = parseInitialValues(profile.hobbies || '')
+const initialValues = parseInitialValues(user.hobbies || '')
 const form = useForm<Record<string, boolean | undefined>>({
   initialValues,
 })
@@ -44,7 +44,7 @@ const isOpen = defineModel({ default: false })
 const loading = ref(false)
 
 const submit = form.handleSubmit(async () => {
-  const username = profile.username
+  const username = user.username
   const currentKeys = keys.value
 
   loading.value = true
@@ -62,7 +62,7 @@ const submit = form.handleSubmit(async () => {
     toast.error(t('An error occurred while updating hobbies.'))
   }
   else {
-    profile.hobbies = currentKeys
+    user.hobbies = currentKeys
 
     toast.success(t('Hobbies were updated successfully.'))
   }

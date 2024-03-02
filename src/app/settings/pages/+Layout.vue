@@ -12,8 +12,8 @@ import { SETTINGS } from '../constants'
 import { flattenObject } from '../utils'
 
 const c = usePageContext()
-const profile = reactive(c.user!)
-provide('profile', profile)
+const user = reactive(c.user!)
+provide('user', user)
 
 const root: BreadcrumbItem = {
   id: 'settings',

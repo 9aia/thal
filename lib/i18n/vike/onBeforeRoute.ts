@@ -35,7 +35,7 @@ const onBeforeRoute: OnBeforeRouteSync = (
     pageContext: {
       urlLogical: urlWithoutLocale,
       urlWithoutLocale,
-      locale,
+      locale: locale || defaultLocale,
     },
   } as any
 }

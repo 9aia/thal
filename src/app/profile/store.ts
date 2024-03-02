@@ -1,11 +1,11 @@
 import type { Ref } from 'vue'
 import { inject } from 'vue'
-import type { Profile } from './schemas/profile'
+import type { User } from './schemas/user'
 
 function useProfile() {
-  const profile = inject<Ref<Profile>>('profile')!
+  const user = inject<Ref<User>>('user')!
 
-  return profile
+  return user
 }
 
 export default useProfile

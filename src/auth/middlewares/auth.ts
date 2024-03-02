@@ -1,11 +1,9 @@
-import { eq } from 'drizzle-orm'
 import type { MiddlewareHandler } from 'hono'
 import { getCookie } from 'hono/cookie'
 import { APP_URL } from '../../../public_keys.json'
 import type { HonoContext } from '#lib/hono/types'
 import { unauthorized } from '#lib/hono/utils/httpStatus'
 import { now } from '#lib/lang/utils/date'
-import { users } from '~/auth/schemas/user'
 
 interface Options {
   redirect: boolean
@@ -38,12 +36,7 @@ export function auth(options?: Options): MiddlewareHandler<HonoContext> {
     if (!session)
       return redirect()
 
-    const orm = c.get('orm')
-
-    const [user] = await orm
-      .select()
-      .from(users)
-      .where(eq(users.id, session.user.userId))
+    const user = session.user
 
     if (user.plan && user.plan_expires) {
       const date = now()

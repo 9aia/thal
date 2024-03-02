@@ -2,7 +2,7 @@
 import { useForm } from 'vee-validate'
 import { inject, ref } from 'vue'
 import { MAX_PROFESSION_CHARS } from '../../profile/constants'
-import type { Profile } from '../../profile/schemas/profile'
+import type { User } from '../../profile/schemas/user'
 import Modal from '#lib/daisy/components/action/Modal.vue'
 import TextField from '#lib/daisy/components/data-input/TextField.vue'
 import { useToast } from '#lib/daisy/composables/useToast'
@@ -12,12 +12,12 @@ import { useI18n } from '#lib/i18n'
 const { t } = useI18n()
 const toast = useToast()
 
-const profile = inject<Profile>('profile')!
+const user = inject<User>('user')!
 const form = useForm<{
-  profession: Profile['profession']
+  profession: User['profession']
 }>({
   initialValues: {
-    profession: profile.profession,
+    profession: user.profession,
   },
 })
 
@@ -25,7 +25,7 @@ const isOpen = defineModel({ default: false })
 const loading = ref(false)
 
 const submit = form.handleSubmit(async (data) => {
-  const username = profile.username
+  const username = user.username
 
   loading.value = true
 
@@ -40,7 +40,7 @@ const submit = form.handleSubmit(async (data) => {
     toast.error(t('An error occurred while updating your profession.'))
   }
   else {
-    profile.profession = data.profession
+    user.profession = data.profession
 
     toast.success(t('Profession has been updated successfully.'))
   }
@@ -72,7 +72,7 @@ const submit = form.handleSubmit(async (data) => {
           :label="t('Your profession')"
           :rules="
             (v) =>
-              v.length <= MAX_PROFESSION_CHARS || t(`It must contain at most ${MAX_PROFESSION_CHARS} characters`)
+              v?.length <= MAX_PROFESSION_CHARS || t(`It must contain at most ${MAX_PROFESSION_CHARS} characters`)
           "
           :feedback="true"
         >

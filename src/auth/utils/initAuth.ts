@@ -24,9 +24,7 @@ export function initAuth(ENV: HonoContext['Bindings']) {
     },
 
     getUserAttributes: (data) => {
-      return {
-        profileId: data.profile_id,
-      }
+      return data
     },
   })
 

@@ -8,7 +8,7 @@ import { z } from 'zod'
 import { APP_URL } from '../../../public_keys.json'
 import { getStripe } from '../utils/stripe'
 import auth from '~/auth/middlewares/auth'
-import { users } from '~/auth/schemas/user'
+import { users } from '~/app/profile/schemas/user'
 import { notFound } from '#lib/hono/utils/httpStatus'
 import type { HonoContext } from '#lib/hono/types'
 
@@ -33,11 +33,7 @@ export default createSessionRoutes
     const lookup_key = 'premium'
 
     const session = c.get('session')
-
-    const [user] = await orm.select().from(users).where(eq(users.id, session.user.userId))
-
-    if (!user)
-      throw notFound('User not found')
+    const user = session.user
 
     if (getCookie(c, 'free_trial_used') === '1' && user.free_trial_used !== 1)
       return c.redirect('/plan/pending')
@@ -86,14 +82,9 @@ export default createSessionRoutes
   })
   .get('/stripe/create-portal-session', auth({ redirect: true }), async (c) => {
     const { STRIPE_SECRET_KEY } = env(c)
-    const orm = c.get('orm')
 
     const session = c.get('session')
-
-    const user = (await orm.select().from(users).where(eq(users.id, session.user.userId))).at(0)
-
-    if (!user)
-      throw notFound('User not found')
+    const user = session.user
 
     if (!user.payment_gateway_session_id)
       throw notFound('Payment gateway session not found')

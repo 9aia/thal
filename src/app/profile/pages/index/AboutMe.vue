@@ -4,7 +4,7 @@ import { t } from '#lib/i18n'
 import { ITEMS } from '../../constants'
 import useProfile from '../../store'
 
-const profile = useProfile()
+const user = useProfile()
 </script>
 
 <template>
@@ -17,12 +17,12 @@ const profile = useProfile()
       <div class="space-y-2">
         <div
           v-for="item in ITEMS"
-          v-show="profile[item.id]"
+          v-show="user[item.id]"
           :key="item.id"
           class="flex items-center gap-2"
         >
           <Icon>{{ item.icon }}</Icon>
-          <span>{{ item.label }} {{ profile[item.id] }}</span>
+          <span>{{ item.label }} {{ user[item.id] }}</span>
         </div>
       </div>
     </label>

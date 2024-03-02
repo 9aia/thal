@@ -6,8 +6,8 @@ import { z } from 'zod'
 import { notFound } from '#lib/hono/utils/httpStatus'
 import type { HonoContext } from '#lib/hono/types'
 import { getGemini } from '#lib/gemini'
-import { profiles } from '~/app/profile/schemas/profile'
-import { getProfileData } from '~/app/profile/utils'
+import { users } from '~/app/profile/schemas/user'
+import { getUserData } from '~/app/profile/utils'
 
 export default new Hono<HonoContext>()
   .get(
@@ -17,14 +17,14 @@ export default new Hono<HonoContext>()
       const { username } = c.req.valid('param')
 
       const orm = c.get('orm')
-      const profile = (
-        await orm.select().from(profiles).where(eq(profiles.username, username))
+      const user = (
+        await orm.select().from(users).where(eq(users.username, username))
       ).at(0)
 
-      if (!profile)
-        throw notFound(`"Profile not found: ${username}`)
+      if (!user)
+        throw notFound(`"User not found: ${username}`)
 
-      const profileData = getProfileData(profile)
+      const profileData = getUserData(user)
 
       const prompt = `
         You are a story generator for an English learning app personalized by AI. You will be given a user profile data and will be expected to generate a story based on the user's profile with a specific format.

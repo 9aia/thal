@@ -3,7 +3,7 @@ import Btn from '#lib/daisy/components/action/Btn.vue'
 import Icon from '#lib/daisy/components/display/Icon.vue'
 import { t } from '#lib/i18n'
 import { computed, inject, ref } from 'vue'
-import type { Profile } from '~/app/profile/schemas/profile'
+import type { User } from '~/app/profile/schemas/user'
 import { GOALS, HOBBIES } from '../../../profile/constants'
 import { parseJoin } from '../../../profile/utils'
 import GoalsModal from '../../modals/GoalsModal.vue'
@@ -11,7 +11,7 @@ import HobbyModal from '../../modals/HobbyModal.vue'
 import ObservationModal from '../../modals/ObservationModal.vue'
 import ProfessionModal from '../../modals/ProfessionModal.vue'
 
-const profile = inject<Profile>('profile')!
+const user = inject<User>('user')!
 
 const isHobbyModalOpen = ref(false)
 const isProfessionModalOpen = ref(false)
@@ -19,10 +19,10 @@ const isGoalsModalOpen = ref(false)
 const isObservationModalOpen = ref(false)
 
 const hobbies = computed(() => {
-  return parseJoin(profile.hobbies || '', HOBBIES)
+  return parseJoin(user.hobbies || '', HOBBIES)
 })
 const goals = computed(() => {
-  return parseJoin(profile.goals || '', GOALS)
+  return parseJoin(user.goals || '', GOALS)
 })
 </script>
 
@@ -116,22 +116,22 @@ const goals = computed(() => {
       </div>
 
       <div class="flex gap-2 flex-wrap items-center mt-6">
-        <div v-if="profile.profession">
+        <div v-if="user.profession">
           <div class="flex items-center gap-2">
             <Icon>work</Icon>
             <div>
               <span class="font-bold">My profession</span>:
-              <span>{{ profile.profession }}</span>
+              <span>{{ user.profession }}</span>
             </div>
           </div>
         </div>
 
         <Btn
           class="text-black flex items-center"
-          :class="{ 'btn-primary': !profile.profession }"
+          :class="{ 'btn-primary': !user.profession }"
           @click="isProfessionModalOpen = true"
         >
-          <template v-if="!profile.profession">
+          <template v-if="!user.profession">
             <Icon>add</Icon>
             {{ t("Add profession") }}
           </template>
@@ -160,11 +160,11 @@ const goals = computed(() => {
       </p>
 
       <div class="mt-4 space-y-2">
-        <div v-if="profile.observation">
+        <div v-if="user.observation">
           <textarea
             readonly
             class="textarea text-md border border-gray-400 leading-[1.6em] h-40 w-full resize-none"
-            :value="profile.observation"
+            :value="user.observation"
           />
         </div>
 
@@ -172,7 +172,7 @@ const goals = computed(() => {
           class="text-black flex items-center"
           @click="isObservationModalOpen = true"
         >
-          <template v-if="!profile.observation">
+          <template v-if="!user.observation">
             <Icon>add</Icon>
             {{ t("Add observation") }}
           </template>

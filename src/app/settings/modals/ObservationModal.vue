@@ -2,7 +2,7 @@
 import { useForm } from 'vee-validate'
 import { inject, ref } from 'vue'
 import { MAX_OBSERVATION_CHARS } from '../../profile/constants'
-import type { Profile } from '../../profile/schemas/profile'
+import type { User } from '../../profile/schemas/user'
 import Modal from '#lib/daisy/components/action/Modal.vue'
 import Textarea from '#lib/daisy/components/data-input/Textarea.vue'
 import { useToast } from '#lib/daisy/composables/useToast'
@@ -12,13 +12,13 @@ import { useI18n } from '#lib/i18n'
 const { t } = useI18n()
 const toast = useToast()
 
-const profile = inject<Profile>('profile')!
+const user = inject<User>('user')!
 
 const form = useForm<{
-  observation: Profile['observation']
+  observation: User['observation']
 }>({
   initialValues: {
-    observation: profile.observation,
+    observation: user.observation,
   },
 })
 
@@ -26,7 +26,7 @@ const isOpen = defineModel({ default: false })
 const loading = ref(false)
 
 const submit = form.handleSubmit(async (data) => {
-  const username = profile.username
+  const username = user.username
 
   loading.value = true
 
@@ -41,7 +41,7 @@ const submit = form.handleSubmit(async (data) => {
     toast.error(t('An error occurred while updating your observation.'))
   }
   else {
-    profile.observation = data.observation
+    user.observation = data.observation
 
     toast.success(t('Observation has been updated successfully.'))
   }

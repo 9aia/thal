@@ -1,15 +1,15 @@
 import client from '#lib/hono/client'
 import { render } from 'vike/abort'
 import type { PageContext } from 'vike/types'
-import type { Profile } from '../../schemas/profile'
+import type { User } from '../../schemas/user'
 
 export default async (c: PageContext) => {
-  let profile: Profile | undefined
+  let user: User | undefined
 
   const isMe = c.routeParams.isMe || c.routeParams.username === c.user?.username
 
   if (isMe) {
-    profile = c.user!
+    user = c.user!
   }
   else {
     const username = c.routeParams.username
@@ -22,16 +22,16 @@ export default async (c: PageContext) => {
 
     if (!res.ok) {
       const messages: Record<number, string> = {
-        404: `Profile not found: ${username}`,
+        404: `User not found: ${username}`,
       }
       const message
-        = messages[res.status] || `Error fetching profile data: ${username}`
+        = messages[res.status] || `Error fetching user data: ${username}`
 
       throw render(res.status as any, message)
     }
 
-    profile = await res.json()
+    user = await res.json()
   }
 
-  return profile
+  return user
 }

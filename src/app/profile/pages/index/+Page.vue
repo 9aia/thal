@@ -14,8 +14,8 @@ import A from '#lib/vike/components/A.vue'
 
 const c = usePageContext()
 const data = useData<typeof Data>()
-const profile = ref(data.value)
-provide('profile', profile)
+const user = ref(data.value)
+provide('user', user)
 </script>
 
 <template>
@@ -30,7 +30,7 @@ provide('profile', profile)
       <Summary />
 
       <A
-        v-if="c.user!.username === profile.username"
+        v-if="c.user!.username === user.username"
         href="/app/settings/profile"
         class="btn btn-sm mt-4"
       >{{ t("Edit profile") }}</A>
