@@ -4,8 +4,11 @@ import Header from '#lib/daisy/components/layout/Header.vue'
 import { t } from '#lib/i18n'
 import A from '#lib/vike/components/A.vue'
 import { usePageContext } from '#lib/vike/composables/usePageContext'
+import useAuth from '~/auth/composables/useAuth'
 
 const c = usePageContext()
+
+const { logout } = useAuth()
 </script>
 
 <template>
@@ -17,18 +20,13 @@ const c = usePageContext()
     <template #navbar-end>
       <div class="flex items-center gap-2">
         <div>
-          <form
-            v-if="!!c.user"
-            action="/api/auth/logout"
-            method="post"
+          <button
+            v-if="!!c.profile"
+            class="link"
+            @click="logout"
           >
-            <button
-              class="link"
-              type="submit"
-            >
-              {{ t("Logout") }}
-            </button>
-          </form>
+            {{ t("Logout") }}
+          </button>
 
           <A
             v-else

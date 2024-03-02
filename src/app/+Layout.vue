@@ -5,6 +5,7 @@ import Menu from '#lib/daisy/components/layout/Menu.vue'
 import type { MenuItem } from '#lib/daisy/components/layout/types'
 import A from '#lib/vike/components/A.vue'
 import { usePageContext } from '#lib/vike/composables/usePageContext'
+import useAuth from '~/auth/composables/useAuth'
 
 withDefaults(
   defineProps<{
@@ -13,13 +14,15 @@ withDefaults(
   { hideHeader: false },
 )
 
+const { logout } = useAuth()
+
 const items: MenuItem[] = [
   { id: 'profile', name: 'Profile', icon: 'face', href: '/app/profile' },
   {
     id: 'plan',
     name: 'Plan',
     action: '/api/payment/stripe/create-portal-session',
-    method: 'post',
+    method: 'get',
     icon: 'subscriptions',
     type: 'external',
   },
@@ -30,6 +33,7 @@ const items: MenuItem[] = [
     action: '/api/auth/logout',
     method: 'post',
     icon: 'logout',
+    onSubmit: logout,
   },
 ]
 

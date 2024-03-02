@@ -19,7 +19,7 @@ const general: MenuItemType[] = [
     id: 'plan',
     name: 'Plan',
     action: '/api/payment/stripe/create-portal-session',
-    method: 'post',
+    method: 'get',
     icon: 'subscriptions',
     type: 'external',
   },

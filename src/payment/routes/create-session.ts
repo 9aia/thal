@@ -95,7 +95,11 @@ export default createSessionRoutes
     if (!user)
       throw notFound('User not found')
 
+    if (!user.payment_gateway_session_id)
+      throw notFound('Payment gateway session not found')
+
     const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY })
+
     const checkoutSession = await stripe.checkout.sessions.retrieve(user.payment_gateway_session_id as string)
 
     const portalSession = await stripe.billingPortal.sessions.create({

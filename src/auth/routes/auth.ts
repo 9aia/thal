@@ -11,8 +11,6 @@ export default authRouter
 
     const sessionId = getCookie(c, 'auth_session')
 
-    console.log(sessionId)
-
     if (!sessionId)
       throw unauthorized()
 

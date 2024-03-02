@@ -9,10 +9,13 @@ import { inject, ref } from 'vue'
 import type { Profile } from '~/app/profile/schemas/profile'
 import { SETTINGS } from '../../constants'
 import LocaleModal from '../../modals/LocaleModal.vue'
+import useAuth from '~/auth/composables/useAuth'
 
 const profile = inject<Profile>('profile')!
 
 const isLocaleModalOpen = ref(false)
+
+const { logout } = useAuth()
 </script>
 
 <template>
@@ -79,15 +82,9 @@ const isLocaleModalOpen = ref(false)
     </section>
 
     <section>
-      <form
-        action="/api/auth/logout"
-        method="post"
-        class="ml-2"
-      >
-        <button class="underline font-bold text-warning">
-          {{ t("Logout") }}
-        </button>
-      </form>
+      <button class="underline font-bold text-warning" @click="logout">
+        {{ t("Logout") }}
+      </button>
     </section>
   </div>
 </template>

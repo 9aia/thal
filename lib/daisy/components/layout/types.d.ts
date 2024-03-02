@@ -9,4 +9,5 @@ export interface MenuItem {
   meaning?: 'warning' | 'danger'
   newTab?: boolean
   localize?: boolean
+  onSubmit?: (e: Event) => void
 }
