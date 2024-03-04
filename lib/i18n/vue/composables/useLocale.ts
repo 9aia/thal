@@ -1,4 +1,4 @@
-import type { Locale } from '#lib/i18n'
+import type { Locale } from '~/lib/i18n'
 import type { ComputedRef } from 'vue'
 import { inject } from 'vue'
 

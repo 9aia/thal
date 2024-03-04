@@ -1,5 +1,5 @@
-import { i18nConfig } from '#lib/i18n'
-import { parseLocale } from '#lib/i18n/core/utils'
+import { i18nConfig } from '~/lib/i18n'
+import { parseLocale } from '~/lib/i18n/core/utils'
 
 function detectLocaleFromAcceptLanguage(acceptLanguageHeader: string) {
   const preferredLanguages = acceptLanguageHeader.split(',').map((lang) => {

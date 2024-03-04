@@ -1,4 +1,4 @@
-import { parseLocale } from '#lib/i18n/core/utils'
+import { parseLocale } from '~/lib/i18n/core/utils'
 import { i18nConfig } from '../config'
 
 function detectLocaleFromNavigator() {

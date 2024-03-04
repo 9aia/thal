@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
 import Btn from './Btn.vue'
 
 const props = withDefaults(

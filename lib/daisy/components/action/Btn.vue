@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SafeProps, SafeVariantProps } from '#lib/vue/utils/types'
+import type { SafeProps, SafeVariantProps } from '~/lib/vue/utils/types'
 import type { VariantProps } from 'tailwind-variants'
 import { tv } from 'tailwind-variants'
 import { type ButtonHTMLAttributes, useAttrs } from 'vue'

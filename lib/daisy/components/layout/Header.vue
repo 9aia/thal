@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Icon from '#lib/daisy/components/display/Icon.vue'
-import A from '#lib/vike/components/A.vue'
+import Icon from '~/lib/daisy/components/display/Icon.vue'
+import A from '~/components/A.vue'
 </script>
 
 <template>

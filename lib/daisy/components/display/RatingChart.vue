@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Icon from '#lib/daisy/components/display/Icon.vue'
+import Icon from '~/lib/daisy/components/display/Icon.vue'
 import { computed } from 'vue'
 
 const props = defineProps<any>()

@@ -2,7 +2,7 @@
 import { tv } from 'tailwind-variants'
 import { computed, effect, ref } from 'vue'
 import Icon from '../display/Icon.vue'
-import { useToast } from '#lib/daisy/composables/useToast'
+import { useToast } from '~/lib/daisy/composables/useToast'
 
 const styles = tv({
   base: 'fixed bottom-4 right-1/2 translate-x-1/2 z-50 max-w-sm alert',

@@ -1,5 +1,5 @@
-import type { Locale } from '#lib/i18n'
-import { i18nConfig } from '#lib/i18n'
+import type { Locale } from '~/lib/i18n'
+import { i18nConfig } from '~/lib/i18n'
 
 function detectLocaleFromPathname(pathname: string) {
   const urlPaths = pathname.split('/')

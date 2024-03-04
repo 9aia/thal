@@ -1,4 +1,4 @@
-import { usePageContext } from '#lib/vike/composables/usePageContext'
+import { usePageContext } from '~/lib/vike/composables/usePageContext'
 import { navigate } from 'vike/client/router'
 import { computed } from 'vue'
 import type { BreadcrumbItem } from '../components/navigation/types'

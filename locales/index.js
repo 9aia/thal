@@ -290,4 +290,7 @@ export default {
   'Sign in with Google': {
     pt: 'Inicie a sessão com o Google',
   },
+  'Access the home page': {
+    pt: 'Acessar página inicial',
+  },
 }

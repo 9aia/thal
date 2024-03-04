@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import useSlotContent from '#lib/vue/composables/useSlotContent'
-import type { SafeProps } from '#lib/vue/utils/types'
+import useSlotContent from '~/lib/vue/composables/useSlotContent'
+import type { SafeProps } from '~/lib/vue/utils/types'
 import type { RuleExpression } from 'vee-validate'
 import { useField } from 'vee-validate'
 import type { InputHTMLAttributes, MaybeRef } from 'vue'

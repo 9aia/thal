@@ -2,7 +2,7 @@
 import Icon from '../display/Icon.vue'
 import ChevronRight from './ChevronRight.vue'
 import type { MenuItem } from './types'
-import { t } from '#lib/i18n'
+import { t } from '~/lib/i18n'
 
 defineProps<{
   is: MenuItem

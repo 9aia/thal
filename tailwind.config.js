@@ -1,11 +1,11 @@
 const { fadeAnimation, fadeKeyframes } = require('./lib/daisy/animations/fade')
 
-/** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
-    './index.html',
     './lib/**/*.{vue,js,ts,jsx,tsx}',
     './src/**/*.{vue,js,ts,jsx,tsx}',
+    './components/**/*.{vue,js,ts,jsx,tsx}',
+    './layouts/**/*.{vue,js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
@@ -17,7 +17,6 @@ export default {
       },
     },
   },
-  darkMode: 'class',
   plugins: [require('daisyui')],
   daisyui: {
     themes: [require('./lib/daisy/styles/daisy.js')],

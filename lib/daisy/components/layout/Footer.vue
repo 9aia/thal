@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import Icon from '#lib/daisy/components/display/Icon.vue'
-import { T, t } from '#lib/i18n'
-import A from '#lib/vike/components/A.vue'
+import Icon from '~/lib/daisy/components/display/Icon.vue'
+import { T, t } from '~/lib/i18n'
+import A from '~/components/A.vue'
 
 const sections = [
   {

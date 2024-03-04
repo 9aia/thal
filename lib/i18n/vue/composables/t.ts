@@ -1,9 +1,9 @@
-import formatToString from '#lib/i18n/core/format/formatToString'
-import { getFormatOptions } from '#lib/i18n/core/localization/format'
-import localizeKey from '#lib/i18n/core/localization/localizeKey'
-import collect from '#lib/i18n/core/translation/collect'
-import type { InferValues, Key, Locale, Values } from '#lib/i18n/core/types'
-import { getConfig } from '#lib/i18n/core/utils'
+import formatToString from '~/lib/i18n/core/format/formatToString'
+import { getFormatOptions } from '~/lib/i18n/core/localization/format'
+import localizeKey from '~/lib/i18n/core/localization/localizeKey'
+import collect from '~/lib/i18n/core/translation/collect'
+import type { InferValues, Key, Locale, Values } from '~/lib/i18n/core/types'
+import { getConfig } from '~/lib/i18n/core/utils'
 import useLocale from './useLocale'
 
 type ValueOf<T> = T[keyof T]

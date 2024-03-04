@@ -1,4 +1,4 @@
-import { t as tLocale } from '#lib/i18n'
+import { t as tLocale } from '~/lib/i18n'
 import useLocale from './useLocale'
 
 function useI18n() {

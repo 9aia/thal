@@ -3,12 +3,12 @@
   lang="ts"
   generic="T extends Key & keyof I18n.MessageSchema, V extends InferValues<T | EveryTranslationOf<T>>"
 >
-import formatToSegments from '#lib/i18n/core/format/formatToSegments'
-import { getFormatOptions } from '#lib/i18n/core/localization/format'
-import localizeKey from '#lib/i18n/core/localization/localizeKey'
-import collect from '#lib/i18n/core/translation/collect'
-import type { FormatContext, InferValues, Key, Values } from '#lib/i18n/core/types.d'
-import { getConfig } from '#lib/i18n/core/utils'
+import formatToSegments from '~/lib/i18n/core/format/formatToSegments'
+import { getFormatOptions } from '~/lib/i18n/core/localization/format'
+import localizeKey from '~/lib/i18n/core/localization/localizeKey'
+import collect from '~/lib/i18n/core/translation/collect'
+import type { FormatContext, InferValues, Key, Values } from '~/lib/i18n/core/types.d'
+import { getConfig } from '~/lib/i18n/core/utils'
 import { computed, onMounted, useSlots } from 'vue'
 import useLocale from '../composables/useLocale'
 

@@ -1,14 +1,4 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.json",
-  "compilerOptions": {
-
-    "lib": ["DOM", "DOM.Iterable", "ES2022"],
-
-    "paths": {
-      "#lib/*": ["./lib/*"],
-      "~/*": ["./src/*"]
-    },
-    "types": ["vite/client", "@cloudflare/workers-types"],
-    "verbatimModuleSyntax": false
-  }
+  // https://nuxt.com/docs/guide/concepts/typescript
+  "extends": "./.nuxt/tsconfig.json"
 }

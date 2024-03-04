@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
-import useSlotContent from '#lib/vue/composables/useSlotContent'
-import type { SafeProps } from '#lib/vue/utils/types'
+import useSlotContent from '~/lib/vue/composables/useSlotContent'
+import type { SafeProps } from '~/lib/vue/utils/types'
 
 type Props = SafeProps<HTMLAttributes> & {
   name?: string
