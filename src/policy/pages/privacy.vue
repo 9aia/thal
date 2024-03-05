@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import useLocale from '~/lib/i18n/vue/composables/useLocale'
+import useLocale from '~/lib/psitta/vue/composables/useLocale'
 
 const locale = useLocale()
 

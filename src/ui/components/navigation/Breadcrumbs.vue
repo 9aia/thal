@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { t } from '~/lib/i18n'
+import { t } from '~/lib/psitta/vue'
 import Icon from '../display/Icon.vue'
 import type { BreadcrumbItem } from './types'
 

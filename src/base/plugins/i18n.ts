@@ -1,8 +1,16 @@
-import type { Locale } from '~/lib/i18n'
 import '~/i18n'
-import { getDefaultLocale } from '~/lib/i18n/core/utils'
+import { getDefaultLocale, type Locale } from '~/lib/psitta/core'
+import { createPsitta } from '~/lib/psitta/vue'
+
+type PsittaStore = { locale: Locale };
+
+export const store = reactive<PsittaStore>({} as PsittaStore)
 
 export default defineNuxtPlugin((nuxtApp) => {
-  const c = { locale: getDefaultLocale() }
-  nuxtApp.vueApp.provide('__locale', computed<Locale>(() => c.locale))
+  store.locale = getDefaultLocale()
+
+  const psitta = createPsitta({
+    locale: toRefs(store).locale,
+  })
+  nuxtApp.vueApp.use(psitta)
 })

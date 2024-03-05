@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Icon from '../display/Icon.vue'
-import { T, t } from '~/lib/i18n'
+import { T, t } from '~/lib/psitta/vue'
 import A from '~/src/base/components/A.vue'
 
 const sections = [

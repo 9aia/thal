@@ -1,20 +1,18 @@
-import { usePageContext } from '~/lib/vike/composables/usePageContext'
-import { navigate } from 'vike/client/router'
 import { computed } from 'vue'
 import type { BreadcrumbItem } from '../components/navigation/types'
 
 interface Options {
-  urlPathname?: string
+  path?: string
   root: BreadcrumbItem
   config: BreadcrumbItem[]
 }
 
 function useBreadcrumbs (options: Options) {
-  const c = usePageContext()
+  const route = useRoute()
 
   const path = computed(() => {
-    return c.urlPathname
-      .replaceAll(options.urlPathname!, '')
+    return route.path
+      .replaceAll(options.path!, '')
       .split('/')
       .filter(o => o !== '')
   })
@@ -26,7 +24,7 @@ function useBreadcrumbs (options: Options) {
   })
 
   const back = () => {
-    navigate(options.urlPathname!)
+    navigateTo(options.path!)
   }
 
   return { items, path, back }

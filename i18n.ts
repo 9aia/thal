@@ -1,19 +1,15 @@
-import { i18nConfig } from '~/lib/i18n'
-import locales from './locales/index'
+import { initPsitta } from '~/lib/psitta/core'
+import translations from './locales/index'
 
-i18nConfig.locales = ['en', 'pt']
-i18nConfig.translations = locales
-i18nConfig.datetimeFormats = {
-  en: 'en-US',
-  pt: 'pt-BR',
-}
-i18nConfig.numberFormats = {
-  en: 'en-US',
-  pt: 'pt-BR',
-}
+initPsitta({
+  locales: ['en', 'pt'],
+  translations,
+  datetimeFormats: { en: 'en-US', pt: 'pt-BR' },
+  numberFormats: { en: 'en-US', pt: 'pt-BR' },
+})
 
-declare global {
-  namespace I18n {
-    type MessageSchema = typeof locales
+declare module '~/lib/psitta/core' {
+  interface Register {
+    messages: typeof translations
   }
 }
