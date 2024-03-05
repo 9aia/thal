@@ -1,5 +1,5 @@
 import { DEFAULT_NUMBER_DECLENSION_RULE } from '../constants'
-import type { Declension, NumberDeclensionRule, Phrase, Text, Value } from '../types.d'
+import type { Declension, NumberDeclensionRule, Phrase, Value } from '../types.d'
 
 export function declineForNumber(
   phrase: Phrase,

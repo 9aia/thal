@@ -9,7 +9,7 @@
     "**/node_modules": true,
     "**/.wrangler": true,
     "**/dist": true,
-    ".vscode": true
+    ".vscode": false
   },
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,

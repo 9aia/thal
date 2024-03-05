@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import Icon from '~/lib/daisy/components/display/Icon.vue'
+import Icon from '~/src/ui/components/display/Icon.vue'
 import { t } from '~/lib/i18n'
-import A from '~/components/A.vue'
+import A from '~/src/base/components/A.vue'
+
+const { data } = await useFetch('/api/test')
 
 const items = [
   {
@@ -49,6 +51,8 @@ const team = [
         <div class="max-w-5xl">
           <h2 class="text-center mb-2 text-gray-500 font-bold italic">
             {{ t("Our mission") }}
+
+            {{ data }}
           </h2>
           <p class="text-3xl max-w-2xl sm:text-5xl text-primary text-center">
             {{

@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import A from '~/components/A.vue'
+import A from '~/src/base/components/A.vue'
 import { t as _t } from '~/lib/i18n'
 
-const t = ((text, values, locale) => _t(text, values, locale)) as typeof _t;
+const t = ((text, values, locale) => _t(text, values, locale)) as typeof _t
 
 const error = useError()
 
@@ -27,12 +27,12 @@ const errorMessage = computed(() => {
   }
 
   const statusCode = Object.prototype.hasOwnProperty.call(options, error.value?.statusCode || '')
-      ? error.value?.statusCode
-      : 500
+    ? error.value?.statusCode
+    : 500
 
-  const message
-    = error.value?.message
-    || (Object.prototype.hasOwnProperty.call(options, statusCode!) ? options[statusCode!] : options[500])
+  const message =
+    error.value?.message ||
+    (Object.prototype.hasOwnProperty.call(options, statusCode!) ? options[statusCode!] : options[500])
 
   return makeReturn(message, statusCode!)
 })
@@ -40,8 +40,8 @@ const errorMessage = computed(() => {
 const handleError = () => {
   clearError({
     redirect: '/dashboard',
-  });
-};
+  })
+}
 </script>
 
 <template>
@@ -56,7 +56,7 @@ const handleError = () => {
         {{ t(errorMessage.message) }}
       </p>
 
-      <A @click="handleError" href="/" class="mt-4 btn btn-primary text-slate-900">
+      <A href="/" class="mt-4 btn btn-primary text-slate-900" @click="handleError">
         {{ t('Access the home page') }}
       </A>
     </div>

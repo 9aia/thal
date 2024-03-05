@@ -7,7 +7,7 @@ export default defineNuxtConfig({
       families: {
         'Noto+Sans': true,
       }
-    }]
+    }],
   ],
   app: {
     head: {
@@ -24,7 +24,9 @@ export default defineNuxtConfig({
     },
   },
   extends: [
+    './src/base',
     './src/press',
     './src/policy',
+    './src/app',
   ],
 })

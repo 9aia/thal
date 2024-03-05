@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Icon from '~/lib/daisy/components/display/Icon.vue'
+import Icon from '~/src/ui/components/display/Icon.vue'
 import { t } from '~/lib/i18n'
 </script>
 
