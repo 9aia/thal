@@ -1,5 +1,4 @@
 export default defineEventHandler((event) => {
-  return {
-    message: 'Hello world!',
-  }
+  const user = event.context.user
+  return user
 })

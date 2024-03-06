@@ -1,0 +1,13 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1709754418296,
+      "tag": "0000_peaceful_champions",
+      "breakpoints": true
+    }
+  ]
+}

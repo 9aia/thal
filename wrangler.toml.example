@@ -1,17 +1,16 @@
 name = "maratongue"
-main = "./renderer/cloudflare/worker.ts"
-compatibility_date = "2021-09-29"
 workers_dev = true
+compatibility_date = "2022–10–17"
+main = "./.output/server/index.mjs"
 node_compat = true
 
 [site]
-bucket = "./dist/client"
+bucket = "./.output/public"
 
 [dev]
 port = 8787
 
 [vars]
-ENVIRONMENT = "PROD"
 TURNSTILE_SECRET_KEY = ""
 GOOGLE_CLIENT_ID = ""
 GOOGLE_CLIENT_SECRET = ""
@@ -21,5 +20,6 @@ STRIPE_ENDPOINT_SECRET = ""
 
 [[d1_databases]]
 binding = "DB"
-database_name = ""
+database_name = "maratongue"
 database_id = ""
+migrations_dir = "./src/base/server/db/migrations"

@@ -8,6 +8,7 @@ export default defineNuxtConfig({
         'Noto+Sans': true,
       }
     }],
+    'nitro-cloudflare-dev',
   ],
   app: {
     head: {
@@ -28,5 +29,6 @@ export default defineNuxtConfig({
     './src/press',
     './src/policy',
     './src/app',
+    './src/auth',
   ],
 })

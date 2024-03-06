@@ -16,7 +16,7 @@
   "explorer.fileNesting.patterns": {
     "package.json": "package-lock.json, pnpm-lock.yaml, .gitignore, tsconfig.json, *.d.ts, .release-it.json, eslint.config.js",
     "nuxt.config.ts": "vite.config.*, postcss.config.js, tailwind.config.js, i18n.*",
-    "docker-compose.yml": "wrangler.*, .env*, public_keys.json",
+    "docker-compose.yml": "wrangler.*, .env*, .dev.vars, public_keys.json, drizzle.config.*",
     "app.vue": "error.vue"
   },
   "editor.tabSize": 2,

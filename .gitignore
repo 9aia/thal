@@ -17,14 +17,17 @@ logs
 .DS_Store
 .fleet
 .idea
+db.sqlite
 
 # Local env files
 .env
 .env.*
 !.env.example
+.dev.vars
 
 # Cloudflare
 .wrangler/
 
 wrangler.toml
 wrangler.toml.local
+.wrangler/state/v3

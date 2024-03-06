@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import Icon from '~/src/ui/components/display/Icon.vue'
 import { t } from '~/lib/psitta/vue'
+
+definePageMeta({
+  layout: 'home'
+})
 </script>
 
 <template>
@@ -19,7 +23,7 @@ import { t } from '~/lib/psitta/vue'
           {{ t("Learn English with Artificial Intelligence effectively and fun!") }}
         </p>
 
-        <A class="btn btn-primary text-neutral-content" href="/app/explore">{{
+        <A class="btn btn-primary text-neutral-content" href="/explore">{{
           t("Try Maratongue")
         }}</A>
       </div>
@@ -169,7 +173,7 @@ import { t } from '~/lib/psitta/vue'
         <h1 class="text-4xl sm:text-5xl text-slate-800 font-bold mb-8">
           {{ t("Start learning now") }}
         </h1>
-        <A class="btn btn-primary text-slate-900" href="/app/explore">
+        <A class="btn btn-primary text-slate-900" href="/explore">
           {{ t("Try Maratongue") }}</A>
       </div>
     </div>
