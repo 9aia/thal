@@ -14,7 +14,10 @@
     "db:generate": "drizzle-kit generate:sqlite",
     "db:migrate": "wrangler d1 migrations apply maratongue --local",
     "db:migrate:prod": "wranger d1 migrations apply maratongue",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "up": "docker compose up -d",
+    "down": "docker compose down",
+    "stripe": "docker exec stripe-cli stripe"
   },
   "dependencies": {
     "@ark-ui/vue": "^0.11.0",

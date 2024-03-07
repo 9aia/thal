@@ -1,5 +1,4 @@
 import { generateCodeVerifier, generateState } from 'arctic'
-import { ReturnUrlType, getReturnUrl } from '../../../utils/redirect'
 
 export default defineEventHandler(async (event) => {
   const google = event.context.google!
@@ -30,12 +29,6 @@ export default defineEventHandler(async (event) => {
     httpOnly: true,
     maxAge: 60 * 10 // 10min
   })
-
-  const requestUrl = getRequestURL(event)
-  const type = requestUrl.searchParams.get('type') as ReturnUrlType | null
-  const returnUrl = getReturnUrl(type)
-
-  setCookie(event, 'return_url', returnUrl)
 
   return sendRedirect(event, url.toString())
 })

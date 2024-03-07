@@ -2,6 +2,7 @@ import { D1Adapter } from '@lucia-auth/adapter-sqlite'
 import { Google } from 'arctic'
 import { Lucia } from 'lucia'
 import { GOOGLE_CLIENT_ID, GOOGLE_OAUTH_REDIRECT_URI } from '~/public_keys.json'
+import { UserSelect } from '~/src/base/server/db/schema'
 
 export function initializeLucia(D1: D1Database) {
   const adapter = new D1Adapter(D1, {
@@ -16,11 +17,7 @@ export function initializeLucia(D1: D1Database) {
       },
     },
     getUserAttributes: (attributes) => {
-      return {
-        username: attributes.username,
-        name: attributes.name,
-        googleId: attributes.google_id,
-      }
+      return attributes
     },
   })
 }
@@ -38,12 +35,6 @@ export function initializeGoogle(GOOGLE_CLIENT_SECRET: string) {
 declare module 'lucia' {
   interface Register {
     Lucia: ReturnType<typeof initializeLucia>
-    DatabaseUserAttributes: DatabaseUserAttributes
+    DatabaseUserAttributes: UserSelect
   }
-}
-
-interface DatabaseUserAttributes {
-  name: string
-  username: string
-  google_id: string
 }

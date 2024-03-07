@@ -15,14 +15,11 @@ export async function createUser(
   await orm.batch([
     orm.insert(users).values({
       id: userId,
-      username: userInsert.username,
       createdAt: now().toString(),
-      name: userInsert.name,
-      lastName: userInsert.lastName,
+      ...userInsert,
     }),
     orm.insert(oAuthAccounts).values({
-      providerId: oauthAccountInsert.providerId,
-      providerUserId: oauthAccountInsert.providerUserId,
+      ...oauthAccountInsert,
       userId,
     }),
   ])

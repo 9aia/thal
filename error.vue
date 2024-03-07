@@ -39,7 +39,7 @@ const errorMessage = computed(() => {
 
 const handleError = () => {
   clearError({
-    redirect: '/dashboard',
+    redirect: '/',
   })
 }
 </script>

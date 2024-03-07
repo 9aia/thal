@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
 
   const storedState = getCookie(event, 'google_oauth_state') ?? null
   const storedCodeVerifier = getCookie(event, 'code_verifier')
-  const returnUrl = getCookie(event, 'return_url') || '/'
+  const redirectUrl = getCookie(event, 'redirect_url') || '/'
 
   const query = getQuery(event)
   const code = query.code?.toString() ?? null
@@ -39,7 +39,7 @@ export default defineEventHandler(async (event) => {
         lucia.createSessionCookie(session.id).serialize()
       )
 
-      return sendRedirect(event, returnUrl)
+      return sendRedirect(event, redirectUrl)
     }
 
     const username = googleUser.email?.split('@')[0] as string
@@ -48,6 +48,7 @@ export default defineEventHandler(async (event) => {
       username,
       name: googleUser.given_name,
       lastName: googleUser.family_name,
+      email: googleUser.email,
     }
     const oauthAccountInsert: OAuthAccountInsert = {
       providerId: 'google',
@@ -63,7 +64,7 @@ export default defineEventHandler(async (event) => {
       lucia.createSessionCookie(session.id).serialize()
     )
 
-    return sendRedirect(event, '/')
+    return sendRedirect(event, redirectUrl)
   } catch (e) {
     console.error(e)
 

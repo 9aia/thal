@@ -19,7 +19,13 @@ CREATE TABLE `User` (
 	`last_name` text NOT NULL,
 	`pronouns` text,
 	`picture` text,
-	`createdAt` text NOT NULL
+	`createdAt` text NOT NULL,
+	`email` text,
+	`plan` text,
+	`payment_gateway_customer_id` text,
+	`payment_gateway_session_id` text,
+	`plan_expires` text,
+	`free_trial_used` integer DEFAULT 0
 );
 --> statement-breakpoint
 CREATE UNIQUE INDEX `User_username_unique` ON `User` (`username`);

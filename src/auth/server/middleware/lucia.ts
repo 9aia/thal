@@ -6,14 +6,14 @@ let lucia: ReturnType<typeof initializeLucia>
 
 export default defineEventHandler(async (event) => {
   // CSRF protection
-  if (!isMethod(event, 'GET')) {
+  if (!isMethod(event, 'GET') && !import.meta.dev) {
     const originHeader = getHeader(event, 'Origin') ?? null
     const hostHeader = getHeader(event, 'Host') ?? null
     if (
       !originHeader ||
       !hostHeader ||
       !verifyRequestOrigin(originHeader, [hostHeader])
-    ) {
+      ) {
       return sendNoContent(event, 403)
     }
   }

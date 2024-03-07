@@ -30,5 +30,6 @@ export default defineNuxtConfig({
     './src/policy',
     './src/app',
     './src/auth',
+    './src/payment',
   ],
 })

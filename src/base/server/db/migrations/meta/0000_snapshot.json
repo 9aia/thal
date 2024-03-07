@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "302d11a3-ac90-4908-9d77-512fce9395eb",
+  "id": "a9a247fc-c93b-42cc-8fd5-629f815727f0",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "OAuthAccount": {
@@ -143,6 +143,49 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "plan": {
+          "name": "plan",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "payment_gateway_customer_id": {
+          "name": "payment_gateway_customer_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "payment_gateway_session_id": {
+          "name": "payment_gateway_session_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "plan_expires": {
+          "name": "plan_expires",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "free_trial_used": {
+          "name": "free_trial_used",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": 0
         }
       },
       "indexes": {
