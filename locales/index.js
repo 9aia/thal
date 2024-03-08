@@ -80,9 +80,6 @@ export default {
   'Account': {
     pt: 'Conta',
   },
-  '/api/payment/stripe/create-portal-session': {
-    pt: '/api/payment/stripe/create-portal-session',
-  },
   '/how-maratongue-works': {
     pt: '/como-o-maratongue-funciona',
   },

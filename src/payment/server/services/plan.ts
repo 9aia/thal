@@ -31,7 +31,7 @@ export async function activePlan(
   await orm
     .update(users)
     .set({
-      plan: plan.name,
+      plan: plan.lookupKey,
       payment_gateway_customer_id: paymentGatewayCustomerId,
       plan_expires: expirationDate.toISOString(),
       free_trial_used: 1,

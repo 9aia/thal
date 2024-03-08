@@ -33,7 +33,7 @@ import { t } from '~/lib/psitta/vue'
             </ul>
 
             <div class="card-actions">
-              <form action="/api/payment/stripe/create-checkout-session" method="GET" class="w-full">
+              <form class="w-full" action="/api/payment/stripe/create-checkout-session" method="post">
                 <button
                   id="checkout-and-portal-button"
                   type="submit"

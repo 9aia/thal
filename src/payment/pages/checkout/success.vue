@@ -14,7 +14,8 @@ onMounted(() => {
 })
 
 definePageMeta({
-  title: 'Thanks for your order!'
+  title: 'Thanks for your order!',
+  middleware: 'auth',
 })
 </script>
 

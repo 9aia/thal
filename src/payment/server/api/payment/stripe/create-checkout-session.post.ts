@@ -12,7 +12,6 @@ export default eventHandler(async (event) => {
   const user = event.context.user
 
   if(!user) {
-    setCookie(event, 'redirect_url', '/api/payment/stripe/create-checkout-session')
     return sendRedirect(event, '/sign-in')
   }
 

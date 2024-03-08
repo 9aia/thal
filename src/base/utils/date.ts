@@ -1,5 +1,5 @@
 export function now () {
-  return new Date(new Date().toISOString())
+  return new Date()
 }
 
 export function fromSToMillis (seconds: number) {

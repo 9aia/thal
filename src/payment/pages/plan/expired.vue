@@ -11,7 +11,7 @@ definePageMeta({
     <div class="card w-[28rem] bg-base-100 shadow-xl">
       <div class="card-body">
         <h2 class="card-title">
-          {{ t('Your free trial is being processed.') }}
+          {{ t('Your plan expired!') }}
         </h2>
 
         <p>

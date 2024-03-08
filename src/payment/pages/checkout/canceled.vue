@@ -2,6 +2,10 @@
 useHead({
   title: 'Checkout canceled'
 })
+
+definePageMeta({
+  middleware: 'auth',
+})
 </script>
 
 <template>

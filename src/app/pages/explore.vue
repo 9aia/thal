@@ -2,7 +2,7 @@
 const user = useUser()
 
 definePageMeta({
-  middleware: 'app'
+  middleware: 'premium'
 })
 </script>
 

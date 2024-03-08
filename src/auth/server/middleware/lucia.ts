@@ -1,6 +1,7 @@
 import type { Session, User } from 'lucia'
 import { verifyRequestOrigin } from 'lucia'
 import { initializeLucia } from '../utils/auth'
+import { now } from '~/src/base/utils/date'
 
 let lucia: ReturnType<typeof initializeLucia>
 
@@ -27,6 +28,7 @@ export default defineEventHandler(async (event) => {
   event.context.lucia = lucia
 
   const sessionId = getCookie(event, lucia.sessionCookieName) ?? null
+
   if (!sessionId) {
     event.context.session = null
     event.context.user = null
@@ -34,6 +36,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const { session, user } = await lucia.validateSession(sessionId)
+
   if (session && session.fresh) {
     appendResponseHeader(
       event,
@@ -41,6 +44,7 @@ export default defineEventHandler(async (event) => {
       lucia.createSessionCookie(session.id).serialize()
     )
   }
+
   if (!session) {
     appendResponseHeader(
       event,

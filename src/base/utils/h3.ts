@@ -1,7 +1,8 @@
 import type { H3Event } from "h3"
+import type { RouteLocationNormalized } from "vue-router"
 import type { ZodSchema } from "zod"
 
-async function getValidated<O>(
+export async function getValidated<O>(
   event: H3Event, type: 'body' | 'params' | 'query',
   schema: ZodSchema<O>
 ) {
@@ -31,4 +32,16 @@ async function getValidated<O>(
   return result.data
 }
 
-export default getValidated
+export function getAppUrl(event: H3Event) {
+  const protocol = import.meta.dev ? 'http:' : 'https:'
+  const host = event.headers.get('host')!
+
+  return new URL(`${protocol}${host}`)
+}
+
+export function sendBackRedirect(from: H3Event | RouteLocationNormalized, redirectUrl: string | null) {
+	const cookie = useCookie('redirect_url', { path: '/' })
+  cookie.value = from.path
+
+  return navigateTo(redirectUrl)
+}

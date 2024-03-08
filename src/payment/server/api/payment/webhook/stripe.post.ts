@@ -23,7 +23,7 @@ export default eventHandler(async (event) => {
     const errorMessage = `⚠️  Webhook signature verification failed. ${
       err instanceof Error ? err.message : 'Internal server error'
     }`
-    console.log(errorMessage)
+    console.error(errorMessage)
 
     throw createError({
       statusCode: 400,
