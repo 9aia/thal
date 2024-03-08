@@ -3,6 +3,7 @@ import { createUser, getUser } from '~/src/auth/server/services/user'
 import { getGoogleUser } from '../../../utils/google'
 import { OAuthAccountInsert } from '~/src/auth/types'
 import { UserInsert } from '~/src/base/server/db/schema'
+import { badRequest, internal } from '~/src/base/utils/nuxt'
 
 export default defineEventHandler(async (event) => {
   const lucia = event.context.lucia
@@ -18,9 +19,7 @@ export default defineEventHandler(async (event) => {
   const state = query.state?.toString() ?? null
 
   if (!code || !storedState || !storedCodeVerifier || state !== storedState) {
-    throw createError({
-      statusCode: 400,
-    })
+    throw badRequest()
   }
 
   try {
@@ -69,13 +68,9 @@ export default defineEventHandler(async (event) => {
     console.error(e)
 
     if (e instanceof OAuth2RequestError) {
-      throw createError({
-        statusCode: 400,
-      })
+      throw badRequest()
     }
 
-    throw createError({
-      statusCode: 500,
-    })
+    throw internal()
   }
 })

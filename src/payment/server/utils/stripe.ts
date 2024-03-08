@@ -1,8 +1,11 @@
 import Stripe from 'stripe'
 import { PLANS } from '../../constants/plans'
+import { internal } from '~/src/base/utils/nuxt'
 
 export function getStripe ({ stripeKey }: { stripeKey: string }) {
-  if (!stripeKey) { throw new Error('Can not initialize Stripe without stripe key') }
+  if (!stripeKey) {
+    throw internal('Can not initialize Stripe without stripe key')
+  }
 
   const client = new Stripe(stripeKey, {
     httpClient: Stripe.createFetchHttpClient(),

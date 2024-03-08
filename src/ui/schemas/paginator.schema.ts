@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { numericString } from '~/src/ui/utils/schema'
+import { numericString } from '~/src/base/utils/zod'
 
 export const paginatorSchema = z.object({
   page: numericString(z.number().positive().default(1)),

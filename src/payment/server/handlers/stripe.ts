@@ -4,6 +4,7 @@ import { PLANS } from '../../constants/plans'
 import { activePlan, cancelSubscription, updateSubscription } from '../services/plan'
 import { getPlan } from '../utils/stripe'
 import { fromSToMillis } from '~/src/base/utils/date'
+import { notFound } from '~/src/base/utils/nuxt'
 
 export async function handleCheckoutCompleted (
   e: Stripe.CheckoutSessionCompletedEvent,
@@ -16,10 +17,7 @@ export async function handleCheckoutCompleted (
   const userId = session.client_reference_id
 
   if (!userId) {
-    throw createError({
-      statusCode: 404,
-      statusMessage: 'userId not found'
-    })
+    throw notFound("Client reference not found")
   }
 
   const isPaymentAsync = session.payment_status !== 'paid'
@@ -42,17 +40,11 @@ export async function handleAsyncPaymentSucceeded (
   const plan = getPlan(session)
 
   if (!userId)  {
-    throw createError({
-      statusCode: 404,
-      statusMessage: 'client_reference_id null'
-    })
+    throw notFound("Client reference not found")
   }
 
   if (!plan) {
-    throw createError({
-      statusCode: 404,
-      statusMessage: 'Plan not found'
-    })
+    throw notFound("Plan not found")
   }
 
   const isPaid = session.payment_status === 'paid'
@@ -73,10 +65,7 @@ export async function handleCustomerSubscriptionDeleted (
   const stripeCustomerId = session.customer as string
 
   if (!stripeCustomerId) {
-    throw createError({
-      statusCode: 404,
-      statusMessage: 'stripeCustomerId not found'
-    })
+    throw notFound(`Session customer not found: ${stripeCustomerId}`)
   }
 
   await cancelSubscription(orm, stripeCustomerId)
@@ -90,7 +79,9 @@ export async function handleCustomerSubscriptionUpdated (
   const session = e.data.object
   const stripeCustomerId = session.customer as string
 
-  if (!stripeCustomerId) { throw new Error('stripeCustomerId not found') }
+  if (!stripeCustomerId) {
+    throw notFound(`Session customer not found: ${stripeCustomerId}`)
+  }
 
   const cancelAt = session.cancel_at
 

@@ -30,7 +30,9 @@ export function getGemini (apiKey: string) {
         body: JSON.stringify(body),
       })
 
-      if (!response.ok) { throw new Error(`Error: ${response.status}`) }
+      if (!response.ok) {
+        throw internal(`Error fetching Gemini: ${response.status}`)
+      }
 
       return await response.json() as any
     } catch (error) {

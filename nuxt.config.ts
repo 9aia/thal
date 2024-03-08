@@ -28,8 +28,11 @@ export default defineNuxtConfig({
     './src/base',
     './src/press',
     './src/policy',
-    './src/app',
     './src/auth',
     './src/payment',
+    './src/support',
+    './src/settings',
+    './src/profile',
+    './src/game',
   ],
 })

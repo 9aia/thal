@@ -25,7 +25,12 @@ CREATE TABLE `User` (
 	`payment_gateway_customer_id` text,
 	`payment_gateway_session_id` text,
 	`plan_expires` text,
-	`free_trial_used` integer DEFAULT 0
+	`free_trial_used` integer DEFAULT 0,
+	`location` text,
+	`goals` text,
+	`profession` text,
+	`hobbies` text,
+	`observation` text
 );
 --> statement-breakpoint
 CREATE UNIQUE INDEX `User_username_unique` ON `User` (`username`);

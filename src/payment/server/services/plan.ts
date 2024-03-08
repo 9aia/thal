@@ -4,6 +4,7 @@ import type { PlanType } from '../../constants/plans'
 import { users } from '~/src/base/server/db/schema'
 import { DrizzleD1Database } from 'drizzle-orm/d1'
 import { now } from '~/src/base/utils/date'
+import { notFound } from '~/src/base/utils/nuxt'
 
 export async function activePlan(
   orm: DrizzleD1Database<any>,
@@ -14,10 +15,7 @@ export async function activePlan(
   const user = (await orm.select().from(users).where(eq(users.id, userId))).at(0)
 
   if (!user) {
-    throw createError({
-      statusCode: 404,
-      statusMessage: 'User not found'
-    })
+    throw notFound(`User not found: ${userId}`)
   }
 
   const expirationDate = now()

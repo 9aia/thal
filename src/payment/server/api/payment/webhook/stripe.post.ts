@@ -1,6 +1,7 @@
 import Stripe from 'stripe'
 import { getStripe } from '~/src/payment/server/utils/stripe'
 import * as stripeHandlers from '../../../handlers/stripe'
+import { badRequest } from '~/src/base/utils/nuxt'
 
 export default eventHandler(async (event) => {
   const { STRIPE_ENDPOINT_SECRET, STRIPE_SECRET_KEY } = process.env
@@ -25,10 +26,7 @@ export default eventHandler(async (event) => {
     }`
     console.error(errorMessage)
 
-    throw createError({
-      statusCode: 400,
-      statusMessage: errorMessage
-    })
+    throw badRequest(errorMessage)
   }
 
   const eventsOptions: Partial<Record<typeof stripeEvent.type, () => Promise<void>>> = {

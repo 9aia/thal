@@ -1,4 +1,5 @@
 import { getAppUrl } from "~/src/base/utils/h3"
+import { notFound } from "~/src/base/utils/nuxt"
 
 export default eventHandler(async (event) => {
   const { STRIPE_SECRET_KEY } = process.env
@@ -10,10 +11,7 @@ export default eventHandler(async (event) => {
   }
 
   if (!user.payment_gateway_session_id) {
-    throw createError({
-      statusCode: 404,
-      statusMessage: `'payment_gateway_session_id' not found`
-    })
+    throw notFound(`Payment gateway session not found`)
   }
 
   const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY! })

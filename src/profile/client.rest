@@ -1,0 +1,9 @@
+###
+
+PATCH http://localhost:3000/api/profile/luis
+Content-Type: application/json
+
+{
+  "username": "luis2"
+}
+

@@ -1,18 +1,15 @@
 <script setup lang="ts">
-const user = useUser()
-
 definePageMeta({
-  middleware: 'premium'
+  middleware: 'premium',
+  layout: 'app',
 })
 </script>
 
 <template>
   <div class="px-4">
     <h1 class="text-primary font-bold text-4xl">
-      Explore
+      Rank
     </h1>
-
-    {{user?.name}}
 
     <p>//TODO</p>
   </div>

@@ -4,7 +4,7 @@ import { t } from '~/lib/psitta/vue'
 import A from '~/src/base/components/A.vue'
 
 onMounted(() => {
-  const redirectUrl = useCookie('redirect_url', { path: '/' })
+  const redirectUrl = useRedirectUrl()
   redirectUrl.value = '/checkout/success'
 
   const cookie = useCookie('free_trial_used', {
