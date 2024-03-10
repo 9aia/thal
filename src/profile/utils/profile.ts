@@ -1,5 +1,5 @@
 import { PROFILE_ITEMS } from '~/src/base/constants'
-import type { ProfileData } from '../server/types'
+import type { ProfileData } from '../server/schema'
 
 export function getUserData (data: ProfileData) {
   let profileData = ''

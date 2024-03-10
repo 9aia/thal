@@ -17,10 +17,10 @@ function handleSubmit(event: Event) {
 
 <template>
   <template v-if="is.action">
-    <form :action="is.action" :method="is.method" class="flex w-full py-2" v-on="{ submit: !!is.onSubmit ? handleSubmit : undefined }">
+    <form :action="is.action" :method="is.method" class="flex p-0 w-full" v-on="{ submit: !!is.onSubmit ? handleSubmit : undefined }">
       <button
         type="submit"
-        class="flex w-full gap-2 justify-between items-center"
+        class="flex w-full py-2 px-3 gap-2 justify-between items-center"
       >
         <MenuItem :is="is" />
       </button>

@@ -1,7 +1,6 @@
 import type { Session, User } from 'lucia'
 import { verifyRequestOrigin } from 'lucia'
 import { initializeLucia } from '../utils/auth'
-import { now } from '~/src/base/utils/date'
 
 let lucia: ReturnType<typeof initializeLucia>
 

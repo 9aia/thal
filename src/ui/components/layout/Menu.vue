@@ -19,7 +19,7 @@ function closeMenu() {
     tabindex="0"
     class="menu menu-sm dropdown-content mt-3 z-[1] p-2 space-y-2 shadow bg-base-100 rounded-box w-52"
   >
-    <li v-for="item in items" :key="item.id" class="group" @click="closeMenu">
+    <li v-for="item in items" :key="item.id" class="group w-full h-full" @click="closeMenu">
       <Item :is="item" />
     </li>
   </ul>
