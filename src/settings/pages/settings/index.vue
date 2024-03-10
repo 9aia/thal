@@ -58,7 +58,7 @@ onMounted(() => {
         <template #footer>
           <li class="group" @click="isLocaleModalOpen = true">
             <div
-              class="px-2 rounded-lg hover:bg-base-200"
+              class="px-3 rounded-lg hover:bg-base-200"
             >
               <div
                 class="cursor-pointer flex w-full gap-2 justify-between items-center py-2"
@@ -96,4 +96,3 @@ onMounted(() => {
     </section>
   </div>
 </template>
-../../constants

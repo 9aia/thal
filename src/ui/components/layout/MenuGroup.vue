@@ -18,7 +18,7 @@ function closeMenu() {
   <ul tabindex="0" class="rounded-box w-full divide-y divide-base-200">
     <li v-for="item in items" :key="item.id" class="group" @click="closeMenu">
       <div
-        class="px-2 rounded-lg hover:bg-base-200"
+        class="rounded-lg hover:bg-base-200"
       >
         <Item :is="item" />
       </div>
