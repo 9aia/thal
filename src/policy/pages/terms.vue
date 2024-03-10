@@ -14,7 +14,7 @@ definePageMeta({
     <template v-if="locale === 'pt'">
       <h1>Termos de Serviço</h1>
       <p>
-        Estes Termos de Serviço delineiam as regras e regulamentações para o uso
+        Estes Termos de Serviço delineiam as regras para o uso
         do nosso aplicativo.
       </p>
 
@@ -52,10 +52,9 @@ definePageMeta({
 
       <h2>5. Propriedade Intelectual</h2>
       <p>
-        Todos os direitos de propriedade intelectual no aplicativo e em seu
-        conteúdo são de nossa propriedade ou licenciados para nós. Você não pode
-        copiar, distribuir, modificar ou criar obras derivadas de qualquer parte
-        do aplicativo sem nosso consentimento prévio por escrito.
+        Todo o conteúdo do aplicativo, incluindo, entre outros, texto, imagens e
+        materiais audiovisuais, está disponível gratuitamente para uso, distribuição, modificação e
+        reprodução.
       </p>
 
       <h2>6. Privacidade</h2>
@@ -104,7 +103,7 @@ definePageMeta({
     <template v-else>
       <h1>Terms of Service</h1>
       <p>
-        These Terms of Service outline the rules and regulations for the use of
+        These Terms of Service outline the rules for the use of
         our application.
       </p>
 
@@ -141,9 +140,9 @@ definePageMeta({
 
       <h2>5. Intellectual Property</h2>
       <p>
-        All intellectual property rights in the app and its content are owned by
-        or licensed to us. You may not copy, distribute, modify, or create
-        derivative works of any part of the app without our prior written consent.
+        All content within the app, including but not limited to text, images, and
+        audiovisual materials, are freely available for use, distribution, modification, and
+        reproduction.
       </p>
 
       <h2>6. Privacy</h2>

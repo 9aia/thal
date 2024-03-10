@@ -19,14 +19,13 @@ definePageMeta({
 
       <h2>1. Informações que Coletamos</h2>
       <p>
-        Ao criar uma conta no Maratongue, podemos coletar as seguintes informações
+        Ao usar o aplicativo do Maratongue, podemos coletar as seguintes informações
         pessoais:
       </p>
       <ul>
-        <li>Nome (opcional)</li>
-        <li>Sobrenome (opcional)</li>
+        <li>Nome</li>
+        <li>Sobrenome</li>
         <li>Idade</li>
-        <li>Gênero</li>
         <li>Pronomes</li>
         <li>Nome de usuário</li>
       </ul>
@@ -108,14 +107,13 @@ definePageMeta({
 
       <h2>1. Information We Collect</h2>
       <p>
-        When you create an account on Maratongue, we may collect the following
+        When you use Maratongue application, we may collect the following
         personal information:
       </p>
       <ul>
-        <li>Name (optional)</li>
-        <li>Last Name (optional)</li>
+        <li>Name</li>
+        <li>Last Name</li>
         <li>Age</li>
-        <li>Gender</li>
         <li>Pronouns</li>
         <li>Username</li>
       </ul>
