@@ -1,9 +1,30 @@
 <script setup lang="ts">
-import { t } from '~/lib/psitta/vue'
+import { refAutoReset, refThrottled, useThrottleFn } from '@vueuse/core';
+import { useI18n } from '~/lib/psitta/vue'
+import { useToast } from '~/src/ui/composables/useToast';
 
 definePageMeta({
-  middleware: 'user',
+  middleware: 'auth',
 })
+
+const toast = useToast()
+const { t } = useI18n()
+
+const disabled = refAutoReset(false, 3000)
+
+const goToApp = async () => {
+  disabled.value = true
+
+  const user = await $fetch("/api/user")
+
+  if(!user?.plan) {
+    toast.warn(t('Your plan is being processed yet.'))
+
+    return
+  }
+
+  await navigateTo('/explore')
+}
 </script>
 
 <template>
@@ -24,6 +45,16 @@ definePageMeta({
         </p>
 
         <div class="card-actions">
+          <form action="/explore" @submit.prevent="goToApp" method="get">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              :disabled="disabled"
+            >
+              {{ t('Try again') }}
+            </button>
+          </form>
+
           <form action="/api/payment/stripe/create-portal-session" method="post">
             <button type="submit" class="btn">
               {{ t('Manage your billing information') }}

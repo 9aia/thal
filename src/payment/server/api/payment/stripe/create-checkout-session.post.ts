@@ -7,7 +7,7 @@ import { PLANS } from '~/src/payment/constants/plans'
 
 export default eventHandler(async (event) => {
   const { STRIPE_SECRET_KEY } = process.env
-  
+
   const orm = event.context.orm
   const user = event.context.user
 
@@ -17,7 +17,7 @@ export default eventHandler(async (event) => {
 
   const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY! })
 
-  if (getCookie(event, 'free_trial_used') === '1' && user.free_trial_used !== 1) {
+  if (getCookie(event, 'free_trial_used') === '1') {
     return sendRedirect(event, '/plan/pending')
   }
 

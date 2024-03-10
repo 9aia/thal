@@ -8,7 +8,11 @@ export default defineNuxtRouteMiddleware((event) => {
 	}
 
   if (!user.value.plan) {
-		return sendBackRedirect(event, '/pricing')
+		const hasTrialBeenUsed = useHasTrialBeenUsed()
+
+		return hasTrialBeenUsed.value
+			? sendBackRedirect(event, '/plan/pending')
+			: sendBackRedirect(event, '/pricing')
 	}
 
 	if(user.value.plan && hasPlanExpired(user.value)) {
