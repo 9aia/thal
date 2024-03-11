@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import { t } from '~/lib/psitta/vue'
 import AppLayout from '~/src/base/layouts/app.vue'
-import Btn from '~/src/ui/components/action/Btn.vue'
-import Icon from '~/src/ui/components/display/Icon.vue'
-import Breadcrumbs from '~/src/ui/components/navigation/Breadcrumbs.vue'
-import type { BreadcrumbItem } from '~/src/ui/components/navigation/types'
-import useBreadcrumbs from '~/src/ui/composables/useBreadcrumbs'
 import { SETTINGS } from '../constants'
 import { flattenObject } from '../utils'
 

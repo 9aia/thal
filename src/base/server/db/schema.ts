@@ -70,13 +70,11 @@ export const userInsertSchema = createInsertSchema(users, {
 })
 
 export const userUpdateSchema = createInsertSchema(users, {
-  id: schema => schema.id.optional(),
   name: nameSchema,
   lastName: nameSchema,
   username: usernameSchema,
   pronouns: pronounsSchema,
   email: z.string().email(),
-  createdAt: schema => schema.createdAt.optional(),
   hobbies: schema =>
     schema.hobbies.refine(
       hobbies => hobbies.split(',').length <= MAX_HOBBIES_AMOUNT,
@@ -105,7 +103,7 @@ export const userUpdateSchema = createInsertSchema(users, {
         message: `Observation must contain at most ${MAX_OBSERVATION_CHARS} characters`,
       },
     ),
-})
+}).partial()
 
 export type UserSelect = z.infer<typeof userSelectSchema>
 export type UserInsert = z.infer<typeof userInsertSchema>

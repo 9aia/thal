@@ -2,15 +2,8 @@
 import { useDebounceFn } from '@vueuse/core'
 import type { User } from 'lucia'
 import { useForm } from 'vee-validate'
-import { ref, toValue, watch } from 'vue'
 import { useI18n } from '~/lib/psitta/vue'
-import useHasFormErrors from '~/src/base/composables/useHasFormErrors'
 import { nameSchema, pronounsSchema, usernameSchema } from '~/src/base/server/db/schema'
-import yupify from '~/src/base/utils/yupify'
-import Btn from '~/src/ui/components/action/Btn.vue'
-import TextField from '~/src/ui/components/data-input/TextField.vue'
-import Icon from '~/src/ui/components/display/Icon.vue'
-import { useToast } from '~/src/ui/composables/useToast'
 
 const { t } = useI18n()
 const toast = useToast()
@@ -24,30 +17,27 @@ const invalidUsername = ref(false)
 const loading = ref(false)
 
 async function validateUsername (username: string) {
-  if (!username) { return }
+  if (!username) {
+    return
+  }
 
-  const currentUsername = user.username
-
-  const res = await client.app.profile.validateUsername[':username'].$get({
-    param: {
-      username,
-    },
-  })
+  const currentUsername = user.value!.username
 
   let invalid = false
 
-  if (!res.ok) {
+  try {
+    const { valid } = await $fetch(`/api/validate-username/${username}` as '/api/validate-username/:username')
+  
+    invalid = !valid && currentUsername !== username
+  } catch (e) {
     toast.error(t(
       'An error occurred while validating username.',
     ))
     invalid = false
-  } else {
-    const result = await res.json()
-    invalid = !result.valid && currentUsername !== username
   }
 
   invalidUsername.value = invalid
-
+  
   form.setFieldError(
     'username',
     invalid ? t('Username is invalid.') : undefined,
@@ -57,29 +47,28 @@ async function validateUsername (username: string) {
 const debouncedValidateUsername = useDebounceFn(validateUsername, 500)
 watch(() => form.values.username, debouncedValidateUsername)
 
-const submit = form.handleSubmit(async () => {
-  const username = user.username
+watch(form.values, () => {
+  console.log(console.log(form.values))
+})
+
+const submit = form.handleSubmit(async (data) => {
+  const username = user.value!.username
 
   loading.value = true
 
-  const res = await client.app.profile[':username'].$patch({
-    param: {
-      username: username as string,
-    },
-    json: form.values,
-  })
-
-  if (!res.ok) {
-    toast.error(t('An error occurred while updating personal data.'))
-  } else {
-    Object.keys(form.values).forEach((key) => {
-      // @ts-expect-error
-      const value = form.values[key]
-      // @ts-expect-error
-      user[key] = value
+  try {
+    await $fetch(`/api/profile/${username}` as "/api/profile/:id", {
+      method: "patch",
+      body: data,
     })
 
+    const updatedUser = { ...user.value!, ...data }
+
+    user.value = updatedUser 
+
     toast.success(t('Personal data has been updated successfully.'))
+  } catch (e) {
+    toast.error(t('An error occurred while updating personal data.'))
   }
 
   loading.value = false
@@ -107,7 +96,7 @@ definePageMeta({
         ))"
       />
       <TextField
-        path="lastName"
+        path="last_name"
         :label="t('Last name')"
         class="grid-cols-1/2"
         :rules="yupify(nameSchema, t(
@@ -132,7 +121,7 @@ definePageMeta({
       path="pronouns"
       :label="t('Pronouns')"
       :rules="yupify(pronounsSchema, t(
-        'Pronouns must contain between 1 and 20 characters.',
+        'Pronouns must be up to 20 characters long.',
       ))"
     />
 
@@ -144,4 +133,12 @@ definePageMeta({
       }}
     </Btn>
   </form>
+
+  <ul class="mt-6">
+    <li class="flex gap-2">
+      <Icon class="text-green-800">check</Icon>
+        
+      {{ t('Signed in with Google') }}
+    </li>
+  </ul>
 </template>

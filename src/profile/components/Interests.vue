@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import Icon from '~/src/ui/components/display/Icon.vue'
 import { t } from '~/lib/psitta/vue'
-import { computed } from 'vue'
 import { HOBBIES } from '~/src/base/constants'
 import { parseJoin } from '~/src/base/utils/string'
 import type { User } from 'lucia';

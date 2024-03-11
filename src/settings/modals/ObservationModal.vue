@@ -1,10 +1,7 @@
 <script setup lang="ts">
+import type { User } from 'lucia';
 import { useForm } from 'vee-validate'
-import { ref } from 'vue'
 import { useI18n } from '~/lib/psitta/vue'
-import Modal from '~/src/ui/components/action/Modal.vue'
-import Textarea from '~/src/ui/components/data-input/Textarea.vue'
-import { useToast } from '~/src/ui/composables/useToast'
 import { MAX_OBSERVATION_CHARS } from '~/src/base/constants'
 
 const { t } = useI18n()
@@ -22,25 +19,26 @@ const form = useForm<{
 const isOpen = defineModel({ default: false })
 const loading = ref(false)
 
-const submit = form.handleSubmit(async (data) => {
+const submit = form.handleSubmit(async () => {
+  const data = form.values
   const username = user.value!.username
 
   loading.value = true
 
-  const res = await client.app.profile[':username'].$patch({
-    param: {
-      username,
-    },
-    json: form.values,
-  })
+  try {
+    await $fetch(`/api/profile/${username}` as '/api/profile/:username', {
+      method: 'patch',
+      body: {
+        observation: data.observation,
+      },
+    })
 
-  if (!res.ok) {
-    toast.error(t('An error occurred while updating your observation.'))
-  }
-  else {
-    user.value = { ...user.value, observation: data.observation }
+    console.log(user.value!)
+    user.value = { ...user.value!, observation: data.observation }
 
     toast.success(t('Observation has been updated successfully.'))
+  } catch (e) {
+    toast.error(t('An error occurred while updating your observation.'))
   }
 
   loading.value = false

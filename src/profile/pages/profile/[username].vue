@@ -7,7 +7,6 @@ import Header from '../../components/Header.vue'
 import Interests from '../../components/Interests.vue'
 import Observation from '../../components/Observation.vue'
 import Summary from '../../components/Summary.vue'
-import type { User } from 'lucia'
 
 const user = useUser()
 const route = useRoute()
@@ -21,11 +20,7 @@ const { data: profile } = useAsyncData(
       return user.value
     }
 
-    const profile = await $fetch<User>('/api/profile', {
-      params: {
-        username,
-      },
-    })
+    const profile = await $fetch(`/api/profile/${username}` as '/api/profile/:username')
     return profile
   }
 )
@@ -41,8 +36,7 @@ provide('profile', profileRef)
 
 <template>
   <div
-    class="bg-slate-300 flex flex-col sm:flex-row md:flex-col lg:flex-row"
-    style="min-height: calc(100vh - 64px - 56px)"
+    class="bg-slate-300 flex flex-col sm:flex-row md:flex-col lg:flex-row min-h-screen"
   >
     <aside
       class="w-full sm:w-full lg:w-1/2 p-4 pb-12 shadow-lg sm:shadow-none"

@@ -1,6 +1,8 @@
 import { eq } from "drizzle-orm"
 import { z } from "zod"
 import { userUpdateSchema, users } from "~/src/base/server/db/schema"
+import { getValidated } from "~/src/base/utils/h3"
+import { forbidden, unauthorized } from "~/src/base/utils/nuxt"
 
 export default eventHandler(async (event) => {
   const orm = event.context.orm
@@ -18,10 +20,10 @@ export default eventHandler(async (event) => {
   }
 
   const profile = await orm
-      .update(users)
-      .set(data)
-      .where(eq(users.username, username))
-      .returning()
+    .update(users)
+    .set(data)
+    .where(eq(users.username, username))
+    .returning()
 
   return profile
 })

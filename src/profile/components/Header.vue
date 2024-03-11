@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Avatar from '~/src/ui/components/display/Avatar.vue'
 import { t } from '~/lib/psitta/vue'
 import type { User } from 'lucia';
 

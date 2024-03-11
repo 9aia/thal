@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
-import { computed, ref } from 'vue'
 import { useI18n } from '~/lib/psitta/vue'
 import { GOALS } from '~/src/base/constants'
-import Modal from '~/src/ui/components/action/Modal.vue'
-import Checkbox from '~/src/ui/components/data-input/Checkbox.vue'
-import Icon from '~/src/ui/components/display/Icon.vue'
-import { useToast } from '~/src/ui/composables/useToast'
 import { parseInitialValues } from '../utils'
 
 const { t } = useI18n()
@@ -28,27 +23,25 @@ const isOpen = defineModel({ default: false })
 const loading = ref(false)
 
 const submit = form.handleSubmit(async () => {
-  const username = user.username
+  const username = user.value!.username
   const currentKeys = keys.value
 
   loading.value = true
 
-  const res = await client.app.profile[':username'].$patch({
-    param: {
-      username,
-    },
-    json: {
-      goals: currentKeys,
-    },
-  })
+  try {
+    await $fetch(`/api/profile/${username}` as "/api/profile/:id", {
+      method: "patch",
+      body: {
+        goals: currentKeys,
+      },
+      ignoreResponseError: false,
+    })
 
-  if (!res.ok) {
-    toast.error(t('An error occurred while updating goals.'))
-  }
-  else {
-    user.goals = currentKeys
+    user.value = { ...user.value!, goals: currentKeys }
 
     toast.success(t('Goals were updated successfully.'))
+  } catch (e) {
+    toast.error(t('An error occurred while updating your goals.'))
   }
 
   loading.value = false

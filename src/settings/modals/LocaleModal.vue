@@ -1,13 +1,8 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
-import { onMounted, ref } from 'vue'
 import { getDefaultLocale } from '~/lib/psitta/core/utils'
 import { useI18n } from '~/lib/psitta/vue'
 import { LOCALES } from '~/src/base/constants'
-import Modal from '~/src/ui/components/action/Modal.vue'
-import Radio from '~/src/ui/components/data-input/Radio.vue'
-import Icon from '~/src/ui/components/display/Icon.vue'
-import { useToast } from '~/src/ui/composables/useToast'
 
 const { t } = useI18n()
 const toast = useToast()

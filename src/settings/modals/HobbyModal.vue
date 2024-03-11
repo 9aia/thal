@@ -1,14 +1,8 @@
 <script setup lang="ts">
 import * as _ from 'lodash-es'
 import { useForm } from 'vee-validate'
-import { computed, ref } from 'vue'
 import { useI18n } from '~/lib/psitta/vue'
-import Modal from '~/src/ui/components/action/Modal.vue'
-import Checkbox from '~/src/ui/components/data-input/Checkbox.vue'
-import Icon from '~/src/ui/components/display/Icon.vue'
-import { useToast } from '~/src/ui/composables/useToast'
 import { HOBBIES, MAX_HOBBIES_AMOUNT } from '~/src/base/constants'
-import { parseJoin } from '~/src/base/utils/string'
 import { parseInitialValues } from '../utils'
 
 const { t } = useI18n()
@@ -46,22 +40,19 @@ const submit = form.handleSubmit(async () => {
 
   loading.value = true
 
-  const res = await client.app.profile[':username'].$patch({
-    param: {
-      username,
-    },
-    json: {
-      hobbies: currentKeys,
-    },
-  })
+  try {
+    await $fetch(`/api/profile/${username}` as '/api/profile/:username', {
+      method: 'patch',
+      body: {
+        hobbies: currentKeys,
+      },
+    })
 
-  if (!res.ok) {
-    toast.error(t('An error occurred while updating hobbies.'))
-  }
-  else {
-    user.value = { ...user.value, hobbies: currentKeys }
-
+    user.value = { ...user.value!, hobbies: currentKeys }
+    
     toast.success(t('Hobbies were updated successfully.'))
+  } catch (e) {
+    toast.error(t('An error occurred while updating hobbies.'))
   }
 
   loading.value = false

@@ -26,10 +26,11 @@ export default defineNuxtConfig({
   },
   extends: [
     './src/base',
-    './src/press',
-    './src/policy',
+    './src/ui',
     './src/auth',
     './src/payment',
+    './src/press',
+    './src/policy',
     './src/support',
     './src/settings',
     './src/profile',

@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { t } from '~/lib/psitta/vue'
-import Btn from '~/src/ui/components/action/Btn.vue'
-import Icon from '~/src/ui/components/display/Icon.vue'
 import { GOALS, HOBBIES } from '~/src/base/constants'
-import { parseJoin } from '~/src/base/utils/string'
 import GoalsModal from '../../modals/GoalsModal.vue'
 import HobbyModal from '../../modals/HobbyModal.vue'
 import ObservationModal from '../../modals/ObservationModal.vue'
@@ -18,10 +15,10 @@ const isGoalsModalOpen = ref(false)
 const isObservationModalOpen = ref(false)
 
 const hobbies = computed(() => {
-  return parseJoin(user.hobbies || '', HOBBIES)
+  return parseJoin(user.value!.hobbies || '', HOBBIES)
 })
 const goals = computed(() => {
-  return parseJoin(user.goals || '', GOALS)
+  return parseJoin(user.value!.goals || '', GOALS)
 })
 
 definePageMeta({
@@ -120,22 +117,22 @@ definePageMeta({
       </div>
 
       <div class="flex gap-2 flex-wrap items-center mt-6">
-        <div v-if="user.profession">
+        <div v-if="user!.profession">
           <div class="flex items-center gap-2">
             <Icon>work</Icon>
             <div>
               <span class="font-bold">My profession</span>:
-              <span>{{ user.profession }}</span>
+              <span>{{ user!.profession }}</span>
             </div>
           </div>
         </div>
 
         <Btn
           class="text-black flex items-center"
-          :class="{ 'btn-primary': !user.profession }"
+          :class="{ 'btn-primary': !user!.profession }"
           @click="isProfessionModalOpen = true"
         >
-          <template v-if="!user.profession">
+          <template v-if="!user!.profession">
             <Icon>add</Icon>
             {{ t("Add profession") }}
           </template>
@@ -164,11 +161,11 @@ definePageMeta({
       </p>
 
       <div class="mt-4 space-y-2">
-        <div v-if="user.observation">
+        <div v-if="user!.observation">
           <textarea
             readonly
             class="textarea text-md border border-gray-400 leading-[1.6em] h-40 w-full resize-none"
-            :value="user.observation"
+            :value="user!.observation"
           />
         </div>
 
@@ -176,7 +173,7 @@ definePageMeta({
           class="text-black flex items-center"
           @click="isObservationModalOpen = true"
         >
-          <template v-if="!user.observation">
+          <template v-if="!user!.observation">
             <Icon>add</Icon>
             {{ t("Add observation") }}
           </template>

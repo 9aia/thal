@@ -1,14 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { t } from '~/lib/psitta/vue'
-import A from '~/src/base/components/A.vue'
-import Avatar from '~/src/ui/components/display/Avatar.vue'
-import ChevronRight from '~/src/ui/components/layout/ChevronRight.vue'
-import MenuGroup from '~/src/ui/components/layout/MenuGroup.vue'
-import MenuItem from '~/src/ui/components/layout/MenuItem.vue'
 import { SETTINGS } from '../../constants'
 import LocaleModal from '../../modals/LocaleModal.vue'
-import useRedirectUrl from '~/src/base/composables/useRedirectUrl'
 
 const isLocaleModalOpen = ref(false)
 
@@ -36,10 +30,10 @@ onMounted(() => {
     class="group mb-6 shadow-lg bg-slate-300 p-4 rounded-lg flex justify-between items-center transition duration-300 hover:shadow-2xl"
   >
     <div class="flex gap-4 items-center">
-      <Avatar :name="user.name" class="w-16 text-md" />
+      <Avatar :name="user!.name" class="w-16 text-md" />
 
       <label class="relative cursor-pointer flex flex-col gap-0">
-        <h2 class="text-lg font-bold">{{ user.name }}</h2>
+        <h2 class="text-lg font-bold">{{ user!.name }}</h2>
         <small class="text-gray-600">
           {{ t("Show profile") }}
         </small>

@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import Btn from '~/src/ui/components/action/Btn.vue'
-import Icon from '~/src/ui/components/display/Icon.vue'
-import Skeleton from '~/src/ui/components/feedback/Skeleton.vue'
-import { useToast } from '~/src/ui/composables/useToast'
 import type { User } from 'lucia';
 import { useI18n } from '~/lib/psitta/vue'
 
@@ -17,14 +12,14 @@ const summary = ref('')
 async function generateSummary () {
   const profile = user.value!
 
-  const data = await $fetch<{ summary: string }>('/api/profile/summary', {
+  const data = await $fetch(`/api/profile/summary/${profile.username}` as `/api/profile/summary/:username`, {
+    method: 'get',
     body: {
       goals: profile.goals,
       hobbies: profile.hobbies,
       profession: profile.profession,
       observation: profile.observation,
     },
-    method: 'POST',
   })
 
   return data.summary;

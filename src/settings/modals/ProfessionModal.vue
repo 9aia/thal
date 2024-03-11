@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
-import { ref } from 'vue'
 import { useI18n } from '~/lib/psitta/vue'
-import Modal from '~/src/ui/components/action/Modal.vue'
-import TextField from '~/src/ui/components/data-input/TextField.vue'
-import { useToast } from '~/src/ui/composables/useToast'
 import { MAX_PROFESSION_CHARS } from '~/src/base/constants'
 import type { User } from 'lucia'
 
@@ -13,7 +9,7 @@ const toast = useToast()
 const user = useUser()
 
 const form = useForm<{
-  profession: User['profession']!
+  profession: User['profession']
 }>({
   initialValues: {
     profession: user.value!.profession,
@@ -23,25 +19,25 @@ const form = useForm<{
 const isOpen = defineModel({ default: false })
 const loading = ref(false)
 
-const submit = form.handleSubmit(async (data) => {
+const submit = form.handleSubmit(async () => {
+  const data = form.values
   const username = user.value!.username
 
   loading.value = true
 
-  const res = await client.app.profile[':username'].$patch({
-    param: {
-      username,
-    },
-    json: form.values,
-  })
+  try {
+    await $fetch(`/api/profile/${username}` as '/api/profile/:username', {
+      method: 'patch',
+      body: {
+        profession: data.profession,
+      },
+    })
 
-  if (!res.ok) {
-    toast.error(t('An error occurred while updating your profession.'))
-  }
-  else {
-    user.value = { ...user.value, profession: data.profession }
+    user.value = { ...user.value!, profession: data.profession }
 
     toast.success(t('Profession has been updated successfully.'))
+  } catch (e) {
+    toast.error(t('An error occurred while updating your profession.'))
   }
 
   loading.value = false

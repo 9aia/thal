@@ -2,9 +2,22 @@ import { getGemini } from '~/src/base/utils/gemini'
 import { getValidated } from '~/src/base/utils/h3'
 import { getUserData } from '~/src/profile/utils/profile'
 import { profileDataSchema } from '../../schema'
+import { forbidden, unauthorized } from '~/src/base/utils/nuxt'
+import { z } from 'zod'
 
 export default eventHandler(async (event) => {
+  const { username } = await getValidated(event, 'params', z.object({ username: z.string() }))
+
   const { GEMINI_API_KEY } = process.env
+
+  const user = event.context.user
+
+  if(!user) {
+    throw unauthorized()
+  }
+
+  return { summary: 'a' }
+  
   const data = await getValidated(event, 'body', profileDataSchema)
 
   const profileData = getUserData(data)
