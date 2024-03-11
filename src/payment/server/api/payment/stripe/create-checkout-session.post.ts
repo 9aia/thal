@@ -1,8 +1,8 @@
 
 import { eq } from 'drizzle-orm'
 import Stripe from 'stripe'
-import { APP_URL } from '~/public_keys.json'
 import { users } from '~/src/base/server/db/schema'
+import { getAppUrl } from '~/src/base/utils/h3'
 import { PLANS } from '~/src/payment/constants/plans'
 
 export default eventHandler(async (event) => {
@@ -26,6 +26,10 @@ export default eventHandler(async (event) => {
     expand: ['data.product'],
   })
 
+  const appUrl = getAppUrl(event).toString();
+  const successUrl = new URL("/checkout/success", appUrl);
+  const cancelUrl = new URL("/checkout/cancel", appUrl);
+
   const checkoutCreateParams: Stripe.Checkout.SessionCreateParams = {
     billing_address_collection: 'auto',
     line_items: [
@@ -36,8 +40,8 @@ export default eventHandler(async (event) => {
     ],
     client_reference_id: user.id,
     mode: 'subscription',
-    success_url: `${APP_URL}/checkout/success`,
-    cancel_url: `${APP_URL}/checkout/canceled`,
+    success_url: successUrl.toString(),
+    cancel_url: cancelUrl.toString(),
     customer_email: user.email || undefined,
   }
 

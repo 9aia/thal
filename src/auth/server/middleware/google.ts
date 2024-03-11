@@ -1,12 +1,13 @@
+import { getAppUrl } from '~/src/base/utils/h3'
 import { initializeGoogle } from '../utils/auth'
 
 let google: ReturnType<typeof initializeGoogle>
 
 export default defineEventHandler(async (event) => {
   const { GOOGLE_CLIENT_SECRET } = process.env
-  
+
   if(!google) {
-    google = initializeGoogle(GOOGLE_CLIENT_SECRET!)
+    google = initializeGoogle(GOOGLE_CLIENT_SECRET!, getAppUrl(event))
   }
 
   event.context.google = google

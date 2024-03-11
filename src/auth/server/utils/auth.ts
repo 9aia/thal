@@ -1,8 +1,9 @@
 import { D1Adapter } from '@lucia-auth/adapter-sqlite'
 import { Google } from 'arctic'
 import { Lucia } from 'lucia'
-import { GOOGLE_CLIENT_ID, GOOGLE_OAUTH_REDIRECT_URI } from '~/public_keys.json'
+import PUBLIC_KEYS from '~/public_keys'
 import { UserSelect } from '~/src/base/server/db/schema'
+import * as pathe from 'pathe'
 
 export function initializeLucia(D1: D1Database) {
   const adapter = new D1Adapter(D1, {
@@ -22,11 +23,16 @@ export function initializeLucia(D1: D1Database) {
   })
 }
 
-export function initializeGoogle(GOOGLE_CLIENT_SECRET: string) {
+export function initializeGoogle(
+  GOOGLE_CLIENT_SECRET: string,
+  appUrl: URL,
+) {
+  const redirectUri = new URL('/api/auth/google/callback', appUrl).toString()
+
   const google = new Google(
-    GOOGLE_CLIENT_ID!,
+    PUBLIC_KEYS.GOOGLE_CLIENT_ID!,
     GOOGLE_CLIENT_SECRET,
-    GOOGLE_OAUTH_REDIRECT_URI!,
+    redirectUri!,
   )
 
   return google;

@@ -24,12 +24,12 @@ definePageMeta({
     <div class="card w-[28rem] bg-base-100 shadow-xl">
       <div class="card-body">
         <h2 class="card-title">
-          {{ t('Your plan is being processed.') }}
+          {{ t('Checkout with success!') }}
         </h2>
 
         <p>
           {{ t('You will receive an email with your invoice. If you have any problem, you can contact us at:') }}
-          <a href="mailto:support@maratongue.com">support@maratongue.com</a>
+          <a class="link-warning font-bold" href="mailto:support@maratongue.com">support@maratongue.com</a>
         </p>
 
         <p>
