@@ -1,8 +1,8 @@
 import { getGemini } from '~/src/base/utils/gemini'
 import { getValidated } from '~/src/base/utils/h3'
 import { getUserData } from '~/src/profile/utils/profile'
-import { profileDataSchema } from '../../schema'
-import { forbidden, unauthorized } from '~/src/base/utils/nuxt'
+import { profileDataSchema } from '../../../schema'
+import { forbidden, internal, unauthorized } from '~/src/base/utils/nuxt'
 import { z } from 'zod'
 
 export default eventHandler(async (event) => {
@@ -16,7 +16,9 @@ export default eventHandler(async (event) => {
     throw unauthorized()
   }
 
-  return { summary: 'a' }
+  if(username !== user.username) {
+    throw forbidden()
+  }
   
   const data = await getValidated(event, 'body', profileDataSchema)
 

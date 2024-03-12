@@ -34,6 +34,7 @@ export default defineNuxtConfig({
     './src/support',
     './src/settings',
     './src/profile',
+    './src/learn',
     './src/game',
   ],
 })

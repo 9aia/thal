@@ -50,8 +50,8 @@ const navItems: BottomNavItem[] = [
     icon: 'explore',
     href: '/explore',
   },
-  // { id: 'missions', name: 'Missions', icon: 'editor_choice', href: '/missions' },
-  // { id: "rank", name: "Rank", icon: "trophy", href: "/rank" },
+  { id: 'missions', name: 'Missions', icon: 'editor_choice', href: '/missions' },
+  { id: "rank", name: "Rank", icon: "trophy", href: "/rank" },
   { id: 'profile', name: 'Profile', icon: 'face', href: '/profile' },
   { id: 'settings', name: 'Settings', icon: 'settings', href: '/settings' },
 ]
@@ -103,48 +103,46 @@ const updateRedirectUrl = () => {
     <div class="drawer md:drawer-open">
       <input id="my-drawer-2" type="checkbox" class="drawer-toggle">
 
-      <div class="drawer-content">
-        <main class="pb-20 md:pb-0">
-          <slot />
-        </main>
+      <main class="drawer-content relative">
+        <slot />
+      </main>
 
-      <!-- <label for="my-drawer-2" class="btn btn-primary drawer-button md:hidden"
-        >Open drawer</label
-      > -->
-      </div>
       <div class="drawer-side">
         <label
           for="my-drawer-2"
           aria-label="close sidebar"
           class="drawer-overlay"
         />
-        <ul class="menu p-4 w-80 min-h-full bg-slate-800 text-base-content">
-          <div class="px-4 py-2 flex items-center text-teal-500 border-b border-b-slate-900 my-2 gap-1">
+
+        <ul class="space-y-2 flex flex-col p-4 w-80 min-h-full bg-slate-800 text-teal-500">
+          <div class="px-4 py-2 flex items-center gap-1 border-b border-b-slate-900 my-2">
             <Icon class="">
               directions_run
             </Icon>
             <span class="font-bold">Maratongue</span>
           </div>
 
-          <li v-for="item in navItems" :key="item.id">
+          <li v-for="item in navItems" :key="item.id" class="flex items-center gap-1 text-teal-500 hover:bg-slate-700 rounded-lg">
             <A
               :href="item.href"
-              :class="{ active: route.path === item.href }"
-              class="text-teal-500 active:text-teal-600"
+              :class="{ 'bg-white text-black hover:bg-white': route.path === item.href }"
+              class="w-full flex items-center gap-1 px-4 py-2 rounded-lg transition-all duration-300"
             >
               <Icon>{{ item.icon }}</Icon>
-              <span v-if="item.name" class="btm-nav-label">{{ item.name }}</span>
+              <span v-if="item.name" class="">{{ item.name }}</span>
             </A>
           </li>
         </ul>
       </div>
     </div>
-    <div class="btm-nav flex md:hidden bg-slate-800 text-teal-500">
+
+    <div class="btm-nav btm-nav-md flex md:hidden">
       <A
         v-for="item in navItems"
         :key="item.id"
         :href="item.href"
-        :class="{ active: route.path === item.href }"
+        :class="{ 'active border-t-4 border-red-500': route.path === item.href }"
+        class="bg-slate-800 text-teal-500"
       >
         <Icon>{{ item.icon }}</Icon>
         <span v-if="item.name" class="hidden sm:flex btm-nav-label">{{ item.name }}</span>
