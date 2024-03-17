@@ -4,6 +4,7 @@ import type { User } from 'lucia'
 import { useForm } from 'vee-validate'
 import { useI18n } from '~/lib/psitta/vue'
 import { nameSchema, pronounsSchema, usernameSchema } from '~/src/base/server/db/schema'
+import AccountDeleteModal from '../../modals/AccountDeleteModal.vue'
 
 const { t } = useI18n()
 const toast = useToast()
@@ -15,6 +16,8 @@ const form = useForm<User>({
 const hasErrors = useHasFormErrors(form)
 const invalidUsername = ref(false)
 const loading = ref(false)
+
+const isDeleteModalOpen = ref(false)
 
 async function validateUsername (username: string) {
   if (!username) {
@@ -73,6 +76,21 @@ const submit = form.handleSubmit(async (data) => {
 
   loading.value = false
 })
+
+const dangerActions = [
+  {
+    label: t('Delete account'),
+    description: t('This action is irreversible.'),
+    actions: [
+      {
+        label: 'Delete',
+        onClick: () => {
+          isDeleteModalOpen.value = true
+        },
+      },
+    ]
+  }
+]
 
 definePageMeta({
   middleware: 'premium',
@@ -141,4 +159,36 @@ definePageMeta({
       {{ t('Signed in with Google') }}
     </li>
   </ul>
+
+  <section>
+    <h2 class="text-lg font-bold mb-4 mt-4">
+      {{ t("Danger zone") }}
+    </h2>
+
+    <div class="border border-red-800 rounded">
+      <dl class="divide-y divide-slate-400">
+        <template v-for="description in dangerActions">
+          <div class="flex justify-between items-center py-3 px-2">
+            <div>
+              <dt class="text-sm font-bold">{{ description.label }}</dt>
+              <dd class="text-xs text-slate-700">{{ description.description }}</dd>
+            </div>
+
+            <div class="flex gap-1">
+              <button
+                class="btn btn-outline btn-xs btn-error"
+                v-for="action in description.actions"
+                :key="`action-${action.label}-danger`"
+                @click="action.onClick"
+              >
+                {{ action.label }}
+              </button>
+            </div>
+          </div>
+        </template>
+      </dl>
+    </div>
+  </section>
+
+  <AccountDeleteModal v-model="isDeleteModalOpen" />
 </template>
