@@ -2,8 +2,9 @@ import { OAuth2RequestError } from 'arctic'
 import { createUser, getUser } from '~/src/auth/server/services/user'
 import { getGoogleUser } from '../../../utils/google'
 import { OAuthAccountInsert } from '~/src/auth/types'
-import { UserInsert } from '~/src/base/server/db/schema'
+import { UserInsert, deletedOAuthAccounts } from '~/src/base/server/db/schema'
 import { badRequest, internal } from '~/src/base/utils/nuxt'
+import { and, eq } from 'drizzle-orm'
 
 export default defineEventHandler(async (event) => {
   const lucia = event.context.lucia
@@ -43,11 +44,17 @@ export default defineEventHandler(async (event) => {
 
     const username = googleUser.email?.split('@')[0] as string
 
+    const [ deletedOAuth ] = await orm.select().from(deletedOAuthAccounts).where(and(
+      eq(deletedOAuthAccounts.providerId, 'google'),
+      eq(deletedOAuthAccounts.providerUserId, googleUser.sub)
+    ))
+
     const userInsert: UserInsert = {
       username,
       name: googleUser.given_name,
       lastName: googleUser.family_name,
       email: googleUser.email,
+      free_trial_used: deletedOAuth ? 1 : 0,
     }
     const oauthAccountInsert: OAuthAccountInsert = {
       providerId: 'google',
