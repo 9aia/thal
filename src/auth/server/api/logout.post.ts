@@ -1,19 +1,7 @@
-import { unauthorized } from "~/src/base/utils/nuxt"
+import { invalidateSession } from "../services/user"
 
 export default eventHandler(async (event) => {
-  const lucia = event.context.lucia
-
-  if (!event.context.session) {
-    throw unauthorized()
-  }
-
-  await lucia.invalidateSession(event.context.session.id)
-  
-  appendHeader(
-    event,
-    'Set-Cookie',
-    lucia.createBlankSessionCookie().serialize()
-  )
+  await invalidateSession(event)
 
   return sendRedirect(event, '/sign-in')
 })
