@@ -1,9 +1,10 @@
 import { and, eq, sql } from 'drizzle-orm';
-import { H3EventContext } from 'h3';
+import { H3Event, H3EventContext } from 'h3';
 import { UserInsert, oAuthAccounts, users } from '~/src/base/server/db/schema';
 import { now } from '~/src/base/utils/date';
 import { GetUserData, OAuthAccountInsert } from '../../types';
 import { generateId } from 'lucia';
+import { unauthorized } from '~/src/base/utils/nuxt';
 
 export async function createUser(
   orm: H3EventContext['orm'],
@@ -15,6 +16,7 @@ export async function createUser(
   await orm.batch([
     orm.insert(users).values({
       id: userId,
+      free_trial_used: 0,
       createdAt: now().toString(),
       ...userInsert,
     }),
@@ -44,4 +46,22 @@ export async function getUser(
     .get({ id: data.providerUserId })
 
   return user
+}
+
+export async function invalidateSession(
+  event: H3Event,
+) {
+  const lucia = event.context.lucia
+
+  if (!event.context.session) {
+    throw unauthorized()
+  }
+
+  await lucia.invalidateSession(event.context.session.id)
+  
+  appendHeader(
+    event,
+    'Set-Cookie',
+    lucia.createBlankSessionCookie().serialize()
+  )
 }
