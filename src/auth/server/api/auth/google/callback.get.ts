@@ -43,7 +43,7 @@ export default defineEventHandler(async (event) => {
       return sendRedirect(event, redirectUrl)
     }
 
-    const username = googleUser.email?.split('@')[0] as string
+    const username = generateUsername(googleUser.email!)
 
     const userInsert: UserInsert = {
       username,

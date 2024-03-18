@@ -3,7 +3,7 @@ import { Google } from 'arctic'
 import { Lucia } from 'lucia'
 import PUBLIC_KEYS from '~/public_keys'
 import { UserSelect } from '~/src/base/server/db/schema'
-import * as pathe from 'pathe'
+import * as _ from 'lodash-es'
 
 export function initializeLucia(D1: D1Database) {
   const adapter = new D1Adapter(D1, {
@@ -36,6 +36,13 @@ export function initializeGoogle(
   )
 
   return google;
+}
+
+export function generateUsername(email: string) {
+  const username = email.split('@')[0]
+  const suffix = _.random(1000, 9999)
+
+  return username + suffix
 }
 
 declare module 'lucia' {
