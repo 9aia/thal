@@ -35,10 +35,27 @@ definePageMeta({
 
       <h2>3. Contas de Usuário</h2>
       <p>
-        Para acessar determinados recursos do aplicativo, você pode ser solicitado
-        a criar uma conta. Você é responsável por manter a confidencialidade de
-        sua conta e senha e por restringir o acesso à sua conta. Você concorda em
-        aceitar a responsabilidade por todas as atividades que ocorram em sua
+        Para acessar determinados recursos do Maratongue, você deve criar uma conta. Ao criar uma conta, você concorda
+        em:
+      </p>
+      <ul>
+        <li>
+          <strong>Confidencialidade:</strong> Você é responsável por manter a confidencialidade de sua conta e senha.
+          Não compartilhe suas credenciais de login com outras pessoas e tome as medidas adequadas para impedir o acesso
+          não autorizado à sua conta.
+        </li>
+        <li>
+          <strong>Exclusão de conta:</strong> Você tem o direito de excluir sua conta Maratongue e informações pessoais
+          associadas. Para iniciar o processo de exclusão da conta, siga as instruções fornecidas nas <a
+            href="/settings/account">configurações do aplicativo</a>.
+        </li>
+        <li>
+          <strong>Precisão dos dados:</strong> Você é responsável por manter seus dados pessoais atualizados e precisos.
+          Certifique-se de que as informações da sua conta permaneçam atualizadas e reflitam sua verdadeira identidade.
+        </li>
+      </ul>
+      <p>
+        Ao usar o Maratongue, você concorda em aceitar a responsabilidade por todas as atividades que ocorrem em sua
         conta.
       </p>
 
@@ -67,16 +84,16 @@ definePageMeta({
 
       <h2>7. Termos de Terceiros</h2>
       <p>
-        Nosso aplicativo utiliza a API Gemini para aprimorar a experiência de aprendizado
-        e fornecer conteúdo personalizado. Ao usar a API Gemini, você concorda em
-        cumprir os Termos de Serviço da Gemini, além da nossa Política de Privacidade.
+        Nosso aplicativo utiliza a API do Gemini para aprimorar a experiência de aprendizado
+        e fornecer conteúdo personalizado. Ao usar a API do Gemini, você concorda em
+        cumprir os Termos de Serviço do Gemini, além da nossa Política de Privacidade.
       </p>
       <p>
         Recomendamos que você revise os
         <A
-          href="https://support.google.com/gemini/answer/13594961?visit_id=638434421225288685-621180296&p=privacy_notice&rd=1#tos"
-        >Termos de Serviço da Gemini</A>
-        para entender seus direitos e obrigações ao usar a API Gemini.
+          href="https://support.google.com/gemini/answer/13594961?visit_id=638434421225288685-621180296&p=privacy_notice&rd=1#tos">Termos
+          de Serviço da Gemini</A>
+        para entender seus direitos e obrigações ao usar a API do Gemini.
       </p>
 
       <h2>8. Rescisão</h2>
@@ -123,11 +140,26 @@ definePageMeta({
 
       <h2>3. User Accounts</h2>
       <p>
-        In order to access certain features of the app, you may be required to
-        create an account. You are responsible for maintaining the confidentiality
-        of your account and password and for restricting access to your account.
-        You agree to accept responsibility for all activities that occur under
-        your account.
+        To access certain features of Maratongue, you must create an account. By creating an account, you agree to:
+      </p>
+      <ul>
+        <li>
+          <strong>Confidentiality:</strong> You are responsible for maintaining the confidentiality of your account and
+          password. Do not share your login credentials with others, and take appropriate measures to prevent
+          unauthorized access to your account.
+        </li>
+        <li>
+          <strong>Account Deletion:</strong> You have the right to delete your Maratongue account and associated
+          personal information. To initiate the account deletion process, please follow the instructions provided in the
+          <a href="/settings/account">app settings</a>.
+        </li>
+        <li>
+          <strong>Data Accuracy:</strong> You are responsible for keeping your personal data up to date and accurate.
+          Please ensure that the information in your account remains current and reflects your true identity.
+        </li>
+      </ul>
+      <p>
+        By using Maratongue, you agree to accept responsibility for all activities that occur under your account.
       </p>
 
       <h2>4. Content</h2>
@@ -161,8 +193,8 @@ definePageMeta({
       <p>
         We encourage you to review
         <a
-          href="https://support.google.com/gemini/answer/13594961?visit_id=638434421225288685-621180296&p=privacy_notice&rd=1#tos"
-        >Gemini's Terms of Service</a>
+          href="https://support.google.com/gemini/answer/13594961?visit_id=638434421225288685-621180296&p=privacy_notice&rd=1#tos">Gemini's
+          Terms of Service</a>
         to understand your rights and obligations when using the Gemini API.
       </p>
 
@@ -209,5 +241,13 @@ a {
 
 a:hover {
   @apply text-teal-700;
+}
+
+ul {
+  @apply list-disc ml-6 mb-4;
+}
+
+ul li {
+  @apply ml-4;
 }
 </style>

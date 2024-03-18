@@ -58,12 +58,12 @@ definePageMeta({
       <h2>4. Serviços de Terceiros</h2>
       <p>
         Nosso aplicativo utiliza a API Gemini para aprimorar a experiência de
-        aprendizado e fornecer conteúdo personalizado. Ao usar a API Gemini,
-        algumas informações pessoais podem ser compartilhadas com a Gemini.
+        aprendizado e fornecer conteúdo personalizado. Ao usar a API do Gemini,
+        algumas informações pessoais podem ser compartilhadas com o Gemini.
         Recomendamos que você revise a
         <a
-          href="https://support.google.com/gemini/answer/13594961?visit_id=638434421225288685-621180296&p=privacy_notice&rd=1#privacy_notice"
-        >Política de Privacidade da Gemini</a>
+          href="https://support.google.com/gemini/answer/13594961?visit_id=638434421225288685-621180296&p=privacy_notice&rd=1#privacy_notice">Política
+          de Privacidade do Gemini</a>
         para entender como eles coletam, usam e divulgam suas informações.
       </p>
 
@@ -89,6 +89,21 @@ definePageMeta({
         postarmos quaisquer modificações nesta página constituirá seu
         reconhecimento das modificações e seu consentimento em cumprir e ficar
         vinculado à Política de Privacidade modificada.
+      </p>
+
+      <h2>8. Retenção dos Dados</h2>
+      <p>
+        Quando você exclui sua conta Maratongue, removeremos imediatamente seus dados pessoais de nossos sistemas
+        ativos.
+        No entanto, cópias residuais das suas informações podem permanecer nos nossos sistemas de backup ou registos por
+        um período limitado.
+      </p>
+      <p>
+        Tenha certeza de que quaisquer dados pessoais retidos não serão usados ativamente para qualquer finalidade. Nos
+        estamos comprometidos em
+        mantendo a privacidade e segurança de suas informações, mesmo na forma armazenada. Algumas informações pessoais
+        podem
+        ser retidos conforme exigido por lei ou para resolução de disputas.
       </p>
 
       <hr class="border-gray-400 mb-4 mt-12">
@@ -147,8 +162,8 @@ definePageMeta({
         and provide personalized content. When using the Gemini API, certain
         personal information may be shared with Gemini. We encourage you to review
         <a
-          href="https://support.google.com/gemini/answer/13594961?visit_id=638434421225288685-621180296&p=privacy_notice&rd=1#privacy_notice"
-        >Gemini's Privacy Policy</a>
+          href="https://support.google.com/gemini/answer/13594961?visit_id=638434421225288685-621180296&p=privacy_notice&rd=1#privacy_notice">Gemini's
+          Privacy Policy</a>
         to understand how they collect, use, and disclose your information.
       </p>
 
@@ -176,10 +191,15 @@ definePageMeta({
         by the modified Privacy Policy.
       </p>
 
-      <hr class="border-gray-400 mb-4 mt-12">
+      <h2>8. Data Retention</h2>
       <p>
-        If you have any questions about this Privacy Policy, please contact us at
-        <a href="mailto:support@maratongue.com">support@maratongue.com</a>.
+        When you delete your Maratongue account, we will promptly remove your personal data from our active systems.
+        However, residual copies of your information may remain in our backup systems or logs for a limited period.
+      </p>
+      <p>
+        Rest assured that any retained personal data will not be actively used for any purpose. We are committed to
+        maintaining the privacy and security of your information, even in its stored form. Some personal information may
+        be retained as required by law or for dispute resolution.
       </p>
     </template>
   </div>
