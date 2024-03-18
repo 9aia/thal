@@ -2,14 +2,14 @@ import { and, eq, sql } from 'drizzle-orm';
 import { H3Event, H3EventContext } from 'h3';
 import { UserInsert, oAuthAccounts, users } from '~/src/base/server/db/schema';
 import { now } from '~/src/base/utils/date';
-import { GetUserData, OAuthAccountInsert } from '../../types';
+import { OAuthProviderParams } from '../../types';
 import { generateId } from 'lucia';
 import { unauthorized } from '~/src/base/utils/nuxt';
 
 export async function createUser(
   orm: H3EventContext['orm'],
   userInsert: UserInsert,
-  oauthAccountInsert: OAuthAccountInsert
+  providerParams: OAuthProviderParams
 ) {
   const userId = generateId(15)
 
@@ -21,7 +21,7 @@ export async function createUser(
       ...userInsert,
     }),
     orm.insert(oAuthAccounts).values({
-      ...oauthAccountInsert,
+      ...providerParams,
       userId,
     }),
   ])
@@ -31,19 +31,19 @@ export async function createUser(
 
 export async function getUser(
   orm: H3EventContext['orm'],
-  data: GetUserData
+  providerParams: OAuthProviderParams
 ) {
   const user = await orm
     .select()
     .from(oAuthAccounts)
     .where(
       and(
-        eq(oAuthAccounts.providerId, data.providerId),
+        eq(oAuthAccounts.providerId, providerParams.providerId),
         eq(oAuthAccounts.providerUserId, sql.placeholder('id'))
       )
     )
     .prepare()
-    .get({ id: data.providerUserId })
+    .get({ id: providerParams.providerUserId })
 
   return user
 }

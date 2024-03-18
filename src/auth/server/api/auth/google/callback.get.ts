@@ -1,10 +1,9 @@
 import { OAuth2RequestError } from 'arctic'
 import { createUser, getUser } from '~/src/auth/server/services/user'
-import { getGoogleUser } from '../../../utils/google'
-import { OAuthAccountInsert } from '~/src/auth/types'
-import { UserInsert, deletedOAuthAccounts } from '~/src/base/server/db/schema'
+import { OAuthProviderParams } from '~/src/auth/types'
+import { UserInsert } from '~/src/base/server/db/schema'
 import { badRequest, internal } from '~/src/base/utils/nuxt'
-import { and, eq } from 'drizzle-orm'
+import { getGoogleUser } from '../../../utils/google'
 
 export default defineEventHandler(async (event) => {
   const lucia = event.context.lucia
@@ -25,10 +24,12 @@ export default defineEventHandler(async (event) => {
 
   try {
     const googleUser = await getGoogleUser(google, code, storedCodeVerifier)
-    const existingUser = await getUser(orm, {
+    const providerParams: OAuthProviderParams = {
       providerId: 'google',
       providerUserId: googleUser.sub,
-    })
+    }
+
+    const existingUser = await getUser(orm, providerParams)
 
     if (existingUser) {
       const session = await lucia.createSession(existingUser.userId, {})
@@ -44,24 +45,14 @@ export default defineEventHandler(async (event) => {
 
     const username = googleUser.email?.split('@')[0] as string
 
-    const [ deletedOAuth ] = await orm.select().from(deletedOAuthAccounts).where(and(
-      eq(deletedOAuthAccounts.providerId, 'google'),
-      eq(deletedOAuthAccounts.providerUserId, googleUser.sub)
-    ))
-
     const userInsert: UserInsert = {
       username,
       name: googleUser.given_name,
       lastName: googleUser.family_name,
       email: googleUser.email,
-      free_trial_used: deletedOAuth ? 1 : 0,
-    }
-    const oauthAccountInsert: OAuthAccountInsert = {
-      providerId: 'google',
-      providerUserId: googleUser.sub,
     }
 
-    const { id: userId } = await createUser(orm, userInsert, oauthAccountInsert)
+    const { id: userId } = await createUser(orm, userInsert, providerParams)
 
     const session = await lucia.createSession(userId, {})
     appendHeader(

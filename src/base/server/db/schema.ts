@@ -2,7 +2,6 @@ import { sqliteTable, text, int } from 'drizzle-orm/sqlite-core'
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
 import { z } from 'zod'
 import { MAX_GOALS_AMOUNT, MAX_HOBBIES_AMOUNT, MAX_OBSERVATION_CHARS, MAX_PROFESSION_CHARS } from '../../constants'
-import { v4 as uuidv4 } from 'uuid';
 
 export const users = sqliteTable('User', {
   id: text('id').primaryKey(),
@@ -39,14 +38,6 @@ export const oAuthAccounts = sqliteTable('OAuthAccount', {
   userId: text('user_id')
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
-})
-
-export const deletedOAuthAccounts = sqliteTable('DeletedOAuthAccounts', {
-  id: text("id").primaryKey().$defaultFn(() => uuidv4()),
-  providerId: text('provider_id').notNull(),
-  providerUserId: text('provider_user_id').notNull(),
-  userId: text('user_id').notNull(),
-  createdAt: text('created_at').notNull(),
 })
 
 export const usernameSchema = z
