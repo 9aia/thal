@@ -6,6 +6,14 @@ import { useI18n } from '~/lib/psitta/vue'
 import { nameSchema, pronounsSchema, usernameSchema } from '~/src/base/server/db/schema'
 import AccountDeleteModal from '../../modals/AccountDeleteModal.vue'
 
+definePageMeta({
+  middleware: 'auth',
+  layout: computed(() => {
+    const user = useUser()
+    return user.value?.plan ? 'setting' : 'isolate-setting'
+  }),
+})
+
 const { t } = useI18n()
 const toast = useToast()
 
@@ -91,11 +99,6 @@ const dangerActions = [
     ]
   }
 ]
-
-definePageMeta({
-  middleware: 'premium',
-  layout: 'setting',
-})
 </script>
 
 <template>

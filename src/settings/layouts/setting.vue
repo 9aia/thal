@@ -3,6 +3,7 @@ import { t } from '~/lib/psitta/vue'
 import AppLayout from '~/src/base/layouts/app.vue'
 import { SETTINGS } from '../constants'
 import { flattenObject } from '../utils'
+import type { BreadcrumbItem } from '~/src/ui/components/navigation/types';
 
 const root: BreadcrumbItem = {
   id: 'settings',
@@ -19,7 +20,7 @@ const { items, path, back } = useBreadcrumbs({
 
 <template>
   <AppLayout class="bg-slate-300" :hide-header="true">
-    <div class="max-w-lg mx-auto py-2 px-4 py-4">
+    <div class="max-w-lg mx-auto px-4 py-4">
       <Breadcrumbs v-if="path.length" :items="items" class="mb-4" />
 
       <slot />

@@ -9,6 +9,7 @@ const sections = [
     items: [
       { title: 'Home', href: '/' },
       { title: 'About', href: '/about' },
+      { title: 'Pricing', href: '/pricing' },
     ],
   },
   {
