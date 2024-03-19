@@ -15,8 +15,8 @@ const sections = [
   {
     title: 'Support',
     items: [
-      { title: 'Give us feedback', href: '' },
-      { title: 'Report a problem', href: '' },
+      { title: 'Give us feedback', href: 'https://forms.gle/5ePvXjrebyWGUrM26' },
+      { title: 'Report a problem', href: 'https://forms.gle/ANMv7qnwTHva1k7L8' },
     ],
   },
   {

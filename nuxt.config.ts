@@ -16,7 +16,7 @@ export default defineNuxtConfig({
       meta: [
         { name: 'description', content: 'Welcome to an AI-powered English learning app, providing personalized learning experiences.' },
         { name: 'keywords', content: 'English learning, AI-powered, personalized learning, language learning' },
-        { name: 'author', content: 'Luis Float' },
+        { name: 'author', content: 'Luis Emidio' },
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
@@ -25,6 +25,7 @@ export default defineNuxtConfig({
     },
   },
   extends: [
+    './src/psitta',
     './src/base',
     './src/ui',
     './src/auth',
