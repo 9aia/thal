@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import A from '~/src/base/components/A.vue'
-import { t } from '~/lib/psitta/vue'
+import { t } from '@psitta/vue'
 import AboutMe from '../../components/AboutMe.vue'
 import Goals from '../../components/Goals.vue'
 import Header from '../../components/Header.vue'

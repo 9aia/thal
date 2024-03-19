@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { t } from '~/lib/psitta/vue'
+import { t } from '@psitta/vue'
 import { ITEMS } from '~/src/base/constants'
 import type { User } from 'lucia';
 

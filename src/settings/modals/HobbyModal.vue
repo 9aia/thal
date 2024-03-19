@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import * as _ from 'lodash-es'
 import { useForm } from 'vee-validate'
-import { useI18n } from '~/lib/psitta/vue'
+import { useI18n } from '@psitta/vue'
 import { HOBBIES, MAX_HOBBIES_AMOUNT } from '~/src/base/constants'
 import { parseInitialValues } from '../utils'
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { t } from '~/lib/psitta/vue'
+import { t } from '@psitta/vue'
 import Header from '~/src/ui/components/layout/Header.vue'
 import Footer from '~/src/ui/components/layout/Footer.vue'
 import type { MenuItem } from '~/src/ui/components/layout/types';

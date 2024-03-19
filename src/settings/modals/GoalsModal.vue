@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
-import { useI18n } from '~/lib/psitta/vue'
+import { useI18n } from '@psitta/vue'
 import { GOALS } from '~/src/base/constants'
 import { parseInitialValues } from '../utils'
 

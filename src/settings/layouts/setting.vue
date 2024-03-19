@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { t } from '~/lib/psitta/vue'
+import { t } from '@psitta/vue'
 import AppLayout from '~/src/base/layouts/app.vue'
 import { SETTINGS } from '../constants'
 import { flattenObject } from '../utils'

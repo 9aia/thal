@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import A from '~/src/base/components/A.vue'
-import { t as _t } from '~/lib/psitta/vue'
+import { t as _t } from '@psitta/vue'
 
 const t = ((text, values, locale) => _t(text, values, locale)) as typeof _t
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { t } from '~/lib/psitta/vue'
+import { t } from '@psitta/vue'
 import { SETTINGS } from '../../constants'
 import LocaleModal from '../../modals/LocaleModal.vue'
 

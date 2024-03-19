@@ -2,7 +2,7 @@
 import { useDebounceFn } from '@vueuse/core'
 import type { User } from 'lucia'
 import { useForm } from 'vee-validate'
-import { useI18n } from '~/lib/psitta/vue'
+import { useI18n } from '@psitta/vue'
 import { nameSchema, pronounsSchema, usernameSchema } from '~/src/base/server/db/schema'
 import AccountDeleteModal from '../../modals/AccountDeleteModal.vue'
 

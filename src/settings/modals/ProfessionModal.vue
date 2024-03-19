@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
-import { useI18n } from '~/lib/psitta/vue'
+import { useI18n } from '@psitta/vue'
 import { MAX_PROFESSION_CHARS } from '~/src/base/constants'
 import type { User } from 'lucia'
 

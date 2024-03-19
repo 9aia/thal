@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { User } from 'lucia';
 import { useForm } from 'vee-validate'
-import { useI18n } from '~/lib/psitta/vue'
+import { useI18n } from '@psitta/vue'
 import { MAX_OBSERVATION_CHARS } from '~/src/base/constants'
 
 const { t } = useI18n()

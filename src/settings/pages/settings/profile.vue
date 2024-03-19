@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { t } from '~/lib/psitta/vue'
+import { t } from '@psitta/vue'
 import { GOALS, HOBBIES } from '~/src/base/constants'
 import GoalsModal from '../../modals/GoalsModal.vue'
 import HobbyModal from '../../modals/HobbyModal.vue'

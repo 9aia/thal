@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { useAsyncState } from '@vueuse/core';
 import { useFieldError, useForm } from 'vee-validate';
-import { useI18n } from '~/lib/psitta/vue'
-import T from '~/lib/psitta/vue/components/T.vue';
+import { useI18n, T } from '@psitta/vue'
 
 const { t } = useI18n()
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { tv } from 'tailwind-variants'
 import type { Node } from '../types'
-import { t } from '~/lib/psitta/vue'
+import { t } from '@psitta/vue'
 import { ref } from 'vue'
 
 defineProps<{ is: Node, i: number, items: Node[] }>()

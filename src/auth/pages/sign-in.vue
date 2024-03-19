@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { T, t } from '~/lib/psitta/vue'
+import { T, t } from '@psitta/vue'
 import A from '~/src/base/components/A.vue'
 import Btn from '~/src/ui/components/action/Btn.vue'
 import GoogleLogo from '~/src/ui/components/display/GoogleLogo.vue'

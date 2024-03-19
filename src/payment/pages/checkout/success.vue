@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { t } from '~/lib/psitta/vue'
+import { t } from '@psitta/vue'
 import A from '~/src/base/components/A.vue'
 
 onMounted(() => {

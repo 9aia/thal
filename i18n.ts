@@ -1,4 +1,4 @@
-import { initPsitta } from '~/lib/psitta/core'
+import { initPsitta } from '@psitta/core'
 import translations from './locales/index'
 
 initPsitta({
@@ -8,7 +8,7 @@ initPsitta({
   numberFormats: { en: 'en-US', pt: 'pt-BR' },
 })
 
-declare module '~/lib/psitta/core' {
+declare module '@psitta/core' {
   interface Register {
     messages: typeof translations
   }

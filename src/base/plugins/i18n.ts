@@ -1,6 +1,6 @@
 import '~/i18n'
-import { getDefaultLocale, type Locale } from '~/lib/psitta/core'
-import { createPsitta } from '~/lib/psitta/vue'
+import { getDefaultLocale, type Locale } from '@psitta/core'
+import { createPsitta } from '@psitta/vue'
 
 type PsittaStore = { locale: Locale };
 

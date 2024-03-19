@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { User } from 'lucia';
-import { useI18n } from '~/lib/psitta/vue'
+import { useI18n } from '@psitta/vue'
 
 const toast = useToast()
 const { t } = useI18n()

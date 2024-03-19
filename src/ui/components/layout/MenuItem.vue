@@ -2,7 +2,7 @@
 import Icon from '../display/Icon.vue'
 import ChevronRight from './ChevronRight.vue'
 import type { MenuItem } from './types'
-import { t } from '~/lib/psitta/vue'
+import { t } from '@psitta/vue'
 
 defineProps<{
   is: MenuItem

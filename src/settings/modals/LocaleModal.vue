@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
-import { getDefaultLocale } from '~/lib/psitta/core/utils'
-import { useI18n } from '~/lib/psitta/vue'
+import { getDefaultLocale } from '@psitta/core'
+import { useI18n } from '@psitta/vue'
 import { LOCALES } from '~/src/base/constants'
 
 const { t } = useI18n()

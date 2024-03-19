@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Icon from '~/src/ui/components/display/Icon.vue'
-import { t } from '~/lib/psitta/vue'
+import { t } from '@psitta/vue'
 </script>
 
 <template>

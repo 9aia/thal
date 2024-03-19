@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { t } from '~/lib/psitta/vue'
+import { t } from '@psitta/vue'
 import type { User } from 'lucia';
 
 const user = inject<Ref<User>>('profile')!

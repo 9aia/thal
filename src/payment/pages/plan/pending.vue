@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { refAutoReset, refThrottled, useThrottleFn } from '@vueuse/core';
-import { useI18n } from '~/lib/psitta/vue'
+import { useI18n } from '@psitta/vue'
 import { useToast } from '~/src/ui/composables/useToast';
 
 definePageMeta({

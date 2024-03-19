@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Unit } from '../types'
-import { t } from '~/lib/psitta/vue'
+import { t } from '@psitta/vue'
 
 const unit = defineProps<Unit>()
 

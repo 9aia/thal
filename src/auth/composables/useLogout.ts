@@ -1,4 +1,4 @@
-import { useI18n } from '~/lib/psitta/vue'
+import { useI18n } from '@psitta/vue'
 import { useToast } from '~/src/ui/composables/useToast'
 
 function useLogout() {

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { tv } from 'tailwind-variants'
 import { useAttrs } from 'vue'
-import { localizeUrl } from '~/lib/psitta/core';
-import { useLocale } from '~/lib/psitta/vue';
+import { localizeUrl } from '@psitta/core';
+import { useLocale } from '@psitta/vue';
 
 interface Props {
   activeClass?: string
