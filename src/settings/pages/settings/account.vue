@@ -168,7 +168,7 @@ const dangerActions = [
       {{ t("Danger zone") }}
     </h2>
 
-    <div class="border border-red-800 rounded">
+    <div class="border border-error rounded">
       <dl class="divide-y divide-slate-400">
         <template v-for="description in dangerActions">
           <div class="flex justify-between items-center py-3 px-2">
