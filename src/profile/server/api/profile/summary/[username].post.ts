@@ -45,7 +45,8 @@ export default eventHandler(async (event) => {
     - 1 paragraph of 2 lines;
     - Plain text;
     - Example should be only referred as format, not inspirational for content - each individual are different;
-    - The text should be in first-person.
+    - The text should be in first-person;
+    - If no data is provided, just ignore or generate "Profile private or not filled.".
 
     ## OUTPUT EXAMPLE
 

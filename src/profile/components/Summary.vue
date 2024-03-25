@@ -11,9 +11,9 @@ const summary = ref('')
 
 async function generateSummary () {
   const profile = user.value!
-
+  
   const data = await $fetch(`/api/profile/summary/${profile.username}` as `/api/profile/summary/:username`, {
-    method: 'get',
+    method: 'post',
     body: {
       goals: profile.goals,
       hobbies: profile.hobbies,

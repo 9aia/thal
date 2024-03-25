@@ -1,12 +1,6 @@
 <script setup lang="ts">
 import A from '~/src/base/components/A.vue'
 import { t } from '@psitta/vue'
-import AboutMe from '../../components/AboutMe.vue'
-import Goals from '../../components/Goals.vue'
-import Header from '../../components/Header.vue'
-import Interests from '../../components/Interests.vue'
-import Observation from '../../components/Observation.vue'
-import Summary from '../../components/Summary.vue'
 
 const user = useUser()
 const route = useRoute()
@@ -30,8 +24,7 @@ definePageMeta({
   layout: 'app',
 })
 
-const profileRef = ref(profile)
-provide('profile', profileRef)
+provide('profile', profile)
 </script>
 
 <template>
