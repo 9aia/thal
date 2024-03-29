@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useAsyncState } from '@vueuse/core';
-import { useFieldError, useForm } from 'vee-validate';
+import { useFieldError, useFieldValue, useForm } from 'vee-validate';
 import { useI18n, T } from '@psitta/vue'
 
 const { t } = useI18n()
@@ -27,11 +27,10 @@ const checkUsernameRule = (inputValue: string) => {
 }
 
 const isFieldError = useFieldError('username')
+const inputValue = useFieldValue('username')
 
-const isUsernameInvalid = ref(true)
-
-watch(isFieldError, (value) => {
-  isUsernameInvalid.value = !!value
+const isUsernameInvalid = computed(() => {
+  return !(!isFieldError.value && !!inputValue.value)
 })
 </script>
 
