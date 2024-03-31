@@ -5,6 +5,10 @@ export function error(
   message?: string,
   options: Partial<NuxtError<unknown>> = {}
 ) {
+  if(import.meta.dev) {
+    console.error(`Error ${statusCode} - ${message}`)
+  }
+
   return createError({
     statusCode,
     statusMessage: message,
@@ -16,53 +20,33 @@ export function notFound(
   message?: string,
   options: Partial<NuxtError<unknown>> = {}
 ) {
-  return createError({
-    statusCode: 404,
-    statusMessage: message,
-    ...options,
-  })
+  return error(404, message, options)
 }
 
 export function unauthorized(
   message?: string,
   options: Partial<NuxtError<unknown>> = {}
 ) {
-  return createError({
-    statusCode: 401,
-    statusMessage: message,
-    ...options,
-  })
+  return error(401, message, options)
 }
 
 export function forbidden(
   message?: string,
   options: Partial<NuxtError<unknown>> = {}
 ) {
-  return createError({
-    statusCode: 401,
-    statusMessage: message,
-    ...options,
-  })
+  return error(403, message, options)
 }
 
 export function internal(
   message?: string,
   options: Partial<NuxtError<unknown>> = {}
 ) {
-  return createError({
-    statusCode: 401,
-    statusMessage: message,
-    ...options,
-  })
+  return error(500, message, options)
 }
 
 export function badRequest(
   message?: string,
   options: Partial<NuxtError<unknown>> = {}
 ) {
-  return createError({
-    statusCode: 400,
-    statusMessage: message,
-    ...options,
-  })
+  return error(400, message, options)
 }

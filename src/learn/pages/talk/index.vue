@@ -11,6 +11,9 @@ definePageMeta({
 const toast = useToast()
 const { t } = useI18n()
 
+const expected = ref("I'm trying")
+const score = ref<number>(0)
+
 const { audioInputs, ensurePermissions } = useDevicesList()
 const currentMicrophone = computed(() => audioInputs.value[0]?.deviceId)
 
@@ -20,22 +23,13 @@ const mic = useUserMedia({
   }
 })
 
-function getBase64(file: Blob) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-  });
-}
-
 const requestMicPermission = async () => {
   try {
     await ensurePermissions()
-  } catch(err) {
+  } catch (err) {
     const error = err as any
 
-    switch(error.name) {
+    switch (error.name) {
       case 'NotAllowedError':
         toast.error(t('Permission not allowed'))
         break
@@ -61,6 +55,8 @@ const handleStartRecording = async () => {
     const audioBlob = new Blob([e.data], { type: 'audio/webm' })
 
     await transcribing.execute(0, audioBlob)
+
+    rateSpeech()
   }
 }
 
@@ -75,12 +71,21 @@ const transcribing = useAsyncState(async (audioBlob: Blob) => {
   immediate: false,
 })
 
-const transcribeResult = computed(() => {
-  if(!transcribing.state.value) {
+const transcription = computed(() => {
+  if (!transcribing.state.value) {
     return
   }
 
-  return transcribing.state.value.alternatives[0]
+  const data = transcribing.state.value;
+  const results = data.results
+
+  return {
+    spoke: !!data.results,
+    best: {
+      transcript: results?.[0].alternatives[0].transcript,
+      confidence: results?.[0].alternatives[0].confidence,
+    }
+  }
 })
 
 const handleStopRecording = () => mic.stop()
@@ -102,22 +107,70 @@ const btnStyles = tv({
     }
   }
 })
+
+const ipa = ref("")
+
+const generateIpa = async () => {
+  try {
+    const text = transcription.value?.best?.transcript
+
+    const data = await $fetch('/api/ipa', {
+      method: 'POST',
+      body: {
+        text: text,
+      }
+    })
+
+    ipa.value = data.transcript;
+  } catch (e) {
+    toast.error('Error generating IPA.')
+    return;
+  }
+}
+
+const rateSpeech = async () => {
+  try {
+    const expect = expected.value
+    const spoke = transcription.value?.best?.transcript
+
+    const data = await $fetch('/api/rateSpeech', {
+      method: 'POST',
+      body: {
+        spoke,
+        expected: expect,
+      }
+    })
+
+    score.value = data.score;
+  } catch (e) {
+    toast.error('Error generating IPA.')
+    return;
+  }
+}
 </script>
 
 <template>
-  <div>
-    <Btn
-      :class="btnStyles({ type: mic.enabled.value ? 'recording' : 'notRecording' })"
-      :loading="transcribing.isLoading.value"
-      @click="handleMicClick"
-    >
+  <div class="px-4 py-4">
+    <div>
+      <p>Speak the text: {{expected}}</p>
+    </div>
+
+    <Btn :class="btnStyles({ type: mic.enabled.value ? 'recording' : 'notRecording' })"
+      :loading="transcribing.isLoading.value" @click="handleMicClick">
       <Icon v-if="!mic.enabled.value">mic</Icon>
       <Icon v-else>graphic_eq</Icon>
     </Btn>
 
-    <div v-if="transcribeResult">
-      <p>Transcript: {{ transcribeResult.transcript }}</p>
-      <p>Confidence: {{ transcribeResult.confidence }}</p>
+    <div v-if="transcription">
+      <template v-if="transcription.spoke">
+        <p>Transcript: {{ transcription.best.transcript }}</p>
+        <p>Confidence: {{ transcription.best.confidence }}</p>
+
+        <p>Score: {{ score }}</p>
+      </template>
+      <template v-else>
+        <p>{{ t("You didn't speak, try again!") }}</p>
+      </template>
     </div>
   </div>
 </template>
