@@ -1,3 +1,5 @@
+import { internal } from "~/src/base/utils/nuxt"
+
 interface Alternative {
   transcript: string
   confidence: number
@@ -30,7 +32,7 @@ export function getStt(apiKey: string) {
       })
 
       if (!res.ok) {
-        throw internal(`Error fetching GCP STT: ${res.status}`)
+        throw internal(`Error ${res.status} fetching GCP STT: ${JSON.stringify(await res.json())}`)
       }
 
       return await res.json() as TranscriptionResponse
@@ -41,5 +43,39 @@ export function getStt(apiKey: string) {
 
   return {
     transcribe,
+  }
+}
+
+interface SpeechSynthesisResponse {
+  audioContent: string,
+  timepoints: any[],
+  audioConfig: any,
+}
+
+export function getTts(apiKey: string) {
+  const synthesize = async (
+    options: any,
+  ) => {
+    try {
+      const res = await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${apiKey}`, {
+        method: 'POST',
+        body: JSON.stringify(options),
+        headers: {
+          "Content-Type": "application/json",
+        }
+      })
+
+      if (!res.ok) {
+        throw internal(`Error ${res.status} fetching GCP TTS: ${JSON.stringify(await res.json())}`)
+      }
+
+      return await res.json() as SpeechSynthesisResponse
+    } catch (error) {
+      throw new Error(`Error synthesizing speech: ${error}`)
+    }
+  }
+
+  return {
+    synthesize,
   }
 }

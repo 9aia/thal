@@ -1,5 +1,6 @@
 import type { GenerationConfig } from '@google/generative-ai'
 import * as _ from 'lodash-es'
+import { internal } from "~/src/base/utils/nuxt"
 
 export function getGemini (apiKey: string) {
   const generateContent = async (

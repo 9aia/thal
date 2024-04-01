@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { getStt } from "~/src/base/utils/gcp"
+import { getTts } from "~/src/base/utils/gcp"
 import { getValidated } from "~/src/base/utils/h3"
 import { unauthorized } from "~/src/base/utils/nuxt"
 
@@ -17,22 +17,24 @@ export default eventHandler(async (event) => {
   }
 
   const data = await getValidated(event, 'body', z.object({
-    audio: z.string()
+    text: z.string(),
+    locale: z.string().default("en-US"),
   }))
 
-  const stt = getStt(GCLOUD_ACCESS_TOKEN);
+  const tts = getTts(GCLOUD_ACCESS_TOKEN);
 
   const options = {
-    config: {
-      encoding:"WEBM_OPUS",
-      sampleRateHertz: 48000,
-      languageCode: "en-US"
+    input: {
+      text: data.text,
     },
-    audio: {
-      content: data.audio.replace('data:audio/webm;base64,', '')
-    }
+    voice: {
+      languageCode: data.locale,
+      ssmlGender: 'FEMALE',
+    },
+    audioConfig: { audioEncoding: 'MP3' },
   }
-  const text = await stt.transcribe(options);
 
-  return text
+  const audio = await tts.synthesize(options)
+
+  return audio
 })
