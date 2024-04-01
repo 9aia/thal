@@ -7,7 +7,7 @@ export default defineNuxtConfig({
       const i18nConfig = getConfig()
 
       pages.forEach((page) => {
-        i18nConfig.locales?.forEach((locale) => {
+        i18nConfig.locales.forEach((locale) => {
           if(locale === i18nConfig.defaultLocale) return;
 
           pages.push({

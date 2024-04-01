@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
-import { getDefaultLocale } from '@psitta/core'
+import { getConfig } from '@psitta/core'
 import { useI18n } from '@psitta/vue'
 import { LOCALES } from '~/src/base/constants'
+
+const { defaultLocale } = getConfig();
 
 const { t } = useI18n()
 const toast = useToast()
@@ -11,7 +13,7 @@ const form = useForm<Record<string, string>>()
 
 onMounted(() => {
   const localeCookie = useCookie('locale', { path: '/' })
-  form.setFieldValue('locale', localeCookie.value || getDefaultLocale())
+  form.setFieldValue('locale', localeCookie.value || defaultLocale)
 })
 
 const isOpen = defineModel({ default: false })
@@ -25,7 +27,7 @@ const submit = form.handleSubmit(async (data) => {
 
   loading.value = true
 
-  if (locale === getDefaultLocale())
+  if (locale === defaultLocale)
     await navigateTo(`/settings`)
   else
     await navigateTo(`/${locale}/settings`)
@@ -38,33 +40,18 @@ const submit = form.handleSubmit(async (data) => {
 </script>
 
 <template>
-  <Modal
-    v-model="isOpen"
-    :loading="loading"
-    :confirm-text="t('Save')"
-    @confirm="submit"
-  >
+  <Modal v-model="isOpen" :loading="loading" :confirm-text="t('Save')" @confirm="submit">
     <template #default>
       <h1 class="font-bold text-2xl mb-2 mt-4">
         {{ t("Select the interface language") }}
       </h1>
 
       <p class="font-gray-600 mb-4">
-        {{
-          t(
-            "Maratongue allows you to tailor your preferences to suit your needs, whether you prefer to navigate in your native language or challenge yourself with English.",
-          )
-        }}
+        {{ t(`Maratongue allows you to tailor your preferences to suit your needs, whether you prefer to navigate in your native language or challenge yourself with English.`) }}
       </p>
 
       <div class="h-[200px] px-2 overflow-auto">
-        <Radio
-          v-for="item in LOCALES"
-          :key="item.id"
-          path="locale"
-          :value="item.id"
-          :label="item.name"
-        >
+        <Radio v-for="item in LOCALES" :key="item.id" path="locale" :value="item.id" :label="item.name">
           <Icon>{{ item.icon }}</Icon>
           {{ item.name }}
         </Radio>

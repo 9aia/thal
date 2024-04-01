@@ -1,15 +1,13 @@
-import { initPsitta } from '@psitta/core'
-import translations from './locales/index'
+import { psitta } from '@psitta/core'
+import messages from './locales/index'
 
-initPsitta({
+psitta({
   locales: ['en', 'pt'],
-  translations,
-  datetimeFormats: { en: 'en-US', pt: 'pt-BR' },
-  numberFormats: { en: 'en-US', pt: 'pt-BR' },
+  messages,
 })
 
 declare module '@psitta/core' {
   interface Register {
-    messages: typeof translations
+    messages: typeof messages
   }
 }

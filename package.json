@@ -22,8 +22,8 @@
   "dependencies": {
     "@ark-ui/vue": "^0.11.0",
     "@lucia-auth/adapter-sqlite": "^3.0.0",
-    "@psitta/core": "^0.1.2",
-    "@psitta/vue": "^0.1.0",
+    "@psitta/core": "^0.2.0",
+    "@psitta/vue": "^0.2.0",
     "@vueuse/core": "^10.9.0",
     "arctic": "^1.2.1",
     "drizzle-orm": "^0.29.4",
