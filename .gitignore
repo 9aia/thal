@@ -28,6 +28,4 @@ db.sqlite
 # Cloudflare
 .wrangler/
 
-wrangler.toml
-wrangler.toml.local
 .wrangler/state/v3

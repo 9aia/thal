@@ -18,9 +18,7 @@ declare module 'h3' {
     cf: CfProperties
     cloudflare: {
       request: Request
-      env: {
-        DB: D1Database
-      }
+      env: Env
       context: ExecutionContext
     }
   }

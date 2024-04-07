@@ -1,0 +1,7 @@
+name = "maratongue"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "maratongue"
+database_id = "c3f5ce62-612e-4aa0-8af0-88f82a535428"
+migrations_dir = "./src/base/server/db/migrations"

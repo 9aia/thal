@@ -15,6 +15,7 @@
     "db:migrate": "wrangler d1 migrations apply maratongue --local",
     "db:migrate:prod": "wranger d1 migrations apply maratongue",
     "db:studio": "drizzle-kit studio",
+    "cf:types": "wrangler types",
     "up": "docker compose up -d",
     "down": "docker compose down",
     "stripe": "docker exec stripe-cli stripe"
@@ -53,6 +54,6 @@
     "nuxt": "^3.10.3",
     "release-it": "^17.1.1",
     "typescript": "^5.3.3",
-    "wrangler": "^3.30.1"
+    "wrangler": "^3.48.0"
   }
 }

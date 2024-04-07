@@ -17,7 +17,7 @@ UPDATE User SET plan_expires = null;
 UPDATE User SET free_trial_used = 0;
 
 -- @block Update plan expiration for all users
-UPDATE User SET plan_expires = '2024-03-08T14:11:00';
+UPDATE User SET plan_expires = '2025-03-08T14:11:00';
 
 -- @block Update user data from for users
 UPDATE User SET profession = 'coder';
