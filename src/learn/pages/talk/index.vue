@@ -155,11 +155,11 @@ const rateSpeech = async () => {
       <p>Speak the text: {{expected}}</p>
     </div>
 
-    <Btn :class="btnStyles({ type: mic.enabled.value ? 'recording' : 'notRecording' })"
+    <button :class="btnStyles({ type: mic.enabled.value ? 'recording' : 'notRecording' })"
       :loading="transcribing.isLoading.value" @click="handleMicClick">
       <Icon v-if="!mic.enabled.value">mic</Icon>
       <Icon v-else>graphic_eq</Icon>
-    </Btn>
+    </button>
 
     <div v-if="transcription">
       <template v-if="transcription.spoke">
