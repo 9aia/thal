@@ -23,14 +23,19 @@ export default eventHandler(async (event) => {
 
   const tts = getTts(GCLOUD_ACCESS_TOKEN);
 
+  const ssml = '<speak>' + data.text.split(" ").map((w, i) => `<mark name="${i}"/>${w}`).join(" ") + '</speak>'
+
   const options = {
     input: {
-      text: data.text,
+      ssml: ssml
     },
     voice: {
       languageCode: data.locale,
       ssmlGender: 'FEMALE',
     },
+    enableTimePointing: [
+      'SSML_MARK'
+    ],
     audioConfig: { audioEncoding: 'MP3' },
   }
 

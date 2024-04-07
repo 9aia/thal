@@ -57,7 +57,7 @@ export function getTts(apiKey: string) {
     options: any,
   ) => {
     try {
-      const res = await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${apiKey}`, {
+      const res = await fetch(`https://texttospeech.googleapis.com/v1beta1/text:synthesize?key=${apiKey}`, {
         method: 'POST',
         body: JSON.stringify(options),
         headers: {
