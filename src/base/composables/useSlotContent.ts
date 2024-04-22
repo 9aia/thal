@@ -16,11 +16,11 @@ function getSlotContent (slot?: Slot) {
   return node.children
 }
 
-function useSlotContent (fallback?: () => string | undefined) {
+function useSlotContent <T extends string>(fallback?: () => T | undefined) {
   const slots = useSlots()
 
-  return computed(() => {
-    return getSlotContent(slots.default) || fallback?.()
+  return computed<T>(() => {
+    return (getSlotContent(slots.default) || fallback?.()) as T
   })
 }
 

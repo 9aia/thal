@@ -10,10 +10,12 @@ type Props = SafeProps<HTMLAttributes> & {
 const props = defineProps<Props>()
 
 const name = useSlotContent(() => props.name)
+
+const nameWithoutMdi = computed(() => name.value?.replace('mdi-', ''))
 </script>
 
 <template>
   <span role="img" class="material-symbols-outlined">
-    {{ name }}
+    {{ nameWithoutMdi }}
   </span>
 </template>

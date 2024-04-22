@@ -19,11 +19,13 @@ const user = inject<Ref<User>>('profile')!
       <small class="text-gray-600">
         {{
           t("Joined {signupDate}", {
-            signupDate: {
-              date: new Date(user!.createdAt),
-              year: "numeric",
-              month: "long",
-            },
+            signupDate: [
+              new Date(user!.createdAt),
+              {
+                year: "numeric",
+                month: "long",
+              },
+            ]
           })
         }}
       </small>

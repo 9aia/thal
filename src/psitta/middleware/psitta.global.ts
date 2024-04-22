@@ -15,7 +15,6 @@ export default defineNuxtRouteMiddleware(async (event) => {
     if (!locale) {
       const acceptLanguage = process.server ? null : detectLocaleFromNavigator()?.language
 
-
       const header = useRequestHeader('accept-language')
       locale = header
         ? detectLocaleFromAcceptLanguage(header)?.language || defaultLocale
@@ -23,6 +22,8 @@ export default defineNuxtRouteMiddleware(async (event) => {
     }
 
     if (locale !== defaultLocale && pathname === urlWithoutLocale) {
+      if(pathname.startsWith('/api/')) return
+
       return navigateTo(`/${locale}${urlWithoutLocale}`, { replace: true })
     }
   }
