@@ -1,23 +1,41 @@
 <script setup lang="ts">
 import A from '~/src/base/components/A.vue'
 import { t } from '@psitta/vue'
+import Header from '../../components/Header.vue';
 
 const user = useUser()
 const route = useRoute()
-const { data: profile } = useAsyncData(
+
+const username = route.params.username
+
+const { execute, data, pending, error } = useAsyncData(
   'profiles',
   async () => {
-    const username = route.params.username
-    const isMe = user.value!.username === username
-
-    if (isMe) {
-      return user.value
-    }
-
-    const profile = await $fetch(`/api/profile/${username}` as '/api/profile/:username')
-    return profile
-  }
+    const profileFetched = await $fetch(`/api/profile/${username}`)
+    return profileFetched
+  },
+  { immediate: false }
 )
+
+const profile = ref<typeof data['value']>()
+
+const loadProfile = async () => {
+  const isMe = user.value!.username === username
+
+  if (isMe) {
+    profile.value = user.value!
+
+    return
+  }
+
+  await execute();
+
+  profile.value = data.value!
+}
+
+const isLoading = computed(() => !profile.value && pending.value)
+
+loadProfile()
 
 definePageMeta({
   middleware: 'premium',
@@ -28,7 +46,39 @@ provide('profile', profile)
 </script>
 
 <template>
+  <div v-if="isLoading" class="flex justify-center items-center h-full">
+    <Spinner size="sm" />
+  </div>
+
+  <div v-else-if="!!error" class="flex justify-center items-center h-full">
+    <Error
+      :error="error"
+      @try-again="loadProfile"
+    >
+      <template #title="{ isNotFound }">
+        <div class="space-y-2">
+          <div>
+          {{
+            isNotFound
+              ? t("User not found:")
+              : t("Something wrong happened")
+          }}
+          </div>
+  
+          <div class="text-white text-sm">
+          {{
+            isNotFound
+              ? username
+              : ''
+          }}
+          </div>
+        </div>
+      </template>
+    </Error>
+  </div>
+
   <div
+    v-else
     class="bg-slate-300 flex flex-col sm:flex-row md:flex-col lg:flex-row min-h-screen"
   >
     <aside

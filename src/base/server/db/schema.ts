@@ -49,7 +49,7 @@ export const usernameSchema = z
   })
 
 export const nameSchema = z.string().min(1).max(20)
-export const pronounsSchema = z.string().min(0).max(20).optional()
+export const pronounsSchema = z.string().min(0).max(20).nullable()
 
 export const userSelectSchema = createSelectSchema(users, {
   name: nameSchema,
