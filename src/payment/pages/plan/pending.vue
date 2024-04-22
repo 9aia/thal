@@ -12,12 +12,16 @@ const { t } = useI18n()
 
 const disabled = refAutoReset(false, 3000)
 
+const user = useUser()
+
 const goToApp = async () => {
   disabled.value = true
 
-  const user = await $fetch("/api/user")
+  const userFetch = await $fetch("/api/user")
 
-  if(!user?.plan) {
+  user.value = userFetch
+
+  if(!userFetch?.plan) {
     toast.warn(t('Your plan is being processed yet.'))
 
     return
