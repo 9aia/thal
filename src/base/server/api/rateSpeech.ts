@@ -13,7 +13,7 @@ export default eventHandler(async (event) => {
   }
   
   const data = await getValidated(event, 'body', z.object({
-    spoke: z.string().min(1).max(300),
+    transcript: z.string().min(1).max(300),
     expected: z.string().min(1).max(300),
   }))
 
@@ -26,7 +26,7 @@ export default eventHandler(async (event) => {
 
     ## User Speech Transcription
 
-    ${data.spoke}
+    ${data.transcript}
 
     ## Output Criteria
 
@@ -56,10 +56,12 @@ export default eventHandler(async (event) => {
 
     text = bestPart?.text
   } catch (e) {
-    throw internal(`Error while fetching Gemini API: ${e.message}`)
+    const error = e as Error
+
+    throw internal(`Error while fetching Gemini API: ${error.message}`)
   }
 
-  let json: { transcript: string };
+  let json: { score: number };
 
   try {
     json = JSON.parse(text)
