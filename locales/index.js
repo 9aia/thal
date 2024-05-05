@@ -140,7 +140,7 @@ export default {
   'Username not found.': {
     pt: 'Nome de usuário não encontrado.',
   },
-  'Wry are you learning English?': {
+  'Why are you learning English?': {
     pt: 'Por que você está aprendendo inglês?',
   },
   'Maratongue tailors your learning journey to your unique needs. Tell us what you want to achieve with your English.': {
