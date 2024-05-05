@@ -1,26 +1,25 @@
-import { getGemini } from '~/src/base/utils/gemini'
-import { getValidated } from '~/src/base/utils/h3'
-import { getUserData } from '~/src/profile/utils/profile'
-import { profileDataSchema } from '../../../schema'
-import { forbidden, internal, unauthorized } from '~/src/base/utils/nuxt'
-import { z } from 'zod'
+import process from "node:process"
+import { z } from "zod"
+import { profileDataSchema } from "../../../schema"
+import { getGemini } from "~/src/base/utils/gemini"
+import { getValidated } from "~/src/base/utils/h3"
+import { getUserData } from "~/src/profile/utils/profile"
+import { forbidden, internal, unauthorized } from "~/src/base/utils/nuxt"
 
 export default eventHandler(async (event) => {
-  const { username } = await getValidated(event, 'params', z.object({ username: z.string() }))
+  const { username } = await getValidated(event, "params", z.object({ username: z.string() }))
 
   const { GEMINI_API_KEY } = process.env
 
   const user = event.context.user
 
-  if(!user) {
+  if (!user)
     throw unauthorized()
-  }
 
-  if(username !== user.username) {
+  if (username !== user.username)
     throw forbidden()
-  }
-  
-  const data = await getValidated(event, 'body', profileDataSchema)
+
+  const data = await getValidated(event, "body", profileDataSchema)
 
   const profileData = getUserData(data)
 
@@ -58,14 +57,14 @@ export default eventHandler(async (event) => {
   try {
     const res = (await gemini.generateContent(prompt)) as any
 
-    if ('error' in res) {
-      throw internal('Gemini internal error')
-    }
+    if ("error" in res)
+      throw internal("Gemini internal error")
 
     const text = res.candidates[0].content.parts[0].text
 
     return { summary: text }
-  } catch (e) {
-    throw internal('Error while fetching Gemini API')
+  }
+  catch (e) {
+    throw internal("Error while fetching Gemini API")
   }
 })

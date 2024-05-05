@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from "zod"
 
 export const paginatorSchema = z.object({
   page: numericString(z.number().positive().default(1)),

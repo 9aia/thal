@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { t } from '@psitta/vue'
+import { t } from "@psitta/vue"
 
 definePageMeta({
-  middleware: 'user',
+  middleware: "user",
 })
 </script>
 

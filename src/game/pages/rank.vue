@@ -1,7 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
-  middleware: 'premium',
-  layout: 'app',
+  middleware: "premium",
+  layout: "app",
 })
 </script>
 

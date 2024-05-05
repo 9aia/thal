@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { tv } from 'tailwind-variants'
-import { computed, effect, ref } from 'vue'
-import Icon from '../display/Icon.vue'
-import { useToast } from '../../composables/useToast'
+import { tv } from "tailwind-variants"
+import { computed, effect, ref } from "vue"
+import Icon from "../display/Icon.vue"
+import { useToast } from "../../composables/useToast"
 
 const styles = tv({
-  base: 'fixed bottom-4 right-1/2 translate-x-1/2 z-50 max-w-sm alert',
+  base: "fixed bottom-4 right-1/2 translate-x-1/2 z-50 max-w-sm alert",
   variants: {
     type: {
-      info: 'alert-info',
-      warning: 'alert-warning',
-      error: 'alert-error',
-      success: 'alert-success',
+      info: "alert-info",
+      warning: "alert-warning",
+      error: "alert-error",
+      success: "alert-success",
     },
   },
 })
@@ -27,12 +27,12 @@ interface Icons {
   info: string
 }
 const icons: Icons = {
-  success: 'check_circle',
-  warning: 'warning',
-  error: 'error',
-  info: 'information',
+  success: "check_circle",
+  warning: "warning",
+  error: "error",
+  info: "information",
 }
-const icon = computed(() => icons[toast.type.value || 'info'])
+const icon = computed(() => icons[toast.type.value || "info"])
 
 effect(() => {
   const duration = toast.duration.value ?? 3000
@@ -41,7 +41,7 @@ effect(() => {
     if (duration < 1)
       return
 
-    el.value.style.animationPlayState = 'running'
+    el.value.style.animationPlayState = "running"
 
     setTimeout(() => {
       toast.close()

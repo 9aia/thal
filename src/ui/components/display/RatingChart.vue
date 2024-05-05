@@ -1,39 +1,39 @@
 <script setup lang="ts">
-import Icon from './Icon.vue'
-import { computed } from 'vue'
+import { computed } from "vue"
+import Icon from "./Icon.vue"
 
 const props = defineProps<any>()
 
 const scores = [
   {
-    title: 'Muito satisfeito',
-    barClass: 'bg-cyan-500',
-    iconClass: 'text-cyan-500',
-    icon: 'sentiment_very_satisfied',
+    title: "Muito satisfeito",
+    barClass: "bg-cyan-500",
+    iconClass: "text-cyan-500",
+    icon: "sentiment_very_satisfied",
   },
   {
-    title: 'Satisfeito',
-    barClass: 'bg-green-500',
-    iconClass: 'text-green-500',
-    icon: 'sentiment_satisfied',
+    title: "Satisfeito",
+    barClass: "bg-green-500",
+    iconClass: "text-green-500",
+    icon: "sentiment_satisfied",
   },
   {
-    title: 'Neutro',
-    barClass: 'bg-yellow-500',
-    iconClass: 'text-yellow-500',
-    icon: 'sentiment_neutral',
+    title: "Neutro",
+    barClass: "bg-yellow-500",
+    iconClass: "text-yellow-500",
+    icon: "sentiment_neutral",
   },
   {
-    title: 'Insatisfeito',
-    barClass: 'bg-orange-500',
-    iconClass: 'text-orange-500',
-    icon: 'sentiment_dissatisfied',
+    title: "Insatisfeito",
+    barClass: "bg-orange-500",
+    iconClass: "text-orange-500",
+    icon: "sentiment_dissatisfied",
   },
   {
-    title: 'Muito insatisfeito',
-    barClass: 'bg-red-500',
-    iconClass: 'text-red-500',
-    icon: 'sentiment_very_dissatisfied',
+    title: "Muito insatisfeito",
+    barClass: "bg-red-500",
+    iconClass: "text-red-500",
+    icon: "sentiment_very_dissatisfied",
   },
 ]
 const levelPercs = computed(() => [...props.levelPercs].reverse())

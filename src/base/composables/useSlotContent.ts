@@ -1,22 +1,24 @@
 import type {
   Slot,
-} from 'vue'
+} from "vue"
 import {
   computed,
   useSlots,
-} from 'vue'
+} from "vue"
 
-function getSlotContent (slot?: Slot) {
-  if (!slot) { return null }
+function getSlotContent(slot?: Slot) {
+  if (!slot)
+    return null
 
   const node = slot()[0]
 
-  if (!node) { return null }
+  if (!node)
+    return null
 
   return node.children
 }
 
-function useSlotContent <T extends string>(fallback?: () => T | undefined) {
+function useSlotContent<T extends string>(fallback?: () => T | undefined) {
   const slots = useSlots()
 
   return computed<T>(() => {

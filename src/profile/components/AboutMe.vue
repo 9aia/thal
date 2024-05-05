@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { t } from '@psitta/vue'
-import { ITEMS } from '~/src/base/constants'
-import type { User } from 'lucia';
+import { t } from "@psitta/vue"
+import type { User } from "lucia"
+import { ITEMS } from "~/src/base/constants"
 
-const user = inject<Ref<User>>('profile')!
+const user = inject<Ref<User>>("profile")!
 </script>
 
 <template>

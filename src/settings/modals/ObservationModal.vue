@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import type { User } from 'lucia';
-import { useForm } from 'vee-validate'
-import { useI18n } from '@psitta/vue'
-import { MAX_OBSERVATION_CHARS } from '~/src/base/constants'
+import type { User } from "lucia"
+import { useForm } from "vee-validate"
+import { useI18n } from "@psitta/vue"
+import { MAX_OBSERVATION_CHARS } from "~/src/base/constants"
 
 const { t } = useI18n()
 const toast = useToast()
 const user = useUser()
 
 const form = useForm<{
-  observation: User['observation']
+  observation: User["observation"]
 }>({
   initialValues: {
     observation: user.value!.observation,
@@ -26,19 +26,19 @@ const submit = form.handleSubmit(async () => {
   loading.value = true
 
   try {
-    await $fetch(`/api/profile/${username}` as '/api/profile/:username', {
-      method: 'patch',
+    await $fetch(`/api/profile/${username}` as "/api/profile/:username", {
+      method: "patch",
       body: {
         observation: data.observation,
       },
     })
 
-    console.log(user.value!)
     user.value = { ...user.value!, observation: data.observation }
 
-    toast.success(t('Observation has been updated successfully.'))
-  } catch (e) {
-    toast.error(t('An error occurred while updating your observation.'))
+    toast.success(t("Observation has been updated successfully."))
+  }
+  catch (e) {
+    toast.error(t("An error occurred while updating your observation."))
   }
 
   loading.value = false

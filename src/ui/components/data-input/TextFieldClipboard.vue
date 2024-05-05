@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import Icon from '../display/Icon.vue'
+import { ref } from "vue"
+import Icon from "../display/Icon.vue"
 
 const props = defineProps<{
   text: string
@@ -9,14 +9,14 @@ const props = defineProps<{
   copyMessage?: string
 }>()
 
-const copyMessage = ref('')
+const copyMessage = ref("")
 
 function copy() {
   navigator.clipboard.writeText(props.text)
 
-  copyMessage.value = props.copyMessage || ''
+  copyMessage.value = props.copyMessage || ""
 
-  setTimeout(() => (copyMessage.value = ''), 2000)
+  setTimeout(() => (copyMessage.value = ""), 2000)
 }
 </script>
 

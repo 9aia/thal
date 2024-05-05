@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { t } from '@psitta/vue'
-import type { User } from 'lucia';
+import { t } from "@psitta/vue"
+import type { User } from "lucia"
 
-const user = inject<Ref<User>>('profile')!
+const user = inject<Ref<User>>("profile")!
 </script>
 
 <template>
@@ -25,7 +25,7 @@ const user = inject<Ref<User>>('profile')!
                 year: "numeric",
                 month: "long",
               },
-            ]
+            ],
           })
         }}
       </small>

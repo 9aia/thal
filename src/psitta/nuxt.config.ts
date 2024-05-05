@@ -1,5 +1,5 @@
 import { getConfig } from "@psitta/core"
-import '../../i18n'
+import "../../i18n"
 
 export default defineNuxtConfig({
   hooks: {
@@ -8,15 +8,16 @@ export default defineNuxtConfig({
 
       pages.forEach((page) => {
         i18nConfig.locales.forEach((locale) => {
-          if(locale === i18nConfig.defaultLocale) return;
+          if (locale === i18nConfig.defaultLocale)
+            return
 
           pages.push({
             ...page,
             name: `${page.name}-${locale}`,
-            path: `/${locale}${page.path}`
+            path: `/${locale}${page.path}`,
           })
         })
       })
-    }
-  }
+    },
+  },
 })

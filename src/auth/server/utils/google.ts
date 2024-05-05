@@ -1,15 +1,15 @@
-import { Google } from "arctic"
+import type { Google } from "arctic"
 
 export async function getGoogleUser(
   google: Google,
   code: string,
-  codeVerifier: string
+  codeVerifier: string,
 ) {
   const tokens = await google.validateAuthorizationCode(code, codeVerifier)
-  const response = await fetch('https://openidconnect.googleapis.com/v1/userinfo', {
+  const response = await fetch("https://openidconnect.googleapis.com/v1/userinfo", {
     headers: {
-      Authorization: `Bearer ${tokens.accessToken}`
-    }
+      Authorization: `Bearer ${tokens.accessToken}`,
+    },
   })
   const user: GoogleUser = await response.json()
 

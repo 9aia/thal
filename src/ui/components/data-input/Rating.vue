@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { RatingGroup } from '@ark-ui/vue'
-import type { RuleExpression } from 'vee-validate'
-import { useField } from 'vee-validate'
-import type { MaybeRef } from 'vue'
-import Icon from '../display/Icon.vue'
+import { RatingGroup } from "@ark-ui/vue"
+import type { RuleExpression } from "vee-validate"
+import { useField } from "vee-validate"
+import type { MaybeRef } from "vue"
+import Icon from "../display/Icon.vue"
 
 interface RatingProps {
   path: string

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Item from './Item.vue'
-import type { MenuItem as MenuItemType } from './types'
+import Item from "./Item.vue"
+import type { MenuItem as MenuItemType } from "./types"
 
 defineProps<{
   items: MenuItemType[]

@@ -5,8 +5,8 @@ export interface MenuItem {
   href?: string
   action?: string
   method?: string
-  type?: 'external' | 'internal' | 'accordion'
-  meaning?: 'warning' | 'danger'
+  type?: "external" | "internal" | "accordion"
+  meaning?: "warning" | "danger"
   newTab?: boolean
   localize?: boolean
   onSubmit?: (e: Event) => void

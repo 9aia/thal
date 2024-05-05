@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { tv } from 'tailwind-variants'
-import { useAttrs } from 'vue'
-import { localizeUrl } from '@psitta/core';
-import { useLocale } from '@psitta/vue';
+import { tv } from "tailwind-variants"
+import { useAttrs } from "vue"
+import { localizeUrl } from "@psitta/core"
+import { useLocale } from "@psitta/vue"
 
 interface Props {
   activeClass?: string
@@ -18,7 +18,7 @@ const attrs = useAttrs()
 const route = useRoute()
 
 const isActive = computed(() => route.fullPath === props.href)
-const locale = useLocale();
+const locale = useLocale()
 
 const normalHref = computed(() => {
   return props.localize ?? true
@@ -28,11 +28,11 @@ const normalHref = computed(() => {
 
 const styles = computed(() =>
   tv({
-    base: (attrs.class as string) || '',
+    base: (attrs.class as string) || "",
     variants: {
       type: {
-        active: props.activeClass || 'is-active',
-        inactive: '',
+        active: props.activeClass || "is-active",
+        inactive: "",
       },
     },
   }),

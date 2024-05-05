@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { t } from '@psitta/vue'
-import { HOBBIES } from '~/src/base/constants'
-import { parseJoin } from '~/src/base/utils/string'
-import type { User } from 'lucia';
+import { t } from "@psitta/vue"
+import type { User } from "lucia"
+import { HOBBIES } from "~/src/base/constants"
+import { parseJoin } from "~/src/base/utils/string"
 
-const user = inject<Ref<User>>('profile')!
+const user = inject<Ref<User>>("profile")!
 const hobbies = computed(() => {
-  return parseJoin(user!.value.hobbies || '', HOBBIES)
+  return parseJoin(user!.value.hobbies || "", HOBBIES)
 })
 </script>
 

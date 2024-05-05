@@ -1,8 +1,8 @@
-import { getConfig, type Locale } from '@psitta/core';
-import { createPsitta } from '@psitta/vue';
-import '~/i18n';
+import { type Locale, getConfig } from "@psitta/core"
+import { createPsitta } from "@psitta/vue"
+import "~/i18n"
 
-type PsittaStore = { locale: Locale };
+interface PsittaStore { locale: Locale }
 
 export const store = reactive<PsittaStore>({} as PsittaStore)
 
@@ -18,7 +18,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   useHead({
     htmlAttrs: {
-      lang: locale
-    }
+      lang: locale,
+    },
   })
 })

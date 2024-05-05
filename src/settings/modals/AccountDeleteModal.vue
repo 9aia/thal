@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { useAsyncState } from '@vueuse/core';
-import { useFieldError, useFieldValue, useForm } from 'vee-validate';
-import { useI18n, T } from '@psitta/vue'
+import { useFieldError, useFieldValue, useForm } from "vee-validate"
+import { T, useI18n } from "@psitta/vue"
 
 const { t } = useI18n()
 
@@ -11,23 +10,23 @@ const { handleSubmit } = useForm()
 const user = useUser()
 
 const submit = handleSubmit(async () => {
-  if (!formDeleteUserRef.value) {
+  if (!formDeleteUserRef.value)
     return
-  }
 
   formDeleteUserRef.value.submit()
 })
 
 const isOpen = defineModel({ default: false })
 
-const checkUsernameRule = (inputValue: string) => {
-  if (!inputValue) return t('Username is required')
+function checkUsernameRule(inputValue: string) {
+  if (!inputValue)
+    return t("Username is required")
 
-  return inputValue === user.value!.username || t('Username does not match')
+  return inputValue === user.value!.username || t("Username does not match")
 }
 
-const isFieldError = useFieldError('username')
-const inputValue = useFieldValue('username')
+const isFieldError = useFieldError("username")
+const inputValue = useFieldValue("username")
 
 const isUsernameInvalid = computed(() => {
   return !(!isFieldError.value && !!inputValue.value)
@@ -44,10 +43,14 @@ const isUsernameInvalid = computed(() => {
       </h1>
 
       <div role="alert" class="flex items-center gap-2 bg-transparent">
-        <Icon class="text-warning">warning</Icon>
+        <Icon class="text-warning">
+          warning
+        </Icon>
 
-        <T text="This action {cannot} be undone. This will permanently delete your profile, stats and progress."
-          :values="{ cannot: 'cannot' }">
+        <T
+          text="This action {cannot} be undone. This will permanently delete your profile, stats and progress."
+          :values="{ cannot: 'cannot' }"
+        >
           <template #cannot="slotProps">
             <span class="font-bold">
               {{ slotProps.cannot }} {{ ' ' }}
@@ -56,8 +59,7 @@ const isUsernameInvalid = computed(() => {
         </T>
       </div>
 
-      <p class="mb-4 mt-4 text-slate-800">
-      </p>
+      <p class="mb-4 mt-4 text-slate-800" />
 
       <p class="mb-2 text-slate-800">
         <T text="To confirm, please insert {username} below:" :values="{ username: user.username }">

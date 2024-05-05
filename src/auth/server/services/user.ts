@@ -1,15 +1,16 @@
-import { and, eq, sql } from 'drizzle-orm';
-import { H3Event, H3EventContext } from 'h3';
-import { UserInsert, oAuthAccounts, users } from '~/src/base/server/db/schema';
-import { now } from '~/src/base/utils/date';
-import { OAuthProviderParams } from '../../types';
-import { generateId } from 'lucia';
-import { unauthorized } from '~/src/base/utils/nuxt';
+import { and, eq, sql } from "drizzle-orm"
+import type { H3Event, H3EventContext } from "h3"
+import { generateId } from "lucia"
+import type { OAuthProviderParams } from "../../types"
+import type { UserInsert } from "~/src/base/server/db/schema"
+import { oAuthAccounts, users } from "~/src/base/server/db/schema"
+import { now } from "~/src/base/utils/date"
+import { unauthorized } from "~/src/base/utils/nuxt"
 
 export async function createUser(
-  orm: H3EventContext['orm'],
+  orm: H3EventContext["orm"],
   userInsert: UserInsert,
-  providerParams: OAuthProviderParams
+  providerParams: OAuthProviderParams,
 ) {
   const userId = generateId(15)
 
@@ -30,8 +31,8 @@ export async function createUser(
 }
 
 export async function getUser(
-  orm: H3EventContext['orm'],
-  providerParams: OAuthProviderParams
+  orm: H3EventContext["orm"],
+  providerParams: OAuthProviderParams,
 ) {
   const user = await orm
     .select()
@@ -39,8 +40,8 @@ export async function getUser(
     .where(
       and(
         eq(oAuthAccounts.providerId, providerParams.providerId),
-        eq(oAuthAccounts.providerUserId, sql.placeholder('id'))
-      )
+        eq(oAuthAccounts.providerUserId, sql.placeholder("id")),
+      ),
     )
     .prepare()
     .get({ id: providerParams.providerUserId })
@@ -53,15 +54,14 @@ export async function invalidateSession(
 ) {
   const lucia = event.context.lucia
 
-  if (!event.context.session) {
+  if (!event.context.session)
     throw unauthorized()
-  }
 
   await lucia.invalidateSession(event.context.session.id)
-  
+
   appendHeader(
     event,
-    'Set-Cookie',
-    lucia.createBlankSessionCookie().serialize()
+    "Set-Cookie",
+    lucia.createBlankSessionCookie().serialize(),
   )
 }

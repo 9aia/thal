@@ -1,11 +1,11 @@
-import { defineConfig } from 'drizzle-kit'
+import { defineConfig } from "drizzle-kit"
 
 export default defineConfig({
-  schema: './src/base/server/db/schema.ts',
-  out: './src/base/server/db/migrations',
-  driver: 'd1',
+  schema: "./src/base/server/db/schema.ts",
+  out: "./src/base/server/db/migrations",
+  driver: "d1",
   dbCredentials: {
-    wranglerConfigPath: 'wrangler.toml',
-    dbName: 'maratongue',
+    wranglerConfigPath: "wrangler.toml",
+    dbName: "maratongue",
   },
 })

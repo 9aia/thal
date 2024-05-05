@@ -1,29 +1,29 @@
 <script setup lang="ts">
-import Icon from '../display/Icon.vue'
-import { T, t } from '@psitta/vue'
-import A from '~/src/base/components/A.vue'
+import { T, t } from "@psitta/vue"
+import Icon from "../display/Icon.vue"
+import A from "~/src/base/components/A.vue"
 
 const sections = [
   {
-    title: 'Links',
+    title: "Links",
     items: [
-      { title: 'Home', href: '/' },
-      { title: 'About', href: '/about' },
-      { title: 'Pricing', href: '/pricing' },
+      { title: "Home", href: "/" },
+      { title: "About", href: "/about" },
+      { title: "Pricing", href: "/pricing" },
     ],
   },
   {
-    title: 'Support',
+    title: "Support",
     items: [
-      { title: 'Give us feedback', href: 'https://forms.gle/5ePvXjrebyWGUrM26' },
-      { title: 'Report a problem', href: 'https://forms.gle/ANMv7qnwTHva1k7L8' },
+      { title: "Give us feedback", href: "https://forms.gle/5ePvXjrebyWGUrM26" },
+      { title: "Report a problem", href: "https://forms.gle/ANMv7qnwTHva1k7L8" },
     ],
   },
   {
-    title: 'Legal',
+    title: "Legal",
     items: [
-      { title: 'Terms of Service', href: '/terms' },
-      { title: 'Privacy Policy', href: '/privacy' },
+      { title: "Terms of Service", href: "/terms" },
+      { title: "Privacy Policy", href: "/privacy" },
     ],
   },
 ]

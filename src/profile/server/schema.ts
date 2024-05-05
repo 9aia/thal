@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from "zod"
 
 export const profileDataSchema = z.object({
   goals: z.string().nullable().optional(),

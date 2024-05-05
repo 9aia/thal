@@ -7,7 +7,7 @@ export interface PlanType {
 export const PLANS = {
   premium: {
     amount: 3999,
-    name: 'PREMIUM',
-    lookupKey: 'premium'
+    name: "PREMIUM",
+    lookupKey: "premium",
   },
 }

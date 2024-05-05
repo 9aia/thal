@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useField } from 'vee-validate'
-import type { InputHTMLAttributes } from 'vue'
-import type { SafeProps } from '~/src/base/utils/types'
+import { useField } from "vee-validate"
+import type { InputHTMLAttributes } from "vue"
+import type { SafeProps } from "~/src/base/utils/types"
 
 type Props = SafeProps<InputHTMLAttributes> & {
   path: string
@@ -11,7 +11,7 @@ type Props = SafeProps<InputHTMLAttributes> & {
 
 const props = defineProps<Props>()
 
-const { value, handleBlur } = useField(props.path, {}, { type: 'radio' })
+const { value, handleBlur } = useField(props.path, {}, { type: "radio" })
 </script>
 
 <template>

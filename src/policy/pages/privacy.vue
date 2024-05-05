@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useLocale } from '@psitta/vue'
+import { useLocale } from "@psitta/vue"
 
 const locale = useLocale()
 
 definePageMeta({
-  layout: 'center',
+  layout: "center",
 })
 </script>
 
@@ -62,7 +62,8 @@ definePageMeta({
         algumas informações pessoais podem ser compartilhadas com o Gemini.
         Recomendamos que você revise a
         <a
-          href="https://support.google.com/gemini/answer/13594961?visit_id=638434421225288685-621180296&p=privacy_notice&rd=1#privacy_notice">Política
+          href="https://support.google.com/gemini/answer/13594961?visit_id=638434421225288685-621180296&p=privacy_notice&rd=1#privacy_notice"
+        >Política
           de Privacidade do Gemini</a>
         para entender como eles coletam, usam e divulgam suas informações.
       </p>
@@ -162,7 +163,8 @@ definePageMeta({
         and provide personalized content. When using the Gemini API, certain
         personal information may be shared with Gemini. We encourage you to review
         <a
-          href="https://support.google.com/gemini/answer/13594961?visit_id=638434421225288685-621180296&p=privacy_notice&rd=1#privacy_notice">Gemini's
+          href="https://support.google.com/gemini/answer/13594961?visit_id=638434421225288685-621180296&p=privacy_notice&rd=1#privacy_notice"
+        >Gemini's
           Privacy Policy</a>
         to understand how they collect, use, and disclose your information.
       </p>

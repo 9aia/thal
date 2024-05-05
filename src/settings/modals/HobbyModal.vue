@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import * as _ from 'lodash-es'
-import { useForm } from 'vee-validate'
-import { useI18n } from '@psitta/vue'
-import { HOBBIES, MAX_HOBBIES_AMOUNT } from '~/src/base/constants'
-import { parseInitialValues } from '../utils'
+import * as _ from "lodash-es"
+import { useForm } from "vee-validate"
+import { useI18n } from "@psitta/vue"
+import { parseInitialValues } from "../utils"
+import { HOBBIES, MAX_HOBBIES_AMOUNT } from "~/src/base/constants"
 
 const { t } = useI18n()
 const toast = useToast()
 const user = useUser()
 
-const initialValues = parseInitialValues(user.value!.hobbies || '')
+const initialValues = parseInitialValues(user.value!.hobbies || "")
 const form = useForm<Record<string, boolean | undefined>>({
   initialValues,
 })
@@ -17,14 +17,14 @@ const keys = computed(() => {
   const values = form.values
   return Object.keys(values)
     .filter(key => values[key])
-    .join(', ')
+    .join(", ")
 })
 const hobbyNames = computed(() => {
   const hobbies = parseJoin(keys.value, HOBBIES)
   return hobbies.map(hobby => hobby.name)
 })
 
-const search = ref('')
+const search = ref("")
 const filteredList = computed(() => {
   return HOBBIES.filter(hobby =>
     hobby.name.toLowerCase().includes(search.value.toLowerCase()),
@@ -41,18 +41,19 @@ const submit = form.handleSubmit(async () => {
   loading.value = true
 
   try {
-    await $fetch(`/api/profile/${username}` as '/api/profile/:username', {
-      method: 'patch',
+    await $fetch(`/api/profile/${username}` as "/api/profile/:username", {
+      method: "patch",
       body: {
         hobbies: currentKeys,
       },
     })
 
     user.value = { ...user.value!, hobbies: currentKeys }
-    
-    toast.success(t('Hobbies were updated successfully.'))
-  } catch (e) {
-    toast.error(t('An error occurred while updating hobbies.'))
+
+    toast.success(t("Hobbies were updated successfully."))
+  }
+  catch (e) {
+    toast.error(t("An error occurred while updating hobbies."))
   }
 
   loading.value = false

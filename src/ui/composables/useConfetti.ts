@@ -1,7 +1,7 @@
-export function useConfetti () {
+export function useConfetti() {
   let timer: any
   let frame: number | undefined
-  const containerId = 'confetti-container'
+  const containerId = "confetti-container"
 
   const make = () => {
     const random = Math.random
@@ -64,12 +64,12 @@ export function useConfetti () {
       },
     ]
 
-    function color (r: number, g: number, b: number): string {
+    function color(r: number, g: number, b: number): string {
       return `rgb(${r},${g},${b})`
     }
 
     // Cosine interpolation
-    function interpolation (a: number, b: number, t: number): number {
+    function interpolation(a: number, b: number, t: number): number {
       return ((1 - cos(PI * t)) / 2) * (b - a) + a
     }
 
@@ -77,7 +77,7 @@ export function useConfetti () {
     const radius = 1 / eccentricity
     const radius2 = radius + radius
 
-    function createPoisson (): number[] {
+    function createPoisson(): number[] {
       // domain is the set of points which are still available to pick from
       // D = union{ [d_i, d_i+1] | i is even }
       const domain = [radius, 1 - radius]
@@ -117,39 +117,41 @@ export function useConfetti () {
           //         c--d          Split interval
           //       a------b
           if (a >= c && a < d) {
-            if (b > d) { domain[l] = d } // Move interior (Left case)
-            else { domain.splice(l, 2) }
+            if (b > d)
+              domain[l] = d // Move interior (Left case)
+            else domain.splice(l, 2)
           }
           // Delete interval
           else if (a < c && b > c) {
-            if (b <= d) { domain[i] = c } // Move interior (Right case)
-            else { domain.splice(i, 0, c, d) }
+            if (b <= d)
+              domain[i] = c // Move interior (Right case)
+            else domain.splice(i, 0, c, d)
           } // Split interval
         }
 
         // Re-measure the domain
-        for (i = 0, l = domain.length, measure = 0; i < l; i += 2) { measure += domain[i + 1] - domain[i] }
+        for (i = 0, l = domain.length, measure = 0; i < l; i += 2) measure += domain[i + 1] - domain[i]
       }
 
       return spline.sort()
     }
 
     // Create the overarching container
-    const container = document.createElement('div')
+    const container = document.createElement("div")
     container.id = containerId
-    container.style.position = 'fixed'
-    container.style.top = '0'
-    container.style.left = '0'
-    container.style.width = '100%'
-    container.style.height = '0'
-    container.style.overflow = 'visible'
-    container.style.zIndex = '9999'
+    container.style.position = "fixed"
+    container.style.top = "0"
+    container.style.left = "0"
+    container.style.width = "100%"
+    container.style.height = "0"
+    container.style.overflow = "visible"
+    container.style.zIndex = "9999"
 
     // Confetto constructor
     class Confetto {
       frame: number = 0
-      outer: HTMLDivElement = document.createElement('div')
-      inner: HTMLDivElement = document.createElement('div')
+      outer: HTMLDivElement = document.createElement("div")
+      inner: HTMLDivElement = document.createElement("div")
       axis: string
       theta: number
       dTheta: number
@@ -160,19 +162,19 @@ export function useConfetti () {
       splineX: number[]
       splineY: number[]
 
-      constructor (theme: () => string) {
+      constructor(theme: () => string) {
         this.outer.appendChild(this.inner)
 
         const outerStyle = this.outer.style
         const innerStyle = this.inner.style
-        outerStyle.position = 'absolute'
+        outerStyle.position = "absolute"
         outerStyle.width = `${sizeMin + sizeMax * random()}px`
         outerStyle.height = `${sizeMin + sizeMax * random()}px`
-        innerStyle.width = '100%'
-        innerStyle.height = '100%'
+        innerStyle.width = "100%"
+        innerStyle.height = "100%"
         innerStyle.backgroundColor = theme()
 
-        outerStyle.perspective = '50px'
+        outerStyle.perspective = "50px"
         outerStyle.transform = `rotate(${360 * random()}deg)`
         this.axis = `rotate3D(${cos(360 * random())},${cos(360 * random())},0,`
         this.theta = 360 * random()
@@ -190,11 +192,11 @@ export function useConfetti () {
         this.splineX = createPoisson()
         this.splineY = []
         const l: number = this.splineX.length
-        for (let i = 1, l = this.splineX.length - 1; i < l; ++i) { this.splineY[i] = deviation * random() }
+        for (let i = 1, l = this.splineX.length - 1; i < l; ++i) this.splineY[i] = deviation * random()
         this.splineY[0] = this.splineY[l] = deviation * random()
       }
 
-      update (height: number, delta: number): boolean {
+      update(height: number, delta: number): boolean {
         this.frame += delta
         this.x += this.dx * delta
         this.y += this.dy * delta
@@ -204,7 +206,9 @@ export function useConfetti () {
         const phi = (this.frame % 7777) / 7777
         let i = 0
         let j = 1
-        while (phi >= this.splineX[j]) { i = j++ }
+        while (phi >= this.splineX[j])
+          i = j++
+
         const rho = interpolation(
           this.splineY[i],
           this.splineY[j],
@@ -219,7 +223,7 @@ export function useConfetti () {
       }
     }
 
-    function poof () {
+    function poof() {
       if (!frame) {
         // Append the container
         document.body.appendChild(container)
@@ -227,7 +231,7 @@ export function useConfetti () {
         // Add confetti
         const theme = colorThemes[0];
 
-        (function addConfetto () {
+        (function addConfetto() {
           const confetto = new Confetto(theme)
           confetti.push(confetto)
           container.appendChild(confetto.outer)
@@ -236,7 +240,7 @@ export function useConfetti () {
 
         // Start the loop
         let prev: number | undefined
-        requestAnimationFrame(function loop (timestamp) {
+        requestAnimationFrame(function loop(timestamp) {
           const delta = prev ? timestamp - prev : 0
           prev = timestamp
           const height = window.innerHeight
@@ -248,7 +252,8 @@ export function useConfetti () {
             }
           }
 
-          if (timer || confetti.length) { return (frame = requestAnimationFrame(loop)) }
+          if (timer || confetti.length)
+            return (frame = requestAnimationFrame(loop))
 
           // Cleanup
           document.body.removeChild(container)
@@ -263,9 +268,10 @@ export function useConfetti () {
   const clear = () => {
     const container = document.getElementById(containerId)
 
-    if (!container) { return }
+    if (!container)
+      return
 
-    container.classList.add('animate-fade')
+    container.classList.add("animate-fade")
 
     const removeConfetti = () => {
       container.remove()

@@ -1,10 +1,16 @@
 <script setup lang="ts">
 definePageMeta({
-  middleware: 'premium',
-  layout: 'setting',
+  middleware: "premium",
+  layout: "setting",
 })
 </script>
 
 <template>
-  <h1>Notifications Settings</h1>
+  <div>
+    <h1 class="text-4xl font-bold mb-4">
+      Notifications Settings
+    </h1>
+
+    <p>// TODO</p>
+  </div>
 </template>

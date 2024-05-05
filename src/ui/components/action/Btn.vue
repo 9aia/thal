@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { SafeProps, SafeVariantProps } from '~/src/base/utils/types'
-import type { VariantProps } from 'tailwind-variants'
-import { tv } from 'tailwind-variants'
-import { type ButtonHTMLAttributes, useAttrs } from 'vue'
+import type { VariantProps } from "tailwind-variants"
+import { tv } from "tailwind-variants"
+import { type ButtonHTMLAttributes, useAttrs } from "vue"
+import type { SafeProps, SafeVariantProps } from "~/src/base/utils/types"
 
 defineProps<Props>()
 
 const styles = tv({
-  base: 'btn btn-sm h-fit',
+  base: "btn btn-sm h-fit",
 })
 
 type Props = SafeProps<ButtonHTMLAttributes> &

@@ -1,44 +1,44 @@
 <script setup lang="ts">
-import Icon from '~/src/ui/components/display/Icon.vue'
-import { t } from '@psitta/vue'
-import A from '~/src/base/components/A.vue'
+import { t } from "@psitta/vue"
+import Icon from "~/src/ui/components/display/Icon.vue"
+import A from "~/src/base/components/A.vue"
 
-const { data } = await useFetch('/api/test')
+const { data } = await useFetch("/api/test")
 
 const items = [
   {
-    title: 'Feasibility',
-    text: 'We develop realistic and sustainable solutions to meet the needs of users and ensure financial stability.',
+    title: "Feasibility",
+    text: "We develop realistic and sustainable solutions to meet the needs of users and ensure financial stability.",
   },
   {
-    title: 'Innovation',
-    text: 'We constantly seek new ideas and approaches to evolve our application and offer creative solutions to users.',
+    title: "Innovation",
+    text: "We constantly seek new ideas and approaches to evolve our application and offer creative solutions to users.",
   },
   {
-    title: 'Continuous Improvement',
-    text: 'Committing to ongoing refinement and enhancement of the app.',
+    title: "Continuous Improvement",
+    text: "Committing to ongoing refinement and enhancement of the app.",
   },
 ]
 
 const team = [
   {
-    name: 'Luis Emidio',
-    logo: '/luisfloat-logo-full-bleed-black.png',
-    role: 'Founder | Developer',
-    description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque consequuntur quod eos veniam. Porro, eveniet nobis, eaque ex nostrum fugiat animi aliquid dolore labore laboriosam sunt repellendus eum quo consequuntur!',
+    name: "Luis Emidio",
+    logo: "/luisfloat-logo-full-bleed-black.png",
+    role: "Founder | Developer",
+    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque consequuntur quod eos veniam. Porro, eveniet nobis, eaque ex nostrum fugiat animi aliquid dolore labore laboriosam sunt repellendus eum quo consequuntur!",
     links: [
-      { icon: 'globe', href: 'https://x.com/luisfloat' },
-      { icon: 'globe', href: 'https://luisfloat.com' },
+      { icon: "globe", href: "https://x.com/luisfloat" },
+      { icon: "globe", href: "https://luisfloat.com" },
     ],
   },
   {
-    name: 'Vinicius Emidio Bosi',
-    logo: '/vinicenter-logo-full-bleed-black.png',
-    role: 'Contributor | Developer',
-    description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate libero ex tenetur non nobis voluptatibus incidunt recusandae praesentium perspiciatis nostrum.',
+    name: "Vinicius Emidio Bosi",
+    logo: "/vinicenter-logo-full-bleed-black.png",
+    role: "Contributor | Developer",
+    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate libero ex tenetur non nobis voluptatibus incidunt recusandae praesentium perspiciatis nostrum.",
     links: [
-      { icon: 'globe', href: 'https://x.com/vinicenter' },
-      { icon: 'globe', href: 'https://vinicenter.com' },
+      { icon: "globe", href: "https://x.com/vinicenter" },
+      { icon: "globe", href: "https://vinicenter.com" },
     ],
   },
 ]
@@ -132,7 +132,7 @@ const team = [
               </p>
 
               <div class="card-actions justify-end flex-wrap gap-2">
-                <A v-for="(link, i) in item.links" :key="i" :localize="false" :href="link.href">
+                <A v-for="(link, j) in item.links" :key="j" :localize="false" :href="link.href">
                   <Icon>{{ link.icon }}</Icon>
                 </A>
               </div>

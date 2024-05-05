@@ -1,29 +1,28 @@
 <script setup lang="ts">
-import { useAsyncState } from '@vueuse/core';
-import Tooltip from '~/src/ui/components/feedback/Tooltip.vue';
+import { useAsyncState } from "@vueuse/core"
+import Tooltip from "~/src/ui/components/feedback/Tooltip.vue"
 
 const props = defineProps<{
-  text: string;
-}>();
+  text: string
+}>()
 
 const translation = useAsyncState(async () => {
   return await $fetch("/api/translate", {
-    method: 'POST',
+    method: "POST",
     body: {
       text: props.text,
-      locale: 'pt-br',
+      locale: "pt-br",
     },
-  });
+  })
 }, undefined, { immediate: false })
 
 const open = ref(false)
 
-const openTooltip = async () => {
-  open.value = true;
-  
-  if(!translation.state.value?.translation) {
-    await translation.execute();
-  }
+async function openTooltip() {
+  open.value = true
+
+  if (!translation.state.value?.translation)
+    await translation.execute()
 }
 </script>
 
@@ -40,7 +39,7 @@ const openTooltip = async () => {
         <Spinner />
       </div>
 
-      <div class="flex flex-wrap gap-[0.4ch]" v-else>
+      <div v-else class="flex flex-wrap gap-[0.4ch]">
         {{ translation.state.value?.translation }}
       </div>
     </template>

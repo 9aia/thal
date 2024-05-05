@@ -1,30 +1,28 @@
-import { eq } from 'drizzle-orm'
-import type { SQLiteUpdateSetSource } from 'drizzle-orm/sqlite-core'
-import type { PlanType } from '../../constants/plans'
-import { users } from '~/src/base/server/db/schema'
-import { DrizzleD1Database } from 'drizzle-orm/d1'
-import { now } from '~/src/base/utils/date'
-import { notFound } from '~/src/base/utils/nuxt'
+import { eq } from "drizzle-orm"
+import type { SQLiteUpdateSetSource } from "drizzle-orm/sqlite-core"
+import type { DrizzleD1Database } from "drizzle-orm/d1"
+import type { PlanType } from "../../constants/plans"
+import { users } from "~/src/base/server/db/schema"
+import { now } from "~/src/base/utils/date"
+import { notFound } from "~/src/base/utils/nuxt"
 
 export async function activePlan(
   orm: DrizzleD1Database<any>,
   userId: string,
   paymentGatewayCustomerId: string,
-  plan: PlanType
+  plan: PlanType,
 ) {
   const user = (await orm.select().from(users).where(eq(users.id, userId))).at(0)
 
-  if (!user) {
+  if (!user)
     throw notFound(`User not found: ${userId}`)
-  }
 
   const expirationDate = now()
 
-  if (user.free_trial_used === 0) {
+  if (user.free_trial_used === 0)
     expirationDate.setDate(expirationDate.getDate() + 7)
-  } else {
+  else
     expirationDate.setMonth(expirationDate.getMonth() + 1)
-  }
 
   await orm
     .update(users)
@@ -39,7 +37,7 @@ export async function activePlan(
 
 export async function cancelSubscription(
   orm: DrizzleD1Database<any>,
-  paymentGatewayCustomerId: string
+  paymentGatewayCustomerId: string,
 ) {
   await orm
     .update(users)
@@ -54,13 +52,12 @@ export async function cancelSubscription(
 export async function updateSubscription(
   orm: DrizzleD1Database<any>,
   paymentGatewayCustomerId: string,
-  planExpiresAt?: string
+  planExpiresAt?: string,
 ) {
   const values: SQLiteUpdateSetSource<typeof users> = {}
 
-  if (planExpiresAt) {
+  if (planExpiresAt)
     values.plan_expires = planExpiresAt
-  }
 
   await orm
     .update(users)

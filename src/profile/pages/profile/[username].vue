@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import A from '~/src/base/components/A.vue'
-import { t } from '@psitta/vue'
-import Header from '../../components/Header.vue';
+import { t } from "@psitta/vue"
+import Header from "../../components/Header.vue"
+import A from "~/src/base/components/A.vue"
 
 const user = useUser()
 const route = useRoute()
@@ -9,17 +9,17 @@ const route = useRoute()
 const username = route.params.username
 
 const { execute, data, pending, error } = useAsyncData(
-  'profiles',
+  "profiles",
   async () => {
     const profileFetched = await $fetch(`/api/profile/${username}`)
     return profileFetched
   },
-  { immediate: false }
+  { immediate: false },
 )
 
-const profile = ref<typeof data['value']>()
+const profile = ref<typeof data["value"]>()
 
-const loadProfile = async () => {
+async function loadProfile() {
   const isMe = user.value!.username === username
 
   if (isMe) {
@@ -28,7 +28,7 @@ const loadProfile = async () => {
     return
   }
 
-  await execute();
+  await execute()
 
   profile.value = data.value!
 }
@@ -38,11 +38,11 @@ const isLoading = computed(() => !profile.value && pending.value)
 loadProfile()
 
 definePageMeta({
-  middleware: 'premium',
-  layout: 'app',
+  middleware: "premium",
+  layout: "app",
 })
 
-provide('profile', profile)
+provide("profile", profile)
 </script>
 
 <template>
@@ -58,19 +58,19 @@ provide('profile', profile)
       <template #title="{ isNotFound }">
         <div class="space-y-2">
           <div>
-          {{
-            isNotFound
-              ? t("User not found:")
-              : t("Something wrong happened")
-          }}
+            {{
+              isNotFound
+                ? t("User not found:")
+                : t("Something wrong happened")
+            }}
           </div>
-  
+
           <div class="text-white text-sm">
-          {{
-            isNotFound
-              ? username
-              : ''
-          }}
+            {{
+              isNotFound
+                ? username
+                : ''
+            }}
           </div>
         </div>
       </template>

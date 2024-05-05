@@ -1,10 +1,10 @@
 <script setup lang="ts">
 useHead({
-  title: 'Checkout canceled'
+  title: "Checkout canceled",
 })
 
 definePageMeta({
-  middleware: 'auth',
+  middleware: "auth",
 })
 </script>
 

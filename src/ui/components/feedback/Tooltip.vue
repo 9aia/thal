@@ -1,23 +1,22 @@
 <script setup lang="ts">
-import { tv, type VariantProps } from 'tailwind-variants';
-import type { SafeVariantProps } from '~/src/base/utils/types';
-import { Popover } from '@ark-ui/vue'
-
-const styles = tv({
-  base: 'bg-base-100 outline-teal-500 shadow-xl p-2 rounded-lg',
-})
+import { type VariantProps, tv } from "tailwind-variants"
+import { Popover } from "@ark-ui/vue"
+import type { SafeVariantProps } from "~/src/base/utils/types"
 
 defineProps<SafeVariantProps<VariantProps<typeof styles>>>()
 
+const styles = tv({
+  base: "bg-base-100 outline-teal-500 shadow-xl p-2 rounded-lg",
+})
+
 const open = defineModel({
-  default: false
+  default: false,
 })
 </script>
 
 <template>
   <ClientOnly>
     <Popover.Root v-model:open="open">
-      
       <Popover.Anchor>
         <slot name="anchor" />
       </Popover.Anchor>
@@ -25,7 +24,6 @@ const open = defineModel({
       <Popover.Positioner>
         <Popover.Content :class="styles()">
           <slot name="content" />
-
         </Popover.Content>
       </Popover.Positioner>
     </Popover.Root>

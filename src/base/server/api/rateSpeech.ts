@@ -1,18 +1,18 @@
-import { z } from 'zod'
-import { getGemini } from '~/src/base/utils/gemini'
-import { getValidated } from '~/src/base/utils/h3'
-import { internal, unauthorized } from '~/src/base/utils/nuxt'
+import process from "node:process"
+import { z } from "zod"
+import { getGemini } from "~/src/base/utils/gemini"
+import { getValidated } from "~/src/base/utils/h3"
+import { internal, unauthorized } from "~/src/base/utils/nuxt"
 
 export default eventHandler(async (event) => {
   const { GEMINI_API_KEY } = process.env
 
   const user = event.context.user
 
-  if(!user) {
+  if (!user)
     throw unauthorized()
-  }
-  
-  const data = await getValidated(event, 'body', z.object({
+
+  const data = await getValidated(event, "body", z.object({
     transcript: z.string().min(1).max(300),
     expected: z.string().min(1).max(300),
   }))
@@ -42,35 +42,35 @@ export default eventHandler(async (event) => {
 
   const gemini = getGemini(GEMINI_API_KEY as string)
 
-  let text;
+  let text
 
   try {
     const res = (await gemini.generateContent(prompt)) as any
 
-    if ('error' in res) {
+    if ("error" in res)
       throw new Error(`Gemini internal error: ${res.error}`)
-    }
 
     const bestCandidate = res.candidates?.[0]
     const bestPart = bestCandidate?.content?.parts?.[0]
 
     text = bestPart?.text
-  } catch (e) {
+  }
+  catch (e) {
     const error = e as Error
 
     throw internal(`Error while fetching Gemini API: ${error.message}`)
   }
 
-  let json: { score: number };
+  let json: { score: number }
 
   try {
     json = JSON.parse(text)
 
-    if(!json.score) {
+    if (!json.score)
       throw internal()
-    }
-  } catch (e) {
-    throw internal('Gemini generated an invalid output.')
+  }
+  catch (e) {
+    throw internal("Gemini generated an invalid output.")
   }
 
   return json

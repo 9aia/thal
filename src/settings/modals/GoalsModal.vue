@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { useForm } from 'vee-validate'
-import { useI18n } from '@psitta/vue'
-import { GOALS } from '~/src/base/constants'
-import { parseInitialValues } from '../utils'
+import { useForm } from "vee-validate"
+import { useI18n } from "@psitta/vue"
+import { parseInitialValues } from "../utils"
+import { GOALS } from "~/src/base/constants"
 
 const { t } = useI18n()
 const toast = useToast()
 const user = useUser()
 
-const initialValues = parseInitialValues(user.goals || '')
+const initialValues = parseInitialValues(user.goals || "")
 const form = useForm<Record<string, boolean | undefined>>({
   initialValues,
 })
@@ -16,7 +16,7 @@ const keys = computed(() => {
   const values = form.values
   return Object.keys(values)
     .filter(key => values[key])
-    .join(', ')
+    .join(", ")
 })
 
 const isOpen = defineModel({ default: false })
@@ -39,9 +39,10 @@ const submit = form.handleSubmit(async () => {
 
     user.value = { ...user.value!, goals: currentKeys }
 
-    toast.success(t('Goals were updated successfully.'))
-  } catch (e) {
-    toast.error(t('An error occurred while updating your goals.'))
+    toast.success(t("Goals were updated successfully."))
+  }
+  catch (e) {
+    toast.error(t("An error occurred while updating your goals."))
   }
 
   loading.value = false

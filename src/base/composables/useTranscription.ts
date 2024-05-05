@@ -11,35 +11,35 @@ function useTranscription(text: MaybeRef) {
     constraints: {
       audio: true,
       video: false,
-    }
+    },
   })
 
   const currentMic = computed(() => audioInputs.value[0]?.deviceId)
 
   const mic = useUserMedia({
     constraints: {
-      audio: { deviceId: currentMic.value, }
-    }
+      audio: { deviceId: currentMic.value },
+    },
   })
 
   const transcription = useAsyncState(async (audioBlob) => {
-    const transcribe = await $fetch('/api/transcribe', {
-      method: 'post',
+    const transcribe = await $fetch("/api/transcribe", {
+      method: "post",
       body: {
-        audio: await getBase64(audioBlob)
-      }
+        audio: await getBase64(audioBlob),
+      },
     })
 
     const bestTranscription = transcribe.results?.[0].alternatives?.[0]
     const transcript = bestTranscription?.transcript
     const confidence = bestTranscription?.confidence
 
-    const rateSpeench = await $fetch('/api/rateSpeech', {
-      method: 'POST',
+    const rateSpeench = await $fetch("/api/rateSpeech", {
+      method: "POST",
       body: {
         transcript,
         expected: text,
-      }
+      },
     })
 
     return {
@@ -50,29 +50,30 @@ function useTranscription(text: MaybeRef) {
   }, undefined, {
     immediate: false,
     onError() {
-      toast.error('Something went wrong.')
-    }
+      toast.error("Something went wrong.")
+    },
   })
 
   const startRecording = async () => {
-    let stream: MediaStream | undefined;
+    let stream: MediaStream | undefined
 
     try {
       stream = await mic.start()
-    } catch (err) {
+    }
+    catch (err) {
       const error = err as any
 
       switch (error.name) {
-        case 'NotAllowedError':
-          toast.error(t('Permission not allowed'))
+        case "NotAllowedError":
+          toast.error(t("Permission not allowed"))
           break
-        case 'NotFoundError':
-          toast.error(t('Microphone not found'))
+        case "NotFoundError":
+          toast.error(t("Microphone not found"))
           break
         default:
-          toast.error(t('Permission error'))
+          toast.error(t("Permission error"))
           break
-        }
+      }
 
       return
     }
@@ -81,7 +82,7 @@ function useTranscription(text: MaybeRef) {
     recorder.start()
 
     recorder.ondataavailable = async (e) => {
-      const audioBlob = new Blob([e.data], { type: 'audio/webm' })
+      const audioBlob = new Blob([e.data], { type: "audio/webm" })
 
       await transcription.execute(0, audioBlob)
     }
@@ -92,11 +93,10 @@ function useTranscription(text: MaybeRef) {
   const isRecording = computed(() => mic.enabled.value)
 
   const toggleRecording = () => {
-    if (mic.enabled.value) {
+    if (mic.enabled.value)
       stopRecording()
-    } else {
+    else
       startRecording()
-    }
   }
 
   const isLoading = computed(() => transcription.isLoading.value)

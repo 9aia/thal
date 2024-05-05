@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import type { User } from 'lucia';
-import { useI18n } from '@psitta/vue'
+import type { User } from "lucia"
+import { useI18n } from "@psitta/vue"
 
 const toast = useToast()
 const { t } = useI18n()
-const user = inject<Ref<User>>('profile')!
+const user = inject<Ref<User>>("profile")!
 
 const loading = ref(true)
-const summary = ref('')
+const summary = ref("")
 
-async function generateSummary () {
+async function generateSummary() {
   const profile = user.value!
-  
+
   const data = await $fetch(`/api/profile/summary/${profile.username}` as `/api/profile/summary/:username`, {
-    method: 'post',
+    method: "post",
     body: {
       goals: profile.goals,
       hobbies: profile.hobbies,
@@ -22,16 +22,17 @@ async function generateSummary () {
     },
   })
 
-  return data.summary;
+  return data.summary
 }
 
-async function regenerateSummary () {
+async function regenerateSummary() {
   loading.value = true
 
   try {
     summary.value = await generateSummary()
-  } catch (e) {
-    toast.error(t('An error occurred while generating the summary.'))
+  }
+  catch (e) {
+    toast.error(t("An error occurred while generating the summary."))
   }
 
   loading.value = false

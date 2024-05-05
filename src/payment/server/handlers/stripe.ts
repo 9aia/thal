@@ -1,12 +1,12 @@
-import { H3Event } from 'h3'
-import type Stripe from 'stripe'
-import { PLANS } from '../../constants/plans'
-import { activePlan, cancelSubscription, updateSubscription } from '../services/plan'
-import { getPlan } from '../utils/stripe'
-import { fromSToMillis } from '~/src/base/utils/date'
-import { notFound } from '~/src/base/utils/nuxt'
+import type { H3Event } from "h3"
+import type Stripe from "stripe"
+import { PLANS } from "../../constants/plans"
+import { activePlan, cancelSubscription, updateSubscription } from "../services/plan"
+import { getPlan } from "../utils/stripe"
+import { fromSToMillis } from "~/src/base/utils/date"
+import { notFound } from "~/src/base/utils/nuxt"
 
-export async function handleCheckoutCompleted (
+export async function handleCheckoutCompleted(
   e: Stripe.CheckoutSessionCompletedEvent,
   event: H3Event,
 ) {
@@ -16,20 +16,18 @@ export async function handleCheckoutCompleted (
   const stripeCustomerId = session.customer as string
   const userId = session.client_reference_id
 
-  if (!userId) {
+  if (!userId)
     throw notFound("Client reference not found")
-  }
 
-  const isPaymentAsync = session.payment_status !== 'paid'
+  const isPaymentAsync = session.payment_status !== "paid"
 
-  if (isPaymentAsync) {
+  if (isPaymentAsync)
     return
-  }
 
   await activePlan(orm, userId, stripeCustomerId, PLANS.premium)
 }
 
-export async function handleAsyncPaymentSucceeded (
+export async function handleAsyncPaymentSucceeded(
   e: Stripe.CheckoutSessionAsyncPaymentSucceededEvent,
   event: H3Event,
 ) {
@@ -39,24 +37,21 @@ export async function handleAsyncPaymentSucceeded (
   const userId = session.client_reference_id
   const plan = getPlan(session)
 
-  if (!userId)  {
+  if (!userId)
     throw notFound("Client reference not found")
-  }
 
-  if (!plan) {
+  if (!plan)
     throw notFound("Plan not found")
-  }
 
-  const isPaid = session.payment_status === 'paid'
+  const isPaid = session.payment_status === "paid"
 
-  if (!isPaid) {
+  if (!isPaid)
     return
-  }
 
   await activePlan(orm, userId, stripeCustomerId, plan)
 }
 
-export async function handleCustomerSubscriptionDeleted (
+export async function handleCustomerSubscriptionDeleted(
   e: Stripe.CustomerSubscriptionDeletedEvent,
   event: H3Event,
 ) {
@@ -64,14 +59,13 @@ export async function handleCustomerSubscriptionDeleted (
   const session = e.data.object
   const stripeCustomerId = session.customer as string
 
-  if (!stripeCustomerId) {
+  if (!stripeCustomerId)
     throw notFound(`Session customer not found: ${stripeCustomerId}`)
-  }
 
   await cancelSubscription(orm, stripeCustomerId)
 }
 
-export async function handleCustomerSubscriptionUpdated (
+export async function handleCustomerSubscriptionUpdated(
   e: Stripe.CustomerSubscriptionUpdatedEvent,
   event: H3Event,
 ) {
@@ -79,9 +73,8 @@ export async function handleCustomerSubscriptionUpdated (
   const session = e.data.object
   const stripeCustomerId = session.customer as string
 
-  if (!stripeCustomerId) {
+  if (!stripeCustomerId)
     throw notFound(`Session customer not found: ${stripeCustomerId}`)
-  }
 
   const cancelAt = session.cancel_at
 

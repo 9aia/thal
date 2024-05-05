@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { NuxtError } from '#app';
-import { t } from '@psitta/vue';
+import { t } from "@psitta/vue"
+import type { NuxtError } from "#app"
 
 const props = defineProps<{
   error: NuxtError
 }>()
 
 const emit = defineEmits<{
-  (e: 'tryAgain'): void
+  (e: "tryAgain"): void
 }>()
 
 const isNotFound = computed(() => props.error.statusCode === 404)
@@ -35,8 +35,8 @@ const isNotFound = computed(() => props.error.statusCode === 404)
       <div class="card-actions justify-end">
         <Btn
           v-if="!isNotFound"
-          @click="emit('tryAgain')"
           class="btn-primary"
+          @click="emit('tryAgain')"
         >
           <Icon name="mdi-refresh" />
           {{ t('Try again') }}

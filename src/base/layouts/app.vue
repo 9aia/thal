@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import Avatar from '~/src/ui/components/display/Avatar.vue'
-import Icon from '~/src/ui/components/display/Icon.vue'
-import Menu from '~/src/ui/components/layout/Menu.vue'
-import A from '~/src/base/components/A.vue'
-import type { MenuItem } from '~/src/ui/components/layout/types'
+import Avatar from "~/src/ui/components/display/Avatar.vue"
+import Icon from "~/src/ui/components/display/Icon.vue"
+import Menu from "~/src/ui/components/layout/Menu.vue"
+import A from "~/src/base/components/A.vue"
+import type { MenuItem } from "~/src/ui/components/layout/types"
 
 withDefaults(
   defineProps<{
@@ -16,22 +16,22 @@ const logout = useLogout()
 const route = useRoute()
 
 const items: MenuItem[] = [
-  { id: 'profile', name: 'Profile', icon: 'face', href: '/profile' },
+  { id: "profile", name: "Profile", icon: "face", href: "/profile" },
   {
-    id: 'plan',
-    name: 'Plan',
-    action: '/api/payment/stripe/create-portal-session',
-    method: 'post',
-    icon: 'subscriptions',
-    type: 'external',
+    id: "plan",
+    name: "Plan",
+    action: "/api/payment/stripe/create-portal-session",
+    method: "post",
+    icon: "subscriptions",
+    type: "external",
   },
-  { id: 'settings', name: 'Settings', icon: 'settings', href: '/settings' },
+  { id: "settings", name: "Settings", icon: "settings", href: "/settings" },
   {
-    id: 'logout',
-    name: 'Logout',
-    action: '/api/auth/logout',
-    method: 'post',
-    icon: 'logout',
+    id: "logout",
+    name: "Logout",
+    action: "/api/auth/logout",
+    method: "post",
+    icon: "logout",
     onSubmit: logout,
   },
 ]
@@ -45,18 +45,18 @@ interface BottomNavItem {
 
 const navItems: BottomNavItem[] = [
   {
-    id: 'explore',
-    name: 'Explore',
-    icon: 'explore',
-    href: '/explore',
+    id: "explore",
+    name: "Explore",
+    icon: "explore",
+    href: "/explore",
   },
-  { id: 'missions', name: 'Missions', icon: 'editor_choice', href: '/missions' },
+  { id: "missions", name: "Missions", icon: "editor_choice", href: "/missions" },
   { id: "rank", name: "Rank", icon: "trophy", href: "/rank" },
-  { id: 'profile', name: 'Profile', icon: 'face', href: '/profile' },
-  { id: 'settings', name: 'Settings', icon: 'settings', href: '/settings' },
+  { id: "profile", name: "Profile", icon: "face", href: "/profile" },
+  { id: "settings", name: "Settings", icon: "settings", href: "/settings" },
 ]
 
-const updateRedirectUrl = () => {
+function updateRedirectUrl() {
   const route = useRoute()
   const redirectUrl = useRedirectUrl()
   redirectUrl.value = route.path

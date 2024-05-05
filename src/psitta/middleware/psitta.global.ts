@@ -1,5 +1,5 @@
-import { detectLocaleFromAcceptLanguage, detectLocaleFromCookie, detectLocaleFromNavigator, detectLocaleFromPathname, getConfig } from '@psitta/core'
-import { useLocale } from '@psitta/vue'
+import { detectLocaleFromAcceptLanguage, detectLocaleFromCookie, detectLocaleFromNavigator, detectLocaleFromPathname, getConfig } from "@psitta/core"
+import { useLocale } from "@psitta/vue"
 
 export default defineNuxtRouteMiddleware(async (event) => {
   const { defaultLocale } = getConfig()
@@ -8,21 +8,22 @@ export default defineNuxtRouteMiddleware(async (event) => {
   const { urlWithoutLocale, locale } = detectLocaleFromPathname(pathname)
 
   if (!locale) {
-    const cookie = useCookie('locale').value
+    const cookie = useCookie("locale").value
 
     let locale = detectLocaleFromCookie(cookie || undefined)
 
     if (!locale) {
-      const acceptLanguage = process.server ? null : detectLocaleFromNavigator()?.language
+      const acceptLanguage = import.meta.server ? null : detectLocaleFromNavigator()?.language
 
-      const header = useRequestHeader('accept-language')
+      const header = useRequestHeader("accept-language")
       locale = header
         ? detectLocaleFromAcceptLanguage(header)?.language || defaultLocale
         : acceptLanguage || defaultLocale
     }
 
     if (locale !== defaultLocale && pathname === urlWithoutLocale) {
-      if(pathname.startsWith('/api/')) return
+      if (pathname.startsWith("/api/"))
+        return
 
       return navigateTo(`/${locale}${urlWithoutLocale}`, { replace: true })
     }

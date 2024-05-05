@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useLocale } from '@psitta/vue'
-import A from '~/src/base/components/A.vue'
+import { useLocale } from "@psitta/vue"
+import A from "~/src/base/components/A.vue"
 
 const locale = useLocale()
 
 definePageMeta({
-  layout: 'center',
+  layout: "center",
 })
 </script>
 
@@ -47,7 +47,8 @@ definePageMeta({
         <li>
           <strong>Exclusão de conta:</strong> Você tem o direito de excluir sua conta Maratongue e informações pessoais
           associadas. Para iniciar o processo de exclusão da conta, siga as instruções fornecidas nas <a
-            href="/settings/account">configurações do aplicativo</a>.
+            href="/settings/account"
+          >configurações do aplicativo</a>.
         </li>
         <li>
           <strong>Precisão dos dados:</strong> Você é responsável por manter seus dados pessoais atualizados e precisos.
@@ -91,7 +92,8 @@ definePageMeta({
       <p>
         Recomendamos que você revise os
         <A
-          href="https://support.google.com/gemini/answer/13594961?visit_id=638434421225288685-621180296&p=privacy_notice&rd=1#tos">Termos
+          href="https://support.google.com/gemini/answer/13594961?visit_id=638434421225288685-621180296&p=privacy_notice&rd=1#tos"
+        >Termos
           de Serviço da Gemini</A>
         para entender seus direitos e obrigações ao usar a API do Gemini.
       </p>
@@ -193,7 +195,8 @@ definePageMeta({
       <p>
         We encourage you to review
         <a
-          href="https://support.google.com/gemini/answer/13594961?visit_id=638434421225288685-621180296&p=privacy_notice&rd=1#tos">Gemini's
+          href="https://support.google.com/gemini/answer/13594961?visit_id=638434421225288685-621180296&p=privacy_notice&rd=1#tos"
+        >Gemini's
           Terms of Service</a>
         to understand your rights and obligations when using the Gemini API.
       </p>

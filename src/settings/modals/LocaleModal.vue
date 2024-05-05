@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useForm } from 'vee-validate'
-import { getConfig } from '@psitta/core'
-import { useI18n } from '@psitta/vue'
-import { LOCALES } from '~/src/base/constants'
+import { useForm } from "vee-validate"
+import { getConfig } from "@psitta/core"
+import { useI18n } from "@psitta/vue"
+import { LOCALES } from "~/src/base/constants"
 
-const { defaultLocale } = getConfig();
+const { defaultLocale } = getConfig()
 
 const { t } = useI18n()
 const toast = useToast()
@@ -12,8 +12,8 @@ const toast = useToast()
 const form = useForm<Record<string, string>>()
 
 onMounted(() => {
-  const localeCookie = useCookie('locale', { path: '/' })
-  form.setFieldValue('locale', localeCookie.value || defaultLocale)
+  const localeCookie = useCookie("locale", { path: "/" })
+  form.setFieldValue("locale", localeCookie.value || defaultLocale)
 })
 
 const isOpen = defineModel({ default: false })
@@ -22,7 +22,7 @@ const loading = ref(false)
 const submit = form.handleSubmit(async (data) => {
   const locale = data.locale
 
-  const localeCookie = useCookie('locale', { path: '/' })
+  const localeCookie = useCookie("locale", { path: "/" })
   localeCookie.value = locale
 
   loading.value = true
@@ -32,7 +32,7 @@ const submit = form.handleSubmit(async (data) => {
   else
     await navigateTo(`/${locale}/settings`)
 
-  toast.success(t('The language has been updated successfully.'))
+  toast.success(t("The language has been updated successfully."))
 
   isOpen.value = false
   loading.value = false

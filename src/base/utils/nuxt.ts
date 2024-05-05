@@ -3,11 +3,10 @@ import type { NuxtError } from "#app"
 export function error(
   statusCode: number,
   message?: string,
-  options: Partial<NuxtError<unknown>> = {}
+  options: Partial<NuxtError<unknown>> = {},
 ) {
-  if(import.meta.dev) {
+  if (import.meta.dev)
     console.error(`Error ${statusCode} - ${message}`)
-  }
 
   return createError({
     statusCode,
@@ -18,35 +17,35 @@ export function error(
 
 export function notFound(
   message?: string,
-  options: Partial<NuxtError<unknown>> = {}
+  options: Partial<NuxtError<unknown>> = {},
 ) {
   return error(404, message, options)
 }
 
 export function unauthorized(
   message?: string,
-  options: Partial<NuxtError<unknown>> = {}
+  options: Partial<NuxtError<unknown>> = {},
 ) {
   return error(401, message, options)
 }
 
 export function forbidden(
   message?: string,
-  options: Partial<NuxtError<unknown>> = {}
+  options: Partial<NuxtError<unknown>> = {},
 ) {
   return error(403, message, options)
 }
 
 export function internal(
   message?: string,
-  options: Partial<NuxtError<unknown>> = {}
+  options: Partial<NuxtError<unknown>> = {},
 ) {
   return error(500, message, options)
 }
 
 export function badRequest(
   message?: string,
-  options: Partial<NuxtError<unknown>> = {}
+  options: Partial<NuxtError<unknown>> = {},
 ) {
   return error(400, message, options)
 }

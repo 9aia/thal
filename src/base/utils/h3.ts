@@ -1,30 +1,29 @@
-import type { H3Event } from 'h3'
-import type { RouteLocationNormalized } from 'vue-router'
-import type { SafeParseError, SafeParseSuccess, ZodSchema } from 'zod'
-import { internal, badRequest } from '~/src/base/utils/nuxt'
+import type { H3Event } from "h3"
+import type { RouteLocationNormalized } from "vue-router"
+import type { SafeParseError, SafeParseSuccess, ZodSchema } from "zod"
+import { badRequest, internal } from "~/src/base/utils/nuxt"
 
 export async function getValidatedForm<O>(event: H3Event, validate: (data: unknown) => SafeParseSuccess<O> | SafeParseError<O>) {
   const formData = await readFormData(event)
 
-  if (!(formData instanceof FormData)) {
-    throw badRequest('Data should be formData')
-  }
+  if (!(formData instanceof FormData))
+    throw badRequest("Data should be formData")
 
-  const formDataValues = Object.fromEntries(formData.entries());
+  const formDataValues = Object.fromEntries(formData.entries())
   return validate(formDataValues)
 }
 
 export async function getValidated<O>(
-  event: H3Event, type: 'body' | 'params' | 'query' | 'form',
-  schema: ZodSchema<O>
+  event: H3Event,
+  type: "body" | "params" | "query" | "form",
+  schema: ZodSchema<O>,
 ) {
-  if(type === 'form') {
+  if (type === "form") {
     const result = await getValidatedForm(event, data => schema.safeParse(data))
 
-    if (!result.success) {
+    if (!result.success)
       throw badRequest(`Invalid ${type}`, { data: result.error.issues })
-    }
-  
+
     return result.data
   }
 
@@ -35,28 +34,26 @@ export async function getValidated<O>(
   }
   const validator = validators[type]
 
-  if (!validator) {
+  if (!validator)
     throw internal()
-  }
 
   const result = await validator(event, data => schema.safeParse(data))
 
-  if (!result.success) {
+  if (!result.success)
     throw badRequest(`Invalid ${type}`, { data: result.error.issues })
-  }
 
   return result.data
 }
 
 export function getAppUrl(event: H3Event) {
-  const protocol = import.meta.dev ? 'http:' : 'https:'
-  const host = event.headers.get('host')!
+  const protocol = import.meta.dev ? "http:" : "https:"
+  const host = event.headers.get("host")!
 
   return new URL(`${protocol}${host}`)
 }
 
 export function sendBackRedirect(from: H3Event | RouteLocationNormalized, redirectUrl: string | null) {
-	const cookie = useRedirectUrl()
+  const cookie = useRedirectUrl()
   cookie.value = from.path
 
   return navigateTo(redirectUrl)

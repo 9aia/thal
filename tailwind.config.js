@@ -1,8 +1,8 @@
-const { fadeAnimation, fadeKeyframes } = require('./src/ui/animations/fade')
+const { fadeAnimation, fadeKeyframes } = require("./src/ui/animations/fade")
 
 module.exports = {
   content: [
-    './src/**/*.{vue,js,ts,jsx,tsx}',
+    "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
@@ -14,8 +14,8 @@ module.exports = {
       },
     },
   },
-  plugins: [require('daisyui')],
+  plugins: [require("daisyui")],
   daisyui: {
-    themes: [require('./src/ui/config/daisy.js')],
+    themes: [require("./src/ui/config/daisy.js")],
   },
 }

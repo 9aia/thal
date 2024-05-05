@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { t } from '@psitta/vue'
-import AppLayout from '~/src/base/layouts/app.vue'
-import { SETTINGS } from '../constants'
-import { flattenObject } from '../utils'
-import type { BreadcrumbItem } from '~/src/ui/components/navigation/types';
+import { t } from "@psitta/vue"
+import { SETTINGS } from "../constants"
+import { flattenObject } from "../utils"
+import AppLayout from "~/src/base/layouts/app.vue"
+import type { BreadcrumbItem } from "~/src/ui/components/navigation/types"
 
 const root: BreadcrumbItem = {
-  id: 'settings',
-  name: t('Settings'),
-  icon: 'settings',
-  href: '/settings',
+  id: "settings",
+  name: t("Settings"),
+  icon: "settings",
+  href: "/settings",
 }
 const { items, path, back } = useBreadcrumbs({
-  path: '/settings',
+  path: "/settings",
   config: flattenObject(SETTINGS),
   root,
 })

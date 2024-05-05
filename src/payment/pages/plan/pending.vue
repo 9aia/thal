@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { refAutoReset, refThrottled, useThrottleFn } from '@vueuse/core';
-import { useI18n } from '@psitta/vue'
-import { useToast } from '~/src/ui/composables/useToast';
+import { refAutoReset } from "@vueuse/core"
+import { useI18n } from "@psitta/vue"
+import { useToast } from "~/src/ui/composables/useToast"
 
 definePageMeta({
-  middleware: 'auth',
+  middleware: "auth",
 })
 
 const toast = useToast()
@@ -14,20 +14,20 @@ const disabled = refAutoReset(false, 3000)
 
 const user = useUser()
 
-const goToApp = async () => {
+async function goToApp() {
   disabled.value = true
 
   const userFetch = await $fetch("/api/user")
 
   user.value = userFetch
 
-  if(!userFetch?.plan) {
-    toast.warn(t('Your plan is being processed yet.'))
+  if (!userFetch?.plan) {
+    toast.warn(t("Your plan is being processed yet."))
 
     return
   }
 
-  await navigateTo('/explore')
+  await navigateTo("/explore")
 }
 </script>
 
@@ -49,7 +49,7 @@ const goToApp = async () => {
         </p>
 
         <div class="card-actions">
-          <form action="/explore" @submit.prevent="goToApp" method="get">
+          <form action="/explore" method="get" @submit.prevent="goToApp">
             <button
               type="submit"
               class="btn btn-primary"
