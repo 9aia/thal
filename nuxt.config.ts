@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  srcDir: "./app",
   devtools: { enabled: false },
   modules: ["@nuxtjs/tailwindcss", ["@nuxtjs/google-fonts", {
     families: {
@@ -21,22 +22,18 @@ export default defineNuxtConfig({
     },
   },
   extends: [
-    "./src/psitta",
-    "./src/base",
-    "./src/ui",
-    "./src/auth",
-    "./src/payment",
-    "./src/press",
-    "./src/policy",
-    "./src/support",
-    "./src/settings",
-    "./src/profile",
-    "./src/learn",
-    "./src/game",
+    "./layers/psitta",
+    "./layers/ui",
   ],
   eslint: {
     config: {
       standalone: false,
     },
   },
+  components: [
+    {
+      path: "~/components",
+      pathPrefix: false,
+    },
+  ],
 })

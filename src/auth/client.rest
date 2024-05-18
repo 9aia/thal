@@ -1,7 +1,0 @@
-### Get user logged in
-
-GET http://localhost:3000/api/user HTTP/1.1
-
-### Validate the username remotely
-
-GET http://localhost:3000/api/validate-username/luisfuturist

@@ -1,0 +1,9 @@
+### Update profile
+
+PATCH {{baseUrl}}/profile/luisfuturist
+Content-Type: application/json
+
+{
+  "username": "luis2"
+}
+

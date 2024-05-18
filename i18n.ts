@@ -7,7 +7,7 @@ psitta({
 })
 
 declare module "@psitta/core" {
-  /* interface Register {
-    messages: typeof messages
-  } */
+  interface Register {
+    messages: any
+  }
 }
