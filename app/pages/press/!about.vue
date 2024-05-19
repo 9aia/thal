@@ -39,10 +39,6 @@ const team = [
     ],
   },
 ]
-
-definePageMeta({
-  path: "/about",
-})
 </script>
 
 <template>

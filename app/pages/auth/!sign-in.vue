@@ -2,10 +2,6 @@
 import { T, t } from "@psitta/vue"
 import Btn from "~~/layers/ui/components/action/Btn.vue"
 import GoogleLogo from "~~/layers/ui/components/display/GoogleLogo.vue"
-
-definePageMeta({
-  path: "/sign-in",
-})
 </script>
 
 <template>

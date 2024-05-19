@@ -1,7 +1,6 @@
 <script setup lang="ts">
 definePageMeta({
   layout: "site",
-  path: "/guidelines",
 })
 </script>
 

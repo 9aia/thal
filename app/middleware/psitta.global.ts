@@ -1,7 +1,8 @@
 import { detectLocaleFromAcceptLanguage, detectLocaleFromCookie, detectLocaleFromNavigator, detectLocaleFromPathname, getConfig } from "@psitta/core"
 import { useLocale } from "@psitta/vue"
+import type { RouteLocationNormalized } from "vue-router"
 
-export default defineNuxtRouteMiddleware(async (event) => {
+export default defineNuxtRouteMiddleware((event: RouteLocationNormalized) => {
   const { defaultLocale } = getConfig()
   const pathname = event.fullPath
 
@@ -13,7 +14,8 @@ export default defineNuxtRouteMiddleware(async (event) => {
     let locale = detectLocaleFromCookie(cookie || undefined)
 
     if (!locale) {
-      const acceptLanguage = import.meta.server ? null : detectLocaleFromNavigator()?.language
+      // eslint-disable-next-line nuxt/prefer-import-meta, node/prefer-global/process
+      const acceptLanguage = process.server ? null : detectLocaleFromNavigator()?.language
 
       const header = useRequestHeader("accept-language")
       locale = header

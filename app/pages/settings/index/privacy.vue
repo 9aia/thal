@@ -2,7 +2,6 @@
 import { t } from "@psitta/vue"
 
 definePageMeta({
-  middleware: "premium",
   layout: "setting",
 })
 </script>

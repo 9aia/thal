@@ -6,7 +6,6 @@ import { learnStore } from "../../../store"
 definePageMeta({
   middleware: "premium",
   layout: "app",
-  path: "/explore",
 })
 
 const section = computed(() => course.sections.find(s => s.id = learnStore.currentSection)!)

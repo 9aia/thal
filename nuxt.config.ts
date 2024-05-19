@@ -2,11 +2,16 @@
 export default defineNuxtConfig({
   srcDir: "./app",
   devtools: { enabled: false },
-  modules: ["@nuxtjs/tailwindcss", ["@nuxtjs/google-fonts", {
-    families: {
-      "Noto+Sans": true,
-    },
-  }], "nitro-cloudflare-dev", "@nuxt/eslint"],
+  modules: [
+    "@nuxtjs/tailwindcss",
+    ["@nuxtjs/google-fonts", {
+      families: {
+        "Noto+Sans": true,
+      },
+    }],
+    "nitro-cloudflare-dev",
+    "@nuxt/eslint",
+  ],
   app: {
     head: {
       title: "Maratongue - Digital run to fluency",
@@ -22,7 +27,6 @@ export default defineNuxtConfig({
     },
   },
   extends: [
-    "./layers/psitta",
     "./layers/ui",
   ],
   eslint: {

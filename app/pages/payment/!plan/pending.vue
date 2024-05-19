@@ -5,7 +5,6 @@ import { useToast } from "~~/layers/ui/composables/useToast"
 
 definePageMeta({
   middleware: "auth",
-  path: "/plan/pending",
 })
 
 const toast = useToast()

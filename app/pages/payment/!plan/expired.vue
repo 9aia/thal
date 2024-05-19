@@ -3,7 +3,6 @@ import { t } from "@psitta/vue"
 
 definePageMeta({
   middleware: "user",
-  path: "/plan/expired",
 })
 </script>
 

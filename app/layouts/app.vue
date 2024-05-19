@@ -124,7 +124,7 @@ function updateRedirectUrl() {
           <li v-for="item in navItems" :key="item.id" class="flex items-center gap-1 text-teal-500 hover:bg-slate-700 rounded-lg">
             <A
               :href="item.href"
-              :class="{ 'bg-white text-black hover:bg-white': route.path === item.href }"
+              active-class="bg-white text-black hover:bg-white"
               class="w-full flex items-center gap-1 px-4 py-2 rounded-lg transition-all duration-300"
             >
               <Icon>{{ item.icon }}</Icon>

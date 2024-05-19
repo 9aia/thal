@@ -5,7 +5,6 @@ const locale = useLocale()
 
 definePageMeta({
   layout: "site",
-  path: "/terms",
 })
 </script>
 

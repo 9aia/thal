@@ -15,7 +15,6 @@ onMounted(() => {
 definePageMeta({
   title: "Thanks for your order!",
   middleware: "auth",
-  path: "/checkout/success",
 })
 </script>
 

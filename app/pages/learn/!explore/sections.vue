@@ -6,7 +6,6 @@ import { learnStore } from "../../../store"
 definePageMeta({
   middleware: "premium",
   layout: "app",
-  path: "/explore/sections",
 })
 </script>
 

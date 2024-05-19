@@ -1,9 +1,5 @@
 <script setup lang="ts">
 import { t } from "@psitta/vue"
-
-definePageMeta({
-  path: "/pricing",
-})
 </script>
 
 <template>

@@ -5,7 +5,6 @@ useHead({
 
 definePageMeta({
   middleware: "auth",
-  path: "/checkout/cancel",
 })
 </script>
 
