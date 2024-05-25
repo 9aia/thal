@@ -26,6 +26,9 @@ export default defineNuxtConfig({
       ],
     },
   },
+  devServer: {
+    host: "",
+  },
   extends: [
     "./layers/ui",
   ],
