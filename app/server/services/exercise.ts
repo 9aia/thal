@@ -1,8 +1,8 @@
 import { eq } from "drizzle-orm"
 import type { H3Event } from "h3"
-import type { InsertExerciseSchema } from "../../schemas/exercise"
-import { exercises } from "../../schemas/exercise"
 import { notFound } from "~/utils/nuxt"
+import type { InsertExerciseSchema } from "~~/db/schema"
+import { exercises } from "~~/db/schema"
 
 export async function getExercise(event: H3Event, exerciseId: number) {
   const orm = event.context.orm

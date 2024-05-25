@@ -1,12 +1,11 @@
-import type { Node } from "../types"
+import type { Level } from "../types"
 
-export function getUnits(nodes: Node[], i = 100) {
-  return nodes.map<Node>((node, j) => {
+export function getLevels(nodes: Level[], i = 100) {
+  return nodes.map<Level>((unit, j) => {
     const isEven = Boolean(j % 2)
 
     return {
-      id: String(j),
-      ...node,
+      ...unit,
       position: !isEven ? "start" : "end",
       active: j < i,
     }

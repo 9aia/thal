@@ -2,6 +2,7 @@ import { int, sqliteTable, text } from "drizzle-orm/sqlite-core"
 import { createInsertSchema, createSelectSchema } from "drizzle-zod"
 import { z } from "zod"
 import { MAX_GOALS_AMOUNT, MAX_HOBBIES_AMOUNT, MAX_OBSERVATION_CHARS, MAX_PROFESSION_CHARS } from "../app/constants/base"
+import type { ExerciseQAWithCorrect } from "~/types"
 
 export const users = sqliteTable("User", {
   id: text("id").primaryKey(),
@@ -23,6 +24,25 @@ export const users = sqliteTable("User", {
   hobbies: text("hobbies"),
   observation: text("observation"),
 })
+
+// #region Exercises
+
+export const exercises = sqliteTable("Exercises", {
+  id: int("id").primaryKey({ autoIncrement: true }),
+  lessonId: text("lesson_id").notNull(),
+  type: text("type").notNull(),
+  data: text("data", { mode: "json" }).$type<ExerciseQAWithCorrect>().notNull(),
+})
+
+export const selectExerciseSchema = createSelectSchema(exercises)
+
+export const insertExerciseSchema = createInsertSchema(exercises).omit({
+  id: true,
+})
+
+export type InsertExerciseSchema = z.infer<typeof insertExerciseSchema>
+
+// #endregion
 
 export const sessions = sqliteTable("Session", {
   id: text("id").primaryKey(),

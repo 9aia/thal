@@ -23,10 +23,9 @@ CREATE TABLE IF NOT EXISTS Lessons (
 
 CREATE TABLE IF NOT EXISTS Exercises (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  lesson_id INTEGER NOT NULL,
+  lesson_id VARCHAR(255) NOT NULL,
   type VARCHAR(10),
   data TEXT,
-  FOREIGN KEY (lesson_id) REFERENCES Lessons(id)
 );
 
 -- @block

@@ -35,11 +35,11 @@ export interface Section {
 export interface Unit {
   id: string
   name: string
-  nodes: Node[]
+  levels: Level[]
 }
 
-export interface Node {
-  id?: string
+export interface Level {
+  id: string
   name: string
   type?: "concept" | "question" | "exercise" | "none" | "info" | "vocab"
   icon?: string
@@ -65,6 +65,10 @@ export interface ExerciseFillInTheBlank {
   text: string
   correctLength: number
   alternatives: string[]
+}
+
+export interface ExerciseQAWithCorrect extends ExerciseQA {
+  correct: number
 }
 
 // #endregion

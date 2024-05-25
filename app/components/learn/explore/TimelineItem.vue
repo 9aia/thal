@@ -2,11 +2,11 @@
 import { tv } from "tailwind-variants"
 import { t } from "@psitta/vue"
 import { ref } from "vue"
-import type { Node } from "../../../types"
+import type { Level } from "../../../types"
 
-defineProps<{ is: Node, i: number, items: Node[] }>()
+defineProps<{ is: Level, i: number, levels: Level[] }>()
 
-const icons: Record<Required<Node>["type"], string> = {
+const icons: Record<Required<Level>["type"], string> = {
   concept: "cognition",
   exercise: "exercise",
   question: "question_mark",
@@ -94,7 +94,7 @@ const isModalOpen = ref(false)
     </Icon>
   </div>
   <hr
-    v-if="i < items.length - 1"
-    :class="{ 'bg-primary': items[i + 1]?.active }"
+    v-if="i < levels.length - 1"
+    :class="{ 'bg-primary': levels[i + 1]?.active }"
   >
 </template>

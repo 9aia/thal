@@ -5,7 +5,7 @@ Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
 
 ### Get exercise by id
 
-GET {{baseUrl}}/learn/exercise/38
+GET {{baseUrl}}/learn/exercise/4
 Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
 
 ### Generate a exercise
@@ -20,10 +20,10 @@ Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
 
 ### Verify a exercise by id
 
-POST {{baseUrl}}/learn/exercise/verify/38
+POST {{baseUrl}}/learn/exercise/38/verify
 Content-Type: application/json
 Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
 
 {
-  "answer": 1
+  "answer": 0
 }

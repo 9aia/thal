@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BLANK } from "~/constants/exercise"
+import { BLANK } from "~/constants/exercises"
 
 const select1 = ref<any>()
 const select2 = ref<any>()
