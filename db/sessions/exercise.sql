@@ -28,6 +28,10 @@ CREATE TABLE IF NOT EXISTS Exercises (
   data TEXT,
 );
 
+-- @block List all exercises
+
+SELECT * FROM Exercises
+
 -- @block
 
 INSERT INTO Challenges (id, unit_id, name, description, type, order_number, mastery_score) VALUES (0, 0, 'Challenge 1', 'Desc', 'normal', 0, 5)

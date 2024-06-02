@@ -104,7 +104,7 @@ onMounted(async () => {
   <main class="relative flex flex-col justify-between" style="min-height: calc(100vh)">
     <div>
       <div class="flex gap-2 items-center w-full mb-4 max-w-lg mx-auto pt-4 px-4">
-        <A href="/app/explore" class="flex items-center">
+        <A href="/explore" class="flex items-center">
           <Icon>close</Icon>
         </A>
         <progress

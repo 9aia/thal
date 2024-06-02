@@ -4,6 +4,7 @@ import { exercises } from "~~/db/schema"
 import { getValidated } from "~/utils/h3"
 import { unauthorized } from "~/utils/nuxt"
 import { numericString } from "~/utils/zod"
+import { findExerciseImplementation } from "~/constants/exercises"
 
 export default eventHandler(async (event) => {
   const { id } = await getValidated(event, "params", z.object({ id: numericString(z.number()) }))
@@ -15,9 +16,10 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  const exercise = await orm.select().from(exercises).where(eq(exercises.id, id))
+  const [exercise] = await orm.select().from(exercises).where(eq(exercises.id, id))
 
-  const correct = exercise[0].data.correct === answer
+  const implementation = findExerciseImplementation(exercise.type)
+  const correct = implementation.verify(exercise.data, answer)
 
   return { correct }
 })

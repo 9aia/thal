@@ -1,7 +1,7 @@
 import { computed, reactive, ref } from "vue"
 import EXERCISES from "~/constants/exercises"
 
-export const MAX_LESSON = 1
+export const MAX_LESSON = 5
 
 export const exercise = ref()
 

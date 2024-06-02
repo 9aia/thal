@@ -1,23 +1,26 @@
+import type { Level, Section } from "~/types"
+
 interface Prompt<T extends object = object> {
   instructions: string
   criteria: string
   example: T
 }
 
-interface User {
-  languageTo: string
-  level: string
+interface ExerciseImplementation {
+  name: string
+  prompt: (options: ExercisePromptOptions) => Prompt
+  verify: (question: Record<string, any>, answer: any) => boolean
+  postprocess: (prev: Record<string, any>) => Record<string, any>
+}
+
+export interface ExercisePromptOptions {
   goals: string
   hobbies: string
   profession: string
   observation: string
-}
-
-interface ExerciseImplementation {
-  name: string
-  prompt: (user: User) => Prompt
-  verify: (question: Record<string, any>, answer: any) => boolean
-  postprocess?: (prev: Record<string, any>) => Record<string, any>
+  section: Section["id"]
+  languageFrom: string
+  languageTo: string
 }
 
 export const BLANK = "{blank}"
@@ -25,14 +28,14 @@ export const BLANK = "{blank}"
 const EXERCISES: ExerciseImplementation[] = [
   {
     name: "ReadAndAnswer",
-    prompt: ({ languageTo, level, goals, hobbies, profession, observation }) => ({
+    prompt: ({ languageTo, section, goals, hobbies, profession, observation }) => ({
       instructions: `
-      Generate a short text (2 lines) in the language ${languageTo}. The text should be based on user's profile data. Then, generate a comprehension-only question for the text. Finally, generate exactly 3 alternatives with only 1 correct interpretation of the text.
+      Generate a short text (2 lines) in the language ${languageTo}. The text should be based on this info below. Then, generate a comprehension-only question for the text. Finally, generate exactly 3 alternatives with only 1 correct interpretation of the text.
       Be creative and have fun!
       
-      ## User Data
+      ## Info
 
-      - Language level: ${level}
+      - Language level: ${section}
       - Learning goals: ${goals}
       - Hobbies: ${hobbies}
       - Profession: ${profession}
@@ -60,13 +63,13 @@ const EXERCISES: ExerciseImplementation[] = [
   },
   {
     name: "FillInTheBlank",
-    prompt: ({ languageTo, level, goals, hobbies, profession, observation }) => ({
+    prompt: ({ languageTo, section, goals, hobbies, profession, observation }) => ({
       instructions: `
       You are expected to generate a short text (2 lines) in the language ${languageTo} with exactly one blank placeholder that can be inferred just by reading and English knowledge. Also, generate exactly 3 alternatives with only 1 correct word or short phrase that fills in the blank.
       
-      ## User Data
+      ## Info
 
-      - Language level: ${level}
+      - Language level: ${section}
       - Learning goals: ${goals}
       - Hobbies: ${hobbies}
       - Profession: ${profession}
