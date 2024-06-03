@@ -1,27 +1,56 @@
 <script setup lang="ts">
-import { t } from "@psitta/vue"
-import { useEventListener } from "@vueuse/core"
-import {
-  MAX_LESSON,
-  NON_SELECTED,
-  currentClass,
-  exercise,
-  select,
-} from "~/stores/learn/exercise"
+import { useAsyncState, useEventListener } from "@vueuse/core"
+import Exercise from "~/components/learn/exercise/Exercise.vue"
+import { MAX_LESSON } from "~/constants/exercises"
+
+const route = useRoute()
 
 async function generateExercise() {
-  const exercise = await $fetch("/api/learn/exercise/generate", {
+  return await $fetch("/api/learn/exercise/generate", {
     method: "POST",
     body: {
-      lessonId: "0",
+      unitSlug: route.params.unitSlug,
+      levelSlug: route.params.levelSlug,
     },
   })
-
-  return exercise
 }
 
+const exercise = useAsyncState(generateExercise, undefined)
+
+const nextExercise = ref()
+
+const currentClass = reactive({
+  currentLesson: 0,
+})
+
+const NON_SELECTED = null
+const select = ref(NON_SELECTED)
+
+/* const implementation = computed(() => {
+  if (!exercise.state.value)
+    return undefined
+
+  const impl = EXERCISES.find(lesson => lesson.name === exercise.state.value?.type)
+
+  if (!impl)
+    return undefined
+
+  return {
+    name: impl.name,
+  }
+}) */
+
+const finishObj = reactive({
+  finished: false,
+  correct: false,
+})
+const btn = ref<HTMLButtonElement>()
+
 async function verifyExercise() {
-  const { correct } = await $fetch(`/api/learn/exercise/${exercise.value.id}/verify`, {
+  if (!exercise.state.value)
+    return false
+
+  const { correct } = await $fetch(`/api/learn/exercise/${exercise.state.value.id}/verify`, {
     method: "POST",
     body: {
       answer: select.value,
@@ -31,16 +60,8 @@ async function verifyExercise() {
   return correct
 }
 
-const finishObj = reactive({
-  finished: false,
-  correct: false,
-  perfectSuccessMessage: t("Congrats"),
-})
-const nextLesson = ref()
-const btn = ref<HTMLButtonElement>()
-
 async function verify() {
-  if (!exercise.value)
+  if (!exercise.state.value)
     return
 
   finishObj.finished = true
@@ -48,7 +69,7 @@ async function verify() {
 
   select.value = NON_SELECTED
 
-  nextLesson.value = await generateExercise()
+  nextExercise.value = await generateExercise()
 }
 
 const isSuccess = ref(false)
@@ -66,18 +87,16 @@ async function next() {
     isSuccess.value = true
 
     select.value = NON_SELECTED
-    exercise.value = undefined
+    // exercise.value = undefined // TODO
     return
   }
 
   finishObj.finished = false
-  exercise.value = nextLesson.value
-  nextLesson.value = null
+  // exercise.value = nextExercise.value // TODO
+  nextExercise.value = null
 }
 
 onMounted(async () => {
-  exercise.value = await generateExercise()
-
   useEventListener(document, "keydown", (e: any) => {
     if (e.key !== "Enter")
       return
@@ -91,17 +110,26 @@ onMounted(async () => {
       return
     }
 
-    if (select === NON_SELECTED || !exercise)
+    if (select.value === NON_SELECTED || !exercise.state.value)
       return
 
     btn.value?.focus()
     btn.value?.click()
   })
 })
+
+definePageMeta({
+  middleware: "premium",
+  layout: false,
+})
 </script>
 
 <template>
-  <main class="relative flex flex-col justify-between" style="min-height: calc(100vh)">
+  <main v-if="exercise.isLoading.value" class="relative flex flex-col justify-between" style="min-height: calc(100vh)">
+    <span class="loading loading-spinner loading-sm absolute bottom-1/2 right-1/2 translate-x-1/2" />
+  </main>
+
+  <main v-else class="relative flex flex-col justify-between" style="min-height: calc(100vh)">
     <div>
       <div class="flex gap-2 items-center w-full mb-4 max-w-lg mx-auto pt-4 px-4">
         <A href="/explore" class="flex items-center">
@@ -116,7 +144,7 @@ onMounted(async () => {
       <div class="max-w-lg mx-auto pt-4 px-4">
         <ExerciseSuccess v-if="isSuccess" />
 
-        <slot v-else-if="exercise" />
+        <Exercise v-else-if="exercise.state.value" v-model="select" :exercise="exercise.state.value" />
 
         <template v-else>
           <span class="loading loading-spinner loading-sm absolute bottom-1/2 right-1/2 translate-x-1/2" />
@@ -133,7 +161,7 @@ onMounted(async () => {
       <div class="flex gap-2 max-w-lg mx-auto p-4">
         <div v-if="!finishObj.finished" class="w-full">
           <Btn
-            ref="btn" class="btn-md btn-primary w-full" :disabled="select === NON_SELECTED || !exercise"
+            ref="btn" class="btn-md btn-primary w-full" :disabled="select === NON_SELECTED || !exercise.state.value"
             @click="verify"
           >
             Verificar
@@ -163,12 +191,8 @@ onMounted(async () => {
           </div>
 
           <Btn
-            ref="btn"
-            class="btn-md btn-neutral float-right"
-            :class="{ 'w-full': isSuccess }"
-            :loading="!nextLesson"
-            :disabled="!nextLesson"
-            @click="next"
+            ref="btn" class="btn-md btn-neutral float-right" :class="{ 'w-full': isSuccess }" :loading="!nextExercise"
+            :disabled="!nextExercise" @click="next"
           >
             Continuar
           </Btn>

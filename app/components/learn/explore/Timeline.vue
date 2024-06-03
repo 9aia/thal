@@ -8,7 +8,7 @@ defineProps<{
 
 <template>
   <ul class="timeline timeline-vertical flex flex-col">
-    <li v-for="(level, i) in levels" :key="level.id">
+    <li v-for="(level, i) in levels" :key="level.slug">
       <TimelineItem :is="level" :i="i" :levels="levels" />
     </li>
   </ul>

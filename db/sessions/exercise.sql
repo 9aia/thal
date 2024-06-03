@@ -19,23 +19,6 @@ CREATE TABLE IF NOT EXISTS Lessons (
   FOREIGN KEY (challenge_id) REFERENCES Challenges(id)
 );
 
--- @block
-
-CREATE TABLE IF NOT EXISTS Exercises (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  lesson_id VARCHAR(255) NOT NULL,
-  type VARCHAR(10),
-  data TEXT,
-);
-
 -- @block List all exercises
 
 SELECT * FROM Exercises
-
--- @block
-
-INSERT INTO Challenges (id, unit_id, name, description, type, order_number, mastery_score) VALUES (0, 0, 'Challenge 1', 'Desc', 'normal', 0, 5)
-
--- @block
-
-INSERT INTO Lessons (id, challenge_id, type) VALUES (0, 0, 'normal')

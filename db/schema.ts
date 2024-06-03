@@ -2,7 +2,8 @@ import { int, sqliteTable, text } from "drizzle-orm/sqlite-core"
 import { createInsertSchema, createSelectSchema } from "drizzle-zod"
 import { z } from "zod"
 import { MAX_GOALS_AMOUNT, MAX_HOBBIES_AMOUNT, MAX_OBSERVATION_CHARS, MAX_PROFESSION_CHARS } from "../app/constants/base"
-import type { ExerciseQAWithCorrect } from "~/types"
+
+// #region Users
 
 export const users = sqliteTable("User", {
   id: text("id").primaryKey(),
@@ -11,7 +12,7 @@ export const users = sqliteTable("User", {
   lastName: text("last_name").notNull(),
   pronouns: text("pronouns"),
   picture: text("picture"),
-  createdAt: text("createdAt").notNull(),
+  createdAt: text("created_at").notNull(),
   email: text("email"),
   plan: text("plan"),
   payment_gateway_customer_id: text("payment_gateway_customer_id"),
@@ -24,25 +25,6 @@ export const users = sqliteTable("User", {
   hobbies: text("hobbies"),
   observation: text("observation"),
 })
-
-// #region Exercises
-
-export const exercises = sqliteTable("Exercises", {
-  id: int("id").primaryKey({ autoIncrement: true }),
-  lessonId: text("lesson_id").notNull(),
-  type: text("type").notNull(),
-  data: text("data", { mode: "json" }).$type<ExerciseQAWithCorrect>().notNull(),
-})
-
-export const selectExerciseSchema = createSelectSchema(exercises)
-
-export const insertExerciseSchema = createInsertSchema(exercises).omit({
-  id: true,
-})
-
-export type InsertExerciseSchema = z.infer<typeof insertExerciseSchema>
-
-// #endregion
 
 export const sessions = sqliteTable("Session", {
   id: text("id").primaryKey(),
@@ -128,3 +110,40 @@ export const userUpdateSchema = createInsertSchema(users, {
 export type UserSelect = z.infer<typeof userSelectSchema>
 export type UserInsert = z.infer<typeof userInsertSchema>
 export type UserUpdate = z.infer<typeof userUpdateSchema>
+
+// #endregion
+
+// #region Exercises
+
+export const exercises = sqliteTable("Exercise", {
+  id: int("id").primaryKey({ autoIncrement: true }),
+  unitSlug: text("unit_slug").notNull(),
+  levelSlug: text("level_slug").notNull(),
+  type: text("type").notNull(),
+  data: text("data", { mode: "json" }).$type<Record<string, any>>().notNull(),
+})
+
+export const selectExerciseSchema = createSelectSchema(exercises)
+
+export const insertExerciseSchema = createInsertSchema(exercises).omit({
+  id: true,
+})
+
+export type ExerciseSelect = Omit<z.infer<typeof selectExerciseSchema>, "data"> & {
+  data: Record<string, any>
+}
+export type ExerciseInsert = z.infer<typeof insertExerciseSchema>
+
+// #endregion
+
+// #region Level
+
+export const levels = sqliteTable("Level", {
+  id: int("id").primaryKey({ autoIncrement: true }),
+  slug: text("slug").notNull(),
+  unitSlug: text("unit_slug").notNull(),
+  lessonAmount: int("lesson_amount").default(0).notNull(),
+  currentExercise: int("current_exercise").default(0).notNull(),
+})
+
+// #endregion

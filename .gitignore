@@ -30,4 +30,5 @@ db.sqlite
 
 .wrangler/state/v3
 
-_old_maratongue
+# Drizzle
+db/migrations

@@ -33,13 +33,13 @@ export interface Section {
 }
 
 export interface Unit {
-  id: string
+  slug: string
   name: string
   levels: Level[]
 }
 
 export interface Level {
-  id: string
+  slug: string
   name: string
   type?: "concept" | "question" | "exercise" | "none" | "info" | "vocab"
   icon?: string
@@ -47,8 +47,8 @@ export interface Level {
   position?: "start" | "end"
   active?: boolean
   optional?: boolean
-  maxLevel?: number
-  level?: number
+  maxLessonAmount?: number
+  lessonAmount?: number
 }
 
 // #endregion
@@ -69,6 +69,17 @@ export interface ExerciseFillInTheBlank {
 
 export interface ExerciseQAWithCorrect extends ExerciseQA {
   correct: number
+}
+
+export interface ExerciseGetDto {
+  id: number
+  type: string
+  data: Record<string, any>
+}
+
+export interface ExerciseGenerateDto {
+  unitSlug: string
+  levelSlug: string
 }
 
 // #endregion

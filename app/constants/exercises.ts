@@ -1,4 +1,7 @@
-import type { Level, Section } from "~/types"
+import type { Section } from "~/types"
+
+export const MAX_LESSON = 5
+export const NON_SELECTED = null
 
 interface Prompt<T extends object = object> {
   instructions: string

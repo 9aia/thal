@@ -9,7 +9,7 @@ const isModalOpen = ref(false)
 
 <template>
   <section
-    :id="`unit-${unit.id}`"
+    :id="`unit-${unit.slug}`"
   >
     <div class="block bg-white border-t border-slate-300">
       <div class="max-w-lg mx-auto px-4 bg-white flex justify-between items-center">

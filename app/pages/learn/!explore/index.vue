@@ -40,7 +40,7 @@ onMounted(() => {
     <Unit
       v-for="unit in section.units"
       v-bind="unit"
-      :key="unit.id"
+      :key="unit.slug"
     />
 
     <div class="card w-96 mx-auto bg-transparent border border-slate-900 shadow-xl mt-16 mb-4">

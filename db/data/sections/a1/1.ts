@@ -2,71 +2,71 @@ import type { Unit } from "~/types"
 
 export default [
   {
-    id: "unit-1",
+    slug: "unit-1",
     name: "Unit 1",
     levels: [
       {
-        id: "intro",
+        slug: "intro",
         name: "Greetings and introductions",
         type: "vocab",
         description: "Nouns are names to things, places or ideas.",
       },
       {
-        id: "nouns",
+        slug: "nouns",
         name: "Nouns",
         type: "concept",
         description: "Nouns are names to things, places or ideas.",
       },
       {
-        id: "plurals",
+        slug: "plurals",
         name: "Plurals",
         type: "concept",
         description: "A plural is a form of a word that indicates there is more than one of something.",
       },
       {
-        id: "regular-plurals",
+        slug: "regular-plurals",
         name: "Regular plurals",
         type: "exercise",
-        maxLevel: 5,
-        level: 1,
+        maxLessonAmount: 5,
+        lessonAmount: 1,
       },
       {
-        id: "f-to-ves-plurals",
+        slug: "f-to-ves-plurals",
         name: "-f to -ves plurals",
         type: "exercise",
       },
       {
-        id: "words-that-end-with-en",
+        slug: "words-that-end-with-en",
         name: "Words that end with -en",
         type: "exercise",
       },
       {
-        id: "base-plurals",
+        slug: "base-plurals",
         name: "Base plurals",
         type: "exercise",
       },
       {
-        id: "common-and-proper-nouns",
+        slug: "common-and-proper-nouns",
         name: "Common and proper nouns",
         type: "concept",
       },
       {
-        id: "concrete-and-abstract-nouns",
+        slug: "concrete-and-abstract-nouns",
         name: "Concrete and abstract nouns",
         type: "concept",
       },
       {
-        id: "mutant-plurals",
+        slug: "mutant-plurals",
         name: "Mutant plurals",
         type: "exercise",
       },
       {
-        id: "foreign-plurals",
+        slug: "foreign-plurals",
         name: "Foreign plurals",
         type: "exercise",
       },
       {
-        id: "origin-of-mutant-plurals",
+        slug: "origin-of-mutant-plurals",
         name: "Origin of mutant plurals",
         type: "info",
         optional: true,
@@ -74,72 +74,72 @@ export default [
     ],
   },
   {
-    id: "articles",
+    slug: "articles",
     name: "Articles",
     levels: [
       {
-        id: "articles",
+        slug: "articles",
         name: "Articles",
         type: "concept",
       },
       {
-        id: "definite-article",
+        slug: "definite-article",
         name: "Definite article",
         type: "exercise",
       },
       {
-        id: "a-article",
+        slug: "a-article",
         name: "`a` article",
         type: "exercise",
       },
       {
-        id: "an-article",
+        slug: "an-article",
         name: "`an` article",
         type: "exercise",
       },
     ],
   },
   {
-    id: "pronouns",
+    slug: "pronouns",
     name: "Pronouns",
     levels: [
       {
-        id: "pronouns",
+        slug: "pronouns",
         name: "Pronouns",
         type: "concept",
       },
       {
-        id: "subject-pronouns",
+        slug: "subject-pronouns",
         name: "Subject pronouns",
         type: "concept",
       },
       {
-        id: "object-pronouns",
+        slug: "object-pronouns",
         name: "Object pronouns",
         type: "concept",
       },
       {
-        id: "that-vs-which",
+        slug: "that-vs-which",
         name: "That vs which",
         type: "exercise",
       },
       {
-        id: "who-vs-whom",
+        slug: "who-vs-whom",
         name: "Who vs whom",
         type: "exercise",
       },
       {
-        id: "possessive-adjectives",
+        slug: "possessive-adjectives",
         name: "Possessive adjectives",
         type: "concept",
       },
       {
-        id: "possessive-pronouns",
+        slug: "possessive-pronouns",
         name: "Possessive pronouns",
         type: "concept",
       },
       {
-        id: "singular-they",
+        slug: "singular-they",
         name: "Singular they",
         type: "exercise",
         optional: true,

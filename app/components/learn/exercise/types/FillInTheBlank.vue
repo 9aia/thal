@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { t } from "@psitta/vue"
 import { computed } from "vue"
-import { BLANK } from "../../../constants/exercises"
+import { BLANK } from "~/constants/exercises"
 import type { ExerciseFillInTheBlank } from "~/types"
 
 const props = defineProps<ExerciseFillInTheBlank>()
