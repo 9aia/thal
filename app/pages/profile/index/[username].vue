@@ -7,7 +7,7 @@ const route = useRoute()
 const username = route.params.username
 
 const { execute, data, pending, error } = useAsyncData(
-  "profiles",
+  `profile-${username}`,
   async () => {
     const profileFetched = await $fetch(`/api/profile/${username}`)
     return profileFetched
@@ -53,24 +53,48 @@ provide("profile", profile)
       :error="error"
       @try-again="loadProfile"
     >
-      <template #title="{ isNotFound }">
+      <template #title="{ isNotFound, isForbidden }">
         <div class="space-y-2">
           <div>
-            {{
-              isNotFound
-                ? t("User not found:")
-                : t("Something wrong happened")
-            }}
+            <div v-if="isNotFound">
+              {{ t("User not found:") }}
+            </div>
+
+            <div v-else-if="isForbidden">
+              {{ t("Forbidden for user: ") }}
+            </div>
+
+            <div v-else>
+              {{ t("Something wrong happened") }}
+            </div>
           </div>
 
           <div class="text-white text-sm">
-            {{
-              isNotFound
-                ? username
-                : ''
-            }}
+            <div v-if="isNotFound || isForbidden">
+              {{ username }}
+            </div>
           </div>
         </div>
+      </template>
+
+      <template #action="{ tryAgainFn, isForbidden, isNotFound }">
+        <Btn
+          v-if="!isNotFound && !isForbidden"
+          class="btn-primary"
+          @click="tryAgainFn()"
+        >
+          <Icon name="mdi-refresh" />
+          {{ t('Try again') }}
+        </Btn>
+
+        <Btn
+          v-else
+          class="btn-primary"
+          @click="navigateTo('/profile/')"
+        >
+          <Icon name="mdi-refresh" />
+          {{ t('Go to my profile') }}
+        </Btn>
       </template>
     </Error>
   </div>

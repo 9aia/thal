@@ -11,15 +11,24 @@ const emit = defineEmits<{
 }>()
 
 const isNotFound = computed(() => props.error.statusCode === 404)
+const isForbidden = computed(() => props.error.statusCode === 403)
 </script>
 
 <template>
   <div class="card w-96 bg-slate-800 text-primary-content">
     <div class="card-body items-center text-center">
       <h2 class="card-title text-teal-500">
-        <slot name="title" :is-not-found="isNotFound">
+        <slot
+          name="title"
+          :is-not-found="isNotFound"
+          :is-forbidden="isForbidden"
+        >
           <template v-if="isNotFound">
             {{ t('Not found!') }}
+          </template>
+
+          <template v-else-if="isForbidden">
+            {{ t('Forbidden!') }}
           </template>
 
           <template v-else>
@@ -33,14 +42,21 @@ const isNotFound = computed(() => props.error.statusCode === 404)
       </p>
 
       <div class="card-actions justify-end">
-        <Btn
-          v-if="!isNotFound"
-          class="btn-primary"
-          @click="emit('tryAgain')"
+        <slot
+          name="action"
+          :try-again-fn="() => emit('tryAgain')"
+          :is-not-found="isNotFound"
+          :is-forbidden="isForbidden"
         >
-          <Icon name="mdi-refresh" />
-          {{ t('Try again') }}
-        </Btn>
+          <Btn
+            v-if="!isNotFound"
+            class="btn-primary"
+            @click="emit('tryAgain')"
+          >
+            <Icon name="mdi-refresh" />
+            {{ t('Try again') }}
+          </Btn>
+        </slot>
       </div>
     </div>
   </div>
