@@ -75,6 +75,8 @@ export interface ExerciseGetDto {
   id: number
   type: string
   data: Record<string, any>
+  currentExercise: number
+  lessonAmount: number
 }
 
 export interface ExerciseGenerateDto {

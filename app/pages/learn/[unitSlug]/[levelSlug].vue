@@ -5,40 +5,37 @@ import { MAX_LESSON } from "~/constants/exercises"
 
 const route = useRoute()
 
+const store = reactive({
+  lessonAmount: 0,
+  currentExercise: 0,
+})
+
 async function generateExercise() {
-  return await $fetch("/api/learn/exercise/generate", {
+  return await $fetch("/api/learn/exercise/prepare", {
     method: "POST",
     body: {
       unitSlug: route.params.unitSlug,
       levelSlug: route.params.levelSlug,
+      lessonAmount: store.lessonAmount,
     },
   })
 }
 
-const exercise = useAsyncState(generateExercise, undefined)
+const isSuccess = computed(() => store.currentExercise >= MAX_LESSON)
 
-const nextExercise = ref()
+const exercise = useAsyncState(generateExercise, undefined, {
+  onSuccess(data) {
+    if (!data)
+      return
 
-const currentClass = reactive({
-  currentLesson: 0,
+    store.currentExercise = data.currentExercise
+    store.lessonAmount = data.lessonAmount
+  },
 })
+const nextExercise = ref()
 
 const NON_SELECTED = null
 const select = ref(NON_SELECTED)
-
-/* const implementation = computed(() => {
-  if (!exercise.state.value)
-    return undefined
-
-  const impl = EXERCISES.find(lesson => lesson.name === exercise.state.value?.type)
-
-  if (!impl)
-    return undefined
-
-  return {
-    name: impl.name,
-  }
-}) */
 
 const finishObj = reactive({
   finished: false,
@@ -72,8 +69,6 @@ async function verify() {
   nextExercise.value = await generateExercise()
 }
 
-const isSuccess = ref(false)
-
 async function next() {
   if (isSuccess.value) {
     navigateTo("/explore")
@@ -81,19 +76,28 @@ async function next() {
     return
   }
 
-  currentClass.currentLesson++
+  const { currentExercise } = await $fetch(`/api/learn/exercise/next`, {
+    method: "POST",
+    body: {
+      unitSlug: route.params.unitSlug,
+      levelSlug: route.params.levelSlug,
+    },
+  })
 
-  if (currentClass.currentLesson >= MAX_LESSON) {
-    isSuccess.value = true
+  store.currentExercise = currentExercise
 
-    select.value = NON_SELECTED
+  if (isSuccess.value) {
     // exercise.value = undefined // TODO
-    return
+    select.value = NON_SELECTED
   }
 
   finishObj.finished = false
   // exercise.value = nextExercise.value // TODO
   nextExercise.value = null
+}
+
+async function nextLesson() {
+  console.log("a")
 }
 
 onMounted(async () => {
@@ -131,18 +135,19 @@ definePageMeta({
 
   <main v-else class="relative flex flex-col justify-between" style="min-height: calc(100vh)">
     <div>
+      {{ store.lessonAmount }}
       <div class="flex gap-2 items-center w-full mb-4 max-w-lg mx-auto pt-4 px-4">
         <A href="/explore" class="flex items-center">
           <Icon>close</Icon>
         </A>
         <progress
           class="progress progress-success w-full"
-          :value="Math.floor((100 / MAX_LESSON) * currentClass.currentLesson)" max="100"
+          :value="Math.floor((100 / MAX_LESSON) * store.currentExercise)" max="100"
         />
       </div>
 
       <div class="max-w-lg mx-auto pt-4 px-4">
-        <ExerciseSuccess v-if="isSuccess" />
+        <ExerciseCompleted v-if="isSuccess" @next-lesson="nextLesson" />
 
         <Exercise v-else-if="exercise.state.value" v-model="select" :exercise="exercise.state.value" />
 

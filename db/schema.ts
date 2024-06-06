@@ -146,4 +146,8 @@ export const levels = sqliteTable("Level", {
   currentExercise: int("current_exercise").default(0).notNull(),
 })
 
+export const selectLevelSchema = createSelectSchema(levels)
+
+export type LevelSelect = z.infer<typeof selectLevelSchema>
+
 // #endregion

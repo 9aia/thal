@@ -2,13 +2,14 @@ import process from "node:process"
 import type { GenerationConfig } from "@google/generative-ai"
 import { and, eq } from "drizzle-orm"
 import type { H3Event } from "h3"
-import { getLevel, saveLevel } from "./level"
+import { getLevel } from "./level"
 import type { ExercisePromptOptions } from "~/constants/exercises"
-import EXERCISES from "~/constants/exercises"
+import EXERCISES, { MAX_LESSON } from "~/constants/exercises"
 import type { ExerciseGenerateDto } from "~/types"
 import { getGemini } from "~/utils/gemini"
 import type { ExerciseInsert, UserSelect } from "~~/db/schema"
 import { exercises, levels } from "~~/db/schema"
+import { badRequest } from "~/utils/nuxt"
 
 export async function getExercise(
   event: H3Event,
@@ -114,8 +115,23 @@ export async function nextExercise(
 
   const level = await getLevel(event, exerciseDto)
 
-  await orm
-    .update(levels)
-    .set({ ...level, currentExercise: level.currentExercise + 1 })
-    .returning()
+  const isFinal = level.currentExercise + 1 > MAX_LESSON
+  let currentExercise = level.currentExercise
+
+  if (!isFinal) {
+    const [updatedLevel] = await orm
+      .update(levels)
+      .set({ ...level, currentExercise: currentExercise + 1 })
+      .where(and(eq(levels.unitSlug, exerciseDto.unitSlug), eq(levels.slug, exerciseDto.levelSlug)))
+      .returning()
+
+    currentExercise = updatedLevel.currentExercise
+  }
+  else {
+    throw badRequest("You are already in the last exercise")
+  }
+
+  return {
+    currentExercise,
+  }
 }

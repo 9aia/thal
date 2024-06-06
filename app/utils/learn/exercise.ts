@@ -1,8 +1,9 @@
 import { findExerciseImplementation } from "~/constants/exercises"
+import { getLevel } from "~/server/services/level"
 import type { ExerciseGetDto } from "~/types"
-import type { ExerciseSelect } from "~~/db/schema"
+import type { ExerciseSelect, LevelSelect } from "~~/db/schema"
 
-export function convertExerciseEntityToGenerateDto(ent: ExerciseSelect) {
+export function getLessonDto(ent: ExerciseSelect, level: LevelSelect) {
   const exercise = findExerciseImplementation(ent.type)
   const processedData = exercise.postprocess(ent.data)
 
@@ -10,6 +11,8 @@ export function convertExerciseEntityToGenerateDto(ent: ExerciseSelect) {
     id: ent.id,
     type: ent.type,
     data: processedData,
+    currentExercise: level.currentExercise,
+    lessonAmount: level.lessonAmount,
   }
 
   return exerciseDto
