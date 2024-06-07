@@ -1,38 +1,40 @@
 <script setup lang="ts">
 import { useAsyncState, useEventListener } from "@vueuse/core"
 import Exercise from "~/components/learn/exercise/Exercise.vue"
-import { MAX_LESSON } from "~/constants/exercises"
+import { MAX_EXERCISE_AMOUNT } from "~/constants/exercises"
+import type { LessonGetDto } from "~/types"
 
 const route = useRoute()
 
-const store = reactive({
+const lesson = ref<LessonGetDto>({
   lessonAmount: 0,
   currentExercise: 0,
+  exercise: null,
 })
 
-async function generateExercise() {
+async function getLessonState() {
   return await $fetch("/api/learn/exercise/prepare", {
     method: "POST",
     body: {
       unitSlug: route.params.unitSlug,
       levelSlug: route.params.levelSlug,
-      lessonAmount: store.lessonAmount,
+      lessonAmount: lesson.value.lessonAmount,
     },
   })
 }
 
-const isSuccess = computed(() => store.currentExercise >= MAX_LESSON)
+const isSuccess = computed(() => lesson.value.currentExercise >= MAX_EXERCISE_AMOUNT)
 
-const exercise = useAsyncState(generateExercise, undefined, {
+const { isLoading: isFirstLoading } = useAsyncState(getLessonState, undefined, {
   onSuccess(data) {
     if (!data)
       return
 
-    store.currentExercise = data.currentExercise
-    store.lessonAmount = data.lessonAmount
+    lesson.value = data
   },
 })
-const nextExercise = ref()
+
+const nextLessonState = ref()
 
 const NON_SELECTED = null
 const select = ref(NON_SELECTED)
@@ -43,30 +45,30 @@ const finishObj = reactive({
 })
 const btn = ref<HTMLButtonElement>()
 
-async function verifyExercise() {
-  if (!exercise.state.value)
-    return false
-
-  const { correct } = await $fetch(`/api/learn/exercise/${exercise.state.value.id}/verify`, {
+async function getVerify() {
+  return await $fetch(`/api/learn/exercise/${lesson.value.exercise?.id}/next`, {
     method: "POST",
     body: {
       answer: select.value,
+      unitSlug: route.params.unitSlug,
+      levelSlug: route.params.levelSlug,
+      lessonAmount: lesson.value.lessonAmount,
     },
   })
-
-  return correct
 }
 
+const fetchVerify = useAsyncState(getVerify, null, {
+  immediate: false,
+})
+
 async function verify() {
-  if (!exercise.state.value)
-    return
+  await fetchVerify.execute()
+
+  nextLessonState.value = fetchVerify.state.value?.nextLessonState
+  finishObj.correct = !!fetchVerify.state.value?.correct
 
   finishObj.finished = true
-  finishObj.correct = await verifyExercise()
-
   select.value = NON_SELECTED
-
-  nextExercise.value = await generateExercise()
 }
 
 async function next() {
@@ -76,24 +78,13 @@ async function next() {
     return
   }
 
-  const { currentExercise } = await $fetch(`/api/learn/exercise/next`, {
-    method: "POST",
-    body: {
-      unitSlug: route.params.unitSlug,
-      levelSlug: route.params.levelSlug,
-    },
-  })
+  lesson.value = nextLessonState.value
 
-  store.currentExercise = currentExercise
-
-  if (isSuccess.value) {
-    // exercise.value = undefined // TODO
+  if (isSuccess.value)
     select.value = NON_SELECTED
-  }
 
   finishObj.finished = false
-  // exercise.value = nextExercise.value // TODO
-  nextExercise.value = null
+  nextLessonState.value = null
 }
 
 async function nextLesson() {
@@ -114,7 +105,7 @@ onMounted(async () => {
       return
     }
 
-    if (select.value === NON_SELECTED || !exercise.state.value)
+    if (select.value === NON_SELECTED || !lesson.value.exercise)
       return
 
     btn.value?.focus()
@@ -129,27 +120,31 @@ definePageMeta({
 </script>
 
 <template>
-  <main v-if="exercise.isLoading.value" class="relative flex flex-col justify-between" style="min-height: calc(100vh)">
+  <main v-if="isFirstLoading" class="relative flex flex-col justify-between" style="min-height: calc(100vh)">
     <span class="loading loading-spinner loading-sm absolute bottom-1/2 right-1/2 translate-x-1/2" />
   </main>
 
   <main v-else class="relative flex flex-col justify-between" style="min-height: calc(100vh)">
     <div>
-      {{ store.lessonAmount }}
+      {{ lesson.lessonAmount }}
       <div class="flex gap-2 items-center w-full mb-4 max-w-lg mx-auto pt-4 px-4">
         <A href="/explore" class="flex items-center">
           <Icon>close</Icon>
         </A>
         <progress
           class="progress progress-success w-full"
-          :value="Math.floor((100 / MAX_LESSON) * store.currentExercise)" max="100"
+          :value="Math.floor((100 / MAX_EXERCISE_AMOUNT) * lesson.currentExercise)" max="100"
         />
       </div>
 
       <div class="max-w-lg mx-auto pt-4 px-4">
         <ExerciseCompleted v-if="isSuccess" @next-lesson="nextLesson" />
 
-        <Exercise v-else-if="exercise.state.value" v-model="select" :exercise="exercise.state.value" />
+        <Exercise
+          v-else-if="lesson.exercise"
+          v-model="select"
+          :lesson="lesson"
+        />
 
         <template v-else>
           <span class="loading loading-spinner loading-sm absolute bottom-1/2 right-1/2 translate-x-1/2" />
@@ -166,7 +161,10 @@ definePageMeta({
       <div class="flex gap-2 max-w-lg mx-auto p-4">
         <div v-if="!finishObj.finished" class="w-full">
           <Btn
-            ref="btn" class="btn-md btn-primary w-full" :disabled="select === NON_SELECTED || !exercise.state.value"
+            ref="btn"
+            class="btn-md btn-primary w-full"
+            :disabled="select === NON_SELECTED || fetchVerify.isLoading.value"
+            :loading="fetchVerify.isLoading.value"
             @click="verify"
           >
             Verificar
@@ -196,8 +194,12 @@ definePageMeta({
           </div>
 
           <Btn
-            ref="btn" class="btn-md btn-neutral float-right" :class="{ 'w-full': isSuccess }" :loading="!nextExercise"
-            :disabled="!nextExercise" @click="next"
+            ref="btn"
+            class="btn-md btn-neutral float-right"
+            :class="{ 'w-full': isSuccess }"
+            :loading="!nextLessonState"
+            :disabled="!nextLessonState"
+            @click="next"
           >
             Continuar
           </Btn>

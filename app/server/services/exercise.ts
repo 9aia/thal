@@ -4,7 +4,7 @@ import { and, eq } from "drizzle-orm"
 import type { H3Event } from "h3"
 import { getLevel } from "./level"
 import type { ExercisePromptOptions } from "~/constants/exercises"
-import EXERCISES, { MAX_LESSON } from "~/constants/exercises"
+import EXERCISES, { MAX_EXERCISE_AMOUNT } from "~/constants/exercises"
 import type { ExerciseGenerateDto } from "~/types"
 import { getGemini } from "~/utils/gemini"
 import type { ExerciseInsert, UserSelect } from "~~/db/schema"
@@ -13,14 +13,14 @@ import { badRequest } from "~/utils/nuxt"
 
 export async function getExercise(
   event: H3Event,
-  { unitSlug, levelSlug }: ExerciseGenerateDto,
+  { unitSlug, levelSlug, position }: ExerciseGenerateDto,
 ) {
   const orm = event.context.orm
 
   const [exercise] = await orm
     .select()
     .from(exercises)
-    .where(and(eq(exercises.unitSlug, unitSlug), eq(exercises.levelSlug, levelSlug)))
+    .where(and(eq(exercises.unitSlug, unitSlug), eq(exercises.levelSlug, levelSlug), eq(exercises.position, position)))
 
   return exercise
 }
@@ -87,6 +87,7 @@ export async function generateExercise(
     type: exercise.name,
     unitSlug: exerciseGenerateDto.unitSlug,
     levelSlug: exerciseGenerateDto.levelSlug,
+    position: exerciseGenerateDto.position,
     data: parsedExercise,
   })
 
@@ -109,20 +110,21 @@ async function saveExercise(
 
 export async function nextExercise(
   event: H3Event,
-  exerciseDto: ExerciseGenerateDto,
+  unitSlug: string,
+  levelSlug: string,
 ) {
   const orm = event.context.orm
 
-  const level = await getLevel(event, exerciseDto)
+  const level = await getLevel(event, unitSlug, levelSlug)
 
-  const isFinal = level.currentExercise + 1 > MAX_LESSON
+  const isFinal = level.currentExercise + 1 > MAX_EXERCISE_AMOUNT
   let currentExercise = level.currentExercise
 
   if (!isFinal) {
     const [updatedLevel] = await orm
       .update(levels)
       .set({ ...level, currentExercise: currentExercise + 1 })
-      .where(and(eq(levels.unitSlug, exerciseDto.unitSlug), eq(levels.slug, exerciseDto.levelSlug)))
+      .where(and(eq(levels.unitSlug, unitSlug), eq(levels.slug, levelSlug)))
       .returning()
 
     currentExercise = updatedLevel.currentExercise

@@ -119,6 +119,7 @@ export const exercises = sqliteTable("Exercise", {
   id: int("id").primaryKey({ autoIncrement: true }),
   unitSlug: text("unit_slug").notNull(),
   levelSlug: text("level_slug").notNull(),
+  position: int("position").default(0).notNull(),
   type: text("type").notNull(),
   data: text("data", { mode: "json" }).$type<Record<string, any>>().notNull(),
 })

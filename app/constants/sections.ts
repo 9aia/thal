@@ -33,7 +33,7 @@ export const sectionA1: Section = {
           name: "Regular plurals",
           type: "exercise",
           maxLessonAmount: 5,
-          lessonAmount: 1,
+          lessonAmount: 3,
         },
         {
           slug: "f-to-ves-plurals",

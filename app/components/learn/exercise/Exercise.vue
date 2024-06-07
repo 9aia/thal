@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { useI18n } from "@psitta/vue"
-import type { ExerciseGetDto } from "~/types"
+import type { LessonGetDto } from "~/types"
 
 const props = defineProps<{
-  exercise: ExerciseGetDto
+  lesson: LessonGetDto
 }>()
 const { t } = useI18n()
 const toast = useToast()
-const select = defineModel<number>()
+const select = defineModel<number | null>()
 
 const components: Record<string, any> = {
   FillInTheBlank: () => import("./types/FillInTheBlank.vue"),
@@ -29,7 +29,7 @@ async function loadExercise(name: string) {
 }
 
 onMounted(() => {
-  loadExercise(props.exercise.type)
+  loadExercise(props.lesson.exercise!.type)
 })
 </script>
 
@@ -37,9 +37,9 @@ onMounted(() => {
   <div class="w-full flex flex-col">
     <component
       :is="comp"
-      v-if="exercise"
+      v-if="lesson"
       v-model="select"
-      v-bind="props.exercise.data"
+      v-bind="props.lesson.exercise!.data"
     />
   </div>
 </template>

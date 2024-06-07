@@ -71,10 +71,12 @@ export interface ExerciseQAWithCorrect extends ExerciseQA {
   correct: number
 }
 
-export interface ExerciseGetDto {
-  id: number
-  type: string
-  data: Record<string, any>
+export interface LessonGetDto {
+  exercise: {
+    id: number
+    type: string
+    data: Record<string, any>
+  } | null
   currentExercise: number
   lessonAmount: number
 }
@@ -82,6 +84,7 @@ export interface ExerciseGetDto {
 export interface ExerciseGenerateDto {
   unitSlug: string
   levelSlug: string
+  position: number
 }
 
 // #endregion

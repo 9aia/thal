@@ -2,6 +2,10 @@
 
 SELECT * FROM Exercise
 
+-- @block Delete all exercises
+
+DELETE FROM Exercise
+
 -- @block List all levels
 
 SELECT * FROM Level
