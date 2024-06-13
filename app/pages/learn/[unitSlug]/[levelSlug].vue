@@ -3,8 +3,13 @@ import { useAsyncState, useEventListener } from "@vueuse/core"
 import Exercise from "~/components/learn/exercise/Exercise.vue"
 import { MAX_EXERCISE_AMOUNT } from "~/constants/exercises"
 import type { LessonGetDto } from "~/types"
+import { getMaxLessonAmount } from "~/utils/learn/exercise"
 
 const route = useRoute()
+
+const sectionSlug = ref("a1")
+const unitSlug = route.params.unitSlug as string
+const levelSlug = route.params.levelSlug as string
 
 const lesson = ref<LessonGetDto>({
   lessonIndex: 0,
@@ -16,13 +21,18 @@ async function getLessonState() {
   return await $fetch("/api/learn/exercise/prepare", {
     method: "POST",
     body: {
-      unitSlug: route.params.unitSlug,
-      levelSlug: route.params.levelSlug,
+      unitSlug,
+      levelSlug,
     },
   })
 }
 
-const isSuccess = computed(() => lesson.value.currentExercise >= MAX_EXERCISE_AMOUNT)
+const maxLessonAmount = computed(() => {
+  return getMaxLessonAmount(sectionSlug.value, unitSlug, levelSlug) || 0
+})
+
+const isExerciseSuccess = computed(() => lesson.value.currentExercise >= MAX_EXERCISE_AMOUNT)
+const isLessonSuccess = computed(() => lesson.value.lessonIndex + 1 > maxLessonAmount.value - 1 && isExerciseSuccess.value)
 
 const { isLoading: isFirstLoading } = useAsyncState(getLessonState, undefined, {
   onSuccess(data) {
@@ -49,8 +59,8 @@ async function getVerify() {
     method: "POST",
     body: {
       answer: select.value,
-      unitSlug: route.params.unitSlug,
-      levelSlug: route.params.levelSlug,
+      unitSlug,
+      levelSlug,
       lessonIndex: lesson.value.lessonIndex,
     },
   })
@@ -71,7 +81,7 @@ async function verify() {
 }
 
 async function nextExercise() {
-  if (isSuccess.value) {
+  if (isExerciseSuccess.value) {
     navigateTo("/explore")
 
     return
@@ -79,7 +89,7 @@ async function nextExercise() {
 
   lesson.value = nextLessonState.value
 
-  if (isSuccess.value)
+  if (isExerciseSuccess.value)
     select.value = NON_SELECTED
 
   finishObj.finished = false
@@ -90,8 +100,8 @@ async function getNextLesson() {
   return await $fetch("/api/learn/lesson/next", {
     method: "POST",
     body: {
-      unitSlug: route.params.unitSlug,
-      levelSlug: route.params.levelSlug,
+      unitSlug,
+      levelSlug,
     },
   })
 }
@@ -108,6 +118,10 @@ const fetchNextLesson = useAsyncState(getNextLesson, undefined, {
 
 async function nextLesson() {
   await fetchNextLesson.execute()
+}
+
+async function nextLevel() {
+  console.log("nextLevel")
 }
 
 onMounted(async () => {
@@ -157,8 +171,13 @@ definePageMeta({
       </div>
 
       <div class="max-w-lg mx-auto pt-4 px-4">
+        <LevelCompleted
+          v-if="isLessonSuccess"
+          @next-level="nextLevel"
+        />
+
         <ExerciseCompleted
-          v-if="isSuccess"
+          v-else-if="isExerciseSuccess"
           :loading="fetchNextLesson.isLoading.value"
           @next-lesson="nextLesson"
         />
@@ -195,7 +214,7 @@ definePageMeta({
         </div>
 
         <div v-else class="flex w-full items-center justify-between">
-          <div v-if="!isSuccess" class="flex gap-2 items-center">
+          <div v-if="!isExerciseSuccess" class="flex gap-2 items-center">
             <div class="p-2 bg-base-100 rounded-full flex items-center justify-center">
               <Icon
                 :name="finishObj.correct ? 'check' : 'close'" :class="{
@@ -219,7 +238,7 @@ definePageMeta({
           <Btn
             ref="btn"
             class="btn-md btn-neutral float-right"
-            :class="{ 'w-full': isSuccess }"
+            :class="{ 'w-full': isExerciseSuccess }"
             :loading="!nextLessonState"
             :disabled="!nextLessonState"
             @click="nextExercise"

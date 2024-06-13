@@ -1,5 +1,6 @@
 import type { Section } from "~/types"
 
+export const MAX_LESSON_AMOUNT = 5
 export const MAX_EXERCISE_AMOUNT = 2
 export const NON_SELECTED = null
 
@@ -21,7 +22,7 @@ export interface ExercisePromptOptions {
   hobbies: string
   profession: string
   observation: string
-  section: Section["id"]
+  section: Section["slug"]
   languageFrom: string
   languageTo: string
 }

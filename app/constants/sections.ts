@@ -1,7 +1,7 @@
 import type { Course, Section } from "../types"
 
 export const sectionA1: Section = {
-  id: "a1",
+  slug: "a1",
   name: "English A1",
   description:
     "These units give you the basic grammar rules, with explanations and exercises.",
@@ -15,6 +15,7 @@ export const sectionA1: Section = {
           name: "Greetings and introductions",
           type: "vocab",
           description: "Nouns are names to things, places or ideas.",
+          maxLessonAmount: 2,
         },
         {
           slug: "nouns",
@@ -155,7 +156,7 @@ export const sectionA1: Section = {
 }
 
 export const sectionA2: Section = {
-  id: "a2",
+  slug: "a2",
   name: "English A2",
   description:
     "These units give you the basic grammar rules, with explanations and exercises.",
@@ -176,7 +177,7 @@ export const sectionA2: Section = {
 }
 
 export const sectionB1: Section = {
-  id: "b1",
+  slug: "b1",
   name: "English B1",
   description:
     "These units give you the basic grammar rules, with explanations and exercises.",

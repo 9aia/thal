@@ -26,7 +26,7 @@ export interface Course {
 }
 
 export interface Section {
-  id: "a1" | "a2" | "b1" | "b2" | "c1" | "c2"
+  slug: "a1" | "a2" | "b1" | "b2" | "c1" | "c2"
   name: string
   description: string
   units: Unit[]

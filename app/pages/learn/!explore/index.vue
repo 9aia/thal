@@ -8,7 +8,7 @@ definePageMeta({
   layout: "app",
 })
 
-const section = computed(() => course.sections.find(s => s.id = learnStore.currentSection)!)
+const section = computed(() => course.sections.find(s => s.slug = learnStore.currentSection)!)
 const currentSection = ref("articles")
 
 onMounted(() => {

@@ -1,3 +1,7 @@
+-- @block Reset level
+
+UPDATE Level SET current_exercise = 0, lesson_index = 0
+
 -- @block List all exercises
 
 SELECT * FROM Exercise
