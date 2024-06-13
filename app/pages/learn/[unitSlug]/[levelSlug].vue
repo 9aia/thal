@@ -7,7 +7,7 @@ import type { LessonGetDto } from "~/types"
 const route = useRoute()
 
 const lesson = ref<LessonGetDto>({
-  lessonAmount: 0,
+  lessonIndex: 0,
   currentExercise: 0,
   exercise: null,
 })
@@ -18,7 +18,6 @@ async function getLessonState() {
     body: {
       unitSlug: route.params.unitSlug,
       levelSlug: route.params.levelSlug,
-      lessonAmount: lesson.value.lessonAmount,
     },
   })
 }
@@ -52,7 +51,7 @@ async function getVerify() {
       answer: select.value,
       unitSlug: route.params.unitSlug,
       levelSlug: route.params.levelSlug,
-      lessonAmount: lesson.value.lessonAmount,
+      lessonIndex: lesson.value.lessonIndex,
     },
   })
 }
@@ -71,7 +70,7 @@ async function verify() {
   select.value = NON_SELECTED
 }
 
-async function next() {
+async function nextExercise() {
   if (isSuccess.value) {
     navigateTo("/explore")
 
@@ -87,8 +86,28 @@ async function next() {
   nextLessonState.value = null
 }
 
+async function getNextLesson() {
+  return await $fetch("/api/learn/lesson/next", {
+    method: "POST",
+    body: {
+      unitSlug: route.params.unitSlug,
+      levelSlug: route.params.levelSlug,
+    },
+  })
+}
+
+const fetchNextLesson = useAsyncState(getNextLesson, undefined, {
+  immediate: false,
+  onSuccess(data) {
+    if (!data)
+      return
+
+    lesson.value = data
+  },
+})
+
 async function nextLesson() {
-  console.log("a")
+  await fetchNextLesson.execute()
 }
 
 onMounted(async () => {
@@ -126,7 +145,7 @@ definePageMeta({
 
   <main v-else class="relative flex flex-col justify-between" style="min-height: calc(100vh)">
     <div>
-      {{ lesson.lessonAmount }}
+      {{ lesson.lessonIndex }}
       <div class="flex gap-2 items-center w-full mb-4 max-w-lg mx-auto pt-4 px-4">
         <A href="/explore" class="flex items-center">
           <Icon>close</Icon>
@@ -138,7 +157,11 @@ definePageMeta({
       </div>
 
       <div class="max-w-lg mx-auto pt-4 px-4">
-        <ExerciseCompleted v-if="isSuccess" @next-lesson="nextLesson" />
+        <ExerciseCompleted
+          v-if="isSuccess"
+          :loading="fetchNextLesson.isLoading.value"
+          @next-lesson="nextLesson"
+        />
 
         <Exercise
           v-else-if="lesson.exercise"
@@ -199,7 +222,7 @@ definePageMeta({
             :class="{ 'w-full': isSuccess }"
             :loading="!nextLessonState"
             :disabled="!nextLessonState"
-            @click="next"
+            @click="nextExercise"
           >
             Continuar
           </Btn>

@@ -2,6 +2,10 @@
 import { onMounted } from "vue"
 import { t } from "@psitta/vue"
 
+defineProps<{
+  loading: boolean
+}>()
+
 defineEmits<{
   (e: "nextLesson"): void
 }>()
@@ -40,8 +44,8 @@ onUnmounted(() => {
             Review
           </Btn> -->
 
-          <Btn class="btn-primary" @click="$emit('nextLesson')">
-            Next lesson
+          <Btn class="btn-primary" :loading="loading" @click="$emit('nextLesson')">
+            {{ t('Next lesson') }}
           </Btn>
         </div>
       </div>

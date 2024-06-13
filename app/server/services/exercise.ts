@@ -13,14 +13,21 @@ import { badRequest } from "~/utils/nuxt"
 
 export async function getExercise(
   event: H3Event,
-  { unitSlug, levelSlug, position }: ExerciseGenerateDto,
+  { unitSlug, levelSlug, position, lessonIndex }: ExerciseGenerateDto,
 ) {
   const orm = event.context.orm
 
   const [exercise] = await orm
     .select()
     .from(exercises)
-    .where(and(eq(exercises.unitSlug, unitSlug), eq(exercises.levelSlug, levelSlug), eq(exercises.position, position)))
+    .where(
+      and(
+        eq(exercises.unitSlug, unitSlug),
+        eq(exercises.levelSlug, levelSlug),
+        eq(exercises.position, position),
+        eq(exercises.lessonIndex, lessonIndex),
+      ),
+    )
 
   return exercise
 }
@@ -88,6 +95,7 @@ export async function generateExercise(
     unitSlug: exerciseGenerateDto.unitSlug,
     levelSlug: exerciseGenerateDto.levelSlug,
     position: exerciseGenerateDto.position,
+    lessonIndex: exerciseGenerateDto.lessonIndex,
     data: parsedExercise,
   })
 
@@ -117,7 +125,7 @@ export async function nextExercise(
 
   const level = await getLevel(event, unitSlug, levelSlug)
 
-  const isFinal = level.currentExercise + 1 > MAX_EXERCISE_AMOUNT
+  const isFinal = level.currentExercise + 1 > MAX_EXERCISE_AMOUNT + 1
   let currentExercise = level.currentExercise
 
   if (!isFinal) {

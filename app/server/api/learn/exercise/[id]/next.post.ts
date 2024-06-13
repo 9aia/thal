@@ -4,9 +4,10 @@ import { exercises } from "~~/db/schema"
 import { getValidated } from "~/utils/h3"
 import { unauthorized } from "~/utils/nuxt"
 import { numericString } from "~/utils/zod"
-import { findExerciseImplementation } from "~/constants/exercises"
+import { MAX_EXERCISE_AMOUNT, findExerciseImplementation } from "~/constants/exercises"
 import { nextExercise } from "~/server/services/exercise"
 import { getLessonState } from "~/server/services/lesson"
+import { getLevel } from "~/server/services/level"
 
 export default eventHandler(async (event) => {
   const { id } = await getValidated(event, "params", z.object({ id: numericString(z.number()) }))
@@ -14,12 +15,12 @@ export default eventHandler(async (event) => {
     answer,
     levelSlug,
     unitSlug,
-    lessonAmount,
+    lessonIndex,
   } = await getValidated(event, "body", z.object({
-    answer: z.number(),
+    answer: z.number().nullable(),
     unitSlug: z.string(),
     levelSlug: z.string(),
-    lessonAmount: z.number(),
+    lessonIndex: z.number(),
   }))
 
   const orm = event.context.orm
@@ -35,7 +36,7 @@ export default eventHandler(async (event) => {
 
   await nextExercise(event, unitSlug, levelSlug)
 
-  const nextLessonState = await getLessonState(event, { lessonAmount, levelSlug, unitSlug })
+  const nextLessonState = await getLessonState(event, { lessonIndex, levelSlug, unitSlug })
 
   return { correct, nextLessonState }
 })

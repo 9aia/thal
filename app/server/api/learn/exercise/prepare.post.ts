@@ -8,7 +8,6 @@ export default eventHandler(async (event) => {
   const data = await getValidated(event, "body", z.object({
     unitSlug: z.string(),
     levelSlug: z.string(),
-    lessonAmount: numericString(z.number()),
   }))
   const user = event.context.user
 

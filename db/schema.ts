@@ -119,6 +119,7 @@ export const exercises = sqliteTable("Exercise", {
   id: int("id").primaryKey({ autoIncrement: true }),
   unitSlug: text("unit_slug").notNull(),
   levelSlug: text("level_slug").notNull(),
+  lessonIndex: int("lesson_index").default(0).notNull(),
   position: int("position").default(0).notNull(),
   type: text("type").notNull(),
   data: text("data", { mode: "json" }).$type<Record<string, any>>().notNull(),
@@ -143,7 +144,7 @@ export const levels = sqliteTable("Level", {
   id: int("id").primaryKey({ autoIncrement: true }),
   slug: text("slug").notNull(),
   unitSlug: text("unit_slug").notNull(),
-  lessonAmount: int("lesson_amount").default(0).notNull(),
+  lessonIndex: int("lesson_index").default(0).notNull(),
   currentExercise: int("current_exercise").default(0).notNull(),
 })
 

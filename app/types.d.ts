@@ -78,13 +78,14 @@ export interface LessonGetDto {
     data: Record<string, any>
   } | null
   currentExercise: number
-  lessonAmount: number
+  lessonIndex: number
 }
 
 export interface ExerciseGenerateDto {
   unitSlug: string
   levelSlug: string
   position: number
+  lessonIndex: number
 }
 
 // #endregion
