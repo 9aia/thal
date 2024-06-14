@@ -86,7 +86,7 @@ export interface LessonGetDto {
     type: string
     data: Record<string, any>
   } | null
-  currentExercise: number
+  lastExercisePosition: number
   lessonIndex: number
 }
 

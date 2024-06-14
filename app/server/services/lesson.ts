@@ -5,6 +5,7 @@ import { getLevel } from "./level"
 import { getLessonDto, getMaxExerciseAmount } from "~/utils/learn/exercise"
 import { badRequest, internal } from "~/utils/nuxt"
 import { levels } from "~~/db/schema"
+import type { ExerciseGenerateDto } from "~/types"
 
 export async function getLessonState(event: H3Event, {
   unitSlug,
@@ -19,11 +20,11 @@ export async function getLessonState(event: H3Event, {
 
   const level = await getLevel(event, unitSlug, levelSlug)
 
-  const exerciseGenerateDto = {
+  const exerciseGenerateDto: ExerciseGenerateDto = {
     unitSlug,
     levelSlug,
     lessonIndex: lessonIndex ?? level.lessonIndex,
-    position: level.currentExercise,
+    position: level.lastExercisePosition,
   }
 
   const exercise = await getExercise(event, exerciseGenerateDto)
@@ -33,7 +34,7 @@ export async function getLessonState(event: H3Event, {
   if (!maxExerciseAmount)
     throw internal("Max exercise amount is not defined")
 
-  if (level.currentExercise === maxExerciseAmount)
+  if (level.lastExercisePosition === maxExerciseAmount)
     return getLessonDto(null, level)
 
   if (exercise)
@@ -62,14 +63,14 @@ export async function goToNextLesson(event: H3Event, {
   if (!maxExerciseAmount)
     throw internal("Max exercise amount is not defined")
 
-  if (level.currentExercise !== maxExerciseAmount)
+  if (level.lastExercisePosition !== maxExerciseAmount)
     throw badRequest("You can't go to the next lesson without finishing the current one")
 
   const [updatedLevel] = await orm
     .update(levels)
     .set({
       ...level,
-      currentExercise: 0,
+      lastExercisePosition: 0,
       lessonIndex: level.lessonIndex + 1,
     })
     .where(

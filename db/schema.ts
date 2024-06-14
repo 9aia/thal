@@ -148,7 +148,7 @@ export const levels = sqliteTable("Level", {
   slug: text("slug").notNull(),
   unitSlug: text("unit_slug").notNull(),
   lessonIndex: int("lesson_index").default(0).notNull(),
-  currentExercise: int("current_exercise").default(0).notNull(),
+  lastExercisePosition: int("last_exercise_position").default(0).notNull(),
   userId: text("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),

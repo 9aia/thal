@@ -12,7 +12,7 @@ const levelSlug = route.params.levelSlug as string
 
 const lesson = ref<LessonGetDto>({
   lessonIndex: 0,
-  currentExercise: 0,
+  lastExercisePosition: 0,
   exercise: null,
 })
 
@@ -33,7 +33,7 @@ const maxExerciseAmount = computed(() => {
   return getMaxExerciseAmount(sectionSlug.value, unitSlug, levelSlug) || 0
 })
 
-const isLessonCompleted = computed(() => lesson.value.currentExercise >= maxExerciseAmount.value)
+const isLessonCompleted = computed(() => lesson.value.lastExercisePosition >= maxExerciseAmount.value)
 const isLevelCompleted = computed(() => lesson.value.lessonIndex + 1 > maxLessonAmount.value - 1 && isLessonCompleted.value)
 
 const { isLoading: isLessonLoading } = useAsyncState(getLessonState, undefined, {
@@ -167,7 +167,7 @@ definePageMeta({
         </A>
         <progress
           class="progress progress-success w-full"
-          :value="Math.floor((100 / maxExerciseAmount) * lesson.currentExercise)" max="100"
+          :value="Math.floor((100 / maxExerciseAmount) * lesson.lastExercisePosition)" max="100"
         />
       </div>
 

@@ -137,23 +137,23 @@ export async function nextExercise(
   if (!maxExerciseAmount)
     throw internal("Max exercise amount is not defined")
 
-  const isFinal = level.currentExercise + 1 > maxExerciseAmount + 1
-  let currentExercise = level.currentExercise
+  const isFinal = level.lastExercisePosition + 1 > maxExerciseAmount + 1
+  let lastExercisePosition = level.lastExercisePosition
 
   if (!isFinal) {
     const [updatedLevel] = await orm
       .update(levels)
-      .set({ ...level, currentExercise: currentExercise + 1 })
+      .set({ ...level, lastExercisePosition: lastExercisePosition + 1 })
       .where(and(eq(levels.unitSlug, unitSlug), eq(levels.slug, levelSlug), eq(levels.userId, user.id)))
       .returning()
 
-    currentExercise = updatedLevel.currentExercise
+    lastExercisePosition = updatedLevel.lastExercisePosition
   }
   else {
     throw badRequest("You are already in the last exercise")
   }
 
   return {
-    currentExercise,
+    lastExercisePosition,
   }
 }

@@ -44,7 +44,7 @@ export async function saveLevel(
       slug: levelSlug,
       unitSlug,
       lessonIndex,
-      currentExercise: 0,
+      lastExercisePosition: 0,
       userId: user.id,
     })
     .returning()

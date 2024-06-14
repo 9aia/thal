@@ -18,7 +18,7 @@ export function getLessonDto(entity: ExerciseSelect | null, level: LevelSelect) 
   }
 
   const exerciseDto: LessonGetDto = {
-    currentExercise: level.currentExercise,
+    lastExercisePosition: level.lastExercisePosition,
     lessonIndex: level.lessonIndex,
     exercise,
   }

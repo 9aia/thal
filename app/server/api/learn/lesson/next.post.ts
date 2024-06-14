@@ -35,7 +35,7 @@ export default eventHandler(async (event) => {
   if (!maxExerciseAmount)
     throw internal("Max exercise amount is not defined")
 
-  if (level.currentExercise >= maxExerciseAmount) {
+  if (level.lastExercisePosition >= maxExerciseAmount) {
     const updatedLevel = await goToNextLesson(event, { unitSlug, levelSlug })
 
     const exercise = await generateExercise(event, user!, {
