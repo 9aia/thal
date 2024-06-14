@@ -9,6 +9,8 @@ export async function getLevel(
 ) {
   const orm = event.context.orm
 
+  const user = event.context.user!
+
   const [level] = await orm
     .select()
     .from(levels)
@@ -16,6 +18,7 @@ export async function getLevel(
       and(
         eq(levels.unitSlug, unitSlug),
         eq(levels.slug, levelSlug),
+        eq(levels.userId, user.id),
       ),
     )
 
@@ -33,6 +36,8 @@ export async function saveLevel(
 ) {
   const orm = event.context.orm
 
+  const user = event.context.user!
+
   const [level] = await orm
     .insert(levels)
     .values({
@@ -40,6 +45,7 @@ export async function saveLevel(
       unitSlug,
       lessonIndex,
       currentExercise: 0,
+      userId: user.id,
     })
     .returning()
 

@@ -123,6 +123,9 @@ export const exercises = sqliteTable("Exercise", {
   position: int("position").default(0).notNull(),
   type: text("type").notNull(),
   data: text("data", { mode: "json" }).$type<Record<string, any>>().notNull(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
 })
 
 export const selectExerciseSchema = createSelectSchema(exercises)
@@ -146,6 +149,9 @@ export const levels = sqliteTable("Level", {
   unitSlug: text("unit_slug").notNull(),
   lessonIndex: int("lesson_index").default(0).notNull(),
   currentExercise: int("current_exercise").default(0).notNull(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
 })
 
 export const selectLevelSchema = createSelectSchema(levels)

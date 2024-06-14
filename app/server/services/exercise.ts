@@ -18,6 +18,8 @@ export async function getExercise(
 ) {
   const orm = event.context.orm
 
+  const user = event.context.user!
+
   const [exercise] = await orm
     .select()
     .from(exercises)
@@ -27,6 +29,7 @@ export async function getExercise(
         eq(exercises.levelSlug, levelSlug),
         eq(exercises.position, position),
         eq(exercises.lessonIndex, lessonIndex),
+        eq(exercises.userId, user.id),
       ),
     )
 
@@ -98,6 +101,7 @@ export async function generateExercise(
     position: exerciseGenerateDto.position,
     lessonIndex: exerciseGenerateDto.lessonIndex,
     data: parsedExercise,
+    userId: user.id,
   })
 
   return savedExercise
@@ -124,6 +128,8 @@ export async function nextExercise(
 ) {
   const orm = event.context.orm
 
+  const user = event.context.user!
+
   const level = await getLevel(event, unitSlug, levelSlug)
 
   const maxExerciseAmount = getMaxExerciseAmount("a1", unitSlug, levelSlug)
@@ -138,7 +144,7 @@ export async function nextExercise(
     const [updatedLevel] = await orm
       .update(levels)
       .set({ ...level, currentExercise: currentExercise + 1 })
-      .where(and(eq(levels.unitSlug, unitSlug), eq(levels.slug, levelSlug)))
+      .where(and(eq(levels.unitSlug, unitSlug), eq(levels.slug, levelSlug), eq(levels.userId, user.id)))
       .returning()
 
     currentExercise = updatedLevel.currentExercise
