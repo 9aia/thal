@@ -16,7 +16,8 @@ const components: Record<string, any> = {
 
 const comp = ref<any>()
 
-async function loadExercise(name: string) {
+async function loadComponent(name: string) {
+  console.log(`loading ${name}`)
   if (components[name]) {
     try {
       const c = (await components[name]()) as any
@@ -28,9 +29,9 @@ async function loadExercise(name: string) {
   }
 }
 
-onMounted(() => {
-  loadExercise(props.lesson.exercise!.type)
-})
+watch(() => props.lesson, () => {
+  loadComponent(props.lesson.exercise!.type)
+}, { immediate: true })
 </script>
 
 <template>

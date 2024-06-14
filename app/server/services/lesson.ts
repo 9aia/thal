@@ -1,4 +1,5 @@
 import type { H3Event } from "h3"
+import { and, eq } from "drizzle-orm"
 import { generateExercise, getExercise } from "./exercise"
 import { getLevel } from "./level"
 import { getLessonDto, getMaxExerciseAmount } from "~/utils/learn/exercise"
@@ -52,6 +53,8 @@ export async function goToNextLesson(event: H3Event, {
 }) {
   const orm = event.context.orm
 
+  const user = event.context.user!
+
   const level = await getLevel(event, unitSlug, levelSlug)
 
   const maxExerciseAmount = getMaxExerciseAmount("a1", unitSlug, levelSlug)
@@ -69,6 +72,13 @@ export async function goToNextLesson(event: H3Event, {
       currentExercise: 0,
       lessonIndex: level.lessonIndex + 1,
     })
+    .where(
+      and(
+        eq(levels.unitSlug, unitSlug),
+        eq(levels.slug, levelSlug),
+        eq(levels.userId, user.id),
+      ),
+    )
     .returning()
 
   return updatedLevel

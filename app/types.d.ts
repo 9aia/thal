@@ -57,6 +57,11 @@ export interface Level {
 
 // #region Exercise
 
+export interface Exercise {
+  type: string
+  data: ExerciseQA | ExerciseFillInTheBlank
+}
+
 export interface ExerciseQA {
   text: string
   question: string
@@ -72,6 +77,8 @@ export interface ExerciseFillInTheBlank {
 export interface ExerciseQAWithCorrect extends ExerciseQA {
   correct: number
 }
+
+// DTOs
 
 export interface LessonGetDto {
   exercise: {
