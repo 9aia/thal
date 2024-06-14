@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { useAsyncState, useEventListener } from "@vueuse/core"
 import Exercise from "~/components/learn/exercise/Exercise.vue"
-import { MAX_EXERCISE_AMOUNT } from "~/constants/exercises"
 import type { LessonGetDto } from "~/types"
-import { getMaxLessonAmount } from "~/utils/learn/exercise"
+import { getMaxExerciseAmount, getMaxLessonAmount } from "~/utils/learn/exercise"
 
 const route = useRoute()
 
@@ -30,11 +29,14 @@ async function getLessonState() {
 const maxLessonAmount = computed(() => {
   return getMaxLessonAmount(sectionSlug.value, unitSlug, levelSlug) || 0
 })
+const maxExerciseAmount = computed(() => {
+  return getMaxExerciseAmount(sectionSlug.value, unitSlug, levelSlug) || 0
+})
 
-const isExerciseSuccess = computed(() => lesson.value.currentExercise >= MAX_EXERCISE_AMOUNT)
-const isLessonSuccess = computed(() => lesson.value.lessonIndex + 1 > maxLessonAmount.value - 1 && isExerciseSuccess.value)
+const isLessonCompleted = computed(() => lesson.value.currentExercise >= maxExerciseAmount.value)
+const isLevelCompleted = computed(() => lesson.value.lessonIndex + 1 > maxLessonAmount.value - 1 && isLessonCompleted.value)
 
-const { isLoading: isFirstLoading } = useAsyncState(getLessonState, undefined, {
+const { isLoading: isLessonLoading } = useAsyncState(getLessonState, undefined, {
   onSuccess(data) {
     if (!data)
       return
@@ -48,13 +50,13 @@ const nextLessonState = ref()
 const NON_SELECTED = null
 const select = ref(NON_SELECTED)
 
-const finishObj = reactive({
+const exerciseStore = reactive({
   finished: false,
   correct: false,
 })
 const btn = ref<HTMLButtonElement>()
 
-async function getVerify() {
+async function getNextExercise() {
   return await $fetch(`/api/learn/exercise/${lesson.value.exercise?.id}/next`, {
     method: "POST",
     body: {
@@ -66,22 +68,22 @@ async function getVerify() {
   })
 }
 
-const fetchVerify = useAsyncState(getVerify, null, {
+const fetchNextExercise = useAsyncState(getNextExercise, null, {
   immediate: false,
 })
 
 async function verify() {
-  await fetchVerify.execute()
+  await fetchNextExercise.execute()
 
-  nextLessonState.value = fetchVerify.state.value?.nextLessonState
-  finishObj.correct = !!fetchVerify.state.value?.correct
+  nextLessonState.value = fetchNextExercise.state.value?.nextLessonState
+  exerciseStore.correct = !!fetchNextExercise.state.value?.correct
 
-  finishObj.finished = true
+  exerciseStore.finished = true
   select.value = NON_SELECTED
 }
 
 async function nextExercise() {
-  if (isExerciseSuccess.value) {
+  if (isLessonCompleted.value) {
     navigateTo("/explore")
 
     return
@@ -89,10 +91,10 @@ async function nextExercise() {
 
   lesson.value = nextLessonState.value
 
-  if (isExerciseSuccess.value)
+  if (isLessonCompleted.value)
     select.value = NON_SELECTED
 
-  finishObj.finished = false
+  exerciseStore.finished = false
   nextLessonState.value = null
 }
 
@@ -132,7 +134,7 @@ onMounted(async () => {
     if (!btn.value)
       return
 
-    if (finishObj.finished) {
+    if (exerciseStore.finished) {
       btn.value?.focus()
       btn.value?.click()
       return
@@ -153,31 +155,31 @@ definePageMeta({
 </script>
 
 <template>
-  <main v-if="isFirstLoading" class="relative flex flex-col justify-between" style="min-height: calc(100vh)">
+  <main v-if="isLessonLoading" class="relative flex flex-col justify-between" style="min-height: calc(100vh)">
     <span class="loading loading-spinner loading-sm absolute bottom-1/2 right-1/2 translate-x-1/2" />
   </main>
 
   <main v-else class="relative flex flex-col justify-between" style="min-height: calc(100vh)">
     <div>
-      {{ lesson.lessonIndex }}
       <div class="flex gap-2 items-center w-full mb-4 max-w-lg mx-auto pt-4 px-4">
         <A href="/explore" class="flex items-center">
           <Icon>close</Icon>
         </A>
         <progress
           class="progress progress-success w-full"
-          :value="Math.floor((100 / MAX_EXERCISE_AMOUNT) * lesson.currentExercise)" max="100"
+          :value="Math.floor((100 / maxExerciseAmount) * lesson.currentExercise)" max="100"
         />
       </div>
 
       <div class="max-w-lg mx-auto pt-4 px-4">
         <LevelCompleted
-          v-if="isLessonSuccess"
+          v-if="isLevelCompleted"
+          :loading="false"
           @next-level="nextLevel"
         />
 
         <ExerciseCompleted
-          v-else-if="isExerciseSuccess"
+          v-else-if="isLessonCompleted"
           :loading="fetchNextLesson.isLoading.value"
           @next-lesson="nextLesson"
         />
@@ -196,17 +198,17 @@ definePageMeta({
 
     <div
       class="border-t border-t-gray-400" :class="{
-        'bg-green-300': finishObj.correct && finishObj.finished,
-        'bg-red-300': !finishObj.correct && finishObj.finished,
+        'bg-green-300': exerciseStore.correct && exerciseStore.finished,
+        'bg-red-300': !exerciseStore.correct && exerciseStore.finished,
       }"
     >
       <div class="flex gap-2 max-w-lg mx-auto p-4">
-        <div v-if="!finishObj.finished" class="w-full">
+        <div v-if="!exerciseStore.finished" class="w-full">
           <Btn
             ref="btn"
             class="btn-md btn-primary w-full"
-            :disabled="select === NON_SELECTED || fetchVerify.isLoading.value"
-            :loading="fetchVerify.isLoading.value"
+            :disabled="select === NON_SELECTED || fetchNextExercise.isLoading.value"
+            :loading="fetchNextExercise.isLoading.value"
             @click="verify"
           >
             Verificar
@@ -214,18 +216,18 @@ definePageMeta({
         </div>
 
         <div v-else class="flex w-full items-center justify-between">
-          <div v-if="!isExerciseSuccess" class="flex gap-2 items-center">
+          <div v-if="!isLessonCompleted" class="flex gap-2 items-center">
             <div class="p-2 bg-base-100 rounded-full flex items-center justify-center">
               <Icon
-                :name="finishObj.correct ? 'check' : 'close'" :class="{
-                  'text-green-500': finishObj.correct,
-                  'text-red-500': !finishObj.correct,
+                :name="exerciseStore.correct ? 'check' : 'close'" :class="{
+                  'text-green-500': exerciseStore.correct,
+                  'text-red-500': !exerciseStore.correct,
                 }"
               />
             </div>
 
             <p>
-              <template v-if="finishObj.correct">
+              <template v-if="exerciseStore.correct">
                 Correto!
               </template>
 
@@ -238,7 +240,7 @@ definePageMeta({
           <Btn
             ref="btn"
             class="btn-md btn-neutral float-right"
-            :class="{ 'w-full': isExerciseSuccess }"
+            :class="{ 'w-full': isLessonCompleted }"
             :loading="!nextLessonState"
             :disabled="!nextLessonState"
             @click="nextExercise"

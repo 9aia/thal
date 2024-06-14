@@ -29,7 +29,7 @@ onUnmounted(() => {
   >
     <div class="card-body items-center text-center">
       <h2 class="card-title text-success mb-2 text-4xl font-bold">
-        {{ t('You have finally the level!') }}
+        {{ t('Level Completed') }}
       </h2>
 
       <p>{{ t('You\'ve successfully completed the level.') }}</p>
@@ -44,9 +44,9 @@ onUnmounted(() => {
             Review
           </Btn> -->
 
-          <Btn class="btn-warning" :loading="loading" @click="$emit('nextLevel')">
+          <!-- <Btn class="btn-warning" :loading="loading" @click="$emit('nextLevel')">
             {{ t('Next level') }}
-          </Btn>
+          </Btn> -->
         </div>
       </div>
     </div>

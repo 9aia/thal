@@ -1,13 +1,12 @@
-import { z } from "zod"
 import { eq } from "drizzle-orm"
-import { exercises } from "~~/db/schema"
+import { z } from "zod"
+import { findExerciseImplementation } from "~/constants/exercises"
+import { nextExercise } from "~/server/services/exercise"
+import { getLessonState } from "~/server/services/lesson"
 import { getValidated } from "~/utils/h3"
 import { unauthorized } from "~/utils/nuxt"
 import { numericString } from "~/utils/zod"
-import { MAX_EXERCISE_AMOUNT, findExerciseImplementation } from "~/constants/exercises"
-import { nextExercise } from "~/server/services/exercise"
-import { getLessonState } from "~/server/services/lesson"
-import { getLevel } from "~/server/services/level"
+import { exercises } from "~~/db/schema"
 
 export default eventHandler(async (event) => {
   const { id } = await getValidated(event, "params", z.object({ id: numericString(z.number()) }))

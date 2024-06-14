@@ -15,7 +15,8 @@ export const sectionA1: Section = {
           name: "Greetings and introductions",
           type: "vocab",
           description: "Nouns are names to things, places or ideas.",
-          maxLessonAmount: 2,
+          maxLessonAmount: 3,
+          maxExerciseAmount: 4,
         },
         {
           slug: "nouns",

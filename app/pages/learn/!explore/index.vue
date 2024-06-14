@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { t } from "@psitta/vue"
-import { course } from "../../../constants/sections"
+import { course } from "../../../constants/course"
 import { learnStore } from "../../../store"
 
 definePageMeta({

@@ -6,7 +6,7 @@ export function getLevels(nodes: Level[], i = 100) {
 
     return {
       ...unit,
-      position: !isEven ? "start" : "end",
+      align: !isEven ? "start" : "end",
       active: j < i,
     }
   })

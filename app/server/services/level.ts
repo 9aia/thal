@@ -1,7 +1,6 @@
 import { and, eq } from "drizzle-orm"
 import type { H3Event } from "h3"
 import { levels } from "~~/db/schema"
-import sections from "~~/db/data/sections"
 
 export async function getLevel(
   event: H3Event,

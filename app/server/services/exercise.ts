@@ -4,12 +4,13 @@ import { and, eq } from "drizzle-orm"
 import type { H3Event } from "h3"
 import { getLevel } from "./level"
 import type { ExercisePromptOptions } from "~/constants/exercises"
-import EXERCISES, { MAX_EXERCISE_AMOUNT } from "~/constants/exercises"
+import EXERCISES from "~/constants/exercises"
 import type { ExerciseGenerateDto } from "~/types"
 import { getGemini } from "~/utils/gemini"
+import { getMaxExerciseAmount } from "~/utils/learn/exercise"
+import { badRequest, internal } from "~/utils/nuxt"
 import type { ExerciseInsert, UserSelect } from "~~/db/schema"
 import { exercises, levels } from "~~/db/schema"
-import { badRequest } from "~/utils/nuxt"
 
 export async function getExercise(
   event: H3Event,
@@ -125,7 +126,12 @@ export async function nextExercise(
 
   const level = await getLevel(event, unitSlug, levelSlug)
 
-  const isFinal = level.currentExercise + 1 > MAX_EXERCISE_AMOUNT + 1
+  const maxExerciseAmount = getMaxExerciseAmount("a1", unitSlug, levelSlug)
+
+  if (!maxExerciseAmount)
+    throw internal("Max exercise amount is not defined")
+
+  const isFinal = level.currentExercise + 1 > maxExerciseAmount + 1
   let currentExercise = level.currentExercise
 
   if (!isFinal) {

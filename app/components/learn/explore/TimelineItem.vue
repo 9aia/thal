@@ -43,8 +43,8 @@ function onClick() {
   <div
     class="timeline-box bg-white border-slate-300 cursor-pointer flex flex-col gap-1"
     :class="{
-      'timeline-start': is.position === 'start' || !is.position,
-      'timeline-end': is.position === 'end',
+      'timeline-start': is.align === 'start' || !is.align,
+      'timeline-end': is.align === 'end',
     }"
     @click="onClick()"
   >

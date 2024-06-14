@@ -44,11 +44,13 @@ export interface Level {
   type?: "concept" | "question" | "exercise" | "none" | "info" | "vocab"
   icon?: string
   description?: string
-  position?: "start" | "end"
+  align?: "start" | "end"
   active?: boolean
   optional?: boolean
   maxLessonAmount?: number
   lessonAmount?: number
+  maxExerciseAmount?: number
+  exercisePosition?: number
 }
 
 // #endregion
