@@ -1,30 +1,33 @@
 <script setup lang="ts">
+import { useI18n } from "@psitta/vue"
 import { useAsyncState, useEventListener } from "@vueuse/core"
 import Exercise from "~/components/learn/exercise/Exercise.vue"
 import type { LessonGetDto } from "~/types"
 import { getMaxExerciseAmount, getMaxLessonAmount } from "~/utils/learn/exercise"
 
+const { t } = useI18n()
 const route = useRoute()
+const toast = useToast()
 
 const sectionSlug = ref("a1")
 const unitSlug = route.params.unitSlug as string
 const levelSlug = route.params.levelSlug as string
+
+const btn = ref<HTMLButtonElement>()
+const NON_SELECTED = null
+const select = ref(NON_SELECTED)
+
+const exerciseStore = reactive({
+  finished: false,
+  correct: false,
+})
 
 const lesson = ref<LessonGetDto>({
   lessonIndex: 0,
   lastExercisePosition: 0,
   exercise: null,
 })
-
-async function getLessonState() {
-  return await $fetch("/api/learn/exercise/prepare", {
-    method: "POST",
-    body: {
-      unitSlug,
-      levelSlug,
-    },
-  })
-}
+const nextLessonState = ref()
 
 const maxLessonAmount = computed(() => {
   return getMaxLessonAmount(sectionSlug.value, unitSlug, levelSlug) || 0
@@ -36,7 +39,17 @@ const maxExerciseAmount = computed(() => {
 const isLessonCompleted = computed(() => lesson.value.lastExercisePosition >= maxExerciseAmount.value)
 const isLevelCompleted = computed(() => lesson.value.lessonIndex + 1 > maxLessonAmount.value - 1 && isLessonCompleted.value)
 
-const { isLoading: isLessonLoading } = useAsyncState(getLessonState, undefined, {
+async function getLessonState() {
+  return await $fetch("/api/learn/exercise/prepare", {
+    method: "POST",
+    body: {
+      unitSlug,
+      levelSlug,
+    },
+  })
+}
+
+const { isLoading: isLessonLoading, error: isError, execute } = useAsyncState(getLessonState, undefined, {
   onSuccess(data) {
     if (!data)
       return
@@ -45,16 +58,7 @@ const { isLoading: isLessonLoading } = useAsyncState(getLessonState, undefined, 
   },
 })
 
-const nextLessonState = ref()
-
-const NON_SELECTED = null
-const select = ref(NON_SELECTED)
-
-const exerciseStore = reactive({
-  finished: false,
-  correct: false,
-})
-const btn = ref<HTMLButtonElement>()
+const { disabled, retry } = useRetry(execute)
 
 async function getNextExercise() {
   return await $fetch(`/api/learn/exercise/${lesson.value.exercise?.id}/next`, {
@@ -68,21 +72,21 @@ async function getNextExercise() {
   })
 }
 
-const fetchNextExercise = useAsyncState(getNextExercise, null, {
+const nextExercise = useAsyncState(getNextExercise, null, {
   immediate: false,
+  onSuccess() {
+    nextLessonState.value = nextExercise.state.value?.nextLessonState
+    exerciseStore.correct = !!nextExercise.state.value?.correct
+
+    exerciseStore.finished = true
+    select.value = NON_SELECTED
+  },
+  onError() {
+    toast.error(t("Failed to proceed to the next exercise. Try again."))
+  },
 })
 
-async function verify() {
-  await fetchNextExercise.execute()
-
-  nextLessonState.value = fetchNextExercise.state.value?.nextLessonState
-  exerciseStore.correct = !!fetchNextExercise.state.value?.correct
-
-  exerciseStore.finished = true
-  select.value = NON_SELECTED
-}
-
-async function nextExercise() {
+async function continueLesson() {
   if (isLessonCompleted.value) {
     navigateTo("/explore")
 
@@ -108,7 +112,7 @@ async function getNextLesson() {
   })
 }
 
-const fetchNextLesson = useAsyncState(getNextLesson, undefined, {
+const nextLesson = useAsyncState(getNextLesson, undefined, {
   immediate: false,
   onSuccess(data) {
     if (!data)
@@ -116,11 +120,10 @@ const fetchNextLesson = useAsyncState(getNextLesson, undefined, {
 
     lesson.value = data
   },
+  onError() {
+    toast.error(t("Failed to proceed to the next lesson. Try again."))
+  },
 })
-
-async function nextLesson() {
-  await fetchNextLesson.execute()
-}
 
 async function nextLevel() {
   console.log("nextLevel")
@@ -155,100 +158,86 @@ definePageMeta({
 </script>
 
 <template>
-  <main v-if="isLessonLoading" class="relative flex flex-col justify-between" style="min-height: calc(100vh)">
-    <span class="loading loading-spinner loading-sm absolute bottom-1/2 right-1/2 translate-x-1/2" />
-  </main>
+  <main class="relative flex flex-col justify-between" style="min-height: calc(100vh)">
+    <LessonError v-if="isError" :loading="isLessonLoading" :disabled="disabled" @retry="retry" />
+    <LessonLoading v-else-if="isLessonLoading" />
 
-  <main v-else class="relative flex flex-col justify-between" style="min-height: calc(100vh)">
-    <div>
-      <div class="flex gap-2 items-center w-full mb-4 max-w-lg mx-auto pt-4 px-4">
-        <A href="/explore" class="flex items-center">
-          <Icon>close</Icon>
-        </A>
-        <progress
-          class="progress progress-success w-full"
-          :value="Math.floor((100 / maxExerciseAmount) * lesson.lastExercisePosition)" max="100"
-        />
-      </div>
-
-      <div class="max-w-lg mx-auto pt-4 px-4">
-        <LevelCompleted
-          v-if="isLevelCompleted"
-          :loading="false"
-          @next-level="nextLevel"
-        />
-
-        <ExerciseCompleted
-          v-else-if="isLessonCompleted"
-          :loading="fetchNextLesson.isLoading.value"
-          @next-lesson="nextLesson"
-        />
-
-        <Exercise
-          v-else-if="lesson.exercise"
-          v-model="select"
-          :lesson="lesson"
-        />
-
-        <template v-else>
-          <span class="loading loading-spinner loading-sm absolute bottom-1/2 right-1/2 translate-x-1/2" />
-        </template>
-      </div>
-    </div>
-
-    <div
-      class="border-t border-t-gray-400" :class="{
-        'bg-green-300': exerciseStore.correct && exerciseStore.finished,
-        'bg-red-300': !exerciseStore.correct && exerciseStore.finished,
-      }"
-    >
-      <div class="flex gap-2 max-w-lg mx-auto p-4">
-        <div v-if="!exerciseStore.finished" class="w-full">
-          <Btn
-            ref="btn"
-            class="btn-md btn-primary w-full"
-            :disabled="select === NON_SELECTED || fetchNextExercise.isLoading.value"
-            :loading="fetchNextExercise.isLoading.value"
-            @click="verify"
-          >
-            Verificar
-          </Btn>
+    <template v-else>
+      <div>
+        <div class="flex gap-2 items-center w-full mb-4 max-w-lg mx-auto pt-4 px-4">
+          <A href="/explore" class="flex items-center">
+            <Icon>close</Icon>
+          </A>
+          <progress
+            class="progress progress-success w-full"
+            :value="Math.floor((100 / maxExerciseAmount) * lesson.lastExercisePosition)" max="100"
+          />
         </div>
 
-        <div v-else class="flex w-full items-center justify-between">
-          <div v-if="!isLessonCompleted" class="flex gap-2 items-center">
-            <div class="p-2 bg-base-100 rounded-full flex items-center justify-center">
-              <Icon
-                :name="exerciseStore.correct ? 'check' : 'close'" :class="{
-                  'text-green-500': exerciseStore.correct,
-                  'text-red-500': !exerciseStore.correct,
-                }"
-              />
-            </div>
+        <div class="max-w-lg mx-auto pt-4 px-4">
+          <LevelCompleted v-if="isLevelCompleted" :loading="false" @next-level="nextLevel" />
 
-            <p>
-              <template v-if="exerciseStore.correct">
-                Correto!
-              </template>
+          <ExerciseCompleted
+            v-else-if="isLessonCompleted" :loading="nextLesson.isLoading.value"
+            @next-lesson="nextLesson.execute()"
+          />
 
-              <template v-else>
-                Errado!
-              </template>
-            </p>
+          <Exercise v-else-if="lesson.exercise" v-model="select" :lesson="lesson" />
+
+          <template v-else>
+            <span class="loading loading-spinner loading-sm absolute bottom-1/2 right-1/2 translate-x-1/2" />
+          </template>
+        </div>
+      </div>
+
+      <div
+        class="border-t border-t-gray-400" :class="{
+          'bg-green-300': exerciseStore.correct && exerciseStore.finished,
+          'bg-red-300': !exerciseStore.correct && exerciseStore.finished,
+        }"
+      >
+        <div class="flex gap-2 max-w-lg mx-auto p-4">
+          <div v-if="!exerciseStore.finished" class="w-full">
+            <Btn
+              ref="btn" class="btn-md btn-primary w-full"
+              :disabled="select === NON_SELECTED || nextExercise.isLoading.value"
+              :loading="nextExercise.isLoading.value" @click="nextExercise.execute()"
+            >
+              {{ t('Verify') }}
+            </Btn>
           </div>
 
-          <Btn
-            ref="btn"
-            class="btn-md btn-neutral float-right"
-            :class="{ 'w-full': isLessonCompleted }"
-            :loading="!nextLessonState"
-            :disabled="!nextLessonState"
-            @click="nextExercise"
-          >
-            Continuar
-          </Btn>
+          <div v-else class="flex w-full items-center justify-between">
+            <div v-if="!isLessonCompleted" class="flex gap-2 items-center">
+              <div class="p-2 bg-base-100 rounded-full flex items-center justify-center">
+                <Icon
+                  :name="exerciseStore.correct ? 'check' : 'close'" :class="{
+                    'text-green-500': exerciseStore.correct,
+                    'text-red-500': !exerciseStore.correct,
+                  }"
+                />
+              </div>
+
+              <p>
+                <template v-if="exerciseStore.correct">
+                  {{ t('Correct!') }}
+                </template>
+
+                <template v-else>
+                  {{ t('Wrong!') }}
+                </template>
+              </p>
+            </div>
+
+            <Btn
+              ref="btn" class="btn-md btn-neutral float-right" :class="{ 'w-full': isLessonCompleted }"
+              :loading="nextExercise.isLoading.value" :disabled="nextExercise.isLoading.value" @click="continueLesson"
+            >
+              {{ t('Continue') }}
+            </Btn>
+          </div>
         </div>
       </div>
-    </div>
+    </template>
   </main>
 </template>

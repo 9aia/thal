@@ -65,7 +65,7 @@ const support: MenuItem[] = [
   {
     id: "bug_report",
     icon: "bug_report",
-    name: "Report a issue",
+    name: "Report an issue",
     type: "external",
     href: "https://forms.gle/ANMv7qnwTHva1k7L8",
     newTab: true,

@@ -17,7 +17,6 @@ const components: Record<string, any> = {
 const comp = ref<any>()
 
 async function loadComponent(name: string) {
-  console.log(`loading ${name}`)
   if (components[name]) {
     try {
       const c = (await components[name]()) as any
