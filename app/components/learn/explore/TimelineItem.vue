@@ -2,9 +2,16 @@
 import { tv } from "tailwind-variants"
 import { t } from "@psitta/vue"
 import { ref } from "vue"
-import type { Level } from "../../../types"
+import type { Level, Unit } from "../../../types"
 
-const props = defineProps<{ is: Level, i: number, levels: Level[] }>()
+const props = defineProps<{
+  level: Level
+  align: "start" | "end"
+}>()
+
+const emit = defineEmits<{
+  (e: "click"): void
+}>()
 
 const icons: Record<Required<Level>["type"], string> = {
   concept: "cognition",
@@ -29,79 +36,56 @@ const iconStyle = tv({
 })
 
 const isModalOpen = ref(false)
+const setState = (state: boolean) => isModalOpen.value = state
 
 function onClick() {
-  if (props.is.type === "concept")
+  if (props.level.type === "concept")
     isModalOpen.value = true
   else
-    navigateTo("/learn/unit-1/intro")
+    emit("click")
 }
 </script>
 
 <template>
-  <hr v-if="i !== 0" :class="{ 'bg-primary': is.active }">
   <div
     class="timeline-box bg-white border-slate-300 cursor-pointer flex flex-col gap-1"
     :class="{
-      'timeline-start': is.align === 'start' || !is.align,
-      'timeline-end': is.align === 'end',
+      'timeline-start': align === 'start',
+      'timeline-end': align === 'end',
     }"
-    @click="onClick()"
+    @click="onClick"
   >
     <div class="items-center flex gap-2">
-      <Icon :class="iconStyle({ type: is.type || 'none' })">
-        {{ icons[is.type || 'none'] }}
+      <Icon :class="iconStyle({ type: level.type || 'none' })">
+        {{ icons[level.type || 'none'] }}
       </Icon>
       <div class="flex flex-col">
-        <span v-if="is.optional" class="text-xs">
+        <span v-if="level.optional" class="text-xs">
           {{ t("Optional") }}
         </span>
         <span>
-          {{ is.name }}
+          {{ level.name }}
         </span>
       </div>
     </div>
     <progress
-      v-if="(is.maxLessonAmount || 0) > 0"
+      v-if="(level.maxLessonAmount || 0) > 0"
       class="progress h-1 w-full"
       :class="{
-        'progress-primary': is.lessonAmount === is.maxLessonAmount,
-        'progress-success': (is.lessonAmount || 0) < (is.maxLessonAmount || 1),
+        'progress-primary': level.lessonAmount === level.maxLessonAmount,
+        'progress-success': (level.lessonAmount || 0) < (level.maxLessonAmount || 1),
       }"
-      :value="100 / (is.maxLessonAmount || 1) * (is.lessonAmount || 0)"
+      :value="100 / (level.maxLessonAmount || 1) * (level.lessonAmount || 0)"
       max="100"
     />
 
-    <Modal v-model="isModalOpen" confirm-text="Continue">
-      <h1 class="text-2xl mx-auto mb-2">
-        {{ t(is.name) }}
-      </h1>
-      <p v-if="is.description">
-        {{ t(is.description) }}
-      </p>
-
-      <h2 class="mt-4 mb-2 uppercase font-bold text-xs">
-        Example
-      </h2>
-
-      <div class="border border-gray-500 rounded-lg p-4">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, possimus.</p>
-      </div>
-    </Modal>
+    <slot :set-state="setState" :modal-state="isModalOpen" />
   </div>
   <div
-    class="timeline-middle flex justify-center items-center rounded-full w-5 h-5"
-    :class="{
-      'bg-primary': is.active,
-      'bg-base-300 text-base-300': !is.active,
-    }"
+    class="timeline-middle flex justify-center items-center rounded-full w-5 h-5 bg-primary"
   >
     <Icon class="!text-base">
       check
     </Icon>
   </div>
-  <hr
-    v-if="i < levels.length - 1"
-    :class="{ 'bg-primary': levels[i + 1]?.active }"
-  >
 </template>
