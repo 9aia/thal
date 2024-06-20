@@ -49,8 +49,8 @@ const navItems: BottomNavItem[] = [
     icon: "explore",
     href: "/explore",
   },
-  { id: "missions", name: "Missions", icon: "editor_choice", href: "/missions" },
-  { id: "rank", name: "Rank", icon: "trophy", href: "/rank" },
+  // { id: "missions", name: "Missions", icon: "editor_choice", href: "/missions" },
+  // { id: "rank", name: "Rank", icon: "trophy", href: "/rank" },
   { id: "profile", name: "Profile", icon: "face", href: "/profile" },
   { id: "settings", name: "Settings", icon: "settings", href: "/settings" },
 ]

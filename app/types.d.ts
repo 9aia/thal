@@ -26,34 +26,41 @@ export interface Course {
 }
 
 export interface Section {
-  id: "a1" | "a2" | "b1" | "b2" | "c1" | "c2"
+  slug: "a1" | "a2" | "b1" | "b2" | "c1" | "c2"
   name: string
   description: string
   units: Unit[]
 }
 
 export interface Unit {
-  id: string
+  slug: string
   name: string
-  nodes: Node[]
+  levels: Level[]
 }
 
-export interface Node {
-  id?: string
+export interface Level {
+  slug: string
   name: string
   type?: "concept" | "question" | "exercise" | "none" | "info" | "vocab"
   icon?: string
   description?: string
-  position?: "start" | "end"
+  align?: "start" | "end"
   active?: boolean
   optional?: boolean
-  maxLevel?: number
-  level?: number
+  maxLessonAmount?: number
+  lessonAmount?: number
+  maxExerciseAmount?: number
+  exercisePosition?: number
 }
 
 // #endregion
 
 // #region Exercise
+
+export interface Exercise {
+  type: string
+  data: ExerciseQA | ExerciseFillInTheBlank
+}
 
 export interface ExerciseQA {
   text: string
@@ -65,6 +72,29 @@ export interface ExerciseFillInTheBlank {
   text: string
   correctLength: number
   alternatives: string[]
+}
+
+export interface ExerciseQAWithCorrect extends ExerciseQA {
+  correct: number
+}
+
+// DTOs
+
+export interface LessonGetDto {
+  exercise: {
+    id: number
+    type: string
+    data: Record<string, any>
+  } | null
+  lastExercisePosition: number
+  lessonIndex: number
+}
+
+export interface ExerciseGenerateDto {
+  unitSlug: string
+  levelSlug: string
+  position: number
+  lessonIndex: number
 }
 
 // #endregion

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { t } from "@psitta/vue"
-import { course } from "../../../constants/sections"
+import { course } from "../../../constants/course"
 import { learnStore } from "../../../store"
 
 definePageMeta({
@@ -8,7 +8,7 @@ definePageMeta({
   layout: "app",
 })
 
-const section = computed(() => course.sections.find(s => s.id = learnStore.currentSection)!)
+const section = computed(() => course.sections.find(s => s.slug = learnStore.currentSection)!)
 const currentSection = ref("articles")
 
 onMounted(() => {
@@ -40,7 +40,7 @@ onMounted(() => {
     <Unit
       v-for="unit in section.units"
       v-bind="unit"
-      :key="unit.id"
+      :key="unit.slug"
     />
 
     <div class="card w-96 mx-auto bg-transparent border border-slate-900 shadow-xl mt-16 mb-4">

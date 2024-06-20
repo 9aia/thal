@@ -2,11 +2,11 @@
 import { tv } from "tailwind-variants"
 import { t } from "@psitta/vue"
 import { ref } from "vue"
-import type { Node } from "../../../types"
+import type { Level } from "../../../types"
 
-defineProps<{ is: Node, i: number, items: Node[] }>()
+const props = defineProps<{ is: Level, i: number, levels: Level[] }>()
 
-const icons: Record<Required<Node>["type"], string> = {
+const icons: Record<Required<Level>["type"], string> = {
   concept: "cognition",
   exercise: "exercise",
   question: "question_mark",
@@ -29,6 +29,13 @@ const iconStyle = tv({
 })
 
 const isModalOpen = ref(false)
+
+function onClick() {
+  if (props.is.type === "concept")
+    isModalOpen.value = true
+  else
+    navigateTo("/learn/unit-1/intro")
+}
 </script>
 
 <template>
@@ -36,10 +43,10 @@ const isModalOpen = ref(false)
   <div
     class="timeline-box bg-white border-slate-300 cursor-pointer flex flex-col gap-1"
     :class="{
-      'timeline-start': is.position === 'start' || !is.position,
-      'timeline-end': is.position === 'end',
+      'timeline-start': is.align === 'start' || !is.align,
+      'timeline-end': is.align === 'end',
     }"
-    @click="isModalOpen = true"
+    @click="onClick()"
   >
     <div class="items-center flex gap-2">
       <Icon :class="iconStyle({ type: is.type || 'none' })">
@@ -55,17 +62,17 @@ const isModalOpen = ref(false)
       </div>
     </div>
     <progress
-      v-if="(is.maxLevel || 0) > 0"
+      v-if="(is.maxLessonAmount || 0) > 0"
       class="progress h-1 w-full"
       :class="{
-        'progress-primary': is.level === is.maxLevel,
-        'progress-success': (is.level || 0) < (is.maxLevel || 1),
+        'progress-primary': is.lessonAmount === is.maxLessonAmount,
+        'progress-success': (is.lessonAmount || 0) < (is.maxLessonAmount || 1),
       }"
-      :value="100 / (is.maxLevel || 1) * (is.level || 0)"
+      :value="100 / (is.maxLessonAmount || 1) * (is.lessonAmount || 0)"
       max="100"
     />
 
-    <Modal v-if="is.type === 'concept'" v-model="isModalOpen" confirm-text="Continue">
+    <Modal v-model="isModalOpen" confirm-text="Continue">
       <h1 class="text-2xl mx-auto mb-2">
         {{ t(is.name) }}
       </h1>
@@ -94,7 +101,7 @@ const isModalOpen = ref(false)
     </Icon>
   </div>
   <hr
-    v-if="i < items.length - 1"
-    :class="{ 'bg-primary': items[i + 1]?.active }"
+    v-if="i < levels.length - 1"
+    :class="{ 'bg-primary': levels[i + 1]?.active }"
   >
 </template>

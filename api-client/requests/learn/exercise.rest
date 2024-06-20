@@ -1,0 +1,29 @@
+### Find all exercises
+
+GET {{baseUrl}}/learn/exercise
+Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+
+### Get exercise by id
+
+GET {{baseUrl}}/learn/exercise/4
+Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+
+### Generate a exercise
+
+POST {{baseUrl}}/learn/exercise/generate
+Content-Type: application/json
+Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+
+{
+  "lessonId": "1"
+}
+
+### Verify a exercise by id
+
+POST {{baseUrl}}/learn/exercise/38/verify
+Content-Type: application/json
+Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+
+{
+  "answer": 0
+}

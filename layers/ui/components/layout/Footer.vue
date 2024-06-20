@@ -2,7 +2,12 @@
 import { T, t } from "@psitta/vue"
 import Icon from "../display/Icon.vue"
 
-const sections = [
+interface SectionItem {
+  title: string
+  items: Array<{ title: string, href: string, target?: string, localize?: boolean }>
+}
+
+const sections: SectionItem[] = [
   {
     title: "Links",
     items: [
@@ -14,8 +19,8 @@ const sections = [
   {
     title: "Support",
     items: [
-      { title: "Give us feedback", href: "https://forms.gle/5ePvXjrebyWGUrM26" },
-      { title: "Report a problem", href: "https://forms.gle/ANMv7qnwTHva1k7L8" },
+      { title: "Give us feedback", target: "_blank", localize: false, href: "https://forms.gle/5ePvXjrebyWGUrM26" },
+      { title: "Report a problem", target: "_blank", localize: false, href: "https://forms.gle/ANMv7qnwTHva1k7L8" },
     ],
   },
   {
@@ -50,7 +55,7 @@ const sections = [
         </h5>
         <ul class="flex flex-col justify-start">
           <li v-for="(item, i) in sections[1].items" :key="i" class="flex">
-            <A :href="item.href" class="text-xl link link-primary font-bold">
+            <A v-bind="item" :href="t(item.href)" class="text-xl link link-primary font-bold">
               {{ t(item.title) }}
             </A>
           </li>
@@ -72,8 +77,8 @@ const sections = [
 
     <p class="px-4 py-4 text-primary w-full flex items-center sm:justify-center gap-1">
       <T
-        text="{year} - Developed by {teamName}" :values="{ year: [new Date(), { year: 'numeric' }], teamName: 'Maratongue' }"
-        class="flex items-center gap-1"
+        text="{year} - Developed by {teamName}"
+        :values="{ year: [new Date(), { year: 'numeric' }], teamName: 'Maratongue' }" class="flex items-center gap-1"
       >
         <template #teamName="slotProps">
           <A href="/about" class="font-bold flex items-center gap-1">

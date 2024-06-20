@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { t } from "@psitta/vue"
-import { course } from "../../../constants/sections"
+import { course } from "../../../constants/course"
 import { learnStore } from "../../../store"
 
 definePageMeta({
@@ -23,7 +23,7 @@ definePageMeta({
           </h2>
           <p>{{ section.description }}</p>
 
-          <template v-if="learnStore.currentSection === section.id">
+          <template v-if="learnStore.currentSection === section.slug">
             <progress class="progress mb-2 mt-6 progress-warning w-full" value="35" max="100" />
           </template>
 
@@ -32,13 +32,13 @@ definePageMeta({
               {{ t('See details') }}
             </button>
 
-            <template v-if="learnStore.currentSection === section.id">
+            <template v-if="learnStore.currentSection === section.slug">
               <A href="/explore" class="btn btn-primary">
                 {{ t('Continue') }}
               </A>
             </template>
 
-            <template v-if="learnStore.currentSection !== section.id">
+            <template v-if="learnStore.currentSection !== section.slug">
               <button class="btn btn-warning btn-outline">
                 {{ t('Skip to here') }}
               </button>

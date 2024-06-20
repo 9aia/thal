@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import type { Node } from "../../../types"
+import type { Level } from "../../../types"
 
 defineProps<{
-  items: Node[]
+  levels: Level[]
 }>()
 </script>
 
 <template>
   <ul class="timeline timeline-vertical flex flex-col">
-    <li v-for="(item, i) in items" :key="item.id">
-      <TimelineItem :is="item" :i="i" :items="items" />
+    <li v-for="(level, i) in levels" :key="level.slug">
+      <TimelineItem :is="level" :i="i" :levels="levels" />
     </li>
   </ul>
 </template>

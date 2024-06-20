@@ -1,6 +1,7 @@
 import type { H3Event } from "h3"
 import type { RouteLocationNormalized } from "vue-router"
 import type { SafeParseError, SafeParseSuccess, ZodSchema } from "zod"
+import { badRequest } from "~/utils/nuxt"
 
 export async function getValidatedForm<O>(event: H3Event, validate: (data: unknown) => SafeParseSuccess<O> | SafeParseError<O>) {
   const formData = await readFormData(event)

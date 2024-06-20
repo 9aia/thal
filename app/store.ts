@@ -1,4 +1,4 @@
-import type { Section } from "../_old_maratongue/learn/types"
+import type { Section } from "./types"
 
 interface Store {
   currentSection: Section["id"]

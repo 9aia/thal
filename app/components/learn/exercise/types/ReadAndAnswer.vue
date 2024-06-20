@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { t } from "@psitta/vue"
-import ExerciseButton from "./ExerciseButton.vue"
 import type { ExerciseQA } from "~/types"
 
 const props = defineProps<ExerciseQA>()
@@ -24,7 +23,12 @@ useSingleResponse(props, select)
 
   <ul class="flex flex-col gap-2">
     <li v-for="(alternative, i) in alternatives" :key="i" class="w-full">
-      <ExerciseButton v-model="select" :alternative="alternative" :i="i" />
+      <ExerciseButton
+        v-model="select"
+        :selected="select === i"
+        :alternative="alternative"
+        :i="i"
+      />
     </li>
   </ul>
 </template>

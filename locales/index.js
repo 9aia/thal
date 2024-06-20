@@ -86,7 +86,7 @@ export default {
   "Give us feedback": {
     pt: "Nos dê seu feedback",
   },
-  "Report a issue": {
+  "Report an issue": {
     pt: "Relatar um problema",
   },
   "/terms": {
