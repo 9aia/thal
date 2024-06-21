@@ -82,7 +82,8 @@ function onClick() {
     <slot :set-state="setState" :modal-state="isModalOpen" />
   </div>
   <div
-    class="timeline-middle flex justify-center items-center rounded-full w-5 h-5 bg-primary"
+    class="timeline-middle flex justify-center items-center rounded-full w-5 h-5"
+    :class="level.active ? 'bg-primary' : 'bg-base-300 text-base-300'"
   >
     <Icon class="!text-base">
       check

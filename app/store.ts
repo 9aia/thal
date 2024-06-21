@@ -1,7 +1,7 @@
-import type { Section } from "./types"
+import type { SectionName } from "./constants/course"
 
 interface Store {
-  currentSection: Section["id"]
+  currentSection: SectionName
 }
 
 export const learnStore = reactive<Store>({

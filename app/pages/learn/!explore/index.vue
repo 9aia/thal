@@ -8,18 +8,29 @@ definePageMeta({
   layout: "app",
 })
 
-const section = computed(() => course.sections.find(s => s.slug = learnStore.currentSection)!)
-const currentSection = ref("articles")
+function getSection() {
+  return $fetch(`/api/learn/section/${learnStore.currentSection}`)
+}
+
+const {
+  data: section,
+  pending,
+} = useAsyncData(
+  `section-${learnStore.currentSection}`,
+  getSection,
+)
+
+const currentUnit = ref("articles")
 
 onMounted(() => {
-  const unitUiRef = document.querySelector(`#unit-${currentSection.value}`)
+  const unitUiRef = document.querySelector(`#unit-${currentUnit.value}`)
   if (unitUiRef)
     unitUiRef.scrollIntoView({ behavior: "smooth" })
 })
 </script>
 
 <template>
-  <div>
+  <div v-if="!pending && section">
     <div class="absolute right-1/2 top-4 translate-x-1/2">
       <A href="/explore/sections" class="flex items-center text-lg gap-1">
         <span class="text-xl">{{ section.name }}</span>

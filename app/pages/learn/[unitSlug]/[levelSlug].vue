@@ -37,7 +37,7 @@ const maxExerciseAmount = computed(() => {
 })
 
 const isLessonCompleted = computed(() => lesson.value.lastExercisePosition >= maxExerciseAmount.value)
-const isLevelCompleted = computed(() => lesson.value.lessonIndex + 1 > maxLessonAmount.value - 1 && isLessonCompleted.value)
+const isLevelCompleted = computed(() => lesson.value.lessonIndex >= maxLessonAmount.value)
 
 async function getLessonState() {
   return await $fetch("/api/learn/exercise/prepare", {
@@ -175,7 +175,12 @@ definePageMeta({
         </div>
 
         <div class="max-w-lg mx-auto pt-4 px-4">
-          <LevelCompleted v-if="isLevelCompleted" :loading="false" @next-level="nextLevel" />
+          <LevelCompleted
+            v-if="isLevelCompleted"
+            :loading="false"
+            :already-completed="lesson.lastExercisePosition === 0"
+            @finish="nextLesson.execute()"
+          />
 
           <ExerciseCompleted
             v-else-if="isLessonCompleted" :loading="nextLesson.isLoading.value"

@@ -2,7 +2,7 @@ import type { H3Event } from "h3"
 import { and, eq } from "drizzle-orm"
 import { generateExercise, getExercise } from "./exercise"
 import { getLevel } from "./level"
-import { getLessonDto, getMaxExerciseAmount } from "~/utils/learn/exercise"
+import { getLessonDto, getMaxExerciseAmount, getMaxLessonAmount } from "~/utils/learn/exercise"
 import { badRequest, internal } from "~/utils/nuxt"
 import { levels } from "~~/db/schema"
 import type { ExerciseGenerateDto } from "~/types"
@@ -26,6 +26,14 @@ export async function getLessonState(event: H3Event, {
     lessonIndex: lessonIndex ?? level.lessonIndex,
     position: level.lastExercisePosition,
   }
+
+  const maxLessonAmount = getMaxLessonAmount("a1", unitSlug, levelSlug)
+
+  if (maxLessonAmount === null)
+    throw internal("Max lesson amount is not defined")
+
+  if (level.lessonIndex >= maxLessonAmount)
+    return getLessonDto(null, level)
 
   const exercise = await getExercise(event, exerciseGenerateDto)
 

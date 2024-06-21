@@ -14,7 +14,7 @@ function goToLevel(level: Level) {
 <template>
   <ul class="timeline timeline-vertical flex flex-col">
     <li v-for="(level, index) in unit.levels" :key="level.slug">
-      <hr v-if="index !== 0" class="bg-primary">
+      <hr v-if="index !== 0" :class="{ 'bg-primary': unit.levels[index - 1].active && level.active }">
 
       <TimelineItem
         :level="level"
@@ -48,7 +48,7 @@ function goToLevel(level: Level) {
 
       <hr
         v-if="index < unit.levels.length - 1"
-        class="bg-primary"
+        :class="{ 'bg-primary': unit.levels[index + 1].active && level.active }"
       >
     </li>
   </ul>
