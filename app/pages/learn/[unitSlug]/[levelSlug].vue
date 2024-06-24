@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import { useI18n } from "@psitta/vue"
+import { useQueryClient } from "@tanstack/vue-query"
 import { useAsyncState, useEventListener } from "@vueuse/core"
 import Exercise from "~/components/learn/exercise/Exercise.vue"
 import type { LessonGetDto } from "~/types"
 import { getMaxExerciseAmount, getMaxLessonAmount } from "~/utils/learn/exercise"
+
+definePageMeta({
+  middleware: "premium",
+  layout: false,
+})
 
 const { t } = useI18n()
 const route = useRoute()
@@ -112,6 +118,8 @@ async function getNextLesson() {
   })
 }
 
+const queryClient = useQueryClient()
+
 const nextLesson = useAsyncState(getNextLesson, undefined, {
   immediate: false,
   onSuccess(data) {
@@ -119,6 +127,10 @@ const nextLesson = useAsyncState(getNextLesson, undefined, {
       return
 
     lesson.value = data
+
+    queryClient.invalidateQueries({
+      queryKey: ["/learn/section", sectionSlug.value],
+    })
   },
   onError() {
     toast.error(t("Failed to proceed to the next lesson. Try again."))
@@ -150,11 +162,6 @@ onMounted(async () => {
     btn.value?.click()
   })
 })
-
-definePageMeta({
-  middleware: "premium",
-  layout: false,
-})
 </script>
 
 <template>
@@ -176,10 +183,8 @@ definePageMeta({
 
         <div class="max-w-lg mx-auto pt-4 px-4">
           <LevelCompleted
-            v-if="isLevelCompleted"
-            :loading="false"
-            :already-completed="lesson.lastExercisePosition === 0"
-            @finish="nextLesson.execute()"
+            v-if="isLevelCompleted" :loading="false"
+            :already-completed="lesson.lastExercisePosition === 0" @finish="nextLesson.execute()"
           />
 
           <ExerciseCompleted

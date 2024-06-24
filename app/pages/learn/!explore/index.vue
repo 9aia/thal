@@ -8,7 +8,7 @@ definePageMeta({
 })
 
 const { data, isLoading } = await useServerQuery(`/api/learn/section/${learnStore.currentSection}`, {
-  queryKey: ["test"],
+  queryKey: ["/learn/section", learnStore.currentSection],
 })
 
 const currentUnit = ref("articles")
