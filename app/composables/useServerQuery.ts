@@ -1,7 +1,6 @@
 import type { DefaultError, QueryClient, QueryKey, UseQueryOptions } from "@tanstack/vue-query"
 import { useQuery } from "@tanstack/vue-query"
 import type { NitroFetchRequest } from "nitropack"
-import { readonly } from "vue"
 
 async function useServerQuery<
   DefaultR extends NitroFetchRequest = NitroFetchRequest,
@@ -17,13 +16,11 @@ async function useServerQuery<
 ) {
   const headers = useRequestHeaders()
 
-  const fetcher = () => $fetch(request, {
-    headers,
-  })
+  const fetcher: any = () => $fetch(request, { headers })
 
   const { suspense, ...rest } = useQuery({
     ...options,
-    queryFn: fetcher as any,
+    queryFn: fetcher,
   }, queryClient)
 
   onServerPrefetch(async () => await suspense())

@@ -6,7 +6,7 @@ UPDATE User SET free_trial_used = 0;
 
 -- @block Update plan expiration for all users
 
-UPDATE User SET plan_expires = '2025-03-08T14:11:00';
+UPDATE User SET plan_expires = '2026-03-08T14:11:00';
 
 -- @block Add fake plan for all users
 

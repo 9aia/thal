@@ -48,12 +48,7 @@ const submit = form.handleSubmit(async () => {
 </script>
 
 <template>
-  <Modal
-    v-model="isOpen"
-    :confirm-text="t('Save')"
-    :loading="loading"
-    @confirm="submit"
-  >
+  <Modal v-model="isOpen" :confirm-text="t('Save')" :loading="loading" @confirm="submit">
     <template #default>
       <h1 class="font-bold text-2xl mb-2 mt-4">
         {{ t("What do you do for work?") }}
@@ -65,13 +60,9 @@ const submit = form.handleSubmit(async () => {
 
       <div class="px-2 pb-2 space-y-2 overflow-y-auto mt-4">
         <TextField
-          path="profession"
-          :label="t('Your profession')"
-          :rules="
-            (v: any) =>
-              v?.length <= MAX_PROFESSION_CHARS || t(`It must contain at most ${MAX_PROFESSION_CHARS} characters`)
-          "
-          :feedback="true"
+          path="profession" :label="t('Your profession')"
+          :rules="(v: any) =>
+            v?.length <= MAX_PROFESSION_CHARS || t('It must contain at most {maxChars} characters', { maxChars: MAX_PROFESSION_CHARS })" :feedback="true"
         >
           <template #feedback>
             <span
@@ -89,8 +80,7 @@ const submit = form.handleSubmit(async () => {
 
       <p class="text-sm text-gray-600">
         {{
-          t(
-            "P.S. Don't have a traditional job? No worries! Share your life's calling - writer, musician, world traveler - anything goes!",
+          t("P.S. Don't have a traditional job? No worries! Share your life's calling - writer, musician, world traveler - anything goes!",
           )
         }}
       </p>

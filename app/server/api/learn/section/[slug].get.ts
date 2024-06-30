@@ -1,9 +1,8 @@
 import { z } from "zod"
 import { SECTION_NAMES, course } from "~/constants/course"
-import { getLevel, getLevelsBySection } from "~/server/services/level"
+import { getLevelsBySection } from "~/server/services/level"
 import type { Level } from "~/types"
 import { getValidated } from "~/utils/h3"
-import { getLevels } from "~/utils/learn"
 import { unauthorized } from "~/utils/nuxt"
 
 export default defineEventHandler(async (event) => {

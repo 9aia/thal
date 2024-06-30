@@ -55,7 +55,7 @@ async function getLessonState() {
   })
 }
 
-const { isLoading: isLessonLoading, error: isError, execute } = useAsyncState(getLessonState, undefined, {
+const { isLoading: isLessonLoading, error, execute } = useAsyncState(getLessonState, undefined, {
   onSuccess(data) {
     if (!data)
       return
@@ -63,8 +63,6 @@ const { isLoading: isLessonLoading, error: isError, execute } = useAsyncState(ge
     lesson.value = data
   },
 })
-
-const { disabled, retry } = useRetry(execute)
 
 async function getNextExercise() {
   return await $fetch(`/api/learn/exercise/${lesson.value.exercise?.id}/next`, {
@@ -137,9 +135,9 @@ const nextLesson = useAsyncState(getNextLesson, undefined, {
   },
 })
 
-async function nextLevel() {
+/* async function nextLevel() {
   console.log("nextLevel")
-}
+} */
 
 onMounted(async () => {
   useEventListener(document, "keydown", (e: any) => {
@@ -166,10 +164,7 @@ onMounted(async () => {
 
 <template>
   <main class="relative flex flex-col justify-between" style="min-height: calc(100vh)">
-    <LessonError v-if="isError" :loading="isLessonLoading" :disabled="disabled" @retry="retry" />
-    <LessonLoading v-else-if="isLessonLoading" />
-
-    <template v-else>
+    <Resource :loading="isLessonLoading" :error="!!error" @execute="execute">
       <div>
         <div class="flex gap-2 items-center w-full mb-4 max-w-lg mx-auto pt-4 px-4">
           <A href="/explore" class="flex items-center">
@@ -248,6 +243,6 @@ onMounted(async () => {
           </div>
         </div>
       </div>
-    </template>
+    </Resource>
   </main>
 </template>
