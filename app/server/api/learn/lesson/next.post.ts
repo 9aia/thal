@@ -27,13 +27,19 @@ export default eventHandler(async (event) => {
   if (!maxLessonAmount)
     throw internal("Max lesson amount is not defined")
 
-  if (level.lessonIndex + 1 > maxLessonAmount - 1)
+  if (level.lessonIndex >= maxLessonAmount)
     throw badRequest("You are not in the last lesson")
 
   const maxExerciseAmount = getMaxExerciseAmount("a1", unitSlug, levelSlug)
 
   if (!maxExerciseAmount)
     throw internal("Max exercise amount is not defined")
+
+  if (level.lessonIndex + 1 === maxLessonAmount) {
+    const updatedLevel = await goToNextLesson(event, { unitSlug, levelSlug })
+
+    return getLessonDto(null, updatedLevel)
+  }
 
   if (level.lastExercisePosition >= maxExerciseAmount) {
     const updatedLevel = await goToNextLesson(event, { unitSlug, levelSlug })

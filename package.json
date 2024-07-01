@@ -25,6 +25,7 @@
     "@lucia-auth/adapter-sqlite": "^3.0.0",
     "@psitta/core": "^0.2.0",
     "@psitta/vue": "^0.2.0",
+    "@tanstack/vue-query": "^5.45.0",
     "@vueuse/core": "^10.9.0",
     "arctic": "^1.2.1",
     "drizzle-orm": "^0.29.4",

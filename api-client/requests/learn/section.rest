@@ -1,0 +1,6 @@
+### Find section
+
+@sectionName = a1
+
+GET {{baseUrl}}/learn/section/{{sectionName}}
+Cookie: auth_session={{$dotenv COOKIE_TOKEN}};

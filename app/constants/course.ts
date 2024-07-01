@@ -206,3 +206,7 @@ export const course: Course = {
     sectionB1,
   ],
 }
+
+export const SECTION_NAMES = ["a1", "a2", "b1", "b2", "c1", "c2"] as const
+
+export type SectionName = typeof SECTION_NAMES[number]

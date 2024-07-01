@@ -27,7 +27,7 @@ const isModalOpen = ref(false)
       </div>
     </div>
 
-    <Timeline class="my-4" :levels="getLevels(unit.levels)" />
+    <Timeline class="my-4" :levels="getLevels(unit.levels)" :unit="unit" />
 
     <Modal
       v-model="isModalOpen"

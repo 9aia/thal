@@ -1,5 +1,6 @@
 import { and, eq } from "drizzle-orm"
 import type { H3Event } from "h3"
+import type { SectionName } from "~/constants/course"
 import { levels } from "~~/db/schema"
 
 export async function getLevel(
@@ -43,6 +44,7 @@ export async function saveLevel(
     .values({
       slug: levelSlug,
       unitSlug,
+      sectionSlug: "a1",
       lessonIndex,
       lastExercisePosition: 0,
       userId: user.id,
@@ -50,4 +52,25 @@ export async function saveLevel(
     .returning()
 
   return level
+}
+
+export async function getLevelsBySection(
+  event: H3Event,
+  sectionSlug: SectionName,
+) {
+  const orm = event.context.orm
+
+  const user = event.context.user!
+
+  const foundLevels = orm
+    .select()
+    .from(levels)
+    .where(
+      and(
+        eq(levels.sectionSlug, sectionSlug),
+        eq(levels.userId, user.id),
+      ),
+    )
+
+  return foundLevels
 }

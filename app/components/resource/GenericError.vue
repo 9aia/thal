@@ -37,7 +37,7 @@ const { t } = useI18n()
         </p>
 
         <div class="card-actions">
-          <Btn class="btn-warning btn-outline mt-2 py-2 flex gap-1" :loading="loading || disabled" :reset-in="3000" @click="emit('retry')">
+          <Btn class="btn-warning btn-outline mt-2 py-2 flex gap-1" :disabled="disabled" :loading="loading" :reset-in="3000" @click="emit('retry')">
             {{ t('Try again') }}
           </Btn>
         </div>

@@ -1,3 +1,4 @@
+import type { SectionName } from "./constants/course"
 import type { HOBBIES } from "./utils"
 import type { UserSelect } from "~~/db/schema"
 
@@ -26,7 +27,7 @@ export interface Course {
 }
 
 export interface Section {
-  slug: "a1" | "a2" | "b1" | "b2" | "c1" | "c2"
+  slug: SectionName
   name: string
   description: string
   units: Unit[]
@@ -46,6 +47,7 @@ export interface Level {
   description?: string
   align?: "start" | "end"
   active?: boolean
+  completed?: boolean
   optional?: boolean
   maxLessonAmount?: number
   lessonAmount?: number

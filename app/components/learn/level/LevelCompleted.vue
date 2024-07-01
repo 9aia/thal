@@ -4,10 +4,11 @@ import { t } from "@psitta/vue"
 
 defineProps<{
   loading: boolean
+  alreadyCompleted: boolean
 }>()
 
 defineEmits<{
-  (e: "nextLevel"): void
+  (e: "finish"): void
 }>()
 
 const confetti = useConfetti()
@@ -44,9 +45,14 @@ onUnmounted(() => {
             Review
           </Btn> -->
 
-          <!-- <Btn class="btn-warning" :loading="loading" @click="$emit('nextLevel')">
-            {{ t('Next level') }}
-          </Btn> -->
+          <Btn
+            v-if="!alreadyCompleted"
+            class="btn-warning"
+            :loading="loading"
+            @click="$emit('finish')"
+          >
+            {{ t('Finish') }}
+          </Btn>
         </div>
       </div>
     </div>

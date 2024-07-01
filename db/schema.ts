@@ -146,6 +146,7 @@ export type ExerciseInsert = z.infer<typeof insertExerciseSchema>
 export const levels = sqliteTable("Level", {
   id: int("id").primaryKey({ autoIncrement: true }),
   slug: text("slug").notNull(),
+  sectionSlug: text("section_slug").notNull(),
   unitSlug: text("unit_slug").notNull(),
   lessonIndex: int("lesson_index").default(0).notNull(),
   lastExercisePosition: int("last_exercise_position").default(0).notNull(),
