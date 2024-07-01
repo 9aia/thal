@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { SECTION_NAMES, course } from "~/constants/course"
+import { SECTION_SLUGS, course } from "~/constants/course"
 import { MAX_EXERCISE_AMOUNT, MAX_LESSON_AMOUNT } from "~/constants/exercises"
 import { getLevelsBySection } from "~/server/services/level"
 import type { Level } from "~/types"
@@ -15,7 +15,7 @@ export default defineEventHandler(async (event) => {
   const {
     slug,
   } = await getValidated(event, "params", z.object({
-    slug: z.enum(SECTION_NAMES),
+    slug: z.enum(SECTION_SLUGS),
   }))
 
   const section = course.sections.find(s => s.slug === slug)!

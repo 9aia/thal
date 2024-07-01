@@ -2,10 +2,10 @@ import process from "node:process"
 import type { GenerationConfig } from "@google/generative-ai"
 import { and, eq } from "drizzle-orm"
 import type { H3Event } from "h3"
-import { getLevel } from "./level"
+import { getOrCreateLevel } from "./level"
 import type { ExercisePromptOptions } from "~/constants/exercises"
 import EXERCISES from "~/constants/exercises"
-import type { ExerciseGenerateDto } from "~/types"
+import type { ExerciseGenerateDto, Level } from "~/types"
 import { getGemini } from "~/utils/gemini"
 import { getMaxExerciseAmount } from "~/utils/learn/exercise"
 import { badRequest, internal } from "~/utils/nuxt"
@@ -40,6 +40,7 @@ export async function generateExercise(
   event: H3Event,
   user: UserSelect,
   exerciseGenerateDto: ExerciseGenerateDto,
+  level: Level,
 ) {
   const options: ExercisePromptOptions = {
     goals: user.goals || "",
@@ -49,10 +50,16 @@ export async function generateExercise(
     section: "a1",
     languageFrom: "Português",
     languageTo: "English",
+    level,
   }
 
-  const index = Math.floor(Math.random() * Object.keys(EXERCISES).length)
-  const exercise = EXERCISES[index]
+  const exerciesFiltered = EXERCISES.filter(exercise => level.type === "concept"
+    ? exercise.name === "Concept"
+    : exercise.name !== "Concept",
+  )
+
+  const index = Math.floor(Math.random() * Object.keys(exerciesFiltered).length)
+  const exercise = exerciesFiltered[index]
 
   const promptData = exercise?.prompt(options)
 
@@ -130,7 +137,7 @@ export async function nextExercise(
 
   const user = event.context.user!
 
-  const level = await getLevel(event, unitSlug, levelSlug)
+  const level = await getOrCreateLevel(event, unitSlug, levelSlug)
 
   const maxExerciseAmount = getMaxExerciseAmount("a1", unitSlug, levelSlug)
 

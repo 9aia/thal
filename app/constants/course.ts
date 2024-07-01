@@ -23,12 +23,16 @@ export const sectionA1: Section = {
           name: "Nouns",
           type: "concept",
           description: "Nouns are names to things, places or ideas.",
+          maxLessonAmount: 1,
+          maxExerciseAmount: 1,
         },
         {
           slug: "plurals",
           name: "Plurals",
           type: "concept",
           description: "A plural is a form of a word that indicates there is more than one of something.",
+          maxLessonAmount: 1,
+          maxExerciseAmount: 1,
         },
         {
           slug: "regular-plurals",
@@ -56,11 +60,15 @@ export const sectionA1: Section = {
           slug: "common-and-proper-nouns",
           name: "Common and proper nouns",
           type: "concept",
+          maxLessonAmount: 1,
+          maxExerciseAmount: 1,
         },
         {
           slug: "concrete-and-abstract-nouns",
           name: "Concrete and abstract nouns",
           type: "concept",
+          maxLessonAmount: 1,
+          maxExerciseAmount: 1,
         },
         {
           slug: "mutant-plurals",
@@ -88,6 +96,8 @@ export const sectionA1: Section = {
           slug: "articles",
           name: "Articles",
           type: "concept",
+          maxLessonAmount: 1,
+          maxExerciseAmount: 1,
         },
         {
           slug: "definite-article",
@@ -114,16 +124,22 @@ export const sectionA1: Section = {
           slug: "pronouns",
           name: "Pronouns",
           type: "concept",
+          maxLessonAmount: 1,
+          maxExerciseAmount: 1,
         },
         {
           slug: "subject-pronouns",
           name: "Subject pronouns",
           type: "concept",
+          maxLessonAmount: 1,
+          maxExerciseAmount: 1,
         },
         {
           slug: "object-pronouns",
           name: "Object pronouns",
           type: "concept",
+          maxLessonAmount: 1,
+          maxExerciseAmount: 1,
         },
         {
           slug: "that-vs-which",
@@ -139,11 +155,15 @@ export const sectionA1: Section = {
           slug: "possessive-adjectives",
           name: "Possessive adjectives",
           type: "concept",
+          maxLessonAmount: 1,
+          maxExerciseAmount: 1,
         },
         {
           slug: "possessive-pronouns",
           name: "Possessive pronouns",
           type: "concept",
+          maxLessonAmount: 1,
+          maxExerciseAmount: 1,
         },
         {
           slug: "singular-they",
@@ -207,6 +227,6 @@ export const course: Course = {
   ],
 }
 
-export const SECTION_NAMES = ["a1", "a2", "b1", "b2", "c1", "c2"] as const
+export const SECTION_SLUGS = ["a1", "a2", "b1", "b2", "c1", "c2"] as const
 
-export type SectionName = typeof SECTION_NAMES[number]
+export type SectionName = typeof SECTION_SLUGS[number]

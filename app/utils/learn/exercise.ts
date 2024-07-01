@@ -1,5 +1,5 @@
 import { MAX_EXERCISE_AMOUNT, MAX_LESSON_AMOUNT, findExerciseImplementation } from "~/constants/exercises"
-import { course } from "~/constants/course"
+import { type SectionName, course } from "~/constants/course"
 import type { LessonGetDto } from "~/types"
 import type { ExerciseSelect, LevelSelect } from "~~/db/schema"
 

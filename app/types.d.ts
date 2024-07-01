@@ -76,6 +76,11 @@ export interface ExerciseFillInTheBlank {
   alternatives: string[]
 }
 
+export interface ExerciseConcept {
+  text: string
+  example: string
+}
+
 export interface ExerciseQAWithCorrect extends ExerciseQA {
   correct: number
 }

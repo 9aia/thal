@@ -3,7 +3,7 @@ import type { H3Event } from "h3"
 import type { SectionName } from "~/constants/course"
 import { levels } from "~~/db/schema"
 
-export async function getLevel(
+export async function getOrCreateLevel(
   event: H3Event,
   unitSlug: string,
   levelSlug: string,
@@ -25,6 +25,31 @@ export async function getLevel(
 
   if (!level)
     return await saveLevel(event, unitSlug, levelSlug)
+
+  return level
+}
+
+export async function getLevel(
+  event: H3Event,
+  sectionSlug: SectionName,
+  unitSlug: string,
+  levelSlug: string,
+) {
+  const orm = event.context.orm
+
+  const user = event.context.user!
+
+  const [level] = await orm
+    .select()
+    .from(levels)
+    .where(
+      and(
+        eq(levels.unitSlug, unitSlug),
+        eq(levels.slug, levelSlug),
+        eq(levels.sectionSlug, sectionSlug),
+        eq(levels.userId, user.id),
+      ),
+    )
 
   return level
 }

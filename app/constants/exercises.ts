@@ -1,4 +1,4 @@
-import type { Section } from "~/types"
+import type { Level, Section } from "~/types"
 
 export const MAX_LESSON_AMOUNT = 5
 export const MAX_EXERCISE_AMOUNT = 2
@@ -11,11 +11,12 @@ interface Prompt<T extends object = object> {
   example: T
 }
 
-interface ExerciseImplementation {
+export interface ExerciseImplementation {
   name: string
   prompt: (options: ExercisePromptOptions) => Prompt
   verify: (question: Record<string, any>, answer: any) => boolean
   postprocess: (prev: Record<string, any>) => Record<string, any>
+  selectable?: boolean
 }
 
 export interface ExercisePromptOptions {
@@ -26,11 +27,45 @@ export interface ExercisePromptOptions {
   section: Section["slug"]
   languageFrom: string
   languageTo: string
+  level: Level
 }
 
 export const BLANK = "{blank}"
 
-const EXERCISES: ExerciseImplementation[] = [
+export const EXERCISES: ExerciseImplementation[] = [
+  {
+    name: "Concept",
+    prompt: ({ languageTo, section, goals, hobbies, profession, observation, level }) => ({
+      instructions: `
+      The student is learning about ${level.name}, here is more information about it:
+
+      ${level.description}
+
+      Generate a short explanation (3 lines) in the language ${languageTo}. The text should be based on this info below.
+
+      ## Info
+
+      - Language level: ${section}
+      - Learning goals: ${goals}
+      - Hobbies: ${hobbies}
+      - Profession: ${profession}
+      - Observation: ${observation}
+      `,
+      criteria: `
+      - The text should be personalized to user preferences, so the learning can be more engaging.
+      - The text language should be in ${languageTo};
+    `,
+      example: {
+        text: "Roses are red, violets are blue.",
+        example: "This is an example of a poem.",
+      },
+    }),
+    verify() {
+      return true
+    },
+    postprocess: v => v,
+    selectable: false,
+  },
   {
     name: "ReadAndAnswer",
     prompt: ({ languageTo, section, goals, hobbies, profession, observation }) => ({

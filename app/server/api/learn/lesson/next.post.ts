@@ -1,9 +1,9 @@
 import { z } from "zod"
 import { generateExercise } from "~/server/services/exercise"
 import { goToNextLesson } from "~/server/services/lesson"
-import { getLevel } from "~/server/services/level"
+import { getOrCreateLevel } from "~/server/services/level"
 import { getValidated } from "~/utils/h3"
-import { getLessonDto, getMaxExerciseAmount, getMaxLessonAmount } from "~/utils/learn/exercise"
+import { getLessonDto, getLevelConfig, getMaxExerciseAmount, getMaxLessonAmount } from "~/utils/learn/exercise"
 import { badRequest, internal, unauthorized } from "~/utils/nuxt"
 
 export default eventHandler(async (event) => {
@@ -20,7 +20,12 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  const level = await getLevel(event, unitSlug, levelSlug)
+  const level = await getOrCreateLevel(event, unitSlug, levelSlug)
+
+  const levelConfig = getLevelConfig("a1", unitSlug, levelSlug)
+
+  if (!levelConfig)
+    throw internal("Level is not found")
 
   const maxLessonAmount = getMaxLessonAmount("a1", unitSlug, levelSlug)
 
@@ -49,7 +54,7 @@ export default eventHandler(async (event) => {
       levelSlug: updatedLevel.slug,
       unitSlug: updatedLevel.unitSlug,
       position: 0,
-    })
+    }, levelConfig)
 
     return getLessonDto(exercise, updatedLevel)
   }

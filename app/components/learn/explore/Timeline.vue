@@ -20,31 +20,7 @@ function goToLevel(level: Level) {
         :level="level"
         :align="index % 2 === 0 ? 'start' : 'end'"
         @click="goToLevel(level)"
-      >
-        <template #default="{ modalState, setState }">
-          <Modal
-            :model-value="modalState"
-            confirm-text="Continue"
-            @update:model-value="setState"
-            @confirm="setState(false)"
-          >
-            <h1 class="text-2xl mx-auto mb-2">
-              {{ t(level.name) }}
-            </h1>
-            <p v-if="level.description">
-              {{ t(level.description) }}
-            </p>
-
-            <h2 class="mt-4 mb-2 uppercase font-bold text-xs">
-              Example
-            </h2>
-
-            <div class="border border-gray-500 rounded-lg p-4">
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, possimus.</p>
-            </div>
-          </Modal>
-        </template>
-      </TimelineItem>
+      />
 
       <hr
         v-if="index < unit.levels.length - 1"

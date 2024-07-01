@@ -4,7 +4,7 @@ import { t } from "@psitta/vue"
 import { ref } from "vue"
 import type { Level, Unit } from "../../../types"
 
-const props = defineProps<{
+defineProps<{
   level: Level
   align: "start" | "end"
 }>()
@@ -34,16 +34,6 @@ const iconStyle = tv({
     },
   },
 })
-
-const isModalOpen = ref(false)
-const setState = (state: boolean) => isModalOpen.value = state
-
-function onClick() {
-  if (props.level.type === "concept")
-    isModalOpen.value = true
-  else
-    emit("click")
-}
 </script>
 
 <template>
@@ -53,7 +43,7 @@ function onClick() {
       'timeline-start': align === 'start',
       'timeline-end': align === 'end',
     }"
-    @click="onClick"
+    @click="emit('click')"
   >
     <div class="items-center flex gap-2">
       <Icon :class="iconStyle({ type: level.type || 'none' })">
@@ -78,8 +68,6 @@ function onClick() {
       :value="100 / (level.maxLessonAmount || 1) * (level.lessonAmount || 0)"
       max="100"
     />
-
-    <slot :set-state="setState" :modal-state="isModalOpen" />
   </div>
   <div
     class="timeline-middle flex justify-center items-center rounded-full w-5 h-5"

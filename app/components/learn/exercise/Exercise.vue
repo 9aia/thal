@@ -10,6 +10,7 @@ const toast = useToast()
 const select = defineModel<number | null>()
 
 const components: Record<string, any> = {
+  Concept: () => import("./types/Concept.vue"),
   FillInTheBlank: () => import("./types/FillInTheBlank.vue"),
   ReadAndAnswer: () => import("./types/ReadAndAnswer.vue"),
 }

@@ -5,6 +5,7 @@ import { useAsyncState, useEventListener } from "@vueuse/core"
 import Exercise from "~/components/learn/exercise/Exercise.vue"
 import type { LessonGetDto } from "~/types"
 import { getMaxExerciseAmount, getMaxLessonAmount } from "~/utils/learn/exercise"
+import { getLevelConfig, getLevelImplementation } from "~/utils/learn/level"
 
 definePageMeta({
   middleware: "premium",
@@ -18,6 +19,17 @@ const toast = useToast()
 const sectionSlug = ref("a1")
 const unitSlug = route.params.unitSlug as string
 const levelSlug = route.params.levelSlug as string
+
+const level = computed(() => {
+  return getLevelConfig("a1", unitSlug, levelSlug)
+})
+
+const levelImplementation = computed(() => {
+  if (!level.value)
+    return null
+
+  return getLevelImplementation(level.value)
+})
 
 const btn = ref<HTMLButtonElement>()
 const NON_SELECTED = null
@@ -205,10 +217,10 @@ onMounted(async () => {
           <div v-if="!exerciseStore.finished" class="w-full">
             <Btn
               ref="btn" class="btn-md btn-primary w-full"
-              :disabled="select === NON_SELECTED || nextExercise.isLoading.value"
+              :disabled="levelImplementation?.selectable ? select === NON_SELECTED || nextExercise.isLoading.value : false"
               :loading="nextExercise.isLoading.value" @click="nextExercise.execute()"
             >
-              {{ t('Verify') }}
+              {{ !levelImplementation?.selectable ? t('Continue') : t('Verify') }}
             </Btn>
           </div>
 

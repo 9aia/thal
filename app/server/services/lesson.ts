@@ -1,11 +1,11 @@
-import type { H3Event } from "h3"
 import { and, eq } from "drizzle-orm"
+import type { H3Event } from "h3"
 import { generateExercise, getExercise } from "./exercise"
-import { getLevel } from "./level"
-import { getLessonDto, getMaxExerciseAmount, getMaxLessonAmount } from "~/utils/learn/exercise"
+import { getOrCreateLevel } from "./level"
+import type { ExerciseGenerateDto } from "~/types"
+import { getLessonDto, getLevelConfig, getMaxExerciseAmount, getMaxLessonAmount } from "~/utils/learn/exercise"
 import { badRequest, internal } from "~/utils/nuxt"
 import { levels } from "~~/db/schema"
-import type { ExerciseGenerateDto } from "~/types"
 
 export async function getLessonState(event: H3Event, {
   unitSlug,
@@ -18,7 +18,12 @@ export async function getLessonState(event: H3Event, {
 }) {
   const user = event.context.user
 
-  const level = await getLevel(event, unitSlug, levelSlug)
+  const level = await getOrCreateLevel(event, unitSlug, levelSlug)
+
+  const levelFromConfig = getLevelConfig("a1", unitSlug, levelSlug)
+
+  if (!levelFromConfig)
+    throw internal("Level is not found")
 
   const exerciseGenerateDto: ExerciseGenerateDto = {
     unitSlug,
@@ -48,7 +53,7 @@ export async function getLessonState(event: H3Event, {
   if (exercise)
     return getLessonDto(exercise, level)
 
-  const newExercise = await generateExercise(event, user!, exerciseGenerateDto)
+  const newExercise = await generateExercise(event, user!, exerciseGenerateDto, levelFromConfig)
 
   return getLessonDto(newExercise, level)
 }
@@ -64,7 +69,7 @@ export async function goToNextLesson(event: H3Event, {
 
   const user = event.context.user!
 
-  const level = await getLevel(event, unitSlug, levelSlug)
+  const level = await getOrCreateLevel(event, unitSlug, levelSlug)
 
   const maxExerciseAmount = getMaxExerciseAmount("a1", unitSlug, levelSlug)
 
