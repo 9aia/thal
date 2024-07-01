@@ -47,6 +47,7 @@ export interface Level {
   description?: string
   align?: "start" | "end"
   active?: boolean
+  completed?: boolean
   optional?: boolean
   maxLessonAmount?: number
   lessonAmount?: number

@@ -85,7 +85,7 @@ function onClick() {
     class="timeline-middle flex justify-center items-center rounded-full w-5 h-5"
     :class="level.active ? 'bg-primary' : 'bg-base-300 text-base-300'"
   >
-    <Icon class="!text-base">
+    <Icon v-if="level.completed" class="!text-base">
       check
     </Icon>
   </div>
