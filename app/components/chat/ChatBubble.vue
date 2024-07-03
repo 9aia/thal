@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineProps<{
-  rigth?: boolean
+  right?: boolean
   from: string
   time: string
   message: string
@@ -13,8 +13,8 @@ defineProps<{
   <div
     class="chat"
     :class="{
-      'chat-start': !rigth,
-      'chat-end': rigth,
+      'chat-start': !right,
+      'chat-end': right,
     }"
   >
     <div class="chat-image avatar">
