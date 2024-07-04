@@ -8,7 +8,7 @@ const user = inject<Ref<User>>("profile")!
 
 <template>
   <section>
-    <label class="cursor-pointer">
+    <label>
       <h2 class="text-4xl text-slate-800 mb-4 font-bold flex items-center gap-2">
         {{ t("About me") }}
       </h2>

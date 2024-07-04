@@ -1,5 +1,9 @@
 <template>
   <header class="px-3 py-2 bg-slate-800 flex gap-2">
+    <label for="my-drawer" class="lg:hidden btn btn-ghost btn-circle text-primary drawer-button">
+      <Icon name="arrow_back" />
+    </label>
+
     <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
       <div class="w-10 rounded-full">
         <img

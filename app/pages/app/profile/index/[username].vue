@@ -90,7 +90,7 @@ provide("profile", profile)
         <Btn
           v-else
           class="btn-primary"
-          @click="navigateTo('/profile/')"
+          @click="navigateTo('/app/profile/')"
         >
           <Icon name="mdi-refresh" />
           {{ t('Go to my profile') }}
@@ -101,23 +101,23 @@ provide("profile", profile)
 
   <div
     v-else
-    class="bg-slate-300 flex flex-col sm:flex-row md:flex-col lg:flex-row min-h-screen"
+    class="bg-slate-300 flex flex-col h-full overflow-auto"
   >
     <aside
-      class="w-full sm:w-full lg:w-1/2 p-4 pb-12 shadow-lg sm:shadow-none"
+      class="w-full p-4 pb-2 shadow-lg sm:shadow-none"
     >
       <Header />
-      <Summary />
+      <!-- <Summary /> -->
 
       <A
         v-if="user!.username === profile!.username"
-        href="/settings/profile"
+        href="/app/settings/profile"
         class="btn btn-sm mt-4"
       >{{ t("Edit profile") }}</A>
     </aside>
 
     <main
-      class="w-full sm:w-full lg:w-1/2 p-4 space-y-6 divide-y divide-gray-400"
+      class="w-full p-4 space-y-6 divide-y divide-gray-400"
     >
       <AboutMe />
       <Goals />

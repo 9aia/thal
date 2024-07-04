@@ -11,7 +11,7 @@ const goals = computed(() => {
 
 <template>
   <section class="pt-4">
-    <label class="cursor-pointer">
+    <label>
       <h2 class="text-2xl text-slate-800 mb-4 font-bold flex items-center gap-2">
         {{ t("Goals") }}
       </h2>

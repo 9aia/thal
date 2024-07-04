@@ -2,7 +2,7 @@
 import type { Chat } from "~/components/chat/ChatConversation.vue"
 
 definePageMeta({
-  layout: false,
+  layout: "app",
 })
 
 const chats: Chat[] = [
@@ -31,18 +31,8 @@ const chats: Chat[] = [
 </script>
 
 <template>
-  <div class="flex h-screen max-w-[1700px] h-100px w-full mx-auto 2xl:p-6">
-    <aside class="hidden sm:w-1/3 bg-white sm:flex flex-col h-full">
-      <Navbar />
-    </aside>
-
-    <main class="w-full sm:w-2/3 bg-slate-300 flex flex-col h-full">
-      <ChatHeader />
-
-      <ChatConversation :chats="chats" />
-
-      <ChatFooter />
-    </main>
+  <div>
+    Chats
   </div>
 </template>
 

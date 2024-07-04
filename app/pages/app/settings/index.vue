@@ -16,7 +16,7 @@ definePageMeta({
 
 onMounted(() => {
   const redirectUrl = useRedirectUrl()
-  redirectUrl.value = "/settings"
+  redirectUrl.value = "/app/settings"
 })
 </script>
 
@@ -27,7 +27,7 @@ onMounted(() => {
     </h1>
 
     <A
-      href="/profile"
+      href="/app/profile"
       class="group mb-6 shadow-lg bg-slate-300 p-4 rounded-lg flex justify-between items-center transition duration-300 hover:shadow-2xl"
     >
       <div class="flex gap-4 items-center">
@@ -85,7 +85,7 @@ onMounted(() => {
       </section>
 
       <section>
-        <button class="underline font-bold text-warning" @click="logout">
+        <button class="underline font-bold text-warning mb-2" @click="logout">
           {{ t("Logout") }}
         </button>
       </section>

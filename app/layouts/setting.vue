@@ -9,10 +9,10 @@ const root: BreadcrumbItem = {
   id: "settings",
   name: t("Settings"),
   icon: "settings",
-  href: "/settings",
+  href: "/app/settings",
 }
 const { items, path, back } = useBreadcrumbs({
-  path: "/settings",
+  path: "/app/settings",
   config: flattenObject(SETTINGS),
   root,
 })
@@ -20,8 +20,8 @@ const { items, path, back } = useBreadcrumbs({
 
 <template>
   <AppLayout class="bg-slate-300" :hide-header="true">
-    <div class="max-w-lg mx-auto px-4 py-4">
-      <Breadcrumbs v-if="path.length" :items="items" class="mb-4" />
+    <div class="px-4 py-4 overflow-auto max-h-full">
+      <Breadcrumbs v-if="path.length" :items="items" class="mb-2" />
 
       <slot />
 

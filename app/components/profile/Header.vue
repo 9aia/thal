@@ -9,7 +9,7 @@ const user = inject<Ref<User>>("profile")!
   <div class="sm:shadow-lg pb-4 sm:p-4 bg-base-100 rounded-lg flex gap-4 items-center">
     <Avatar :name="user!.name" class="w-24 text-3xl" />
 
-    <label class="relative cursor-pointer">
+    <label class="relative">
       <h2 class="text-lg text-slate-800 font-bold">{{ user!.name }}</h2>
       <div class="text-sm flex gap-3">
         <div>@{{ user!.username }}</div>

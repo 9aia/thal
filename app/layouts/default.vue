@@ -9,7 +9,7 @@ const logout = useLogout()
 
 const menuItems: MenuItem[] = [
   { id: "app", name: "App", icon: "explore", href: "/explore" },
-  { id: "settings", name: "Account Settings", icon: "settings", href: "/settings/account" },
+  { id: "settings", name: "Account Settings", icon: "settings", href: "/app/settings/account" },
   {
     id: "logout",
     name: "Logout",

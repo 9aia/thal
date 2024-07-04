@@ -29,9 +29,9 @@ const submit = form.handleSubmit(async (data) => {
   loading.value = true
 
   if (locale === defaultLocale)
-    await navigateTo(`/settings`)
+    await navigateTo(`/app/settings`)
   else
-    await navigateTo(`/${locale}/settings`)
+    await navigateTo(`/${locale}/app/settings`)
 
   toast.success(t("The language has been updated successfully."))
 

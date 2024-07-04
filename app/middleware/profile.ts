@@ -10,5 +10,5 @@ export default defineNuxtRouteMiddleware((event) => {
   if (user.value.plan && hasPlanExpired(user.value))
     return sendBackRedirect(event, "/plan/expired")
 
-  return navigateTo(`/profile/${user.value.username}`, { replace: true })
+  return navigateTo(`/app/profile/${user.value.username}`, { replace: true })
 })

@@ -1,8 +1,10 @@
 <script lang="ts" setup>
+import type { MenuItem } from "~~/layers/ui/components/layout/types"
+
 const logout = useLogout()
 
 const items: MenuItem[] = [
-  { id: "profile", name: "Profile", icon: "face", href: "/profile" },
+  { id: "profile", name: "Profile", icon: "face", href: "/app/profile" },
   {
     id: "plan",
     name: "Plan",
@@ -11,7 +13,7 @@ const items: MenuItem[] = [
     icon: "subscriptions",
     type: "external",
   },
-  { id: "settings", name: "Settings", icon: "settings", href: "/settings" },
+  { id: "settings", name: "Settings", icon: "settings", href: "/app/settings" },
   {
     id: "logout",
     name: "Logout",
@@ -30,8 +32,8 @@ function updateRedirectUrl() {
 </script>
 
 <template>
-  <div class="px-3 py-2 bg-slate-800 flex gap-2 border-r border-slate-700 justify-between">
-    <A href="/profile" class="btn btn-ghost btn-circle avatar">
+  <div class="px-3 py-2 bg-slate-800 flex gap-2 justify-between">
+    <A href="/app/profile" class="btn btn-ghost btn-circle avatar">
       <div class="w-10 rounded-full">
         <img
           alt="Tailwind CSS Navbar component"
@@ -48,4 +50,6 @@ function updateRedirectUrl() {
       <Menu :items="items" />
     </div>
   </div>
+
+  <slot />
 </template>

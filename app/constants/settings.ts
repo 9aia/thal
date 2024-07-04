@@ -6,14 +6,14 @@ const general: MenuItem[] = [
     icon: "face",
     name: "Profile",
     type: "accordion",
-    href: "/settings/profile",
+    href: "/app/settings/profile",
   },
   {
     id: "account",
     icon: "person",
     name: "Account",
     type: "accordion",
-    href: "/settings/account",
+    href: "/app/settings/account",
   },
   {
     id: "plan",
@@ -28,21 +28,21 @@ const general: MenuItem[] = [
     icon: "disabled_visible",
     name: "Privacy",
     type: "accordion",
-    href: "/settings/privacy",
+    href: "/app/settings/privacy",
   }, */
   /* {
     id: "notifications",
     icon: "notifications",
     name: "Notifications",
     type: "accordion",
-    href: "/settings/notifications",
+    href: "/app/settings/notifications",
   }, */
   /* {
     id: "accessibility",
     icon: "accessibility",
     name: "Accessibility",
     type: "accordion",
-    href: "/settings/accessibility",
+    href: "/app/settings/accessibility",
   }, */
 ]
 

@@ -8,23 +8,24 @@ const props = withDefaults(defineProps<{
 
 const inputRef = ref<HTMLSpanElement>()
 
-const modelValue = defineModel()
+const modelValue = defineModel<string>({
+  default: "",
+})
 
 watch(modelValue, (value) => {
   if (!inputRef.value || inputRef.value.innerHTML === value)
     return
 
   inputRef.value.innerHTML = value
-
-  return value
 })
 
 onMounted(() => {
   inputRef.value?.setAttribute("data-placeholder", props.placeholder)
 })
 
-function edit(e: Event) {
-  modelValue.value = e.target.innerHTML
+function edit(e: InputEvent) {
+  const target = e.target as HTMLElement
+  modelValue.value = target.innerHTML
 }
 </script>
 
