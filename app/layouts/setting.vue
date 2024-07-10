@@ -25,7 +25,7 @@ const { items, path, back } = useBreadcrumbs({
 
       <slot />
 
-      <hr v-if="path.length" class="border-gray-400 mt-12">
+      <hr v-if="path.length" class="border-base-200 mt-12">
 
       <Btn
         v-if="path.length"

@@ -107,7 +107,7 @@ definePageMeta({
         ser retidos conforme exigido por lei ou para resolução de disputas.
       </p>
 
-      <hr class="border-gray-400 mb-4 mt-12">
+      <hr class="border-base-200 mb-4 mt-12">
       <p>
         Se você tiver alguma dúvida sobre esta Política de Privacidade, entre em
         contato conosco em

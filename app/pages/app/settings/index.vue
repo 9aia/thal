@@ -4,6 +4,8 @@ import { t } from "@psitta/vue"
 import { SETTINGS } from "~/constants/settings"
 import MenuItem from "~~/layers/ui/components/layout/MenuItem.vue"
 
+const { open: openProfile } = useProfileModal()
+
 const isLocaleModalOpen = ref(false)
 
 const user = useUser()
@@ -26,9 +28,10 @@ onMounted(() => {
       {{ t("Settings") }}
     </h1>
 
-    <A
-      href="/app/profile"
+    <div
+      role="button"
       class="group mb-6 shadow-lg bg-slate-300 p-4 rounded-lg flex justify-between items-center transition duration-300 hover:shadow-2xl"
+      @click="openProfile(user!.username)"
     >
       <div class="flex gap-4 items-center">
         <Avatar :name="user!.name" class="w-16 text-md" />
@@ -40,9 +43,7 @@ onMounted(() => {
           </small>
         </label>
       </div>
-
-      <ChevronRight />
-    </A>
+    </div>
 
     <div class="space-y-4">
       <section>

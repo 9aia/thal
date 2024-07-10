@@ -20,8 +20,8 @@ export default eventHandler(async (event) => {
   if (!profile)
     throw notFound(`User not found: ${username}`)
 
-  if (user.username !== username)
-    throw forbidden(`You are not allowed to view this profile: ${username}`)
+  // if (user.username !== username)
+  //   throw forbidden(`You are not allowed to view this profile: ${username}`)
 
   return profile
 })

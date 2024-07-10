@@ -111,7 +111,7 @@ definePageMeta({
         aceitação dos novos termos.
       </p>
 
-      <hr class="border-gray-400 mb-4 mt-12">
+      <hr class="border-base-200 mb-4 mt-12">
       <p>
         Se você tiver alguma dúvida sobre estes Termos de Serviço, entre em
         contato conosco em
@@ -214,7 +214,7 @@ definePageMeta({
         your acceptance of the new terms.
       </p>
 
-      <hr class="border-gray-400 mb-4 mt-12">
+      <hr class="border-base-200 mb-4 mt-12">
       <p>
         If you have any questions about these Terms of Service, please contact us
         at

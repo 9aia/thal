@@ -2,6 +2,7 @@
 import { t } from "@psitta/vue"
 import Icon from "../display/Icon.vue"
 import type { BreadcrumbItem } from "./types"
+import { A } from "#components"
 
 defineProps<{
   items: BreadcrumbItem[]
@@ -13,7 +14,7 @@ defineProps<{
     <ul>
       <li v-for="(item, i) in items" :key="item.id">
         <component
-          :is="i < items.length - 1 ? 'a' : 'span'"
+          :is="i < items.length - 1 ? A : 'span'"
           :href="item.href"
           class="inline-flex gap-2 items-center !no-underline"
           :class="{ 'text-primary': i === items.length - 1 }"

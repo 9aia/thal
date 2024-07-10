@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { Chat } from "~/components/chat/ChatConversation.vue"
 
+const { profileModalState } = useProfileModal()
+
 const chats: Chat[] = [
   {
     id: "1",
@@ -27,7 +29,7 @@ const chats: Chat[] = [
 </script>
 
 <template>
-  <div class="w-full h-dvh bg-slate-200 mx-auto max-w-[1700px] overflow-hidden">
+  <div class="w-full h-dvh mx-auto max-w-[1700px] overflow-hidden">
     <div class="drawer lg:drawer-open h-dvh 2xl:p-6">
       <input id="my-drawer" type="checkbox" class="drawer-toggle">
       <div class="drawer-content h-full">
@@ -40,7 +42,7 @@ const chats: Chat[] = [
         </div>
       </div>
 
-      <div class="drawer-side h-full">
+      <div class="drawer-side h-full !overflow-y-hidden">
         <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay" />
 
         <div class="bg-slate-200 h-full flex flex-col w-96">
@@ -50,11 +52,18 @@ const chats: Chat[] = [
         </div>
       </div>
     </div>
+
+    <ClientOnly>
+      <ProfileModal
+        v-model="profileModalState.modelValue"
+        username="viniemidiobosi9473"
+      />
+    </ClientOnly>
   </div>
 </template>
 
 <style>
 body {
-  @apply bg-slate-200;
+  @apply bg-slate-300;
 }
 </style>

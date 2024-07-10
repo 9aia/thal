@@ -29,7 +29,7 @@ definePageMeta({
       {{ t("Profile") }}
     </h1>
 
-    <div class="divide-y divide-gray-400 space-y-4">
+    <div class="divide-y divide-base-200 space-y-4">
       <section class="pb-4">
         <h2 class="text-teal-900 font-bold text-lg mb-3">
           {{ t("Goals") }}
@@ -161,7 +161,7 @@ definePageMeta({
           <div v-if="user!.observation">
             <textarea
               readonly
-              class="textarea text-md border border-gray-400 leading-[1.6em] h-40 w-full resize-none"
+              class="textarea text-md border border-base-200 leading-[1.6em] h-40 w-full resize-none"
               :value="user!.observation"
             />
           </div>
@@ -181,7 +181,9 @@ definePageMeta({
             </template>
           </Btn>
 
-          <ObservationModal v-model="isObservationModalOpen" />
+          <ClientOnly>
+            <ObservationModal v-model="isObservationModalOpen" />
+          </ClientOnly>
         </div>
       </section>
     </div>
