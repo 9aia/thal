@@ -7,9 +7,20 @@ import type { MenuItem } from "~~/layers/ui/components/layout/types"
 const user = useUser()
 const logout = useLogout()
 
+const localeModal = useLocaleModal()
+
 const menuItems: MenuItem[] = [
   { id: "app", name: "App", icon: "explore", href: "/explore" },
   { id: "settings", name: "Account Settings", icon: "settings", href: "/app/settings/account" },
+  {
+    id: "language",
+    name: "Language",
+    icon: "language",
+    action: "language",
+    onSubmit: () => {
+      localeModal.open()
+    },
+  },
   {
     id: "logout",
     name: "Logout",
@@ -58,10 +69,7 @@ function updateRedirectUrl() {
       </template>
     </Header>
 
-    <main
-      class="bg-white flex flex-col"
-      style="min-height: calc(100vh)"
-    >
+    <main class="bg-white flex flex-col" style="min-height: calc(100vh)">
       <slot />
     </main>
 
