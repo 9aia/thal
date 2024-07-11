@@ -2,12 +2,15 @@
 import * as _ from "lodash-es"
 import { useForm } from "vee-validate"
 import { useI18n } from "@psitta/vue"
+import { useQueryClient } from "@tanstack/vue-query"
 import { HOBBIES, MAX_HOBBIES_AMOUNT } from "~/constants/base"
 import { useToast } from "~~/layers/ui/composables/useToast"
 
 const { t } = useI18n()
 const toast = useToast()
 const user = useUser()
+
+const queryClient = useQueryClient()
 
 const initialValues = parseInitialValues(user.value!.hobbies || "")
 const form = useForm<Record<string, boolean | undefined>>({
@@ -51,6 +54,10 @@ const submit = form.handleSubmit(async () => {
     user.value = { ...user.value!, hobbies: currentKeys }
 
     toast.success(t("Hobbies were updated successfully."))
+
+    queryClient.invalidateQueries({
+      queryKey: ["profile", user.value!.username],
+    })
   }
   catch (e) {
     toast.error(t("An error occurred while updating hobbies."))

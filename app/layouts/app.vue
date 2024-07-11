@@ -56,7 +56,7 @@ const chats: Chat[] = [
     <ClientOnly>
       <ProfileModal
         v-model="profileModalState.modelValue"
-        username="viniemidiobosi9473"
+        :username="profileModalState.username"
       />
     </ClientOnly>
   </div>

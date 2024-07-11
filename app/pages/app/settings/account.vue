@@ -3,6 +3,7 @@ import { useDebounceFn } from "@vueuse/core"
 import type { User } from "lucia"
 import { useForm } from "vee-validate"
 import { useI18n } from "@psitta/vue"
+import { useQueryClient } from "@tanstack/vue-query"
 import { nameSchema, pronounsSchema, usernameSchema } from "~~/db/schema"
 import { useToast } from "~~/layers/ui/composables/useToast"
 
@@ -24,6 +25,8 @@ const form = useForm<User>({
 const hasErrors = useHasFormErrors(form)
 const invalidUsername = ref(false)
 const loading = ref(false)
+
+const queryClient = useQueryClient()
 
 const isDeleteModalOpen = ref(false)
 
@@ -74,6 +77,10 @@ const submit = form.handleSubmit(async (data) => {
     user.value = updatedUser
 
     toast.success(t("Personal data has been updated successfully."))
+
+    queryClient.invalidateQueries({
+      queryKey: ["profile", updatedUser.username],
+    })
   }
   catch (e) {
     toast.error(t("An error occurred while updating personal data."))

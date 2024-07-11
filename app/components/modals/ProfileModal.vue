@@ -1,61 +1,44 @@
 <script setup lang="ts">
+import { useQuery } from "@tanstack/vue-query"
 import { useI18n } from "@psitta/vue"
 
 const props = defineProps<{
   username: string | null
 }>()
 
+const modelValue = defineModel({ default: false })
+
 const { t } = useI18n()
 
 const user = useUser()
-
-const { execute, data, pending, error } = useAsyncData(
-  `profile-${props.username}`,
-  async () => {
-    const profileFetched = await $fetch(`/api/profile/${props.username}`)
-    return profileFetched
-  },
-  { immediate: false },
-)
-
-const profile = ref<typeof data["value"]>()
-
 const isMe = computed(() => user.value!.username === props.username)
 
-async function loadProfile() {
-  console.log(user.value, "user")
+const {
+  data,
+  isLoading,
+  refetch,
+  isError,
+  error,
+} = useQuery({
+  queryKey: computed(() => ["profile", props.username]),
+  queryFn: async () => {
+    if (!props.username)
+      throw new Error("Username is required")
 
-  if (isMe.value) {
-    profile.value = user.value!
-
-    return
-  }
-
-  await execute()
-
-  profile.value = data.value!
-}
-
-const isLoading = computed(() => {
-  if (isMe.value)
-    return !profile.value
-  else
-    return !profile.value || pending.value
+    if (isMe.value)
+      return user.value
+    else
+      return $fetch(`/api/profile/${props.username}`)
+  },
+  enabled: computed(() => (isMe.value || !!props.username) && modelValue.value),
 })
-
-const modelValue = defineModel({ default: false })
-
-watch(modelValue, (value) => {
-  if (value)
-    loadProfile()
-}, { immediate: true })
 
 function goToEdit() {
   modelValue.value = false
   navigateTo("/app/settings/profile")
 }
 
-provide("profile", profile)
+provide("profile", data)
 </script>
 
 <template>
@@ -70,14 +53,17 @@ provide("profile", profile)
         {{ t("Profile") }}
       </h1>
 
-      <div v-if="isLoading" class="flex justify-center items-center h-full">
+      <div v-if="isLoading || (!data && !isError)" class="flex justify-center items-center h-[450px]">
         <Spinner size="sm" />
       </div>
 
-      <div v-else-if="!!error" class="flex justify-center items-center h-full">
+      <div
+        v-else-if="isError"
+        class="flex justify-center items-center h-[450px]"
+      >
         <Error
           :error="error"
-          @try-again="loadProfile"
+          @try-again="refetch"
         >
           <template #title="{ isNotFound, isForbidden }">
             <div class="space-y-2">

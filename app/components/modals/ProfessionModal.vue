@@ -2,12 +2,15 @@
 import { useForm } from "vee-validate"
 import { useI18n } from "@psitta/vue"
 import type { User } from "lucia"
+import { useQueryClient } from "@tanstack/vue-query"
 import { useToast } from "~~/layers/ui/composables/useToast"
 import { MAX_PROFESSION_CHARS } from "~/constants/base"
 
 const { t } = useI18n()
 const toast = useToast()
 const user = useUser()
+
+const queryClient = useQueryClient()
 
 const form = useForm<{
   profession: User["profession"]
@@ -37,6 +40,10 @@ const submit = form.handleSubmit(async () => {
     user.value = { ...user.value!, profession: data.profession }
 
     toast.success(t("Profession has been updated successfully."))
+
+    queryClient.invalidateQueries({
+      queryKey: ["profile", user.value!.username],
+    })
   }
   catch (e) {
     toast.error(t("An error occurred while updating your profession."))
