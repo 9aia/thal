@@ -1,43 +1,64 @@
 <script setup lang="ts">
-import type { Chat } from "~/components/chat/ChatConversation.vue"
+import type { Chat } from "~/types"
 
 definePageMeta({
   layout: "app",
 })
 
-const chats: Chat[] = [
+const convos: Chat[] = [
   {
     id: "1",
-    from: "user",
-    message: "Hello, I am Motoko Kusanagi",
-    status: "sent",
-    time: "10:00 AM",
+    user: {
+      name: "Batou",
+      avatar: "b",
+    },
+    lastMessage: {
+      date: new Date("2024-07-06T12:00:00Z"),
+      status: "sending",
+      text: "Hi Motoko (loading)!",
+    },
   },
   {
-    id: "1",
-    from: "user",
-    message: "Hello, I am Motoko Kusanagi",
-    status: "sent",
-    time: "10:00 AM",
+    id: "2",
+    user: {
+      name: "Pazu",
+      avatar: "b",
+    },
+    lastMessage: {
+      date: new Date("2024-07-06T12:00:00Z"),
+      status: "seen",
+      text: "Hi Motoko (seen)!",
+    },
   },
   {
-    id: "1",
-    from: "bot",
-    message: "Hello, I am Motoko Kusanagi",
-    status: "sent",
-    time: "10:00 AM",
+    id: "3",
+    user: {
+      name: "Pazu",
+      avatar: "b",
+    },
+    lastMessage: {
+      date: new Date("2024-07-06T12:00:00Z"),
+      status: "sent",
+      text: "Hi Motoko (sent)!",
+    },
+  },
+  {
+    id: "4",
+    user: {
+      name: "Pazu",
+      avatar: "b",
+    },
+    lastMessage: {
+      date: new Date("2024-07-06T12:00:00Z"),
+      status: "received",
+      text: "Hi Motoko (received)!",
+    },
   },
 ]
 </script>
 
 <template>
-  <div>
-    Chats
+  <div class="divide-y divide-base-200">
+    <ChatItem v-for="convo in convos" v-bind="convo" :key="convo.id" />
   </div>
 </template>
-
-<style>
-body {
-  @apply bg-slate-200;
-}
-</style>

@@ -1,29 +1,30 @@
 <script setup lang="ts">
-import type { Chat } from "~/components/chat/ChatConversation.vue"
+import type { Message } from "~/components/chat/ChatConversation.vue"
+import { useProfileModal } from "~/composables/useProfileModal"
 
 const { profileModalState } = useProfileModal()
 
-const chats: Chat[] = [
+const chats: Message[] = [
   {
     id: "1",
     from: "user",
     message: "Hello, I am Motoko Kusanagi",
     status: "sent",
-    time: "10:00 AM",
+    text: "10:00 AM",
   },
   {
     id: "1",
     from: "user",
     message: "Hello, I am Motoko Kusanagi",
     status: "sent",
-    time: "10:00 AM",
+    text: "10:00 AM",
   },
   {
     id: "1",
     from: "bot",
     message: "Hello, I am Motoko Kusanagi",
     status: "sent",
-    time: "10:00 AM",
+    text: "10:00 AM",
   },
 ]
 </script>

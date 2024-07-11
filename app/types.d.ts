@@ -100,3 +100,24 @@ export interface ExerciseGenerateDto {
 }
 
 // #endregion
+
+// #region Chat
+
+export interface MessageContent {
+  date: Date
+  text: string
+  status: "seen" | "sent" | "received" | "sending"
+}
+
+export interface User {
+  name: string
+  avatar: string
+}
+
+export interface Chat {
+  id: string
+  user: User
+  lastMessage: MessageContent
+}
+
+// #endregion

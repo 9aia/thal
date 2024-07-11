@@ -1,15 +1,15 @@
 <script setup lang="ts">
 defineProps<{
-  chats: Chat[]
+  chats: Message[]
 }>()
 </script>
 
 <script lang="ts">
-export interface Chat {
+export interface Message {
   id: string
   from: "user" | "bot"
   message: string
-  time: string
+  text: string
   status: string
 }
 </script>
@@ -20,7 +20,7 @@ export interface Chat {
       v-for="chat in chats"
       :key="chat.id"
       :from="chat.from"
-      :time="chat.time"
+      :time="chat.text"
       :message="chat.message"
       :status="chat.status"
       :right="chat.from === 'user'"
