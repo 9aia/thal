@@ -76,3 +76,9 @@ function updateRedirectUrl() {
     <Footer />
   </div>
 </template>
+
+<style>
+* {
+  scrollbar-width: auto;
+}
+</style>

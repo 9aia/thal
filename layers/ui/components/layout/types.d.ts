@@ -1,6 +1,7 @@
 export interface MenuItem {
   id: string
   name: string
+  description?: string
   icon?: string
   href?: string
   action?: string

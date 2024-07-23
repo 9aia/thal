@@ -66,7 +66,7 @@ const icon = computed(() => {
 </script>
 
 <template>
-  <div role="button" class="px-3 py-3 hover:bg-slate-300 flex gap-2">
+  <div role="button" class="px-3 py-1 hover:bg-slate-100 flex gap-2">
     <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
       <div class="w-10 rounded-full">
         <img
@@ -77,16 +77,16 @@ const icon = computed(() => {
     </div>
 
     <div class="flex-1 flex flex-col justify-center">
-      <a class="block text-base text-slate-800">{{ user.name }}</a>
-      <div class="text-sm text-slate-600 flex items-center gap-1">
-        <Icon :name="icon" :class="[lastMessage.status === 'seen' ? 'text-sky-500' : 'text-slate-500']" style="font-size: 1.20rem" />
-        {{ lastMessage.text }}
-      </div>
-    </div>
+      <div class="flex justify-between items-center">
+        <a class="block text-base text-slate-800">{{ user.name }}</a>
 
-    <div>
-      <div class="text-xs text-slate-600">
-        {{ date }}
+        <div class="text-xs text-slate-600">
+          {{ date }}
+        </div>
+      </div>
+      <div class="text-sm text-slate-600 flex items-center gap-1">
+        <Icon :name="icon" :class="[lastMessage.status === 'seen' ? 'text-sky-500' : 'text-slate-500']" style="font-size: 1.15rem" />
+        {{ lastMessage.text }}
       </div>
     </div>
   </div>

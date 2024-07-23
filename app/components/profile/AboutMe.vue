@@ -11,7 +11,7 @@ const hasAtLeastOne = computed(() => ITEMS.some(item => !!user.value[item.id]))
 <template>
   <section v-if="hasAtLeastOne">
     <label>
-      <h2 class="text-2xl text-slate-800 mb-4 font-bold flex items-center gap-2">
+      <h2 class="text-sm text-primary py-2 font-bold">
         {{ t("About me") }}
       </h2>
 

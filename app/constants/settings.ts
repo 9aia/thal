@@ -5,14 +5,12 @@ const general: MenuItem[] = [
     id: "profile",
     icon: "face",
     name: "Profile",
-    type: "accordion",
     href: "/app/settings/profile",
   },
   {
     id: "account",
     icon: "person",
     name: "Account",
-    type: "accordion",
     href: "/app/settings/account",
   },
   {
@@ -27,32 +25,29 @@ const general: MenuItem[] = [
     id: "privacy",
     icon: "disabled_visible",
     name: "Privacy",
-    type: "accordion",
     href: "/app/settings/privacy",
   }, */
   /* {
     id: "notifications",
     icon: "notifications",
     name: "Notifications",
-    type: "accordion",
     href: "/app/settings/notifications",
   }, */
   /* {
     id: "accessibility",
     icon: "accessibility",
     name: "Accessibility",
-    type: "accordion",
     href: "/app/settings/accessibility",
   }, */
 ]
 
 const support: MenuItem[] = [
-  {
+  /* {
     id: "how_maratongue_works",
     icon: "directions_run",
     name: "How Maratongue works",
     href: "/how-maratongue-works",
-  },
+  }, */
   {
     id: "feedback",
     icon: "feedback",

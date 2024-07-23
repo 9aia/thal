@@ -15,7 +15,7 @@ export interface Message {
 </script>
 
 <template>
-  <main class="pt-4 px-12 flex flex-col h-full">
+  <main class="py-4 px-12">
     <ChatBubble
       v-for="chat in chats"
       :key="chat.id"

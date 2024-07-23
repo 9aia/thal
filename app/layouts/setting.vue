@@ -20,22 +20,20 @@ const { items, path, back } = useBreadcrumbs({
 
 <template>
   <AppLayout class="bg-slate-300" :hide-header="true">
-    <div class="px-4 py-4 overflow-auto max-h-full">
-      <Breadcrumbs v-if="path.length" :items="items" class="mb-2" />
+    <Breadcrumbs v-if="path.length" :items="items" class="mb-2" />
 
-      <slot />
+    <slot />
 
-      <hr v-if="path.length" class="border-base-200 mt-12">
+    <hr v-if="path.length" class="border-base-200 mt-12">
 
-      <Btn
-        v-if="path.length"
-        :items="items"
-        class="mt-4 flex items-center"
-        @click="back"
-      >
-        <Icon>west</Icon>
-        {{ t("Back") }}
-      </Btn>
-    </div>
+    <Btn
+      v-if="path.length"
+      :items="items"
+      class="mt-4 flex items-center"
+      @click="back"
+    >
+      <Icon>west</Icon>
+      {{ t("Back") }}
+    </Btn>
   </AppLayout>
 </template>

@@ -115,11 +115,11 @@ provide("profile", data)
         v-else
         class="bg-slate-300 flex flex-col h-full overflow-auto"
       >
-        <aside class="w-full pb-2 shadow-lg sm:shadow-none">
+        <aside class="w-full">
           <Header @edit="goToEdit" />
         </aside>
 
-        <main class="w-full space-y-6 divide-y divide-base-200">
+        <main class="w-full space-y-4">
           <AboutMe />
           <Goals />
           <Interests />

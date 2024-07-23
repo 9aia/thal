@@ -20,7 +20,15 @@ defineProps<{
     <Icon v-if="is.icon">
       {{ is.icon }}
     </Icon>
-    {{ t(is.name as any) }}
+    <div class="flex flex-col items-start">
+      <div>
+        {{ t(is.name as any) }}
+      </div>
+
+      <div v-if="is.description" class="text-xs text-slate-700">
+        {{ is.description }}
+      </div>
+    </div>
   </div>
   <Icon v-if="is.type === 'external'">
     north_east

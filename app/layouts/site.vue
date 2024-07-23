@@ -9,3 +9,9 @@ import DefaultLayout from "~/layouts/default.vue"
     </div>
   </DefaultLayout>
 </template>
+
+<style>
+* {
+  scrollbar-width: auto;
+}
+</style>

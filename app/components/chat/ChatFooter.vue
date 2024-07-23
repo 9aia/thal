@@ -3,7 +3,7 @@ const text = ref("")
 </script>
 
 <template>
-  <footer class="px-3 py-2 bg-slate-200 flex items-end justify-center gap-2">
+  <footer class="px-3 py-2 bg-white flex items-end justify-center gap-2">
     <div class="flex-1 flex">
       <ContentEditable is="span" v-model="text" class="input w-full h-auto p-[10px] textarea" placeholder="Type a message" />
     </div>

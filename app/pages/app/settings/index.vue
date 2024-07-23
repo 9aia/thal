@@ -23,73 +23,72 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
-    <h1 class="text-4xl text-slate-800 font-bold mb-4 ml-2">
-      {{ t("Settings") }}
-    </h1>
+  <div class="flex flex-col h-dvh justify-between">
+    <Navbar>
+      <h1 class="text-lg py-2 text-primary font-bold flex items-center gap-1">
+        <A href="/app" class="btn btn-sm btn-ghost btn-circle">
+          <Icon name="arrow_back" />
+        </A>
+        {{ t("Settings") }}
+      </h1>
+    </Navbar>
 
-    <div
-      role="button"
-      class="group mb-6 shadow-lg bg-slate-300 p-4 rounded-lg flex justify-between items-center transition duration-300 hover:shadow-2xl"
-      @click="openProfile(user!.username)"
-    >
-      <div class="flex gap-4 items-center">
-        <Avatar :name="user!.name" class="w-16 text-md" />
+    <div class="flex-1 overflow-y-auto bg-white">
+      <div
+        role="button"
+        class="group bg-slate-200 p-4 flex justify-between items-center transition duration-300"
+        @click="openProfile(user!.username)"
+      >
+        <div class="flex gap-4 items-center">
+          <Avatar :name="user!.name" class="w-16 text-md" />
 
-        <label class="relative cursor-pointer flex flex-col gap-0">
-          <h2 class="text-lg font-bold">{{ user!.name }}</h2>
-          <small class="text-gray-600">
-            {{ t("Show profile") }}
-          </small>
-        </label>
+          <label class="relative cursor-pointer flex flex-col gap-0">
+            <h2 class="text-lg font-bold">{{ user!.name }}</h2>
+
+            <small class="text-primary">
+              {{ t("Show profile") }}
+            </small>
+          </label>
+        </div>
+
+        <ChevronRight />
       </div>
-    </div>
 
-    <div class="space-y-4">
-      <section>
-        <h2 class="text-slate-800 font-bold text-2xl ml-2 mb-3">
-          {{ t("General") }}
-        </h2>
-        <MenuGroup class="p-0 w-full shadow-none" :items="SETTINGS.general">
-          <template #footer>
-            <li class="group" @click="isLocaleModalOpen = true">
-              <div
-                class="px-3 rounded-lg hover:bg-base-200"
-              >
-                <div
-                  class="cursor-pointer flex w-full gap-2 justify-between items-center py-2"
-                >
-                  <MenuItem
-                    :is="{ id: 'language', name: 'Language', icon: 'globe' }"
-                  />
+      <div class="space-y-4 px-4 py-4">
+        <SettingSection :title="t('General')">
+          <MenuGroup class="p-0 w-full shadow-none" :items="SETTINGS.general">
+            <template #footer>
+              <li class="group" @click="isLocaleModalOpen = true">
+                <div>
+                  <div
+                    class="cursor-pointer flex w-full gap-2 justify-between items-center py-2"
+                  >
+                    <MenuItem
+                      :is="{ id: 'language', name: 'Language', icon: 'globe', type: 'accordion' }"
+                    />
+                  </div>
                 </div>
-              </div>
-            </li>
-          </template>
-        </MenuGroup>
+              </li>
+            </template>
+          </MenuGroup>
 
-        <LocaleModal v-model="isLocaleModalOpen" />
-      </section>
+          <LocaleModal v-model="isLocaleModalOpen" />
+        </SettingSection>
 
-      <section>
-        <h2 class="text-slate-800 font-bold text-lg ml-2 mb-3">
-          {{ t("Support") }}
-        </h2>
-        <MenuGroup :items="SETTINGS.support" />
-      </section>
+        <SettingSection :title="t('Support')">
+          <MenuGroup :items="SETTINGS.support" />
+        </SettingSection>
 
-      <section>
-        <h2 class="text-slate-800 font-bold text-lg ml-2 mb-3">
-          {{ t("Legal") }}
-        </h2>
-        <MenuGroup class="p-0 w-full shadow-none" :items="SETTINGS.legal" />
-      </section>
+        <SettingSection :title="t('Legal')">
+          <MenuGroup class="p-0 w-full shadow-none" :items="SETTINGS.legal" />
+        </SettingSection>
 
-      <section>
-        <button class="underline font-bold text-warning mb-2" @click="logout">
-          {{ t("Logout") }}
-        </button>
-      </section>
+        <section>
+          <button class="underline font-bold text-warning mb-2" @click="logout">
+            {{ t("Logout") }}
+          </button>
+        </section>
+      </div>
     </div>
   </div>
 </template>

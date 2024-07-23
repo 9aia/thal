@@ -46,7 +46,7 @@ onMounted(async () => {
 
 <template>
   <section>
-    <h2 class="text-2xl text-slate-800 mb-4 font-bold mt-4">
+    <h2 class="text-sm text-primary py-2 font-bold">
       {{ t("Summary") }}
     </h2>
 

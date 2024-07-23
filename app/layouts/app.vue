@@ -26,30 +26,62 @@ const chats: Message[] = [
     status: "sent",
     text: "10:00 AM",
   },
+  {
+    id: "1",
+    from: "bot",
+    message: "Hello, I am Motoko Kusanagi",
+    status: "sent",
+    text: "10:00 AM",
+  },
+  {
+    id: "1",
+    from: "bot",
+    message: "Hello, I am Motoko Kusanagi",
+    status: "sent",
+    text: "10:00 AM",
+  },
+  {
+    id: "1",
+    from: "bot",
+    message: "Hello, I am Motoko Kusanagi",
+    status: "sent",
+    text: "10:00 AM",
+  },
+  {
+    id: "1",
+    from: "bot",
+    message: "Hello, I am Motoko Kusanagi",
+    status: "sent",
+    text: "10:00 AM",
+  },
+  {
+    id: "1",
+    from: "bot",
+    message: "Hello, I am Motoko Kusanagi",
+    status: "sent",
+    text: "10:00 AM",
+  },
 ]
 </script>
 
 <template>
-  <div class="w-full h-dvh mx-auto max-w-[1700px] overflow-hidden">
-    <div class="drawer lg:drawer-open h-dvh 2xl:p-6">
+  <div class="w-full h-dvh mx-auto max-w-[1700px]">
+    <div class="drawer lg:drawer-open h-dvh">
       <input id="my-drawer" type="checkbox" class="drawer-toggle">
-      <div class="drawer-content h-full">
-        <div class="flex flex-col h-full bg-slate-200">
-          <ChatHeader />
 
-          <ChatConversation :chats="chats" />
+      <div class="drawer-content flex flex-col h-dvh justify-between">
+        <ChatHeader />
 
-          <ChatFooter />
-        </div>
+        <ChatConversation :chats="chats" class="flex-1 overflow-y-auto" />
+
+        <ChatFooter />
       </div>
 
-      <div class="drawer-side h-full !overflow-y-hidden">
+      <div class="drawer-side">
         <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay" />
 
-        <div class="bg-slate-200 h-full flex flex-col w-96">
-          <Navbar>
-            <slot />
-          </Navbar>
+        <div class="flex flex-col h-dvh justify-between bg-slate-300 w-3/4 lg:w-96">
+          <slot />
         </div>
       </div>
     </div>
@@ -66,5 +98,11 @@ const chats: Message[] = [
 <style>
 body {
   @apply bg-slate-300;
+}
+</style>
+
+<style>
+* {
+  scrollbar-width: thin;
 }
 </style>

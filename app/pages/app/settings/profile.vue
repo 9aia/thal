@@ -6,7 +6,7 @@ import { GOALS, HOBBIES } from "~/constants/base"
 const user = useUser()
 
 const isHobbyModalOpen = ref(false)
-const isProfessionModalOpen = ref(false)
+const isOccupationModalOpen = ref(false)
 const isGoalsModalOpen = ref(false)
 const isObservationModalOpen = ref(false)
 
@@ -19,22 +19,23 @@ const goals = computed(() => {
 
 definePageMeta({
   middleware: "premium",
-  layout: "setting",
+  layout: "app",
 })
 </script>
 
 <template>
-  <div>
-    <h1 class="text-4xl font-bold mb-4">
-      {{ t("Profile") }}
-    </h1>
+  <div class="flex flex-col h-dvh justify-between">
+    <Navbar>
+      <h1 class="text-lg py-2 text-primary font-bold flex items-center gap-1">
+        <A href="/app/settings" class="btn btn-sm btn-ghost btn-circle">
+          <Icon name="arrow_back" />
+        </A>
+        {{ t("Profile") }}
+      </h1>
+    </Navbar>
 
-    <div class="divide-y divide-base-200 space-y-4">
-      <section class="pb-4">
-        <h2 class="text-teal-900 font-bold text-lg mb-3">
-          {{ t("Goals") }}
-        </h2>
-
+    <div class="px-4 py-4 flex-1 overflow-y-auto bg-white space-y-6">
+      <SettingSection :title="t('Goals')">
         <p class="mb-4">
           {{
             t(
@@ -70,17 +71,13 @@ definePageMeta({
 
           <GoalsModal v-model="isGoalsModalOpen" />
         </div>
-      </section>
+      </SettingSection>
 
-      <section class="pt-6">
-        <h2 class="text-teal-900 font-bold text-lg mb-3">
-          {{ t("Interests") }}
-        </h2>
-
+      <SettingSection :title="t('Interests')">
         <p class="mb-4">
           {{
             t(
-              "What are your hobbies, interests, and profession? This helps personalize content and examples to make learning more engaging.",
+              "What are your hobbies, interests, and occupation? This helps personalize content and examples to make learning more engaging.",
             )
           }}
         </p>
@@ -118,7 +115,7 @@ definePageMeta({
             <div class="flex items-center gap-2">
               <Icon>work</Icon>
               <div>
-                <span class="font-bold">My profession</span>:
+                <span class="font-bold">My occupation</span>:
                 <span>{{ user!.profession }}</span>
               </div>
             </div>
@@ -127,28 +124,24 @@ definePageMeta({
           <Btn
             class="text-black flex items-center"
             :class="{ 'btn-primary': !user!.profession }"
-            @click="isProfessionModalOpen = true"
+            @click="isOccupationModalOpen = true"
           >
             <template v-if="!user!.profession">
               <Icon>add</Icon>
-              {{ t("Add profession") }}
+              {{ t("Add occupation") }}
             </template>
 
             <template v-else>
               <Icon>edit</Icon>
-              {{ t("Edit profession") }}
+              {{ t("Edit occupation") }}
             </template>
           </Btn>
 
-          <ProfessionModal v-model="isProfessionModalOpen" />
+          <OccupationModal v-model="isOccupationModalOpen" />
         </div>
-      </section>
+      </SettingSection>
 
-      <section class="pt-6">
-        <h2 class="text-teal-900 font-bold text-lg mb-3">
-          {{ t("Observation") }}
-        </h2>
-
+      <SettingSection :title="t('Observation')">
         <p class="mb-4">
           {{
             t(
@@ -180,12 +173,12 @@ definePageMeta({
               {{ t("Edit observation") }}
             </template>
           </Btn>
-
-          <ClientOnly>
-            <ObservationModal v-model="isObservationModalOpen" />
-          </ClientOnly>
         </div>
-      </section>
+      </SettingSection>
     </div>
+
+    <ClientOnly>
+      <ObservationModal v-model="isObservationModalOpen" />
+    </ClientOnly>
   </div>
 </template>

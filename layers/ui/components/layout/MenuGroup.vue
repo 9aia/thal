@@ -15,11 +15,9 @@ function closeMenu() {
 </script>
 
 <template>
-  <ul tabindex="0" class="rounded-box w-full divide-y divide-base-200">
+  <ul tabindex="0" class="rounded-box w-full divide-y divide-base-100">
     <li v-for="item in items" :key="item.id" class="group" @click="closeMenu">
-      <div
-        class="rounded-lg hover:bg-base-200"
-      >
+      <div>
         <Item :is="item" />
       </div>
     </li>

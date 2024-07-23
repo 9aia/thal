@@ -39,14 +39,14 @@ const submit = form.handleSubmit(async () => {
 
     user.value = { ...user.value!, profession: data.profession }
 
-    toast.success(t("Profession has been updated successfully."))
+    toast.success(t("Occupation has been updated successfully."))
 
     queryClient.invalidateQueries({
       queryKey: ["profile", user.value!.username],
     })
   }
   catch (e) {
-    toast.error(t("An error occurred while updating your profession."))
+    toast.error(t("An error occurred while updating your occupation."))
   }
 
   loading.value = false
@@ -67,7 +67,7 @@ const submit = form.handleSubmit(async () => {
 
       <div class="px-2 pb-2 space-y-2 overflow-y-auto mt-4">
         <TextField
-          path="profession" :label="t('Your profession')"
+          path="profession" :label="t('Your occupation')"
           :rules="(v: any) =>
             v?.length <= MAX_PROFESSION_CHARS || t('It must contain at most {maxChars} characters', { maxChars: MAX_PROFESSION_CHARS })" :feedback="true"
         >

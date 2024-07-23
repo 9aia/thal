@@ -18,11 +18,11 @@ const isEditable = computed(() => {
 <template>
   <div
     :role="isEditable ? 'button' : 'none'"
-    class="sm:shadow-lg pb-4 sm:p-4 bg-base-100 rounded-lg flex justify-between items-start"
+    class="flex justify-between items-start"
     @click="isEditable ? emit('edit') : undefined"
   >
     <div class="flex gap-4 items-center">
-      <Avatar :name="user!.name" class="w-24 text-3xl" />
+      <Avatar :name="user!.name" class="w-16 text-xl" />
 
       <label class="relative" role="button">
         <h2 class="text-lg text-slate-800 font-bold">{{ user!.name }}</h2>

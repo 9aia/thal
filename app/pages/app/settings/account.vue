@@ -6,12 +6,13 @@ import { useI18n } from "@psitta/vue"
 import { useQueryClient } from "@tanstack/vue-query"
 import { nameSchema, pronounsSchema, usernameSchema } from "~~/db/schema"
 import { useToast } from "~~/layers/ui/composables/useToast"
+import type { MenuItem } from "~~/layers/ui/components/layout/types"
 
 definePageMeta({
   middleware: "auth",
   layout: computed(() => {
     const user = useUser()
-    return user.value?.plan ? "setting" : "isolate-setting"
+    return user.value?.plan ? "app" : "isolate-setting"
   }),
 })
 
@@ -89,121 +90,96 @@ const submit = form.handleSubmit(async (data) => {
   loading.value = false
 })
 
-const dangerActions = [
+const dangerItems: MenuItem[] = [
   {
-    label: t("Delete account"),
+    id: "delete",
+    icon: "delete",
+    name: t("Delete account"),
     description: t("This action is irreversible."),
-    actions: [
-      {
-        label: "Delete",
-        onClick: () => {
-          isDeleteModalOpen.value = true
-        },
-      },
-    ],
+    action: "delete",
+    type: "accordion",
+    onSubmit: () => {
+      isDeleteModalOpen.value = true
+    },
   },
 ]
 </script>
 
 <template>
-  <div>
-    <h1 class="text-4xl font-bold mb-4">
-      {{ t("Account Settings") }}
-    </h1>
+  <div class="flex flex-col h-dvh justify-between">
+    <Navbar>
+      <h1 class="text-lg py-2 text-primary font-bold flex items-center gap-1">
+        <A href="/app/settings" class="btn btn-sm btn-ghost btn-circle">
+          <Icon name="arrow_back" />
+        </A>
+        {{ t("Account") }}
+      </h1>
+    </Navbar>
 
-    <form class="block space-y-2" @submit="submit">
-      <div class="gap-2 grid grid-cols-2">
-        <TextField
-          path="name"
-          :label="t('Name')"
-          class="grid-cols-1/2"
-          :rules="yupify(nameSchema, t(
-            'Name must contain between 1 and 20 characters.',
-          ))"
-        />
-        <TextField
-          path="last_name"
-          :label="t('Last name')"
-          class="grid-cols-1/2"
-          :rules="yupify(nameSchema, t(
-            'Last name must contain between 1 and 20 characters.',
-          ))"
-        />
-      </div>
-      <TextField
-        path="username"
-        :label="t('Username')"
-        :rules="yupify(usernameSchema, t('Username is invalid.'))"
-        icon-position="right"
-      >
-        <template #icon="{ errorMessage }">
-          <Icon
-            :class="{ 'text-error': errorMessage, 'text-success': !errorMessage }"
-            :name="errorMessage ? 'close' : 'check'"
+    <div class="px-4 py-4 flex-1 overflow-y-auto bg-white space-y-4">
+      <SettingSection :title="t('General Information')">
+        <form class="block space-y-2" @submit="submit">
+          <div class="gap-2 grid grid-cols-2">
+            <TextField
+              path="name" :label="t('Name')" class="grid-cols-1/2" :rules="yupify(nameSchema, t(
+                'Name must contain between 1 and 20 characters.',
+              ))"
+            />
+            <TextField
+              path="last_name" :label="t('Last name')" class="grid-cols-1/2" :rules="yupify(nameSchema, t(
+                'Last name must contain between 1 and 20 characters.',
+              ))"
+            />
+          </div>
+          <TextField
+            path="username" :label="t('Username')" :rules="yupify(usernameSchema, t('Username is invalid.'))"
+            icon-position="right"
+          >
+            <template #icon="{ errorMessage }">
+              <Icon
+                :class="{ 'text-error': errorMessage, 'text-success': !errorMessage }"
+                :name="errorMessage ? 'close' : 'check'"
+              />
+            </template>
+          </TextField>
+          <TextField
+            path="pronouns" :label="t('Pronouns')" :rules="yupify(pronounsSchema, t(
+              'Pronouns must be up to 20 characters long.',
+            ))"
           />
+
+          <div class="h-2" />
+
+          <Btn :loading="loading" class="btn-primary" :disabled="hasErrors">
+            {{
+              t("Save")
+            }}
+          </Btn>
+        </form>
+
+        <ul class="mt-6">
+          <li class="flex gap-2 items-center">
+            <Icon class="text-success">
+              check
+            </Icon>
+
+            <span class="text-sm text-slate-800">{{ t('Signed in with Google') }}</span>
+          </li>
+        </ul>
+      </SettingSection>
+
+      <SettingSection :title="t('Danger zone')" class="pt-4" title-class="text-error">
+        <template #header>
+          <hr class="border-b-2 border-error">
         </template>
-      </TextField>
-      <TextField
-        path="pronouns"
-        :label="t('Pronouns')"
-        :rules="yupify(pronounsSchema, t(
-          'Pronouns must be up to 20 characters long.',
-        ))"
-      />
+        <template #default>
+          <MenuGroup class="p-0 w-full shadow-none" :items="dangerItems" />
 
-      <div class="h-2" />
-
-      <Btn :loading="loading" class="btn-primary" :disabled="hasErrors">
-        {{
-          t("Save")
-        }}
-      </Btn>
-    </form>
-
-    <ul class="mt-6">
-      <li class="flex gap-2">
-        <Icon class="text-green-800">
-          check
-        </Icon>
-
-        {{ t('Signed in with Google') }}
-      </li>
-    </ul>
-
-    <section>
-      <h2 class="text-lg font-bold mb-4 mt-4">
-        {{ t("Danger zone") }}
-      </h2>
-
-      <div class="border border-error rounded">
-        <dl class="divide-y divide-slate-400">
-          <template v-for="description, i in dangerActions" :key="i">
-            <div class="flex justify-between items-center py-3 px-2">
-              <div>
-                <dt class="text-sm font-bold">
-                  {{ description.label }}
-                </dt>
-                <dd class="text-xs text-slate-700">
-                  {{ description.description }}
-                </dd>
-              </div>
-
-              <div class="flex gap-1">
-                <button
-                  v-for="action in description.actions"
-                  :key="`action-${action.label}-danger`"
-                  class="btn btn-outline btn-xs btn-error"
-                  @click="action.onClick"
-                >
-                  {{ action.label }}
-                </button>
-              </div>
-            </div>
-          </template>
-        </dl>
-      </div>
-    </section>
-
-    <AccountDeleteModal v-model="isDeleteModalOpen" />
+          <ClientOnly>
+            <AccountDeleteModal v-model="isDeleteModalOpen" />
+          </ClientOnly>
+        </template>
+      </SettingSection>
+    </div>
   </div>
 </template>
