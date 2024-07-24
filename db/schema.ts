@@ -113,6 +113,53 @@ export type UserUpdate = z.infer<typeof userUpdateSchema>
 
 // #endregion
 
+// #region Personas
+
+export const personas = sqliteTable("Persona", {
+  id: int("id").primaryKey({ autoIncrement: true }),
+  username: text("username").unique().notNull(),
+  name: text("name").notNull(),
+  description: text("description").notNull(),
+  instructions: text("instructions").notNull(),
+  conversationStarters: text("conversation_starters", { mode: "json" }).$type<Array<string>>().notNull(),
+  createdAt: text("created_at").notNull(),
+  creatorId: text("creator_id")
+    .references(() => users.id, { onDelete: "no action" }),
+})
+
+export const personaInsertSchema = createInsertSchema(personas, {
+  conversationStarters: z.array(z.string()),
+}).omit({
+  id: true,
+  creatorId: true,
+  createdAt: true,
+})
+
+export const personaUpdateSchema = createInsertSchema(personas, {
+  name: nameSchema,
+  username: usernameSchema,
+  conversationStarters: z.array(z.string()),
+}).partial()
+
+export type PersonaInsert = z.infer<typeof personaInsertSchema>
+export type PersonaUpdate = z.infer<typeof personaUpdateSchema>
+
+// #endregion
+
+// #region Contacts
+
+export const contacts = sqliteTable("Contact", {
+  id: int("id").primaryKey({ autoIncrement: true }),
+  personaId: int("persona_id")
+    .notNull()
+    .references(() => personas.id, { onDelete: "cascade" }),
+  userId: int("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+})
+
+// #endregion
+
 // #region Exercises
 
 export const exercises = sqliteTable("Exercise", {

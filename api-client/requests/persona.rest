@@ -1,0 +1,45 @@
+@username = motoko
+
+### Find all personas
+
+GET {{baseUrl}}/persona
+Content-Type: application/json
+Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+
+### Get persona
+
+GET {{baseUrl}}/persona/{{username}}
+Content-Type: application/json
+Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+
+### Create persona
+
+POST {{baseUrl}}/persona
+Content-Type: application/json
+Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+
+{
+  "username": "motoko",
+  "name": "Motoko",
+  "description": "the protagonist of 'Ghost in the Shell,' is a highly skilled and cybernetically enhanced leader of Public Security Section 9, known for her tactical brilliance and philosophical contemplation of identity and humanity in a technologically advanced world.",
+  "instructions": "Behave like Motoko",
+  "conversationStarters": ["Hey, Motoko!", "Hi, Major."]
+}
+
+### Update persona
+
+PATCH {{baseUrl}}/persona/{{username}}
+Content-Type: application/json
+Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+
+{
+  "instructions": "Behave like Motoko Kusanagi"
+}
+
+### Delete persona
+
+@username = motoko
+
+DELETE {{baseUrl}}/persona/{{username}}
+Content-Type: application/json
+Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
