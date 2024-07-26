@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import NewChatDrawer from "~/components/app/new-chat/NewChatDrawer.vue"
-import SettingsDrawer from "~/components/app/settings/index/SettingsDrawer.vue"
 import { useProfileModal } from "~/composables/useProfileModal"
 
 const { profileModalState } = useProfileModal()
@@ -22,9 +20,11 @@ const { profileModalState } = useProfileModal()
           <ProfileDrawer>
             <AccountDrawer>
               <SettingsDrawer>
-                <NewChatDrawer>
-                  <slot name="side" />
-                </NewChatDrawer>
+                <BuildPersonaDrawer>
+                  <NewChatDrawer>
+                    <slot name="side" />
+                  </NewChatDrawer>
+                </BuildPersonaDrawer>
               </SettingsDrawer>
             </AccountDrawer>
           </ProfileDrawer>

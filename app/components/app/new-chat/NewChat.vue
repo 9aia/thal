@@ -5,7 +5,7 @@ import type { MenuItem } from "~~/layers/ui/components/navigation/types"
 
 const generalItems: MenuItem[] = [
   { id: "new-contact", icon: "person_add", name: "New contact" },
-  { id: "create-persona", icon: "person_edit", name: "Create persona" },
+  { id: "create-persona", icon: "person_edit", name: "Build persona", for: "build-persona-drawer" },
 ]
 
 const discoverItems: MenuItem[] = [

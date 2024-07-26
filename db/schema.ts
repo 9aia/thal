@@ -115,6 +115,9 @@ export type UserUpdate = z.infer<typeof userUpdateSchema>
 
 // #region Personas
 
+export const descriptionSchema = z.string().min(1).max(100)
+export const instructionsSchema = z.string().min(1).max(500)
+
 export const personas = sqliteTable("Persona", {
   id: int("id").primaryKey({ autoIncrement: true }),
   username: text("username").unique().notNull(),
@@ -138,6 +141,7 @@ export const personaInsertSchema = createInsertSchema(personas, {
 export const personaUpdateSchema = createInsertSchema(personas, {
   name: nameSchema,
   username: usernameSchema,
+  description: descriptionSchema,
   conversationStarters: z.array(z.string()),
 }).partial()
 
