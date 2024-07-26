@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { MenuItem } from "~~/layers/ui/components/layout/types"
+import type { MenuItem } from "~~/layers/ui/components/navigation/types"
 
 const logout = useLogout()
 
@@ -11,13 +11,13 @@ const items: MenuItem[] = [
   { id: "profile", action: "profile", name: "Profile", icon: "face", onSubmit: () => profileModal.open(user.value!.username) },
   {
     id: "plan",
-    name: "Plan",
+    name: "Subscription",
     action: "/api/payment/stripe/create-portal-session",
     method: "post",
     icon: "subscriptions",
     type: "external",
   },
-  { id: "settings", name: "Settings", icon: "settings", href: "/app/settings" },
+  { id: "settings", name: "Settings", icon: "settings", for: "settings-drawer" },
   {
     id: "logout",
     name: "Logout",

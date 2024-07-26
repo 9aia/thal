@@ -1,17 +1,9 @@
 <script setup lang="ts">
+import type { Message } from "~/types"
+
 defineProps<{
   chats: Message[]
 }>()
-</script>
-
-<script lang="ts">
-export interface Message {
-  id: string
-  from: "user" | "bot"
-  message: string
-  text: string
-  status: string
-}
 </script>
 
 <template>

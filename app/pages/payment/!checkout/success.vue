@@ -36,7 +36,7 @@ definePageMeta({
         </p>
 
         <div class="card-actions">
-          <A href="/explore" class="btn btn-primary">
+          <A href="/app" class="btn btn-primary">
             Go to app
           </A>
 

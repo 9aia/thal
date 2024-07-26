@@ -11,7 +11,7 @@ definePageMeta({
     <div class="card w-[28rem] bg-base-100 shadow-xl">
       <div class="card-body">
         <h2 class="card-title">
-          {{ t('Your plan expired!') }}
+          {{ t('Your subscription expired!') }}
         </h2>
 
         <p>

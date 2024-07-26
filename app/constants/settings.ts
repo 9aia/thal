@@ -1,44 +1,26 @@
-import type { MenuItem } from "~~/layers/ui/components/layout/types"
+import type { MenuItem } from "~~/layers/ui/components/navigation/types"
 
 const general: MenuItem[] = [
   {
     id: "profile",
     icon: "face",
     name: "Profile",
-    href: "/app/settings/profile",
+    for: "profile-drawer",
   },
   {
     id: "account",
     icon: "person",
     name: "Account",
-    href: "/app/settings/account",
+    for: "account-drawer",
   },
   {
     id: "plan",
-    name: "Plan",
+    name: "Subscription",
     action: "/api/payment/stripe/create-portal-session",
     method: "post",
     icon: "subscriptions",
     type: "external",
   },
-  /* {
-    id: "privacy",
-    icon: "disabled_visible",
-    name: "Privacy",
-    href: "/app/settings/privacy",
-  }, */
-  /* {
-    id: "notifications",
-    icon: "notifications",
-    name: "Notifications",
-    href: "/app/settings/notifications",
-  }, */
-  /* {
-    id: "accessibility",
-    icon: "accessibility",
-    name: "Accessibility",
-    href: "/app/settings/accessibility",
-  }, */
 ]
 
 const support: MenuItem[] = [

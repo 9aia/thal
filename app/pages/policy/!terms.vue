@@ -46,7 +46,7 @@ definePageMeta({
         <li>
           <strong>Exclusão de conta:</strong> Você tem o direito de excluir sua conta Maratongue e informações pessoais
           associadas. Para iniciar o processo de exclusão da conta, siga as instruções fornecidas nas <a
-            href="/app/settings/account"
+            href="/settings/account"
           >configurações do aplicativo</a>.
         </li>
         <li>
@@ -152,7 +152,7 @@ definePageMeta({
         <li>
           <strong>Account Deletion:</strong> You have the right to delete your Maratongue account and associated
           personal information. To initiate the account deletion process, please follow the instructions provided in the
-          <a href="/app/settings/account">app settings</a>.
+          <a href="/settings/account">app settings</a>.
         </li>
         <li>
           <strong>Data Accuracy:</strong> You are responsible for keeping your personal data up to date and accurate.

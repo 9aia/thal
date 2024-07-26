@@ -6,14 +6,11 @@ import { useI18n } from "@psitta/vue"
 import { useQueryClient } from "@tanstack/vue-query"
 import { nameSchema, pronounsSchema, usernameSchema } from "~~/db/schema"
 import { useToast } from "~~/layers/ui/composables/useToast"
-import type { MenuItem } from "~~/layers/ui/components/layout/types"
+import type { MenuItem } from "~~/layers/ui/components/navigation/types"
 
 definePageMeta({
   middleware: "auth",
-  layout: computed(() => {
-    const user = useUser()
-    return user.value?.plan ? "app" : "isolate-setting"
-  }),
+  layout: "site",
 })
 
 const { t } = useI18n()
@@ -107,16 +104,13 @@ const dangerItems: MenuItem[] = [
 
 <template>
   <div class="flex flex-col h-dvh justify-between">
-    <Navbar>
+    <Navbar class="bg-transparent">
       <h1 class="text-lg py-2 text-primary font-bold flex items-center gap-1">
-        <A href="/app/settings" class="btn btn-sm btn-ghost btn-circle">
-          <Icon name="arrow_back" />
-        </A>
-        {{ t("Account") }}
+        {{ t("Account Settings") }}
       </h1>
     </Navbar>
 
-    <div class="px-4 py-4 flex-1 overflow-y-auto bg-white space-y-4">
+    <div class="px-3 py-4 flex-1 overflow-y-auto bg-white space-y-4">
       <SettingSection :title="t('General Information')">
         <form class="block space-y-2" @submit="submit">
           <div class="gap-2 grid grid-cols-2">

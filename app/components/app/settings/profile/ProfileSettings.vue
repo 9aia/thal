@@ -16,20 +16,15 @@ const hobbies = computed(() => {
 const goals = computed(() => {
   return parseJoin(user.value!.goals || "", GOALS)
 })
-
-definePageMeta({
-  middleware: "premium",
-  layout: "app",
-})
 </script>
 
 <template>
   <div class="flex flex-col h-dvh justify-between">
     <Navbar>
       <h1 class="text-lg py-2 text-primary font-bold flex items-center gap-1">
-        <A href="/app/settings" class="btn btn-sm btn-ghost btn-circle">
+        <label for="profile-drawer" class="btn btn-sm btn-ghost btn-circle">
           <Icon name="arrow_back" />
-        </A>
+        </label>
         {{ t("Profile") }}
       </h1>
     </Navbar>

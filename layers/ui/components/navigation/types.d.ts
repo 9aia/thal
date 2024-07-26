@@ -1,3 +1,17 @@
-import type { MenuItem } from "../layout/types"
-
 export type BreadcrumbItem = MenuItem
+
+export interface MenuItem {
+  id: string
+  name: string
+  description?: string
+  icon?: string
+  href?: string
+  for?: string
+  action?: string
+  method?: string
+  type?: "external" | "internal" | "accordion"
+  meaning?: "warning" | "danger"
+  newTab?: boolean
+  localize?: boolean
+  onSubmit?: (e: Event) => void
+}

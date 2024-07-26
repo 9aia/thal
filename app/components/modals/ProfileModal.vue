@@ -33,9 +33,11 @@ const {
   enabled: computed(() => (isMe.value || !!props.username) && modelValue.value),
 })
 
+const profileModal = useProfileModal()
+
 function goToEdit() {
   modelValue.value = false
-  navigateTo("/app/settings/profile")
+  navigateTo("/app")
 }
 
 provide("profile", data)
@@ -102,7 +104,7 @@ provide("profile", data)
             <Btn
               v-else
               class="btn-primary"
-              @click="navigateTo('/app/profile/')"
+              @click="profileModal.open(user!.username)"
             >
               <Icon name="mdi-refresh" />
               {{ t('Go to my profile') }}

@@ -6,7 +6,7 @@ import { t } from "@psitta/vue"
   <div class="w-full h-full bg-white">
     <div class="mx-auto py-12">
       <h2 class="text-4xl font-semibold text-slate-800 text-center mb-6">
-        {{ t("Our plan") }}
+        {{ t("Subscription") }}
       </h2>
 
       <div class="gap-8">

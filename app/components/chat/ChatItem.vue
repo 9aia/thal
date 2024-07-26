@@ -9,6 +9,7 @@ const props = defineProps<{
 }>()
 
 const locale = useLocale()
+const user = useUser()
 
 const date = computed(() => {
   const date = props.lastMessage.date
@@ -63,10 +64,14 @@ const icon = computed(() => {
 
   return icon
 })
+
+function openChat() {
+  navigateTo(`/app/chat/${user!.value?.username}`)
+}
 </script>
 
 <template>
-  <div role="button" class="px-3 py-1 hover:bg-slate-100 flex gap-2">
+  <div role="button" class="px-3 py-1 hover:bg-slate-100 flex gap-2" @click="openChat">
     <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
       <div class="w-10 rounded-full">
         <img
@@ -78,7 +83,7 @@ const icon = computed(() => {
 
     <div class="flex-1 flex flex-col justify-center">
       <div class="flex justify-between items-center">
-        <a class="block text-base text-slate-800">{{ user.name }}</a>
+        <a class="block text-base text-slate-800">{{ user!.name }}</a>
 
         <div class="text-xs text-slate-600">
           {{ date }}

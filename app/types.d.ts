@@ -120,4 +120,12 @@ export interface Chat {
   lastMessage: MessageContent
 }
 
+export interface Message {
+  id: string
+  from: "user" | "bot"
+  message: string
+  text: string
+  status: string
+}
+
 // #endregion

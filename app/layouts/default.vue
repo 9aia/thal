@@ -2,7 +2,7 @@
 import { t } from "@psitta/vue"
 import Header from "~~/layers/ui/components/layout/Header.vue"
 import Footer from "~~/layers/ui/components/layout/Footer.vue"
-import type { MenuItem } from "~~/layers/ui/components/layout/types"
+import type { MenuItem } from "~~/layers/ui/components/navigation/types"
 
 const user = useUser()
 const logout = useLogout()
@@ -10,8 +10,8 @@ const logout = useLogout()
 const localeModal = useLocaleModal()
 
 const menuItems: MenuItem[] = [
-  { id: "app", name: "App", icon: "explore", href: "/explore" },
-  { id: "settings", name: "Account Settings", icon: "settings", href: "/app/settings/account" },
+  { id: "app", name: "App", icon: "chat", href: "/app" },
+  { id: "settings", name: "Account Settings", icon: "settings", href: "/settings/account" },
   {
     id: "language",
     name: "Language",
@@ -55,11 +55,6 @@ function updateRedirectUrl() {
                 <Menu :items="menuItems" />
               </div>
             </div>
-            <!--  <form v-if="!!user" action="/api/auth/logout" method="post" @submit.prevent="logout">
-            <button class="link" type="submit">
-              {{ t("Logout") }}
-            </button>
-          </form> -->
 
             <A v-else class="link link-primary" href="/sign-in">
               {{ t("Sign in") }}

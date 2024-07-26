@@ -4,10 +4,24 @@ import { tv } from "tailwind-variants"
 import { type ButtonHTMLAttributes, useAttrs } from "vue"
 import type { SafeProps, SafeVariantProps } from "../../types"
 
-defineProps<Props>()
+withDefaults(defineProps<Props & {
+  size?: keyof typeof variants["size"]
+}>(), {
+  size: "sm",
+})
+
+const variants = {
+  size: {
+    xs: "btn-xs",
+    sm: "btn-sm",
+    md: "",
+    lg: "btn-lg",
+  },
+} as const
 
 const styles = tv({
-  base: "btn btn-sm h-fit",
+  base: "btn h-fit",
+  variants,
 })
 
 type Props = SafeProps<ButtonHTMLAttributes> &
@@ -21,7 +35,7 @@ const attrs = useAttrs()
 
 <template>
   <button
-    :class="styles({ class: attrs.class as string })"
+    :class="styles({ size, class: attrs.class as string })"
     :disabled="loading"
   >
     <slot />

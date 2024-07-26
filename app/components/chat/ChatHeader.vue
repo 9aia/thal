@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+defineProps<{
+  name: string
+}>()
+
 const user = useUser()
 const profileModal = useProfileModal()
 </script>
@@ -19,7 +23,9 @@ const profileModal = useProfileModal()
     </div>
 
     <div class="flex-1 flex items-center">
-      <a class="block text-primary">Motoko Kusanagi</a>
+      <div class="block text-primary">
+        {{ name }}
+      </div>
     </div>
   </header>
 </template>

@@ -2,7 +2,7 @@
 import { ref } from "vue"
 import { t } from "@psitta/vue"
 import { SETTINGS } from "~/constants/settings"
-import MenuItem from "~~/layers/ui/components/layout/MenuItem.vue"
+import MenuItem from "~~/layers/ui/components/navigation/MenuItem.vue"
 
 const { open: openProfile } = useProfileModal()
 
@@ -11,14 +11,9 @@ const isLocaleModalOpen = ref(false)
 const user = useUser()
 const logout = useLogout()
 
-definePageMeta({
-  middleware: "premium",
-  layout: "setting",
-})
-
 onMounted(() => {
   const redirectUrl = useRedirectUrl()
-  redirectUrl.value = "/app/settings"
+  redirectUrl.value = "/app"
 })
 </script>
 
@@ -26,17 +21,16 @@ onMounted(() => {
   <div class="flex flex-col h-dvh justify-between">
     <Navbar>
       <h1 class="text-lg py-2 text-primary font-bold flex items-center gap-1">
-        <A href="/app" class="btn btn-sm btn-ghost btn-circle">
+        <label for="settings-drawer" class="btn btn-sm btn-ghost btn-circle">
           <Icon name="arrow_back" />
-        </A>
+        </label>
         {{ t("Settings") }}
       </h1>
     </Navbar>
 
     <div class="flex-1 overflow-y-auto bg-white">
       <div
-        role="button"
-        class="group bg-slate-200 p-4 flex justify-between items-center transition duration-300"
+        role="button" class="group bg-slate-200 p-4 flex justify-between items-center transition duration-300"
         @click="openProfile(user!.username)"
       >
         <div class="flex gap-4 items-center">
@@ -60,12 +54,8 @@ onMounted(() => {
             <template #footer>
               <li class="group" @click="isLocaleModalOpen = true">
                 <div>
-                  <div
-                    class="cursor-pointer flex w-full gap-2 justify-between items-center py-2"
-                  >
-                    <MenuItem
-                      :is="{ id: 'language', name: 'Language', icon: 'globe', type: 'accordion' }"
-                    />
+                  <div class="cursor-pointer flex w-full gap-2 justify-between items-center py-2">
+                    <MenuItem :is="{ id: 'language', name: 'Language', icon: 'globe', type: 'accordion' }" />
                   </div>
                 </div>
               </li>
