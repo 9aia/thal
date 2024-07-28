@@ -2,7 +2,11 @@
 import { ref } from "vue"
 import { t } from "@psitta/vue"
 import { SETTINGS } from "~/constants/settings"
-import MenuItem from "~~/layers/ui/components/navigation/MenuItem.vue"
+
+const emit = defineEmits<{
+  (e: "open", emitValue: string): void
+  (e: "close"): void
+}>()
 
 const { open: openProfile } = useProfileModal()
 
@@ -21,9 +25,9 @@ onMounted(() => {
   <div class="flex flex-col h-dvh justify-between">
     <Navbar>
       <h1 class="text-lg py-2 text-primary font-bold flex items-center gap-1">
-        <label for="settings-drawer" class="btn btn-sm btn-ghost btn-circle">
+        <Btn size="sm" class="btn-ghost btn-circle" @click="emit('close')">
           <Icon name="arrow_back" />
-        </label>
+        </Btn>
         {{ t("Settings") }}
       </h1>
     </Navbar>
@@ -50,7 +54,7 @@ onMounted(() => {
 
       <div class="space-y-4 px-4 py-4">
         <SettingSection :title="t('General')">
-          <MenuGroup class="p-0 w-full shadow-none" :items="SETTINGS.general">
+          <MenuGroup class="p-0 w-full shadow-none" :items="SETTINGS.general" @action="emit('open', $event)">
             <template #footer>
               <li class="group" @click="isLocaleModalOpen = true">
                 <div>

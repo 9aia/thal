@@ -6,6 +6,10 @@ defineProps<{
   items: MenuItemType[]
 }>()
 
+const emit = defineEmits<{
+  (e: "action", emitValue: string): void
+}>()
+
 function closeMenu() {
   const elem = document.activeElement as any
 
@@ -20,7 +24,10 @@ function closeMenu() {
     class="menu menu-sm dropdown-content mt-3 z-[1] p-2 space-y-2 shadow bg-base-100 rounded-box w-52"
   >
     <li v-for="item in items" :key="item.id" class="group w-full h-full" @click="closeMenu">
-      <Item :is="item" />
+      <Item
+        :is="item"
+        @action="emit('action', $event)"
+      />
     </li>
   </ul>
 </template>

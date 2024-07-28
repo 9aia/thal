@@ -12,6 +12,7 @@ export interface MenuItem {
   type?: "external" | "internal" | "accordion"
   meaning?: "warning" | "danger"
   newTab?: boolean
+  emit?: string
   localize?: boolean
   onSubmit?: (e: Event) => void
 }

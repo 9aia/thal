@@ -5,13 +5,13 @@ const general: MenuItem[] = [
     id: "profile",
     icon: "face",
     name: "Profile",
-    for: "profile-drawer",
+    emit: "profile-drawer",
   },
   {
     id: "account",
     icon: "person",
     name: "Account",
-    for: "account-drawer",
+    emit: "account-drawer",
   },
   {
     id: "plan",

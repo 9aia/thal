@@ -1,15 +1,19 @@
 <script setup lang="ts">
 import { t } from "@psitta/vue"
+
+const emit = defineEmits<{
+  (e: "close"): void
+}>()
 </script>
 
 <template>
   <div class="flex flex-col w-full h-dvh">
     <header class="lg:hidden px-3 py-2 bg-slate-800 flex gap-2">
       <div class="text-primary flex items-center gap-2">
-        <label for="my-drawer" class="btn btn-ghost btn-circle text-primary">
+        <Btn size="sm" class="btn-ghost btn-circle" @click="emit('close')">
           <Icon name="arrow_back" />
-        </label>
-        Chats
+        </Btn>
+        {{ t("Chats") }}
       </div>
     </header>
 

@@ -6,6 +6,9 @@ import { useForm } from "vee-validate"
 import { descriptionSchema, instructionsSchema, nameSchema, usernameSchema } from "~~/db/schema"
 import { useToast } from "~~/layers/ui/composables/useToast"
 
+const emit = defineEmits<{
+  (e: "close"): void
+}>()
 const { t } = useI18n()
 const toast = useToast()
 
@@ -43,8 +46,6 @@ async function validateUsername(username: string) {
 const debouncedValidateUsername = useDebounceFn(validateUsername, 500)
 watch(() => form.values.username, debouncedValidateUsername)
 
-const closeLabelRef = ref<HTMLLabelElement>()
-
 const submit = form.handleSubmit(async (data) => {
   loading.value = true
 
@@ -59,9 +60,7 @@ const submit = form.handleSubmit(async (data) => {
 
     toast.success(t("Persona has been created successfully."))
 
-    // close persona builder
-    if (closeLabelRef.value)
-      closeLabelRef.value.click()
+    emit("close")
 
     form.resetForm()
   }
@@ -77,9 +76,9 @@ const submit = form.handleSubmit(async (data) => {
   <div class="flex flex-col h-dvh justify-between">
     <Navbar>
       <h1 class="text-lg py-2 text-primary font-bold flex items-center gap-1">
-        <label ref="closeLabelRef" for="build-persona-drawer" class="btn btn-sm btn-ghost btn-circle">
+        <Btn size="sm" class="btn-ghost btn-circle" @click="emit('close')">
           <Icon name="arrow_back" />
-        </label>
+        </Btn>
         {{ t("Build Persona") }}
       </h1>
     </Navbar>

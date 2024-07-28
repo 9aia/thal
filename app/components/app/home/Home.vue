@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import type { Chat } from "~/types"
 
+import type { MenuItem } from "~~/layers/ui/components/navigation/types"
+
+const emit = defineEmits<{
+  (e: "open", emitValue: string): void
+  (e: "close"): void
+}>()
+
 const convos: Chat[] = [
   {
     id: "1",
@@ -136,11 +143,56 @@ const convos: Chat[] = [
   },
 ]
 
-const isNoteVisible = ref(true)
+const isNoteVisible = useCookie("isNoteVisible", {
+  default: () => true,
+})
+
+const logout = useLogout()
+
+const profileModal = useProfileModal()
+
+const user = useUser()
+
+const items: MenuItem[] = [
+  { id: "profile", action: "profile", name: "Profile", icon: "face", onSubmit: () => profileModal.open(user.value!.username) },
+  {
+    id: "plan",
+    name: "Subscription",
+    action: "/api/payment/stripe/create-portal-session",
+    method: "post",
+    icon: "subscriptions",
+    type: "external",
+  },
+  { id: "settings", name: "Settings", icon: "settings", emit: "settings-drawer" },
+  {
+    id: "logout",
+    name: "Logout",
+    action: "/api/auth/logout",
+    method: "post",
+    icon: "logout",
+    onSubmit: logout,
+  },
+]
+
+function updateRedirectUrl() {
+  const route = useRoute()
+  const redirectUrl = useRedirectUrl()
+  redirectUrl.value = route.path
+}
 </script>
 
 <template>
-  <HomeNavbar />
+  <Navbar class="bg-slate-800">
+    <Avatar :name="user!.name" class="w-10 text-sm" type="button" @click="profileModal.open(user!.username)" />
+
+    <div class="dropdown dropdown-end">
+      <button class="btn btn-circle btn-ghost text-primary" @click="updateRedirectUrl">
+        <Icon>more_vert</Icon>
+      </button>
+
+      <Menu :items="items" @action="emit('open', $event)" />
+    </div>
+  </Navbar>
 
   <div v-show="isNoteVisible" class="bg-slate-200 px-3 py-4 flex items-center justify-between">
     <div class="flex items-center gap-2">
@@ -168,12 +220,12 @@ const isNoteVisible = ref(true)
   </div>
 
   <div class="flex-1 overflow-y-auto bg-white">
-    <ChatItem v-for="convo in convos" v-bind="convo" :key="convo.id" />
+    <ChatItem v-for="convo in convos" v-bind="convo" :key="convo.id" @click="emit('close')" />
   </div>
 
   <div class="absolute bottom-4 right-4">
-    <label for="new-chat-drawer" class="btn btn-circle btn-primary">
+    <Btn size="md" class="btn-circle btn-primary" @click="emit('open', 'new-chat')">
       <Icon name="add" />
-    </label>
+    </Btn>
   </div>
 </template>

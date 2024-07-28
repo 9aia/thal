@@ -3,6 +3,10 @@ import { computed, ref } from "vue"
 import { t } from "@psitta/vue"
 import { GOALS, HOBBIES } from "~/constants/base"
 
+const emit = defineEmits<{
+  (e: "close"): void
+}>()
+
 const user = useUser()
 
 const isHobbyModalOpen = ref(false)
@@ -22,9 +26,9 @@ const goals = computed(() => {
   <div class="flex flex-col h-dvh justify-between">
     <Navbar>
       <h1 class="text-lg py-2 text-primary font-bold flex items-center gap-1">
-        <label for="profile-drawer" class="btn btn-sm btn-ghost btn-circle">
+        <Btn size="sm" class="btn-ghost btn-circle" @click="emit('close')">
           <Icon name="arrow_back" />
-        </label>
+        </Btn>
         {{ t("Profile") }}
       </h1>
     </Navbar>

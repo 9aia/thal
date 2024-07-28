@@ -1,23 +1,30 @@
 <script setup lang="ts">
-defineProps<{
-  inputId: string
-}>()
+const modelValue = defineModel<boolean>({
+  required: true,
+})
 </script>
 
 <template>
-  <div class="drawer">
-    <input :id="inputId" type="checkbox" class="drawer-toggle">
+  <div
+    class="drawer"
+    :class="{ 'pointer-events-none': !modelValue }"
+  >
+    <input
+      v-model="modelValue"
+      type="checkbox"
+      class="drawer-toggle"
+    >
 
     <div class="drawer-content flex flex-col h-dvh">
       <slot name="content" />
     </div>
 
     <div class="drawer-side">
-      <label :for="inputId" aria-label="close sidebar" class="drawer-overlay" />
-
       <div class="flex flex-col h-dvh justify-between w-full">
-        <slot name="side" />
+        <slot :close="() => modelValue = false" />
       </div>
+
+      <slot name="footer" />
     </div>
   </div>
 </template>

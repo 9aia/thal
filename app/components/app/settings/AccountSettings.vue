@@ -8,6 +8,9 @@ import { nameSchema, pronounsSchema, usernameSchema } from "~~/db/schema"
 import { useToast } from "~~/layers/ui/composables/useToast"
 import type { MenuItem } from "~~/layers/ui/components/navigation/types"
 
+const emit = defineEmits<{
+  (e: "close"): void
+}>()
 const { t } = useI18n()
 const toast = useToast()
 
@@ -101,9 +104,9 @@ const dangerItems: MenuItem[] = [
   <div class="flex flex-col h-dvh justify-between">
     <Navbar>
       <h1 class="text-lg py-2 text-primary font-bold flex items-center gap-1">
-        <label for="account-drawer" class="btn btn-sm btn-ghost btn-circle">
+        <Btn size="sm" class="btn-ghost btn-circle" @click="emit('close')">
           <Icon name="arrow_back" />
-        </label>
+        </Btn>
         {{ t("Account") }}
       </h1>
     </Navbar>

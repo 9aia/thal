@@ -3,9 +3,14 @@ import { t } from "@psitta/vue"
 
 import type { MenuItem } from "~~/layers/ui/components/navigation/types"
 
+const emit = defineEmits<{
+  (e: "open", emitValue: string): void
+  (e: "close"): void
+}>()
+
 const generalItems: MenuItem[] = [
   { id: "new-contact", icon: "person_add", name: "New contact" },
-  { id: "create-persona", icon: "person_edit", name: "Build persona", for: "build-persona-drawer" },
+  { id: "create-persona", icon: "person_edit", name: "Build persona", emit: "build-persona-drawer" },
 ]
 
 const discoverItems: MenuItem[] = [
@@ -18,16 +23,20 @@ const contacts: any[] = []
 <template>
   <Navbar>
     <h1 class="text-lg py-2 text-primary font-bold flex items-center gap-1">
-      <label for="new-chat-drawer" class="btn btn-sm btn-ghost btn-circle">
+      <Btn size="sm" class="btn-ghost btn-circle" @click="emit('close')">
         <Icon name="arrow_back" />
-      </label>
+      </Btn>
       {{ t("New chat") }}
     </h1>
   </Navbar>
 
   <div class="px-4 py-4 flex-1 overflow-y-auto bg-white space-y-6">
     <SettingSection>
-      <MenuGroup class="p-0 w-full" :items="generalItems" />
+      <MenuGroup
+        class="p-0 w-full"
+        :items="generalItems"
+        @action="emit('open', $event)"
+      />
     </SettingSection>
 
     <SettingSection :title="t('Discover')">

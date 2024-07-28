@@ -7,6 +7,10 @@ const props = defineProps<{
   is: MenuItemType
 }>()
 
+const emit = defineEmits<{
+  (e: "action", emitValue: string): void
+}>()
+
 function handleSubmit(event: Event) {
   event.preventDefault()
 
@@ -29,6 +33,15 @@ function handleSubmit(event: Event) {
     <label :for="is.for" class="cursor-pointer flex w-full py-2 justify-between items-center">
       <MenuItem :is="is" />
     </label>
+  </template>
+
+  <template v-else-if="is.emit">
+    <div
+      class="cursor-pointer flex w-full py-2 justify-between items-center"
+      @click="emit('action', is.emit)"
+    >
+      <MenuItem :is="is" />
+    </div>
   </template>
 
   <template v-else>
