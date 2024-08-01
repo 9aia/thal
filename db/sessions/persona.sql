@@ -4,4 +4,4 @@ SELECT * FROM Persona
 
 -- @block Delete all personas
 
-DELETE FROM Exercise
+DELETE FROM Persona

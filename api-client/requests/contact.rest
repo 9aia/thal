@@ -1,0 +1,40 @@
+@username = motoko
+
+### Find all contacts
+
+GET {{baseUrl}}/contact
+Content-Type: application/json
+Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+
+### Get contact
+
+GET {{baseUrl}}/contact/{{username}}
+Content-Type: application/json
+Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+
+### Create contact
+
+POST {{baseUrl}}/contact
+Content-Type: application/json
+Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+
+{
+  "username": "motoko",
+  "name": "Motoko"
+}
+
+### Update contact
+
+PATCH {{baseUrl}}/contact/{{username}}
+Content-Type: application/json
+Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+
+{
+  "name": "Motoko Kusanagi"
+}
+
+### Delete contact
+
+DELETE {{baseUrl}}/contact/{{username}}
+Content-Type: application/json
+Cookie: auth_session={{$dotenv COOKIE_TOKEN}};

@@ -19,26 +19,24 @@ Content-Type: application/json
 Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
 
 {
-  "username": "motoko",
-  "name": "Motoko",
-  "description": "the protagonist of 'Ghost in the Shell,' is a highly skilled and cybernetically enhanced leader of Public Security Section 9, known for her tactical brilliance and philosophical contemplation of identity and humanity in a technologically advanced world.",
-  "instructions": "Behave like Motoko",
-  "conversationStarters": ["Hey, Motoko!", "Hi, Major."]
+  "username": "ishikawa",
+  "name": "Ishikawa",
+  "description": "A seasoned intelligence expert and a member of Public Security Section 9 in 'Ghost in the Shell.' He is known for his exceptional hacking skills, extensive knowledge of global intelligence networks, and a laid-back yet insightful demeanor that often provides valuable support to his team's operations.",
+  "instructions": "Behave like Ishikawa",
+  "conversationStarters": ["Hey, Ishikawa!", "Hi, veteran."]
 }
 
 ### Update persona
 
-PATCH {{baseUrl}}/persona/{{username}}
+PATCH {{baseUrl}}/persona/ishikawa
 Content-Type: application/json
 Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
 
 {
-  "instructions": "Behave like Motoko Kusanagi"
+  "name": "Ishikawa"
 }
 
 ### Delete persona
-
-@username = motoko
 
 DELETE {{baseUrl}}/persona/{{username}}
 Content-Type: application/json

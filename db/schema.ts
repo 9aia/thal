@@ -1,4 +1,4 @@
-import { int, sqliteTable, text } from "drizzle-orm/sqlite-core"
+import { int, sqliteTable, text, unique } from "drizzle-orm/sqlite-core"
 import { createInsertSchema, createSelectSchema } from "drizzle-zod"
 import { z } from "zod"
 import { MAX_GOALS_AMOUNT, MAX_HOBBIES_AMOUNT, MAX_OBSERVATION_CHARS, MAX_PROFESSION_CHARS } from "../app/constants/base"
@@ -130,21 +130,34 @@ export const personas = sqliteTable("Persona", {
     .references(() => users.id, { onDelete: "no action" }),
 })
 
+export const personaGetSchema = createSelectSchema(personas, {
+  conversationStarters: z.array(z.string()),
+})
+  .omit({
+    creatorId: true,
+  })
+  .extend({
+    username: usernameSchema,
+  })
+
 export const personaInsertSchema = createInsertSchema(personas, {
   conversationStarters: z.array(z.string()),
-}).omit({
-  id: true,
-  creatorId: true,
-  createdAt: true,
 })
+  .omit({
+    id: true,
+    creatorId: true,
+    createdAt: true,
+  })
 
 export const personaUpdateSchema = createInsertSchema(personas, {
   name: nameSchema,
   username: usernameSchema,
   description: descriptionSchema,
   conversationStarters: z.array(z.string()),
-}).partial()
+})
+  .partial()
 
+export type PersonaGet = z.infer<typeof personaGetSchema>
 export type PersonaInsert = z.infer<typeof personaInsertSchema>
 export type PersonaUpdate = z.infer<typeof personaUpdateSchema>
 
@@ -154,13 +167,53 @@ export type PersonaUpdate = z.infer<typeof personaUpdateSchema>
 
 export const contacts = sqliteTable("Contact", {
   id: int("id").primaryKey({ autoIncrement: true }),
+  name: text("name").notNull(),
+  createdAt: text("created_at").notNull(),
   personaId: int("persona_id")
     .notNull()
     .references(() => personas.id, { onDelete: "cascade" }),
-  userId: int("user_id")
+  userId: text("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
+}, t => ({
+  unq: unique().on(t.userId, t.personaId),
+}))
+
+export const contactSchema = createSelectSchema(contacts)
+
+export const contactGetSchema = createSelectSchema(contacts).omit({
+  userId: true,
+  personaId: true,
 })
+  .extend({
+    username: usernameSchema,
+  })
+
+export const contactInsertSchema = createInsertSchema(contacts).omit({
+  id: true,
+  userId: true,
+  personaId: true,
+  createdAt: true,
+})
+  .extend({
+    username: usernameSchema,
+  })
+
+export const contactUpdateSchema = createInsertSchema(contacts, {
+  name: nameSchema,
+})
+  .omit({
+    id: true,
+    userId: true,
+    personaId: true,
+    createdAt: true,
+  })
+  .partial()
+
+export type ContactEntity = z.infer<typeof contactSchema>
+export type ContactGetDto = z.infer<typeof contactGetSchema>
+export type ContactInsertDto = z.infer<typeof contactInsertSchema>
+export type ContactUpdateDto = z.infer<typeof contactUpdateSchema>
 
 // #endregion
 
