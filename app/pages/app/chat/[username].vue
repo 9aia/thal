@@ -9,6 +9,15 @@ definePageMeta({
 const route = useRoute()
 const params = route.params
 
+const {
+  data,
+  isLoading,
+  isError,
+  refetch,
+} = await useServerQuery(() => `/api/contact/${params.username}`, {
+  queryKey: ["chat", computed(() => params.username)],
+})
+
 const chats: Message[] = [
   {
     id: "1",
@@ -76,11 +85,19 @@ const chats: Message[] = [
     </template>
 
     <template #content>
-      <ChatHeader :name="params.username as string" />
+      <Resource
+        :loading="isLoading"
+        :error="isError"
+        @execute="refetch"
+      >
+        <ChatHeader
+          :name="data?.name"
+        />
 
-      <ChatConversation :chats="chats" class="flex-1 overflow-y-auto" />
+        <ChatConversation :chats="chats" class="flex-1 overflow-y-auto" />
 
-      <ChatFooter />
+        <ChatFooter />
+      </Resource>
     </template>
   </AppLayout>
 </template>

@@ -2,6 +2,7 @@ import { and, eq } from "drizzle-orm"
 import type { H3EventContext } from "h3"
 import type { User } from "lucia"
 import { notFound } from "~/utils/nuxt"
+import type { NonNullableKeys } from "~/utils/types"
 import type { ContactEntity, ContactGetDto, PersonaGet } from "~~/db/schema"
 import { contacts, personas } from "~~/db/schema"
 
@@ -18,8 +19,8 @@ export async function getContactByUser(
       username: personas.username,
     })
     .from(contacts)
-    .leftJoin(personas, eq(personas.username, username))
-    .where(eq(contacts.userId, user.id))
+    .leftJoin(personas, eq(personas.id, contacts.personaId))
+    .where(and(eq(contacts.userId, user.id), eq(personas.username, username)))
 
   if (!contact)
     throw notFound("Contact not found")
@@ -69,10 +70,11 @@ export async function getContactsWithPersonaByUser(
       name: contacts.name,
       createdAt: contacts.createdAt,
       username: personas.username,
+      description: personas.description,
     })
     .from(contacts)
     .leftJoin(personas, eq(personas.id, contacts.personaId))
     .where(eq(contacts.userId, user.id))
 
-  return foundContacts
+  return foundContacts as NonNullableKeys<typeof foundContacts[number]>[]
 }

@@ -16,7 +16,7 @@ defineProps<{
       :message="chat.message"
       :status="chat.status"
       :right="chat.from === 'user'"
-      img="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+      img="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
     />
   </main>
 </template>

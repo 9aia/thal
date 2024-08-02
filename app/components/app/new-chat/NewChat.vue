@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { t } from "@psitta/vue"
+import { useQuery } from "@tanstack/vue-query"
 
 import type { MenuItem } from "~~/layers/ui/components/navigation/types"
 
@@ -9,7 +10,7 @@ const emit = defineEmits<{
 }>()
 
 const generalItems: MenuItem[] = [
-  { id: "new-contact", icon: "person_add", name: "New contact" },
+  { id: "new-contact", icon: "person_add", name: "New contact", emit: "new-contact-drawer" },
   { id: "create-persona", icon: "person_edit", name: "Build persona", emit: "build-persona-drawer" },
 ]
 
@@ -17,7 +18,14 @@ const discoverItems: MenuItem[] = [
   { id: "discover", icon: "collections_bookmark", name: "Personas" },
 ]
 
-const contacts: any[] = []
+const {
+  data: contacts,
+  isError,
+  isPending,
+  refetch,
+} = await useServerQuery("/api/contact", {
+  queryKey: ["contacts"],
+})
 </script>
 
 <template>
@@ -30,8 +38,8 @@ const contacts: any[] = []
     </h1>
   </Navbar>
 
-  <div class="px-4 py-4 flex-1 overflow-y-auto bg-white space-y-6">
-    <SettingSection>
+  <div class="py-4 flex-1 overflow-y-auto bg-white space-y-4">
+    <SettingSection class="px-4">
       <MenuGroup
         class="p-0 w-full"
         :items="generalItems"
@@ -39,10 +47,24 @@ const contacts: any[] = []
       />
     </SettingSection>
 
-    <SettingSection :title="t('Discover')">
+    <SettingSection :title="t('Discover')" class="px-4">
       <MenuGroup class="p-0 w-full" :items="discoverItems" />
     </SettingSection>
 
-    <SettingSection v-if="!!contacts.length" :title="t('Contacts')" />
+    <SettingSection :title="t('Contacts')" title-class="px-4">
+      <Resource
+        :error="isError"
+        :loading="isPending"
+        @execute="refetch"
+      >
+        <ContactItem
+          v-for="contact in contacts"
+          :key="`contact-${contact.id}`"
+          :name="contact.name"
+          :description="contact.description"
+          @click="navigateTo(`/app/chat/${contact.username}`)"
+        />
+      </Resource>
+    </SettingSection>
   </div>
 </template>

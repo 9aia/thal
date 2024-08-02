@@ -111,7 +111,7 @@ export interface MessageContent {
 
 export interface User {
   name: string
-  avatar: string
+  avatar?: string
 }
 
 export interface Chat {
