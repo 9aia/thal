@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { t } from "@psitta/vue"
-import { useQuery } from "@tanstack/vue-query"
 
 import type { MenuItem } from "~~/layers/ui/components/navigation/types"
 
@@ -15,7 +14,7 @@ const generalItems: MenuItem[] = [
 ]
 
 const discoverItems: MenuItem[] = [
-  { id: "discover", icon: "collections_bookmark", name: "Personas" },
+  { id: "discover", icon: "collections_bookmark", name: "Personas", emit: "open-personas" },
 ]
 
 const {
@@ -26,6 +25,8 @@ const {
 } = await useServerQuery("/api/contact", {
   queryKey: ["contacts"],
 })
+
+const isPersonasOpen = ref(false)
 </script>
 
 <template>
@@ -48,7 +49,7 @@ const {
     </SettingSection>
 
     <SettingSection :title="t('Discover')" class="px-4">
-      <MenuGroup class="p-0 w-full" :items="discoverItems" />
+      <MenuGroup class="p-0 w-full" :items="discoverItems" @action="$event === 'open-personas' ? isPersonasOpen = true : undefined" />
     </SettingSection>
 
     <SettingSection :title="t('Contacts')" title-class="px-4">
@@ -67,4 +68,6 @@ const {
       </Resource>
     </SettingSection>
   </div>
+
+  <DiscoverPersonasModal v-model="isPersonasOpen" />
 </template>

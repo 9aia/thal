@@ -25,7 +25,10 @@ useLocale()
       <div class="flex flex-col justify-between">
         <a class="block text-base text-slate-800">{{ name }}</a>
 
-        <div class="text-xs text-slate-600 line-clamp-2">
+        <div
+          class="text-xs text-slate-600 line-clamp-2"
+          :title="description"
+        >
           {{ description }}
         </div>
       </div>

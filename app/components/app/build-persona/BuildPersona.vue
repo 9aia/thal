@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from "@psitta/vue"
+import { useQueryClient } from "@tanstack/vue-query"
 import { useDebounceFn } from "@vueuse/core"
 import type { User } from "lucia"
 import { useForm } from "vee-validate"
@@ -15,6 +16,7 @@ const toast = useToast()
 const form = useForm<User>()
 const hasErrors = useHasFormErrors(form)
 const loading = ref(false)
+const queryClient = useQueryClient()
 
 async function validateUsername(username: string) {
   if (!username)
@@ -56,6 +58,10 @@ const submit = form.handleSubmit(async (data) => {
     })
 
     toast.success(t("Persona has been created successfully."))
+
+    queryClient.invalidateQueries({
+      queryKey: ["personas"],
+    })
 
     emit("close")
 
