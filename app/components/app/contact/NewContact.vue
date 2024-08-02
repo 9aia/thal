@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from "@psitta/vue"
+import { useQueryClient } from "@tanstack/vue-query"
 import { useDebounceFn } from "@vueuse/core"
 import type { User } from "lucia"
 import { useForm } from "vee-validate"
@@ -12,7 +13,9 @@ const emit = defineEmits<{
 const { t } = useI18n()
 const toast = useToast()
 
-const form = useForm<User>()
+const queryClient = useQueryClient()
+
+const form = useForm<{ name: string, username: string }>()
 const hasErrors = useHasFormErrors(form)
 const loading = ref(false)
 
@@ -20,24 +23,36 @@ async function validateUsername(username: string) {
   if (!username)
     return
 
-  let invalid = false
-
   try {
-    const { valid } = await $fetch(`/api/persona/validate-username/${username}`)
+    const {
+      alreadyAdded,
+      isUsernameValid,
+      personaNotFound,
+    } = await $fetch(`/api/contact/validate-username/${username}`)
 
-    invalid = !valid
+    if (alreadyAdded) {
+      form.setErrors({
+        username: t("Contact already added."),
+      })
+    }
+
+    if (!isUsernameValid) {
+      form.setErrors({
+        username: t("Username is invalid."),
+      })
+    }
+
+    if (personaNotFound) {
+      form.setErrors({
+        username: t("Persona not found."),
+      })
+    }
   }
   catch (e) {
     toast.error(t(
       "An error occurred while validating username.",
     ))
-    invalid = false
   }
-
-  form.setFieldError(
-    "username",
-    invalid ? t("Username is invalid.") : undefined,
-  )
 }
 
 const debouncedValidateUsername = useDebounceFn(validateUsername, 500)
@@ -47,22 +62,25 @@ const submit = form.handleSubmit(async (data) => {
   loading.value = true
 
   try {
-    await $fetch(`/api/persona`, {
+    await $fetch(`/api/contact`, {
       method: "post",
       body: {
         ...data,
-        conversationStarters: [],
       },
     })
 
-    toast.success(t("Persona has been created successfully."))
+    toast.success(t("Contact has been created successfully."))
 
     emit("close")
+
+    queryClient.invalidateQueries({
+      queryKey: ["contacts"],
+    })
 
     form.resetForm()
   }
   catch (e) {
-    toast.error(t("An error occurred while creating persona."))
+    toast.error(t("An error occurred while creating contact."))
   }
 
   loading.value = false
@@ -76,7 +94,7 @@ const submit = form.handleSubmit(async (data) => {
         <Btn size="sm" class="btn-ghost btn-circle" @click="emit('close')">
           <Icon name="arrow_back" />
         </Btn>
-        {{ t("Build Persona") }}
+        {{ t("New Contact") }}
       </h1>
     </Navbar>
 
@@ -99,18 +117,6 @@ const submit = form.handleSubmit(async (data) => {
               />
             </template>
           </TextField>
-
-          <TextField
-            path="description" :label="t('Description')" :rules="yupify(descriptionSchema, t(
-              'Description must contain between 1 and 100 characters.',
-            ))"
-          />
-
-          <Textarea
-            path="instructions" :label="t('Instructions')" :rules="yupify(instructionsSchema, t(
-              'Instructions must contain between 1 and 500 characters.',
-            ))"
-          />
 
           <div class="h-2" />
 

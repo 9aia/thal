@@ -9,6 +9,7 @@ const drawers = reactive({
   settings: false,
   newChat: false,
   personaBuilder: false,
+  newContact: false,
 })
 
 function handleMenuClick(type: string) {
@@ -22,6 +23,8 @@ function handleMenuClick(type: string) {
     drawers.newChat = true
   else if (type === "build-persona-drawer")
     drawers.personaBuilder = true
+  else if (type === "new-contact-drawer")
+    drawers.newContact = true
 }
 
 const isRootDrawerOpen = ref(false)
@@ -79,6 +82,13 @@ const isRootDrawerOpen = ref(false)
                     v-model="drawers.personaBuilder"
                   >
                     <BuildPersona @close="close" />
+                  </Drawer>
+
+                  <Drawer
+                    v-slot="{ close }"
+                    v-model="drawers.newContact"
+                  >
+                    <NewContact @close="close" />
                   </Drawer>
                 </template>
               </Drawer>
