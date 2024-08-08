@@ -264,3 +264,35 @@ export const selectLevelSchema = createSelectSchema(levels)
 export type LevelSelect = z.infer<typeof selectLevelSchema>
 
 // #endregion
+
+// #region Chats
+
+export const chats = sqliteTable("Chat", {
+  id: int("id").primaryKey({ autoIncrement: true }),
+  userId: text("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  personaId: int("persona_id")
+    .notNull()
+    .references(() => personas.id, { onDelete: "cascade" }),
+  createdAt: text("created_at").notNull(),
+})
+
+// #endregion
+
+// #region Messages
+
+export const messages = sqliteTable("Message", {
+  id: int("id").primaryKey({ autoIncrement: true }),
+  chatId: int("chat_id")
+    .notNull()
+    .references(() => chats.id, { onDelete: "cascade" }),
+  content: text("content").notNull(),
+  createdAt: text("created_at").notNull(),
+})
+
+export const messageSendSchema = z.object({
+  message: z.string(),
+})
+
+// #endregion

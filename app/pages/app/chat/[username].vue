@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useQuery } from "@tanstack/vue-query"
 import AppLayout from "~/layouts/app.vue"
 import type { Message } from "~/types"
 
@@ -18,7 +19,7 @@ const {
   queryKey: ["chat", computed(() => params.username)],
 })
 
-const chats: Message[] = [
+const chatsData: Message[] = [
   {
     id: "1",
     from: "user",
@@ -29,6 +30,48 @@ const chats: Message[] = [
   {
     id: "1",
     from: "user",
+    message: "Hello, I am Motoko Kusanagi",
+    status: "sent",
+    text: "10:00 AM",
+  },
+  {
+    id: "1",
+    from: "bot",
+    message: "Hello, I am Motoko Kusanagi",
+    status: "sent",
+    text: "10:00 AM",
+  },
+  {
+    id: "1",
+    from: "bot",
+    message: "Hello, I am Motoko Kusanagi",
+    status: "sent",
+    text: "10:00 AM",
+  },
+  {
+    id: "1",
+    from: "bot",
+    message: "Hello, I am Motoko Kusanagi",
+    status: "sent",
+    text: "10:00 AM",
+  },
+  {
+    id: "1",
+    from: "bot",
+    message: "Hello, I am Motoko Kusanagi",
+    status: "sent",
+    text: "10:00 AM",
+  },
+  {
+    id: "1",
+    from: "bot",
+    message: "Hello, I am Motoko Kusanagi",
+    status: "sent",
+    text: "10:00 AM",
+  },
+  {
+    id: "1",
+    from: "bot",
     message: "Hello, I am Motoko Kusanagi",
     status: "sent",
     text: "10:00 AM",
@@ -76,6 +119,25 @@ const chats: Message[] = [
     text: "10:00 AM",
   },
 ]
+
+const chatQuery = useQuery({
+  queryKey: ["messages", computed(() => params.username)],
+  queryFn: () => {
+    // return $fetch(`/api/chat/messages/${params.username}`)
+    return new Promise<Message[]>((resolve) => {
+      setTimeout(() => {
+        resolve(chatsData)
+      }, 1000)
+    })
+  },
+})
+
+const scrollContainer = ref<HTMLElement | null>(null)
+
+function fixScroll() {
+  if (scrollContainer.value)
+    scrollContainer.value.scrollTop = scrollContainer.value.scrollHeight
+}
 </script>
 
 <template>
@@ -94,7 +156,18 @@ const chats: Message[] = [
           :name="data?.name"
         />
 
-        <ChatConversation :chats="chats" class="flex-1 overflow-y-auto" />
+        <main ref="scrollContainer" class="py-4 px-12 flex-1 overflow-y-auto relative">
+          <Resource
+            :loading="chatQuery.isPending.value"
+            :error="chatQuery.isError.value"
+            @execute="chatQuery.refetch"
+          >
+            <ChatConversation
+              :chats="chatQuery.data.value!"
+              @fix-scroll="fixScroll"
+            />
+          </Resource>
+        </main>
 
         <ChatFooter />
       </Resource>

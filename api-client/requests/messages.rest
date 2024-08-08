@@ -1,0 +1,17 @@
+@username = ishikawa
+
+### Get history
+
+GET {{baseUrl}}/message/{{username}}
+Content-Type: application/json
+Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+
+### Send message
+
+POST {{baseUrl}}/message/{{username}}
+Content-Type: application/json
+Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+
+{
+  "message": "Hello"
+}
