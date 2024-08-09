@@ -109,14 +109,15 @@ export interface MessageContent {
   status: "seen" | "sent" | "received" | "sending"
 }
 
-export interface User {
+export interface Persona {
   name: string
+  username: string
   avatar?: string
 }
 
 export interface Chat {
-  id: string
-  user: User
+  id: number
+  persona: Persona
   lastMessage: MessageContent
 }
 

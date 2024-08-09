@@ -1,6 +1,8 @@
+/* eslint-disable ts/no-use-before-define */
 import { int, sqliteTable, text, unique } from "drizzle-orm/sqlite-core"
 import { createInsertSchema, createSelectSchema } from "drizzle-zod"
 import { z } from "zod"
+import { relations } from "drizzle-orm"
 import { MAX_GOALS_AMOUNT, MAX_HOBBIES_AMOUNT, MAX_OBSERVATION_CHARS, MAX_PROFESSION_CHARS } from "../app/constants/base"
 
 // #region Users
@@ -168,15 +170,33 @@ export type PersonaUpdate = z.infer<typeof personaUpdateSchema>
 export const contacts = sqliteTable("Contact", {
   id: int("id").primaryKey({ autoIncrement: true }),
   name: text("name").notNull(),
-  createdAt: text("created_at").notNull(),
   personaId: int("persona_id")
     .notNull()
     .references(() => personas.id, { onDelete: "cascade" }),
   userId: text("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
+  createdAt: text("created_at").notNull(),
 }, t => ({
   unq: unique().on(t.userId, t.personaId),
+}))
+
+export const contactsRelations = relations(contacts, ({ one }) => ({
+  chat: one(chats, {
+    fields: [contacts.id],
+    references: [chats.contactId],
+    relationName: "chat",
+  }),
+  persona: one(personas, {
+    fields: [contacts.personaId],
+    references: [personas.id],
+    relationName: "persona",
+  }),
+  user: one(users, {
+    fields: [contacts.userId],
+    references: [users.id],
+    relationName: "user",
+  }),
 }))
 
 export const contactSchema = createSelectSchema(contacts)
@@ -269,14 +289,37 @@ export type LevelSelect = z.infer<typeof selectLevelSchema>
 
 export const chats = sqliteTable("Chat", {
   id: int("id").primaryKey({ autoIncrement: true }),
-  userId: text("user_id")
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
   personaId: int("persona_id")
     .notNull()
     .references(() => personas.id, { onDelete: "cascade" }),
+  userId: text("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  contactId: int("contact_id")
+    .notNull()
+    .references(() => contacts.id),
   createdAt: text("created_at").notNull(),
-})
+}, t => ({
+  unq: unique().on(t.userId, t.personaId),
+}))
+
+export const chatsRelations = relations(chats, ({ one }) => ({
+  contact: one(contacts, {
+    fields: [chats.contactId],
+    references: [contacts.id],
+    relationName: "contact",
+  }),
+  persona: one(personas, {
+    fields: [chats.personaId],
+    references: [personas.id],
+    relationName: "persona",
+  }),
+  user: one(users, {
+    fields: [chats.userId],
+    references: [users.id],
+    relationName: "user",
+  }),
+}))
 
 // #endregion
 

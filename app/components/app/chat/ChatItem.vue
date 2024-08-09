@@ -3,13 +3,12 @@ import { useLocale } from "@psitta/vue"
 import type { MessageContent, User } from "~/types"
 
 const props = defineProps<{
-  id: string
-  user: User
+  id: number
+  persona: User
   lastMessage: MessageContent
 }>()
 
 const locale = useLocale()
-const user = useUser()
 
 const date = computed(() => {
   const date = props.lastMessage.date
@@ -66,7 +65,7 @@ const icon = computed(() => {
 })
 
 function openChat() {
-  navigateTo(`/app/chat/${user!.value?.username}`)
+  navigateTo(`/app/chat/${props.persona.username}`)
 }
 </script>
 
@@ -83,7 +82,7 @@ function openChat() {
 
     <div class="flex-1 flex flex-col justify-center">
       <div class="flex justify-between items-center">
-        <a class="block text-base text-slate-800">{{ user!.name }}</a>
+        <a class="block text-base text-slate-800">{{ persona.name }}</a>
 
         <div class="text-xs text-slate-600">
           {{ date }}

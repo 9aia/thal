@@ -8,140 +8,29 @@ const emit = defineEmits<{
   (e: "close"): void
 }>()
 
-const convos: Chat[] = [
-  {
-    id: "1",
-    user: {
-      name: "Batou",
-      avatar: "b",
+const {
+  data,
+} = await useServerQuery(() => "/api/chat", {
+  queryKey: computed(() => ["chats"]),
+})
+
+console.log(data.value)
+
+const conversations = computed<Chat[]>(() => {
+  return data.value.map(chat => ({
+    id: chat.id,
+    persona: {
+      name: chat.contact.name || chat.persona.name,
+      username: chat.persona.username,
+      avatar: undefined,
     },
     lastMessage: {
-      date: new Date("2024-07-06T12:00:00Z"),
-      status: "sending",
-      text: "Hi Motoko (loading)!",
-    },
-  },
-  {
-    id: "2",
-    user: {
-      name: "Pazu",
-      avatar: "b",
-    },
-    lastMessage: {
-      date: new Date("2024-07-06T12:00:00Z"),
-      status: "seen",
-      text: "Hi Motoko (seen)!",
-    },
-  },
-  {
-    id: "3",
-    user: {
-      name: "Pazu",
-      avatar: "b",
-    },
-    lastMessage: {
-      date: new Date("2024-07-06T12:00:00Z"),
+      date: now(),
       status: "sent",
-      text: "Hi Motoko (sent)!",
+      text: "Hello, how can I help you today?",
     },
-  },
-  {
-    id: "4",
-    user: {
-      name: "Pazu",
-      avatar: "b",
-    },
-    lastMessage: {
-      date: new Date("2024-07-06T12:00:00Z"),
-      status: "received",
-      text: "Hi Motoko (received)!",
-    },
-  },
-  {
-    id: "4",
-    user: {
-      name: "Pazu",
-      avatar: "b",
-    },
-    lastMessage: {
-      date: new Date("2024-07-06T12:00:00Z"),
-      status: "received",
-      text: "Hi Motoko (received)!",
-    },
-  },
-  {
-    id: "4",
-    user: {
-      name: "Pazu",
-      avatar: "b",
-    },
-    lastMessage: {
-      date: new Date("2024-07-06T12:00:00Z"),
-      status: "received",
-      text: "Hi Motoko (received)!",
-    },
-  },
-  {
-    id: "4",
-    user: {
-      name: "Pazu",
-      avatar: "b",
-    },
-    lastMessage: {
-      date: new Date("2024-07-06T12:00:00Z"),
-      status: "received",
-      text: "Hi Motoko (received)!",
-    },
-  },
-  {
-    id: "4",
-    user: {
-      name: "Pazu",
-      avatar: "b",
-    },
-    lastMessage: {
-      date: new Date("2024-07-06T12:00:00Z"),
-      status: "received",
-      text: "Hi Motoko (received)!",
-    },
-  },
-  {
-    id: "4",
-    user: {
-      name: "Pazu",
-      avatar: "b",
-    },
-    lastMessage: {
-      date: new Date("2024-07-06T12:00:00Z"),
-      status: "received",
-      text: "Hi Motoko (received)!",
-    },
-  },
-  {
-    id: "4",
-    user: {
-      name: "Pazu",
-      avatar: "b",
-    },
-    lastMessage: {
-      date: new Date("2024-07-06T12:00:00Z"),
-      status: "received",
-      text: "Hi Motoko (received)!",
-    },
-  },
-  {
-    id: "4",
-    user: {
-      name: "Pazu",
-      avatar: "b",
-    },
-    lastMessage: {
-      date: new Date("2024-07-06T12:00:00Z"),
-      status: "received",
-      text: "Hi Motoko (received)!",
-    },
-  },
-]
+  }))
+})
 
 const isNoteVisible = useCookie("isNoteVisible", {
   default: () => true,
@@ -220,7 +109,12 @@ function updateRedirectUrl() {
   </div>
 
   <div class="flex-1 overflow-y-auto bg-white">
-    <ChatItem v-for="convo in convos" v-bind="convo" :key="convo.id" @click="emit('close')" />
+    <ChatItem
+      v-for="conversation in conversations"
+      v-bind="conversation"
+      :key="conversation.id"
+      @click="emit('close')"
+    />
   </div>
 
   <div class="absolute bottom-4 right-4">

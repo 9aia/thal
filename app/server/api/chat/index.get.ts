@@ -1,5 +1,4 @@
-import { eq } from "drizzle-orm"
-import { chats } from "~~/db/schema"
+import { chats, personas } from "~~/db/schema"
 import { unauthorized } from "~/utils/nuxt"
 
 export default defineEventHandler(async (event) => {
@@ -9,10 +8,23 @@ export default defineEventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  const values = await orm
-    .select()
-    .from(chats)
-    .where(eq(chats.userId, user.id))
+  const values = await orm.query.chats.findMany({
+    where: (chats, { eq }) => eq(chats.userId, user.id),
+    with: {
+      contact: {
+        columns: {
+          name: true,
+        },
+      },
+      persona: {
+        columns: {
+          username: true,
+          name: true,
+        },
+      },
+    },
+
+  })
 
   return values
 })
