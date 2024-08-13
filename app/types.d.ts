@@ -103,6 +103,11 @@ export interface ExerciseGenerateDto {
 
 // #region Chat
 
+export interface MessageData {
+  type: "text"
+  value: string
+}
+
 export interface MessageContent {
   date: Date
   text: string

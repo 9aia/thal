@@ -3,29 +3,39 @@ import type { H3EventContext } from "h3"
 import type { User } from "lucia"
 import { notFound } from "~/utils/nuxt"
 import type { NonNullableKeys } from "~/utils/types"
-import type { ContactEntity, ContactGetDto, PersonaGet } from "~~/db/schema"
-import { contacts, personas } from "~~/db/schema"
+import { type ContactEntity, type ContactGetDto, type PersonaGet, contacts, personas } from "~~/db/schema"
 
 export async function getContactByUser(
   orm: H3EventContext["orm"],
   user: User,
   username: string,
 ) {
-  const [contact] = await orm
-    .select({
-      id: contacts.id,
-      name: contacts.name,
-      createdAt: contacts.createdAt,
-      username: personas.username,
-    })
-    .from(contacts)
-    .leftJoin(personas, eq(personas.id, contacts.personaId))
-    .where(and(eq(contacts.userId, user.id), eq(personas.username, username)))
+  const result = await orm.query.personas.findFirst({
+    columns: {
+      id: true,
+      username: true,
+    },
+    where: eq(personas.username, username),
+    with: {
+      contacts: {
+        columns: {
+          id: true,
+          name: true,
+        },
+        where: eq(contacts.userId, user.id),
+      },
+    },
+  })
 
-  if (!contact)
+  if (!result)
     throw notFound("Contact not found")
 
-  return contact
+  return {
+    id: result.contacts[0].id,
+    personaId: result.id,
+    name: result.contacts[0].name,
+    username: result.username,
+  }
 }
 
 export function mapContactToDto(contact: ContactEntity, persona: PersonaGet): ContactGetDto {

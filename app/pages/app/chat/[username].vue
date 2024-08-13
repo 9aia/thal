@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useQuery } from "@tanstack/vue-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/vue-query"
 import AppLayout from "~/layouts/app.vue"
 import type { Message } from "~/types"
 
@@ -9,6 +9,7 @@ definePageMeta({
 
 const route = useRoute()
 const params = route.params
+const queryClient = useQueryClient()
 
 const {
   data,
@@ -138,6 +139,26 @@ function fixScroll() {
   if (scrollContainer.value)
     scrollContainer.value.scrollTop = scrollContainer.value.scrollHeight
 }
+
+const text = ref()
+
+const { mutate: sendMessage } = useMutation({
+  mutationFn: (data: { type: "text", value: string }) => $fetch(`/api/message/${params.username}`, {
+    method: "POST",
+    body: JSON.stringify(data),
+  }),
+  onSuccess: () => {
+    queryClient.invalidateQueries({
+      queryKey: ["chats"],
+    })
+
+    text.value = ""
+  },
+})
+
+function handleSend() {
+  sendMessage({ type: "text", value: text.value })
+}
 </script>
 
 <template>
@@ -169,7 +190,10 @@ function fixScroll() {
           </Resource>
         </main>
 
-        <ChatFooter />
+        <ChatFooter
+          v-model="text"
+          @send="handleSend"
+        />
       </Resource>
     </template>
   </AppLayout>

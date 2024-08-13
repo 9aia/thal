@@ -4,6 +4,7 @@ import { createInsertSchema, createSelectSchema } from "drizzle-zod"
 import { z } from "zod"
 import { relations } from "drizzle-orm"
 import { MAX_GOALS_AMOUNT, MAX_HOBBIES_AMOUNT, MAX_OBSERVATION_CHARS, MAX_PROFESSION_CHARS } from "../app/constants/base"
+import type { MessageData } from "~/types"
 
 // #region Users
 
@@ -126,11 +127,16 @@ export const personas = sqliteTable("Persona", {
   name: text("name").notNull(),
   description: text("description").notNull(),
   instructions: text("instructions").notNull(),
-  conversationStarters: text("conversation_starters", { mode: "json" }).$type<Array<string>>().notNull(),
+  conversationStarters: text("conversation_starters").notNull(),
   createdAt: text("created_at").notNull(),
   creatorId: text("creator_id")
     .references(() => users.id, { onDelete: "no action" }),
 })
+
+export const personaRelations = relations(personas, ({ many }) => ({
+  contacts: many(contacts),
+  chats: many(chats),
+}))
 
 export const personaGetSchema = createSelectSchema(personas, {
   conversationStarters: z.array(z.string()),
@@ -185,17 +191,14 @@ export const contactsRelations = relations(contacts, ({ one }) => ({
   chat: one(chats, {
     fields: [contacts.id],
     references: [chats.contactId],
-    relationName: "chat",
   }),
   persona: one(personas, {
     fields: [contacts.personaId],
     references: [personas.id],
-    relationName: "persona",
   }),
   user: one(users, {
     fields: [contacts.userId],
     references: [users.id],
-    relationName: "user",
   }),
 }))
 
@@ -330,12 +333,14 @@ export const messages = sqliteTable("Message", {
   chatId: int("chat_id")
     .notNull()
     .references(() => chats.id, { onDelete: "cascade" }),
-  content: text("content").notNull(),
+  data: text("data", { mode: "json" }).$type<MessageData>().notNull(),
+  isBot: int("is_bot").default(0).notNull(),
   createdAt: text("created_at").notNull(),
 })
 
 export const messageSendSchema = z.object({
-  message: z.string(),
+  type: z.enum(["text"]),
+  value: z.string(),
 })
 
 // #endregion

@@ -6,6 +6,7 @@ import { chats, messageSendSchema, messages, usernameSchema } from "~~/db/schema
 import { getPersonaByUsername } from "~/server/services/persona"
 import { now } from "~/utils/date"
 import { getHistory } from "~/server/services/messages"
+import { getContactByUser } from "~/server/services/contact"
 
 export default eventHandler(async (event) => {
   const { username } = await getValidated(event, "params", z.object({ username: usernameSchema }))
@@ -18,9 +19,12 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  const persona = await getPersonaByUsername(orm, username)
+  const contact = await getContactByUser(orm, user, username)
 
-  if (!persona)
+  if (!contact)
+    throw notFound("Contact not found")
+
+  if (!contact.personaId)
     throw notFound("Persona not found")
 
   const [existingChat] = await orm
@@ -29,7 +33,7 @@ export default eventHandler(async (event) => {
     .where(
       and(
         eq(chats.userId, user.id),
-        eq(chats.personaId, persona.id),
+        eq(chats.personaId, contact.personaId),
       ),
     )
 
@@ -40,7 +44,8 @@ export default eventHandler(async (event) => {
       .insert(chats)
       .values({
         userId: user.id,
-        personaId: persona.id,
+        contactId: contact.id,
+        personaId: contact.personaId,
         createdAt: now().toString(),
       })
       .returning()
@@ -52,7 +57,8 @@ export default eventHandler(async (event) => {
     .insert(messages)
     .values({
       chatId: chat.id,
-      content: data.message,
+      data,
+      isBot: 0,
       createdAt: now().toString(),
     })
 

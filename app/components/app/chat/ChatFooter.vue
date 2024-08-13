@@ -1,5 +1,15 @@
 <script lang="ts" setup>
-const text = ref("")
+const emit = defineEmits<{
+  (e: "send"): void
+}>()
+
+const text = defineModel<string>({
+  required: true,
+})
+
+const icon = computed(() => {
+  return text.value ? "send" : "mic"
+})
 </script>
 
 <template>
@@ -8,8 +18,8 @@ const text = ref("")
       <ContentEditable is="span" v-model="text" class="input w-full h-auto p-[10px] textarea" placeholder="Type a message" />
     </div>
 
-    <div role="button" class="btn btn-ghost btn-circle avatar">
-      <Icon :name="!text ? 'mic' : 'send'" />
+    <div role="button" class="btn btn-ghost btn-circle avatar" @click="emit('send')">
+      <Icon :name="icon" />
     </div>
   </footer>
 </template>
