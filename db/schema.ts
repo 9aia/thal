@@ -306,7 +306,7 @@ export const chats = sqliteTable("Chat", {
   unq: unique().on(t.userId, t.personaId),
 }))
 
-export const chatsRelations = relations(chats, ({ one }) => ({
+export const chatsRelations = relations(chats, ({ one, many }) => ({
   contact: one(contacts, {
     fields: [chats.contactId],
     references: [contacts.id],
@@ -322,6 +322,7 @@ export const chatsRelations = relations(chats, ({ one }) => ({
     references: [users.id],
     relationName: "user",
   }),
+  messages: many(messages),
 }))
 
 // #endregion
@@ -337,6 +338,13 @@ export const messages = sqliteTable("Message", {
   isBot: int("is_bot").default(0).notNull(),
   createdAt: text("created_at").notNull(),
 })
+
+export const messageRelations = relations(messages, ({ one }) => ({
+  chat: one(chats, {
+    fields: [messages.chatId],
+    references: [chats.id],
+  }),
+}))
 
 export const messageSendSchema = z.object({
   type: z.enum(["text"]),

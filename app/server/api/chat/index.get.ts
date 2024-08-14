@@ -1,4 +1,3 @@
-import { chats, personas } from "~~/db/schema"
 import { unauthorized } from "~/utils/nuxt"
 
 export default defineEventHandler(async (event) => {

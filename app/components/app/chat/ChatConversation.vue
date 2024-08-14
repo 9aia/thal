@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Message } from "~/types"
 
-defineProps<{ chats: Message[] }>()
+defineProps<{ history: Message[] }>()
 
 const emit = defineEmits<{
   (e: "fixScroll"): void
@@ -14,7 +14,7 @@ onMounted(() => {
 
 <template>
   <ChatBubble
-    v-for="chat in chats"
+    v-for="chat in history"
     :key="chat.id"
     :from="chat.from"
     :time="chat.text"

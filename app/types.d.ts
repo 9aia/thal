@@ -108,10 +108,12 @@ export interface MessageData {
   value: string
 }
 
+export type MessageStatus = "seen" | "sent" | "received" | "sending"
+
 export interface MessageContent {
   date: Date
   text: string
-  status: "seen" | "sent" | "received" | "sending"
+  status: MessageStatus
 }
 
 export interface Persona {
@@ -131,7 +133,7 @@ export interface Message {
   from: "user" | "bot"
   message: string
   text: string
-  status: string
+  status: MessageStatus
 }
 
 // #endregion

@@ -1,12 +1,11 @@
-import { z } from "zod"
 import { and, eq } from "drizzle-orm"
+import { z } from "zod"
+import { getContactByUser } from "~/server/services/contact"
+import { getHistory } from "~/server/services/messages"
+import { now } from "~/utils/date"
 import { getValidated } from "~/utils/h3"
 import { notFound, unauthorized } from "~/utils/nuxt"
 import { chats, messageSendSchema, messages, usernameSchema } from "~~/db/schema"
-import { getPersonaByUsername } from "~/server/services/persona"
-import { now } from "~/utils/date"
-import { getHistory } from "~/server/services/messages"
-import { getContactByUser } from "~/server/services/contact"
 
 export default eventHandler(async (event) => {
   const { username } = await getValidated(event, "params", z.object({ username: usernameSchema }))
@@ -62,9 +61,7 @@ export default eventHandler(async (event) => {
       createdAt: now().toString(),
     })
 
-  // const history = await getHistory(orm, user, persona)
+  const history = await getHistory(orm, user, username)
 
-  return {
-    response: "Random response",
-  }
+  return history
 })

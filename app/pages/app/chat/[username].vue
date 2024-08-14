@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { useMutation, useQuery, useQueryClient } from "@tanstack/vue-query"
+import { useMutation, useQueryClient } from "@tanstack/vue-query"
 import AppLayout from "~/layouts/app.vue"
-import type { Message } from "~/types"
 
 definePageMeta({
   layout: false,
@@ -20,117 +19,8 @@ const {
   queryKey: ["chat", computed(() => params.username)],
 })
 
-const chatsData: Message[] = [
-  {
-    id: "1",
-    from: "user",
-    message: "Hello, I am Motoko Kusanagi",
-    status: "sent",
-    text: "10:00 AM",
-  },
-  {
-    id: "1",
-    from: "user",
-    message: "Hello, I am Motoko Kusanagi",
-    status: "sent",
-    text: "10:00 AM",
-  },
-  {
-    id: "1",
-    from: "bot",
-    message: "Hello, I am Motoko Kusanagi",
-    status: "sent",
-    text: "10:00 AM",
-  },
-  {
-    id: "1",
-    from: "bot",
-    message: "Hello, I am Motoko Kusanagi",
-    status: "sent",
-    text: "10:00 AM",
-  },
-  {
-    id: "1",
-    from: "bot",
-    message: "Hello, I am Motoko Kusanagi",
-    status: "sent",
-    text: "10:00 AM",
-  },
-  {
-    id: "1",
-    from: "bot",
-    message: "Hello, I am Motoko Kusanagi",
-    status: "sent",
-    text: "10:00 AM",
-  },
-  {
-    id: "1",
-    from: "bot",
-    message: "Hello, I am Motoko Kusanagi",
-    status: "sent",
-    text: "10:00 AM",
-  },
-  {
-    id: "1",
-    from: "bot",
-    message: "Hello, I am Motoko Kusanagi",
-    status: "sent",
-    text: "10:00 AM",
-  },
-  {
-    id: "1",
-    from: "bot",
-    message: "Hello, I am Motoko Kusanagi",
-    status: "sent",
-    text: "10:00 AM",
-  },
-  {
-    id: "1",
-    from: "bot",
-    message: "Hello, I am Motoko Kusanagi",
-    status: "sent",
-    text: "10:00 AM",
-  },
-  {
-    id: "1",
-    from: "bot",
-    message: "Hello, I am Motoko Kusanagi",
-    status: "sent",
-    text: "10:00 AM",
-  },
-  {
-    id: "1",
-    from: "bot",
-    message: "Hello, I am Motoko Kusanagi",
-    status: "sent",
-    text: "10:00 AM",
-  },
-  {
-    id: "1",
-    from: "bot",
-    message: "Hello, I am Motoko Kusanagi",
-    status: "sent",
-    text: "10:00 AM",
-  },
-  {
-    id: "1",
-    from: "bot",
-    message: "Hello, I am Motoko Kusanagi",
-    status: "sent",
-    text: "10:00 AM",
-  },
-]
-
-const chatQuery = useQuery({
+const historyQuery = await useServerQuery(() => `/api/chat/history/${params.username}`, {
   queryKey: ["messages", computed(() => params.username)],
-  queryFn: () => {
-    // return $fetch(`/api/chat/messages/${params.username}`)
-    return new Promise<Message[]>((resolve) => {
-      setTimeout(() => {
-        resolve(chatsData)
-      }, 1000)
-    })
-  },
 })
 
 const scrollContainer = ref<HTMLElement | null>(null)
@@ -140,17 +30,37 @@ function fixScroll() {
     scrollContainer.value.scrollTop = scrollContainer.value.scrollHeight
 }
 
-const text = ref()
+const text = ref("")
 
 const { mutate: sendMessage } = useMutation({
   mutationFn: (data: { type: "text", value: string }) => $fetch(`/api/message/${params.username}`, {
     method: "POST",
     body: JSON.stringify(data),
   }),
-  onSuccess: () => {
-    queryClient.invalidateQueries({
-      queryKey: ["chats"],
+  async onMutate(data) {
+    const newHistory = [...historyQuery.data.value || []]
+
+    newHistory.push({
+      id: `${newHistory.length + 1}`,
+      from: "user",
+      status: "sending",
+      message: data.value,
+      text: "00:00",
     })
+
+    queryClient.setQueryData(["messages", computed(() => params.username)], newHistory)
+    await nextTick()
+    fixScroll()
+  },
+  onSuccess: (newHistory) => {
+    if (historyQuery.data.value?.length === 1) {
+      queryClient.invalidateQueries({
+        queryKey: ["chats"],
+      })
+    }
+
+    queryClient.setQueryData(["messages", computed(() => params.username)], newHistory)
+    fixScroll()
 
     text.value = ""
   },
@@ -168,32 +78,16 @@ function handleSend() {
     </template>
 
     <template #content>
-      <Resource
-        :loading="isLoading"
-        :error="isError"
-        @execute="refetch"
-      >
-        <ChatHeader
-          :name="data?.name"
-        />
+      <Resource :loading="isLoading" :error="isError" @execute="refetch">
+        <ChatHeader :name="data?.name" />
 
         <main ref="scrollContainer" class="py-4 px-12 flex-1 overflow-y-auto relative">
-          <Resource
-            :loading="chatQuery.isPending.value"
-            :error="chatQuery.isError.value"
-            @execute="chatQuery.refetch"
-          >
-            <ChatConversation
-              :chats="chatQuery.data.value!"
-              @fix-scroll="fixScroll"
-            />
+          <Resource :loading="historyQuery.isPending.value" :error="historyQuery.isError.value" @execute="historyQuery.refetch">
+            <ChatConversation :history="historyQuery.data.value!" @fix-scroll="fixScroll" />
           </Resource>
         </main>
 
-        <ChatFooter
-          v-model="text"
-          @send="handleSend"
-        />
+        <ChatFooter v-model="text" @send="handleSend" />
       </Resource>
     </template>
   </AppLayout>
