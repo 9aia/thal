@@ -336,7 +336,7 @@ export const messages = sqliteTable("Message", {
     .references(() => chats.id, { onDelete: "cascade" }),
   data: text("data", { mode: "json" }).$type<MessageData>().notNull(),
   isBot: int("is_bot").default(0).notNull(),
-  createdAt: text("created_at").notNull(),
+  createdAt: int("created_at").notNull(),
 })
 
 export const messageRelations = relations(messages, ({ one }) => ({

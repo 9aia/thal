@@ -40,7 +40,7 @@ export async function getHistory(
     status: "sent",
     from: message.isBot === 0 ? "user" : "bot",
     message: message.data.value,
-    text: "00:00", // TODO
+    time: message.createdAt,
   }))
 
   return messages

@@ -132,7 +132,7 @@ export interface Message {
   id: string
   from: "user" | "bot"
   message: string
-  text: string
+  time: number
   status: MessageStatus
 }
 

@@ -17,7 +17,7 @@ onMounted(() => {
     v-for="chat in history"
     :key="chat.id"
     :from="chat.from"
-    :time="chat.text"
+    :time="chat.time"
     :message="chat.message"
     :status="chat.status"
     :right="chat.from === 'user'"

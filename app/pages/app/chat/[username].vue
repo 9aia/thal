@@ -45,7 +45,7 @@ const { mutate: sendMessage } = useMutation({
       from: "user",
       status: "sending",
       message: data.value,
-      text: "00:00",
+      time: new Date().getTime(),
     })
 
     queryClient.setQueryData(["messages", computed(() => params.username)], newHistory)

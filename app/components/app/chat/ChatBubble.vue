@@ -1,12 +1,21 @@
 <script setup lang="ts">
-defineProps<{
+import { useLocale } from "@psitta/vue"
+
+const props = defineProps<{
   right?: boolean
   from: string
-  time: string
+  time: number
   message: string
   status: string
   img: string
 }>()
+
+const locale = useLocale()
+
+const time = computed(() => new Intl.DateTimeFormat(locale.value, {
+  hour: "2-digit",
+  minute: "2-digit",
+}).format(new Date(props.time)))
 </script>
 
 <template>

@@ -58,7 +58,7 @@ export default eventHandler(async (event) => {
       chatId: chat.id,
       data,
       isBot: 0,
-      createdAt: now().toString(),
+      createdAt: now().getTime(),
     })
 
   const history = await getHistory(orm, user, username)
