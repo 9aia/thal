@@ -51,6 +51,8 @@ const { mutate: sendMessage } = useMutation({
     queryClient.setQueryData(["messages", computed(() => params.username)], newHistory)
     await nextTick()
     fixScroll()
+
+    text.value = ""
   },
   onSuccess: (newHistory) => {
     if (historyQuery.data.value?.length === 1) {
@@ -61,8 +63,6 @@ const { mutate: sendMessage } = useMutation({
 
     queryClient.setQueryData(["messages", computed(() => params.username)], newHistory)
     fixScroll()
-
-    text.value = ""
   },
 })
 

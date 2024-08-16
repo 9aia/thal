@@ -9,6 +9,7 @@
     "**/node_modules": true,
     "**/.wrangler": true,
     "**/dist": true,
+    ".nuxt": true,
     ".vscode": false
   },
   "explorer.fileNesting.enabled": true,
@@ -24,9 +25,9 @@
     {
       "previewLimit": 50,
       "driver": "SQLite",
-      "database": "${workspaceFolder:maratongue}/.wrangler/state/v3/d1/miniflare-D1DatabaseObject/95763de2ad58e505cd7429d22e8b38bfd585ab0bd389a48d1dd9b093a76f1b56.sqlite",
+      "database": "${workspaceFolder:thal}/.wrangler/state/v3/d1/miniflare-D1DatabaseObject/95763de2ad58e505cd7429d22e8b38bfd585ab0bd389a48d1dd9b093a76f1b56.sqlite",
       "name": "maratongue",
-      "group": "maratongue"
+      "group": "neogaialab"
     }
   ],
   "typescript.tsdk": "node_modules/typescript/lib",

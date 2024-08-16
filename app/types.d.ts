@@ -129,7 +129,7 @@ export interface Chat {
 }
 
 export interface Message {
-  id: string
+  id?: string
   from: "user" | "bot"
   message: string
   time: number

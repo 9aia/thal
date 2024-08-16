@@ -351,4 +351,12 @@ export const messageSendSchema = z.object({
   value: z.string(),
 })
 
+export const selectMessageSchema = createSelectSchema(messages)
+export const insertMessageSchema = createInsertSchema(messages)
+
+export type MessageSelect = z.infer<typeof selectMessageSchema>
+export type MessageInsert = Omit<z.infer<typeof insertMessageSchema>, "data"> & {
+  data: MessageData
+}
+
 // #endregion

@@ -52,7 +52,7 @@ const isPersonasOpen = ref(false)
       <MenuGroup class="p-0 w-full" :items="discoverItems" @action="$event === 'open-personas' ? isPersonasOpen = true : undefined" />
     </SettingSection>
 
-    <SettingSection :title="t('Contacts')" title-class="px-4">
+    <SettingSection v-if="contacts.length" :title="t('Contacts')" title-class="px-4">
       <Resource
         :error="isError"
         :loading="isPending"

@@ -26,23 +26,11 @@ const time = computed(() => new Intl.DateTimeFormat(locale.value, {
       'chat-end': right,
     }"
   >
-    <div class="chat-image avatar">
-      <div class="w-10 rounded-full">
-        <img
-          alt="Avatar image"
-          :src="img"
-        >
-      </div>
-    </div>
-
     <div class="chat-header">
-      {{ from }}
       <time class="text-xs opacity-50">{{ time }}</time>
     </div>
 
-    <div class="chat-bubble">
-      {{ message }}
-    </div>
+    <div class="chat-bubble" v-html="message" />
 
     <div class="chat-footer opacity-50">
       {{ status }}

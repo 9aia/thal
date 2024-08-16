@@ -14,14 +14,12 @@ const {
   queryKey: computed(() => ["chats"]),
 })
 
-console.log(data.value)
-
 const conversations = computed<Chat[]>(() => {
   return data.value.map(chat => ({
     id: chat.id,
     persona: {
-      name: chat.contact.name || chat.persona.name,
-      username: chat.persona.username,
+      name: chat.contact?.name || chat.persona?.name,
+      username: chat.persona?.username,
       avatar: undefined,
     },
     lastMessage: {
