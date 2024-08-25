@@ -26,7 +26,7 @@
       "previewLimit": 50,
       "driver": "SQLite",
       "database": "${workspaceFolder:thal}/.wrangler/state/v3/d1/miniflare-D1DatabaseObject/95763de2ad58e505cd7429d22e8b38bfd585ab0bd389a48d1dd9b093a76f1b56.sqlite",
-      "name": "maratongue",
+      "name": "thal",
       "group": "neogaialab"
     }
   ],

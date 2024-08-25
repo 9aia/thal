@@ -72,7 +72,7 @@ const submit = form.handleSubmit(async () => {
       <p class="font-gray-600 mb-4">
         {{
           t(
-            "Maratongue tailors your learning journey to your unique needs. Tell us what you want to achieve with your English.",
+            "Thal tailors your learning journey to your unique needs. Tell us what you want to achieve with your English.",
           )
         }}
       </p>

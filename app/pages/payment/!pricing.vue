@@ -13,7 +13,7 @@ import { t } from "@psitta/vue"
         <div class="card mx-auto w-1/2 bg-white border border-teal-500 shadow-xl">
           <div class="card-body">
             <h2 class="card-title text-slate-800 font-bold">
-              {{ t('Maratongue') }}
+              {{ t('Thal') }}
             </h2>
             <p class="mb-6 text-slate-900">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, commodi!

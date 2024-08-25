@@ -25,10 +25,9 @@ const general: MenuItem[] = [
 
 const support: MenuItem[] = [
   /* {
-    id: "how_maratongue_works",
-    icon: "directions_run",
-    name: "How Maratongue works",
-    href: "/how-maratongue-works",
+    id: "how_Thal_works",
+    name: "How Thal works",
+    href: "/how-thal-works",
   }, */
   {
     id: "feedback",

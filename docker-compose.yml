@@ -1,4 +1,4 @@
-name: maratongue
+name: thal
 services:
   stripe-cli:
     image: stripe/stripe-cli:latest

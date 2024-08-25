@@ -26,8 +26,8 @@ For Visual Studio Code, consider installing the following extensions:
 Clone the repository to your local machine:
 
 ```sh
-git clone https://github.com/maratongue/maratongue
-cd maratongue/
+git clone https://github.com/neogaialab/thal.git
+cd thal/
 ```
 
 Make sure to install the dependencies:
@@ -85,8 +85,8 @@ For testing the API, we utilize the [Vscode REST Client extension](https://marke
 To ensure your changes are synchronized across both GitHub and Gitea repositories, configure your origin remote with multiple push URLs:
 
 ```
-git remote set-url --add --push origin ssh://git@gitea.homelab.vini.center:2222/neogaialab/maratongue.git
-git remote set-url --add --push origin git@github.com:maratongue/maratongue.git
+git remote set-url --add --push origin ssh://git@gitea.homelab.vini.center:2222/neogaialab/thal.git
+git remote set-url --add --push origin git@github.com:neogaialab/thal.git
 ```
 
 #### Pushing

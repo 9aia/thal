@@ -1,9 +1,9 @@
-# Maratongue
+# Thal
 
 > [!WARNING]
-> Maratongue is currently a work in progress. Expect potential bugs, incomplete documentation, and ongoing development. Approach it with a growth mindset, enjoy experimenting, and refrain from using it for critical production purposes at this time.
+> Thal is currently a work in progress. Expect potential bugs, incomplete documentation, and ongoing development. Approach it with a growth mindset, enjoy experimenting, and refrain from using it for critical production purposes at this time.
 
-Maratongue is an English learning app powered by AI that enhances language acquisition through interactive and personalized experiences.
+Thal is an English learning app powered by AI that enhances language acquisition through interactive and personalized experiences.
 
 ## Goals
 
@@ -13,7 +13,7 @@ Maratongue is an English learning app powered by AI that enhances language acqui
 
 ## Scope
 
-Maratongue encompasses the development and management of the following features:
+Thal encompasses the development and management of the following features:
 
 * **Interactive Lessons**: Curate lessons that adapt in real-time to the user's learning pace and comprehension.
 * **AI-Powered Exercises**: Generate exercises and quizzes based on the user's proficiency level, focusing on vocabulary, grammar, pronunciation, and comprehension.
@@ -29,7 +29,7 @@ Maratongue encompasses the development and management of the following features:
 
 ### Requirements
 
-To effectively use Maratongue, you will need:
+To effectively use Thal, you will need:
 
 - Basic understanding of Portuguese.
 - Access to a device with internet connectivity.
@@ -37,4 +37,4 @@ To effectively use Maratongue, you will need:
 
 ## Contributing
 
-Check out [Contributing Guide](/CONTRIBUTING.md) for guidelines on how to contribute to Maratongue.
+Check out [Contributing Guide](/CONTRIBUTING.md) for guidelines on how to contribute to Thal.

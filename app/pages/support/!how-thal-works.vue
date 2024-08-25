@@ -7,7 +7,7 @@ definePageMeta({
 <template>
   <div class="max-w-[800px] mx-auto mb-12 mt-12 px-4">
     <h1 class="text-4xl text-slate-800 mb-4">
-      How Maratongue Works
+      How Thal Works
     </h1>
 
     <p class="text-slate-900">

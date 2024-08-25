@@ -21,7 +21,7 @@ import Icon from "~~/layers/ui/components/display/Icon.vue"
           </p>
 
           <A class="btn btn-primary text-neutral-content" href="/app">{{
-            t("Try Maratongue")
+            t("Try Thal")
           }}</A>
         </div>
       </div>
@@ -52,7 +52,7 @@ import Icon from "~~/layers/ui/components/display/Icon.vue"
         <p class="text-slate-900">
           {{
             t(
-              "Create your Maratongue profile in moments and start your personalized English learning journey. With advanced AI, Maratongue adapts to your learning style, making each lesson unique. Immerse yourself in a world of English adapted especially for you.",
+              "Create your Thal profile in moments and start your personalized English learning journey. With advanced AI, Thal adapts to your learning style, making each lesson unique. Immerse yourself in a world of English adapted especially for you.",
             )
           }}
         </p>
@@ -99,7 +99,7 @@ import Icon from "~~/layers/ui/components/display/Icon.vue"
         <p class="text-slate-900">
           {{
             t(
-              "By using Maratongue, you are preparing yourself to stand out globally. With fluent English, you open doors to opportunities international, increasing your credibility and professional visibility.",
+              "By using Thal, you are preparing yourself to stand out globally. With fluent English, you open doors to opportunities international, increasing your credibility and professional visibility.",
             )
           }}
         </p>
@@ -123,7 +123,7 @@ import Icon from "~~/layers/ui/components/display/Icon.vue"
             <p class="text-slate-900 max-w-lg mx-auto mb-8">
               {{
                 t(
-                  "With Maratongue, learning English is straightforward and hassle-free. Without the need for complex registrations, get started quickly and Focus on what really matters: your language progress English.",
+                  "With Thal, learning English is straightforward and hassle-free. Without the need for complex registrations, get started quickly and Focus on what really matters: your language progress English.",
                 )
               }}
             </p>
@@ -142,7 +142,7 @@ import Icon from "~~/layers/ui/components/display/Icon.vue"
         <p class="text-slate-900 max-w-lg mx-auto mb-8">
           {{
             t(
-              "Monitor your progress in English with Maratongue. Receive comments snapshot and insights into your learning, allowing you to understand your strengths and areas for improvement, and make strategic decisions in your learning process.",
+              "Monitor your progress in English with Thal. Receive comments snapshot and insights into your learning, allowing you to understand your strengths and areas for improvement, and make strategic decisions in your learning process.",
             )
           }}
         </p>
@@ -151,7 +151,7 @@ import Icon from "~~/layers/ui/components/display/Icon.vue"
           <div class="mockup-browser border border-slate-900 bg-slate-800 text-white">
             <div class="mockup-browser-toolbar flex relative">
               <div class="input bg-white px-4 rounded-xl text-slate-900">
-                https://maratongue.com
+                https://thal.app
               </div>
             </div>
             <div class="flex justify-center px-4 py-16 bg-white h-[400px]" />
@@ -171,7 +171,7 @@ import Icon from "~~/layers/ui/components/display/Icon.vue"
             {{ t("Start learning now") }}
           </h1>
           <A class="btn btn-primary text-slate-900" href="/app">
-            {{ t("Try Maratongue") }}</A>
+            {{ t("Try Thal") }}</A>
         </div>
       </div>
     </div>

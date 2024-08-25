@@ -1,5 +1,5 @@
 {
-  "name": "maratongue",
+  "name": "thal",
   "type": "module",
   "private": true,
   "scripts": {
@@ -12,8 +12,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "wrangler d1 migrations apply maratongue --local",
-    "db:migrate:prod": "wranger d1 migrations apply maratongue",
+    "db:migrate": "wrangler d1 migrations apply thal --local",
+    "db:migrate:prod": "wranger d1 migrations apply thal",
     "db:studio": "drizzle-kit studio",
     "cf:types": "wrangler types",
     "up": "docker compose up -d",

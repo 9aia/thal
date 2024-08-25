@@ -78,11 +78,10 @@ const sections: SectionItem[] = [
     <p class="px-4 py-4 text-primary w-full flex items-center sm:justify-center gap-1">
       <T
         text="{year} - Developed by {teamName}"
-        :values="{ year: [new Date(), { year: 'numeric' }], teamName: 'Maratongue' }" class="flex items-center gap-1"
+        :values="{ year: [new Date(), { year: 'numeric' }], teamName: 'Thal' }" class="flex items-center gap-1"
       >
         <template #teamName="slotProps">
           <A href="/about" class="font-bold flex items-center gap-1">
-            <Icon name="directions_run" label="amor" class="" />
             {{ slotProps.teamName }}
           </A>
         </template>

@@ -16,7 +16,7 @@ definePageMeta({
 
         <p>
           {{ t('If you have any problem, you can contact us at:') }}
-          <a href="mailto:support@maratongue.com">support@maratongue.com</a>
+          <a href="mailto:support@thal.app">support@thal.app</a>
         </p>
 
         <p>

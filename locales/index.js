@@ -80,8 +80,8 @@ export default {
   "Account": {
     pt: "Conta",
   },
-  "How Maratongue works": {
-    pt: "Como o Maratongue funciona",
+  "How Thal works": {
+    pt: "Como o Thal funciona",
   },
   "Give us feedback": {
     pt: "Nos dê seu feedback",
@@ -140,8 +140,8 @@ export default {
   "Why are you learning English?": {
     pt: "Por que você está aprendendo inglês?",
   },
-  "Maratongue tailors your learning journey to your unique needs. Tell us what you want to achieve with your English.": {
-    pt: "O Maratongue adapta sua jornada de aprendizado às suas necessidades únicas. Conte-nos o que você quer conquistar com seu inglês.",
+  "Thal tailors your learning journey to your unique needs. Tell us what you want to achieve with your English.": {
+    pt: "O Thal adapta sua jornada de aprendizado às suas necessidades únicas. Conte-nos o que você quer conquistar com seu inglês.",
   },
   "Select all that apply.": {
     pt: "Selecione tudo o que se aplica.",
@@ -230,8 +230,8 @@ export default {
   "Language": {
     pt: "Linguagem",
   },
-  "Try Maratongue": {
-    pt: "Experimente o Maratongue",
+  "Try Thal": {
+    pt: "Experimente o Thal",
   },
   "Master English, Transform Your Future.": {
     pt: "Domine o inglês, transforme seu futuro.",
@@ -245,32 +245,32 @@ export default {
   "Personalize your Learning Journey": {
     pt: "Personalize sua jornada de aprendizado",
   },
-  "Create your Maratongue profile in moments and start your personalized English learning journey. With advanced AI, Maratongue adapts to your learning style, making each lesson unique. Immerse yourself in a world of English adapted especially for you.": {
-    pt: "Crie seu perfil Maratongue em instantes e comece sua jornada de aprendizado de inglês personalizada. Com IA avançada, o Maratongue se adapta ao seu estilo de aprendizado, tornando cada aula única. Mergulhe em um mundo de inglês adaptado especialmente para você.",
+  "Create your Thal profile in moments and start your personalized English learning journey. With advanced AI, Thal adapts to your learning style, making each lesson unique. Immerse yourself in a world of English adapted especially for you.": {
+    pt: "Crie seu perfil Thal em instantes e comece sua jornada de aprendizado de inglês personalizada. Com IA avançada, o Thal se adapta ao seu estilo de aprendizado, tornando cada aula única. Mergulhe em um mundo de inglês adaptado especialmente para você.",
   },
   "Multiplatform Learning Experience": {
     pt: "Experiência de aprendizado multiplataforma",
   },
   "Learn English on any device - cell phone, tablet or computer. Marathongue offers a learning experience consistent and effective, whether you're at home or on the go. Learn flexibly and conveniently, with full compatibility between devices.": {
-    pt: "Aprenda inglês em qualquer dispositivo - celular, tablet ou computador. O Maratongue oferece uma experiência de aprendizado consistente e eficaz, esteja você em casa ou em trânsito. Aprenda com flexibilidade e conveniência, com total compatibilidade entre dispositivos.",
+    pt: "Aprenda inglês em qualquer dispositivo - celular, tablet ou computador. O Thal oferece uma experiência de aprendizado consistente e eficaz, esteja você em casa ou em trânsito. Aprenda com flexibilidade e conveniência, com total compatibilidade entre dispositivos.",
   },
   "Stand out with English Proficiency": {
     pt: "Destaque-se com proficiência em inglês",
   },
-  "By using Maratongue, you are preparing yourself to stand out globally. With fluent English, you open doors to opportunities international, increasing your credibility and professional visibility.": {
-    pt: "Ao usar o Maratongue, você está se preparando para se destacar globalmente. Com inglês fluente, você abre portas para oportunidades internacionais, aumentando sua credibilidade e visibilidade profissional.",
+  "By using Thal, you are preparing yourself to stand out globally. With fluent English, you open doors to opportunities international, increasing your credibility and professional visibility.": {
+    pt: "Ao usar o Thal, você está se preparando para se destacar globalmente. Com inglês fluente, você abre portas para oportunidades internacionais, aumentando sua credibilidade e visibilidade profissional.",
   },
   "Direct and Efficient Learning": {
     pt: "Aprendizado direto e eficiente",
   },
-  "With Maratongue, learning English is straightforward and hassle-free. Without the need for complex registrations, get started quickly and Focus on what really matters: your language progress English.": {
-    pt: "Com o Maratongue, aprender inglês é simples e descomplicado. Sem a necessidade de registros complexos, comece rapidamente e concentre-se no que realmente importa: seu progresso no idioma inglês.",
+  "With Thal, learning English is straightforward and hassle-free. Without the need for complex registrations, get started quickly and Focus on what really matters: your language progress English.": {
+    pt: "Com o Thal, aprender inglês é simples e descomplicado. Sem a necessidade de registros complexos, comece rapidamente e concentre-se no que realmente importa: seu progresso no idioma inglês.",
   },
   "Track your progress": {
     pt: "Acompanhe seu progresso",
   },
-  "Monitor your progress in English with Maratongue. Receive comments snapshot and insights into your learning, allowing you to understand your strengths and areas for improvement, and make strategic decisions in your learning process.": {
-    pt: "Monitore seu progresso em inglês com o Maratongue. Receba um instantâneo de comentários e insights sobre seu aprendizado, permitindo que você entenda seus pontos fortes e áreas para melhoria, e tome decisões estratégicas em seu processo de aprendizado.",
+  "Monitor your progress in English with Thal. Receive comments snapshot and insights into your learning, allowing you to understand your strengths and areas for improvement, and make strategic decisions in your learning process.": {
+    pt: "Monitore seu progresso em inglês com o Thal. Receba um instantâneo de comentários e insights sobre seu aprendizado, permitindo que você entenda seus pontos fortes e áreas para melhoria, e tome decisões estratégicas em seu processo de aprendizado.",
   },
   "Start learning now": {
     pt: "Comece a aprender agora",

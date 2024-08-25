@@ -7,8 +7,7 @@ import Icon from "../display/Icon.vue"
     <nav class="px-4 navbar max-w-[800px] mx-auto">
       <div class="navbar-start">
         <A href="/" class="text-xl flex gap-1 items-center justify-center">
-          <Icon name="directions_run" />
-          <span class="font-bold">Maratongue</span>
+          <span class="font-bold">Thal</span>
 
           <div
             class="badge badge-primary badge-outline uppercase"

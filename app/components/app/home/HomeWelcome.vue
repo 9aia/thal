@@ -24,7 +24,7 @@ const emit = defineEmits<{
         </div>
 
         <h1 class="text-5xl font-medium text-slate-800 mb-4">
-          Maratongue
+          Thal
         </h1>
 
         <div class="text-center font-medium">

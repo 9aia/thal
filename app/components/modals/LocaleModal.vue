@@ -48,7 +48,7 @@ const submit = form.handleSubmit(async (data) => {
       </h1>
 
       <p class="font-gray-600 mb-4">
-        {{ t("Maratongue allows you to tailor your preferences to suit your needs, whether you prefer to navigate in your native language or challenge yourself with English.") }}
+        {{ t("Thal allows you to tailor your preferences to suit your needs, whether you prefer to navigate in your native language or challenge yourself with English.") }}
       </p>
 
       <div class="h-[200px] px-2 overflow-auto">
