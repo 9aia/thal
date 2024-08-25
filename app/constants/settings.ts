@@ -1,58 +1,34 @@
-import type { MenuItem } from "~~/layers/ui/components/layout/types"
+import type { MenuItem } from "~~/layers/ui/components/navigation/types"
 
 const general: MenuItem[] = [
   {
     id: "profile",
     icon: "face",
     name: "Profile",
-    type: "accordion",
-    href: "/settings/profile",
+    emit: "profile-drawer",
   },
   {
     id: "account",
     icon: "person",
     name: "Account",
-    type: "accordion",
-    href: "/settings/account",
+    emit: "account-drawer",
   },
   {
     id: "plan",
-    name: "Plan",
+    name: "Subscription",
     action: "/api/payment/stripe/create-portal-session",
     method: "post",
     icon: "subscriptions",
     type: "external",
   },
-  /* {
-    id: "privacy",
-    icon: "disabled_visible",
-    name: "Privacy",
-    type: "accordion",
-    href: "/settings/privacy",
-  }, */
-  /* {
-    id: "notifications",
-    icon: "notifications",
-    name: "Notifications",
-    type: "accordion",
-    href: "/settings/notifications",
-  }, */
-  /* {
-    id: "accessibility",
-    icon: "accessibility",
-    name: "Accessibility",
-    type: "accordion",
-    href: "/settings/accessibility",
-  }, */
 ]
 
 const support: MenuItem[] = [
-  {
-    id: "how_maratongue_works",
-    icon: "directions_run",
-    name: "How Maratongue works",
-    href: "/how-maratongue-works",
-  },
+  /* {
+    id: "how_Thal_works",
+    name: "How Thal works",
+    href: "/how-thal-works",
+  }, */
   {
     id: "feedback",
     icon: "feedback",

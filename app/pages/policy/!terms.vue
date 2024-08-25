@@ -19,7 +19,7 @@ definePageMeta({
 
       <h2>1. Aceitação dos Termos</h2>
       <p>
-        Ao acessar ou usar o Maratongue, você concorda em cumprir estes Termos de
+        Ao acessar ou usar o Thal, você concorda em cumprir estes Termos de
         Serviço. Se você não concordar com qualquer parte destes termos, você não
         poderá acessar o aplicativo.
       </p>
@@ -34,7 +34,7 @@ definePageMeta({
 
       <h2>3. Contas de Usuário</h2>
       <p>
-        Para acessar determinados recursos do Maratongue, você deve criar uma conta. Ao criar uma conta, você concorda
+        Para acessar determinados recursos do Thal, você deve criar uma conta. Ao criar uma conta, você concorda
         em:
       </p>
       <ul>
@@ -44,7 +44,7 @@ definePageMeta({
           não autorizado à sua conta.
         </li>
         <li>
-          <strong>Exclusão de conta:</strong> Você tem o direito de excluir sua conta Maratongue e informações pessoais
+          <strong>Exclusão de conta:</strong> Você tem o direito de excluir sua conta Thal e informações pessoais
           associadas. Para iniciar o processo de exclusão da conta, siga as instruções fornecidas nas <a
             href="/settings/account"
           >configurações do aplicativo</a>.
@@ -55,7 +55,7 @@ definePageMeta({
         </li>
       </ul>
       <p>
-        Ao usar o Maratongue, você concorda em aceitar a responsabilidade por todas as atividades que ocorrem em sua
+        Ao usar o Thal, você concorda em aceitar a responsabilidade por todas as atividades que ocorrem em sua
         conta.
       </p>
 
@@ -111,11 +111,11 @@ definePageMeta({
         aceitação dos novos termos.
       </p>
 
-      <hr class="border-gray-400 mb-4 mt-12">
+      <hr class="border-base-200 mb-4 mt-12">
       <p>
         Se você tiver alguma dúvida sobre estes Termos de Serviço, entre em
         contato conosco em
-        <a href="mailto:suporte@maratongue.com">suporte@maratongue.com</a>.
+        <a href="mailto:suporte@thal.app">suporte@thal.app</a>.
       </p>
     </template>
     <template v-else>
@@ -127,7 +127,7 @@ definePageMeta({
 
       <h2>1. Acceptance of Terms</h2>
       <p>
-        By accessing or using the Maratongue, you agree to comply with these Terms
+        By accessing or using the Thal, you agree to comply with these Terms
         of Service. If you do not agree with any part of these terms, you may not
         access the application.
       </p>
@@ -141,7 +141,7 @@ definePageMeta({
 
       <h2>3. User Accounts</h2>
       <p>
-        To access certain features of Maratongue, you must create an account. By creating an account, you agree to:
+        To access certain features of Thal, you must create an account. By creating an account, you agree to:
       </p>
       <ul>
         <li>
@@ -150,7 +150,7 @@ definePageMeta({
           unauthorized access to your account.
         </li>
         <li>
-          <strong>Account Deletion:</strong> You have the right to delete your Maratongue account and associated
+          <strong>Account Deletion:</strong> You have the right to delete your Thal account and associated
           personal information. To initiate the account deletion process, please follow the instructions provided in the
           <a href="/settings/account">app settings</a>.
         </li>
@@ -160,7 +160,7 @@ definePageMeta({
         </li>
       </ul>
       <p>
-        By using Maratongue, you agree to accept responsibility for all activities that occur under your account.
+        By using Thal, you agree to accept responsibility for all activities that occur under your account.
       </p>
 
       <h2>4. Content</h2>
@@ -214,11 +214,11 @@ definePageMeta({
         your acceptance of the new terms.
       </p>
 
-      <hr class="border-gray-400 mb-4 mt-12">
+      <hr class="border-base-200 mb-4 mt-12">
       <p>
         If you have any questions about these Terms of Service, please contact us
         at
-        <a href="mailto:support@maratongue.com">support@maratongue.com</a>.
+        <a href="mailto:support@thal.app">support@thal.app</a>.
       </p>
     </template>
   </div>

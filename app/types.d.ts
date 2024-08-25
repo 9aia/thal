@@ -100,3 +100,40 @@ export interface ExerciseGenerateDto {
 }
 
 // #endregion
+
+// #region Chat
+
+export interface MessageData {
+  type: "text"
+  value: string
+}
+
+export type MessageStatus = "seen" | "sent" | "received" | "sending"
+
+export interface MessageContent {
+  date: Date
+  text: string
+  status: MessageStatus
+}
+
+export interface Persona {
+  name: string
+  username: string
+  avatar?: string
+}
+
+export interface Chat {
+  id: number
+  persona: Persona
+  lastMessage: MessageContent
+}
+
+export interface Message {
+  id?: string
+  from: "user" | "bot"
+  message: string
+  time: number
+  status: MessageStatus
+}
+
+// #endregion

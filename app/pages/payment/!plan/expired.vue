@@ -11,12 +11,12 @@ definePageMeta({
     <div class="card w-[28rem] bg-base-100 shadow-xl">
       <div class="card-body">
         <h2 class="card-title">
-          {{ t('Your plan expired!') }}
+          {{ t('Your subscription expired!') }}
         </h2>
 
         <p>
           {{ t('If you have any problem, you can contact us at:') }}
-          <a href="mailto:support@maratongue.com">support@maratongue.com</a>
+          <a href="mailto:support@thal.app">support@thal.app</a>
         </p>
 
         <p>

@@ -1,7 +1,10 @@
-import { int, sqliteTable, text } from "drizzle-orm/sqlite-core"
+/* eslint-disable ts/no-use-before-define */
+import { int, sqliteTable, text, unique } from "drizzle-orm/sqlite-core"
 import { createInsertSchema, createSelectSchema } from "drizzle-zod"
 import { z } from "zod"
+import { relations } from "drizzle-orm"
 import { MAX_GOALS_AMOUNT, MAX_HOBBIES_AMOUNT, MAX_OBSERVATION_CHARS, MAX_PROFESSION_CHARS } from "../app/constants/base"
+import type { MessageData } from "~/types"
 
 // #region Users
 
@@ -113,6 +116,130 @@ export type UserUpdate = z.infer<typeof userUpdateSchema>
 
 // #endregion
 
+// #region Personas
+
+export const descriptionSchema = z.string().min(1).max(100)
+export const instructionsSchema = z.string().min(1).max(500)
+
+export const personas = sqliteTable("Persona", {
+  id: int("id").primaryKey({ autoIncrement: true }),
+  username: text("username").unique().notNull(),
+  name: text("name").notNull(),
+  description: text("description").notNull(),
+  instructions: text("instructions").notNull(),
+  conversationStarters: text("conversation_starters").notNull(),
+  createdAt: text("created_at").notNull(),
+  creatorId: text("creator_id")
+    .references(() => users.id, { onDelete: "no action" }),
+})
+
+export const personaRelations = relations(personas, ({ many }) => ({
+  contacts: many(contacts),
+  chats: many(chats),
+}))
+
+export const personaGetSchema = createSelectSchema(personas, {
+  conversationStarters: z.array(z.string()),
+})
+  .omit({
+    creatorId: true,
+  })
+  .extend({
+    username: usernameSchema,
+  })
+
+export const personaInsertSchema = createInsertSchema(personas, {
+  conversationStarters: z.array(z.string()),
+})
+  .omit({
+    id: true,
+    creatorId: true,
+    createdAt: true,
+  })
+
+export const personaUpdateSchema = createInsertSchema(personas, {
+  name: nameSchema,
+  username: usernameSchema,
+  description: descriptionSchema,
+  conversationStarters: z.array(z.string()),
+})
+  .partial()
+
+export type PersonaGet = z.infer<typeof personaGetSchema>
+export type PersonaInsert = z.infer<typeof personaInsertSchema>
+export type PersonaUpdate = z.infer<typeof personaUpdateSchema>
+
+// #endregion
+
+// #region Contacts
+
+export const contacts = sqliteTable("Contact", {
+  id: int("id").primaryKey({ autoIncrement: true }),
+  name: text("name").notNull(),
+  personaId: int("persona_id")
+    .notNull()
+    .references(() => personas.id, { onDelete: "cascade" }),
+  userId: text("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  createdAt: text("created_at").notNull(),
+}, t => ({
+  unq: unique().on(t.userId, t.personaId),
+}))
+
+export const contactsRelations = relations(contacts, ({ one }) => ({
+  chat: one(chats, {
+    fields: [contacts.id],
+    references: [chats.contactId],
+  }),
+  persona: one(personas, {
+    fields: [contacts.personaId],
+    references: [personas.id],
+  }),
+  user: one(users, {
+    fields: [contacts.userId],
+    references: [users.id],
+  }),
+}))
+
+export const contactSchema = createSelectSchema(contacts)
+
+export const contactGetSchema = createSelectSchema(contacts).omit({
+  userId: true,
+  personaId: true,
+})
+  .extend({
+    username: usernameSchema,
+  })
+
+export const contactInsertSchema = createInsertSchema(contacts).omit({
+  id: true,
+  userId: true,
+  personaId: true,
+  createdAt: true,
+})
+  .extend({
+    username: usernameSchema,
+  })
+
+export const contactUpdateSchema = createInsertSchema(contacts, {
+  name: nameSchema,
+})
+  .omit({
+    id: true,
+    userId: true,
+    personaId: true,
+    createdAt: true,
+  })
+  .partial()
+
+export type ContactEntity = z.infer<typeof contactSchema>
+export type ContactGetDto = z.infer<typeof contactGetSchema>
+export type ContactInsertDto = z.infer<typeof contactInsertSchema>
+export type ContactUpdateDto = z.infer<typeof contactUpdateSchema>
+
+// #endregion
+
 // #region Exercises
 
 export const exercises = sqliteTable("Exercise", {
@@ -158,5 +285,78 @@ export const levels = sqliteTable("Level", {
 export const selectLevelSchema = createSelectSchema(levels)
 
 export type LevelSelect = z.infer<typeof selectLevelSchema>
+
+// #endregion
+
+// #region Chats
+
+export const chats = sqliteTable("Chat", {
+  id: int("id").primaryKey({ autoIncrement: true }),
+  personaId: int("persona_id")
+    .notNull()
+    .references(() => personas.id, { onDelete: "cascade" }),
+  userId: text("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  contactId: int("contact_id")
+    .notNull()
+    .references(() => contacts.id),
+  createdAt: text("created_at").notNull(),
+}, t => ({
+  unq: unique().on(t.userId, t.personaId),
+}))
+
+export const chatsRelations = relations(chats, ({ one, many }) => ({
+  contact: one(contacts, {
+    fields: [chats.contactId],
+    references: [contacts.id],
+    relationName: "contact",
+  }),
+  persona: one(personas, {
+    fields: [chats.personaId],
+    references: [personas.id],
+    relationName: "persona",
+  }),
+  user: one(users, {
+    fields: [chats.userId],
+    references: [users.id],
+    relationName: "user",
+  }),
+  messages: many(messages),
+}))
+
+// #endregion
+
+// #region Messages
+
+export const messages = sqliteTable("Message", {
+  id: int("id").primaryKey({ autoIncrement: true }),
+  chatId: int("chat_id")
+    .notNull()
+    .references(() => chats.id, { onDelete: "cascade" }),
+  data: text("data", { mode: "json" }).$type<MessageData>().notNull(),
+  isBot: int("is_bot").default(0).notNull(),
+  createdAt: int("created_at").notNull(),
+})
+
+export const messageRelations = relations(messages, ({ one }) => ({
+  chat: one(chats, {
+    fields: [messages.chatId],
+    references: [chats.id],
+  }),
+}))
+
+export const messageSendSchema = z.object({
+  type: z.enum(["text"]),
+  value: z.string(),
+})
+
+export const selectMessageSchema = createSelectSchema(messages)
+export const insertMessageSchema = createInsertSchema(messages)
+
+export type MessageSelect = z.infer<typeof selectMessageSchema>
+export type MessageInsert = Omit<z.infer<typeof insertMessageSchema>, "data"> & {
+  data: MessageData
+}
 
 // #endregion

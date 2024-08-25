@@ -1,4 +1,4 @@
-const maratongue = {
+const thal = {
   "primary": "#14b8a6",
   "secondary": "#0F172A",
   "accent": "#f43f5e",
@@ -10,4 +10,4 @@ const maratongue = {
   "error": "#ef4444",
 }
 
-module.exports = { maratongue }
+module.exports = { thal }

@@ -196,7 +196,7 @@ onMounted(async () => {
       </div>
 
       <div
-        class="border-t border-t-gray-400" :class="{
+        class="border-t border-t-base-200" :class="{
           'bg-green-300': exerciseStore.correct && exerciseStore.finished,
           'bg-red-300': !exerciseStore.correct && exerciseStore.finished,
         }"

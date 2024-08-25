@@ -21,7 +21,7 @@ const isBtn = computed(() => {
 
 <template>
   <component
-    :is="type === 'btn' || !type ? 'div' : type"
+    :is="type === 'button' || !type ? 'div' : type"
     class="avatar"
     :class="{ placeholder, 'btn btn-ghost btn-circle': isBtn }"
     :tabindex="isBtn ? 0 : undefined"

@@ -14,7 +14,7 @@ export default defineNuxtConfig({
   ],
   app: {
     head: {
-      title: "Maratongue - Digital run to fluency",
+      title: "Thal - Digital run to fluency",
       meta: [
         { name: "description", content: "Welcome to an AI-powered English learning app, providing personalized learning experiences." },
         { name: "keywords", content: "English learning, AI-powered, personalized learning, language learning" },

@@ -14,12 +14,12 @@ definePageMeta({
       <h1>Política de Privacidade</h1>
       <p>
         Esta Política de Privacidade explica como coletamos, usamos e divulgamos
-        informações pessoais quando você utiliza o aplicativo Maratongue.
+        informações pessoais quando você utiliza o aplicativo Thal.
       </p>
 
       <h2>1. Informações que Coletamos</h2>
       <p>
-        Ao usar o aplicativo do Maratongue, podemos coletar as seguintes informações
+        Ao usar o aplicativo do Thal, podemos coletar as seguintes informações
         pessoais:
       </p>
       <ul>
@@ -51,7 +51,7 @@ definePageMeta({
       <p>
         Podemos divulgar suas informações pessoais a prestadores de serviços
         terceirizados que nos auxiliam na prestação e melhoria do aplicativo
-        Maratongue. Não vendemos nem alugamos suas informações pessoais para
+        Thal. Não vendemos nem alugamos suas informações pessoais para
         terceiros.
       </p>
 
@@ -77,7 +77,7 @@ definePageMeta({
 
       <h2>6. Privacidade de Crianças</h2>
       <p>
-        O Maratongue não é destinado a crianças menores de 13 anos. Não coletamos
+        O Thal não é destinado a crianças menores de 13 anos. Não coletamos
         intencionalmente informações pessoais de crianças menores de 13 anos. Se
         você acredita que coletamos informações pessoais de uma criança menor de
         13 anos, entre em contato conosco imediatamente.
@@ -86,7 +86,7 @@ definePageMeta({
       <h2>7. Alterações a esta Política de Privacidade</h2>
       <p>
         Reservamos o direito de atualizar ou alterar nossa Política de Privacidade
-        a qualquer momento. Seu uso contínuo do aplicativo Maratongue após
+        a qualquer momento. Seu uso contínuo do aplicativo Thal após
         postarmos quaisquer modificações nesta página constituirá seu
         reconhecimento das modificações e seu consentimento em cumprir e ficar
         vinculado à Política de Privacidade modificada.
@@ -94,7 +94,7 @@ definePageMeta({
 
       <h2>8. Retenção dos Dados</h2>
       <p>
-        Quando você exclui sua conta Maratongue, removeremos imediatamente seus dados pessoais de nossos sistemas
+        Quando você exclui sua conta Thal, removeremos imediatamente seus dados pessoais de nossos sistemas
         ativos.
         No entanto, cópias residuais das suas informações podem permanecer nos nossos sistemas de backup ou registos por
         um período limitado.
@@ -107,23 +107,23 @@ definePageMeta({
         ser retidos conforme exigido por lei ou para resolução de disputas.
       </p>
 
-      <hr class="border-gray-400 mb-4 mt-12">
+      <hr class="border-base-200 mb-4 mt-12">
       <p>
         Se você tiver alguma dúvida sobre esta Política de Privacidade, entre em
         contato conosco em
-        <a href="mailto:suporte@maratongue.com">suporte@maratongue.com</a>.
+        <a href="mailto:suporte@thal.app">suporte@thal.app</a>.
       </p>
     </template>
     <template v-else>
       <h1>Privacy Policy</h1>
       <p>
         This Privacy Policy explains how we collect, use, and disclose personal
-        information when you use the Maratongue application.
+        information when you use the Thal application.
       </p>
 
       <h2>1. Information We Collect</h2>
       <p>
-        When you use Maratongue application, we may collect the following
+        When you use Thal application, we may collect the following
         personal information:
       </p>
       <ul>
@@ -153,7 +153,7 @@ definePageMeta({
       <h2>3. Disclosure of Your Information</h2>
       <p>
         We may disclose your personal information to third-party service providers
-        who assist us in providing and improving the Maratongue application. We do
+        who assist us in providing and improving the Thal application. We do
         not sell or rent your personal information to third parties.
       </p>
 
@@ -178,7 +178,7 @@ definePageMeta({
 
       <h2>6. Children's Privacy</h2>
       <p>
-        Maratongue is not intended for children under the age of 13. We do not
+        Thal is not intended for children under the age of 13. We do not
         knowingly collect personal information from children under 13. If you
         believe that we have collected personal information from a child under 13,
         please contact us immediately.
@@ -187,7 +187,7 @@ definePageMeta({
       <h2>7. Changes to This Privacy Policy</h2>
       <p>
         We reserve the right to update or change our Privacy Policy at any time.
-        Your continued use of the Maratongue application after we post any
+        Your continued use of the Thal application after we post any
         modifications to the Privacy Policy on this page will constitute your
         acknowledgment of the modifications and your consent to abide and be bound
         by the modified Privacy Policy.
@@ -195,7 +195,7 @@ definePageMeta({
 
       <h2>8. Data Retention</h2>
       <p>
-        When you delete your Maratongue account, we will promptly remove your personal data from our active systems.
+        When you delete your Thal account, we will promptly remove your personal data from our active systems.
         However, residual copies of your information may remain in our backup systems or logs for a limited period.
       </p>
       <p>

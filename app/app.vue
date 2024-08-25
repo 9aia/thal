@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import "./style.css"
 import Toast from "~~/layers/ui/components/feedback/Toast.vue"
+
+const { state: localeModalState } = useLocaleModal()
 </script>
 
 <template>
@@ -9,4 +11,6 @@ import Toast from "~~/layers/ui/components/feedback/Toast.vue"
   </NuxtLayout>
 
   <Toast />
+
+  <LocaleModal v-model="localeModalState" />
 </template>

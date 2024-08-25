@@ -4,7 +4,7 @@ import { learnStore } from "../../../store"
 
 definePageMeta({
   middleware: "premium",
-  layout: "app",
+  layout: "site",
 })
 
 const { t } = useI18n()
@@ -30,7 +30,7 @@ onMounted(() => {
 
 <template>
   <Resource :loading="isLoading" :error="isError" @execute="refetch">
-    <div>
+    <div class="overflow-auto">
       <div class="absolute right-1/2 top-4 translate-x-1/2">
         <A href="/explore/sections" class="flex items-center text-lg gap-1">
           <span class="text-xl">{{ data.name }}</span>

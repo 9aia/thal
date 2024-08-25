@@ -9,6 +9,7 @@ const props = withDefaults(
     hideConfirm?: boolean
     showCancel?: boolean
     loading?: boolean
+    showCloseButton?: boolean
   }>(),
   {
     classes: "",
@@ -16,6 +17,7 @@ const props = withDefaults(
     cancelText: "Cancel",
     hideConfirm: false,
     showCancel: false,
+    showCloseButton: false,
   },
 )
 
@@ -47,6 +49,12 @@ watch(visible, () => {
       }"
       @submit="emit('confirm')"
     >
+      <form v-if="showCloseButton" method="dialog">
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+          ✕
+        </button>
+      </form>
+
       <slot />
 
       <div v-if="!props.hideConfirm || props.showCancel" class="modal-action">

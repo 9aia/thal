@@ -22,12 +22,12 @@ async function goToApp() {
   user.value = userFetch
 
   if (!userFetch?.plan) {
-    toast.warn(t("Your plan is being processed yet."))
+    toast.warn(t("Your subscription is being processed yet."))
 
     return
   }
 
-  await navigateTo("/explore")
+  await navigateTo("/app")
 }
 </script>
 
@@ -41,7 +41,7 @@ async function goToApp() {
 
         <p>
           {{ t('If you have any problem, you can contact us at:') }}
-          <a href="mailto:support@maratongue.com">support@maratongue.com</a>
+          <a href="mailto:support@thal.app">support@thal.app</a>
         </p>
 
         <p>
@@ -49,7 +49,7 @@ async function goToApp() {
         </p>
 
         <div class="card-actions">
-          <form action="/explore" method="get" @submit.prevent="goToApp">
+          <form action="/app" method="get" @submit.prevent="goToApp">
             <button
               type="submit"
               class="btn btn-primary"

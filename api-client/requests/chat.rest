@@ -1,0 +1,19 @@
+### Find all chats
+
+GET {{baseUrl}}/chat
+Content-Type: application/json
+Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+
+### Delete chat
+
+DELETE {{baseUrl}}/chat
+Content-Type: application/json
+Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+
+### Get history
+
+@username = pazu
+
+GET {{baseUrl}}/chat/history/{{username}}
+Content-Type: application/json
+Cookie: auth_session={{$dotenv COOKIE_TOKEN}};

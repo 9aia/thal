@@ -1,0 +1,12 @@
+@username = teste
+
+### Send message
+
+POST {{baseUrl}}/message/{{username}}
+Content-Type: application/json
+Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+
+{
+  "type": "text",
+  "value": "Hello, how are you?"
+}

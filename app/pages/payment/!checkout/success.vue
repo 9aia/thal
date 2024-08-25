@@ -28,7 +28,7 @@ definePageMeta({
 
         <p>
           {{ t('You will receive an email with your invoice. If you have any problem, you can contact us at:') }}
-          <a class="link-warning font-bold" href="mailto:support@maratongue.com">support@maratongue.com</a>
+          <a class="link-warning font-bold" href="mailto:support@thal.app">support@thal.app</a>
         </p>
 
         <p>
@@ -36,7 +36,7 @@ definePageMeta({
         </p>
 
         <div class="card-actions">
-          <A href="/explore" class="btn btn-primary">
+          <A href="/app" class="btn btn-primary">
             Go to app
           </A>
 

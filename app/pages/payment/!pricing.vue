@@ -6,14 +6,14 @@ import { t } from "@psitta/vue"
   <div class="w-full h-full bg-white">
     <div class="mx-auto py-12">
       <h2 class="text-4xl font-semibold text-slate-800 text-center mb-6">
-        {{ t("Our plan") }}
+        {{ t("Subscription") }}
       </h2>
 
       <div class="gap-8">
         <div class="card mx-auto w-1/2 bg-white border border-teal-500 shadow-xl">
           <div class="card-body">
             <h2 class="card-title text-slate-800 font-bold">
-              {{ t('Maratongue') }}
+              {{ t('Thal') }}
             </h2>
             <p class="mb-6 text-slate-900">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, commodi!

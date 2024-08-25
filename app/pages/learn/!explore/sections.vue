@@ -15,7 +15,7 @@ definePageMeta({
       {{ t('Sections') }}
     </h1>
 
-    <div class="grid gap-4 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+    <div class="grid gap-4 grid-cols-1">
       <div v-for="(section, i) in course.sections" :key="i" class="card bg-slate-300 shadow-xl">
         <div class="card-body">
           <h2 class="card-title">
