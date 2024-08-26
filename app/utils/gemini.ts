@@ -20,7 +20,7 @@ export function getGemini(apiKey: string) {
     const input = _.trimStart(prompt)
 
     const url
-      = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent"
+      = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
     const body = {
       contents: [
         {
@@ -51,12 +51,15 @@ export function getGemini(apiKey: string) {
     }
   }
 
-  const respondChat = async (history: InputContent[], generationConfig?: GenerationConfig) => {
+  const respondChat = async (history: InputContent[], systemInstruction?: string, generationConfig?: GenerationConfig) => {
     const url
-      = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent"
+      = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
     const body = {
       contents: history,
       generationConfig,
+      system_instruction: {
+        parts: { text: systemInstruction },
+      },
     }
 
     try {

@@ -77,7 +77,7 @@ function updateRedirectUrl() {
         <Icon>more_vert</Icon>
       </button>
 
-      <Menu :items="items" @action="handleDrawerOpen" />
+      <Menu :items="items" />
     </div>
   </Navbar>
 

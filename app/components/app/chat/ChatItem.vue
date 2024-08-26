@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useLocale } from "@psitta/vue"
-import type { MessageContent, User } from "~/types"
+import type { User } from "lucia"
+import type { MessageContent } from "~/types"
 
 const props = defineProps<{
   id: number
@@ -43,27 +44,6 @@ const date = computed(() => {
   return formatter.format(date)
 })
 
-const icon = computed(() => {
-  let icon: string
-
-  switch (props.lastMessage.status) {
-    case "sending":
-      icon = "schedule"
-      break
-    case "seen":
-      icon = "done_all"
-      break
-    case "received":
-      icon = "done_all"
-      break
-    case "sent":
-      icon = "check"
-      break
-  }
-
-  return icon
-})
-
 function openChat() {
   navigateTo(`/app/chat/${props.persona.username}`)
 }
@@ -89,7 +69,7 @@ function openChat() {
         </div>
       </div>
       <div class="text-sm text-slate-600 flex items-center gap-1">
-        <Icon :name="icon" :class="[lastMessage.status === 'seen' ? 'text-sky-500' : 'text-slate-500']" style="font-size: 1.15rem" />
+        <MessageIcon :status="props.lastMessage.status" />
         {{ lastMessage.text }}
       </div>
     </div>

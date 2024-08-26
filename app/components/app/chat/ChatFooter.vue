@@ -7,8 +7,9 @@ const text = defineModel<string>({
   required: true,
 })
 
+const isEmpty = computed(() => !text.value.trim())
 const icon = computed(() => {
-  return text.value ? "send" : "mic"
+  return isEmpty.value ? "mic" : "send"
 })
 </script>
 
@@ -18,7 +19,7 @@ const icon = computed(() => {
       <ContentEditable is="span" v-model="text" class="input w-full h-auto p-[10px] textarea" placeholder="Type a message" />
     </div>
 
-    <div role="button" class="btn btn-ghost btn-circle avatar" @click="emit('send')">
+    <div v-if="!isEmpty" role="button" class="btn btn-ghost btn-circle avatar" @click="emit('send')">
       <Icon :name="icon" />
     </div>
   </footer>

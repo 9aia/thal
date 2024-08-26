@@ -1,14 +1,15 @@
 import process from "node:process"
 import { and, eq } from "drizzle-orm"
 import { z } from "zod"
-import { getContactByUser } from "~/server/services/contact"
 import { getHistory } from "~/server/services/messages"
 import { now } from "~/utils/date"
 import { chatHistoryToGemini, getGemini } from "~/utils/gemini"
 import { getValidated } from "~/utils/h3"
 import { internal, notFound, unauthorized } from "~/utils/nuxt"
+import { getUserData } from "~/utils/profile"
 import type { MessageInsert } from "~~/db/schema"
-import { chats, messageSendSchema, messages, usernameSchema } from "~~/db/schema"
+import { chats, contacts, messageSendSchema, messages, personas, usernameSchema } from "~~/db/schema"
+import type { ProfileData } from "~/schemas/profile"
 
 export default eventHandler(async (event) => {
   const { username } = await getValidated(event, "params", z.object({ username: usernameSchema }))
@@ -21,23 +22,33 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  const contact = await getContactByUser(orm, user, username)
+  const persona = await orm.query.personas.findFirst({
+    where: and(
+      eq(personas.username, username),
+      eq(personas.creatorId, user.id),
+    ),
+    with: {
+      contacts: {
+        where: and(
+          eq(contacts.userId, user.id),
+        ),
+      },
+      chats: {
+        where: and(
+          eq(chats.userId, user.id),
+        ),
+      },
+    },
+  })
 
-  if (!contact)
-    throw notFound("Contact not found")
-
-  if (!contact.personaId)
+  if (!persona)
     throw notFound("Persona not found")
 
-  const [existingChat] = await orm
-    .select()
-    .from(chats)
-    .where(
-      and(
-        eq(chats.userId, user.id),
-        eq(chats.personaId, contact.personaId),
-      ),
-    )
+  if (!persona?.contacts.length)
+    throw notFound("Contact not found")
+
+  const contact = persona.contacts[0]
+  const existingChat = persona.chats[0]
 
   let chat = existingChat
 
@@ -47,7 +58,7 @@ export default eventHandler(async (event) => {
       .values({
         userId: user.id,
         contactId: contact.id,
-        personaId: contact.personaId,
+        personaId: persona.id,
         createdAt: now().toString(),
       })
       .returning()
@@ -77,7 +88,43 @@ export default eventHandler(async (event) => {
 
   const gemini = getGemini(process.env.GEMINI_API_KEY!)
 
-  const res = await gemini.respondChat(geminiHistory)
+  const profileData: ProfileData = {
+    goals: user.goals,
+    hobbies: user.hobbies,
+    observation: user.observation,
+    profession: user.profession,
+  }
+
+  const userData = getUserData(profileData)
+
+  const SYSTEM_INSTRUCTIONS = `
+    Your name is ${persona.name}, your username is ${persona.username}.
+
+    This is your description:
+    ${persona.description}.
+
+    You should behave like this:
+    ${persona.instructions}.
+
+    ## MISSION
+
+    You are talking to a user named ${user.name} ${user.lastName}, their username is ${user.username}.
+
+    The user native language is Portuguese/Brazil.
+    You are an English speaker.
+
+    ## INPUT
+
+    Here is the user's profile data:
+
+    ${userData}
+
+    ## OUTPUT FORMAT
+
+    - Plain text;
+  `
+
+  const res = await gemini.respondChat(geminiHistory, SYSTEM_INSTRUCTIONS)
 
   const content = res.candidates[0].content
   const geminiResText = content?.parts?.[0]?.text

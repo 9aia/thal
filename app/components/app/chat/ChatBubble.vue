@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { useLocale } from "@psitta/vue"
+import MessageIcon from "./MessageIcon.vue"
+import type { MessageStatus } from "~/types"
 
 const props = defineProps<{
   right?: boolean
   from: string
   time: number
   message: string
-  status: string
+  status: MessageStatus
   img: string
 }>()
 
@@ -26,14 +28,12 @@ const time = computed(() => new Intl.DateTimeFormat(locale.value, {
       'chat-end': right,
     }"
   >
-    <div class="chat-header">
-      <time class="text-xs opacity-50">{{ time }}</time>
-    </div>
-
     <div class="chat-bubble" v-html="message" />
 
-    <div class="chat-footer opacity-50">
-      {{ status }}
+    <div class="chat-footer opacity-90 flex items-center mt-1 gap-1">
+      <time class="text-xs opacity-90">{{ time }}</time>
+
+      <MessageIcon v-if="right" :status="status" />
     </div>
   </div>
 </template>
