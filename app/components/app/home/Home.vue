@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import { drawers } from "~/store"
 import type { Chat } from "~/types"
 
 import type { MenuItem } from "~~/layers/ui/components/navigation/types"
 
 const emit = defineEmits<{
-  (e: "open", emitValue: string): void
   (e: "close"): void
 }>()
 
@@ -50,7 +50,7 @@ const items: MenuItem[] = [
     icon: "subscriptions",
     type: "external",
   },
-  { id: "settings", name: "Settings", icon: "settings", emit: "settings-drawer" },
+  { id: "settings", name: "Settings", icon: "settings", action: "settings-drawer", onSubmit: () => drawers.settings = true },
   {
     id: "logout",
     name: "Logout",
@@ -77,7 +77,7 @@ function updateRedirectUrl() {
         <Icon>more_vert</Icon>
       </button>
 
-      <Menu :items="items" @action="emit('open', $event)" />
+      <Menu :items="items" @action="handleDrawerOpen" />
     </div>
   </Navbar>
 
@@ -116,7 +116,7 @@ function updateRedirectUrl() {
   </div>
 
   <div class="absolute bottom-4 right-4">
-    <Btn size="md" class="btn-circle btn-primary" @click="emit('open', 'new-chat')">
+    <Btn size="md" class="btn-circle btn-primary" @click="drawers.newChat = true">
       <Icon name="add" />
     </Btn>
   </div>

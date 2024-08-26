@@ -1,20 +1,22 @@
 <script setup lang="ts">
 import { t } from "@psitta/vue"
+import { drawers } from "~/store"
 
 import type { MenuItem } from "~~/layers/ui/components/navigation/types"
 
 const emit = defineEmits<{
-  (e: "open", emitValue: string): void
   (e: "close"): void
 }>()
 
+const isPersonasOpen = ref(false)
+
 const generalItems: MenuItem[] = [
-  { id: "new-contact", icon: "person_add", name: "New contact", emit: "new-contact-drawer" },
-  { id: "create-persona", icon: "person_edit", name: "Build persona", emit: "build-persona-drawer" },
+  { id: "new-contact", icon: "person_add", name: "New contact", action: "new-contact-drawer", onSubmit: () => drawers.newContact = true },
+  { id: "create-persona", icon: "person_edit", name: "Build persona", action: "build-persona-drawer", onSubmit: () => drawers.personaBuilder = true },
 ]
 
 const discoverItems: MenuItem[] = [
-  { id: "discover", icon: "collections_bookmark", name: "Personas", emit: "open-personas" },
+  { id: "discover", icon: "collections_bookmark", name: "Personas", action: "open-personas", onSubmit: () => isPersonasOpen.value = true },
 ]
 
 const {
@@ -25,8 +27,6 @@ const {
 } = await useServerQuery("/api/contact", {
   queryKey: ["contacts"],
 })
-
-const isPersonasOpen = ref(false)
 </script>
 
 <template>
@@ -44,12 +44,11 @@ const isPersonasOpen = ref(false)
       <MenuGroup
         class="p-0 w-full"
         :items="generalItems"
-        @action="emit('open', $event)"
       />
     </SettingSection>
 
     <SettingSection :title="t('Discover')" class="px-4">
-      <MenuGroup class="p-0 w-full" :items="discoverItems" @action="$event === 'open-personas' ? isPersonasOpen = true : undefined" />
+      <MenuGroup class="p-0 w-full" :items="discoverItems" />
     </SettingSection>
 
     <SettingSection v-if="contacts.length" :title="t('Contacts')" title-class="px-4">

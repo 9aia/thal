@@ -1,17 +1,20 @@
 import type { MenuItem } from "~~/layers/ui/components/navigation/types"
+import { drawers } from "~/store"
 
 const general: MenuItem[] = [
   {
     id: "profile",
     icon: "face",
     name: "Profile",
-    emit: "profile-drawer",
+    action: "profile-drawer",
+    onSubmit: () => drawers.profile = true,
   },
   {
     id: "account",
     icon: "person",
     name: "Account",
-    emit: "account-drawer",
+    action: "account-drawer",
+    onSubmit: () => drawers.account = true,
   },
   {
     id: "plan",

@@ -1,31 +1,8 @@
 <script setup lang="ts">
+import { drawers } from "~/store"
 import { useProfileModal } from "~/composables/useProfileModal"
 
 const { profileModalState } = useProfileModal()
-
-const drawers = reactive({
-  profile: false,
-  account: false,
-  settings: false,
-  newChat: false,
-  personaBuilder: false,
-  newContact: false,
-})
-
-function handleMenuClick(type: string) {
-  if (type === "settings-drawer")
-    drawers.settings = true
-  else if (type === "profile-drawer")
-    drawers.profile = true
-  else if (type === "account-drawer")
-    drawers.account = true
-  else if (type === "new-chat")
-    drawers.newChat = true
-  else if (type === "build-persona-drawer")
-    drawers.personaBuilder = true
-  else if (type === "new-contact-drawer")
-    drawers.newContact = true
-}
 
 const isRootDrawerOpen = ref(false)
 </script>
@@ -44,14 +21,11 @@ const isRootDrawerOpen = ref(false)
 
         <div class="flex flex-col h-dvh justify-between w-full sm:w-96">
           <Drawer :model-value="true">
-            <Home @open="handleMenuClick" @close="isRootDrawerOpen = false" />
+            <Home @close="isRootDrawerOpen = false" />
 
             <template #footer>
               <Drawer :model-value="drawers.settings">
-                <Settings
-                  @open="handleMenuClick"
-                  @close="drawers.settings = false"
-                />
+                <Settings @close="drawers.settings = false" />
 
                 <template #footer>
                   <Drawer
@@ -60,19 +34,11 @@ const isRootDrawerOpen = ref(false)
                   >
                     <AccountSettings @close="close" />
                   </Drawer>
-
-                  <Drawer
-                    v-slot="{ close }"
-                    v-model="drawers.profile"
-                  >
-                    <ProfileSettings @close="close" />
-                  </Drawer>
                 </template>
               </Drawer>
 
               <Drawer :model-value="drawers.newChat">
                 <NewChat
-                  @open="handleMenuClick"
                   @close="drawers.newChat = false"
                 />
 
@@ -91,6 +57,13 @@ const isRootDrawerOpen = ref(false)
                     <NewContact @close="close" />
                   </Drawer>
                 </template>
+              </Drawer>
+
+              <Drawer
+                v-slot="{ close }"
+                v-model="drawers.profile"
+              >
+                <ProfileSettings @close="close" />
               </Drawer>
             </template>
           </Drawer>

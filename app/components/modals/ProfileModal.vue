@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useQuery } from "@tanstack/vue-query"
 import { useI18n } from "@psitta/vue"
+import { drawers } from "~/store"
 
 const props = defineProps<{
   username: string | null
@@ -37,7 +38,7 @@ const profileModal = useProfileModal()
 
 function goToEdit() {
   modelValue.value = false
-  navigateTo("/app")
+  drawers.profile = true
 }
 
 provide("profile", data)
