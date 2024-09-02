@@ -1,22 +1,28 @@
 <script setup lang="ts">
 import { t } from "@psitta/vue"
-import { drawers } from "~/store"
-
+import { drawers, personaBuilderData } from "~/store"
+import type { Persona } from "~/types"
+import { useDiscoverPersonasModal } from "~/composables/useDiscoverPersonasModal"
 import type { MenuItem } from "~~/layers/ui/components/navigation/types"
 
 const emit = defineEmits<{
   (e: "close"): void
 }>()
 
-const isPersonasOpen = ref(false)
+const discoverPersonasModal = useDiscoverPersonasModal()
+
+function handleCreatePersona() {
+  drawers.personaBuilder = true
+  personaBuilderData.value = null
+}
 
 const generalItems: MenuItem[] = [
   { id: "new-contact", icon: "person_add", name: "New contact", action: "new-contact-drawer", onSubmit: () => drawers.newContact = true },
-  { id: "create-persona", icon: "person_edit", name: "Build persona", action: "build-persona-drawer", onSubmit: () => drawers.personaBuilder = true },
+  { id: "create-persona", icon: "person_edit", name: "Build persona", action: "build-persona-drawer", onSubmit: () => handleCreatePersona() },
 ]
 
 const discoverItems: MenuItem[] = [
-  { id: "discover", icon: "collections_bookmark", name: "Personas", action: "open-personas", onSubmit: () => isPersonasOpen.value = true },
+  { id: "discover", icon: "collections_bookmark", name: "Personas", action: "open-personas", onSubmit: () => discoverPersonasModal.open() },
 ]
 
 const {
@@ -51,7 +57,7 @@ const {
       <MenuGroup class="p-0 w-full" :items="discoverItems" />
     </SettingSection>
 
-    <SettingSection v-if="contacts.length" :title="t('Contacts')" title-class="px-4">
+    <SettingSection v-if="contacts?.length" :title="t('Contacts')" title-class="px-4">
       <Resource
         :error="isError"
         :loading="isPending"
@@ -67,6 +73,4 @@ const {
       </Resource>
     </SettingSection>
   </div>
-
-  <DiscoverPersonasModal v-model="isPersonasOpen" />
 </template>

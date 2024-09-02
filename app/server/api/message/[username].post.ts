@@ -23,10 +23,7 @@ export default eventHandler(async (event) => {
     throw unauthorized()
 
   const persona = await orm.query.personas.findFirst({
-    where: and(
-      eq(personas.username, username),
-      eq(personas.creatorId, user.id),
-    ),
+    where: eq(personas.username, username),
     with: {
       contacts: {
         where: and(
@@ -88,15 +85,6 @@ export default eventHandler(async (event) => {
 
   const gemini = getGemini(process.env.GEMINI_API_KEY!)
 
-  const profileData: ProfileData = {
-    goals: user.goals,
-    hobbies: user.hobbies,
-    observation: user.observation,
-    profession: user.profession,
-  }
-
-  const userData = getUserData(profileData)
-
   const SYSTEM_INSTRUCTIONS = `
     Your name is ${persona.name}, your username is ${persona.username}.
 
@@ -106,18 +94,10 @@ export default eventHandler(async (event) => {
     You should behave like this:
     ${persona.instructions}.
 
-    ## MISSION
-
+    ## Your Mission
+    
+    You should speak English.
     You are talking to a user named ${user.name} ${user.lastName}, their username is ${user.username}.
-
-    The user native language is Portuguese/Brazil.
-    You are an English speaker.
-
-    ## INPUT
-
-    Here is the user's profile data:
-
-    ${userData}
 
     ## OUTPUT FORMAT
 

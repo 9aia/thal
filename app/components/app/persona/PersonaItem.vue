@@ -3,10 +3,7 @@ import { useLocale } from "@psitta/vue"
 
 defineProps<{
   name: string
-  description: string
   avatar?: string
-  showEdit?: boolean
-  showDelete?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -31,29 +28,20 @@ useLocale()
     <div class="flex-1 flex flex-col justify-center">
       <div class="flex flex-col justify-between">
         <a class="block text-base text-slate-800">{{ name }}</a>
-
-        <div
-          class="text-xs text-slate-600 line-clamp-2"
-          :title="description"
-        >
-          {{ description }}
-        </div>
       </div>
     </div>
 
     <div class="hidden group-hover:flex">
       <button
-        v-if="showEdit"
-        class="btn btn-md btn-ghost btn-circle"
-        @click.prevent="emit('edit')"
+        class="btn btn-ghost btn-circle text-slate-700"
+        @click="emit('edit')"
       >
-        <Icon name="edit" class="text-slate-700" />
+        <Icon name="edit" class="text-slate-700 text-primary" />
       </button>
 
       <button
-        v-if="showDelete"
-        class="btn btn-ghost btn-circle"
-        @click.prevent="emit('delete')"
+        class="btn btn-ghost btn-circle text-slate-700"
+        @click="emit('delete')"
       >
         <Icon name="delete" class="text-slate-700 text-xs" />
       </button>

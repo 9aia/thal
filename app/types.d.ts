@@ -117,6 +117,7 @@ export interface MessageContent {
 }
 
 export interface Persona {
+  id?: string
   name: string
   username: string
   avatar?: string

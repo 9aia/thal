@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { useLocale } from "@psitta/vue"
-import type { User } from "lucia"
-import type { MessageContent } from "~/types"
+import type { MessageContent, Persona } from "~/types"
 
 const props = defineProps<{
   id: number
-  persona: User
+  persona: Persona
   lastMessage: MessageContent
 }>()
 

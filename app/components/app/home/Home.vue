@@ -15,6 +15,9 @@ const {
 })
 
 const conversations = computed<Chat[]>(() => {
+  if (!data.value)
+    return []
+
   return data.value.map(chat => ({
     id: chat.id,
     persona: {
@@ -37,11 +40,14 @@ const isNoteVisible = useCookie("isNoteVisible", {
 const logout = useLogout()
 
 const profileModal = useProfileModal()
+const discoverPersonasModal = useDiscoverPersonasModal()
 
 const user = useUser()
 
 const items: MenuItem[] = [
   { id: "profile", action: "profile", name: "Profile", icon: "face", onSubmit: () => profileModal.open(user.value!.username) },
+  { id: "discover-personas", name: "Discover Personas", icon: "person_edit", action: "discover-personas", onSubmit: () => discoverPersonasModal.open() },
+  { id: "my-personas", name: "My Personas", icon: "person_edit", action: "my-personas", onSubmit: () => drawers.myPersonas = true },
   {
     id: "plan",
     name: "Subscription",
@@ -109,8 +115,10 @@ function updateRedirectUrl() {
   <div class="flex-1 overflow-y-auto bg-white">
     <ChatItem
       v-for="conversation in conversations"
-      v-bind="conversation"
+      :id="conversation.id"
       :key="conversation.id"
+      :last-message="conversation.lastMessage"
+      :persona="conversation.persona"
       @click="emit('close')"
     />
   </div>

@@ -10,8 +10,8 @@ const {
   isError,
   isPending,
   refetch,
-} = await useServerQuery("/api/persona", {
-  queryKey: ["personas"],
+} = await useServerQuery("/api/persona/discover", {
+  queryKey: ["discover-personas"],
 })
 </script>
 

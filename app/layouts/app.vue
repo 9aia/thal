@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { drawers } from "~/store"
 import { useProfileModal } from "~/composables/useProfileModal"
+import { useDiscoverPersonasModal } from "~/composables/useDiscoverPersonasModal"
 
 const { profileModalState } = useProfileModal()
+const { discoverPersonasModalState } = useDiscoverPersonasModal()
 
 const isRootDrawerOpen = ref(false)
 </script>
@@ -41,22 +43,13 @@ const isRootDrawerOpen = ref(false)
                 <NewChat
                   @close="drawers.newChat = false"
                 />
+              </Drawer>
 
-                <template #footer>
-                  <Drawer
-                    v-slot="{ close }"
-                    v-model="drawers.personaBuilder"
-                  >
-                    <BuildPersona @close="close" />
-                  </Drawer>
-
-                  <Drawer
-                    v-slot="{ close }"
-                    v-model="drawers.newContact"
-                  >
-                    <NewContact @close="close" />
-                  </Drawer>
-                </template>
+              <Drawer
+                v-slot="{ close }"
+                v-model="drawers.myPersonas"
+              >
+                <MyPersonas @close="close" />
               </Drawer>
 
               <Drawer
@@ -64,6 +57,20 @@ const isRootDrawerOpen = ref(false)
                 v-model="drawers.profile"
               >
                 <ProfileSettings @close="close" />
+              </Drawer>
+
+              <Drawer
+                v-slot="{ close }"
+                v-model="drawers.personaBuilder"
+              >
+                <BuildPersona @close="close" />
+              </Drawer>
+
+              <Drawer
+                v-slot="{ close }"
+                v-model="drawers.newContact"
+              >
+                <NewContact @close="close" />
               </Drawer>
             </template>
           </Drawer>
@@ -73,6 +80,7 @@ const isRootDrawerOpen = ref(false)
 
     <ClientOnly>
       <ProfileModal v-model="profileModalState.modelValue" :username="profileModalState.username" />
+      <DiscoverPersonasModal v-model="discoverPersonasModalState.modelValue" />
     </ClientOnly>
   </div>
 </template>

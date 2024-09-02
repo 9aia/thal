@@ -6,6 +6,8 @@ import type { User } from "lucia"
 import { useForm } from "vee-validate"
 import { descriptionSchema, instructionsSchema, nameSchema, usernameSchema } from "~~/db/schema"
 import { useToast } from "~~/layers/ui/composables/useToast"
+import { personaBuilderData } from "~/store"
+import type { Persona } from "~/types"
 
 const emit = defineEmits<{
   (e: "close"): void
@@ -13,7 +15,17 @@ const emit = defineEmits<{
 const { t } = useI18n()
 const toast = useToast()
 
-const form = useForm<User>()
+const form = useForm<Persona>({
+  initialValues: personaBuilderData.value,
+})
+
+watch(personaBuilderData, () => {
+  if (personaBuilderData.value)
+    form.setValues(personaBuilderData.value)
+  else
+    form.resetForm()
+})
+
 const hasErrors = useHasFormErrors(form)
 const loading = ref(false)
 const queryClient = useQueryClient()
@@ -25,7 +37,11 @@ async function validateUsername(username: string) {
   let invalid = false
 
   try {
-    const { valid } = await $fetch(`/api/persona/validate-username/${username}`)
+    const { valid } = await $fetch(`/api/persona/validate-username/${username}`, {
+      params: {
+        allowedUsername: personaBuilderData.value?.username,
+      },
+    })
 
     invalid = !valid
   }
@@ -45,22 +61,41 @@ async function validateUsername(username: string) {
 const debouncedValidateUsername = useDebounceFn(validateUsername, 500)
 watch(() => form.values.username, debouncedValidateUsername)
 
+const isEditing = computed(() => personaBuilderData.value?.id)
+
 const submit = form.handleSubmit(async (data) => {
   loading.value = true
 
   try {
-    await $fetch(`/api/persona`, {
-      method: "post",
-      body: {
-        ...data,
-        conversationStarters: [],
-      },
-    })
+    if (isEditing.value) {
+      await $fetch(`/api/persona/${personaBuilderData.value?.username}` as "/api/persona/:username", {
+        method: "PATCH",
+        body: {
+          ...data,
+          conversationStarters: [],
+        },
+      })
 
-    toast.success(t("Persona has been created successfully."))
+      toast.success(t("Persona has been edited successfully."))
+    }
+    else {
+      await $fetch(`/api/persona`, {
+        method: "post",
+        body: {
+          ...data,
+          conversationStarters: [],
+        },
+      })
+
+      toast.success(t("Persona has been created successfully."))
+    }
 
     queryClient.invalidateQueries({
-      queryKey: ["personas"],
+      queryKey: ["my-personas"],
+    })
+
+    queryClient.invalidateQueries({
+      queryKey: ["discover-personas"],
     })
 
     emit("close")

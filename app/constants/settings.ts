@@ -24,6 +24,13 @@ const general: MenuItem[] = [
     icon: "subscriptions",
     type: "external",
   },
+  {
+    id: "my-personas",
+    icon: "person_edit",
+    name: "My Personas",
+    action: "my-personas",
+    onSubmit: () => drawers.myPersonas = true,
+  },
 ]
 
 const support: MenuItem[] = [
