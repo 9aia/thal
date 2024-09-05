@@ -48,7 +48,7 @@ function handleCreatePersona() {
       </h1>
     </Navbar>
 
-    <div class="py-4 flex-1 overflow-y-auto bg-white space-y-4">
+    <div class="py-4 flex flex-col flex-1 overflow-y-auto bg-white gap-4">
       <header class="text-center">
         <div class="text-primary flex items-center justify-center">
           <Icon name="person_edit" style="font-size: 5rem" />
