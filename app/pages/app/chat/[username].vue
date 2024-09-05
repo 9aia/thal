@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { t } from "@psitta/vue"
 import { useMutation, useQueryClient } from "@tanstack/vue-query"
 import AppLayout from "~/layouts/app.vue"
+import { contactData, drawers } from "~/store"
 
 definePageMeta({
   layout: false,
@@ -15,7 +17,7 @@ const {
   isLoading,
   isError,
   refetch,
-} = await useServerQuery(() => `/api/contact/${params.username}`, {
+} = await useServerQuery(() => `/api/chat/${params.username}` as `/api/chat/:username`, {
   queryKey: ["chat", computed(() => params.username)],
 })
 
@@ -69,6 +71,22 @@ const { mutate: sendMessage } = useMutation({
 function handleSend() {
   sendMessage({ type: "text", value: text.value })
 }
+
+const hasContact = computed(() => {
+  return !!data.value?.contact
+})
+
+const displayName = computed(() => {
+  return data.value?.contact?.name || `@${data.value?.username}`
+})
+
+function handleAddContact() {
+  drawers.newContact = true
+  contactData.value = {
+    name: data.value?.name,
+    username: data.value?.username,
+  }
+}
 </script>
 
 <template>
@@ -79,11 +97,46 @@ function handleSend() {
 
     <template #content>
       <Resource :loading="isLoading" :error="isError" @execute="refetch">
-        <ChatHeader :name="data?.name" />
+        <ChatHeader :name="displayName" :username="data?.username" />
 
-        <main ref="scrollContainer" class="py-4 px-12 flex-1 overflow-y-auto relative">
-          <Resource :loading="historyQuery.isPending.value" :error="historyQuery.isError.value" @execute="historyQuery.refetch">
-            <ChatConversation :history="historyQuery.data.value!" @fix-scroll="fixScroll" />
+        <main ref="scrollContainer" class="py-4 px-4 sm:px-12 flex-1 overflow-y-auto relative">
+          <div
+            v-if="!hasContact"
+            class="card bg-neutral text-neutral-content text-center sm:max-w-lg mx-auto"
+          >
+            <div class="card-body">
+              <div tabindex="0" role="button" class="mx-auto w-20 h-20 btn btn-ghost btn-circle avatar">
+                <div class="w-20 rounded-full">
+                  <img
+                    alt="Tailwind CSS Navbar component"
+                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  >
+                </div>
+              </div>
+
+              <h2 class="text-slate-900 text-center mb-1">
+                {{ displayName }}
+              </h2>
+              <small class="text-slate-600 text-xs">~ {{ data?.description }}</small>
+
+              <p class="mb-2 text-slate-600 text-sm">
+                {{ t('Not a contact') }}
+              </p>
+
+              <div class="card-actions justify-center">
+                <Btn class="btn-outline btn-primary" @click="handleAddContact()">
+                  <Icon name="person_add" />
+                  Add
+                </Btn>
+              </div>
+            </div>
+          </div>
+
+          <Resource
+            :loading="historyQuery.isPending.value" :error="historyQuery.isError.value"
+            @execute="historyQuery.refetch"
+          >
+            <ChatConversation :history="historyQuery.data.value! as any" @fix-scroll="fixScroll" />
           </Resource>
         </main>
 

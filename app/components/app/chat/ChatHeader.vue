@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 defineProps<{
   name: string
+  username?: string
 }>()
 
-const user = useUser()
 const profileModal = useProfileModal()
 </script>
 
@@ -13,7 +13,7 @@ const profileModal = useProfileModal()
       <Icon name="arrow_back" />
     </label>
 
-    <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar" @click="profileModal.open(user!.username)">
+    <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar" @click="profileModal.open(username)">
       <div class="w-10 rounded-full">
         <img
           alt="Tailwind CSS Navbar component"

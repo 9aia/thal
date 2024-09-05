@@ -2,9 +2,9 @@
 import { useI18n } from "@psitta/vue"
 import { useQueryClient } from "@tanstack/vue-query"
 import { useDebounceFn } from "@vueuse/core"
-import type { User } from "lucia"
 import { useForm } from "vee-validate"
-import { descriptionSchema, instructionsSchema, nameSchema, usernameSchema } from "~~/db/schema"
+import { contactData } from "~/store"
+import { nameSchema, usernameSchema } from "~~/db/schema"
 import { useToast } from "~~/layers/ui/composables/useToast"
 
 const emit = defineEmits<{
@@ -15,9 +15,18 @@ const toast = useToast()
 
 const queryClient = useQueryClient()
 
-const form = useForm<{ name: string, username: string }>()
+const form = useForm<{ name: string, username: string }>({
+  initialValues: contactData.value,
+})
 const hasErrors = useHasFormErrors(form)
 const loading = ref(false)
+
+watch(contactData, () => {
+  if (contactData.value)
+    form.setValues(contactData.value)
+  else
+    form.resetForm()
+})
 
 async function validateUsername(username: string) {
   if (!username)
@@ -75,6 +84,10 @@ const submit = form.handleSubmit(async (data) => {
 
     queryClient.invalidateQueries({
       queryKey: ["contacts"],
+    })
+
+    queryClient.invalidateQueries({
+      queryKey: ["chat", data.username],
     })
 
     form.resetForm()

@@ -299,7 +299,6 @@ export const chats = sqliteTable("Chat", {
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   contactId: int("contact_id")
-    .notNull()
     .references(() => contacts.id),
   createdAt: text("created_at").notNull(),
 }, t => ({

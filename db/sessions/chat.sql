@@ -5,3 +5,7 @@ SELECT * FROM Chat
 -- @block Delete all chats
 
 DELETE FROM Chat
+
+--- @block Drop chat table
+
+DROP TABLE Chat

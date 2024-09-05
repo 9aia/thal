@@ -78,6 +78,7 @@ function handleCreatePersona() {
                 :name="persona.name"
                 @delete="handleDeletePersona(persona as unknown as Persona)"
                 @edit="handleEditPersona(persona as unknown as Persona)"
+                @click="navigateTo(`/app/chat/${persona.username}`)"
               />
             </li>
 

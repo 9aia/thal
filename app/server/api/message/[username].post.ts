@@ -41,9 +41,6 @@ export default eventHandler(async (event) => {
   if (!persona)
     throw notFound("Persona not found")
 
-  if (!persona?.contacts.length)
-    throw notFound("Contact not found")
-
   const contact = persona.contacts[0]
   const existingChat = persona.chats[0]
 
@@ -54,7 +51,7 @@ export default eventHandler(async (event) => {
       .insert(chats)
       .values({
         userId: user.id,
-        contactId: contact.id,
+        contactId: contact?.id,
         personaId: persona.id,
         createdAt: now().toString(),
       })

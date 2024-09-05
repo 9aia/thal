@@ -27,7 +27,7 @@ export async function getContactByUser(
     },
   })
 
-  if (!result)
+  if (!result || !result.contacts.length)
     throw notFound("Contact not found")
 
   return {

@@ -34,14 +34,14 @@ useLocale()
     <div class="hidden group-hover:flex">
       <button
         class="btn btn-ghost btn-circle text-slate-700"
-        @click="emit('edit')"
+        @click.prevent="emit('edit')"
       >
         <Icon name="edit" class="text-slate-700 text-primary" />
       </button>
 
       <button
         class="btn btn-ghost btn-circle text-slate-700"
-        @click="emit('delete')"
+        @click.prevent="emit('delete')"
       >
         <Icon name="delete" class="text-slate-700 text-xs" />
       </button>

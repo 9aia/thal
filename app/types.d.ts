@@ -123,6 +123,12 @@ export interface Persona {
   avatar?: string
 }
 
+export interface Contact {
+  id?: string
+  name: string
+  username: string
+}
+
 export interface Chat {
   id: number
   persona: Persona
