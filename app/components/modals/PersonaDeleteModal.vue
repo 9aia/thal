@@ -101,7 +101,7 @@ const isUsernameInvalid = computed(() => {
 
     <template #actions>
       <Btn value="true" class="btn-error" :disabled="isUsernameInvalid" @click.prevent="submit">
-        {{ t('Delete my account') }}
+        {{ t('Delete character') }}
       </Btn>
 
       <Btn value="false" class="btn btn-primary" @click="isOpen = false">
