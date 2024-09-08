@@ -14,7 +14,7 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  const persona = await getPersonaByUsername(orm, data.username)
+  const result = await getPersonaByUsername(orm, data.username)
 
   try {
     const [newContact] = await orm
@@ -22,12 +22,12 @@ export default eventHandler(async (event) => {
       .values({
         name: data.name,
         userId: user.id,
-        personaId: persona.id,
+        personaUsernameId: result.personaUsernameId,
         createdAt: now().toString(),
       })
       .returning()
 
-    return mapContactToDto(newContact, persona)
+    return mapContactToDto(newContact, result)
   }
   catch (_e) {
     const e = _e as Error

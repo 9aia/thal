@@ -2,20 +2,30 @@ import { eq } from "drizzle-orm"
 import type { H3EventContext } from "h3"
 import type { User } from "lucia"
 import { notFound } from "~/utils/nuxt"
-import { contacts, personas } from "~~/db/schema"
+import { contacts, personaUsernames, personas } from "~~/db/schema"
 
 export async function getPersonaByUsername(
   orm: H3EventContext["orm"],
   username: string,
 ) {
-  const [persona] = await orm
-    .select().from(personas)
-    .where(eq(personas.username, username))
+  const result = await orm.query.personaUsernames.findFirst({
+    where: eq(personaUsernames.username, username),
+    with: {
+      persona: true,
+    },
+  })
+
+  const persona = result?.persona
 
   if (!persona)
     throw notFound("Persona not found")
 
-  return persona
+  return {
+    ...persona,
+    conversationStarters: JSON.parse(persona.conversationStarters),
+    username,
+    personaUsernameId: result.id,
+  }
 }
 
 export async function getPersonaWithContactByUser(
@@ -23,15 +33,16 @@ export async function getPersonaWithContactByUser(
   user: User,
   username: string,
 ) {
-  const result = await orm.query.personas.findFirst({
-    columns: {
-      id: true,
-      username: true,
-      description: true,
-      name: true,
-    },
-    where: eq(personas.username, username),
+  const result = await orm.query.personaUsernames.findFirst({
+    where: eq(personaUsernames.username, username),
     with: {
+      persona: {
+        columns: {
+          id: true,
+          description: true,
+          name: true,
+        },
+      },
       contacts: {
         columns: {
           id: true,
@@ -43,6 +54,11 @@ export async function getPersonaWithContactByUser(
   })
 
   if (!result)
+    throw notFound("Persona Username not found")
+
+  const persona = result.persona
+
+  if (!persona)
     throw notFound("Persona not found")
 
   const contact = {
@@ -50,10 +66,10 @@ export async function getPersonaWithContactByUser(
   }
 
   return {
-    id: result.id,
+    id: persona.id,
     username: result.username,
-    description: result.description,
-    name: result.name,
+    description: persona.description,
+    name: persona.name,
     contact: result.contacts[0] ? contact : null,
   }
 }

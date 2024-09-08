@@ -3,7 +3,7 @@ import { z } from "zod"
 import { getPersonaByUsername } from "~/server/services/persona"
 import { getValidated } from "~/utils/h3"
 import { unauthorized } from "~/utils/nuxt"
-import { contacts, personas, usernameSchema } from "~~/db/schema"
+import { contacts, personaUsernames, personas, usernameSchema } from "~~/db/schema"
 
 export default eventHandler(async (event) => {
   const orm = event.context.orm
@@ -22,12 +22,12 @@ export default eventHandler(async (event) => {
     }
   }
 
-  const [persona] = await orm
+  const [existingPersonaUsername] = await orm
     .select()
-    .from(personas)
-    .where(eq(personas.username, username))
+    .from(personaUsernames)
+    .where(eq(personaUsernames.username, username))
 
-  if (!persona) {
+  if (!existingPersonaUsername || existingPersonaUsername.personaId == null) {
     return {
       personaNotFound: true,
       alreadyAdded: false,
@@ -38,7 +38,7 @@ export default eventHandler(async (event) => {
   const [contact] = await orm
     .select()
     .from(contacts)
-    .where(and(eq(contacts.userId, user.id), eq(contacts.personaId, persona?.id)))
+    .where(and(eq(contacts.userId, user.id), eq(contacts.personaUsernameId, existingPersonaUsername.id)))
 
   return {
     personaNotFound: false,

@@ -22,8 +22,8 @@ const conversations = computed<Chat[]>(() => {
   return data.value.map(chat => ({
     id: chat.id,
     persona: {
-      name: chat.contact?.name || chat.persona?.name,
-      username: chat.persona?.username,
+      name: chat.contact?.name || chat.personaUsername?.persona?.name || `@${chat.personaUsername!.username}`,
+      username: chat.personaUsername!.username,
       avatar: undefined,
     },
     lastMessage: {

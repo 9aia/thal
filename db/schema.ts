@@ -123,7 +123,6 @@ export const instructionsSchema = z.string().min(1).max(500)
 
 export const personas = sqliteTable("Persona", {
   id: int("id").primaryKey({ autoIncrement: true }),
-  username: text("username").unique().notNull(),
   name: text("name").notNull(),
   description: text("description").notNull(),
   instructions: text("instructions").notNull(),
@@ -133,9 +132,8 @@ export const personas = sqliteTable("Persona", {
     .references(() => users.id, { onDelete: "no action" }),
 })
 
-export const personaRelations = relations(personas, ({ many }) => ({
-  contacts: many(contacts),
-  chats: many(chats),
+export const personaRelations = relations(personas, ({ one }) => ({
+  personaUsernames: one(personaUsernames),
 }))
 
 export const personaGetSchema = createSelectSchema(personas, {
@@ -151,6 +149,9 @@ export const personaGetSchema = createSelectSchema(personas, {
 export const personaInsertSchema = createInsertSchema(personas, {
   conversationStarters: z.array(z.string()),
 })
+  .extend({
+    username: usernameSchema,
+  })
   .omit({
     id: true,
     creatorId: true,
@@ -159,15 +160,43 @@ export const personaInsertSchema = createInsertSchema(personas, {
 
 export const personaUpdateSchema = createInsertSchema(personas, {
   name: nameSchema,
-  username: usernameSchema,
   description: descriptionSchema,
   conversationStarters: z.array(z.string()),
 })
+  .extend({
+    username: usernameSchema,
+  })
   .partial()
 
 export type PersonaGet = z.infer<typeof personaGetSchema>
 export type PersonaInsert = z.infer<typeof personaInsertSchema>
 export type PersonaUpdate = z.infer<typeof personaUpdateSchema>
+
+export const personaUsernames = sqliteTable("PersonaUsername", {
+  id: int("id").primaryKey({ autoIncrement: true }),
+  personaId: int("persona_id")
+    .references(() => personas.id, { onDelete: "set null" }),
+  username: text("username").unique().notNull(),
+})
+
+export const personaUsernameUpdateSchema = createInsertSchema(personaUsernames, {
+  username: usernameSchema,
+})
+
+export const personaUsernameInsertSchema = createInsertSchema(personaUsernames, {
+  username: usernameSchema,
+}).omit({
+  id: true,
+})
+
+export const personaUsernameRelations = relations(personaUsernames, ({ one, many }) => ({
+  persona: one(personas, {
+    fields: [personaUsernames.personaId],
+    references: [personas.id],
+  }),
+  chats: many(chats),
+  contacts: many(contacts),
+}))
 
 // #endregion
 
@@ -176,15 +205,15 @@ export type PersonaUpdate = z.infer<typeof personaUpdateSchema>
 export const contacts = sqliteTable("Contact", {
   id: int("id").primaryKey({ autoIncrement: true }),
   name: text("name").notNull(),
-  personaId: int("persona_id")
+  personaUsernameId: int("persona_username_id")
     .notNull()
-    .references(() => personas.id, { onDelete: "cascade" }),
+    .references(() => personaUsernames.id, { onDelete: "no action" }),
   userId: text("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   createdAt: text("created_at").notNull(),
 }, t => ({
-  unq: unique().on(t.userId, t.personaId),
+  unq: unique().on(t.userId, t.personaUsernameId),
 }))
 
 export const contactsRelations = relations(contacts, ({ one }) => ({
@@ -192,9 +221,9 @@ export const contactsRelations = relations(contacts, ({ one }) => ({
     fields: [contacts.id],
     references: [chats.contactId],
   }),
-  persona: one(personas, {
-    fields: [contacts.personaId],
-    references: [personas.id],
+  personaUsername: one(personaUsernames, {
+    fields: [contacts.personaUsernameId],
+    references: [personaUsernames.id],
   }),
   user: one(users, {
     fields: [contacts.userId],
@@ -206,7 +235,7 @@ export const contactSchema = createSelectSchema(contacts)
 
 export const contactGetSchema = createSelectSchema(contacts).omit({
   userId: true,
-  personaId: true,
+  personaUsernameId: true,
 })
   .extend({
     username: usernameSchema,
@@ -215,7 +244,7 @@ export const contactGetSchema = createSelectSchema(contacts).omit({
 export const contactInsertSchema = createInsertSchema(contacts).omit({
   id: true,
   userId: true,
-  personaId: true,
+  personaUsernameId: true,
   createdAt: true,
 })
   .extend({
@@ -228,7 +257,7 @@ export const contactUpdateSchema = createInsertSchema(contacts, {
   .omit({
     id: true,
     userId: true,
-    personaId: true,
+    personaUsernameId: true,
     createdAt: true,
   })
   .partial()
@@ -292,9 +321,8 @@ export type LevelSelect = z.infer<typeof selectLevelSchema>
 
 export const chats = sqliteTable("Chat", {
   id: int("id").primaryKey({ autoIncrement: true }),
-  personaId: int("persona_id")
-    .notNull()
-    .references(() => personas.id, { onDelete: "cascade" }),
+  personaUsernameId: int("persona_username_id")
+    .references(() => personaUsernames.id, { onDelete: "no action" }),
   userId: text("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
@@ -302,24 +330,21 @@ export const chats = sqliteTable("Chat", {
     .references(() => contacts.id),
   createdAt: text("created_at").notNull(),
 }, t => ({
-  unq: unique().on(t.userId, t.personaId),
+  unq: unique().on(t.userId, t.personaUsernameId),
 }))
 
 export const chatsRelations = relations(chats, ({ one, many }) => ({
   contact: one(contacts, {
     fields: [chats.contactId],
     references: [contacts.id],
-    relationName: "contact",
   }),
-  persona: one(personas, {
-    fields: [chats.personaId],
-    references: [personas.id],
-    relationName: "persona",
+  personaUsername: one(personaUsernames, {
+    fields: [chats.personaUsernameId],
+    references: [personaUsernames.id],
   }),
   user: one(users, {
     fields: [chats.userId],
     references: [users.id],
-    relationName: "user",
   }),
   messages: many(messages),
 }))

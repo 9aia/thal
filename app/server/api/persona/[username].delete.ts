@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm"
 import { z } from "zod"
-import { personas, usernameSchema } from "~~/db/schema"
+import { personaUsernames, personas, usernameSchema } from "~~/db/schema"
 import { getValidated } from "~/utils/h3"
 import { forbidden, notFound, unauthorized } from "~/utils/nuxt"
 
@@ -13,19 +13,22 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  const [persona] = await orm
-    .select().from(personas)
-    .where(eq(personas.username, username))
+  const result = await orm.query.personaUsernames.findFirst({
+    where: eq(personaUsernames.username, username),
+    with: {
+      persona: true,
+    },
+  })
 
-  if (!persona)
+  if (!result?.persona)
     throw notFound()
 
-  if (persona.creatorId !== user.id)
+  if (result.persona.creatorId !== user.id)
     throw forbidden()
 
   const deletedPersona = await orm
     .delete(personas)
-    .where(eq(personas.username, username))
+    .where(eq(personas.id, result?.persona.id))
     .returning()
 
   return deletedPersona

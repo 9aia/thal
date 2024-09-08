@@ -15,14 +15,19 @@ export default defineEventHandler(async (event) => {
           name: true,
         },
       },
-      persona: {
+      personaUsername: {
         columns: {
           username: true,
-          name: true,
+        },
+        with: {
+          persona: {
+            columns: {
+              name: true,
+            },
+          },
         },
       },
     },
-
   })
 
   return values

@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm"
 import { unauthorized } from "~/utils/nuxt"
-import { personas } from "~~/db/schema"
+import { personaUsernames, personas } from "~~/db/schema"
 
 export default eventHandler(async (event) => {
   const orm = event.context.orm
@@ -9,5 +9,16 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  return await orm.select().from(personas).where(eq(personas.creatorId, user.id))
+  const result = await orm.select({
+    id: personas.id,
+    name: personas.name,
+    description: personas.description,
+    instructions: personas.instructions,
+    username: personaUsernames.username,
+  })
+    .from(personas)
+    .where(eq(personas.creatorId, user.id))
+    .leftJoin(personaUsernames, eq(personaUsernames.personaId, personas.id))
+
+  return result
 })

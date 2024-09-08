@@ -8,7 +8,7 @@ import { getValidated } from "~/utils/h3"
 import { internal, notFound, unauthorized } from "~/utils/nuxt"
 import { getUserData } from "~/utils/profile"
 import type { MessageInsert } from "~~/db/schema"
-import { chats, contacts, messageSendSchema, messages, personas, usernameSchema } from "~~/db/schema"
+import { chats, contacts, messageSendSchema, messages, personaUsernames, personas, usernameSchema } from "~~/db/schema"
 import type { ProfileData } from "~/schemas/profile"
 
 export default eventHandler(async (event) => {
@@ -22,27 +22,35 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  const persona = await orm.query.personas.findFirst({
-    where: eq(personas.username, username),
+  const result = await orm.query.personaUsernames.findFirst({
+    where: eq(personaUsernames.username, username),
     with: {
-      contacts: {
-        where: and(
-          eq(contacts.userId, user.id),
-        ),
+      persona: {
+        columns: {
+          name: true,
+          description: true,
+          instructions: true,
+        },
       },
       chats: {
-        where: and(
-          eq(chats.userId, user.id),
-        ),
+        where: eq(chats.userId, user.id),
+      },
+      contacts: {
+        where: eq(contacts.userId, user.id),
       },
     },
   })
 
-  if (!persona)
-    throw notFound("Persona not found")
+  if (!result)
+    throw notFound("Persona Username not found")
 
-  const contact = persona.contacts[0]
-  const existingChat = persona.chats[0]
+  const persona = result.persona
+
+  if (!persona)
+    throw internal("Persona not found")
+
+  const contact = result.contacts[0]
+  const existingChat = result.chats[0]
 
   let chat = existingChat
 
@@ -52,7 +60,7 @@ export default eventHandler(async (event) => {
       .values({
         userId: user.id,
         contactId: contact?.id,
-        personaId: persona.id,
+        personaUsernameId: result.id,
         createdAt: now().toString(),
       })
       .returning()
@@ -83,7 +91,7 @@ export default eventHandler(async (event) => {
   const gemini = getGemini(process.env.GEMINI_API_KEY!)
 
   const SYSTEM_INSTRUCTIONS = `
-    Your name is ${persona.name}, your username is ${persona.username}.
+    Your name is ${persona.name}, your username is ${result.username}.
 
     This is your description:
     ${persona.description}.

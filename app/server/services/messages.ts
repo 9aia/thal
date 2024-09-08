@@ -3,19 +3,15 @@ import type { H3EventContext } from "h3"
 import type { User } from "lucia"
 import type { Message } from "~/types"
 import { notFound } from "~/utils/nuxt"
-import { chats, personas } from "~~/db/schema"
+import { chats, messages, personaUsernames, personas } from "~~/db/schema"
 
 export async function getHistory(
   orm: H3EventContext["orm"],
   user: User,
   username: string,
 ) {
-  const result = await orm.query.personas.findFirst({
-    where: eq(personas.username, username),
-    columns: {
-      id: true,
-      username: true,
-    },
+  const result = await orm.query.personaUsernames.findFirst({
+    where: eq(personaUsernames.username, username),
     with: {
       chats: {
         where: eq(chats.userId, user.id),
@@ -26,10 +22,10 @@ export async function getHistory(
     },
   })
 
-  if (!result?.id)
-    throw notFound("Persona not found")
+  if (!result)
+    throw notFound("Persona Username not found")
 
-  const chat = result?.chats[0]
+  const chat = result.chats[0]
 
   if (!chat?.id)
     return []
