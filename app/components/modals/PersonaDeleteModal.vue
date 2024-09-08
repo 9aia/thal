@@ -29,6 +29,9 @@ const {
     queryClient.invalidateQueries({
       queryKey: queryKeys.myPersonas,
     })
+    queryClient.invalidateQueries({
+      queryKey: ["discover-personas"],
+    })
 
     isOpen.value = false
   },
