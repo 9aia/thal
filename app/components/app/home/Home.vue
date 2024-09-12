@@ -46,9 +46,9 @@ const discoverPersonasModal = useDiscoverPersonasModal()
 const user = useUser()
 
 const items: MenuItem[] = [
-  { id: "profile", action: "profile", name: "Profile", icon: "face", onSubmit: () => profileModal.open(user.value!.username) },
-  { id: "discover-personas", name: "Discover Personas", icon: "person_edit", action: "discover-personas", onSubmit: () => discoverPersonasModal.open() },
-  { id: "my-personas", name: "My Personas", icon: "person_edit", action: "my-personas", onSubmit: () => drawers.myPersonas = true },
+  { id: "profile", name: "Profile", icon: "face", onClick: () => profileModal.open(user.value!.username) },
+  { id: "discover-personas", name: "Discover Personas", icon: "person_edit", onClick: () => discoverPersonasModal.open() },
+  { id: "my-personas", name: "My Personas", icon: "person_edit", onClick: () => drawers.myPersonas = true },
   {
     id: "plan",
     name: "Subscription",
@@ -57,7 +57,7 @@ const items: MenuItem[] = [
     icon: "subscriptions",
     type: "external",
   },
-  { id: "settings", name: "Settings", icon: "settings", action: "settings-drawer", onSubmit: () => drawers.settings = true },
+  { id: "settings", name: "Settings", icon: "settings", onClick: () => drawers.settings = true },
   {
     id: "logout",
     name: "Logout",

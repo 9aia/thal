@@ -6,15 +6,13 @@ const general: MenuItem[] = [
     id: "profile",
     icon: "face",
     name: "Profile",
-    action: "profile-drawer",
-    onSubmit: () => drawers.profile = true,
+    onClick: () => drawers.profile = true,
   },
   {
     id: "account",
     icon: "person",
     name: "Account",
-    action: "account-drawer",
-    onSubmit: () => drawers.account = true,
+    onClick: () => drawers.account = true,
   },
   {
     id: "plan",
@@ -28,8 +26,7 @@ const general: MenuItem[] = [
     id: "my-personas",
     icon: "person_edit",
     name: "My Personas",
-    action: "my-personas",
-    onSubmit: () => drawers.myPersonas = true,
+    onClick: () => drawers.myPersonas = true,
   },
 ]
 

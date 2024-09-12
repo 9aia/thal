@@ -16,8 +16,7 @@ const menuItems: MenuItem[] = [
     id: "language",
     name: "Language",
     icon: "language",
-    action: "language",
-    onSubmit: () => {
+    onClick: () => {
       localeModal.open()
     },
   },

@@ -94,9 +94,8 @@ const dangerItems: MenuItem[] = [
     icon: "delete",
     name: t("Delete account"),
     description: t("This action is irreversible."),
-    action: "delete",
     type: "accordion",
-    onSubmit: () => {
+    onClick: () => {
       isDeleteModalOpen.value = true
     },
   },
