@@ -78,6 +78,10 @@ const submit = form.handleSubmit(async (data) => {
       })
 
       toast.success(t("Persona has been edited successfully."))
+
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.contactInfo(personaBuilderData.value!.username),
+      })
     }
     else {
       await $fetch(`/api/persona`, {

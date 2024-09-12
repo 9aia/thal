@@ -100,7 +100,7 @@ function handleAddContact() {
       <Resource :loading="isLoading" :error="isError" @execute="refetch">
         <ChatHeader :name="displayName" :username="data!.username" />
 
-        <main ref="scrollContainer" class="py-4 px-4 sm:px-12 flex-1 overflow-y-auto relative">
+        <main ref="scrollContainer" class="bg-slate-200 py-4 px-4 sm:px-12 flex-1 overflow-y-auto relative">
           <div
             v-if="!hasContact"
             class="card bg-neutral text-neutral-content text-center sm:max-w-lg mx-auto"

@@ -19,5 +19,10 @@ export const drawers = reactive({
   myPersonas: false,
 })
 
+export const rightDrawer = ref(false)
+export const rightDrawers = reactive({
+  contactView: false,
+})
+
 export const personaBuilderData = ref<Persona | null>(null)
 export const contactData = ref<Contact | null>(null)

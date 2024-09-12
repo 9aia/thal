@@ -1,37 +1,31 @@
 <script lang="ts" setup>
 import { t } from "@psitta/vue"
+import { rightDrawer, rightDrawers } from "~/store"
 import type { MenuItem } from "~~/layers/ui/components/navigation/types"
 
-const props = defineProps<{
+defineProps<{
   name: string
   username: string
 }>()
 
-const profileModal = useProfileModal()
-
-const contactDeleteModalState = ref(false)
-
 const items: MenuItem[] = [
   {
-    id: "delete-contact",
-    name: t("Delete Contact"),
-    icon: "delete",
-    onClick: () => contactDeleteModalState.value = true,
+    id: "view-contact",
+    name: t("View contact"),
+    icon: "person",
+    onClick: () => openContactView(),
   },
 ]
 
 function openContactView() {
-  profileModal.open(props.username as string)
+  // profileModal.open(props.username as string)
+  rightDrawer.value = true
+  rightDrawers.contactView = true
 }
 </script>
 
 <template>
   <header class="px-3 py-2 bg-slate-800 flex gap-2">
-    <ContactDeleteModal
-      v-model="contactDeleteModalState"
-      :contact-username="username"
-    />
-
     <label for="my-drawer" class="lg:hidden btn btn-ghost btn-circle text-primary drawer-button">
       <Icon name="arrow_back" />
     </label>

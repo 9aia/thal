@@ -91,6 +91,10 @@ const submit = form.handleSubmit(async (data) => {
       queryKey: queryKeys.chat(data.username),
     })
 
+    queryClient.invalidateQueries({
+      queryKey: queryKeys.contactInfo(username),
+    })
+
     form.resetForm()
   }
   catch (e) {

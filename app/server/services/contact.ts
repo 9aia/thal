@@ -14,6 +14,7 @@ export async function getContactByUser(
     columns: {
       id: true,
       username: true,
+      description: true,
     },
     where: eq(personas.username, username),
     with: {
@@ -35,6 +36,7 @@ export async function getContactByUser(
     personaId: result.id,
     name: result.contacts[0].name,
     username: result.username,
+    description: result.description,
   }
 }
 
