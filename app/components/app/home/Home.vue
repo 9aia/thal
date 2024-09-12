@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import queryKeys from "~/queryKeys"
 import { drawers } from "~/store"
 import type { Chat } from "~/types"
 
@@ -11,7 +12,7 @@ const emit = defineEmits<{
 const {
   data,
 } = await useServerQuery(() => "/api/chat", {
-  queryKey: computed(() => ["chats"]),
+  queryKey: queryKeys.chats,
 })
 
 const conversations = computed<Chat[]>(() => {
@@ -66,12 +67,6 @@ const items: MenuItem[] = [
     onSubmit: logout,
   },
 ]
-
-function updateRedirectUrl() {
-  const route = useRoute()
-  const redirectUrl = useRedirectUrl()
-  redirectUrl.value = route.path
-}
 </script>
 
 <template>

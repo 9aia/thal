@@ -3,6 +3,7 @@ import { t } from "@psitta/vue"
 import { useMutation, useQueryClient } from "@tanstack/vue-query"
 import AppLayout from "~/layouts/app.vue"
 import { contactData, drawers } from "~/store"
+import queryKeys from "~/queryKeys"
 
 definePageMeta({
   layout: false,
@@ -18,11 +19,11 @@ const {
   isError,
   refetch,
 } = await useServerQuery(() => `/api/chat/${params.username}` as `/api/chat/:username`, {
-  queryKey: ["chat", computed(() => params.username)],
+  queryKey: queryKeys.chat(computed(() => params.username as string)),
 })
 
 const historyQuery = await useServerQuery(() => `/api/chat/history/${params.username}`, {
-  queryKey: ["messages", computed(() => params.username)],
+  queryKey: queryKeys.messages(computed(() => params.username as string)),
 })
 
 const scrollContainer = ref<HTMLElement | null>(null)
@@ -59,7 +60,7 @@ const { mutate: sendMessage } = useMutation({
   onSuccess: (newHistory) => {
     if (historyQuery.data.value?.length === 1) {
       queryClient.invalidateQueries({
-        queryKey: ["chats"],
+        queryKey: queryKeys.chats,
       })
     }
 
@@ -97,7 +98,7 @@ function handleAddContact() {
 
     <template #content>
       <Resource :loading="isLoading" :error="isError" @execute="refetch">
-        <ChatHeader :name="displayName" :username="data?.username" />
+        <ChatHeader :name="displayName" :username="data!.username" />
 
         <main ref="scrollContainer" class="py-4 px-4 sm:px-12 flex-1 overflow-y-auto relative">
           <div

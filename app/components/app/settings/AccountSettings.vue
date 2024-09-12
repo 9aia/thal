@@ -7,6 +7,7 @@ import { useQueryClient } from "@tanstack/vue-query"
 import { nameSchema, pronounsSchema, usernameSchema } from "~~/db/schema"
 import { useToast } from "~~/layers/ui/composables/useToast"
 import type { MenuItem } from "~~/layers/ui/components/navigation/types"
+import queryKeys from "~/queryKeys"
 
 const emit = defineEmits<{
   (e: "close"): void
@@ -75,7 +76,7 @@ const submit = form.handleSubmit(async (data) => {
     toast.success(t("Personal data has been updated successfully."))
 
     queryClient.invalidateQueries({
-      queryKey: ["profile", updatedUser.username],
+      queryKey: queryKeys.profile(updatedUser.username),
     })
   }
   catch (e) {

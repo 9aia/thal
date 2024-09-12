@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { useI18n } from "@psitta/vue"
+import queryKeys from "~/queryKeys"
 
 const { t } = useI18n()
 
-const modelValue = defineModel()
+const modelValue = defineModel<boolean>()
 
 const {
   data: personas,
@@ -11,7 +12,7 @@ const {
   isPending,
   refetch,
 } = await useServerQuery("/api/persona/discover", {
-  queryKey: ["discover-personas"],
+  queryKey: queryKeys.discoverPersonas,
 })
 </script>
 

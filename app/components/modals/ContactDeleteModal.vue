@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { useFieldError, useFieldValue, useForm } from "vee-validate"
 import { T, useI18n } from "@psitta/vue"
 import { useMutation, useQueryClient } from "@tanstack/vue-query"
-import type { Persona } from "~/types"
+import { useFieldError, useFieldValue, useForm } from "vee-validate"
 import queryKeys from "~/queryKeys"
 
 const props = defineProps<{
-  persona?: Persona
+  contactUsername: string
 }>()
 
 const { t } = useI18n()
@@ -21,13 +20,17 @@ const {
   mutate,
 } = useMutation({
   mutationFn: async () => {
-    return $fetch(`/api/persona/${props.persona?.username}` as "/api/persona/:username", {
+    return $fetch(`/api/contact/${props.contactUsername}` as "/api/contact/:username", {
       method: "DELETE",
     })
   },
   onSuccess: () => {
     queryClient.invalidateQueries({
-      queryKey: queryKeys.myPersonas,
+      queryKey: queryKeys.contacts,
+    })
+
+    queryClient.invalidateQueries({
+      queryKey: queryKeys.chat(props.contactUsername),
     })
 
     isOpen.value = false
@@ -49,7 +52,7 @@ function checkUsernameRule(inputValue: string) {
   if (!inputValue)
     return t("Username is required")
 
-  return inputValue === props.persona?.username || t("Username does not match")
+  return inputValue === props.contactUsername || t("Username does not match")
 }
 
 const isFieldError = useFieldError("username")
@@ -73,7 +76,7 @@ const isUsernameInvalid = computed(() => {
         </Icon>
 
         <T
-          text="This action {cannot} be undone. This will permanently delete the character."
+          text="This action {cannot} be undone. This will permanently delete the contact."
           :values="{ cannot: 'cannot' }"
         >
           <template #cannot="slotProps">
@@ -90,7 +93,7 @@ const isUsernameInvalid = computed(() => {
         <T text="To confirm, please insert {username} below:" :values="{ username: true }">
           <template #username>
             <span class="text-warning font-bold">
-              {{ persona?.username }} {{ ' ' }}
+              {{ contactUsername }} {{ ' ' }}
             </span>
           </template>
         </T>
@@ -101,7 +104,7 @@ const isUsernameInvalid = computed(() => {
 
     <template #actions>
       <Btn value="true" class="btn-error" :disabled="isUsernameInvalid" @click.prevent="submit">
-        {{ t('Delete my account') }}
+        {{ t('Delete contact') }}
       </Btn>
 
       <Btn value="false" class="btn btn-primary" @click="isOpen = false">

@@ -4,6 +4,7 @@ import { drawers, personaBuilderData } from "~/store"
 import type { Persona } from "~/types"
 import { useDiscoverPersonasModal } from "~/composables/useDiscoverPersonasModal"
 import type { MenuItem } from "~~/layers/ui/components/navigation/types"
+import queryKeys from "~/queryKeys"
 
 const emit = defineEmits<{
   (e: "close"): void
@@ -31,7 +32,7 @@ const {
   isPending,
   refetch,
 } = await useServerQuery("/api/contact", {
-  queryKey: ["contacts"],
+  queryKey: queryKeys.contacts,
 })
 </script>
 

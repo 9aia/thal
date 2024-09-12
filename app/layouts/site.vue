@@ -30,12 +30,6 @@ const menuItems: MenuItem[] = [
     onSubmit: logout,
   },
 ]
-
-function updateRedirectUrl() {
-  const route = useRoute()
-  const redirectUrl = useRedirectUrl()
-  redirectUrl.value = route.path
-}
 </script>
 
 <template>

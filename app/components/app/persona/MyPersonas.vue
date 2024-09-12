@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from "@psitta/vue"
+import queryKeys from "~/queryKeys"
 import { drawers, personaBuilderData } from "~/store"
 import type { Persona } from "~/types"
 
@@ -15,7 +16,7 @@ const {
   isPending,
   refetch,
 } = await useServerQuery("/api/persona", {
-  queryKey: ["my-personas"],
+  queryKey: queryKeys.myPersonas,
 })
 
 const deletePersona = ref(false)

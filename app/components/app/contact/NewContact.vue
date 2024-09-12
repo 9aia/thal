@@ -6,6 +6,7 @@ import { useForm } from "vee-validate"
 import { contactData } from "~/store"
 import { nameSchema, usernameSchema } from "~~/db/schema"
 import { useToast } from "~~/layers/ui/composables/useToast"
+import queryKeys from "~/queryKeys"
 
 const emit = defineEmits<{
   (e: "close"): void
@@ -83,11 +84,11 @@ const submit = form.handleSubmit(async (data) => {
     emit("close")
 
     queryClient.invalidateQueries({
-      queryKey: ["contacts"],
+      queryKey: queryKeys.contacts,
     })
 
     queryClient.invalidateQueries({
-      queryKey: ["chat", data.username],
+      queryKey: queryKeys.chat(data.username),
     })
 
     form.resetForm()

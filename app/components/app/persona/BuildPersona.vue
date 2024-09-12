@@ -8,6 +8,7 @@ import { descriptionSchema, instructionsSchema, nameSchema, usernameSchema } fro
 import { useToast } from "~~/layers/ui/composables/useToast"
 import { personaBuilderData } from "~/store"
 import type { Persona } from "~/types"
+import queryKeys from "~/queryKeys"
 
 const emit = defineEmits<{
   (e: "close"): void
@@ -91,11 +92,11 @@ const submit = form.handleSubmit(async (data) => {
     }
 
     queryClient.invalidateQueries({
-      queryKey: ["my-personas"],
+      queryKey: queryKeys.myPersonas,
     })
 
     queryClient.invalidateQueries({
-      queryKey: ["discover-personas"],
+      queryKey: queryKeys.discoverPersonas,
     })
 
     emit("close")
