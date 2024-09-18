@@ -2,16 +2,18 @@
 export default defineNuxtConfig({
   srcDir: "./app",
   devtools: { enabled: true },
-  modules: [
-    "@nuxtjs/tailwindcss",
-    ["@nuxtjs/google-fonts", {
-      families: {
-        "Noto+Sans": true,
+  modules: ["@nuxtjs/tailwindcss", ["@nuxtjs/google-fonts", {
+    families: {
+      "Noto+Sans": true,
+    },
+  }], "nitro-cloudflare-dev", "@nuxt/eslint", "@nuxtjs/mdc", "@nuxt/image"],
+  mdc: {
+    remarkPlugins: {
+      emoji: {
+        src: "remark-emoji",
       },
-    }],
-    "nitro-cloudflare-dev",
-    "@nuxt/eslint",
-  ],
+    },
+  },
   app: {
     head: {
       title: "Thal - Digital run to fluency",

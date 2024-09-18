@@ -28,7 +28,9 @@ const time = computed(() => new Intl.DateTimeFormat(locale.value, {
       'chat-end': right,
     }"
   >
-    <div class="chat-bubble" v-html="message" />
+    <div class="chat-bubble">
+      <MDC :value="message" tag="article" class="prose prose-slate prose-sm" />
+    </div>
 
     <div class="chat-footer opacity-90 flex items-center mt-1 gap-1">
       <time class="text-xs opacity-90">{{ time }}</time>
