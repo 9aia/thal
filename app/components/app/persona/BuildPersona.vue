@@ -2,7 +2,6 @@
 import { useI18n } from "@psitta/vue"
 import { useQueryClient } from "@tanstack/vue-query"
 import { useDebounceFn } from "@vueuse/core"
-import type { User } from "lucia"
 import { useForm } from "vee-validate"
 import { descriptionSchema, instructionsSchema, nameSchema, usernameSchema } from "~~/db/schema"
 import { useToast } from "~~/layers/ui/composables/useToast"

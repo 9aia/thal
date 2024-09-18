@@ -1,7 +1,3 @@
-<script setup lang="ts">
-import Icon from "../display/Icon.vue"
-</script>
-
 <template>
   <header class="sticky top-0 w-full z-[1000] bg-slate-800 text-primary">
     <nav class="px-4 navbar max-w-[800px] mx-auto">

@@ -1,15 +1,13 @@
 import process from "node:process"
-import { and, eq } from "drizzle-orm"
+import { eq } from "drizzle-orm"
 import { z } from "zod"
 import { getHistory } from "~/server/services/messages"
 import { now } from "~/utils/date"
 import { chatHistoryToGemini, getGemini } from "~/utils/gemini"
 import { getValidated } from "~/utils/h3"
 import { internal, notFound, unauthorized } from "~/utils/nuxt"
-import { getUserData } from "~/utils/profile"
 import type { MessageInsert } from "~~/db/schema"
-import { chats, contacts, messageSendSchema, messages, personaUsernames, personas, usernameSchema } from "~~/db/schema"
-import type { ProfileData } from "~/schemas/profile"
+import { chats, contacts, messageSendSchema, messages, personaUsernames, usernameSchema } from "~~/db/schema"
 
 export default eventHandler(async (event) => {
   const { username } = await getValidated(event, "params", z.object({ username: usernameSchema }))

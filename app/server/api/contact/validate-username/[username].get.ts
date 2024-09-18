@@ -1,9 +1,8 @@
 import { and, eq } from "drizzle-orm"
 import { z } from "zod"
-import { getPersonaByUsername } from "~/server/services/persona"
 import { getValidated } from "~/utils/h3"
 import { unauthorized } from "~/utils/nuxt"
-import { contacts, personaUsernames, personas, usernameSchema } from "~~/db/schema"
+import { contacts, personaUsernames, usernameSchema } from "~~/db/schema"
 
 export default eventHandler(async (event) => {
   const orm = event.context.orm

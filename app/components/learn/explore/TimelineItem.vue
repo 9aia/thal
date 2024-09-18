@@ -2,7 +2,7 @@
 import { tv } from "tailwind-variants"
 import { t } from "@psitta/vue"
 import { ref } from "vue"
-import type { Level, Unit } from "../../../types"
+import type { Level } from "../../../types"
 
 const props = defineProps<{
   level: Level

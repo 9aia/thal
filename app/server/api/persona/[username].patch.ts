@@ -1,9 +1,8 @@
 import { eq } from "drizzle-orm"
 import { z } from "zod"
-import { personaUpdateSchema, personaUsernames, personas, usernameSchema } from "~~/db/schema"
 import { getValidated } from "~/utils/h3"
 import { forbidden, notFound, unauthorized } from "~/utils/nuxt"
-import { personaBuilderData } from "~/store"
+import { personaUpdateSchema, personaUsernames, personas, usernameSchema } from "~~/db/schema"
 
 export default eventHandler(async (event) => {
   const { username } = await getValidated(event, "params", z.object({ username: usernameSchema }))

@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { T, useI18n } from "@psitta/vue"
+import { useI18n } from "@psitta/vue"
 import { useMutation, useQueryClient } from "@tanstack/vue-query"
-import { useFieldError, useFieldValue, useForm } from "vee-validate"
 import queryKeys from "~/queryKeys"
 
 const props = defineProps<{

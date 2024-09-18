@@ -2,7 +2,7 @@ import { eq } from "drizzle-orm"
 import type { H3EventContext } from "h3"
 import type { User } from "lucia"
 import { notFound } from "~/utils/nuxt"
-import { contacts, personaUsernames, personas } from "~~/db/schema"
+import { contacts, personaUsernames } from "~~/db/schema"
 
 export async function getPersonaByUsername(
   orm: H3EventContext["orm"],

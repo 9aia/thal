@@ -1,4 +1,4 @@
-import { and, eq } from "drizzle-orm"
+import { eq } from "drizzle-orm"
 import { now } from "~/utils/date"
 import { getValidated } from "~/utils/h3"
 import { badRequest, unauthorized } from "~/utils/nuxt"

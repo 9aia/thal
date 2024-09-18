@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { t } from "@psitta/vue"
 import { drawers, personaBuilderData } from "~/store"
-import type { Persona } from "~/types"
 import { useDiscoverPersonasModal } from "~/composables/useDiscoverPersonasModal"
 import type { MenuItem } from "~~/layers/ui/components/navigation/types"
 import queryKeys from "~/queryKeys"

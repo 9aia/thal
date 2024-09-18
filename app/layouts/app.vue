@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { drawers, rightDrawer, rightDrawers } from "~/store"
+import { drawers, rightDrawer } from "~/store"
 import { useProfileModal } from "~/composables/useProfileModal"
 import { useDiscoverPersonasModal } from "~/composables/useDiscoverPersonasModal"
 

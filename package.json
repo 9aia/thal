@@ -18,7 +18,8 @@
     "cf:types": "wrangler types",
     "up": "docker compose up -d",
     "down": "docker compose down",
-    "stripe": "docker exec stripe-cli stripe"
+    "stripe": "docker exec stripe-cli stripe",
+    "type:check": "tsc --noEmit"
   },
   "dependencies": {
     "@ark-ui/vue": "^0.11.0",

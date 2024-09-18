@@ -3,7 +3,7 @@ import type { H3EventContext } from "h3"
 import type { User } from "lucia"
 import type { Message } from "~/types"
 import { notFound } from "~/utils/nuxt"
-import { chats, messages, personaUsernames, personas } from "~~/db/schema"
+import { chats, personaUsernames } from "~~/db/schema"
 
 export async function getHistory(
   orm: H3EventContext["orm"],
