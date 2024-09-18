@@ -15,18 +15,18 @@ export async function getContactByUser(
     columns: {
       id: true,
       username: true,
-      description: true,
     },
     with: {
       persona: {
-        with: {
-          contacts: {
-            where: eq(contacts.userId, user.id),
-            columns: {
-              id: true,
-              name: true,
-            },
-          },
+        columns: {
+          description: true,
+        },
+      },
+      contacts: {
+        where: eq(contacts.userId, user.id),
+        columns: {
+          id: true,
+          name: true,
         },
       },
     },
@@ -40,14 +40,14 @@ export async function getContactByUser(
   if (!persona)
     throw notFound("Persona not found")
 
-  if (persona.contacts.length)
+  if (!result.contacts.length)
     throw notFound("Contact not found")
 
   return {
-    id: persona.contacts[0].id,
-    name: persona.contacts[0].name,
+    id: result.contacts[0].id,
+    name: result.contacts[0].name,
     username: result.username,
-    description: result.description,
+    description: result.persona?.description,
   }
 }
 

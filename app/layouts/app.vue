@@ -22,7 +22,7 @@ const isRootDrawerOpen = ref(false)
           </div>
           <div class="drawer-side">
             <div class="flex flex-col h-dvh justify-between">
-              <ContactView />
+              <ContactView v-if="rightDrawer" />
             </div>
           </div>
         </div>

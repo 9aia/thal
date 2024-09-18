@@ -172,6 +172,10 @@ export type PersonaGet = z.infer<typeof personaGetSchema>
 export type PersonaInsert = z.infer<typeof personaInsertSchema>
 export type PersonaUpdate = z.infer<typeof personaUpdateSchema>
 
+// #endregion
+
+// #region PersonaUsernames
+
 export const personaUsernames = sqliteTable("PersonaUsername", {
   id: int("id").primaryKey({ autoIncrement: true }),
   personaId: int("persona_id")
@@ -322,12 +326,13 @@ export type LevelSelect = z.infer<typeof selectLevelSchema>
 export const chats = sqliteTable("Chat", {
   id: int("id").primaryKey({ autoIncrement: true }),
   personaUsernameId: int("persona_username_id")
+    .notNull()
     .references(() => personaUsernames.id, { onDelete: "no action" }),
   userId: text("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   contactId: int("contact_id")
-    .references(() => contacts.id),
+    .references(() => contacts.id, { onDelete: "set null" }),
   createdAt: text("created_at").notNull(),
 }, t => ({
   unq: unique().on(t.userId, t.personaUsernameId),

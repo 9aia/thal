@@ -92,7 +92,7 @@ const submit = form.handleSubmit(async (data) => {
     })
 
     queryClient.invalidateQueries({
-      queryKey: queryKeys.contactInfo(username),
+      queryKey: queryKeys.contactInfo(data.username),
     })
 
     form.resetForm()

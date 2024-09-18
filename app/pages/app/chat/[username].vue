@@ -7,6 +7,7 @@ import queryKeys from "~/queryKeys"
 
 definePageMeta({
   layout: false,
+  middleware: "premium",
 })
 
 const route = useRoute()
@@ -20,10 +21,6 @@ const {
   refetch,
 } = await useServerQuery(() => `/api/chat/${params.username}` as `/api/chat/:username`, {
   queryKey: queryKeys.chat(computed(() => params.username as string)),
-})
-
-const historyQuery = await useServerQuery(() => `/api/chat/history/${params.username}`, {
-  queryKey: queryKeys.messages(computed(() => params.username as string)),
 })
 
 const scrollContainer = ref<HTMLElement | null>(null)
@@ -40,31 +37,37 @@ const { mutate: sendMessage } = useMutation({
     method: "POST",
     body: JSON.stringify(data),
   }),
-  async onMutate(data) {
-    const newHistory = [...historyQuery.data.value || []]
+  async onMutate(newMessage) {
+    const newHistory = [...data.value.history || []]
 
     newHistory.push({
       id: `${newHistory.length + 1}`,
       from: "user",
       status: "sending",
-      message: data.value,
+      message: newMessage.value,
       time: new Date().getTime(),
     })
 
-    queryClient.setQueryData(["messages", computed(() => params.username)], newHistory)
+    queryClient.setQueryData(queryKeys.chat(params.username as string), {
+      ...data.value,
+      history: newHistory,
+    })
     await nextTick()
     fixScroll()
 
     text.value = ""
   },
   onSuccess: (newHistory) => {
-    if (historyQuery.data.value?.length === 1) {
+    if (data.value.history.length === 1) {
       queryClient.invalidateQueries({
         queryKey: queryKeys.chats,
       })
     }
 
-    queryClient.setQueryData(["messages", computed(() => params.username)], newHistory)
+    queryClient.setQueryData(queryKeys.chat(params.username as string), {
+      ...data.value,
+      history: newHistory,
+    })
     fixScroll()
   },
 })
@@ -73,21 +76,7 @@ function handleSend() {
   sendMessage({ type: "text", value: text.value })
 }
 
-const hasContact = computed(() => {
-  return !!data.value?.contact
-})
-
-const displayName = computed(() => {
-  return data.value?.contact?.name || `@${data.value?.username}`
-})
-
-function handleAddContact() {
-  drawers.newContact = true
-  contactData.value = {
-    name: data.value?.name,
-    username: data.value?.username,
-  }
-}
+const { hasContact, displayName, addContact } = useContactInfo(data)
 </script>
 
 <template>
@@ -98,7 +87,7 @@ function handleAddContact() {
 
     <template #content>
       <Resource :loading="isLoading" :error="isError" @execute="refetch">
-        <ChatHeader :name="displayName" :username="data!.username" />
+        <ChatHeader :name="displayName" :username="data!.username" :has-contact="hasContact" :add-contact="addContact" />
 
         <main ref="scrollContainer" class="bg-slate-200 py-4 px-4 sm:px-12 flex-1 overflow-y-auto relative">
           <div
@@ -125,7 +114,7 @@ function handleAddContact() {
               </p>
 
               <div class="card-actions justify-center">
-                <Btn class="btn-outline btn-primary" @click="handleAddContact()">
+                <Btn class="btn-outline btn-primary" @click="addContact()">
                   <Icon name="person_add" />
                   Add
                 </Btn>
@@ -133,12 +122,7 @@ function handleAddContact() {
             </div>
           </div>
 
-          <Resource
-            :loading="historyQuery.isPending.value" :error="historyQuery.isError.value"
-            @execute="historyQuery.refetch"
-          >
-            <ChatConversation :history="historyQuery.data.value! as any" @fix-scroll="fixScroll" />
-          </Resource>
+          <ChatConversation :history="data.history" @fix-scroll="fixScroll" />
         </main>
 
         <ChatFooter v-model="text" @send="handleSend" />

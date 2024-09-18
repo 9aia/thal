@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { t } from "@psitta/vue"
 import { useQuery } from "@tanstack/vue-query"
+import { useI18n } from "@psitta/vue"
 import { contactData, drawers, rightDrawer, rightDrawers } from "~/store"
 import queryKeys from "~/queryKeys"
 import type { MenuItem } from "~~/layers/ui/components/navigation/types"
@@ -23,18 +23,9 @@ const {
   },
 })
 
-const hasContact = computed(() => !!data.value?.contact)
+const { displayName, hasContact, addContact } = useContactInfo(data)
 
-function handleAddContact() {
-  if (!data.value)
-    return
-
-  drawers.newContact = true
-  contactData.value = {
-    name: data.value.name!,
-    username: data.value.username!,
-  }
-}
+const { t } = useI18n()
 
 const items = computed<MenuItem[]>(() => [
   hasContact.value
@@ -42,17 +33,13 @@ const items = computed<MenuItem[]>(() => [
         id: "delete-contact",
         name: t("Delete Contact"),
         icon: "delete",
-        onClick: () => {
-          contactDeleteModalState.value = true
-        },
+        onClick: () => contactDeleteModalState.value = true,
       }
     : {
         id: "add-contact",
         name: t("Add Contact"),
         icon: "add",
-        onClick: () => {
-          handleAddContact()
-        },
+        onClick: () => addContact(),
       },
 ])
 
@@ -99,12 +86,12 @@ function closeDrawer() {
         </div>
 
         <h2 class="text-slate-900 text-center text-2xl mb-1">
-          {{ data?.name }}
+          {{ displayName }}
         </h2>
         <small class="text-slate-600 text-xs mb-4">@{{ data?.username }}</small>
 
         <p class="text-slate-600 text-xs mt">
-          {{ data?.description }}
+          {{ data?.persona?.description }}
         </p>
       </div>
     </Resource>

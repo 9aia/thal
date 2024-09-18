@@ -1,21 +1,46 @@
 <script lang="ts" setup>
-import { t } from "@psitta/vue"
-import { rightDrawer, rightDrawers } from "~/store"
+import { useI18n } from "@psitta/vue"
+import { useQuery } from "@tanstack/vue-query"
+import queryKeys from "~/queryKeys"
+import { contactData, drawers, rightDrawer, rightDrawers } from "~/store"
 import type { MenuItem } from "~~/layers/ui/components/navigation/types"
 
-defineProps<{
+const props = defineProps<{
   name: string
   username: string
+  hasContact: boolean
+  addContact: () => void
 }>()
 
-const items: MenuItem[] = [
+const { t } = useI18n()
+
+const contactDeleteModalState = ref()
+
+const items = computed<MenuItem[]>(() => [
   {
     id: "view-contact",
     name: t("View contact"),
     icon: "person",
     onClick: () => openContactView(),
   },
-]
+  props.hasContact
+    ? {
+        id: "delete-contact",
+        name: t("Delete Contact"),
+        icon: "delete",
+        onClick: () => {
+          contactDeleteModalState.value = true
+        },
+      }
+    : {
+        id: "add-contact",
+        name: t("Add Contact"),
+        icon: "add",
+        onClick: () => {
+          props.addContact()
+        },
+      },
+])
 
 function openContactView() {
   // profileModal.open(props.username as string)
@@ -26,6 +51,8 @@ function openContactView() {
 
 <template>
   <header class="px-3 py-2 bg-slate-800 flex gap-2">
+    <ContactDeleteModal v-model="contactDeleteModalState" :contact-username="username" />
+
     <label for="my-drawer" class="lg:hidden btn btn-ghost btn-circle text-primary drawer-button">
       <Icon name="arrow_back" />
     </label>
