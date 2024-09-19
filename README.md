@@ -3,38 +3,41 @@
 > [!WARNING]
 > Thal is currently a work in progress. Expect potential bugs, incomplete documentation, and ongoing development. Approach it with a growth mindset, enjoy experimenting, and refrain from using it for critical production purposes at this time.
 
-Thal is an English learning app powered by AI that enhances language acquisition through interactive and personalized experiences.
+Thal is a chat-based, AI-powered English learning app that helps users practice English in a natural and interactive way. Inspired by messaging apps, Thal simulates real-life conversations, making language learning feel intuitive and engaging.
 
 ## Goals
 
-- **Enhance Language Learning**: Provide a dynamic and interactive platform to facilitate English language learning through AI-driven content and exercises.
-- **Personalized Experience**: Utilize GenAI to tailor lessons and activities to individual learning styles and progress.
-- **Encourage Consistency**: Promote regular practice and engagement with the language through gamified elements and motivational tools.
+* **Enhance Language Learning**: Create an engaging and effective environment for users to develop and improve their language skills through dynamic interactions.
+* **Promote Personalization**: Provide tailored learning experiences that adapt to individual needs and preferences, making the process more relevant and impactful.
+* **Foster Community Involvement**: Encourage user participation in content creation and sharing, building a collaborative and diverse learning ecosystem.
 
 ## Scope
 
-Thal encompasses the development and management of the following features:
+Thal focuses on a select set of features to ensure a streamlined and effective English learning experience:
 
-* **Interactive Lessons**: Curate lessons that adapt in real-time to the user's learning pace and comprehension.
-* **AI-Powered Exercises**: Generate exercises and quizzes based on the user's proficiency level, focusing on vocabulary, grammar, pronunciation, and comprehension.
-* **Progress Tracking**: Implement a system to track user progress, providing feedback and adjusting difficulty accordingly.
-* **Gamification**: Integrate elements such as achievements, leaderboards, and rewards to motivate users.
+* **AI Conversations**: Chat with AI-driven characters that simulate real-world conversations.
+* **Custom Characters**: Create unique characters for different contexts like casual, business, or other areas of focus.
+* **Real-time Assistance**: Get suggestions, translations, quick access to a dictionary, and more.
+* **Community Sharing**: Share and explore characters created by other users to enrich your learning experience.
 
 **The project does not include:**
 
-* Language courses for languages other than English
-* Teacher-student interaction tools
+* **Non-English Language Learning**: The app focuses solely on English and does not provide lessons for other languages.
+* **Formal Certification or Accreditation**: The app will not offer official language certificates or academic qualifications.
+* **Classroom-style Teaching**: No lecture-style learning, formal language classes, or textbook-style instruction will be included.
+* **Gamification**: The app does not integrate elements such as achievements, leaderboards, and rewards to motivate users.
+* **Extensive Progress Tracking**: While conversations adjust based on your performance, there is no formal progress report.
 
 ## User Guide
 
 ### Requirements
 
-To effectively use Thal, you will need:
+To make the most of Thal, you’ll need:
 
-- Basic understanding of Portuguese.
-- Access to a device with internet connectivity.
-- Enthusiasm and commitment to regular practice.
+* **Device and Browser Compatibility**: Responsive web app that works on any modern device (smartphone, tablet, or desktop). It requires an up-to-date web browser (e.g., Chrome, Firefox, Safari, or Edge) with **internet access**.
+* **English Proficiency**: Suitable for all levels. The app can be used with minimal knowledge of English, and the UI can be set to Portuguese if needed.
+* **Commitment**: Regular practice and active engagement are essential to maximize the learning experience with Thal.
 
 ## Contributing
 
-Check out [Contributing Guide](/CONTRIBUTING.md) for guidelines on how to contribute to Thal.
+We welcome contributions! Whether you want to help improve the code, suggest features, or create new characters, check out the [Contributing Guide](/CONTRIBUTING.md) for more details.
