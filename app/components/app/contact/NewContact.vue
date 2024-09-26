@@ -4,7 +4,7 @@ import { useQueryClient } from "@tanstack/vue-query"
 import { useDebounceFn } from "@vueuse/core"
 import { useForm } from "vee-validate"
 import { contactData } from "~/store"
-import { nameSchema, usernameSchema } from "~~/db/schema"
+import { nameSchema, usernameSchema } from "~~/db/schema/schema"
 import { useToast } from "~~/layers/ui/composables/useToast"
 import queryKeys from "~/queryKeys"
 
@@ -79,8 +79,6 @@ const submit = form.handleSubmit(async (data) => {
       },
     })
 
-    toast.success(t("Contact has been created successfully."))
-
     emit("close")
 
     queryClient.invalidateQueries({
@@ -96,6 +94,16 @@ const submit = form.handleSubmit(async (data) => {
     })
 
     form.resetForm()
+
+    toast.success(t("{name} was added to your contacts.", { name: data.name }), 5000, {
+      actions: [
+        {
+          title: t("Message"),
+          onClick: () => navigateTo(`/app/chat/${data.username}`),
+        },
+      ],
+      position: "start-bottom",
+    })
   }
   catch (e) {
     toast.error(t("An error occurred while creating contact."))

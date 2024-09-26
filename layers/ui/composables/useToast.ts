@@ -1,11 +1,15 @@
 import { ref } from "vue"
 
 type Type = "success" | "error" | "warning" | "info"
+type Position = "start-top" | "start-middle" | "start-bottom"
+  | "center-top" | "center-middle" | "center-bottom"
+  | "end-top" | "end-middle" | "end-bottom"
 
 const message = ref<string>("")
 const type = ref<Type>("success")
 const duration = ref(3000)
 const visible = ref(false)
+const position = ref<Position>("end-bottom")
 
 const actions = ref<ToastAction[]>([])
 const update = ref(false)
@@ -15,6 +19,7 @@ export interface ToastOptions {
   type?: Type
   duration?: number
   actions?: ToastAction[]
+  position?: Position
 }
 
 export interface ToastAction {
@@ -24,6 +29,7 @@ export interface ToastAction {
 
 export interface ToastMoreOptions {
   actions?: ToastAction[]
+  position?: Position
 }
 
 export function useToast() {
@@ -34,6 +40,7 @@ export function useToast() {
     message.value = options.message
     type.value = options.type || "success"
     duration.value = options.duration ?? 3000
+    position.value = options.position ?? "end-bottom"
     actions.value = options.actions ?? []
     update.value = !update.value
 
@@ -46,29 +53,12 @@ export function useToast() {
       }, duration.value)
     }
   }
-  const info = (
-    message: string,
-    duration?: number,
-    options?: ToastMoreOptions,
-  ) => open({ type: "info", message, duration, actions: options?.actions })
+  type SendFn = (message: string, duration?: number, options?: ToastMoreOptions) => void
 
-  const warn = (
-    message: string,
-    duration?: number,
-    options?: ToastMoreOptions,
-  ) => open({ type: "warning", message, duration, actions: options?.actions })
-
-  const error = (
-    message: string,
-    duration?: number,
-    options?: ToastMoreOptions,
-  ) => open({ type: "error", message, duration, actions: options?.actions })
-
-  const success = (
-    message: string,
-    duration?: number,
-    options?: ToastMoreOptions,
-  ) => open({ type: "success", message, duration, actions: options?.actions })
+  const info: SendFn = (message, duration, options) => open({ type: "info", message, duration, ...options })
+  const warn: SendFn = (message, duration, options) => open({ type: "warning", message, duration, ...options })
+  const error: SendFn = (message, duration, options) => open({ type: "error", message, duration, ...options })
+  const success: SendFn = (message, duration, options) => open({ type: "success", message, duration, ...options })
 
   const close = () => {
     visible.value = false
@@ -82,6 +72,7 @@ export function useToast() {
     success,
     close,
     visible,
+    position,
     message,
     duration,
     type,
