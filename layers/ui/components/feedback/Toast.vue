@@ -5,13 +5,25 @@ import Icon from "../display/Icon.vue"
 import { useToast } from "../../composables/useToast"
 
 const styles = tv({
-  base: "fixed bottom-4 right-1/2 translate-x-1/2 z-50 max-w-sm alert",
+  base: "fixed bottom-4 right-1/2 translate-x-1/2 max-w-lg z-50 alert overflow-hidden border-0",
   variants: {
     type: {
       info: "alert-info",
       warning: "alert-warning",
       error: "alert-error",
       success: "alert-success",
+    },
+  },
+})
+
+const actionStyles = tv({
+  base: "btn text-neutral",
+  variants: {
+    type: {
+      info: "btn-info",
+      warning: "btn-warning",
+      error: "btn-error",
+      success: "btn-success",
     },
   },
 })
@@ -30,7 +42,7 @@ const icons: Icons = {
   success: "check_circle",
   warning: "warning",
   error: "error",
-  info: "information",
+  info: "info",
 }
 const icon = computed(() => icons[toast.type.value || "info"])
 
@@ -42,22 +54,39 @@ effect(() => {
       return
 
     el.value.style.animationPlayState = "running"
-
-    setTimeout(() => {
-      toast.close()
-    }, duration)
   }
 })
+
+watch(toast.update, () => {
+  if (el.value) {
+    el.value.classList.remove("animate-progress")
+    void el.value.offsetWidth
+    el.value.classList.add("animate-progress")
+  }
+}, { immediate: true })
 </script>
 
 <template>
   <Transition>
     <div v-if="toast.visible.value" :class="styles({ type: toast.type.value })">
       <Icon :name="icon" class="text-neutral" />
+
       <h3 class="text-neutral">
         {{ toast.message.value }}
       </h3>
-      <div>
+
+      <div class="flex items-center justify-center gap-4">
+        <div v-if="toast.actions.value.length">
+          <button
+            v-for="action, index in toast.actions.value"
+            :key="`action-${index}`"
+            :class="actionStyles({ type: toast.type.value })"
+            @click="action.onClick()"
+          >
+            {{ action.title }}
+          </button>
+        </div>
+
         <button
           class="w-5 h-5 flex items-center justify-center cursor-pointer"
           @click="toast.close()"
@@ -65,6 +94,7 @@ effect(() => {
           <Icon name="close" class="text-neutral" />
         </button>
       </div>
+
       <div
         v-if="toast.duration.value > 0"
         ref="el"
