@@ -4,7 +4,7 @@ import { useQueryClient } from "@tanstack/vue-query"
 import { useDebounceFn } from "@vueuse/core"
 import { useForm } from "vee-validate"
 import { contactData } from "~/store"
-import { nameSchema, usernameSchema } from "~~/db/schema/schema"
+import { nameSchema, usernameSchema } from "~~/db/schema"
 import { useToast } from "~~/layers/ui/composables/useToast"
 import queryKeys from "~/queryKeys"
 
