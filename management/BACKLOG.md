@@ -54,9 +54,6 @@ Enhancements
 - Improve error handling.
 - Improve brand identity.
 
-### Chat
-- Add a GenAI experimental disclaimer note at the top of the chat.
-
 ### Legal
 - Add privacy info about account deletion (cannot delete before month ends, but users can delete manually before).
 
