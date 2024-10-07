@@ -30,7 +30,6 @@ Features
 - Add an invite section in contacts (when the persona doesn’t exist).
 
 ### Chat
-- Add a "GenAI experimental - Double check info" note at the top of the chat.
 - Show the last message in the chat.
 - Stream chat messages.
 - Add a help request item in the header menu (AI-driven).
@@ -54,6 +53,9 @@ Enhancements
 - Improve loading handling.
 - Improve error handling.
 - Improve brand identity.
+
+### Chat
+- Add a GenAI experimental disclaimer note at the top of the chat.
 
 ### Legal
 - Add privacy info about account deletion (cannot delete before month ends, but users can delete manually before).

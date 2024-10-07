@@ -10,6 +10,11 @@ const props = defineProps<{
   message: string
   status: MessageStatus
   img: string
+  showResend: boolean
+}>()
+
+const emit = defineEmits<{
+  (e: "resend"): void
 }>()
 
 const locale = useLocale()
@@ -33,6 +38,18 @@ const time = computed(() => new Intl.DateTimeFormat(locale.value, {
     </div>
 
     <div class="chat-footer opacity-90 flex items-center mt-1 gap-1">
+      <div class="flex">
+        <button
+          v-if="(from === 'user') && showResend"
+          class="btn btn-sm btn-circle btn-ghost btn-neutral text-teal-500"
+          @click="emit('resend')"
+        >
+          <Icon style="font-size: 1.15rem">
+            refresh
+          </Icon>
+        </button>
+      </div>
+
       <time class="text-xs opacity-90">{{ time }}</time>
 
       <MessageIcon v-if="right" :status="status" />

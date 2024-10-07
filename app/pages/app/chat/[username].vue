@@ -2,7 +2,6 @@
 import { t } from "@psitta/vue"
 import { useMutation, useQueryClient } from "@tanstack/vue-query"
 import AppLayout from "~/layouts/app.vue"
-import { contactData, drawers } from "~/store"
 import queryKeys from "~/queryKeys"
 
 definePageMeta({
@@ -25,19 +24,26 @@ const {
 
 const scrollContainer = ref<HTMLElement | null>(null)
 
-function fixScroll() {
-  if (scrollContainer.value)
-    scrollContainer.value.scrollTop = scrollContainer.value.scrollHeight
+async function fixScroll() {
+  await nextTick()
+
+  setTimeout(() => {
+    if (scrollContainer.value)
+      scrollContainer.value.scrollTop = scrollContainer.value.scrollHeight
+  }, 0)
 }
 
 const text = ref("")
 
-const { mutate: sendMessage } = useMutation({
-  mutationFn: (data: { type: "text", value: string }) => $fetch(`/api/message/${params.username}`, {
+const { mutate: sendMessage, isError: mutationError } = useMutation({
+  mutationFn: (data: { type: "text", value: string, refresh: boolean }) => $fetch(`/api/message/${params.username}`, {
     method: "POST",
     body: JSON.stringify(data),
   }),
   async onMutate(newMessage) {
+    if (newMessage.refresh)
+      return
+
     const newHistory = [...data.value.history || []]
 
     newHistory.push({
@@ -52,12 +58,28 @@ const { mutate: sendMessage } = useMutation({
       ...data.value,
       history: newHistory,
     })
-    await nextTick()
-    fixScroll()
 
     text.value = ""
+    fixScroll()
   },
-  onSuccess: (newHistory) => {
+  onError: async () => {
+    const newHistory = [...data.value.history || []]
+
+    const lastMessage = newHistory[newHistory.length - 1]
+
+    newHistory[newHistory.length - 1] = {
+      ...lastMessage,
+      status: "error",
+    }
+
+    queryClient.setQueryData(queryKeys.chat(params.username as string), {
+      ...data.value,
+      history: newHistory,
+    })
+
+    fixScroll()
+  },
+  onSuccess: async (newHistory) => {
     if (data.value.history.length === 1) {
       queryClient.invalidateQueries({
         queryKey: queryKeys.chats,
@@ -68,12 +90,20 @@ const { mutate: sendMessage } = useMutation({
       ...data.value,
       history: newHistory,
     })
+
     fixScroll()
   },
 })
 
 function handleSend() {
-  sendMessage({ type: "text", value: text.value })
+  sendMessage({ type: "text", value: text.value, refresh: false })
+}
+
+function handleResend() {
+  const lastMessage = data.value.history[data.value.history.length - 1]
+
+  if (lastMessage.status === "error")
+    sendMessage({ type: "text", value: lastMessage.message, refresh: true })
 }
 
 const { hasContact, displayName, addContact } = useContactInfo(data)
@@ -122,10 +152,15 @@ const { hasContact, displayName, addContact } = useContactInfo(data)
             </div>
           </div>
 
-          <ChatConversation :history="data.history" @fix-scroll="fixScroll" />
+          <ChatConversation
+            :history="data.history"
+            :is-error="mutationError"
+            @fix-scroll="fixScroll"
+            @resend="handleResend()"
+          />
         </main>
 
-        <ChatFooter v-model="text" @send="handleSend" />
+        <ChatFooter v-model="text" @send="handleSend()" />
       </Resource>
     </template>
   </AppLayout>

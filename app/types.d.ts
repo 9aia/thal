@@ -108,7 +108,7 @@ export interface MessageData {
   value: string
 }
 
-export type MessageStatus = "seen" | "sent" | "received" | "sending"
+export type MessageStatus = "seen" | "sent" | "received" | "sending" | "error"
 
 export interface MessageContent {
   date: Date
