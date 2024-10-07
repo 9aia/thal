@@ -3,7 +3,8 @@ import { int, sqliteTable, text, unique } from "drizzle-orm/sqlite-core"
 import { createInsertSchema, createSelectSchema } from "drizzle-zod"
 import { z } from "zod"
 import { relations } from "drizzle-orm"
-import { MAX_GOALS_AMOUNT, MAX_HOBBIES_AMOUNT, MAX_OBSERVATION_CHARS, MAX_PROFESSION_CHARS } from "../app/constants/base"
+import { MAX_GOALS_AMOUNT, MAX_HOBBIES_AMOUNT, MAX_OBSERVATION_CHARS, MAX_PROFESSION_CHARS } from "../../app/constants/base"
+import { lastMessages } from "./lastMessages"
 import type { MessageData } from "~/types"
 
 // #region Users
@@ -352,6 +353,7 @@ export const chatsRelations = relations(chats, ({ one, many }) => ({
     references: [users.id],
   }),
   messages: many(messages),
+  lastMessages: many(lastMessages),
 }))
 
 // #endregion

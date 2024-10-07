@@ -8,6 +8,7 @@ import { getValidated } from "~/utils/h3"
 import { internal, notFound, unauthorized } from "~/utils/nuxt"
 import type { MessageInsert } from "~~/db/schema"
 import { chats, contacts, messageSendSchema, messages, personaUsernames, usernameSchema } from "~~/db/schema"
+import { lastMessages } from "~~/db/schema/lastMessages"
 
 export default eventHandler(async (event) => {
   const { username } = await getValidated(event, "params", z.object({ username: usernameSchema }))
@@ -117,9 +118,11 @@ export default eventHandler(async (event) => {
 
   const geminiResTime = now().getTime()
 
+  const messageContent = geminiResText
+
   const geminiMessage: MessageInsert = {
     chatId: chat.id,
-    data: { type: "text", value: geminiResText },
+    data: { type: "text", value: messageContent },
     isBot: 1,
     createdAt: geminiResTime,
   }
@@ -131,12 +134,17 @@ export default eventHandler(async (event) => {
       geminiMessage,
     ]).returning()
 
+  await orm.insert(lastMessages).values({
+    chatId: chat.id,
+    content: messageContent.slice(0, 32),
+  })
+
   history.push(
     {
       id: dbGeminiMessage.id.toString(),
       from: "bot",
       status: "sent",
-      message: geminiResText,
+      message: messageContent,
       time: geminiResTime,
     },
   )

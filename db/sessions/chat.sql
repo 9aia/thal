@@ -9,3 +9,7 @@ DELETE FROM Chat
 --- @block Drop chat table
 
 DROP TABLE Chat
+
+--- @block Delete last messages
+
+DELETE FROM LastMessage
