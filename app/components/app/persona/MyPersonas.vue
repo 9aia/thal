@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from "@psitta/vue"
 import queryKeys from "~/queryKeys"
-import { drawers, personaBuilderData } from "~/store"
+import { drawers, isRootDrawerOpen, personaBuilderData } from "~/store"
 import type { Persona } from "~/types"
 
 const emit = defineEmits<{
@@ -35,6 +35,12 @@ function handleEditPersona(persona: Persona) {
 function handleCreatePersona() {
   drawers.personaBuilder = true
   personaBuilderData.value = null
+}
+
+function handleGoToChat(username: string) {
+  isRootDrawerOpen.value = false
+
+  navigateTo(`/app/chat/${username}`)
 }
 </script>
 
@@ -79,7 +85,7 @@ function handleCreatePersona() {
                 :name="persona.name"
                 @delete="handleDeletePersona(persona as unknown as Persona)"
                 @edit="handleEditPersona(persona as unknown as Persona)"
-                @click="navigateTo(`/app/chat/${persona.username}`)"
+                @click="handleGoToChat(persona.username as string)"
               />
             </li>
 

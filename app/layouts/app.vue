@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { drawers, rightDrawer } from "~/store"
+import { drawers, isRootDrawerOpen, rightDrawer } from "~/store"
 import { useProfileModal } from "~/composables/useProfileModal"
 import { useDiscoverPersonasModal } from "~/composables/useDiscoverPersonasModal"
 
 const { profileModalState } = useProfileModal()
 const { discoverPersonasModalState } = useDiscoverPersonasModal()
-
-const isRootDrawerOpen = ref(false)
 </script>
 
 <template>

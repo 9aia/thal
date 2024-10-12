@@ -48,7 +48,7 @@ const user = useUser()
 const items: MenuItem[] = [
   { id: "profile", name: "Profile", icon: "face", onClick: () => profileModal.open(user.value!.username) },
   { id: "discover-personas", name: "Discover Personas", icon: "person_edit", onClick: () => discoverPersonasModal.open() },
-  { id: "my-personas", name: "My Personas", icon: "person_edit", onClick: () => drawers.myPersonas = true },
+  { id: "my-characters", name: "My Characters", icon: "person_edit", onClick: () => drawers.myPersonas = true },
   {
     id: "plan",
     name: "Subscription",

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { t } from "@psitta/vue"
-import { drawers, personaBuilderData } from "~/store"
+import { drawers, isRootDrawerOpen, personaBuilderData } from "~/store"
 import { useDiscoverPersonasModal } from "~/composables/useDiscoverPersonasModal"
 import type { MenuItem } from "~~/layers/ui/components/navigation/types"
 import queryKeys from "~/queryKeys"
@@ -33,6 +33,12 @@ const {
 } = await useServerQuery("/api/contact", {
   queryKey: queryKeys.contacts,
 })
+
+function handleGoToChat(username: string) {
+  isRootDrawerOpen.value = false
+
+  navigateTo(`/app/chat/${username}`)
+}
 </script>
 
 <template>
@@ -68,7 +74,7 @@ const {
           :key="`contact-${contact.id}`"
           :name="contact.name"
           :description="contact.description"
-          @click="navigateTo(`/app/chat/${contact.username}`)"
+          @click="handleGoToChat(contact.username)"
         />
       </Resource>
     </SettingSection>

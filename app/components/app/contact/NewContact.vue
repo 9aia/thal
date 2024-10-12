@@ -3,7 +3,7 @@ import { useI18n } from "@psitta/vue"
 import { useQueryClient } from "@tanstack/vue-query"
 import { useDebounceFn } from "@vueuse/core"
 import { useForm } from "vee-validate"
-import { contactData } from "~/store"
+import { contactData, isRootDrawerOpen } from "~/store"
 import { nameSchema, usernameSchema } from "~~/db/schema"
 import { useToast } from "~~/layers/ui/composables/useToast"
 import queryKeys from "~/queryKeys"
@@ -65,6 +65,13 @@ async function validateUsername(username: string) {
   }
 }
 
+function handleGoToChat(username: string) {
+  isRootDrawerOpen.value = false
+
+  navigateTo(`/app/chat/${username}`)
+  toast.close()
+}
+
 const debouncedValidateUsername = useDebounceFn(validateUsername, 500)
 watch(() => form.values.username, debouncedValidateUsername)
 
@@ -99,7 +106,7 @@ const submit = form.handleSubmit(async (data) => {
       actions: [
         {
           title: t("Message"),
-          onClick: () => navigateTo(`/app/chat/${data.username}`),
+          onClick: () => handleGoToChat(data.username),
         },
       ],
       position: "start-bottom",

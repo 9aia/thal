@@ -30,18 +30,17 @@ Features
 - Add an invite section in contacts (when the persona doesn’t exist).
 
 ### Chat
-- Show the last message in the chat.
 - Stream chat messages.
 - Add a help request item in the header menu (AI-driven).
 - Add PT-EN translator in the chat input.
 - Add modal "Dictionary".
   - Add conjugation table.
-- Add option "Translate" to messages.
 - Add grammar reference tables.
 - Add suggestions/tips in chat.
 - Add date stamps in chat.
 - Add activities like minigames.
 - Add markdown preview in the message input.
+- Add message reactions
 
 ---
 Enhancements
@@ -53,6 +52,15 @@ Enhancements
 - Improve loading handling.
 - Improve error handling.
 - Improve brand identity.
+- Add turnstile
+- Change forms to another platform that supports localization
+
+### Chat
+- Improve chat load speed
+
+### Characters
+- Improve "My Characters" edition action appearance
+- Turn "Discover Business" into a drawer route
 
 ### Legal
 - Add privacy info about account deletion (cannot delete before month ends, but users can delete manually before).
@@ -72,6 +80,9 @@ Bugs
 ### General
 - Replace web modal API.
 
+### My Characters
+- Improve back navigation
+
 ### Payments
 - Check user plan in API routes.
 - Redirect from `/plan/expired` when your plan is not expired.
@@ -80,6 +91,7 @@ Bugs
 - Fix locale change routing (remove `/{locale}` from `/app`).
 
 ### Auth
+- Handle invalid sessions
 - Fix logout not removing cookies.
 - Fix bug after deleting and recreating an account, user can't rejoin the app.
 - Fix "Try again" after cookie issue resolved in the database.

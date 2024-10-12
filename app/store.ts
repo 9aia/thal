@@ -9,6 +9,8 @@ export const learnStore = reactive<Store>({
   currentSection: "a1",
 })
 
+export const isRootDrawerOpen = ref(false)
+
 export const drawers = reactive({
   profile: false,
   account: false,
