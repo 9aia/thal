@@ -160,6 +160,14 @@ const dangerItems: MenuItem[] = [
 
             <span class="text-sm text-slate-800">{{ t('Signed in with Google') }}</span>
           </li>
+
+          <li class="flex gap-2 items-center">
+            <Icon class="text-success">
+              check
+            </Icon>
+
+            <span class="text-sm text-slate-800">{{ t('Connected with Stripe') }}</span>
+          </li>
         </ul>
       </SettingSection>
 

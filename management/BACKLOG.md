@@ -4,19 +4,15 @@ Features
 ---
 
 - Add moderation.
+  - Add community guidelines link to the "Character Builder".
 - Implement basic analytics to track user engagement and app performance.
 - Add logger.
-
 - Add settings to adjust AI helper responses.
 
 ### Localization
 - Add a locale modal on the home page.
 
-### Payment
-- Add "Connected with Stripe" info on the subscription settings page.
-
 ### Character
-- Add community guidelines link to the "Character Builder".
 - Add a publish feature to make characters discoverable.
 - Add a warning for renaming character usernames.
 - Add category-based search for characters.
@@ -47,9 +43,6 @@ Bugs
 ### General
 - Replace web modal API.
 
-### My Characters
-- Improve back navigation
-
 ### Payments
 - Check user plan in API routes.
 - Redirect from `/plan/expired` when your plan is not expired.
@@ -76,14 +69,17 @@ Enhancements
 - Add turnstile
 - Change forms to another platform that supports localization
 
+### Profile
+- Improve profile design using right drawer
+
 ### Chat
 - Improve chat load speed
 - Improve message translation considering other messages
 - Stream translation
 
 ### Characters
-- Improve "My Characters" edition action appearance
 - Turn "Discover Business" into a drawer route
+- Improve "My Characters" edition action appearance
 
 ### Legal
 - Add privacy info about account deletion (cannot delete before month ends, but users can delete manually before).
