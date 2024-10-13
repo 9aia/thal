@@ -30,7 +30,7 @@ function edit(e: InputEvent) {
 </script>
 
 <template>
-  <component :is="props.is" ref="inputRef" class="input w-full h-auto p-[10px] textarea" role="textbox" contenteditable @input="edit" />
+  <component :is="props.is" ref="inputRef" role="textbox" contenteditable @input="edit" />
 </template>
 
 <style scoped>

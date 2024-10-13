@@ -1,5 +1,5 @@
 import type { SectionName } from "./constants/course"
-import type { Contact, Persona } from "~/types"
+import type { Contact, Persona, Replies } from "~/types"
 
 interface Store {
   currentSection: SectionName
@@ -29,3 +29,5 @@ export const rightDrawers = reactive({
 
 export const personaBuilderData = ref<Persona | null>(null)
 export const contactData = ref<Contact | null>(null)
+
+export const reply = ref<Replies>({})

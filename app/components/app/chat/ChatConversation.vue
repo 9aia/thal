@@ -16,6 +16,7 @@ onMounted(() => {
 <template>
   <ChatBubble
     v-for="chat, index in history"
+    :id="chat.id"
     :key="chat.id"
     :from="chat.from"
     :time="chat.time"

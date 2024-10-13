@@ -2,8 +2,10 @@
 import { useLocale } from "@psitta/vue"
 import MessageIcon from "./MessageIcon.vue"
 import type { MessageStatus } from "~/types"
+import { reply } from "~/store"
 
 const props = defineProps<{
+  id: string
   right?: boolean
   from: string
   time: number
@@ -24,6 +26,18 @@ const time = computed(() => new Intl.DateTimeFormat(locale.value, {
 }).format(new Date(props.time)))
 
 const translation = useTranslation(toRef(props, "message"))
+
+const route = useRoute()
+
+const username = computed(() => route.params.username as string)
+
+function setReply() {
+  reply.value[username.value] = {
+    message: props.message,
+    from: props.right ? "me" : "bot",
+    id: props.id,
+  }
+}
 </script>
 
 <template>
@@ -36,19 +50,22 @@ const translation = useTranslation(toRef(props, "message"))
     <div class="chat-bubble flex items-center gap-2 bg-transparent p-0">
       <ChatAside
         v-if="right"
-        class="justify-end"
+        :right="!!right"
         :translation="translation"
+        @set-reply="setReply"
       />
 
       <div class="chat-bubble max-w-[300px] sm:max-w-[400px] lg:max-w-[500px]">
         <MDC :value="message" tag="article" class="prose prose-slate prose-sm" />
 
-        <ChatBubbleTranslation :message="message" :translation="translation" />
+        <ChatBubbleTranslation :translation="translation" />
       </div>
 
       <ChatAside
         v-if="!right"
+        :right="!!right"
         :translation="translation"
+        @set-reply="setReply"
       />
     </div>
 

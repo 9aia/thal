@@ -3,6 +3,11 @@ import type { Translation } from "~/composables/useTranslation"
 
 const props = defineProps<{
   translation: Translation
+  right: boolean
+}>()
+
+const emit = defineEmits<{
+  (e: "setReply"): void
 }>()
 
 const hideTranslateBtn = computed(() => {
@@ -13,7 +18,10 @@ const hideTranslateBtn = computed(() => {
 </script>
 
 <template>
-  <div class="w-[108px] flex gap-1">
+  <div
+    class="w-[108px] flex gap-1"
+    :class="right ? 'flex-row-reverse' : 'flex-row'"
+  >
     <Btn
       v-if="!hideTranslateBtn"
       shape="circle"
@@ -25,6 +33,18 @@ const hideTranslateBtn = computed(() => {
       <Icon
         v-if="!translation.isLoading.value"
         name="translate"
+        style="font-size: 1rem"
+      />
+    </Btn>
+
+    <Btn
+      shape="circle"
+      size="sm"
+      class="hidden group-hover:block"
+      @click="emit('setReply')"
+    >
+      <Icon
+        name="reply"
         style="font-size: 1rem"
       />
     </Btn>

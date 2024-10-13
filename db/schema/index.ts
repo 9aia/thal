@@ -1,5 +1,5 @@
 /* eslint-disable ts/no-use-before-define */
-import { int, sqliteTable, text, unique } from "drizzle-orm/sqlite-core"
+import { foreignKey, int, sqliteTable, text, unique } from "drizzle-orm/sqlite-core"
 import { createInsertSchema, createSelectSchema } from "drizzle-zod"
 import { z } from "zod"
 import { relations } from "drizzle-orm"
@@ -366,9 +366,16 @@ export const messages = sqliteTable("Message", {
     .notNull()
     .references(() => chats.id, { onDelete: "cascade" }),
   data: text("data", { mode: "json" }).$type<MessageData>().notNull(),
+  replyingId: int("replying_id"),
   isBot: int("is_bot").default(0).notNull(),
   createdAt: int("created_at").notNull(),
-})
+}, self => ({
+  parentReference: foreignKey({
+    columns: [self.replyingId],
+    foreignColumns: [self.id],
+    name: "messages_replying_id_fkey",
+  }),
+}))
 
 export const messageRelations = relations(messages, ({ one }) => ({
   chat: one(chats, {
@@ -380,6 +387,7 @@ export const messageRelations = relations(messages, ({ one }) => ({
 export const messageSendSchema = z.object({
   type: z.enum(["text"]),
   value: z.string(),
+  replyingId: z.number().optional(),
 })
 
 export const selectMessageSchema = createSelectSchema(messages)

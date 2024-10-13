@@ -9,3 +9,7 @@
   - [x] Handle unexpected messages
 - [ ] Show the last message in the chat.
 - [x] Add "Connected with Stripe" info on the subscription settings page.
+- [ ] Add reply
+  - [ ] Add reply UI
+  - [ ] Add reply backend
+  - [ ] Add redirect

@@ -143,4 +143,14 @@ export interface Message {
   status: MessageStatus
 }
 
+export interface Reply {
+  id: string
+  message: string
+  from: "me" | "bot"
+}
+
+export interface Replies {
+  [key: string]: Reply // Username: Message
+}
+
 // #endregion

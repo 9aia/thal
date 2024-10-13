@@ -7,34 +7,36 @@ Features
   - Add community guidelines link to the "Character Builder".
 - Implement basic analytics to track user engagement and app performance.
 - Add logger.
-- Add settings to adjust AI helper responses.
-
-### Localization
 - Add a locale modal on the home page.
 
 ### Character
 - Add a publish feature to make characters discoverable.
 - Add a warning for renaming character usernames.
-- Add category-based search for characters.
-- Add "Discover Personas" modal.
+- Add "Discover Characters" modal.
+  - Add category-based search for characters.
+
+### Chat
+- Add PT-EN translator in the chat input.
+- Add conversation starters
+- Add suggestions in chat.
+- Add tips
+- Add modal "Dictionary".
+  - Add conjugation table.
+  - Add grammar reference tables.
+- Add assistant
+  - Add a help request item in the header menu (AI-driven).
+  - Add settings to adjust AI helper responses.
+- ---
+- Stream chat messages.
+- Add date stamps in chat.
+- Add activities like minigames.
+- Add markdown preview in the message input.
+- Add message reactions
 
 ### Contact
 - Add contact editing.
 - Add shortcut to contacts.
 - Add an invite section in contacts (when the persona doesn’t exist).
-
-### Chat
-- Stream chat messages.
-- Add a help request item in the header menu (AI-driven).
-- Add PT-EN translator in the chat input.
-- Add modal "Dictionary".
-  - Add conjugation table.
-- Add grammar reference tables.
-- Add suggestions/tips in chat.
-- Add date stamps in chat.
-- Add activities like minigames.
-- Add markdown preview in the message input.
-- Add message reactions
 
 ---
 Bugs
@@ -76,6 +78,7 @@ Enhancements
 - Improve chat load speed
 - Improve message translation considering other messages
 - Stream translation
+- Add "read more" to long messages
 
 ### Characters
 - Turn "Discover Business" into a drawer route
@@ -96,6 +99,7 @@ Enhancements
 Dev Enhancements
 ---
 
+- Remove used code
 - Add a guide for WIP commits.
 - Add a guide for atomic commits.
 - Add a Code of Conduct (CoC).

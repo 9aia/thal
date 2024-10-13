@@ -83,6 +83,7 @@ export default eventHandler(async (event) => {
     data,
     isBot: 0,
     createdAt: userDateTime,
+    replyingId: data.replyingId,
   }
 
   const geminiHistory = chatHistoryToGemini(history)
@@ -125,6 +126,7 @@ export default eventHandler(async (event) => {
     data: { type: "text", value: messageContent },
     isBot: 1,
     createdAt: geminiResTime,
+    replyingId: data.replyingId,
   }
 
   const [_, dbGeminiMessage] = await orm
