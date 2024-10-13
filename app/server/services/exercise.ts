@@ -78,12 +78,13 @@ export async function generateExercise(
     temperature: 0.9,
   }
 
-  const result = await gemini.generateContent(prompt, generationConfig)
+  const result = await gemini.generateContent(prompt, undefined, generationConfig)
+  const bestCandidate = result.candidates?.[0]
+  const bestPart = bestCandidate?.content?.parts?.[0]
+  const text: string = bestPart?.text
 
-  if ("error" in result)
-    throw new Error("Gemini 500")
-
-  const text = result.candidates[0].content.parts[0].text
+  if (!text)
+    throw internal("Gemini did not return a valid translation")
 
   let parsedExercise
 

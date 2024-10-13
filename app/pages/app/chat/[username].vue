@@ -119,7 +119,7 @@ const { hasContact, displayName, addContact } = useContactInfo(data)
       <Resource :loading="isLoading" :error="isError" @execute="refetch">
         <ChatHeader :name="displayName" :username="data!.username" :has-contact="hasContact" :add-contact="addContact" />
 
-        <main ref="scrollContainer" class="bg-slate-200 py-4 px-4 sm:px-12 flex-1 overflow-y-auto relative">
+        <main ref="scrollContainer" class="bg-slate-200 py-4 px-2 sm:px-12 flex-1 overflow-y-auto relative">
           <div class="mb-4 text-slate-800 text-xs bg-orange-100 px-4 py-2 rounded-lg flex gap-1">
             <Icon name="science" style="font-size: 1.15rem" />
             <p>

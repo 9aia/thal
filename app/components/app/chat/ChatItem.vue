@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useLocale } from "@psitta/vue"
 import type { MessageContent, Persona } from "~/types"
+import { isRootDrawerOpen } from "~/store"
 
 const props = defineProps<{
   id: number
@@ -43,13 +44,15 @@ const date = computed(() => {
   return formatter.format(date)
 })
 
-function openChat() {
-  navigateTo(`/app/chat/${props.persona.username}`)
+function handleGoToChat(username: string) {
+  isRootDrawerOpen.value = false
+
+  navigateTo(`/app/chat/${username}`)
 }
 </script>
 
 <template>
-  <div role="button" class="px-3 py-1 hover:bg-slate-100 flex gap-2" @click="openChat">
+  <div role="button" class="px-3 py-1 hover:bg-slate-100 flex gap-2" @click="handleGoToChat(persona.username)">
     <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
       <div class="w-10 rounded-full">
         <img

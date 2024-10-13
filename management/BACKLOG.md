@@ -3,12 +3,10 @@
 Features
 ---
 
-### General
 - Add moderation.
 - Implement basic analytics to track user engagement and app performance.
 - Add logger.
 
-### Settings
 - Add settings to adjust AI helper responses.
 
 ### Localization
@@ -43,37 +41,6 @@ Features
 - Add message reactions
 
 ---
-Enhancements
----
-
-### General
-- Improve stability by handling API errors gracefully.
-- Improve icon loading on slow networks.
-- Improve loading handling.
-- Improve error handling.
-- Improve brand identity.
-- Add turnstile
-- Change forms to another platform that supports localization
-
-### Chat
-- Improve chat load speed
-
-### Characters
-- Improve "My Characters" edition action appearance
-- Turn "Discover Business" into a drawer route
-
-### Legal
-- Add privacy info about account deletion (cannot delete before month ends, but users can delete manually before).
-
-### Auth
-- Redesign the authentication page.
-
-### Website
-- Improve the homepage.
-- Move the "About" page to the NeoGaia website.
-- Improve the "Pricing" page and set up redirects.
-
----
 Bugs
 ---
 
@@ -95,6 +62,39 @@ Bugs
 - Fix logout not removing cookies.
 - Fix bug after deleting and recreating an account, user can't rejoin the app.
 - Fix "Try again" after cookie issue resolved in the database.
+
+---
+Enhancements
+---
+
+### General
+- Improve stability by handling API errors gracefully.
+- Improve icon loading on slow networks.
+- Improve loading handling.
+- Improve error handling.
+- Improve brand identity.
+- Add turnstile
+- Change forms to another platform that supports localization
+
+### Chat
+- Improve chat load speed
+- Improve message translation considering other messages
+- Stream translation
+
+### Characters
+- Improve "My Characters" edition action appearance
+- Turn "Discover Business" into a drawer route
+
+### Legal
+- Add privacy info about account deletion (cannot delete before month ends, but users can delete manually before).
+
+### Auth
+- Redesign the authentication page.
+
+### Website
+- Improve the homepage.
+- Move the "About" page to the NeoGaia website.
+- Improve the "Pricing" page and set up redirects.
 
 ---
 Dev Enhancements

@@ -24,6 +24,7 @@ export const drawers = reactive({
 export const rightDrawer = ref(false)
 export const rightDrawers = reactive({
   contactView: false,
+  translation: false,
 })
 
 export const personaBuilderData = ref<Persona | null>(null)
