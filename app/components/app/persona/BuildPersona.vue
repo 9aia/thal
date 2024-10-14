@@ -121,7 +121,7 @@ const submit = form.handleSubmit(async (data) => {
         <Btn size="sm" class="btn-ghost btn-circle" @click="emit('close')">
           <Icon name="arrow_back" />
         </Btn>
-        {{ t("Build Persona") }}
+        {{ t("Build Character") }}
       </h1>
     </Navbar>
 

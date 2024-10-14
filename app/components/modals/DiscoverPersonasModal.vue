@@ -24,7 +24,7 @@ const {
   >
     <template #default>
       <h1 class="font-bold text-2xl mb-2 mt-4">
-        {{ t("Personas") }}
+        {{ t("Characters") }}
       </h1>
 
       <div class="px-2 pb-2 space-y-2 overflow-y-auto mt-4">

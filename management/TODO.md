@@ -18,5 +18,5 @@
 - [ ] Show the last message in the chat.
 - [ ] Improve profile design using right drawer
 - [x] Improve avatars
-- [ ] Rename UI "Personas" to "Characters"
+- [x] Rename UI "Personas" to "Characters"
 - [ ] Remove unused code

@@ -17,12 +17,12 @@ function handleCreatePersona() {
 }
 
 const generalItems: MenuItem[] = [
-  { id: "new-contact", icon: "person_add", name: "New contact", onClick: () => drawers.newContact = true },
-  { id: "create-persona", icon: "person_edit", name: "Build persona", onClick: () => handleCreatePersona() },
+  { id: "new-contact", icon: "person_add", name: t("New contact"), onClick: () => drawers.newContact = true },
+  { id: "create-persona", icon: "person_edit", name: t("Build character"), onClick: () => handleCreatePersona() },
 ]
 
 const discoverItems: MenuItem[] = [
-  { id: "discover", icon: "collections_bookmark", name: "Personas", onClick: () => discoverPersonasModal.open() },
+  { id: "discover", icon: "collections_bookmark", name: t("Characters"), onClick: () => discoverPersonasModal.open() },
 ]
 
 const {
