@@ -140,7 +140,7 @@ function handleResend() {
   }
 }
 
-const { hasContact, displayName, addContact } = useContactInfo(data)
+const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
 </script>
 
 <template>
@@ -151,7 +151,7 @@ const { hasContact, displayName, addContact } = useContactInfo(data)
 
     <template #content>
       <Resource :loading="isLoading" :error="isError" @execute="refetch">
-        <ChatHeader :name="displayName" :username="data!.username" :has-contact="hasContact" :add-contact="addContact" />
+        <ChatHeader :name="displayName" :avatar-name="avatarName" :username="data!.username" :has-contact="hasContact" :add-contact="addContact" />
 
         <main ref="scrollContainer" class="bg-slate-200 py-4 px-2 sm:px-12 flex-1 overflow-y-auto relative">
           <div class="mb-4 text-slate-800 text-xs bg-orange-100 px-4 py-2 rounded-lg flex gap-1">
@@ -166,14 +166,7 @@ const { hasContact, displayName, addContact } = useContactInfo(data)
             class="card bg-neutral text-neutral-content text-center sm:max-w-lg mx-auto"
           >
             <div class="card-body">
-              <div tabindex="0" role="button" class="mx-auto w-20 h-20 btn btn-ghost btn-circle avatar">
-                <div class="w-20 rounded-full">
-                  <img
-                    alt="Tailwind CSS Navbar component"
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                  >
-                </div>
-              </div>
+              <Avatar :name="avatarName" class="mx-auto w-20 h-20 text-lg bg-slate-300 text-slate-800" />
 
               <h2 class="text-slate-900 text-center mb-1">
                 {{ displayName }}

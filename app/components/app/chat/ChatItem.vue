@@ -53,14 +53,7 @@ function handleGoToChat(username: string) {
 
 <template>
   <div role="button" class="px-3 py-1 hover:bg-slate-100 flex gap-2" @click="handleGoToChat(persona.username)">
-    <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-      <div class="w-10 rounded-full">
-        <img
-          alt="Tailwind CSS Navbar component"
-          src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-        >
-      </div>
-    </div>
+    <Avatar :name="persona.name" class="w-10 text-sm bg-slate-300 text-slate-800" type="button" />
 
     <div class="flex-1 flex flex-col justify-center">
       <div class="flex justify-between items-center">

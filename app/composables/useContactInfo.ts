@@ -9,6 +9,10 @@ export function useContactInfo(data: Ref<any>) {
     return data.value?.contact?.name || `@${data.value?.username}`
   })
 
+  const avatarName = computed(() => {
+    return data.value?.contact?.name || data.value?.name
+  })
+
   const addContact = () => {
     if (!data.value)
       return
@@ -22,6 +26,7 @@ export function useContactInfo(data: Ref<any>) {
 
   return {
     displayName,
+    avatarName,
     hasContact,
     addContact,
   }

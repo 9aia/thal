@@ -23,7 +23,7 @@ const {
   },
 })
 
-const { displayName, hasContact, addContact } = useContactInfo(data)
+const { displayName, hasContact, avatarName, addContact } = useContactInfo(data)
 
 const { t } = useI18n()
 
@@ -76,14 +76,7 @@ function closeDrawer() {
 
     <Resource :loading="isLoading" :error="isError">
       <div class="bg-white flex flex-1 flex-col items-center p-4">
-        <div tabindex="0" role="button" class="mx-auto w-24 h-24 btn btn-ghost btn-circle avatar">
-          <div class="w-24 rounded-full">
-            <img
-              alt="Tailwind CSS Navbar component"
-              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-            >
-          </div>
-        </div>
+        <Avatar :name="avatarName" class="mx-auto w-24 h-24 text-2xl bg-slate-300 text-slate-800" />
 
         <h2 class="text-slate-900 text-center text-2xl mb-1">
           {{ displayName }}

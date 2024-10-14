@@ -71,7 +71,9 @@ const items: MenuItem[] = [
 
 <template>
   <Navbar class="bg-slate-800">
-    <Avatar :name="user!.name" class="w-10 text-sm" type="button" @click="profileModal.open(user!.username)" />
+    <div class="text-lg font-bold text-teal-500 flex items-center">
+      Thal
+    </div>
 
     <div class="dropdown dropdown-end">
       <button class="btn btn-circle btn-ghost text-primary" @click="updateRedirectUrl">

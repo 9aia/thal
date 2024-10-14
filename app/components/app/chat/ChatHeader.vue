@@ -1,13 +1,12 @@
 <script lang="ts" setup>
 import { useI18n } from "@psitta/vue"
-import { useQuery } from "@tanstack/vue-query"
-import queryKeys from "~/queryKeys"
-import { contactData, drawers, rightDrawer, rightDrawers } from "~/store"
+import { rightDrawer, rightDrawers } from "~/store"
 import type { MenuItem } from "~~/layers/ui/components/navigation/types"
 
 const props = defineProps<{
   name: string
   username: string
+  avatarName: string
   hasContact: boolean
   addContact: () => void
 }>()
@@ -57,14 +56,7 @@ function openContactView() {
       <Icon name="arrow_back" />
     </label>
 
-    <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar" @click="openContactView()">
-      <div class="w-10 rounded-full">
-        <img
-          alt="Tailwind CSS Navbar component"
-          src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-        >
-      </div>
-    </div>
+    <Avatar :name="avatarName" class="w-10 text-sm" type="button" @click="openContactView()" />
 
     <div class="flex-1 flex items-center justify-between gap-4">
       <div tabindex="0" role="button" class="block text-primary w-full" @click="openContactView()">
