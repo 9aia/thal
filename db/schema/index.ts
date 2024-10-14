@@ -117,7 +117,7 @@ export type UserUpdate = z.infer<typeof userUpdateSchema>
 
 // #endregion
 
-// #region Personas
+// #region Characters
 
 export const descriptionSchema = z.string().min(1).max(100)
 export const instructionsSchema = z.string().min(1).max(500)
@@ -388,6 +388,7 @@ export const messageSendSchema = z.object({
   type: z.enum(["text"]),
   value: z.string(),
   replyingId: z.number().optional(),
+  replyMessage: z.string().optional(),
 })
 
 export const selectMessageSchema = createSelectSchema(messages)

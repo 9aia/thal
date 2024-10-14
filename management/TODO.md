@@ -7,9 +7,11 @@
     - [x] Retry translation
   - [x] Close translation
   - [x] Handle unexpected messages
-- [ ] Show the last message in the chat.
 - [x] Add "Connected with Stripe" info on the subscription settings page.
 - [ ] Add reply
-  - [ ] Add reply UI
-  - [ ] Add reply backend
-  - [ ] Add redirect
+  - [x] Add reply UI
+  - [x] Add reply backend
+  - [ ] Scroll to reply on click
+- [ ] Show the last message in the chat.
+- [ ] Improve profile design using right drawer
+- [ ] Remove unused code

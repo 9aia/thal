@@ -9,6 +9,7 @@ import { internal, notFound, unauthorized } from "~/utils/nuxt"
 import type { MessageInsert } from "~~/db/schema"
 import { chats, contacts, messageSendSchema, messages, personaUsernames, usernameSchema } from "~~/db/schema"
 import { lastMessages } from "~~/db/schema/lastMessages"
+import { addReplyToMessage } from "~/utils/chat"
 
 export default eventHandler(async (event) => {
   const { username } = await getValidated(event, "params", z.object({ username: usernameSchema }))
@@ -70,23 +71,26 @@ export default eventHandler(async (event) => {
   const userDateTime = now().getTime()
   const history = await getHistory(orm, user, username)
 
+  const fullMessage = addReplyToMessage(data.value, data.replyMessage)
+
   history.push({
-    id: `${history.length + 1}`,
+    id: history.length + 1,
     from: "user",
-    status: "sent",
-    message: data.value,
+    status: "seen",
+    message: fullMessage,
     time: userDateTime,
   })
 
   const userMessage: MessageInsert = {
     chatId: chat.id,
-    data,
+    data: {
+      type: data.type,
+      value: data.value,
+    },
     isBot: 0,
     createdAt: userDateTime,
     replyingId: data.replyingId,
   }
-
-  const geminiHistory = chatHistoryToGemini(history)
 
   const gemini = getGemini(process.env.GEMINI_API_KEY!)
 
@@ -96,19 +100,16 @@ export default eventHandler(async (event) => {
     This is your description:
     ${persona.description}.
 
-    You should behave like this:
+    You should behave like a character, following those instructions:
     ${persona.instructions}.
 
     ## Your Mission
     
     You should speak English.
     You are talking to a user named ${user.name} ${user.lastName}, their username is ${user.username}.
-
-    ## OUTPUT FORMAT
-
-    - Plain text;
   `
 
+  const geminiHistory = chatHistoryToGemini(history)
   const res = await gemini.respondChat(geminiHistory, SYSTEM_INSTRUCTIONS)
 
   const content = res.candidates[0].content
@@ -126,7 +127,6 @@ export default eventHandler(async (event) => {
     data: { type: "text", value: messageContent },
     isBot: 1,
     createdAt: geminiResTime,
-    replyingId: data.replyingId,
   }
 
   const [_, dbGeminiMessage] = await orm
@@ -143,9 +143,9 @@ export default eventHandler(async (event) => {
 
   history.push(
     {
-      id: dbGeminiMessage.id.toString(),
+      id: dbGeminiMessage.id,
       from: "bot",
-      status: "sent",
+      status: "seen",
       message: messageContent,
       time: geminiResTime,
     },

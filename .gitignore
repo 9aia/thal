@@ -29,6 +29,3 @@ db.sqlite
 .wrangler/
 
 .wrangler/state/v3
-
-# Drizzle
-db/migrations

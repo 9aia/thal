@@ -2,6 +2,7 @@ import { eq } from "drizzle-orm"
 import type { H3EventContext } from "h3"
 import type { User } from "lucia"
 import type { Message } from "~/types"
+import { addReplyToMessage } from "~/utils/chat"
 import { notFound } from "~/utils/nuxt"
 import { chats, personaUsernames } from "~~/db/schema"
 
@@ -31,13 +32,19 @@ export async function getHistory(
     return []
 
   // TODO perf: don't iterate again
-  const messages: Message[] = chat?.messages.map(message => ({
-    id: message.id.toString(),
-    status: "sent",
-    from: message.isBot === 0 ? "user" : "bot",
-    message: message.data.value,
-    time: message.createdAt,
-  }))
+  const messages: Message[] = chat?.messages.map((message) => {
+    const replyMessage = chat?.messages.find(m => m.id === message.replyingId)?.data?.value
+    const fullMessage = addReplyToMessage(message.data.value, replyMessage)
+
+    return {
+      id: message.id,
+      status: "sent",
+      from: message.isBot === 0 ? "user" : "bot",
+      message: fullMessage,
+      time: message.createdAt,
+      replyingId: message.replyingId,
+    }
+  })
 
   return messages
 }

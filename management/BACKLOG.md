@@ -14,6 +14,7 @@ Features
 - Add a warning for renaming character usernames.
 - Add "Discover Characters" modal.
   - Add category-based search for characters.
+- Add character build tool based on Profile form
 
 ### Chat
 - Add PT-EN translator in the chat input.
@@ -71,9 +72,6 @@ Enhancements
 - Add turnstile
 - Change forms to another platform that supports localization
 
-### Profile
-- Improve profile design using right drawer
-
 ### Chat
 - Improve chat load speed
 - Improve message translation considering other messages
@@ -99,7 +97,6 @@ Enhancements
 Dev Enhancements
 ---
 
-- Remove used code
 - Add a guide for WIP commits.
 - Add a guide for atomic commits.
 - Add a Code of Conduct (CoC).

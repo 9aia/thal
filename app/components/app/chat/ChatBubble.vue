@@ -2,10 +2,10 @@
 import { useLocale } from "@psitta/vue"
 import MessageIcon from "./MessageIcon.vue"
 import type { MessageStatus } from "~/types"
-import { reply } from "~/store"
+import { replies } from "~/store"
 
 const props = defineProps<{
-  id: string
+  id: number
   right?: boolean
   from: string
   time: number
@@ -32,7 +32,7 @@ const route = useRoute()
 const username = computed(() => route.params.username as string)
 
 function setReply() {
-  reply.value[username.value] = {
+  replies[username.value] = {
     message: props.message,
     from: props.right ? "me" : "bot",
     id: props.id,

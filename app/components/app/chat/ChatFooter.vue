@@ -2,7 +2,7 @@
 import { useMagicKeys } from "@vueuse/core"
 import { useQueryClient } from "@tanstack/vue-query"
 import { useI18n } from "@psitta/vue"
-import { reply } from "~/store"
+import { replies } from "~/store"
 import queryKeys from "~/queryKeys"
 
 const emit = defineEmits<{
@@ -42,10 +42,10 @@ function handleEnter(e: Event) {
 }
 
 function removeReply() {
-  delete reply.value[username.value]
+  delete replies[username.value]
 }
 
-const replying = computed(() => reply.value[username.value])
+const replying = computed(() => replies[username.value])
 
 const data = computed(() => queryClient.getQueryData(queryKeys.chat(username)))
 const { displayName } = useContactInfo(data)
@@ -55,8 +55,8 @@ const replyDisplayName = computed(() => replying.value.from === "me"
   : displayName.value,
 )
 
-const isReplying = computed(() => !!reply.value[username.value])
-const replyMessage = computed(() => reply.value[username.value])
+const isReplying = computed(() => !!replies[username.value])
+const replyMessage = computed(() => replies[username.value])
 </script>
 
 <template>

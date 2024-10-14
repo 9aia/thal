@@ -30,4 +30,4 @@ export const rightDrawers = reactive({
 export const personaBuilderData = ref<Persona | null>(null)
 export const contactData = ref<Contact | null>(null)
 
-export const reply = ref<Replies>({})
+export const replies = reactive<Replies>({})

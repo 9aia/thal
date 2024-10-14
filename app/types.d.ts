@@ -136,15 +136,16 @@ export interface Chat {
 }
 
 export interface Message {
-  id?: string
+  id: number
   from: "user" | "bot"
   message: string
   time: number
   status: MessageStatus
+  replyingId?: number | null
 }
 
 export interface Reply {
-  id: string
+  id: number
   message: string
   from: "me" | "bot"
 }

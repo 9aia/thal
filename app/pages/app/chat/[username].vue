@@ -3,6 +3,7 @@ import { t } from "@psitta/vue"
 import { useMutation, useQueryClient } from "@tanstack/vue-query"
 import AppLayout from "~/layouts/app.vue"
 import queryKeys from "~/queryKeys"
+import { replies } from "~/store"
 
 definePageMeta({
   layout: false,
@@ -35,8 +36,28 @@ async function fixScroll() {
 
 const text = ref("")
 
+interface SendMessageData {
+  type: "text"
+  value: string
+  refresh: boolean
+  replyingId?: number
+  replyMessage?: string
+}
+
+const replying = computed(() => {
+  const username = route.params.username as string
+  return replies[username]
+})
+
+function emptyInput() {
+  const username = route.params.username as string
+  delete replies[username]
+
+  text.value = ""
+}
+
 const { mutate: sendMessage, isError: mutationError } = useMutation({
-  mutationFn: (data: { type: "text", value: string, refresh: boolean }) => $fetch(`/api/message/${params.username}`, {
+  mutationFn: (data: SendMessageData) => $fetch(`/api/message/${params.username}`, {
     method: "POST",
     body: JSON.stringify(data),
   }),
@@ -47,10 +68,10 @@ const { mutate: sendMessage, isError: mutationError } = useMutation({
     const newHistory = [...data.value.history || []]
 
     newHistory.push({
-      id: `${newHistory.length + 1}`,
+      id: newHistory.length + 1,
       from: "user",
       status: "sending",
-      message: newMessage.value,
+      message: addReplyToMessage(newMessage.value, replying.value?.message),
       time: new Date().getTime(),
     })
 
@@ -59,7 +80,7 @@ const { mutate: sendMessage, isError: mutationError } = useMutation({
       history: newHistory,
     })
 
-    text.value = ""
+    emptyInput()
     fixScroll()
   },
   onError: async () => {
@@ -96,14 +117,27 @@ const { mutate: sendMessage, isError: mutationError } = useMutation({
 })
 
 function handleSend() {
-  sendMessage({ type: "text", value: text.value, refresh: false })
+  sendMessage({
+    type: "text",
+    value: text.value,
+    refresh: false,
+    replyingId: replying.value?.id,
+    replyMessage: replying.value?.message,
+  })
 }
 
 function handleResend() {
   const lastMessage = data.value.history[data.value.history.length - 1]
 
-  if (lastMessage.status === "error")
-    sendMessage({ type: "text", value: lastMessage.message, refresh: true })
+  if (lastMessage.status === "error") {
+    sendMessage({
+      type: "text",
+      value: lastMessage.message,
+      refresh: true,
+      replyingId: replying.value?.id,
+      replyMessage: replying.value?.message,
+    })
+  }
 }
 
 const { hasContact, displayName, addContact } = useContactInfo(data)
