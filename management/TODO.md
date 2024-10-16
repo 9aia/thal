@@ -16,7 +16,7 @@
   - [x] Add reply backend
   - [ ] Scroll to reply on click
 - [ ] Show the last message in the chat.
-- [ ] Improve profile design using right drawer
 - [x] Improve avatars
 - [x] Rename UI "Personas" to "Characters"
 - [ ] Remove unused code
+- [ ] Improve profile design using right drawer
