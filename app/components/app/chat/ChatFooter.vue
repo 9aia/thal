@@ -50,7 +50,7 @@ const replying = computed(() => replies[username.value])
 const data = computed(() => queryClient.getQueryData(queryKeys.chat(username)))
 const { displayName } = useContactInfo(data)
 
-const replyDisplayName = computed(() => replying.value.from === "me"
+const replyDisplayName = computed(() => replying.value.from === "user"
   ? t("You")
   : displayName.value,
 )

@@ -139,6 +139,8 @@ export interface Message {
   id: number
   from: "user" | "bot"
   message: string
+  replyMessage?: string
+  replyFrom?: "user" | "bot"
   time: number
   status: MessageStatus
   replyingId?: number | null
@@ -147,7 +149,7 @@ export interface Message {
 export interface Reply {
   id: number
   message: string
-  from: "me" | "bot"
+  from: "user" | "bot"
 }
 
 export interface Replies {

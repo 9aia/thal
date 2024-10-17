@@ -42,6 +42,7 @@ interface SendMessageData {
   refresh: boolean
   replyingId?: number
   replyMessage?: string
+  replyFrom?: "user" | "bot"
 }
 
 const replying = computed(() => {
@@ -71,7 +72,10 @@ const { mutate: sendMessage, isError: mutationError } = useMutation({
       id: newHistory.length + 1,
       from: "user",
       status: "sending",
-      message: addReplyToMessage(newMessage.value, replying.value?.message),
+      message: newMessage.value,
+      replyingId: newMessage.replyingId,
+      replyMessage: newMessage.replyMessage,
+      replyFrom: newMessage.replyFrom,
       time: new Date().getTime(),
     })
 
@@ -123,6 +127,7 @@ function handleSend() {
     refresh: false,
     replyingId: replying.value?.id,
     replyMessage: replying.value?.message,
+    replyFrom: replying.value?.from,
   })
 }
 
@@ -136,6 +141,7 @@ function handleResend() {
       refresh: true,
       replyingId: replying.value?.id,
       replyMessage: replying.value?.message,
+      replyFrom: replying.value?.from,
     })
   }
 }

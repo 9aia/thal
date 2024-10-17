@@ -9,7 +9,7 @@ import { internal, notFound, unauthorized } from "~/utils/nuxt"
 import type { MessageInsert } from "~~/db/schema"
 import { chats, contacts, messageSendSchema, messages, personaUsernames, usernameSchema } from "~~/db/schema"
 import { lastMessages } from "~~/db/schema/lastMessages"
-import { addReplyToMessage } from "~/utils/chat"
+import { getFullMessage } from "~/utils/chat"
 
 export default eventHandler(async (event) => {
   const { username } = await getValidated(event, "params", z.object({ username: usernameSchema }))
@@ -50,9 +50,7 @@ export default eventHandler(async (event) => {
     throw internal("Persona not found")
 
   const contact = result.contacts[0]
-  const existingChat = result.chats[0]
-
-  let chat = existingChat
+  let chat = result.chats[0]
 
   if (!chat) {
     const [newChat] = await orm
@@ -68,17 +66,18 @@ export default eventHandler(async (event) => {
     chat = newChat
   }
 
-  const userDateTime = now().getTime()
+  const userMessageTime = now().getTime()
   const history = await getHistory(orm, user, username)
-
-  const fullMessage = addReplyToMessage(data.value, data.replyMessage)
 
   history.push({
     id: history.length + 1,
     from: "user",
     status: "seen",
-    message: fullMessage,
-    time: userDateTime,
+    message: data.value,
+    replyMessage: data.replyMessage,
+    replyingId: data.replyingId,
+    replyFrom: data.replyFrom,
+    time: userMessageTime,
   })
 
   const userMessage: MessageInsert = {
@@ -88,7 +87,7 @@ export default eventHandler(async (event) => {
       value: data.value,
     },
     isBot: 0,
-    createdAt: userDateTime,
+    createdAt: userMessageTime,
     replyingId: data.replyingId,
   }
 
@@ -118,36 +117,35 @@ export default eventHandler(async (event) => {
   if (!geminiResText)
     throw internal("Empty response")
 
-  const geminiResTime = now().getTime()
+  const botMessageTime = now().getTime()
+  const botMessageContent = geminiResText
 
-  const messageContent = geminiResText
-
-  const geminiMessage: MessageInsert = {
+  const botMessagePayload: MessageInsert = {
     chatId: chat.id,
-    data: { type: "text", value: messageContent },
+    data: { type: "text", value: botMessageContent },
     isBot: 1,
-    createdAt: geminiResTime,
+    createdAt: botMessageTime,
   }
 
-  const [_, dbGeminiMessage] = await orm
+  const [_, botMessageRecord] = await orm
     .insert(messages)
     .values([
       userMessage,
-      geminiMessage,
+      botMessagePayload,
     ]).returning()
 
   await orm.insert(lastMessages).values({
     chatId: chat.id,
-    content: messageContent.slice(0, 32),
+    content: botMessageContent.slice(0, 32),
   })
 
   history.push(
     {
-      id: dbGeminiMessage.id,
+      id: botMessageRecord.id,
       from: "bot",
       status: "seen",
-      message: messageContent,
-      time: geminiResTime,
+      message: botMessageContent,
+      time: botMessageTime,
     },
   )
 

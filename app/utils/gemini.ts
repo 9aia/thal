@@ -2,14 +2,20 @@ import type { GenerationConfig, InputContent } from "@google/generative-ai"
 import * as _ from "lodash-es"
 import { internal } from "./nuxt"
 import type { Message } from "~/types"
+import { getFullMessage } from "~/utils/chat"
 
 export function chatHistoryToGemini(history: Message[]): InputContent[] {
-  return history.map(msg => ({
-    role: msg.from === "user" ? "user" : "model",
-    parts: [
-      { text: msg.message },
-    ],
-  }))
+  return history.map((msg) => {
+    const fullMessage = getFullMessage(msg.message, msg.replyMessage)
+
+    return {
+      role: msg.from === "user" ? "user" : "model",
+      parts: [
+        { text: fullMessage },
+      ],
+    }
+  },
+  )
 }
 
 export const GENERATE_CONTENT_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"

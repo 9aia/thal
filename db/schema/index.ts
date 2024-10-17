@@ -389,6 +389,7 @@ export const messageSendSchema = z.object({
   value: z.string(),
   replyingId: z.number().optional(),
   replyMessage: z.string().optional(),
+  replyFrom: z.enum(["user", "bot"]).optional(),
 })
 
 export const selectMessageSchema = createSelectSchema(messages)

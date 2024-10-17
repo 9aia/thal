@@ -6,10 +6,12 @@ import { replies } from "~/store"
 
 const props = defineProps<{
   id: number
-  right?: boolean
-  from: string
+  from: "user" | "bot"
   time: number
   message: string
+  replyMessage?: string
+  replyingId?: number | null
+  replyFrom?: "user" | "bot"
   status: MessageStatus
   img: string
   showResend: boolean
@@ -18,7 +20,10 @@ const emit = defineEmits<{
   (e: "resend"): void
 }>()
 
+const right = computed(() => props.from === "user")
+
 const locale = useLocale()
+const route = useRoute()
 
 const time = computed(() => new Intl.DateTimeFormat(locale.value, {
   hour: "2-digit",
@@ -27,14 +32,12 @@ const time = computed(() => new Intl.DateTimeFormat(locale.value, {
 
 const translation = useTranslation(toRef(props, "message"))
 
-const route = useRoute()
-
 const username = computed(() => route.params.username as string)
 
 function setReply() {
   replies[username.value] = {
     message: props.message,
-    from: props.right ? "me" : "bot",
+    from: props.from,
     id: props.id,
   }
 }
@@ -42,7 +45,8 @@ function setReply() {
 
 <template>
   <div
-    class="chat group" :class="{
+    :id="`bubble-container-${id}`" class="chat group bubble-scrollable"
+    :class="{
       'chat-start': !right,
       'chat-end': right,
     }"
@@ -55,10 +59,29 @@ function setReply() {
         @set-reply="setReply"
       />
 
-      <div class="chat-bubble max-w-[300px] sm:max-w-[400px] lg:max-w-[500px]">
-        <MDC :value="message" tag="article" class="prose prose-slate prose-sm" />
+      <div
+        class="chat-bubble max-w-[300px] sm:max-w-[400px] lg:max-w-[500px] bubble"
+        :class="replyMessage ? 'px-0 py-1' : 'px-1'"
+      >
+        <div v-if="!!replyMessage" class="px-1 mb-1">
+          <ChatReply
+            :reply-message="replyMessage"
+            :replying-id="replyingId!"
+            :username="username"
+            :reply-from="replyFrom!"
+          />
+        </div>
 
-        <ChatBubbleTranslation :translation="translation" />
+        <div class="px-2 mb-1">
+          <MDC :value="message" tag="article" class="prose prose-slate prose-sm" />
+        </div>
+
+        <div
+          v-if="translation.translation.value && translation.isOpen.value"
+          class="px-1"
+        >
+          <ChatBubbleTranslation :translation="translation" />
+        </div>
       </div>
 
       <ChatAside
@@ -87,3 +110,22 @@ function setReply() {
     </div>
   </div>
 </template>
+
+<style scoped lang="postcss">
+.bubble-scrollable {
+  scroll-margin: 2rem;
+}
+
+.animate-highlight {
+  animation: highlight 1s ease-in-out;
+}
+
+@keyframes highlight {
+  0%, 100% {
+    @apply bg-white;
+  }
+  50% {
+    @apply bg-teal-100;
+  }
+}
+</style>
