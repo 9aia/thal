@@ -45,6 +45,7 @@ Bugs
 - Fix bug after deleting and recreating an account, user can't rejoin the app.
 - Fix "Try again" after cookie issue resolved in the database.
 - Replace web modal API.
+- Fix UI updates on contact username changes
 
 ---
 Enhancements
