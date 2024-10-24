@@ -23,7 +23,6 @@ export default defineNuxtConfig({
         { name: "author", content: "Luis Emidio" },
       ],
       link: [
-        { rel: "icon", type: "image/x-icon", href: "/favicon.png" },
         { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" },
       ],
     },

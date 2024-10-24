@@ -1,6 +1,7 @@
 # Current Tasks
 
-- [x] Show the last message in the chat.
+- [x] Add fav
+- [ ] Show a responsive response loading.
 - [ ] Fix message status
 - [ ] Fix last message status
 - [ ] Remove unused code
