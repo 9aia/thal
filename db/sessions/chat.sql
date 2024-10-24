@@ -13,3 +13,9 @@ DROP TABLE Chat
 --- @block Delete last messages
 
 DELETE FROM LastMessage
+
+--- @block Clean messages
+
+DELETE FROM "Chat";
+DELETE FROM "Message";
+DELETE FROM "LastMessage";

@@ -1,5 +1,5 @@
 import process from "node:process"
-import { eq } from "drizzle-orm"
+import { eq, sql } from "drizzle-orm"
 import { z } from "zod"
 import { getHistory } from "~/server/services/messages"
 import { now } from "~/utils/date"
@@ -7,9 +7,7 @@ import { chatHistoryToGemini, getGemini } from "~/utils/gemini"
 import { getValidated } from "~/utils/h3"
 import { internal, notFound, unauthorized } from "~/utils/nuxt"
 import type { MessageInsert } from "~~/db/schema"
-import { chats, contacts, messageSendSchema, messages, personaUsernames, usernameSchema } from "~~/db/schema"
-import { lastMessages } from "~~/db/schema/lastMessages"
-import { getFullMessage } from "~/utils/chat"
+import { chats, contacts, lastMessages, messageSendSchema, messages, personaUsernames, usernameSchema } from "~~/db/schema"
 
 export default eventHandler(async (event) => {
   const { username } = await getValidated(event, "params", z.object({ username: usernameSchema }))
@@ -67,7 +65,7 @@ export default eventHandler(async (event) => {
   }
 
   const userMessageTime = now().getTime()
-  const history = await getHistory(orm, user, username)
+  const { history } = await getHistory(orm, user, username)
 
   history.push({
     id: history.length + 1,
@@ -134,10 +132,26 @@ export default eventHandler(async (event) => {
       botMessagePayload,
     ]).returning()
 
-  await orm.insert(lastMessages).values({
-    chatId: chat.id,
-    content: botMessageContent.slice(0, 32),
+  const lastMessage = await orm.query.lastMessages.findFirst({
+    where: eq(messages.chatId, chat.id),
   })
+
+  const hasLastMessage = !!lastMessage
+
+  if (hasLastMessage) {
+    await orm.update(lastMessages).set({
+      content: botMessageContent,
+      datetime: new Date(botMessageTime),
+    }).where(eq(lastMessages.chatId, chat.id))
+  }
+  else {
+    await orm.insert(lastMessages).values({
+      chatId: chat.id,
+      content: botMessageContent,
+      datetime: new Date(botMessageTime),
+      userId: user.id,
+    })
+  }
 
   history.push(
     {

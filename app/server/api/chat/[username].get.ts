@@ -16,7 +16,7 @@ export default eventHandler(async (event) => {
 
   const personaWithContact = await getPersonaWithContactByUser(orm, user, username)
 
-  const history = await getHistory(orm, user, username)
+  const { history, chatId } = await getHistory(orm, user, username)
 
-  return { ...personaWithContact, history }
+  return { ...personaWithContact, history, chatId }
 })

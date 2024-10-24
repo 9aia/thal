@@ -15,6 +15,13 @@ export default defineEventHandler(async (event) => {
           name: true,
         },
       },
+      lastMessages: {
+        columns: {
+          chatId: true,
+          content: true,
+          datetime: true,
+        },
+      },
       personaUsername: {
         columns: {
           username: true,
@@ -27,7 +34,6 @@ export default defineEventHandler(async (event) => {
           },
         },
       },
-
     },
   })
 

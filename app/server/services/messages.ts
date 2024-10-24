@@ -28,7 +28,7 @@ export async function getHistory(
   const chat = result.chats[0]
 
   if (!chat?.id)
-    return []
+    return { chatId: null, history: [] } as { chatId: null, history: Message[] }
 
   const getReplyFrom = (replyingId: number) => {
     return chat?.messages.find(m => m.id === replyingId)?.isBot === 0 ? "user" : "bot"
@@ -52,5 +52,5 @@ export async function getHistory(
     }
   })
 
-  return messages
+  return { history: messages, chatId: chat.id }
 }

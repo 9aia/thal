@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { InternalApi } from "nitropack"
 import { t } from "@psitta/vue"
 import { useMutation, useQueryClient } from "@tanstack/vue-query"
 import AppLayout from "~/layouts/app.vue"
@@ -36,6 +37,8 @@ async function fixScroll() {
 
 const text = ref("")
 
+type LastMessage = InternalApi["/api/chat/lastMessages"]["default"][number]
+
 interface SendMessageData {
   type: "text"
   value: string
@@ -49,6 +52,48 @@ const replying = computed(() => {
   const username = route.params.username as string
   return replies[username]
 })
+
+function updateHistory(newMessage: SendMessageData) {
+  const newHistory = [...data.value.history || []]
+
+  newHistory.push({
+    id: newHistory.length + 1,
+    from: "user",
+    status: "sending",
+    message: newMessage.value,
+    replyingId: newMessage.replyingId,
+    replyMessage: newMessage.replyMessage,
+    replyFrom: newMessage.replyFrom,
+    time: new Date().getTime(),
+  })
+
+  queryClient.setQueryData(queryKeys.chat(params.username as string), {
+    ...data.value,
+    history: newHistory,
+  })
+}
+
+function updateLastMessage(newMessage: SendMessageData) {
+  const newLastMessage: LastMessage = {
+    chatId: Number(data.value.chatId),
+    content: newMessage.value,
+    datetime: new Date().toISOString(),
+  }
+
+  queryClient.setQueryData(queryKeys.lastMessages, (oldData: LastMessage[]) => {
+    const newLastMessages = [...oldData]
+
+    const lastMessageIndex = newLastMessages.findIndex((lastMessage: any) => lastMessage.chatId === data.value.chatId)
+
+    if (lastMessageIndex !== -1)
+      newLastMessages[lastMessageIndex] = newLastMessage
+
+    else
+      newLastMessages.push(newLastMessage)
+
+    return newLastMessages
+  })
+}
 
 function emptyInput() {
   const username = route.params.username as string
@@ -66,24 +111,8 @@ const { mutate: sendMessage, isError: mutationError } = useMutation({
     if (newMessage.refresh)
       return
 
-    const newHistory = [...data.value.history || []]
-
-    newHistory.push({
-      id: newHistory.length + 1,
-      from: "user",
-      status: "sending",
-      message: newMessage.value,
-      replyingId: newMessage.replyingId,
-      replyMessage: newMessage.replyMessage,
-      replyFrom: newMessage.replyFrom,
-      time: new Date().getTime(),
-    })
-
-    queryClient.setQueryData(queryKeys.chat(params.username as string), {
-      ...data.value,
-      history: newHistory,
-    })
-
+    updateHistory(newMessage)
+    updateLastMessage(newMessage)
     emptyInput()
     fixScroll()
   },
@@ -110,6 +139,10 @@ const { mutate: sendMessage, isError: mutationError } = useMutation({
         queryKey: queryKeys.chats,
       })
     }
+
+    queryClient.invalidateQueries({
+      queryKey: queryKeys.lastMessages,
+    })
 
     queryClient.setQueryData(queryKeys.chat(params.username as string), {
       ...data.value,

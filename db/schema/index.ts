@@ -1,10 +1,9 @@
 /* eslint-disable ts/no-use-before-define */
 import { foreignKey, int, sqliteTable, text, unique } from "drizzle-orm/sqlite-core"
 import { createInsertSchema, createSelectSchema } from "drizzle-zod"
+import { relations, sql } from "drizzle-orm"
 import { z } from "zod"
-import { relations } from "drizzle-orm"
 import { MAX_GOALS_AMOUNT, MAX_HOBBIES_AMOUNT, MAX_OBSERVATION_CHARS, MAX_PROFESSION_CHARS } from "../../app/constants/base"
-import { lastMessages } from "./lastMessages"
 import type { MessageData } from "~/types"
 
 // #region Users
@@ -324,6 +323,33 @@ export type LevelSelect = z.infer<typeof selectLevelSchema>
 
 // #region Chats
 
+export const lastMessages = sqliteTable("LastMessage", {
+  id: int("id").primaryKey({ autoIncrement: true }),
+  chatId: int("chat_id")
+    .notNull()
+    .references(() => chats.id, { onDelete: "cascade" }),
+  content: text("content").notNull(),
+  datetime: int("datetime", { mode: "timestamp_ms" })
+    .notNull()
+    .$defaultFn(() => sql`CURRENT_TIMESTAMP`),
+  userId: text("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+})
+
+export const lastMessageRelations = relations(lastMessages, ({ one }) => ({
+  chat: one(chats, {
+    fields: [lastMessages.chatId],
+    references: [chats.id],
+  }),
+}))
+
+export const selectLastMessageSchema = createSelectSchema(lastMessages)
+export const insertLastMessageSchema = createInsertSchema(lastMessages)
+
+export type LastMessageSelect = z.infer<typeof selectLastMessageSchema>
+export type LastMessageInsert = z.infer<typeof insertLastMessageSchema>
+
 export const chats = sqliteTable("Chat", {
   id: int("id").primaryKey({ autoIncrement: true }),
   personaUsernameId: int("persona_username_id")
@@ -353,7 +379,7 @@ export const chatsRelations = relations(chats, ({ one, many }) => ({
     references: [users.id],
   }),
   messages: many(messages),
-  lastMessages: many(lastMessages),
+  lastMessages: one(lastMessages),
 }))
 
 // #endregion
