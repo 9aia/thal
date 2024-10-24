@@ -102,7 +102,7 @@ function emptyInput() {
   text.value = ""
 }
 
-const { mutate: sendMessage, isError: mutationError } = useMutation({
+const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending } = useMutation({
   mutationFn: (data: SendMessageData) => $fetch(`/api/message/${params.username}`, {
     method: "POST",
     body: JSON.stringify(data),
@@ -231,6 +231,8 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
             @fix-scroll="fixScroll"
             @resend="handleResend()"
           />
+
+          <ChatBubbleLoading v-if="isMessagePending" />
         </main>
 
         <ChatFooter v-model="text" @send="handleSend()" />

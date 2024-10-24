@@ -79,7 +79,7 @@ function handleGoToChat(username: string) {
         <a class="block text-base text-slate-800">{{ chat.persona.name }}</a>
 
         <div class="text-xs text-slate-600">
-          {{ date }} {{ chat.id }}
+          {{ date }}
         </div>
       </div>
       <div

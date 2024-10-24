@@ -7,11 +7,14 @@ Features
   - Add community guidelines link to the "Character Builder".
 - Add a locale modal on the home page.
 - Add a publish feature to make characters discoverable.
+  - Add a eye icon to change the visibility in the character builder.
+  - Add a option to make it hidden in the character builder.
 - Add a warning for renaming character usernames.
+- Add a empty fallback to chats
 - Add "Discover Characters" modal.
   - Add category-based search for characters.
-- Add character build tool based on Profile form
-- Add conversation starters
+  - Search by name.
+- Add conversation starters.
 - Add PT-EN translator in the chat input.
 - Add suggestions in chat.
 - Add tips
@@ -21,22 +24,25 @@ Features
 - Add assistant
   - Add a help request item in the header menu (AI-driven).
   - Add settings to adjust AI helper responses.
+- Add character build tool based on Profile form.
 - ---
-- Stream chat messages.
-- Add date stamps in chat.
-- Add markdown preview in the message input.
-- Add message reactions
-- Add contact editing.
-- Add shortcut to contacts.
 - Add an invite section in contacts (when the persona doesn’t exist).
-- Add activities like minigames.
+- Add shortcut to contacts.
+- Add contact editing.
 - Implement basic analytics to track user engagement and app performance.
 - Add logger.
+- Stream chat messages.
+- Add date stamps in chat.
+- Add message reactions
+- ---
+- Add markdown preview in the message input.
+- Add activities like minigames.
 
 ---
 Bugs
 ---
 
+- Fix UI updates on contact username changes
 - Check user plan in API routes.
 - Redirect from `/plan/expired` when your plan is not expired.
 - Fix locale change routing (remove `/{locale}` from `/app`).
@@ -45,7 +51,6 @@ Bugs
 - Fix bug after deleting and recreating an account, user can't rejoin the app.
 - Fix "Try again" after cookie issue resolved in the database.
 - Replace web modal API.
-- Fix UI updates on contact username changes
 
 ---
 Enhancements
