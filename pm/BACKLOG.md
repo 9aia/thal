@@ -9,11 +9,11 @@ Features
 - Add a publish feature to make characters discoverable.
   - Add a eye icon to change the visibility in the character builder.
   - Add a option to make it hidden in the character builder.
-- Add a warning for renaming character usernames.
-- Add a empty fallback to chats
 - Add "Discover Characters" modal.
   - Add category-based search for characters.
   - Search by name.
+- Add a warning for renaming character usernames.
+- Add a empty fallback to chats
 - Add conversation starters.
 - Add PT-EN translator in the chat input.
 - Add suggestions in chat.
@@ -25,6 +25,7 @@ Features
   - Add a help request item in the header menu (AI-driven).
   - Add settings to adjust AI helper responses.
 - Add character build tool based on Profile form.
+- Add news chat
 - ---
 - Add an invite section in contacts (when the persona doesn’t exist).
 - Add shortcut to contacts.

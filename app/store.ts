@@ -1,13 +1,4 @@
-import type { SectionName } from "./constants/course"
 import type { Contact, Persona, Replies } from "~/types"
-
-interface Store {
-  currentSection: SectionName
-}
-
-export const learnStore = reactive<Store>({
-  currentSection: "a1",
-})
 
 export const isRootDrawerOpen = ref(false)
 

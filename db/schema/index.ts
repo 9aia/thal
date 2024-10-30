@@ -273,54 +273,6 @@ export type ContactUpdateDto = z.infer<typeof contactUpdateSchema>
 
 // #endregion
 
-// #region Exercises
-
-export const exercises = sqliteTable("Exercise", {
-  id: int("id").primaryKey({ autoIncrement: true }),
-  unitSlug: text("unit_slug").notNull(),
-  levelSlug: text("level_slug").notNull(),
-  lessonIndex: int("lesson_index").default(0).notNull(),
-  position: int("position").default(0).notNull(),
-  type: text("type").notNull(),
-  data: text("data", { mode: "json" }).$type<Record<string, any>>().notNull(),
-  userId: text("user_id")
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-})
-
-export const selectExerciseSchema = createSelectSchema(exercises)
-
-export const insertExerciseSchema = createInsertSchema(exercises).omit({
-  id: true,
-})
-
-export type ExerciseSelect = Omit<z.infer<typeof selectExerciseSchema>, "data"> & {
-  data: Record<string, any>
-}
-export type ExerciseInsert = z.infer<typeof insertExerciseSchema>
-
-// #endregion
-
-// #region Level
-
-export const levels = sqliteTable("Level", {
-  id: int("id").primaryKey({ autoIncrement: true }),
-  slug: text("slug").notNull(),
-  sectionSlug: text("section_slug").notNull(),
-  unitSlug: text("unit_slug").notNull(),
-  lessonIndex: int("lesson_index").default(0).notNull(),
-  lastExercisePosition: int("last_exercise_position").default(0).notNull(),
-  userId: text("user_id")
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-})
-
-export const selectLevelSchema = createSelectSchema(levels)
-
-export type LevelSelect = z.infer<typeof selectLevelSchema>
-
-// #endregion
-
 // #region Chats
 
 export const lastMessages = sqliteTable("LastMessage", {

@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "54c42082-0157-466b-8113-34dc88754363",
+  "id": "0f75a016-3fbe-4747-8f86-ddb95c2e7f1f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "Chat": {
@@ -177,8 +177,8 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "Exercise": {
-      "name": "Exercise",
+    "LastMessage": {
+      "name": "LastMessage",
       "columns": {
         "id": {
           "name": "id",
@@ -187,46 +187,23 @@
           "notNull": true,
           "autoincrement": true
         },
-        "unit_slug": {
-          "name": "unit_slug",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "level_slug": {
-          "name": "level_slug",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "lesson_index": {
-          "name": "lesson_index",
+        "chat_id": {
+          "name": "chat_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
-          "default": 0
+          "autoincrement": false
         },
-        "position": {
-          "name": "position",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": 0
-        },
-        "type": {
-          "name": "type",
+        "content": {
+          "name": "content",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
-        "data": {
-          "name": "data",
-          "type": "text",
+        "datetime": {
+          "name": "datetime",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -241,83 +218,22 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "Exercise_user_id_User_id_fk": {
-          "name": "Exercise_user_id_User_id_fk",
-          "tableFrom": "Exercise",
-          "tableTo": "User",
+        "LastMessage_chat_id_Chat_id_fk": {
+          "name": "LastMessage_chat_id_Chat_id_fk",
+          "tableFrom": "LastMessage",
+          "tableTo": "Chat",
           "columnsFrom": [
-            "user_id"
+            "chat_id"
           ],
           "columnsTo": [
             "id"
           ],
           "onDelete": "cascade",
           "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "Level": {
-      "name": "Level",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "integer",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": true
         },
-        "slug": {
-          "name": "slug",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "section_slug": {
-          "name": "section_slug",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "unit_slug": {
-          "name": "unit_slug",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "lesson_index": {
-          "name": "lesson_index",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": 0
-        },
-        "last_exercise_position": {
-          "name": "last_exercise_position",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": 0
-        },
-        "user_id": {
-          "name": "user_id",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "Level_user_id_User_id_fk": {
-          "name": "Level_user_id_User_id_fk",
-          "tableFrom": "Level",
+        "LastMessage_user_id_User_id_fk": {
+          "name": "LastMessage_user_id_User_id_fk",
+          "tableFrom": "LastMessage",
           "tableTo": "User",
           "columnsFrom": [
             "user_id"
@@ -764,57 +680,6 @@
         }
       },
       "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "LastMessage": {
-      "name": "LastMessage",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "integer",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": true
-        },
-        "chat_id": {
-          "name": "chat_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "content": {
-          "name": "content",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "datetime": {
-          "name": "datetime",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "LastMessage_chat_id_Chat_id_fk": {
-          "name": "LastMessage_chat_id_Chat_id_fk",
-          "tableFrom": "LastMessage",
-          "tableTo": "Chat",
-          "columnsFrom": [
-            "chat_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     }

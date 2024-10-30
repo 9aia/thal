@@ -1,0 +1,3 @@
+- Allow users to create their own conversation scenarios / add personal vocabulary lists that the chatbot can incorporate into the convo
+- Add onboarding custom character.
+- Credit system

@@ -19,26 +19,13 @@ CREATE TABLE `Contact` (
 	FOREIGN KEY (`user_id`) REFERENCES `User`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
-CREATE TABLE `Exercise` (
+CREATE TABLE `LastMessage` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`unit_slug` text NOT NULL,
-	`level_slug` text NOT NULL,
-	`lesson_index` integer DEFAULT 0 NOT NULL,
-	`position` integer DEFAULT 0 NOT NULL,
-	`type` text NOT NULL,
-	`data` text NOT NULL,
+	`chat_id` integer NOT NULL,
+	`content` text NOT NULL,
+	`datetime` integer NOT NULL,
 	`user_id` text NOT NULL,
-	FOREIGN KEY (`user_id`) REFERENCES `User`(`id`) ON UPDATE no action ON DELETE cascade
-);
---> statement-breakpoint
-CREATE TABLE `Level` (
-	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`slug` text NOT NULL,
-	`section_slug` text NOT NULL,
-	`unit_slug` text NOT NULL,
-	`lesson_index` integer DEFAULT 0 NOT NULL,
-	`last_exercise_position` integer DEFAULT 0 NOT NULL,
-	`user_id` text NOT NULL,
+	FOREIGN KEY (`chat_id`) REFERENCES `Chat`(`id`) ON UPDATE no action ON DELETE cascade,
 	FOREIGN KEY (`user_id`) REFERENCES `User`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
@@ -104,14 +91,6 @@ CREATE TABLE `User` (
 	`profession` text,
 	`hobbies` text,
 	`observation` text
-);
---> statement-breakpoint
-CREATE TABLE `LastMessage` (
-	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`chat_id` integer NOT NULL,
-	`content` text NOT NULL,
-	`datetime` integer NOT NULL,
-	FOREIGN KEY (`chat_id`) REFERENCES `Chat`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
 CREATE UNIQUE INDEX `Chat_user_id_persona_username_id_unique` ON `Chat` (`user_id`,`persona_username_id`);--> statement-breakpoint

@@ -37,10 +37,9 @@ definePageMeta({
             </div>
 
             <ul class="text-slate-800 list-disc list-inside mb-4">
+              <li>{{ t('Real-life conversation simulations') }}</li>
               <li>{{ t('Unlimited personalized exercises') }}</li>
               <li>{{ t('Interactive grammar explanations') }}</li>
-              <li>{{ t('Real-life conversation simulations') }}</li>
-              <li>{{ t('Generated stories with comprehension questions') }}</li>
               <li>{{ t('Errors and lesson revisions') }}</li>
             </ul>
 
