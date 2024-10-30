@@ -36,6 +36,7 @@ const {
 
 function handleGoToChat(username: string) {
   isRootDrawerOpen.value = false
+  drawers.newChat = false
 
   navigateTo(`/app/chat/${username}`)
 }
