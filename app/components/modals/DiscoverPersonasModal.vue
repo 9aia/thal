@@ -1,17 +1,18 @@
 <script setup lang="ts">
 import { useI18n } from "@psitta/vue"
+import queryKeys from "~/queryKeys"
 
 const { t } = useI18n()
 
-const modelValue = defineModel()
+const modelValue = defineModel<boolean>()
 
 const {
   data: personas,
   isError,
   isPending,
   refetch,
-} = await useServerQuery("/api/persona", {
-  queryKey: ["personas"],
+} = await useServerQuery("/api/persona/discover", {
+  queryKey: queryKeys.discoverPersonas,
 })
 </script>
 
@@ -23,7 +24,7 @@ const {
   >
     <template #default>
       <h1 class="font-bold text-2xl mb-2 mt-4">
-        {{ t("Personas") }}
+        {{ t("Characters") }}
       </h1>
 
       <div class="px-2 pb-2 space-y-2 overflow-y-auto mt-4">

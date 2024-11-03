@@ -16,8 +16,7 @@ const menuItems: MenuItem[] = [
     id: "language",
     name: "Language",
     icon: "language",
-    action: "language",
-    onSubmit: () => {
+    onClick: () => {
       localeModal.open()
     },
   },
@@ -30,12 +29,6 @@ const menuItems: MenuItem[] = [
     onSubmit: logout,
   },
 ]
-
-function updateRedirectUrl() {
-  const route = useRoute()
-  const redirectUrl = useRedirectUrl()
-  redirectUrl.value = route.path
-}
 </script>
 
 <template>

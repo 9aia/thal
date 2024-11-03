@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { T, t } from "@psitta/vue"
-import Icon from "../display/Icon.vue"
 
 interface SectionItem {
   title: string

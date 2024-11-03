@@ -43,7 +43,7 @@ const emit = defineEmits<{
       <Icon name="science" class="text-slate-800" />
 
       <p class="text-slate-800 text-sm">
-        {{ t('We use generative AI technology to make it possible') }}
+        {{ t('This app is intended for educational and entertainment purposes only. The content and interactions within the app do not constitute professional language instruction. Users are encouraged to verify information independently and use the app responsibly.') }}
       </p>
     </footer>
   </div>

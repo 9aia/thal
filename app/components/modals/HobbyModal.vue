@@ -5,6 +5,7 @@ import { useI18n } from "@psitta/vue"
 import { useQueryClient } from "@tanstack/vue-query"
 import { HOBBIES, MAX_HOBBIES_AMOUNT } from "~/constants/base"
 import { useToast } from "~~/layers/ui/composables/useToast"
+import queryKeys from "~/queryKeys"
 
 const { t } = useI18n()
 const toast = useToast()
@@ -56,7 +57,7 @@ const submit = form.handleSubmit(async () => {
     toast.success(t("Hobbies were updated successfully."))
 
     queryClient.invalidateQueries({
-      queryKey: ["profile", user.value!.username],
+      queryKey: queryKeys.profile(user.value!.username),
     })
   }
   catch (e) {

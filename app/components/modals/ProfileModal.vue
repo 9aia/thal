@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useQuery } from "@tanstack/vue-query"
 import { useI18n } from "@psitta/vue"
+import { drawers } from "~/store"
+import queryKeys from "~/queryKeys"
 
 const props = defineProps<{
   username: string | null
@@ -20,7 +22,7 @@ const {
   isError,
   error,
 } = useQuery({
-  queryKey: computed(() => ["profile", props.username]),
+  queryKey: queryKeys.profile(computed(() => props.username!)),
   queryFn: async () => {
     if (!props.username)
       throw new Error("Username is required")
@@ -37,7 +39,7 @@ const profileModal = useProfileModal()
 
 function goToEdit() {
   modelValue.value = false
-  navigateTo("/app")
+  drawers.profile = true
 }
 
 provide("profile", data)

@@ -1,17 +1,37 @@
 <script setup lang="ts">
+import type { InternalApi } from "nitropack"
 import { useLocale } from "@psitta/vue"
-import type { MessageContent, User } from "~/types"
+import type { MessageStatus } from "~/types"
+import { isRootDrawerOpen } from "~/store"
+
+type ChatResponse = InternalApi["/api/chat"]["get"][number]
+type LastMessage = InternalApi["/api/chat/lastMessages"]["default"][number]
 
 const props = defineProps<{
-  id: number
-  persona: User
-  lastMessage: MessageContent
+  chat: Readonly<ChatResponse>
+  lastMessage?: Readonly<LastMessage>
 }>()
 
 const locale = useLocale()
 
+const chat = computed(() => {
+  return {
+    id: props.chat.id,
+    persona: {
+      name: props.chat.contact?.name || props.chat.personaUsername?.persona?.name || `@${props.chat.personaUsername!.username}`,
+      username: props.chat.personaUsername!.username,
+      avatar: undefined,
+    },
+    lastMessage: {
+      date: props.lastMessage?.datetime ? new Date(props.lastMessage.datetime) : now(),
+      status: "sent" as MessageStatus,
+      text: props.lastMessage?.content || "",
+    },
+  }
+})
+
 const date = computed(() => {
-  const date = props.lastMessage.date
+  const date = props.lastMessage?.datetime ? new Date(props.lastMessage.datetime) : now()
 
   if (isToday(date)) {
     const formatter = new Intl.DateTimeFormat(locale.value, {
@@ -43,54 +63,33 @@ const date = computed(() => {
   return formatter.format(date)
 })
 
-const icon = computed(() => {
-  let icon: string
+function handleGoToChat(username: string) {
+  isRootDrawerOpen.value = false
 
-  switch (props.lastMessage.status) {
-    case "sending":
-      icon = "schedule"
-      break
-    case "seen":
-      icon = "done_all"
-      break
-    case "received":
-      icon = "done_all"
-      break
-    case "sent":
-      icon = "check"
-      break
-  }
-
-  return icon
-})
-
-function openChat() {
-  navigateTo(`/app/chat/${props.persona.username}`)
+  navigateTo(`/app/chat/${username}`)
 }
 </script>
 
 <template>
-  <div role="button" class="px-3 py-1 hover:bg-slate-100 flex gap-2" @click="openChat">
-    <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-      <div class="w-10 rounded-full">
-        <img
-          alt="Tailwind CSS Navbar component"
-          src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-        >
-      </div>
-    </div>
+  <div role="button" class="px-3 py-1 hover:bg-slate-100 flex gap-2" @click="handleGoToChat(chat.persona.username)">
+    <Avatar :name="chat.persona.name" class="w-10 text-sm bg-slate-300 text-slate-800" type="button" />
 
-    <div class="flex-1 flex flex-col justify-center">
+    <div class="flex-1 flex flex-col justify-center w-10px">
       <div class="flex justify-between items-center">
-        <a class="block text-base text-slate-800">{{ persona.name }}</a>
+        <a class="block text-base text-slate-800">{{ chat.persona.name }}</a>
 
         <div class="text-xs text-slate-600">
           {{ date }}
         </div>
       </div>
-      <div class="text-sm text-slate-600 flex items-center gap-1">
-        <Icon :name="icon" :class="[lastMessage.status === 'seen' ? 'text-sky-500' : 'text-slate-500']" style="font-size: 1.15rem" />
-        {{ lastMessage.text }}
+      <div
+        class="text-sm text-slate-600 flex items-center"
+        :title="chat.lastMessage.text"
+      >
+        <MessageIcon :status="chat.lastMessage.status" />
+        <div class="line-clamp-1">
+          {{ chat.lastMessage.text }}
+        </div>
       </div>
     </div>
   </div>

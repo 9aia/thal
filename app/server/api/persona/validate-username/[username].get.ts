@@ -2,7 +2,7 @@ import { eq } from "drizzle-orm"
 import { z } from "zod"
 import { getValidated } from "~/utils/h3"
 import { unauthorized } from "~/utils/nuxt"
-import { personas, usernameSchema } from "~~/db/schema"
+import { personaUsernames, usernameSchema } from "~~/db/schema"
 
 export default eventHandler(async (event) => {
   const orm = event.context.orm
@@ -12,19 +12,19 @@ export default eventHandler(async (event) => {
     throw unauthorized()
 
   const { username } = await getValidated(event, "params", z.object({ username: z.string() }))
+  const { allowedUsername } = await getValidated(event, "query", z.object({ allowedUsername: z.string().optional() }))
 
   if (!usernameSchema.safeParse(username).success)
     return { valid: false }
 
-  const usernameTaken
-    = (
-      await orm
-        .select()
-        .from(personas)
-        .where(eq(personas.username, username))
-    ).at(0) !== undefined
+  const [existingPersonaUsername] = await orm
+    .select()
+    .from(personaUsernames)
+    .where(eq(personaUsernames.username, username))
+
+  const isUsernameTaken = existingPersonaUsername && existingPersonaUsername.personaId !== null
 
   return {
-    valid: !usernameTaken,
+    valid: username === allowedUsername || !isUsernameTaken,
   }
 })

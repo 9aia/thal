@@ -1,7 +1,8 @@
+import { eq } from "drizzle-orm"
 import { now } from "~/utils/date"
 import { getValidated } from "~/utils/h3"
-import { unauthorized } from "~/utils/nuxt"
-import { personaInsertSchema, personas } from "~~/db/schema"
+import { badRequest, unauthorized } from "~/utils/nuxt"
+import { personaInsertSchema, personaUsernames, personas } from "~~/db/schema"
 
 export default eventHandler(async (event) => {
   const data = await getValidated(event, "body", personaInsertSchema)
@@ -12,14 +13,48 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  const newPersona = await orm
+  const {
+    username,
+    ...personaData
+  } = data
+
+  const [existingPersonaUsername] = await orm
+    .select()
+    .from(personaUsernames)
+    .where(eq(personaUsernames.username, username))
+
+  if (existingPersonaUsername && existingPersonaUsername.personaId !== null)
+    throw badRequest("Username already taken")
+
+  const [newPersona] = await orm
     .insert(personas)
     .values({
-      ...data,
+      ...personaData,
+      conversationStarters: JSON.stringify(personaData.conversationStarters),
       creatorId: user.id,
       createdAt: now().toString(),
     })
     .returning()
 
-  return newPersona
+  const isNewPersonaUsername = existingPersonaUsername === undefined
+
+  if (isNewPersonaUsername) {
+    await orm.insert(personaUsernames).values({
+      username,
+      personaId: newPersona.id,
+    })
+  }
+  else {
+    await orm
+      .update(personaUsernames)
+      .set({
+        personaId: newPersona.id,
+      })
+      .where(eq(personaUsernames.username, username))
+  }
+
+  return {
+    ...newPersona,
+    username,
+  }
 })

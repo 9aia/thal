@@ -49,3 +49,9 @@ export function badRequest(
 ) {
   return error(400, message, options)
 }
+
+export function updateRedirectUrl() {
+  const route = useRoute()
+  const redirectUrl = useRedirectUrl()
+  redirectUrl.value = route.path
+}

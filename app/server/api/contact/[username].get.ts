@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { getContactByUser, mapContactToDto } from "~/server/services/contact"
+import { getContactByUser } from "~/server/services/contact"
 import { getValidated } from "~/utils/h3"
 import { unauthorized } from "~/utils/nuxt"
 import { usernameSchema } from "~~/db/schema"

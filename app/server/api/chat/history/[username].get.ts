@@ -13,7 +13,7 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  const history = await getHistory(orm, user, username)
+  const { history } = await getHistory(orm, user, username)
 
   return history
 })

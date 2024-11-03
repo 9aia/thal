@@ -33,26 +33,13 @@ export default eventHandler(async (event) => {
 
   const gemini = getGemini(GEMINI_API_KEY as string)
 
-  let text
+  const res = await gemini.generateContent(prompt)
+  const bestCandidate = res.candidates?.[0]
+  const bestPart = bestCandidate?.content?.parts?.[0]
+  const text: string = bestPart?.text
 
-  try {
-    const res = (await gemini.generateContent(prompt)) as any
-
-    if ("error" in res)
-      throw new Error(`Gemini internal error: ${res.error}`)
-
-    if (import.meta.dev)
-      console.log(JSON.stringify(res, null, 2))
-
-    const bestCandidate = res.candidates?.[0]
-    const bestPart = bestCandidate?.content?.parts?.[0]
-
-    text = bestPart?.text
-  }
-  catch (_e) {
-    const e = _e as Error
-    throw internal(`Error while fetching Gemini API: ${e.message}`)
-  }
+  if (!text)
+    throw internal("Gemini did not return a valid translation")
 
   let json: { transcript: string }
 

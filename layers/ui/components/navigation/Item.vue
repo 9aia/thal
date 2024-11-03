@@ -19,7 +19,16 @@ function handleSubmit(event: Event) {
 </script>
 
 <template>
-  <template v-if="is.action">
+  <template v-if="!!is.onClick">
+    <button
+      class="flex w-full py-2 justify-between items-center"
+      @click="is.onClick"
+    >
+      <MenuItem :is="is" />
+    </button>
+  </template>
+
+  <template v-else-if="is.action">
     <form
       :action="is.action" :method="is.method" class="flex w-full"
       v-on="{ submit: !!is.onSubmit ? handleSubmit : undefined }"

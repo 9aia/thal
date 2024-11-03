@@ -1,20 +1,28 @@
 <script setup lang="ts">
 import { t } from "@psitta/vue"
-
+import { drawers, isRootDrawerOpen, personaBuilderData } from "~/store"
+import { useDiscoverPersonasModal } from "~/composables/useDiscoverPersonasModal"
 import type { MenuItem } from "~~/layers/ui/components/navigation/types"
+import queryKeys from "~/queryKeys"
 
 const emit = defineEmits<{
-  (e: "open", emitValue: string): void
   (e: "close"): void
 }>()
 
+const discoverPersonasModal = useDiscoverPersonasModal()
+
+function handleCreatePersona() {
+  drawers.personaBuilder = true
+  personaBuilderData.value = null
+}
+
 const generalItems: MenuItem[] = [
-  { id: "new-contact", icon: "person_add", name: "New contact", emit: "new-contact-drawer" },
-  { id: "create-persona", icon: "person_edit", name: "Build persona", emit: "build-persona-drawer" },
+  { id: "new-contact", icon: "person_add", name: t("New contact"), onClick: () => drawers.newContact = true },
+  { id: "create-persona", icon: "person_edit", name: t("Build character"), onClick: () => handleCreatePersona() },
 ]
 
 const discoverItems: MenuItem[] = [
-  { id: "discover", icon: "collections_bookmark", name: "Personas", emit: "open-personas" },
+  { id: "discover", icon: "collections_bookmark", name: t("Characters"), onClick: () => discoverPersonasModal.open() },
 ]
 
 const {
@@ -23,10 +31,15 @@ const {
   isPending,
   refetch,
 } = await useServerQuery("/api/contact", {
-  queryKey: ["contacts"],
+  queryKey: queryKeys.contacts,
 })
 
-const isPersonasOpen = ref(false)
+function handleGoToChat(username: string) {
+  isRootDrawerOpen.value = false
+  drawers.newChat = false
+
+  navigateTo(`/app/chat/${username}`)
+}
 </script>
 
 <template>
@@ -44,15 +57,14 @@ const isPersonasOpen = ref(false)
       <MenuGroup
         class="p-0 w-full"
         :items="generalItems"
-        @action="emit('open', $event)"
       />
     </SettingSection>
 
     <SettingSection :title="t('Discover')" class="px-4">
-      <MenuGroup class="p-0 w-full" :items="discoverItems" @action="$event === 'open-personas' ? isPersonasOpen = true : undefined" />
+      <MenuGroup class="p-0 w-full" :items="discoverItems" />
     </SettingSection>
 
-    <SettingSection v-if="contacts.length" :title="t('Contacts')" title-class="px-4">
+    <SettingSection v-if="contacts?.length" :title="t('Contacts')" title-class="px-4">
       <Resource
         :error="isError"
         :loading="isPending"
@@ -63,11 +75,9 @@ const isPersonasOpen = ref(false)
           :key="`contact-${contact.id}`"
           :name="contact.name"
           :description="contact.description"
-          @click="navigateTo(`/app/chat/${contact.username}`)"
+          @click="handleGoToChat(contact.username)"
         />
       </Resource>
     </SettingSection>
   </div>
-
-  <DiscoverPersonasModal v-model="isPersonasOpen" />
 </template>

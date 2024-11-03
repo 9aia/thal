@@ -2,10 +2,11 @@
 import { useI18n } from "@psitta/vue"
 import { useQueryClient } from "@tanstack/vue-query"
 import { useDebounceFn } from "@vueuse/core"
-import type { User } from "lucia"
 import { useForm } from "vee-validate"
-import { descriptionSchema, instructionsSchema, nameSchema, usernameSchema } from "~~/db/schema"
+import { contactData, isRootDrawerOpen } from "~/store"
+import { nameSchema, usernameSchema } from "~~/db/schema"
 import { useToast } from "~~/layers/ui/composables/useToast"
+import queryKeys from "~/queryKeys"
 
 const emit = defineEmits<{
   (e: "close"): void
@@ -15,9 +16,18 @@ const toast = useToast()
 
 const queryClient = useQueryClient()
 
-const form = useForm<{ name: string, username: string }>()
+const form = useForm<{ name: string, username: string }>({
+  initialValues: contactData.value,
+})
 const hasErrors = useHasFormErrors(form)
 const loading = ref(false)
+
+watch(contactData, () => {
+  if (contactData.value)
+    form.setValues(contactData.value)
+  else
+    form.resetForm()
+})
 
 async function validateUsername(username: string) {
   if (!username)
@@ -55,6 +65,13 @@ async function validateUsername(username: string) {
   }
 }
 
+function handleGoToChat(username: string) {
+  isRootDrawerOpen.value = false
+
+  navigateTo(`/app/chat/${username}`)
+  toast.close()
+}
+
 const debouncedValidateUsername = useDebounceFn(validateUsername, 500)
 watch(() => form.values.username, debouncedValidateUsername)
 
@@ -69,15 +86,31 @@ const submit = form.handleSubmit(async (data) => {
       },
     })
 
-    toast.success(t("Contact has been created successfully."))
-
     emit("close")
 
     queryClient.invalidateQueries({
-      queryKey: ["contacts"],
+      queryKey: queryKeys.contacts,
+    })
+
+    queryClient.invalidateQueries({
+      queryKey: queryKeys.chat(data.username),
+    })
+
+    queryClient.invalidateQueries({
+      queryKey: queryKeys.contactInfo(data.username),
     })
 
     form.resetForm()
+
+    toast.success(t("{name} was added to your contacts.", { name: data.name }), 5000, {
+      actions: [
+        {
+          title: t("Message"),
+          onClick: () => handleGoToChat(data.username),
+        },
+      ],
+      position: "start-bottom",
+    })
   }
   catch (e) {
     toast.error(t("An error occurred while creating contact."))

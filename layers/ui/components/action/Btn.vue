@@ -6,8 +6,10 @@ import type { SafeProps, SafeVariantProps } from "../../types"
 
 withDefaults(defineProps<Props & {
   size?: keyof typeof variants["size"]
+  shape?: "circle" | "square" | "normal"
 }>(), {
   size: "sm",
+  shape: "normal",
 })
 
 const variants = {
@@ -16,6 +18,11 @@ const variants = {
     sm: "btn-sm",
     md: "",
     lg: "btn-lg",
+  },
+  shape: {
+    circle: "btn-circle",
+    square: "btn-square",
+    normal: "",
   },
 } as const
 
@@ -35,7 +42,7 @@ const attrs = useAttrs()
 
 <template>
   <button
-    :class="styles({ size, class: attrs.class as string })"
+    :class="styles({ size, shape, class: attrs.class as string })"
     :disabled="loading"
   >
     <slot />

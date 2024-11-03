@@ -53,18 +53,13 @@ export default eventHandler(async (event) => {
   `
 
   const gemini = getGemini(GEMINI_API_KEY as string)
+  const res = await gemini.generateContent(prompt)
+  const bestCandidate = res.candidates?.[0]
+  const bestPart = bestCandidate?.content?.parts?.[0]
+  const text: string = bestPart?.text
 
-  try {
-    const res = (await gemini.generateContent(prompt)) as any
+  if (!text)
+    throw internal("Gemini did not return a valid translation")
 
-    if ("error" in res)
-      throw internal("Gemini internal error")
-
-    const text = res.candidates[0].content.parts[0].text
-
-    return { summary: text as string }
-  }
-  catch (e) {
-    throw internal("Error while fetching Gemini API")
-  }
+  return { summary: text as string }
 })

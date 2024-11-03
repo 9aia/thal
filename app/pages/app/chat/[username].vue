@@ -1,9 +1,14 @@
 <script setup lang="ts">
+import type { InternalApi } from "nitropack"
+import { t } from "@psitta/vue"
 import { useMutation, useQueryClient } from "@tanstack/vue-query"
 import AppLayout from "~/layouts/app.vue"
+import queryKeys from "~/queryKeys"
+import { replies } from "~/store"
 
 definePageMeta({
   layout: false,
+  middleware: "premium",
 })
 
 const route = useRoute()
@@ -15,60 +20,166 @@ const {
   isLoading,
   isError,
   refetch,
-} = await useServerQuery(() => `/api/contact/${params.username}`, {
-  queryKey: ["chat", computed(() => params.username)],
-})
-
-const historyQuery = await useServerQuery(() => `/api/chat/history/${params.username}`, {
-  queryKey: ["messages", computed(() => params.username)],
+} = await useServerQuery(() => `/api/chat/${params.username}` as `/api/chat/:username`, {
+  queryKey: queryKeys.chat(computed(() => params.username as string)),
 })
 
 const scrollContainer = ref<HTMLElement | null>(null)
 
-function fixScroll() {
-  if (scrollContainer.value)
-    scrollContainer.value.scrollTop = scrollContainer.value.scrollHeight
+async function fixScroll() {
+  await nextTick()
+
+  setTimeout(() => {
+    if (scrollContainer.value)
+      scrollContainer.value.scrollTop = scrollContainer.value.scrollHeight
+  }, 0)
 }
 
 const text = ref("")
 
-const { mutate: sendMessage } = useMutation({
-  mutationFn: (data: { type: "text", value: string }) => $fetch(`/api/message/${params.username}`, {
+type LastMessage = InternalApi["/api/chat/lastMessages"]["default"][number]
+
+interface SendMessageData {
+  type: "text"
+  value: string
+  refresh: boolean
+  replyingId?: number
+  replyMessage?: string
+  replyFrom?: "user" | "bot"
+}
+
+const replying = computed(() => {
+  const username = route.params.username as string
+  return replies[username]
+})
+
+function updateHistory(newMessage: SendMessageData) {
+  const newHistory = [...data.value.history || []]
+
+  newHistory.push({
+    id: newHistory.length + 1,
+    from: "user",
+    status: "sending",
+    message: newMessage.value,
+    replyingId: newMessage.replyingId,
+    replyMessage: newMessage.replyMessage,
+    replyFrom: newMessage.replyFrom,
+    time: new Date().getTime(),
+  })
+
+  queryClient.setQueryData(queryKeys.chat(params.username as string), {
+    ...data.value,
+    history: newHistory,
+  })
+}
+
+function updateLastMessage(newMessage: SendMessageData) {
+  const newLastMessage: LastMessage = {
+    chatId: Number(data.value.chatId),
+    content: newMessage.value,
+    datetime: new Date().toISOString(),
+  }
+
+  queryClient.setQueryData(queryKeys.lastMessages, (oldData: LastMessage[]) => {
+    const newLastMessages = [...oldData]
+
+    const lastMessageIndex = newLastMessages.findIndex((lastMessage: any) => lastMessage.chatId === data.value.chatId)
+
+    if (lastMessageIndex !== -1)
+      newLastMessages[lastMessageIndex] = newLastMessage
+
+    else
+      newLastMessages.push(newLastMessage)
+
+    return newLastMessages
+  })
+}
+
+function emptyInput() {
+  const username = route.params.username as string
+  delete replies[username]
+
+  text.value = ""
+}
+
+const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending } = useMutation({
+  mutationFn: (data: SendMessageData) => $fetch(`/api/message/${params.username}`, {
     method: "POST",
     body: JSON.stringify(data),
   }),
-  async onMutate(data) {
-    const newHistory = [...historyQuery.data.value || []]
+  async onMutate(newMessage) {
+    if (newMessage.refresh)
+      return
 
-    newHistory.push({
-      id: `${newHistory.length + 1}`,
-      from: "user",
-      status: "sending",
-      message: data.value,
-      time: new Date().getTime(),
+    updateHistory(newMessage)
+    updateLastMessage(newMessage)
+    emptyInput()
+    fixScroll()
+  },
+  onError: async () => {
+    const newHistory = [...data.value.history || []]
+
+    const lastMessage = newHistory[newHistory.length - 1]
+
+    newHistory[newHistory.length - 1] = {
+      ...lastMessage,
+      status: "error",
+    }
+
+    queryClient.setQueryData(queryKeys.chat(params.username as string), {
+      ...data.value,
+      history: newHistory,
     })
 
-    queryClient.setQueryData(["messages", computed(() => params.username)], newHistory)
-    await nextTick()
     fixScroll()
-
-    text.value = ""
   },
-  onSuccess: (newHistory) => {
-    if (historyQuery.data.value?.length === 1) {
+  onSuccess: async (newHistory) => {
+    if (data.value.history.length === 1) {
       queryClient.invalidateQueries({
-        queryKey: ["chats"],
+        queryKey: queryKeys.chats,
       })
     }
 
-    queryClient.setQueryData(["messages", computed(() => params.username)], newHistory)
+    queryClient.invalidateQueries({
+      queryKey: queryKeys.lastMessages,
+    })
+
+    queryClient.setQueryData(queryKeys.chat(params.username as string), {
+      ...data.value,
+      history: newHistory,
+    })
+
     fixScroll()
   },
 })
 
 function handleSend() {
-  sendMessage({ type: "text", value: text.value })
+  sendMessage({
+    type: "text",
+    value: text.value,
+    refresh: false,
+    replyingId: replying.value?.id,
+    replyMessage: replying.value?.message,
+    replyFrom: replying.value?.from,
+  })
 }
+
+function handleResend() {
+  const lastMessage = data.value.history[data.value.history.length - 1]
+
+  if (lastMessage.status === "error") {
+    sendMessage({
+      type: "text",
+      value: lastMessage.message,
+      refresh: true,
+      replyingId: replying.value?.id,
+      replyMessage: replying.value?.message,
+      replyFrom: replying.value?.from,
+    })
+  }
+}
+
+const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
 </script>
 
 <template>
@@ -79,15 +190,52 @@ function handleSend() {
 
     <template #content>
       <Resource :loading="isLoading" :error="isError" @execute="refetch">
-        <ChatHeader :name="data?.name" />
+        <ChatHeader :name="displayName" :avatar-name="avatarName" :username="data!.username" :has-contact="hasContact" :add-contact="addContact" />
 
-        <main ref="scrollContainer" class="py-4 px-12 flex-1 overflow-y-auto relative">
-          <Resource :loading="historyQuery.isPending.value" :error="historyQuery.isError.value" @execute="historyQuery.refetch">
-            <ChatConversation :history="historyQuery.data.value!" @fix-scroll="fixScroll" />
-          </Resource>
+        <main ref="scrollContainer" class="bg-slate-200 py-4 px-2 sm:px-12 flex-1 overflow-y-auto relative">
+          <div class="mb-4 text-slate-800 text-xs bg-orange-100 px-4 py-2 rounded-lg flex gap-1">
+            <Icon name="science" style="font-size: 1.15rem" />
+            <p>
+              {{ t('This app is for educational and entertainment purposes only. Content and interactions do not represent professional instruction. Verify information independently and use responsibly.') }}
+            </p>
+          </div>
+
+          <div
+            v-if="!hasContact"
+            class="card bg-neutral text-neutral-content text-center sm:max-w-lg mx-auto"
+          >
+            <div class="card-body">
+              <Avatar :name="avatarName" class="mx-auto w-20 h-20 text-lg bg-slate-300 text-slate-800" />
+
+              <h2 class="text-slate-900 text-center mb-1">
+                {{ displayName }}
+              </h2>
+              <small class="text-slate-600 text-xs">~ {{ data?.description }}</small>
+
+              <p class="mb-2 text-slate-600 text-sm">
+                {{ t('Not a contact') }}
+              </p>
+
+              <div class="card-actions justify-center">
+                <Btn class="btn-outline btn-primary" @click="addContact()">
+                  <Icon name="person_add" />
+                  Add
+                </Btn>
+              </div>
+            </div>
+          </div>
+
+          <ChatConversation
+            :history="data.history"
+            :is-error="mutationError"
+            @fix-scroll="fixScroll"
+            @resend="handleResend()"
+          />
+
+          <ChatBubbleLoading v-if="isMessagePending" />
         </main>
 
-        <ChatFooter v-model="text" @send="handleSend" />
+        <ChatFooter v-model="text" @send="handleSend()" />
       </Resource>
     </template>
   </AppLayout>

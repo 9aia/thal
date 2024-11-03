@@ -15,4 +15,5 @@ export interface MenuItem {
   emit?: string
   localize?: boolean
   onSubmit?: (e: Event) => void
+  onClick?: (e: Event) => void
 }

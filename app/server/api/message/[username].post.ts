@@ -1,14 +1,13 @@
 import process from "node:process"
-import { and, eq } from "drizzle-orm"
+import { eq, sql } from "drizzle-orm"
 import { z } from "zod"
-import { getContactByUser } from "~/server/services/contact"
 import { getHistory } from "~/server/services/messages"
 import { now } from "~/utils/date"
 import { chatHistoryToGemini, getGemini } from "~/utils/gemini"
 import { getValidated } from "~/utils/h3"
 import { internal, notFound, unauthorized } from "~/utils/nuxt"
 import type { MessageInsert } from "~~/db/schema"
-import { chats, messageSendSchema, messages, usernameSchema } from "~~/db/schema"
+import { chats, contacts, lastMessages, messageSendSchema, messages, personaUsernames, usernameSchema } from "~~/db/schema"
 
 export default eventHandler(async (event) => {
   const { username } = await getValidated(event, "params", z.object({ username: usernameSchema }))
@@ -21,33 +20,43 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  const contact = await getContactByUser(orm, user, username)
+  const result = await orm.query.personaUsernames.findFirst({
+    where: eq(personaUsernames.username, username),
+    with: {
+      persona: {
+        columns: {
+          name: true,
+          description: true,
+          instructions: true,
+        },
+      },
+      chats: {
+        where: eq(chats.userId, user.id),
+      },
+      contacts: {
+        where: eq(contacts.userId, user.id),
+      },
+    },
+  })
 
-  if (!contact)
-    throw notFound("Contact not found")
+  if (!result)
+    throw notFound("Persona Username not found")
 
-  if (!contact.personaId)
-    throw notFound("Persona not found")
+  const persona = result.persona
 
-  const [existingChat] = await orm
-    .select()
-    .from(chats)
-    .where(
-      and(
-        eq(chats.userId, user.id),
-        eq(chats.personaId, contact.personaId),
-      ),
-    )
+  if (!persona)
+    throw internal("Persona not found")
 
-  let chat = existingChat
+  const contact = result.contacts[0]
+  let chat = result.chats[0]
 
   if (!chat) {
     const [newChat] = await orm
       .insert(chats)
       .values({
         userId: user.id,
-        contactId: contact.id,
-        personaId: contact.personaId,
+        contactId: contact?.id,
+        personaUsernameId: result.id,
         createdAt: now().toString(),
       })
       .returning()
@@ -55,29 +64,50 @@ export default eventHandler(async (event) => {
     chat = newChat
   }
 
-  const userDateTime = now().getTime()
-  const history = await getHistory(orm, user, username)
+  const userMessageTime = now().getTime()
+  const { history } = await getHistory(orm, user, username)
 
   history.push({
-    id: `${history.length + 1}`,
+    id: history.length + 1,
     from: "user",
-    status: "sent",
+    status: "seen",
     message: data.value,
-    time: userDateTime,
+    replyMessage: data.replyMessage,
+    replyingId: data.replyingId,
+    replyFrom: data.replyFrom,
+    time: userMessageTime,
   })
 
   const userMessage: MessageInsert = {
     chatId: chat.id,
-    data,
+    data: {
+      type: data.type,
+      value: data.value,
+    },
     isBot: 0,
-    createdAt: userDateTime,
+    createdAt: userMessageTime,
+    replyingId: data.replyingId,
   }
-
-  const geminiHistory = chatHistoryToGemini(history)
 
   const gemini = getGemini(process.env.GEMINI_API_KEY!)
 
-  const res = await gemini.respondChat(geminiHistory)
+  const SYSTEM_INSTRUCTIONS = `
+    Your name is ${persona.name}, your username is ${result.username}.
+
+    This is your description:
+    ${persona.description}.
+
+    You should behave like a character, following those instructions:
+    ${persona.instructions}.
+
+    ## Your Mission
+    
+    You should speak English.
+    You are talking to a user named ${user.name} ${user.lastName}, their username is ${user.username}.
+  `
+
+  const geminiHistory = chatHistoryToGemini(history)
+  const res = await gemini.respondChat(geminiHistory, SYSTEM_INSTRUCTIONS)
 
   const content = res.candidates[0].content
   const geminiResText = content?.parts?.[0]?.text
@@ -85,29 +115,51 @@ export default eventHandler(async (event) => {
   if (!geminiResText)
     throw internal("Empty response")
 
-  const geminiResTime = now().getTime()
+  const botMessageTime = now().getTime()
+  const botMessageContent = geminiResText
 
-  const geminiMessage: MessageInsert = {
+  const botMessagePayload: MessageInsert = {
     chatId: chat.id,
-    data: { type: "text", value: geminiResText },
+    data: { type: "text", value: botMessageContent },
     isBot: 1,
-    createdAt: geminiResTime,
+    createdAt: botMessageTime,
   }
 
-  const [_, dbGeminiMessage] = await orm
+  const [_, botMessageRecord] = await orm
     .insert(messages)
     .values([
       userMessage,
-      geminiMessage,
+      botMessagePayload,
     ]).returning()
+
+  const lastMessage = await orm.query.lastMessages.findFirst({
+    where: eq(messages.chatId, chat.id),
+  })
+
+  const hasLastMessage = !!lastMessage
+
+  if (hasLastMessage) {
+    await orm.update(lastMessages).set({
+      content: botMessageContent,
+      datetime: new Date(botMessageTime),
+    }).where(eq(lastMessages.chatId, chat.id))
+  }
+  else {
+    await orm.insert(lastMessages).values({
+      chatId: chat.id,
+      content: botMessageContent,
+      datetime: new Date(botMessageTime),
+      userId: user.id,
+    })
+  }
 
   history.push(
     {
-      id: dbGeminiMessage.id.toString(),
+      id: botMessageRecord.id,
       from: "bot",
-      status: "sent",
-      message: geminiResText,
-      time: geminiResTime,
+      status: "seen",
+      message: botMessageContent,
+      time: botMessageTime,
     },
   )
 

@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { ref } from "vue"
 import { t } from "@psitta/vue"
+import { ref } from "vue"
 import { SETTINGS } from "~/constants/settings"
 
 const emit = defineEmits<{
-  (e: "open", emitValue: string): void
   (e: "close"): void
 }>()
 
@@ -54,7 +53,7 @@ onMounted(() => {
 
       <div class="space-y-4 px-4 py-4">
         <SettingSection :title="t('General')">
-          <MenuGroup class="p-0 w-full shadow-none" :items="SETTINGS.general" @action="emit('open', $event)">
+          <MenuGroup class="p-0 w-full shadow-none" :items="SETTINGS.general">
             <template #footer>
               <li class="group" @click="isLocaleModalOpen = true">
                 <div>
