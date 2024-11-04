@@ -27,6 +27,16 @@ function edit(e: InputEvent) {
   const target = e.target as HTMLElement
   modelValue.value = target.innerHTML
 }
+
+defineExpose({
+  focus: () => {
+    if (!inputRef.value)
+      return
+
+    setCursorEnd(inputRef.value)
+    inputRef.value.focus()
+  },
+})
 </script>
 
 <template>

@@ -5,6 +5,7 @@ Features
 
 - Add moderation.
   - Add community guidelines link to the "Character Builder".
+  - Add report
 - Add a locale modal on the home page.
 - Add a publish feature to make characters discoverable.
   - Add a eye icon to change the visibility in the character builder.
@@ -13,7 +14,6 @@ Features
   - Add category-based search for characters.
   - Search by name.
 - Add a warning for renaming character usernames.
-- Add a empty fallback to chats
 - Add conversation starters.
 - Add PT-EN translator in the chat input.
 - Add suggestions in chat.

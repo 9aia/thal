@@ -6,13 +6,13 @@ import AppLayout from "~/layouts/app.vue"
 import queryKeys from "~/queryKeys"
 import { replies } from "~/store"
 
+const route = useRoute()
+
 definePageMeta({
   layout: false,
   middleware: "premium",
 })
 
-const route = useRoute()
-const params = route.params
 const queryClient = useQueryClient()
 
 const {
@@ -20,8 +20,8 @@ const {
   isLoading,
   isError,
   refetch,
-} = await useServerQuery(() => `/api/chat/${params.username}` as `/api/chat/:username`, {
-  queryKey: queryKeys.chat(computed(() => params.username as string)),
+} = await useServerQuery(() => `/api/chat/${route.params.username}` as `/api/chat/:username`, {
+  queryKey: queryKeys.chat(computed(() => route.params.username as string)),
 })
 
 const scrollContainer = ref<HTMLElement | null>(null)
@@ -67,7 +67,7 @@ function updateHistory(newMessage: SendMessageData) {
     time: new Date().getTime(),
   })
 
-  queryClient.setQueryData(queryKeys.chat(params.username as string), {
+  queryClient.setQueryData(queryKeys.chat(route.params.username as string), {
     ...data.value,
     history: newHistory,
   })
@@ -103,7 +103,7 @@ function emptyInput() {
 }
 
 const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending } = useMutation({
-  mutationFn: (data: SendMessageData) => $fetch(`/api/message/${params.username}`, {
+  mutationFn: (data: SendMessageData) => $fetch(`/api/message/${route.params.username}`, {
     method: "POST",
     body: JSON.stringify(data),
   }),
@@ -126,7 +126,7 @@ const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending
       status: "error",
     }
 
-    queryClient.setQueryData(queryKeys.chat(params.username as string), {
+    queryClient.setQueryData(queryKeys.chat(route.params.username as string), {
       ...data.value,
       history: newHistory,
     })
@@ -144,7 +144,7 @@ const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending
       queryKey: queryKeys.lastMessages,
     })
 
-    queryClient.setQueryData(queryKeys.chat(params.username as string), {
+    queryClient.setQueryData(queryKeys.chat(route.params.username as string), {
       ...data.value,
       history: newHistory,
     })
@@ -192,7 +192,12 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
       <Resource :loading="isLoading" :error="isError" @execute="refetch">
         <ChatHeader :name="displayName" :avatar-name="avatarName" :username="data!.username" :has-contact="hasContact" :add-contact="addContact" />
 
-        <main ref="scrollContainer" class="bg-slate-200 py-4 px-2 sm:px-12 flex-1 overflow-y-auto relative">
+        <main
+          id="chat-container"
+          ref="scrollContainer"
+          :tabindex="0"
+          class="bg-slate-200 py-4 px-2 sm:px-12 flex-1 overflow-y-auto relative focus:outline-none"
+        >
           <div class="mb-4 text-slate-800 text-xs bg-orange-100 px-4 py-2 rounded-lg flex gap-1">
             <Icon name="science" style="font-size: 1.15rem" />
             <p>
@@ -235,7 +240,7 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
           <ChatBubbleLoading v-if="isMessagePending" />
         </main>
 
-        <ChatFooter v-model="text" @send="handleSend()" />
+        <ChatFooter v-model="text" :username="route.params.username" @send="handleSend()" />
       </Resource>
     </template>
   </AppLayout>

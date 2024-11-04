@@ -2,6 +2,7 @@
 import { useMagicKeys } from "@vueuse/core"
 import { useQueryClient } from "@tanstack/vue-query"
 import { useI18n } from "@psitta/vue"
+import { useEventListener } from "@vueuse/core/index.cjs"
 import { replies } from "~/store"
 import queryKeys from "~/queryKeys"
 
@@ -55,6 +56,18 @@ const replyDisplayName = computed(() => replying.value.from === "user"
   : displayName.value,
 )
 
+const contentEditableRef = ref()
+
+onMounted(() => {
+  const chatContainer = document.querySelector("#chat-container")
+
+  useEventListener(chatContainer, "keydown", () => {
+    contentEditableRef.value?.focus()
+  })
+
+  contentEditableRef.value?.focus()
+})
+
 const isReplying = computed(() => !!replies[username.value])
 const replyMessage = computed(() => replies[username.value])
 </script>
@@ -79,7 +92,15 @@ const replyMessage = computed(() => replies[username.value])
           </div>
         </div>
 
-        <ContentEditable is="span" id="input" v-model="text" class="flex w-full items-center text-sm outline-none" placeholder="Type a message" @keydown.enter="handleEnter" />
+        <ContentEditable
+          is="span"
+          id="input"
+          ref="contentEditableRef"
+          v-model="text"
+          class="flex w-full items-center text-sm outline-none"
+          placeholder="Type a message"
+          @keydown.enter="handleEnter"
+        />
       </label>
     </div>
 
