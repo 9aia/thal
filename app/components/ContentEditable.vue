@@ -28,19 +28,62 @@ function edit(e: InputEvent) {
   modelValue.value = target.innerHTML
 }
 
+const cursorLastPosition = ref({
+  container: null as Node | null,
+  offset: 0,
+})
+
+function saveCursorPosition() {
+  const sel = window.getSelection()
+
+  if (!sel || sel.rangeCount <= 0)
+    return
+
+  const range = sel.getRangeAt(0)
+  cursorLastPosition.value = {
+    container: range.startContainer,
+    offset: range.startOffset,
+  }
+}
+
+function restoreCursorPosition() {
+  if (!cursorLastPosition.value.container)
+    return
+
+  const range = document.createRange()
+  range.setStart(cursorLastPosition.value.container, cursorLastPosition.value.offset)
+  range.collapse(true)
+
+  const sel = window.getSelection()
+
+  if (!sel)
+    return
+
+  sel.removeAllRanges()
+  sel.addRange(range)
+}
+
 defineExpose({
   focus: () => {
     if (!inputRef.value)
       return
 
     setCursorEnd(inputRef.value)
+    restoreCursorPosition()
     inputRef.value.focus()
   },
 })
 </script>
 
 <template>
-  <component :is="props.is" ref="inputRef" role="textbox" contenteditable @input="edit" />
+  <component
+    :is="props.is"
+    ref="inputRef"
+    role="textbox"
+    contenteditable
+    @input="edit"
+    @blur="saveCursorPosition"
+  />
 </template>
 
 <style scoped>

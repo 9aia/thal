@@ -3,7 +3,7 @@
 - [x] Add fav
 - [x] Show a responsive response loading.
 - [x] Fix input focus on reply or open chat
-- [ ] Save focus cursor position
+- [x] Save focus cursor position
 - [ ] Fix message status
   - [ ] Fix last message status
 - [ ] Remove unused code
