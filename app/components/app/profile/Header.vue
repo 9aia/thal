@@ -1,37 +1,31 @@
 <script setup lang="ts">
 import { t } from "@psitta/vue"
-import type { User } from "lucia"
 
 const emit = defineEmits<{
   (e: "edit"): void
 }>()
 
-const user = inject<Ref<User>>("profile")!
-
-const loggedUser = useUser()
-
-const isEditable = computed(() => {
-  return user.value?.username === loggedUser.value!.username
-})
+const user = useUser()
 </script>
 
 <template>
   <div
-    :role="isEditable ? 'button' : 'none'"
+    role="button"
     class="flex justify-between items-start"
-    @click="isEditable ? emit('edit') : undefined"
+    @click="emit('edit')"
   >
     <div class="flex gap-4 items-center">
       <Avatar :name="user!.name" class="w-16 text-xl" />
 
       <label class="relative" role="button">
-        <h2 class="text-lg text-slate-800 font-bold">{{ user!.name }}</h2>
+        <h2 class="text-lg text-slate-800 font-bold">{{ user!.name }} {{ user!.last_name }}</h2>
         <div class="text-sm flex gap-3">
           <div>@{{ user!.username }}</div>
           <div v-if="user!.pronouns">{{ user!.pronouns }}</div>
         </div>
 
         <small class="text-gray-600">
+
           {{
             t("Joined {signupDate}", {
               signupDate: [
@@ -47,7 +41,7 @@ const isEditable = computed(() => {
       </label>
     </div>
 
-    <Btn v-if="isEditable" class="btn-circle btn-ghost" @click.prevent>
+    <Btn class="btn-circle btn-ghost" @click.prevent>
       <Icon name="edit" class="cursor-pointer" />
     </Btn>
   </div>

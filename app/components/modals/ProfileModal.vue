@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// TODO delete this file
 import { useQuery } from "@tanstack/vue-query"
 import { useI18n } from "@psitta/vue"
 import { drawers } from "~/store"
@@ -35,11 +36,9 @@ const {
   enabled: computed(() => (isMe.value || !!props.username) && modelValue.value),
 })
 
-const profileModal = useProfileModal()
-
 function goToEdit() {
   modelValue.value = false
-  drawers.profile = true
+  drawers.profileSettings = true
 }
 
 provide("profile", data)
@@ -106,7 +105,7 @@ provide("profile", data)
             <Btn
               v-else
               class="btn-primary"
-              @click="profileModal.open(user!.username)"
+              @click="drawers.profile = true"
             >
               <Icon name="mdi-refresh" />
               {{ t('Go to my profile') }}

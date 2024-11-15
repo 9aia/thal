@@ -3,12 +3,6 @@ import { drawers } from "~/store"
 
 const general: MenuItem[] = [
   {
-    id: "profile",
-    icon: "face",
-    name: "Profile",
-    onClick: () => drawers.profile = true,
-  },
-  {
     id: "account",
     icon: "person",
     name: "Account",
@@ -27,6 +21,12 @@ const general: MenuItem[] = [
     icon: "person_edit",
     name: "My Characters",
     onClick: () => drawers.myPersonas = true,
+  },
+  {
+    id: "profile",
+    icon: "face",
+    name: "Profile",
+    onClick: () => drawers.profileSettings = true,
   },
 ]
 
