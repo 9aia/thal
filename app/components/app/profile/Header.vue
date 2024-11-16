@@ -18,7 +18,7 @@ const user = useUser()
       <Avatar :name="user!.name" class="w-16 text-xl" />
 
       <label class="relative" role="button">
-        <h2 class="text-lg text-slate-800 font-bold">{{ user!.name }} {{ user!.last_name }}</h2>
+        <h2 class="text-lg text-slate-800 font-bold">{{ user!.name }} {{ user!.lastName }}</h2>
         <div class="text-sm flex gap-3">
           <div>@{{ user!.username }}</div>
           <div v-if="user!.pronouns">{{ user!.pronouns }}</div>

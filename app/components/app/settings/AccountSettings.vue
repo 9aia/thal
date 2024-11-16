@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useDebounceFn } from "@vueuse/core"
-import type { User } from "lucia"
 import { useForm } from "vee-validate"
 import { useI18n } from "@psitta/vue"
 import { useQueryClient } from "@tanstack/vue-query"
+import type { User } from "~~/db/schema"
 import { nameSchema, pronounsSchema, usernameSchema } from "~~/db/schema"
 import { useToast } from "~~/layers/ui/composables/useToast"
 import type { MenuItem } from "~~/layers/ui/components/navigation/types"
@@ -121,7 +121,7 @@ const dangerItems: MenuItem[] = [
               ))"
             />
             <TextField
-              path="last_name" :label="t('Last name')" class="grid-cols-1/2" :rules="yupify(nameSchema, t(
+              path="lastName" :label="t('Last name')" class="grid-cols-1/2" :rules="yupify(nameSchema, t(
                 'Last name must contain between 1 and 20 characters.',
               ))"
             />

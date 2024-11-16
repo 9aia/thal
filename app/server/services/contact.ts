@@ -1,9 +1,9 @@
 import { and, eq } from "drizzle-orm"
 import type { H3EventContext } from "h3"
-import type { User } from "lucia"
+import type { ContactEntity, ContactGetDto, PersonaGet, User } from "~~/db/schema"
+import { contacts, personaUsernames, personas } from "~~/db/schema"
 import { notFound } from "~/utils/nuxt"
 import type { NonNullableKeys } from "~/utils/types"
-import { type ContactEntity, type ContactGetDto, type PersonaGet, contacts, personaUsernames, personas } from "~~/db/schema"
 
 export async function getContactByUser(
   orm: H3EventContext["orm"],

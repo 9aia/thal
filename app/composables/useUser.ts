@@ -1,4 +1,4 @@
-import type { User } from "lucia"
+import type { User } from "~~/db/schema"
 
 function useUser() {
   const user = useState<User | null>("user", () => null)

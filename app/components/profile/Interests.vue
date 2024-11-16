@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { t } from "@psitta/vue"
-import type { User } from "lucia"
+import type { User } from "~~/db/schema"
 import { HOBBIES } from "~/constants/base"
 
 const user = inject<Ref<User>>("profile")!

@@ -31,11 +31,18 @@ export const users = sqliteTable("User", {
 
 export const sessions = sqliteTable("Session", {
   id: text("id").primaryKey(),
-  expiresAt: int("expires_at", { mode: "timestamp" }).notNull(),
   userId: text("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
+  expiresAt: int("expires_at", { mode: "timestamp" }).notNull(),
 })
+
+export const sessionRelations = relations(sessions, ({ one }) => ({
+  user: one(users, {
+    fields: [sessions.userId],
+    references: [users.id],
+  }),
+}))
 
 export const oAuthAccounts = sqliteTable("OAuthAccount", {
   providerId: text("provider_id").notNull(),
@@ -113,6 +120,12 @@ export const userUpdateSchema = createInsertSchema(users, {
 export type UserSelect = z.infer<typeof userSelectSchema>
 export type UserInsert = z.infer<typeof userInsertSchema>
 export type UserUpdate = z.infer<typeof userUpdateSchema>
+export type User = UserSelect
+
+export const sessionSelectSchema = createSelectSchema(sessions)
+
+export type SessionSelect = z.infer<typeof sessionSelectSchema>
+export type Session = SessionSelect
 
 // #endregion
 

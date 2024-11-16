@@ -10,10 +10,14 @@ DELETE FROM User;
 DELETE FROM Session;
 DELETE FROM OAuthAccount;
 
--- @block Delete all sessions
-
-DELETE FROM Session;
-
 -- @block List all users
 
 SELECT * FROM User;
+
+-- @block List all sessions
+
+SELECT * FROM Session;
+
+-- @block Delete all sessions
+
+DELETE FROM Session;

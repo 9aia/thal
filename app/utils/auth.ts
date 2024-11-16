@@ -1,27 +1,9 @@
-import { D1Adapter } from "@lucia-auth/adapter-sqlite"
 import { Google } from "arctic"
-import { Lucia } from "lucia"
 import * as _ from "lodash-es"
+import { encodeBase32LowerCaseNoPadding } from "@oslojs/encoding"
+import type { H3Event } from "h3"
+import { type RandomReader, generateRandomString } from "@oslojs/crypto/random"
 import PUBLIC_KEYS from "~~/public_keys"
-import type { UserSelect } from "~~/db/schema"
-
-export function initializeLucia(D1: D1Database) {
-  const adapter = new D1Adapter(D1, {
-    user: "User",
-    session: "Session",
-  })
-
-  return new Lucia(adapter, {
-    sessionCookie: {
-      attributes: {
-        secure: !import.meta.dev,
-      },
-    },
-    getUserAttributes: (attributes) => {
-      return attributes
-    },
-  })
-}
 
 export function initializeGoogle(
   GOOGLE_CLIENT_SECRET: string,
@@ -45,9 +27,20 @@ export function generateUsername(email: string) {
   return username + suffix
 }
 
-declare module "lucia" {
-  interface Register {
-    Lucia: ReturnType<typeof initializeLucia>
-    DatabaseUserAttributes: UserSelect
-  }
+export function generateSessionToken(): string {
+  const bytes = new Uint8Array(20)
+  crypto.getRandomValues(bytes)
+  const token = encodeBase32LowerCaseNoPadding(bytes)
+  return token
+}
+
+const random: RandomReader = {
+  read(bytes: Uint8Array): void {
+    crypto.getRandomValues(bytes)
+  },
+}
+
+export function generateId(length: number): string {
+  const alphabet = "abcdefghijklmnopqrstuvwxyz0123456789"
+  return generateRandomString(random, alphabet, length)
 }
