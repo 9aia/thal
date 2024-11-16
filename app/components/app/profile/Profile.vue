@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { useI18n } from "@psitta/vue"
-import { drawers } from "~/store"
+import { T, useI18n } from "@psitta/vue"
+import { useForm } from "vee-validate"
+import { drawers, isRootDrawerOpen } from "~/store"
 
 const emit = defineEmits<{
   (e: "close"): void
@@ -9,6 +10,15 @@ const emit = defineEmits<{
 const { t } = useI18n()
 
 const user = useUser()
+const form = useForm()
+
+watch(() => drawers.profile, (open) => {
+  if (open) {
+    form.setValues({
+      about: user.value!.observation,
+    })
+  }
+})
 </script>
 
 <template>
@@ -23,17 +33,63 @@ const user = useUser()
     </Navbar>
 
     <div class="flex-1 overflow-y-auto bg-white">
-      <div class="bg-slate-200 p-4">
-        <Header @edit="drawers.account = true" />
-      </div>
+      <Header @edit="drawers.account = true" />
 
       <div class="p-4 flex-1 space-y-4">
-        <SettingSection :title="t('Your name')">
-          {{ user!.name }}
-        </SettingSection>
+        <SettingSection class="space-y-4">
+          <ProfileField :label="t('Name')" role="button" @click="drawers.account = true">
+            <template #icon>
+              <Icon class="text-primary">
+                person
+              </Icon>
+            </template>
 
-        <SettingSection :title="t('About')">
-          {{ user!.observation }}
+            <template #main>
+              <div class="text-base text-slate-900">
+                {{ user?.name }} {{ user?.lastName }}
+              </div>
+            </template>
+
+            <template #footer>
+              <span class="text-xs text-slate-500">
+                {{ t('This name will be passed to the characters.') }}
+              </span>
+            </template>
+          </ProfileField>
+
+          <ProfileField :label="t('Username')" role="button" @click="drawers.account = true">
+            <template #icon>
+              <Icon class="text-primary">
+                badge
+              </Icon>
+            </template>
+
+            <template #main>
+              <div class="text-base text-slate-900 mb-2">
+                @{{ user?.username }}
+              </div>
+            </template>
+          </ProfileField>
+
+          <ProfileField :label="t('About')" disable-edit-button>
+            <template #icon>
+              <Icon class="text-primary">
+                Info
+              </Icon>
+            </template>
+
+            <template #main>
+              <form class="w-full flex flex-col justify-end items-end space-y-2">
+                <TextField path="about" class="mt-1" />
+
+                <Btn class="btn-primary">
+                  {{
+                    t("Save")
+                  }}
+                </Btn>
+              </form>
+            </template>
+          </ProfileField>
         </SettingSection>
       </div>
     </div>

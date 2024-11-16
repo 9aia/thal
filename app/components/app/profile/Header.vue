@@ -14,35 +14,10 @@ const user = useUser()
     class="flex justify-between items-start"
     @click="emit('edit')"
   >
-    <div class="flex gap-4 items-center">
-      <Avatar :name="user!.name" class="w-16 text-xl" />
-
-      <label class="relative" role="button">
-        <h2 class="text-lg text-slate-800 font-bold">{{ user!.name }} {{ user!.lastName }}</h2>
-        <div class="text-sm flex gap-3">
-          <div>@{{ user!.username }}</div>
-          <div v-if="user!.pronouns">{{ user!.pronouns }}</div>
-        </div>
-
-        <small class="text-gray-600">
-
-          {{
-            t("Joined {signupDate}", {
-              signupDate: [
-                new Date(user!.createdAt),
-                {
-                  year: "numeric",
-                  month: "long",
-                },
-              ],
-            })
-          }}
-        </small>
-      </label>
+    <div class="flex flex-col gap-4 w-full">
+      <div class="pt-4 flex justify-center">
+        <Avatar :name="user!.name" class="w-32 text-3xl mx-auto bg-slate-300 text-slate-800" />
+      </div>
     </div>
-
-    <Btn class="btn-circle btn-ghost" @click.prevent>
-      <Icon name="edit" class="cursor-pointer" />
-    </Btn>
   </div>
 </template>

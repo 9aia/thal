@@ -34,12 +34,6 @@ const { discoverPersonasModalState } = useDiscoverPersonasModal()
             <template #footer>
               <Drawer :model-value="drawers.settings">
                 <Settings @close="drawers.settings = false" />
-
-                <template #footer>
-                  <Drawer v-slot="{ close }" v-model="drawers.account">
-                    <AccountSettings @close="close" />
-                  </Drawer>
-                </template>
               </Drawer>
 
               <Drawer :model-value="drawers.newChat">
@@ -50,8 +44,16 @@ const { discoverPersonasModalState } = useDiscoverPersonasModal()
                 <MyPersonas @close="close" />
               </Drawer>
 
+              <Drawer v-slot="{ close }" v-model="drawers.profile">
+                <Profile @close="close" />
+              </Drawer>
+
               <Drawer v-slot="{ close }" v-model="drawers.profileSettings">
                 <ProfileSettings @close="close" />
+              </Drawer>
+
+              <Drawer v-slot="{ close }" v-model="drawers.account">
+                <AccountSettings @close="close" />
               </Drawer>
 
               <Drawer v-slot="{ close }" v-model="drawers.personaBuilder">
@@ -60,10 +62,6 @@ const { discoverPersonasModalState } = useDiscoverPersonasModal()
 
               <Drawer v-slot="{ close }" v-model="drawers.newContact">
                 <NewContact @close="close" />
-              </Drawer>
-
-              <Drawer v-slot="{ close }" v-model="drawers.profile">
-                <Profile @close="close" />
               </Drawer>
             </template>
           </Drawer>

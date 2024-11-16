@@ -98,6 +98,8 @@ const dangerItems: MenuItem[] = [
     },
   },
 ]
+
+const logout = useLogout()
 </script>
 
 <template>
@@ -170,6 +172,10 @@ const dangerItems: MenuItem[] = [
           </li>
         </ul>
       </SettingSection>
+
+      <button class="underline font-bold text-warning mt-2" @click="logout">
+        {{ t("Logout") }}
+      </button>
 
       <SettingSection :title="t('Danger zone')" class="pt-4" title-class="text-error">
         <template #header>
