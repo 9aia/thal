@@ -2,12 +2,11 @@
 import { t } from "@psitta/vue"
 import { ref } from "vue"
 import { SETTINGS } from "~/constants/settings"
+import { drawers } from "~/store"
 
 const emit = defineEmits<{
   (e: "close"): void
 }>()
-
-const { open: openProfile } = useProfileModal()
 
 const isLocaleModalOpen = ref(false)
 
@@ -34,7 +33,7 @@ onMounted(() => {
     <div class="flex-1 overflow-y-auto bg-white">
       <div
         role="button" class="group bg-slate-200 p-4 flex justify-between items-center transition duration-300"
-        @click="openProfile(user!.username)"
+        @click="drawers.profile = true"
       >
         <div class="flex gap-4 items-center">
           <Avatar :name="user!.name" class="w-16 text-md" />

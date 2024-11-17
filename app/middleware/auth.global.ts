@@ -1,4 +1,4 @@
-import type { User } from "lucia"
+import type { User } from "~~/db/schema"
 
 export default defineNuxtRouteMiddleware(async () => {
   const user = useUser()

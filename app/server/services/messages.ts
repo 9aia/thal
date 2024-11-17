@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm"
 import type { H3EventContext } from "h3"
-import type { User } from "lucia"
+import type { User } from "~~/db/schema"
 import type { Message } from "~/types"
 import { notFound } from "~/utils/nuxt"
 import { chats, personaUsernames } from "~~/db/schema"

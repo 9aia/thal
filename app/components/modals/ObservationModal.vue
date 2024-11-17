@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { User } from "lucia"
+import type { User } from "~~/db/schema"
 import { useForm } from "vee-validate"
 import { useI18n } from "@psitta/vue"
 import { useQueryClient } from "@tanstack/vue-query"

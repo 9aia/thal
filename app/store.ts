@@ -3,13 +3,14 @@ import type { Contact, Persona, Replies } from "~/types"
 export const isRootDrawerOpen = ref(false)
 
 export const drawers = reactive({
-  profile: false,
+  profileSettings: false,
   account: false,
   settings: false,
   newChat: false,
   personaBuilder: false,
   newContact: false,
   myPersonas: false,
+  profile: false,
 })
 
 export const rightDrawer = ref(false)

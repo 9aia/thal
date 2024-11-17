@@ -1,11 +1,10 @@
 import { and, eq, sql } from "drizzle-orm"
-import type { H3Event, H3EventContext } from "h3"
-import { generateId } from "lucia"
+import type { H3EventContext } from "h3"
 import type { OAuthProviderParams } from "../types"
+import { now } from "~/utils/date"
 import type { UserInsert } from "~~/db/schema"
 import { oAuthAccounts, users } from "~~/db/schema"
-import { now } from "~/utils/date"
-import { unauthorized } from "~/utils/nuxt"
+import { generateId } from "~/utils/auth"
 
 export async function createUser(
   orm: H3EventContext["orm"],
@@ -47,21 +46,4 @@ export async function getUser(
     .get({ id: providerParams.providerUserId })
 
   return user
-}
-
-export async function invalidateSession(
-  event: H3Event,
-) {
-  const lucia = event.context.lucia
-
-  if (!event.context.session)
-    throw unauthorized()
-
-  await lucia.invalidateSession(event.context.session.id)
-
-  appendHeader(
-    event,
-    "Set-Cookie",
-    lucia.createBlankSessionCookie().serialize(),
-  )
 }

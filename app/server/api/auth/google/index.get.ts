@@ -12,9 +12,7 @@ export default defineEventHandler(async (event) => {
 
   const state = generateState()
   const codeVerifier = generateCodeVerifier()
-  const url = await google.createAuthorizationURL(state, codeVerifier, {
-    scopes,
-  })
+  const url = google.createAuthorizationURL(state, codeVerifier, scopes)
 
   setCookie(event, "google_oauth_state", state, {
     httpOnly: true,

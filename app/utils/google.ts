@@ -1,28 +1,35 @@
-import type { Google } from "arctic"
+import { type OAuth2Tokens, decodeIdToken } from "arctic"
+import { ObjectParser } from "@pilcrowjs/object-parser"
 
-export async function getGoogleUser(
-  google: Google,
-  code: string,
-  codeVerifier: string,
-) {
-  const tokens = await google.validateAuthorizationCode(code, codeVerifier)
-  const response = await fetch("https://openidconnect.googleapis.com/v1/userinfo", {
-    headers: {
-      Authorization: `Bearer ${tokens.accessToken}`,
-    },
-  })
-  const user: GoogleUser = await response.json()
+export function getGoogleUser(tokens: OAuth2Tokens): GoogleUser {
+  const claims = decodeIdToken(tokens.idToken())
+  const claimsParser = new ObjectParser(claims)
 
-  return user
+  const sub = claimsParser.getString("sub")
+  const givenName = claimsParser.getString("given_name")
+  const familyName = claimsParser.getString("family_name")
+  const name = claimsParser.getString("name")
+  const picture = claimsParser.getString("picture")
+  const email = claimsParser.getString("email")
+  const emailVerified = claimsParser.getBoolean("email_verified")
+
+  return {
+    sub,
+    givenName,
+    familyName,
+    name,
+    picture,
+    email,
+    emailVerified,
+  }
 }
 
 interface GoogleUser {
   sub: string
   email: string
-  given_name: string
-  family_name: string
+  givenName: string
+  familyName: string
   picture: string
-  locale: string
-  email_verified: boolean
+  emailVerified: boolean
   name: string
 }

@@ -3,12 +3,6 @@ import { drawers } from "~/store"
 
 const general: MenuItem[] = [
   {
-    id: "profile",
-    icon: "face",
-    name: "Profile",
-    onClick: () => drawers.profile = true,
-  },
-  {
     id: "account",
     icon: "person",
     name: "Account",

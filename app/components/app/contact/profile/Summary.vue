@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { User } from "lucia"
 import { useI18n } from "@psitta/vue"
+import type { User } from "~~/db/schema"
 import { useToast } from "~~/layers/ui/composables/useToast"
 
 const toast = useToast()

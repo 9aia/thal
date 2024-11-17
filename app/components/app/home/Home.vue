@@ -27,13 +27,10 @@ const isNoteVisible = useCookie("isNoteVisible", {
 
 const logout = useLogout()
 
-const profileModal = useProfileModal()
 const discoverPersonasModal = useDiscoverPersonasModal()
 
-const user = useUser()
-
 const items: MenuItem[] = [
-  { id: "profile", name: "Profile", icon: "face", onClick: () => profileModal.open(user.value!.username) },
+  { id: "profile", name: "Profile", icon: "face", onClick: () => drawers.profile = true },
   { id: "discover-personas", name: "Discover Characters", icon: "person_edit", onClick: () => discoverPersonasModal.open() },
   { id: "my-characters", name: "My Characters", icon: "person_edit", onClick: () => drawers.myPersonas = true },
   {
