@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { T, useI18n } from "@psitta/vue"
-import { useForm } from "vee-validate"
-import { drawers, isRootDrawerOpen } from "~/store"
+import { drawers } from "~/store"
 
 const emit = defineEmits<{
   (e: "close"): void
@@ -10,15 +9,6 @@ const emit = defineEmits<{
 const { t } = useI18n()
 
 const user = useUser()
-const form = useForm()
-
-watch(() => drawers.profile, (open) => {
-  if (open) {
-    form.setValues({
-      about: user.value!.observation,
-    })
-  }
-})
 </script>
 
 <template>
@@ -37,7 +27,7 @@ watch(() => drawers.profile, (open) => {
 
       <div class="p-4 flex-1 space-y-4">
         <SettingSection class="space-y-4">
-          <ProfileField :label="t('Name')" role="button" @click="drawers.account = true">
+          <TitleContentItem :label="t('Name')" role="button" @click="drawers.account = true">
             <template #icon>
               <Icon class="text-primary">
                 person
@@ -55,9 +45,9 @@ watch(() => drawers.profile, (open) => {
                 {{ t('This name will be passed to the characters.') }}
               </span>
             </template>
-          </ProfileField>
+          </TitleContentItem>
 
-          <ProfileField :label="t('Username')" role="button" @click="drawers.account = true">
+          <TitleContentItem :label="t('Username')" role="button" @click="drawers.account = true">
             <template #icon>
               <Icon class="text-primary">
                 badge
@@ -69,28 +59,15 @@ watch(() => drawers.profile, (open) => {
                 @{{ user?.username }}
               </div>
             </template>
-          </ProfileField>
-
-          <ProfileField :label="t('About')" disable-edit-button>
-            <template #icon>
-              <Icon class="text-primary">
-                Info
-              </Icon>
-            </template>
-
-            <template #main>
-              <form class="w-full flex flex-col justify-end items-end space-y-2">
-                <TextField path="about" class="mt-1" />
-
-                <Btn class="btn-primary">
-                  {{
-                    t("Save")
-                  }}
-                </Btn>
-              </form>
-            </template>
-          </ProfileField>
+          </TitleContentItem>
         </SettingSection>
+
+        <div>
+          <Btn class="" @click="() => drawers.profileSettings = true">
+            <Icon name="edit" />
+            {{ t('Edit details') }}
+          </Btn>
+        </div>
       </div>
     </div>
   </div>

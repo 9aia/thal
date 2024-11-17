@@ -22,12 +22,6 @@ const general: MenuItem[] = [
     name: "My Characters",
     onClick: () => drawers.myPersonas = true,
   },
-  {
-    id: "profile",
-    icon: "face",
-    name: "Profile",
-    onClick: () => drawers.profileSettings = true,
-  },
 ]
 
 const support: MenuItem[] = [
