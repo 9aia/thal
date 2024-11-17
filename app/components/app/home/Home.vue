@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import queryKeys from "~/queryKeys"
-import { drawers } from "~/store"
+import { drawers, isRootDrawerOpen } from "~/store"
 
 import type { MenuItem } from "~~/layers/ui/components/navigation/types"
 
@@ -27,11 +27,14 @@ const isNoteVisible = useCookie("isNoteVisible", {
 
 const logout = useLogout()
 
-const discoverPersonasModal = useDiscoverPersonasModal()
+function goToDiscover() {
+  isRootDrawerOpen.value = false
+  navigateTo("/app/discover")
+}
 
 const items: MenuItem[] = [
   { id: "profile", name: "Profile", icon: "face", onClick: () => drawers.profile = true },
-  { id: "discover-personas", name: "Discover Characters", icon: "person_edit", onClick: () => discoverPersonasModal.open() },
+  { id: "discover-personas", name: "Discover Characters", icon: "person_edit", onClick: () => goToDiscover() },
   { id: "my-characters", name: "My Characters", icon: "person_edit", onClick: () => drawers.myPersonas = true },
   {
     id: "plan",

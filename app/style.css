@@ -15,3 +15,11 @@ section {
 @page {
   margin: 0;
 }
+
+html {
+  scrollbar-gutter: auto !important;
+}
+
+html:has(body.content-overflow-y) {
+  scrollbar-gutter: stable !important;
+}

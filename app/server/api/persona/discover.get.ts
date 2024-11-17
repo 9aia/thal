@@ -8,5 +8,9 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  return await orm.select().from(personas)
+  return await orm.query.personas.findMany({
+    with: {
+      personaUsernames: true,
+    },
+  })
 })

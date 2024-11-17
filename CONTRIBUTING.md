@@ -113,6 +113,10 @@ pnpm run preview
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
 
+## Useful Links
+
+- [Icons](https://fonts.google.com/icons)
+
 ## Reference
 
 For further information, please refer to the official documentation of the relevant technologies.

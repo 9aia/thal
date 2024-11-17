@@ -42,6 +42,7 @@
     "tailwind-variants": "^0.2.0",
     "vee-validate": "^4.12.5",
     "vue": "^3.4.19",
+    "vue-drag-scroller": "^1.8.6",
     "vue-router": "^4.3.0",
     "zod": "^3.22.4"
   },
