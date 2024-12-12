@@ -30,7 +30,7 @@ import { isRootDrawerOpen } from "~/store"
           </p>
 
           <p class="text-sm text-slate-800 max-w-lg">
-            {{ t('Create unique personas, chat with them, and improve your language proficiency in a engaging way.') }}
+            {{ t('Create unique characters, chat with them, and improve your language proficiency in a engaging way.') }}
           </p>
         </div>
       </div>
