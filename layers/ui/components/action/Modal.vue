@@ -10,6 +10,8 @@ const props = withDefaults(
     showCancel?: boolean
     loading?: boolean
     showCloseButton?: boolean
+    contentClass?: string
+    noPadding?: boolean
   }>(),
   {
     classes: "",
@@ -45,6 +47,7 @@ watch(visible, () => {
       class="modal-box rounded-none"
       method="dialog"
       :class="{
+        'p-0': props.noPadding,
         [props.classes]: props.classes,
       }"
       @submit="emit('confirm')"
@@ -55,7 +58,9 @@ watch(visible, () => {
         </button>
       </form>
 
-      <slot />
+      <div :class="contentClass">
+        <slot />
+      </div>
 
       <div v-if="!props.hideConfirm || props.showCancel" class="modal-action">
         <slot name="footer" />
