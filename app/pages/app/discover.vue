@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from "@psitta/vue"
+import { refDebounced } from "@vueuse/core"
+import { useForm } from "vee-validate"
 import AppLayout from "~/layouts/app.vue"
 import { isRootDrawerOpen } from "~/store"
 import { categories } from "~/constants/discover"
@@ -14,14 +16,27 @@ definePageMeta({
   middleware: "premium",
 })
 
+const form = useForm({
+  initialValues: {
+    search: "",
+  },
+})
+
+const search = refDebounced(toRef(form.values, "search"), 1000)
+
 const {
   data,
   isError,
   isPending,
   refetch,
 } = await useServerQuery("/api/persona/discover", {
-  queryKey: queryKeys.discoverPersonas,
+  queryKey: queryKeys.discoverPersonas(search),
+  params: () => ({
+    search: search.value,
+  }),
 })
+
+const isCategoryModalOpen = ref(false)
 </script>
 
 <template>
@@ -31,6 +46,8 @@ const {
     </template>
 
     <template #content>
+      <CategoriesModal v-model="isCategoryModalOpen" />
+
       <Navbar class="px-3 py-2 bg-slate-800 flex gap-2 h-[64px]">
         <h1 class="text-lg py-2 text-primary font-bold flex items-center gap-1">
           <Btn size="sm" class="btn-ghost lg:hidden btn-circle" @click="isRootDrawerOpen = true">
@@ -46,9 +63,23 @@ const {
       >
         <div class="mx-auto pb-4">
           <div class="px-4 pt-4 mb-4">
-            <TextField :placeholder="t('Search for characters')" path="search" icon-position="right">
+            <TextField
+              :placeholder="t('Search for characters')"
+              path="search"
+              icon-position="right"
+            >
               <template #icon>
-                <Icon name="search" />
+                <Icon
+                  v-if="!form.values.search"
+                  name="search"
+                />
+
+                <Icon
+                  v-else
+                  name="close"
+                  role="button"
+                  @click="form.setValues({ search: '' })"
+                />
               </template>
             </TextField>
           </div>
@@ -58,12 +89,15 @@ const {
               <h2 class="text-slate-800 text-sm font-bold">
                 {{ t("Categories") }}
               </h2>
-              <button class="text-teal-500 text-xs font-bold float-right">
+              <button
+                class="text-teal-500 text-xs font-bold float-right"
+                @click="isCategoryModalOpen = true"
+              >
                 {{ t("View all") }}
               </button>
             </div>
 
-            <div v-drag-scroller class="flex gap-2 px-4 overflow-x-hidden w-screen sm:w-[500px] lg:w-[600px] cursor-grab">
+            <div v-drag-scroller class="flex gap-2 px-4 overflow-x-hidden w-screen sm:w-[500px] lg:w-[600px] cursor-grab pb-3">
               <CategoryCard
                 v-for="category, index in categories"
                 :key="`category-${index}`"
@@ -84,17 +118,26 @@ const {
               <Resource
                 :error="isError"
                 :loading="isPending"
+                disable-first-loading
                 @execute="refetch"
               >
-                <DiscoverCharacterItem
-                  v-for="character in data"
-                  :key="`persona-${character.id}`"
-                  :name="character.name"
-                  :description="character.description"
-                  :username="character.personaUsernames?.username"
-                  show-copy
-                  show-send-message
-                />
+                <template v-if="data.length">
+                  <DiscoverCharacterItem
+                    v-for="character in data"
+                    :key="`persona-${character.id}`"
+                    :name="character.name"
+                    :description="character.description"
+                    :username="character.personaUsernames?.username"
+                    show-copy
+                    show-send-message
+                  />
+                </template>
+
+                <template v-else>
+                  <p class="text-slate-500 text-sm py-2 px-6 text-center">
+                    {{ t(`No results found for "{query}"`, { query: search }) }}
+                  </p>
+                </template>
               </resource>
             </div>
           </div>

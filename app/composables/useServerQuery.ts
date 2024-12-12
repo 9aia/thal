@@ -11,15 +11,21 @@ async function useServerQuery<
   TQueryKey extends QueryKey = QueryKey,
 >(
   request: (() => R) | R,
-  options: UseQueryOptions<TQueryFnData, TError, TData, TQueryFnData, TQueryKey>,
+  options: {
+    params?: (() => Record<string, string>) | Record<string, string>
+  } & UseQueryOptions<TQueryFnData, TError, TData, TQueryFnData, TQueryKey>,
   queryClient?: QueryClient,
 ) {
   const headers = useRequestHeaders()
+  const { params, ...restOptions } = options
 
-  const fetcher = () => $fetch(typeof request === "function" ? request() : request, { headers })
+  const fetcher = () => $fetch(typeof request === "function" ? request() : request, {
+    headers,
+    params: typeof params === "function" ? params() : params,
+  })
 
   const { suspense, ...rest } = useQuery({
-    ...options,
+    ...restOptions,
     queryFn: fetcher as any,
   }, queryClient)
 

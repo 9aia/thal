@@ -99,7 +99,7 @@ const submit = form.handleSubmit(async (data) => {
     })
 
     queryClient.invalidateQueries({
-      queryKey: queryKeys.discoverPersonas,
+      queryKey: queryKeys.discoverPersonas(),
     })
 
     emit("close")
