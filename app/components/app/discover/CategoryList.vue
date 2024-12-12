@@ -2,13 +2,18 @@
 import { t } from "@psitta/vue"
 import type { Category } from "~/constants/discover"
 
-defineProps<{
+const props = defineProps<{
   categories: Category[]
+  selectedCategoryId?: number
 }>()
 
 const emit = defineEmits<{
   (e: "click", category: Category): void
 }>()
+
+function checkIsSelected(categoryId: number) {
+  return props.selectedCategoryId === categoryId
+}
 </script>
 
 <template>
@@ -24,7 +29,7 @@ const emit = defineEmits<{
       class="text-teal-500 group-hover:text-teal-600"
     />
 
-    <div class="text-slate-800 group-hover:text-slate-900">
+    <div :class="checkIsSelected(category.id) ? 'text-primary' : 'text-slate-800 group-hover:text-slate-900'">
       {{ t(category.name) }}
     </div>
   </div>

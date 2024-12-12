@@ -2,6 +2,8 @@ import type { DefaultError, QueryClient, QueryKey, UseQueryOptions } from "@tans
 import { useQuery } from "@tanstack/vue-query"
 import type { NitroFetchRequest } from "nitropack"
 
+type Params = Record<string, string | number | undefined>
+
 async function useServerQuery<
   DefaultR extends NitroFetchRequest = NitroFetchRequest,
   R extends NitroFetchRequest = DefaultR,
@@ -12,7 +14,7 @@ async function useServerQuery<
 >(
   request: (() => R) | R,
   options: {
-    params?: (() => Record<string, string>) | Record<string, string>
+    params?: (() => Params) | Params
   } & UseQueryOptions<TQueryFnData, TError, TData, TQueryFnData, TQueryKey>,
   queryClient?: QueryClient,
 ) {

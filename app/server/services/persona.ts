@@ -1,7 +1,10 @@
+import process from "node:process"
 import { eq } from "drizzle-orm"
 import type { H3EventContext } from "h3"
-import type { User } from "~~/db/schema"
-import { notFound } from "~/utils/nuxt"
+import { categories } from "~/constants/discover"
+import { getGemini } from "~/utils/gemini"
+import { internal, notFound } from "~/utils/nuxt"
+import type { PersonaUpdate, User } from "~~/db/schema"
 import { contacts, personaUsernames } from "~~/db/schema"
 
 export async function getPersonaByUsername(
@@ -72,4 +75,43 @@ export async function getPersonaWithContactByUser(
     name: persona.name,
     contact: result.contacts[0] ? contact : null,
   }
+}
+
+export async function categorizePersona(data: PersonaUpdate) {
+  const { GEMINI_API_KEY } = process.env
+
+  const prompt = `
+    ## MISSION
+    
+    You are a character categorizer.
+
+    ## CHARACTER
+
+    ${JSON.stringify(data)}
+
+    ## CATEGORIES
+
+    ${JSON.stringify(categories)}
+
+    ## OUTPUT FORMAT
+
+    - Only the category id directly
+
+    ## OUTPUT EXAMPLE
+
+    1
+  `
+
+  const gemini = getGemini(GEMINI_API_KEY as string)
+  const res = await gemini.generateContent(prompt)
+  const bestCandidate = res.candidates?.[0]
+  const bestPart = bestCandidate?.content?.parts?.[0]
+  const text: string = bestPart?.text
+
+  if (!text)
+    throw internal("Gemini did not return a valid category")
+
+  const categoryId = Number.parseInt(text)
+
+  return categoryId
 }

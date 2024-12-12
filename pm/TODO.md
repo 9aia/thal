@@ -2,8 +2,10 @@
 
 - [x] Create "Discover" route
 - [x] Add "Discover" search bar
-- [ ] Add "Discover" categories
+- [x] Add "Discover" categories
   - [x] Add modal of all categories
-  - [ ] Filter by category
+  - [x] Categorize characters using AI during creation or edition
+  - [x] Filter by category
+- [ ] Improve categorization using JSON mode
 - [x] List all characters
 - [ ] Paginate characters list

@@ -5,6 +5,6 @@ export default {
   chats: ["chats"],
   lastMessages: ["last-messages"],
   myPersonas: ["my-personas"],
-  discoverPersonas: (search?: MaybeRef<string>, categoryId?: MaybeRef<string>) => ["discover-personas", search, categoryId],
+  discoverPersonas: (search?: MaybeRef<string | undefined>, categoryId?: MaybeRef<number | undefined>) => ["discover-personas", search, categoryId],
   profile: (username: MaybeRef<string>) => ["profile", username],
 }

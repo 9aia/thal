@@ -2,6 +2,7 @@ import { sql } from "drizzle-orm"
 import z from "zod"
 import { getValidated } from "~/utils/h3"
 import { unauthorized } from "~/utils/nuxt"
+import { numericString } from "~/utils/zod"
 import { personas } from "~~/db/schema"
 
 export default eventHandler(async (event) => {
@@ -13,16 +14,19 @@ export default eventHandler(async (event) => {
 
   const query = await getValidated(event, "query", z.object({
     search: z.string().optional(),
+    categoryId: numericString(z.number().optional()),
   }))
 
-  console.log("query", query.search)
-  const search = query.search// ?.toLowerCase()
+  const search = query.search?.trim()
 
   const p2 = orm.query.personas.findMany({
     with: {
       personaUsernames: true,
     },
-    where: query.search ? (personas, { sql }) => sql`lower(${personas.name}) like ${sql.placeholder("name")}` : undefined,
+    where: (personas, { sql, and }) => and(
+      search ? sql`lower(${personas.name}) like ${sql.placeholder("name")}` : undefined,
+      query.categoryId ? sql`category_id = ${query.categoryId}` : undefined,
+    ),
   }).prepare()
 
   return await p2.execute({ name: `%${search}%` })

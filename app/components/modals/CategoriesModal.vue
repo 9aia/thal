@@ -5,6 +5,10 @@ import { useFuse } from "@vueuse/integrations/useFuse"
 import type { Category } from "~/constants/discover"
 import { categories } from "~/constants/discover"
 
+defineProps<{
+  selectedCategoryId?: number
+}>()
+
 const emit = defineEmits<{
   (e: "categoryClick", category: Category): void
 }>()
@@ -76,6 +80,7 @@ watch(modelValue, (value) => {
         <CategoryList
           v-if="filteredCategories.length !== 0"
           :categories="filteredCategories.map((category) => category.item)"
+          :selected-category-id="selectedCategoryId"
           @click="onItemClick"
         />
 
@@ -90,6 +95,7 @@ watch(modelValue, (value) => {
 
           <CategoryList
             :categories="categories"
+            :selected-category-id="selectedCategoryId"
             @click="onItemClick"
           />
         </template>

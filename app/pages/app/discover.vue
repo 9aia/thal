@@ -6,6 +6,7 @@ import AppLayout from "~/layouts/app.vue"
 import { isRootDrawerOpen } from "~/store"
 import { categories } from "~/constants/discover"
 import queryKeys from "~/queryKeys"
+import type { Category } from "~/constants/discover"
 
 const {
   t,
@@ -23,6 +24,7 @@ const form = useForm({
 })
 
 const search = refDebounced(toRef(form.values, "search"), 1000)
+const selectedCategoryId = ref<number>()
 
 const {
   data,
@@ -30,13 +32,22 @@ const {
   isPending,
   refetch,
 } = await useServerQuery("/api/persona/discover", {
-  queryKey: queryKeys.discoverPersonas(search),
+  queryKey: queryKeys.discoverPersonas(search, selectedCategoryId),
   params: () => ({
     search: search.value,
+    categoryId: selectedCategoryId.value,
   }),
 })
 
 const isCategoryModalOpen = ref(false)
+
+function onCategoryClick(category: Category) {
+  const isSame = selectedCategoryId.value === category.id
+
+  isSame
+    ? selectedCategoryId.value = undefined
+    : selectedCategoryId.value = category.id
+}
 </script>
 
 <template>
@@ -46,7 +57,11 @@ const isCategoryModalOpen = ref(false)
     </template>
 
     <template #content>
-      <CategoriesModal v-model="isCategoryModalOpen" />
+      <CategoriesModal
+        v-model="isCategoryModalOpen"
+        :selected-category-id="selectedCategoryId"
+        @category-click="onCategoryClick"
+      />
 
       <Navbar class="px-3 py-2 bg-slate-800 flex gap-2 h-[64px]">
         <h1 class="text-lg py-2 text-primary font-bold flex items-center gap-1">
@@ -59,7 +74,7 @@ const isCategoryModalOpen = ref(false)
 
       <main
         :tabindex="0"
-        class="flex-1 flex items-start overflow-y-auto focus:outline-none overflow-x-hidden"
+        class="bg-slate-200 flex-1 flex items-start overflow-y-auto focus:outline-none overflow-x-hidden"
       >
         <div class="mx-auto pb-4">
           <div class="px-4 pt-4 mb-4">
@@ -105,6 +120,8 @@ const isCategoryModalOpen = ref(false)
                 :description="t(category.description)"
                 :icon="category.icon"
                 :color="category.color"
+                :is-selected="selectedCategoryId === category.id"
+                @click="onCategoryClick(category)"
               />
             </div>
           </div>
@@ -135,7 +152,7 @@ const isCategoryModalOpen = ref(false)
 
                 <template v-else>
                   <p class="text-slate-500 text-sm py-2 px-6 text-center">
-                    {{ t(`No results found for "{query}"`, { query: search }) }}
+                    {{ search ? t(`No results found for "{query}"`, { query: search }) : t('No results found.') }}
                   </p>
                 </template>
               </resource>

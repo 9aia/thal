@@ -141,6 +141,7 @@ export const personas = sqliteTable("Persona", {
   instructions: text("instructions").notNull(),
   conversationStarters: text("conversation_starters").notNull(),
   createdAt: text("created_at").notNull(),
+  categoryId: int("category_id").notNull(),
   creatorId: text("creator_id")
     .references(() => users.id, { onDelete: "no action" }),
 })
@@ -169,6 +170,7 @@ export const personaInsertSchema = createInsertSchema(personas, {
     id: true,
     creatorId: true,
     createdAt: true,
+    categoryId: true,
   })
 
 export const personaUpdateSchema = createInsertSchema(personas, {

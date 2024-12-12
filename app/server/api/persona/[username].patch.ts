@@ -3,6 +3,7 @@ import { z } from "zod"
 import { getValidated } from "~/utils/h3"
 import { forbidden, notFound, unauthorized } from "~/utils/nuxt"
 import { personaUpdateSchema, personaUsernames, personas, usernameSchema } from "~~/db/schema"
+import { categorizePersona } from "~/server/services/persona"
 
 export default eventHandler(async (event) => {
   const { username } = await getValidated(event, "params", z.object({ username: usernameSchema }))
@@ -35,10 +36,13 @@ export default eventHandler(async (event) => {
     ...personaData
   } = data
 
+  const categoryId = await categorizePersona(data)
+
   const updatedPersona = await orm
     .update(personas)
     .set({
       ...personaData,
+      categoryId,
       conversationStarters: JSON.stringify(data.conversationStarters),
     })
     .where(eq(personas.id, persona.id))
