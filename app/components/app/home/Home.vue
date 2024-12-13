@@ -65,9 +65,9 @@ function getLastMessageByChatId(chatId: number) {
 
 <template>
   <Navbar class="bg-slate-800">
-    <div class="text-lg font-bold text-teal-500 flex items-center">
+    <A href="/app/" class="text-lg font-bold text-teal-500 flex items-center">
       Thal
-    </div>
+    </A>
 
     <div class="dropdown dropdown-end">
       <button class="btn btn-circle btn-ghost text-primary" @click="updateRedirectUrl">
