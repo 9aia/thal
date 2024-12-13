@@ -190,7 +190,14 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
 
     <template #content>
       <Resource :loading="isLoading" :error="isError" @execute="refetch">
-        <ChatHeader :name="displayName" :avatar-name="avatarName" :username="data!.username" :has-contact="hasContact" :add-contact="addContact" />
+        <ChatHeader
+          :name="displayName"
+          :avatar-name="avatarName"
+          :username="data!.username"
+          :has-contact="hasContact"
+          :add-contact="addContact"
+          :has-messages="data?.history.length > 0"
+        />
 
         <main
           id="chat-container"

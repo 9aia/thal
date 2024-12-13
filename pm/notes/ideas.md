@@ -2,3 +2,7 @@
 - Add onboarding custom character.
 - Credit system
 - Scenarios
+- Voices to characters
+- Calls
+- Official characters
+- Character knowledge powered by RAG

@@ -2,9 +2,18 @@
 
 ## Milestone 1: MVP Release
 
-- AI Conversations: Core system working.
 - UI/UX: Responsive across devices.
-- Custom Characters: Initial version working.
+- Authentication
+- Settings
+- Subscription
+- My Profile
+- Character Builder
+- My Characters
+- Contact List
+- Discover Characters
+- Chats
+- English assistance
+  - Translation
 
 Ensure:
 - Improve `package.json`
@@ -17,8 +26,9 @@ Ensure:
 ### Milestone 2: Beta Version
 
 - Real-time assistance features.
-- User-generated character sharing.
-- Basic translation support.
+- Public profile
+- Person-person chats
+- Groups
 
 ### Milestone 3: Public Release
 

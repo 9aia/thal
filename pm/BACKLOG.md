@@ -3,22 +3,33 @@
 Features
 ---
 
+- Fork characters
 - Allow users to invalidate all sessions
-- [ ] Add moderation.
-  - [ ] Create community guidelines
-  - [ ] Add community guidelines link to the "Character Builder".
-  - [ ] Validate character on create
-    - [ ] Give feedback
-  - [ ] Add report
-  - [ ] Check safety of messages
-  - [ ] Check safety of fields
+- Add moderation.
+  - Create community guidelines
+  - Add community guidelines link to the "Character Builder".
+  - Validate character on create
+    - Give feedback
+  - Add report
+  - Check safety of messages
+  - Check safety of fields
 - Add a locale modal on the home page.
-- Add a publish feature to make characters discoverable.
-  - Add a eye icon to change the visibility in the character builder.
-  - Add a option to make it hidden in the character builder.
+- Add language drawer containing UI language and translation settings
+- Allow users to invalidate all sessions
+- Add a locale modal on the home page.
+- Add moderation.
+  - Create community guidelines
+  - Add community guidelines link to the "Character Builder".
+  - Validate character on create
+    - Give feedback
+  - Add report button (open modal) to contact options
+  - Check safety of messages
+  - Check safety of fields
 - Add "Discover Characters" modal.
   - Add category-based search for characters.
   - Search by name.
+- Add character builder
+  - Add "Keep Character definition/instructions private"
 - Add a warning for renaming character usernames.
 - Add conversation starters.
 - Add PT-EN translator in the chat input.
@@ -51,11 +62,14 @@ Features
 - ---
 - Add markdown preview in the message input.
 - Add activities like minigames.
+- Add "Export account data"
+- Add "View character details"
 
 ---
 Bugs
 ---
 
+- Lower every username
 - Rewrite left joins using Query API
 - Fix (last) message status
 - Fix UI updates on contact username changes
@@ -72,6 +86,9 @@ Bugs
 Enhancements
 ---
 
+- Improve categorization using JSON mode
+- Skip categorization on visibility change
+- Improve search performance
 - Add rate-limit to Google auth callback
 - Add a empty fallback to chats
 - Improve the homepage.
@@ -80,6 +97,7 @@ Enhancements
 - Move the "About" page to the NeoGaia website.
 - Improve the "Pricing" page and set up redirects.
 - Redesign the authentication page.
+- Add share button (copy link/username) to contact options
 - ---
 - Change forms to another platform that supports localization
 - Add turnstile
