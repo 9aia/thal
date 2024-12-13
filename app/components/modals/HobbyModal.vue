@@ -85,7 +85,7 @@ const submit = form.handleSubmit(async () => {
       </p>
 
       <div class="form-control">
-        <input v-model="search" type="text" placeholder="Search" class="input input-bordered w-auto mb-4">
+        <input v-model="search" type="text" placeholder="Search" class="input w-auto mb-4">
       </div>
 
       <div class="h-[200px] px-2 overflow-auto">

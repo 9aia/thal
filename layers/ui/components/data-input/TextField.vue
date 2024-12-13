@@ -45,7 +45,7 @@ const { value, errorMessage } = useField(props.path, props.rules)
 
       <input
         v-model="value"
-        class="input input-bordered w-full"
+        class="input w-full"
         :placeholder="placeholder"
         :class="{
           'pr-12': iconPosition === 'right',

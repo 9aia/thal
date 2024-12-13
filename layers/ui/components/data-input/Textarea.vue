@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { RuleExpression } from "vee-validate"
 import { useField } from "vee-validate"
-import type { InputHTMLAttributes, MaybeRef } from "vue"
+import type { MaybeRef, TextareaHTMLAttributes } from "vue"
 import type { SafeProps } from "../../types"
 
-type Props = SafeProps<InputHTMLAttributes> & {
+type Props = SafeProps<TextareaHTMLAttributes> & {
   label?: string
   placeholder?: string
   error?: string
@@ -34,7 +34,7 @@ const { value, errorMessage, handleBlur } = useField(props.path, props.rules)
 
     <textarea
       v-model="value"
-      class="textarea textarea-sm h-40 leading-[1.6em] textarea-bordered w-full resize-none"
+      class="textarea textarea-sm h-40 leading-[1.6em] w-full resize-none"
       :placeholder="placeholder"
       @blur="handleBlur"
     />
