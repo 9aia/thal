@@ -102,7 +102,7 @@ export default eventHandler(async (event) => {
 
     ## Your Mission
     
-    You should speak English.
+    You must answer English.
     You are talking to a user named ${user.name} ${user.lastName}, their username is ${user.username}.
   `
 
