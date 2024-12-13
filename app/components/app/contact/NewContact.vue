@@ -38,13 +38,8 @@ async function validateUsername(username: string) {
       alreadyAdded,
       isUsernameValid,
       personaNotFound,
+      isPersonaVisible,
     } = await $fetch(`/api/contact/validate-username/${username}`)
-
-    if (alreadyAdded) {
-      form.setErrors({
-        username: t("Contact already added."),
-      })
-    }
 
     if (!isUsernameValid) {
       form.setErrors({
@@ -52,9 +47,21 @@ async function validateUsername(username: string) {
       })
     }
 
-    if (personaNotFound) {
+    else if (personaNotFound) {
       form.setErrors({
-        username: t("Persona not found."),
+        username: t("Character not found."),
+      })
+    }
+
+    else if (isPersonaVisible === false) {
+      form.setErrors({
+        username: t("Character is private."),
+      })
+    }
+
+    else if (alreadyAdded) {
+      form.setErrors({
+        username: t("Contact already added."),
       })
     }
   }

@@ -15,6 +15,7 @@ export default eventHandler(async (event) => {
     description: personas.description,
     instructions: personas.instructions,
     username: personaUsernames.username,
+    visibility: personas.visibility,
   })
     .from(personas)
     .where(eq(personas.creatorId, user.id))

@@ -142,6 +142,7 @@ export const personas = sqliteTable("Persona", {
   conversationStarters: text("conversation_starters").notNull(),
   createdAt: text("created_at").notNull(),
   categoryId: int("category_id").notNull(),
+  visibility: int("visibility", { mode: "boolean" }).default(true).notNull(),
   creatorId: text("creator_id")
     .references(() => users.id, { onDelete: "no action" }),
 })

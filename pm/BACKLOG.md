@@ -86,6 +86,10 @@ Bugs
 Enhancements
 ---
 
+- Add confirmation modal on chat clear
+- Add contact search
+- Add contact QR code
+- List private character from contact list in a different section
 - Improve categorization using JSON mode
 - Skip categorization on visibility change
 - Improve search performance

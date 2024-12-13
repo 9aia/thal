@@ -1,9 +1,7 @@
-import { sql } from "drizzle-orm"
 import z from "zod"
 import { getValidated } from "~/utils/h3"
 import { unauthorized } from "~/utils/nuxt"
 import { numericString } from "~/utils/zod"
-import { personas } from "~~/db/schema"
 
 export default eventHandler(async (event) => {
   const orm = event.context.orm
@@ -23,9 +21,10 @@ export default eventHandler(async (event) => {
     with: {
       personaUsernames: true,
     },
-    where: (personas, { sql, and }) => and(
+    where: (personas, { sql, and, eq, or }) => and(
       search ? sql`lower(${personas.name}) like ${sql.placeholder("name")}` : undefined,
       query.categoryId ? sql`category_id = ${query.categoryId}` : undefined,
+      or(eq(personas.visibility, true), eq(personas.creatorId, user.id)),
     ),
   }).prepare()
 

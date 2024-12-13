@@ -29,8 +29,6 @@ export default eventHandler(async (event) => {
 
   const categoryId = await categorizePersona(data)
 
-  console.log("categoryId", categoryId)
-
   const [newPersona] = await orm
     .insert(personas)
     .values({

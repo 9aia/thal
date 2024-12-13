@@ -17,6 +17,7 @@ export default eventHandler(async (event) => {
     return {
       personaNotFound: true,
       alreadyAdded: false,
+      isPersonaVisible: null,
       isUsernameValid: false,
     }
   }
@@ -30,18 +31,38 @@ export default eventHandler(async (event) => {
     return {
       personaNotFound: true,
       alreadyAdded: false,
+      isPersonaVisible: null,
       isUsernameValid: true,
     }
   }
 
-  const [contact] = await orm
-    .select()
-    .from(contacts)
-    .where(and(eq(contacts.userId, user.id), eq(contacts.personaUsernameId, existingPersonaUsername.id)))
+  const persona = await orm.query.personas.findFirst({
+    where: (personas, { eq }) => eq(personas.id, Number(existingPersonaUsername.personaId)),
+    columns: {
+      visibility: true,
+      creatorId: true,
+    },
+    with: {
+      personaUsernames: {
+        columns: {
+          id: true,
+        },
+        with: {
+          contacts: {
+            where: (contacts, { eq }) => and(eq(contacts.userId, user.id), eq(contacts.personaUsernameId, existingPersonaUsername.id)),
+            columns: {
+              id: true,
+            },
+          },
+        },
+      },
+    },
+  })
 
   return {
     personaNotFound: false,
-    alreadyAdded: !!contact,
+    alreadyAdded: !!persona?.personaUsernames?.contacts?.length,
+    isPersonaVisible: persona?.visibility || persona?.creatorId === user.id,
     isUsernameValid: true,
   }
 })

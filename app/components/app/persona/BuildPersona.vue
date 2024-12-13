@@ -157,6 +157,18 @@ const submit = form.handleSubmit(async (data) => {
             ))"
           />
 
+          <Select path="visibility">
+            <option disabled selected>
+              {{ t('Visibility') }}
+            </option>
+            <option :value="true">
+              {{ t('Public') }}
+            </option>
+            <option :value="false">
+              {{ t('Private') }}
+            </option>
+          </Select>
+
           <div class="h-2" />
 
           <Btn :loading="loading" class="btn-primary" :disabled="hasErrors">
