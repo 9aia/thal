@@ -10,18 +10,6 @@ Features
   - Add community guidelines link to the "Character Builder".
   - Validate character on create
     - Give feedback
-  - Add report
-  - Check safety of messages
-  - Check safety of fields
-- Add a locale modal on the home page.
-- Add language drawer containing UI language and translation settings
-- Allow users to invalidate all sessions
-- Add a locale modal on the home page.
-- Add moderation.
-  - Create community guidelines
-  - Add community guidelines link to the "Character Builder".
-  - Validate character on create
-    - Give feedback
   - Add report button (open modal) to contact options
   - Check safety of messages
   - Check safety of fields
@@ -30,18 +18,21 @@ Features
   - Search by name.
 - Add character builder
   - Add "Keep Character definition/instructions private"
-- Add a warning for renaming character usernames.
-- Add conversation starters.
-- Add PT-EN translator in the chat input.
-- Add suggestions in chat.
-- Add tips
-- Add modal "Dictionary".
-  - Add conjugation table.
-  - Add grammar reference tables.
+  - Add a warning for renaming character usernames.
+- Add chat utilities
+  - Add conversation starters.
+  - Add PT-EN translator in the chat input.
+  - Add suggestions in chat.
+  - Add tips
+  - Add modal "Dictionary".
+    - Add conjugation table.
+    - Add grammar reference tables.
 - Add assistant
   - Add a help request item in the header menu (AI-driven).
   - Add settings to adjust AI helper responses.
 - Add news chat
+- Add language drawer containing UI language and translation settings
+- Add a locale modal on the home page.
 - ---
 - Add generative character building by prompt.
   - Add field to prompt.
@@ -70,6 +61,8 @@ Bugs
 ---
 
 - Lower every username
+- Fix retrial after account deletion
+- Fix bug after deleting and recreating an account, user can't rejoin the app.
 - Rewrite left joins using Query API
 - Fix (last) message status
 - Fix UI updates on contact username changes
@@ -78,7 +71,6 @@ Bugs
 - Fix locale change routing (remove `/{locale}` from `/app`).
 - Handle invalid sessions
 - Fix logout not removing cookies.
-- Fix bug after deleting and recreating an account, user can't rejoin the app.
 - Fix "Try again" after cookie issue resolved in the database.
 - Replace web modal API.
 
@@ -90,7 +82,6 @@ Enhancements
 - Add contact search
 - Add contact QR code
 - List private character from contact list in a different section
-- Improve categorization using JSON mode
 - Skip categorization on visibility change
 - Improve search performance
 - Add rate-limit to Google auth callback

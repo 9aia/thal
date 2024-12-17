@@ -80,14 +80,8 @@ export async function getPersonaWithContactByUser(
 export async function categorizePersona(data: PersonaUpdate) {
   const { GEMINI_API_KEY } = process.env
 
-  const prompt = `
-    ## MISSION
-    
+  const systemInstruction = `
     You are a character categorizer.
-
-    ## CHARACTER
-
-    ${JSON.stringify(data)}
 
     ## CATEGORIES
 
@@ -102,8 +96,14 @@ export async function categorizePersona(data: PersonaUpdate) {
     1
   `
 
+  const prompt = `
+    Here is the character:
+
+    ${JSON.stringify(data)}
+  `
+
   const gemini = getGemini(GEMINI_API_KEY as string)
-  const res = await gemini.generateContent(prompt)
+  const res = await gemini.generateContent(prompt, systemInstruction)
   const bestCandidate = res.candidates?.[0]
   const bestPart = bestCandidate?.content?.parts?.[0]
   const text: string = bestPart?.text
