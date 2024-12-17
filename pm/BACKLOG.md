@@ -52,7 +52,6 @@ Features
 - Add message reactions
 - ---
 - Add markdown preview in the message input.
-- Add activities like minigames.
 - Add "Export account data"
 - Add "View character details"
 
@@ -85,6 +84,7 @@ Enhancements
 - List private character from contact list in a different section
 - Skip categorization on visibility change
 - Improve search performance
+- Add profile photos
 - Add rate-limit to Google auth callback
 - Add a empty fallback to chats
 - Improve the homepage.
@@ -115,6 +115,5 @@ Dev Enhancements
 - Remove unused code
 - Add a guide for WIP commits.
 - Add a guide for atomic commits.
-- Add a Code of Conduct (CoC).
 - Suggest extensions for developers.
 - Improve dev mode session storage for the auth endpoint on the API client.

@@ -8,9 +8,11 @@
   - [x] Filter by category
   - [x] Improve categorization by implementing system prompting
   - [x] Improve categorization by implementing JSON mode
-  - [ ] Improve categories
+  - [x] Improve categories
+  - [ ] Add a category badge to characters
 - [x] List all characters
 - [ ] Paginate characters list
+- ---
 - [ ] Add a publish feature to make characters discoverable
   - [x] Add select for changing the visibility (public, private)
   - [x] Inform character as private in contact adding

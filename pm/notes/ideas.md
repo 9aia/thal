@@ -6,3 +6,5 @@
 - Calls
 - Official characters
 - Character knowledge powered by RAG
+- Add activities like minigames.
+- Add actions (simulations), such as payment
