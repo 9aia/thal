@@ -9,7 +9,8 @@
   - [x] Improve categorization by implementing system prompting
   - [x] Improve categorization by implementing JSON mode
   - [x] Improve categories
-  - [ ] Add a category badge to characters
+  - [x] Add a category badge to characters
+  - [ ] Add more category badges to character views
 - [x] List all characters
 - [ ] Paginate characters list
 - ---

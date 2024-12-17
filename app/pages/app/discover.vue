@@ -144,6 +144,7 @@ function onCategoryClick(category: Category) {
                     :key="`persona-${character.id}`"
                     :name="character.name"
                     :description="character.description"
+                    :category-id="character.categoryId"
                     :username="character.personaUsernames?.username"
                     show-copy
                     show-send-message
