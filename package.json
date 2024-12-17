@@ -51,7 +51,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^2.16.1",
     "@cloudflare/workers-types": "^4.20240222.0",
-    "@google/generative-ai": "^0.2.1",
+    "@google/generative-ai": "^0.21.0",
     "@nuxt/eslint": "^0.3.10",
     "@nuxt/image": "^1.8.0",
     "@nuxtjs/google-fonts": "^3.1.3",

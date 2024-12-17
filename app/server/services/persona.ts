@@ -1,4 +1,6 @@
 import process from "node:process"
+import type { ResponseSchema } from "@google/generative-ai"
+import { SchemaType } from "@google/generative-ai"
 import { eq } from "drizzle-orm"
 import type { H3EventContext } from "h3"
 import { categories } from "~/constants/discover"
@@ -80,38 +82,61 @@ export async function getPersonaWithContactByUser(
 export async function categorizePersona(data: PersonaUpdate) {
   const { GEMINI_API_KEY } = process.env
 
-  const systemInstruction = `
-    You are a character categorizer.
+  const systemInstruction = `You are a character categorizer. You are expected to categorize the character based on the given data.`
+  const characterData = {
+    name: data.name,
+    username: data.username,
+    description: data.description,
+    conversationStarters: data.conversationStarters,
+    instructions: data.instructions,
+  }
+  const prompt = `${JSON.stringify(characterData, null, 2)}`
 
-    ## CATEGORIES
+  const categoriesData = categories.map(category => ({
+    name: category.name,
+    description: category.description,
+    example: category.example,
+  }))
+  const schema: ResponseSchema = {
+    description: `
+      Category of a character.
 
-    ${JSON.stringify(categories)}
+      ## Categories
 
-    ## OUTPUT FORMAT
-
-    - Only the category id directly
-
-    ## OUTPUT EXAMPLE
-
-    1
-  `
-
-  const prompt = `
-    Here is the character:
-
-    ${JSON.stringify(data)}
-  `
+      ${JSON.stringify(categoriesData, null, 2)}
+    `,
+    type: SchemaType.STRING,
+    nullable: false,
+    enum: categories.map(category => category.name),
+  }
 
   const gemini = getGemini(GEMINI_API_KEY as string)
-  const res = await gemini.generateContent(prompt, systemInstruction)
+  const res = await gemini.generateContent(prompt, systemInstruction, {
+    responseMimeType: "application/json",
+    responseSchema: schema,
+  })
+
   const bestCandidate = res.candidates?.[0]
   const bestPart = bestCandidate?.content?.parts?.[0]
   const text: string = bestPart?.text
 
   if (!text)
-    throw internal("Gemini did not return a valid category")
+    throw internal("AI did not return a valid category")
 
-  const categoryId = Number.parseInt(text)
+  let categoryName: string
+
+  try {
+    categoryName = JSON.parse(text)
+  }
+  catch (_e) {
+    const e = _e as Error
+    throw internal(`Error while parsing Gemini response: ${e.message}`)
+  }
+
+  const categoryId = categories.find(category => category.name === categoryName)?.id
+
+  if (!categoryId)
+    throw internal("AI did not return a valid category")
 
   return categoryId
 }

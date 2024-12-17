@@ -7,10 +7,10 @@
   - [x] Categorize characters using AI during creation or edition
   - [x] Filter by category
   - [x] Improve categorization by implementing system prompting
-  - [ ] Improve categorization by implementing JSON mode
+  - [x] Improve categorization by implementing JSON mode
+  - [ ] Improve categories
 - [x] List all characters
 - [ ] Paginate characters list
-
 - [ ] Add a publish feature to make characters discoverable
   - [x] Add select for changing the visibility (public, private)
   - [x] Inform character as private in contact adding

@@ -78,6 +78,7 @@ Bugs
 Enhancements
 ---
 
+- Inhibit narration
 - Add confirmation modal on chat clear
 - Add contact search
 - Add contact QR code
