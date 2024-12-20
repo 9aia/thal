@@ -71,7 +71,7 @@ function handleGoToChat(username: string) {
       </header>
 
       <SettingSection :title="t('Characters')" title-class="px-4">
-        <Resource
+        <GenericResource
           :error="isError"
           :loading="isPending"
           @execute="refetch"
@@ -99,7 +99,7 @@ function handleGoToChat(username: string) {
               </div>
             </li>
           </ul>
-        </resource>
+        </GenericResource>
       </SettingSection>
 
       <PersonaDeleteModal

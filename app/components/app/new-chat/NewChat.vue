@@ -67,7 +67,7 @@ function handleGoToChat(username: string) {
     </SettingSection>
 
     <SettingSection v-if="contacts?.length" :title="t('Contacts')" title-class="px-4">
-      <Resource
+      <GenericResource
         :error="isError"
         :loading="isPending"
         @execute="refetch"
@@ -79,7 +79,7 @@ function handleGoToChat(username: string) {
           :description="contact.description"
           @click="handleGoToChat(contact.username)"
         />
-      </Resource>
+      </GenericResource>
     </SettingSection>
   </div>
 </template>

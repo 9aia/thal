@@ -189,7 +189,7 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
     </template>
 
     <template #content>
-      <Resource :loading="isLoading" :error="isError" @execute="refetch">
+      <GenericResource :loading="isLoading" :error="isError" @execute="refetch">
         <ChatHeader
           :name="displayName"
           :avatar-name="avatarName"
@@ -248,7 +248,7 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
         </main>
 
         <ChatFooter v-model="text" :username="route.params.username" @send="handleSend()" />
-      </Resource>
+      </GenericResource>
     </template>
   </AppLayout>
 </template>

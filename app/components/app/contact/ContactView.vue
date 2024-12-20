@@ -74,7 +74,7 @@ function closeDrawer() {
       </div>
     </header>
 
-    <Resource :loading="isLoading" :error="isError">
+    <GenericResource :loading="isLoading" :error="isError">
       <div class="bg-white flex flex-1 flex-col items-center p-4">
         <Avatar :name="avatarName" class="mx-auto w-24 h-24 text-2xl bg-slate-300 text-slate-800" />
 
@@ -87,6 +87,6 @@ function closeDrawer() {
           {{ data?.persona?.description }}
         </p>
       </div>
-    </Resource>
+    </GenericResource>
   </div>
 </template>
