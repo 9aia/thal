@@ -68,6 +68,10 @@
 ### v0.4.0 - Sharing
 
 - Add contact QR code
+- Add character visibility option instead of just discoverability
+  - Prevent private character actions in any request
+  - Prevent private character to be accessed in URL
+- List private character from contact list in a different section
 
 ### v1.0.0 - Multiplayer
 

@@ -1,0 +1,1 @@
+ALTER TABLE `Persona` RENAME COLUMN `visibility` TO `discoverable`;

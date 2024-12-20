@@ -17,7 +17,7 @@ export default eventHandler(async (event) => {
     return {
       personaNotFound: true,
       alreadyAdded: false,
-      isPersonaVisible: null,
+      discoverable: null,
       isUsernameValid: false,
     }
   }
@@ -31,7 +31,7 @@ export default eventHandler(async (event) => {
     return {
       personaNotFound: true,
       alreadyAdded: false,
-      isPersonaVisible: null,
+      discoverable: null,
       isUsernameValid: true,
     }
   }
@@ -39,7 +39,7 @@ export default eventHandler(async (event) => {
   const persona = await orm.query.personas.findFirst({
     where: (personas, { eq }) => eq(personas.id, Number(existingPersonaUsername.personaId)),
     columns: {
-      visibility: true,
+      discoverable: true,
       creatorId: true,
     },
     with: {
@@ -62,7 +62,7 @@ export default eventHandler(async (event) => {
   return {
     personaNotFound: false,
     alreadyAdded: !!persona?.personaUsernames?.contacts?.length,
-    isPersonaVisible: persona?.visibility || persona?.creatorId === user.id,
+    discoverable: persona?.discoverable || persona?.creatorId === user.id,
     isUsernameValid: true,
   }
 })

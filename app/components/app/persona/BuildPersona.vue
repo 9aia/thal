@@ -157,17 +157,11 @@ const submit = form.handleSubmit(async (data) => {
             ))"
           />
 
-          <Select path="visibility">
-            <option disabled selected>
-              {{ t('Visibility') }}
-            </option>
-            <option :value="true">
-              {{ t('Public') }}
-            </option>
-            <option :value="false">
-              {{ t('Private') }}
-            </option>
-          </Select>
+          <Checkbox path="discoverable" input-class="checkbox-primary">
+            {{
+              t('Discoverable')
+            }}
+          </Checkbox>
 
           <div class="h-2" />
 

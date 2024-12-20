@@ -12,36 +12,35 @@
 - Add safety inflation flags
 - ---
 - Add contact editing
+- Add news chat/route
 - Add "View character details"
 - Add "Keep Character definition/instructions private"
-- Add news chat/route
 - Add language drawer containing UI language and translation settings
-- Add a locale modal on the home page
-- Add option to copy message
 - ---
-- Implement basic analytics to track user engagement and app performance
-- Add logger
+- Add markdown preview in the message input
 - ---
 - Add "Export account data"
 - Add date stamps in chat
 - ---
-- Add markdown preview in the message input
+- Implement basic analytics to track user engagement and app performance
+- Add logger
 
 ## Bugs
 
-- Allow users to use only one session
-- Resolve the issue where the contact addition drawer fails to open on mobile devices when adding a contact directly from the chat
-- Lower every username
 - Fix (last) message status
+- Resolve the issue where the contact addition drawer fails to open on mobile devices when adding a contact directly from the chat
+- Fix UI updates on contact username changes
+- Use a single table for user and character usernames
+- Allow users to use only one session
+- Lower every username
 - Rewrite left joins using Query API
 - Check user plan in API routes
 - Add rate-limit to Google auth callback
+- Fix retrial after account deletion
 - Fix bug after deleting and recreating an account, user can't rejoin the app
 - Redirect from `/plan/expired` when your plan is not expired
 - Fix locale change routing (remove `/{locale}` from `/app`)
   - Use locale param in site routes
-- Fix UI updates on contact username changes
-- Fix retrial after account deletion
 - Handle invalid sessions
 - Fix logout not removing cookies
 - Fix "Try again" after cookie issue resolved in the database
@@ -51,6 +50,8 @@
 
 - Add contact search
 - Add chats search
+- Add a locale modal on the home page
+- Add option to copy message
 - Add share button (copy link/username) to characters and contact options
 - Add option to fork characters
 - Add a warning for renaming character usernames
@@ -59,12 +60,11 @@
 - Add confirmation modal on chat clear
 - Inhibit narration
 - Replace web modal API
-- List private character from contact list in a different section
 - Add a deleted/non-existent section in contacts
 - Change forms to another platform that supports localization
 - Add loading bar on route navigation
 - ---
-- Skip categorization on visibility change
+- Skip categorization on discoverability change
 - Stream translation
 - Improve search performance
 - Improve route loading speed, especially "Chats" and "Discover Characters"
@@ -88,7 +88,13 @@
 ## Dev Enhancements
 
 - Remove unused code
+  - Unused files/functions
+  - Use inferred schemas as DTOs
+- Move schemas to their own files
+- Normalize schema payment field names to lower camel case
+- Change `Message.isBot` to boolean mode
+- Clean console warnings
+- Improve dev mode session storage for the auth endpoint on the API client
 - Suggest extensions for developers
 - Add a guide for WIP commits
 - Add a guide for atomic commits
-- Improve dev mode session storage for the auth endpoint on the API client

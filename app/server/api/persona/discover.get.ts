@@ -24,7 +24,7 @@ export default eventHandler(async (event) => {
     where: (personas, { sql, and, eq, or }) => and(
       search ? sql`lower(${personas.name}) like ${sql.placeholder("name")}` : undefined,
       query.categoryId ? sql`category_id = ${query.categoryId}` : undefined,
-      or(eq(personas.visibility, true), eq(personas.creatorId, user.id)),
+      or(eq(personas.discoverable, true), eq(personas.creatorId, user.id)),
     ),
   }).prepare()
 
