@@ -50,6 +50,7 @@
 
 - Add contact search
 - Add chats search
+- Choose better icons
 - Add a locale modal on the home page
 - Add option to copy message
 - Add share button (copy link/username) to characters and contact options
