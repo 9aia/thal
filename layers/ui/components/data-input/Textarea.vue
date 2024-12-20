@@ -34,7 +34,7 @@ const { value, errorMessage, handleBlur } = useField(props.path, props.rules)
 
     <textarea
       v-model="value"
-      class="textarea textarea-sm h-40 leading-[1.6em] w-full resize-none"
+      class="textarea textarea-sm textarea-bordered textarea-ghost h-40 leading-[1.6em] w-full resize-none"
       :placeholder="placeholder"
       @blur="handleBlur"
     />

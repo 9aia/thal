@@ -38,7 +38,7 @@ const { value, errorMessage } = useField(props.path, props.rules)
       </div>
 
       <select
-        v-model="value" class="select w-full" :placeholder="placeholder" :class="{
+        v-model="value" class="select select-bordered select-ghost w-full" :placeholder="placeholder" :class="{
           'pr-12': iconPosition === 'right',
           'pl-12': iconPosition === 'left',
         }"
