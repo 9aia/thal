@@ -1,119 +1,94 @@
 # Backlog
 
-Features
----
+## Features
 
-- Fork characters
-- Allow users to invalidate all sessions
-- Add moderation.
-  - Create community guidelines
-  - Add community guidelines link to the "Character Builder".
-  - Validate character on create
-    - Give feedback
-  - Add report button (open modal) to contact options
-  - Check safety of messages
-  - Check safety of fields
-- Add "Discover Characters" modal.
-  - Add category-based search for characters.
-  - Search by name.
-- Add character builder
-  - Add "Keep Character definition/instructions private"
-  - Add a warning for renaming character usernames.
-- Add chat utilities
-  - Add conversation starters.
-  - Add PT-EN translator in the chat input.
-  - Add suggestions in chat.
-  - Add tips
-  - Add modal "Dictionary".
-    - Add conjugation table.
-    - Add grammar reference tables.
-- Add assistant
-  - Add a help request item in the header menu (AI-driven).
-  - Add settings to adjust AI helper responses.
-- Add news chat
-- Add language drawer containing UI language and translation settings
-- Add a locale modal on the home page.
+- Create community guidelines
+- Add community guidelines link to the "Character Builder", chats and settings
+- Add report button (open modal) to contact options
+- Check safety of messages
+- Check safety of fields
+- Validate legally character on create
+  - Give feedback
+- Add safety inflation flags
 - ---
-- Add generative character building by prompt.
-  - Add field to prompt.
-  - Add "Suprise me" to fill in the prompt.
-- Improve custom character building tab
-  - Add "generate" option to each field
-- Add character build tool based on Profile form.
-- Add bot father to create characters
-- ---
-- Add an invite section in contacts (when the persona doesn’t exist).
-- Add shortcut to contacts.
-- Add contact editing.
-- Implement basic analytics to track user engagement and app performance.
-- Add logger.
-- Stream chat messages.
-- Add date stamps in chat.
-- Add message reactions
-- ---
-- Add markdown preview in the message input.
-- Add "Export account data"
+- Add contact editing
 - Add "View character details"
-
----
-Bugs
----
-
-- Lower every username
-- Fix retrial after account deletion
-- Fix bug after deleting and recreating an account, user can't rejoin the app.
-- Rewrite left joins using Query API
-- Fix (last) message status
-- Fix UI updates on contact username changes
-- Check user plan in API routes.
-- Redirect from `/plan/expired` when your plan is not expired.
-- Fix locale change routing (remove `/{locale}` from `/app`).
-- Handle invalid sessions
-- Fix logout not removing cookies.
-- Fix "Try again" after cookie issue resolved in the database.
-- Replace web modal API.
-
----
-Enhancements
----
-
-- Inhibit narration
-- Add confirmation modal on chat clear
-- Add contact search
-- Add contact QR code
-- List private character from contact list in a different section
-- Skip categorization on visibility change
-- Improve search performance
-- Add profile photos
-- Add rate-limit to Google auth callback
-- Add a empty fallback to chats
-- Improve the homepage.
-- Turn "Discover Business" into a drawer route
-- Add privacy info about account deletion (cannot delete before month ends, but users can delete manually before).
-- Move the "About" page to the NeoGaia website.
-- Improve the "Pricing" page and set up redirects.
-- Redesign the authentication page.
-- Add share button (copy link/username) to contact options
+- Add "Keep Character definition/instructions private"
+- Add news chat/route
+- Add language drawer containing UI language and translation settings
+- Add a locale modal on the home page
+- Add option to copy message
 - ---
-- Change forms to another platform that supports localization
-- Add turnstile
-- Improve message translation considering other messages
-- Add "read more" to long messages
-- Stream translation
-- Improve stability by handling API errors gracefully.
-- Improve icon loading on slow networks.
-- Improve brand identity.
-- Improve loading handling.
-- Improve error handling.
-- Improve chat load speed
-- Improve "My Characters" edition action appearance
+- Implement basic analytics to track user engagement and app performance
+- Add logger
+- ---
+- Add "Export account data"
+- Add date stamps in chat
+- ---
+- Add markdown preview in the message input
 
----
-Dev Enhancements
----
+## Bugs
+
+- Allow users to use only one session
+- Resolve the issue where the contact addition drawer fails to open on mobile devices when adding a contact directly from the chat
+- Lower every username
+- Fix (last) message status
+- Rewrite left joins using Query API
+- Check user plan in API routes
+- Add rate-limit to Google auth callback
+- Fix bug after deleting and recreating an account, user can't rejoin the app
+- Redirect from `/plan/expired` when your plan is not expired
+- Fix locale change routing (remove `/{locale}` from `/app`)
+  - Use locale param in site routes
+- Fix UI updates on contact username changes
+- Fix retrial after account deletion
+- Handle invalid sessions
+- Fix logout not removing cookies
+- Fix "Try again" after cookie issue resolved in the database
+- Prevent bots with turnstile
+
+## Enhancements
+
+- Add contact search
+- Add chats search
+- Add share button (copy link/username) to characters and contact options
+- Add option to fork characters
+- Add a warning for renaming character usernames
+- Add a empty fallback to chats
+- Improve "My Characters" edition action appearance
+- Add confirmation modal on chat clear
+- Inhibit narration
+- Replace web modal API
+- List private character from contact list in a different section
+- Add a deleted/non-existent section in contacts
+- Change forms to another platform that supports localization
+- Add loading bar on route navigation
+- ---
+- Skip categorization on visibility change
+- Stream translation
+- Improve search performance
+- Improve route loading speed, especially "Chats" and "Discover Characters"
+- Improve icon loading on slow networks
+- ---
+- Improve stability by handling API errors gracefully
+- Improve error handling
+- Improve loading handling
+- ---
+- Add privacy info about account deletion (cannot delete before month ends, but users can delete manually before)
+- Redesign the authentication route
+  - Redesign a auth view on app/ when unauthenticated
+- Improve the homepage
+- Improve the "Pricing" page and set up redirects
+- Move the "About" page to the NeoGaia website
+- Improve brand identity
+- Add dark theme
+- ---
+- Add profile photos (generate or upload)
+
+## Dev Enhancements
 
 - Remove unused code
-- Add a guide for WIP commits.
-- Add a guide for atomic commits.
-- Suggest extensions for developers.
-- Improve dev mode session storage for the auth endpoint on the API client.
+- Suggest extensions for developers
+- Add a guide for WIP commits
+- Add a guide for atomic commits
+- Improve dev mode session storage for the auth endpoint on the API client

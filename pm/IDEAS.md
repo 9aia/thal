@@ -1,0 +1,21 @@
+# Ideas
+
+## Possible New Features
+
+- Add conversation starters
+- Official characters
+- Add onboarding custom character
+- Credit system
+- Conversation scenarios
+- Add personal vocabulary lists that the chatbot can incorporate into the convo
+- Character knowledge powered by RAG
+- Voices to characters
+- Calls
+- Add activities like minigames
+- Add actions (simulations), such as payment
+- Add "read more" to long messages
+- Add message reactions
+
+## Possible Bugs
+
+- Clearing chats shouldn't clear message history

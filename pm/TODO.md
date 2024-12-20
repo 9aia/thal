@@ -10,7 +10,7 @@
   - [x] Improve categorization by implementing JSON mode
   - [x] Improve categories
   - [x] Add a category badge to characters
-  - [ ] Add more category badges to character views
+  - [ ] Add more category badges to character view
 - [x] List all characters
 - [ ] Paginate characters list
 - ---
