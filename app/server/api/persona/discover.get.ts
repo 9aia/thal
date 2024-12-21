@@ -1,32 +1,42 @@
 import z from "zod"
+import { calculatePagination, getPaginatedDto } from "~/utils/data"
 import { getValidated } from "~/utils/h3"
 import { unauthorized } from "~/utils/nuxt"
 import { numericString } from "~/utils/zod"
+import { paginationSchema } from "~~/layers/ui/schemas/paginator.schema"
 
 export default eventHandler(async (event) => {
+  const query = await getValidated(event, "query", paginationSchema().extend({
+    search: z.string().optional().transform(s => s?.trim()),
+    categoryId: numericString(z.number().optional()),
+  }))
+
   const orm = event.context.orm
   const user = event.context.user
 
   if (!user)
     throw unauthorized()
 
-  const query = await getValidated(event, "query", z.object({
-    search: z.string().optional(),
-    categoryId: numericString(z.number().optional()),
-  }))
+  const { limit, offset } = calculatePagination(query)
 
-  const search = query.search?.trim()
-
-  const p2 = orm.query.personas.findMany({
+  const ormQuery = orm.query.personas.findMany({
+    limit,
+    offset,
     with: {
       personaUsernames: true,
     },
     where: (personas, { sql, and, eq, or }) => and(
-      search ? sql`lower(${personas.name}) like ${sql.placeholder("name")}` : undefined,
-      query.categoryId ? sql`category_id = ${query.categoryId}` : undefined,
-      or(eq(personas.discoverable, true), eq(personas.creatorId, user.id)),
+      query.search
+        ? sql`lower(${personas.name}) like ${sql.placeholder("name")}`
+        : undefined,
+      query.categoryId
+        ? sql`category_id = ${query.categoryId}`
+        : undefined,
+      or(eq(personas.discoverable, true), eq(personas.creatorId, user.id!)),
     ),
   }).prepare()
 
-  return await p2.execute({ name: `%${search}%` })
+  const result = await ormQuery.execute({ name: `%${query.search}%` })
+
+  return getPaginatedDto(query, result)
 })

@@ -2,51 +2,77 @@
 import { useI18n } from "@psitta/vue"
 import { refDebounced } from "@vueuse/core"
 import { useForm } from "vee-validate"
-import AppLayout from "~/layouts/app.vue"
-import { isRootDrawerOpen } from "~/store"
-import { categories } from "~/constants/discover"
-import queryKeys from "~/queryKeys"
 import type { Category } from "~/constants/discover"
-
-const {
-  t,
-} = useI18n()
+import { categories } from "~/constants/discover"
+import AppLayout from "~/layouts/app.vue"
+import queryKeys from "~/queryKeys"
+import { isRootDrawerOpen } from "~/store"
 
 definePageMeta({
   layout: false,
   middleware: "premium",
 })
 
+const { t } = useI18n()
 const form = useForm({
-  initialValues: {
-    search: "",
-  },
+  initialValues: { search: "" },
 })
 
 const search = refDebounced(toRef(form.values, "search"), 1000)
-const selectedCategoryId = ref<number>()
+const categoryId = ref<number>()
 
 const {
   data,
   isError,
   isPending,
+  isFetchingNextPage,
+  fetchNextPage,
   refetch,
-} = await useServerQuery("/api/persona/discover", {
-  queryKey: queryKeys.discoverPersonas(search, selectedCategoryId),
-  params: () => ({
-    search: search.value,
-    categoryId: selectedCategoryId.value,
+  hasNextPage,
+} = usePaginationQuery({
+  queryKey: queryKeys.discoverPersonas(search, categoryId),
+  queryFn: ({ params }) => $fetch("/api/persona/discover", {
+    params: {
+      ...params,
+      search: search.value,
+      categoryId: categoryId.value,
+    },
   }),
+  perPage: 3,
+})
+
+const endMarkerRef = ref<HTMLDivElement>()
+
+const observer = ref<IntersectionObserver>()
+
+onMounted(() => {
+  observer.value = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting)
+        fetchNextPage()
+    },
+    { threshold: 1.00 },
+  )
+
+  if (!endMarkerRef.value)
+    return
+
+  observer.value.observe(endMarkerRef.value)
+})
+
+onUnmounted(() => {
+  if (observer.value && endMarkerRef.value)
+    observer.value.unobserve(endMarkerRef.value)
 })
 
 const isCategoryModalOpen = ref(false)
 
 function onCategoryClick(category: Category) {
-  const isSame = selectedCategoryId.value === category.id
+  const isSame = categoryId.value === category.id
 
   isSame
-    ? selectedCategoryId.value = undefined
-    : selectedCategoryId.value = category.id
+    ? categoryId.value = undefined
+    : categoryId.value = category.id
 }
 </script>
 
@@ -59,7 +85,7 @@ function onCategoryClick(category: Category) {
     <template #content>
       <CategoriesModal
         v-model="isCategoryModalOpen"
-        :selected-category-id="selectedCategoryId"
+        :selected-category-id="categoryId"
         @category-click="onCategoryClick"
       />
 
@@ -120,7 +146,7 @@ function onCategoryClick(category: Category) {
                 :description="t(category.description)"
                 :icon="category.icon"
                 :color="category.color"
-                :is-selected="selectedCategoryId === category.id"
+                :is-selected="categoryId === category.id"
                 @click="onCategoryClick(category)"
               />
             </div>
@@ -131,16 +157,16 @@ function onCategoryClick(category: Category) {
               {{ t("Characters") }}
             </h2>
 
-            <div class="pl-2 pr-4 pb-2 space-y-1 overflow-y-auto mt-4">
+            <div class="pl-2 pr-4 pb-2 space-y-1 overflow-y-auto mt-4 flex flex-col items-center">
               <Resource
                 :error="isError"
                 :loading="isPending"
                 disable-first-loading
                 @execute="refetch"
               >
-                <template v-if="data.length">
+                <template v-if="data?.pages?.length">
                   <DiscoverCharacterItem
-                    v-for="character in data"
+                    v-for="character in data?.pages"
                     :key="`persona-${character.id}`"
                     :name="character.name"
                     :description="character.description"
@@ -148,7 +174,22 @@ function onCategoryClick(category: Category) {
                     :username="character.personaUsernames?.username"
                     show-copy
                     show-send-message
+                    class="w-full"
                   />
+
+                  <div ref="endMarkerRef" class="w-full h-px" />
+
+                  <div class="flex items-center pt-2">
+                    <Btn
+                      v-if="hasNextPage"
+                      :loading="isPending || isFetchingNextPage"
+                      size="xs"
+                      class="btn-primary btn-outline"
+                      @click="fetchNextPage()"
+                    >
+                      {{ t("Load more") }}
+                    </Btn>
+                  </div>
                 </template>
 
                 <template v-else>

@@ -6,7 +6,7 @@
   - Data may be deleted without warning.
   - Free to try.
 
-- **Release Candidate Versions (`v0.x.x-rc.x`)**:
+- **Release Candidate Versions (`vx.x.x-rc.x`)**:
   - Examples: `v0.1.0-rc.0`.
   - Used for private testing and gathering feedback.
   - Deployed on temporary environments.

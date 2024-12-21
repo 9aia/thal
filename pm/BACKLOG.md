@@ -50,7 +50,6 @@
 
 - Add contact search
 - Add chats search
-- Choose better icons
 - Add a locale modal on the home page
 - Add option to copy message
 - Add share button (copy link/username) to characters and contact options
@@ -71,6 +70,7 @@
 - Improve route loading speed, especially "Chats" and "Discover Characters"
 - Improve icon loading on slow networks
 - ---
+- Fetch next character list page based on scroll
 - Improve stability by handling API errors gracefully
 - Improve error handling
 - Improve loading handling

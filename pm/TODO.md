@@ -13,6 +13,9 @@
   - [x] Add a category badge to characters
   - [ ] Add more category badges to character view
 - [x] List all characters
-- [ ] Paginate characters list
+- [x] Paginate characters list
+  - [x] Paginate API result
+  - [x] Use infinite query composable
+  - [x] Refactor
 - ---
 - [x] Add chat option "Clear chat"

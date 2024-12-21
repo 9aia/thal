@@ -72,13 +72,13 @@ export const userSelectSchema = createSelectSchema(users, {
 })
 
 export const userInsertSchema = createInsertSchema(users, {
-  id: schema => schema.id.optional(),
+  id: id => id.optional(),
   name: nameSchema,
   lastName: nameSchema,
   username: usernameSchema,
   pronouns: pronounsSchema,
   email: z.string().email(),
-  createdAt: schema => schema.createdAt.optional(),
+  createdAt: createdAt => createdAt.optional(),
 })
 
 export const userUpdateSchema = createInsertSchema(users, {
@@ -87,29 +87,29 @@ export const userUpdateSchema = createInsertSchema(users, {
   username: usernameSchema,
   pronouns: pronounsSchema,
   email: z.string().email(),
-  hobbies: schema =>
-    schema.hobbies.refine(
+  hobbies: hobbies =>
+    hobbies.refine(
       hobbies => hobbies.split(",").length <= MAX_HOBBIES_AMOUNT,
       {
         message: `Hobbies must contain at most ${MAX_HOBBIES_AMOUNT} items separated by commas`,
       },
     ),
-  profession: schema =>
-    schema.profession.refine(
+  profession: profession =>
+    profession.refine(
       profession => profession.length <= MAX_PROFESSION_CHARS,
       {
         message: `Profession must contain at most ${MAX_PROFESSION_CHARS} characters`,
       },
     ),
-  goals: schema =>
-    schema.goals.refine(
+  goals: goals =>
+    goals.refine(
       goals => goals.split(",").length <= MAX_GOALS_AMOUNT,
       {
         message: `Goals must contain at most ${MAX_GOALS_AMOUNT} items separated by commas`,
       },
     ),
-  observation: schema =>
-    schema.profession.refine(
+  observation: profession =>
+    profession.refine(
       profession => profession.length <= MAX_OBSERVATION_CHARS,
       {
         message: `Observation must contain at most ${MAX_OBSERVATION_CHARS} characters`,
