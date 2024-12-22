@@ -53,7 +53,7 @@ export async function getPersonaWithContactByUser(
           id: true,
           name: true,
         },
-        where: eq(contacts.userId, user.id),
+        where: eq(contacts.userId, user.id!),
       },
     },
   })
@@ -81,6 +81,9 @@ export async function getPersonaWithContactByUser(
 
 export async function categorizePersona(data: PersonaUpdate) {
   const { GEMINI_API_KEY } = process.env
+
+  if (!GEMINI_API_KEY)
+    throw internal("GEMINI_API_KEY is not set in the environment")
 
   const systemInstruction = `You are a character categorizer. You are expected to categorize the character based on the given data.`
   const characterData = {
