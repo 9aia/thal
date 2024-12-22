@@ -161,7 +161,6 @@ function onCategoryClick(category: Category) {
               <Resource
                 :error="isError"
                 :loading="isPending"
-                disable-first-loading
                 @execute="refetch"
               >
                 <template v-if="data?.pages?.length">

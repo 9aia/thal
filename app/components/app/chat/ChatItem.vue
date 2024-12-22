@@ -12,8 +12,6 @@ const props = defineProps<{
   lastMessage?: Readonly<LastMessage>
 }>()
 
-const locale = useLocale()
-
 const chat = computed(() => {
   return {
     id: props.chat.id,
@@ -22,45 +20,14 @@ const chat = computed(() => {
       username: props.chat.personaUsername!.username,
       avatar: undefined,
     },
-    lastMessage: {
-      date: props.lastMessage?.datetime ? new Date(props.lastMessage.datetime) : now(),
-      status: "sent" as MessageStatus,
-      text: props.lastMessage?.content || "",
-    },
+    lastMessage: props.lastMessage
+      ? {
+          date: new Date(props.lastMessage.datetime),
+          status: "sent" as MessageStatus,
+          text: props.lastMessage.content || "",
+        }
+      : undefined,
   }
-})
-
-const date = computed(() => {
-  const date = props.lastMessage?.datetime ? new Date(props.lastMessage.datetime) : now()
-
-  if (isToday(date)) {
-    const formatter = new Intl.DateTimeFormat(locale.value, {
-      hour: "2-digit",
-      minute: "2-digit",
-    })
-    return formatter.format(date)
-  }
-
-  if (isYesterday(date)) {
-    const formatter = new Intl.RelativeTimeFormat(locale.value, {
-      numeric: "auto",
-    })
-    return formatter.format(-1, "day")
-  }
-
-  if (isThisWeek(date)) {
-    const formatter = new Intl.DateTimeFormat(locale.value, {
-      weekday: "long",
-    })
-    return formatter.format(date)
-  }
-
-  const formatter = new Intl.DateTimeFormat(locale.value, {
-    month: "2-digit",
-    day: "2-digit",
-    year: "numeric",
-  })
-  return formatter.format(date)
 })
 
 function handleGoToChat(username: string) {
@@ -78,17 +45,21 @@ function handleGoToChat(username: string) {
       <div class="flex justify-between items-center">
         <a class="block text-base text-slate-800">{{ chat.persona.name }}</a>
 
-        <div class="text-xs text-slate-600">
-          {{ date }}
-        </div>
+        <ClientOnly v-if="chat.lastMessage">
+          <ChatItemTime :last-message="props.lastMessage" :date="chat.lastMessage.date" />
+        </Clientonly>
       </div>
+
       <div
         class="text-sm text-slate-600 flex items-center"
-        :title="chat.lastMessage.text"
       >
-        <MessageIcon :status="chat.lastMessage.status" />
-        <div class="line-clamp-1">
-          {{ chat.lastMessage.text }}
+        <MessageIcon
+          v-if="chat.lastMessage"
+          :status="chat.lastMessage.status"
+        />
+
+        <div class="line-clamp-1" :class="{ invisible: !chat.lastMessage }">
+          {{ chat.lastMessage?.text || '-' }}
         </div>
       </div>
     </div>

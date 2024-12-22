@@ -16,6 +16,9 @@
 - [x] Paginate characters list
   - [x] Paginate API result
   - [x] Use infinite query composable
-  - [x] Refactor
-- ---
+  - [x] Refactor code
+- [x] Fix hydration errors
+
+---
+
 - [x] Add chat option "Clear chat"

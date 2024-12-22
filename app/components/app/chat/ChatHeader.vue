@@ -35,6 +35,10 @@ const {
     queryClient.invalidateQueries({
       queryKey: queryKeys.chat(props.username),
     })
+
+    queryClient.invalidateQueries({
+      queryKey: queryKeys.lastMessages,
+    })
   },
 })
 
