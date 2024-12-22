@@ -52,6 +52,7 @@
 
 - Add contact search
 - Add chats search
+- Implement infinite scrolls
 - Add a locale modal on the home page
 - Add option to copy message
 - Add share button (copy link/username) to characters and contact options

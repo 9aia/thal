@@ -10,7 +10,7 @@ defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: "categoryClick", category: Category): void
+  (e: "categoryClick", categoryId: number): void
 }>()
 
 const modelValue = defineModel<boolean>()
@@ -29,7 +29,7 @@ const {
 })
 
 function onItemClick(category: Category) {
-  emit("categoryClick", category)
+  emit("categoryClick", category.id)
   modelValue.value = false
 }
 
