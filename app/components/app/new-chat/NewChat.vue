@@ -1,15 +1,12 @@
 <script setup lang="ts">
 import { t } from "@psitta/vue"
 import { drawers, isRootDrawerOpen, personaBuilderData } from "~/store"
-import { useDiscoverPersonasModal } from "~/composables/useDiscoverPersonasModal"
 import type { MenuItem } from "~~/layers/ui/components/navigation/types"
 import queryKeys from "~/queryKeys"
 
-const emit = defineEmits<{
+const emit = defineEmits<({
   (e: "close"): void
-}>()
-
-const discoverPersonasModal = useDiscoverPersonasModal()
+})>()
 
 function handleCreatePersona() {
   drawers.personaBuilder = true
@@ -21,8 +18,13 @@ const generalItems: MenuItem[] = [
   { id: "create-persona", icon: "person_edit", name: t("Build character"), onClick: () => handleCreatePersona() },
 ]
 
+function goToDiscover() {
+  isRootDrawerOpen.value = false
+  navigateTo("/app/discover")
+}
+
 const discoverItems: MenuItem[] = [
-  { id: "discover", icon: "collections_bookmark", name: t("Characters"), onClick: () => discoverPersonasModal.open() },
+  { id: "discover", icon: "collections_bookmark", name: t("Characters"), onClick: () => goToDiscover() },
 ]
 
 const {
@@ -65,7 +67,7 @@ function handleGoToChat(username: string) {
     </SettingSection>
 
     <SettingSection v-if="contacts?.length" :title="t('Contacts')" title-class="px-4">
-      <Resource
+      <GenericResource
         :error="isError"
         :loading="isPending"
         @execute="refetch"
@@ -77,7 +79,7 @@ function handleGoToChat(username: string) {
           :description="contact.description"
           @click="handleGoToChat(contact.username)"
         />
-      </Resource>
+      </GenericResource>
     </SettingSection>
   </div>
 </template>

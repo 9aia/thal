@@ -4,12 +4,14 @@ import { tv } from "tailwind-variants"
 import { type ButtonHTMLAttributes, useAttrs } from "vue"
 import type { SafeProps, SafeVariantProps } from "../../types"
 
-withDefaults(defineProps<Props & {
+const props = withDefaults(defineProps<Props & {
   size?: keyof typeof variants["size"]
   shape?: "circle" | "square" | "normal"
+  class: string
 }>(), {
   size: "sm",
   shape: "normal",
+  class: "",
 })
 
 const variants = {
@@ -36,13 +38,11 @@ type Props = SafeProps<ButtonHTMLAttributes> &
     loading?: boolean
     success?: boolean
   }
-
-const attrs = useAttrs()
 </script>
 
 <template>
   <button
-    :class="styles({ size, shape, class: attrs.class as string })"
+    :class="styles({ size, shape, class: props.class })"
     :disabled="loading"
   >
     <slot />

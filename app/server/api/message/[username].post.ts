@@ -10,6 +10,11 @@ import type { MessageInsert } from "~~/db/schema"
 import { chats, contacts, lastMessages, messageSendSchema, messages, personaUsernames, usernameSchema } from "~~/db/schema"
 
 export default eventHandler(async (event) => {
+  const { GEMINI_API_KEY } = process.env
+
+  if (!GEMINI_API_KEY)
+    throw internal("GEMINI_API_KEY is not set in the environment")
+
   const { username } = await getValidated(event, "params", z.object({ username: usernameSchema }))
 
   const data = await getValidated(event, "body", messageSendSchema)
@@ -89,7 +94,7 @@ export default eventHandler(async (event) => {
     replyingId: data.replyingId,
   }
 
-  const gemini = getGemini(process.env.GEMINI_API_KEY!)
+  const gemini = getGemini(GEMINI_API_KEY)
 
   const SYSTEM_INSTRUCTIONS = `
     Your name is ${persona.name}, your username is ${result.username}.
@@ -102,7 +107,7 @@ export default eventHandler(async (event) => {
 
     ## Your Mission
     
-    You should speak English.
+    You must answer English.
     You are talking to a user named ${user.name} ${user.lastName}, their username is ${user.username}.
   `
 

@@ -71,7 +71,7 @@ function handleGoToChat(username: string) {
       </header>
 
       <SettingSection :title="t('Characters')" title-class="px-4">
-        <Resource
+        <GenericResource
           :error="isError"
           :loading="isPending"
           @execute="refetch"
@@ -83,6 +83,8 @@ function handleGoToChat(username: string) {
             >
               <PersonaItem
                 :name="persona.name"
+                :username="persona.username || undefined"
+                :category-id="persona.categoryId"
                 @delete="handleDeletePersona(persona as unknown as Persona)"
                 @edit="handleEditPersona(persona as unknown as Persona)"
                 @click="handleGoToChat(persona.username as string)"
@@ -99,7 +101,7 @@ function handleGoToChat(username: string) {
               </div>
             </li>
           </ul>
-        </resource>
+        </GenericResource>
       </SettingSection>
 
       <PersonaDeleteModal

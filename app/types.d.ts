@@ -40,6 +40,7 @@ export interface Persona {
   name: string
   username: string
   avatar?: string
+  discoverable?: boolean
 }
 
 export interface Contact {

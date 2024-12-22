@@ -40,21 +40,21 @@ async function validateUsername(username: string) {
       personaNotFound,
     } = await $fetch(`/api/contact/validate-username/${username}`)
 
-    if (alreadyAdded) {
-      form.setErrors({
-        username: t("Contact already added."),
-      })
-    }
-
     if (!isUsernameValid) {
       form.setErrors({
         username: t("Username is invalid."),
       })
     }
 
-    if (personaNotFound) {
+    else if (personaNotFound) {
       form.setErrors({
-        username: t("Persona not found."),
+        username: t("Character not found."),
+      })
+    }
+
+    else if (alreadyAdded) {
+      form.setErrors({
+        username: t("Contact already added."),
       })
     }
   }

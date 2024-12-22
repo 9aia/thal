@@ -40,4 +40,4 @@ To make the most of Thal, you’ll need:
 
 ## Contributing
 
-We welcome contributions! Whether you want to help improve the code, suggest features, or create new characters, check out the [Contributing Guide](/CONTRIBUTING.md) for more details.
+We welcome contributions! Whether you want to help improve the code, suggest features, or create new characters, check out the [Contributing Guide](/docs/contributing.md) for more details.

@@ -23,10 +23,11 @@ export default eventHandler(async (event) => {
         columns: {
           name: true,
           description: true,
+          categoryId: true,
         },
       },
       contacts: {
-        where: eq(contacts.userId, user.id),
+        where: eq(contacts.userId, user.id!),
         columns: {
           name: true,
         },

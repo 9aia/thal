@@ -99,7 +99,7 @@ const submit = form.handleSubmit(async (data) => {
     })
 
     queryClient.invalidateQueries({
-      queryKey: queryKeys.discoverPersonas,
+      queryKey: queryKeys.discoverPersonas(),
     })
 
     emit("close")
@@ -156,6 +156,12 @@ const submit = form.handleSubmit(async (data) => {
               'Instructions must contain between 1 and 500 characters.',
             ))"
           />
+
+          <Checkbox path="discoverable" input-class="checkbox-primary">
+            {{
+              t('Discoverable')
+            }}
+          </Checkbox>
 
           <div class="h-2" />
 

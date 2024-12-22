@@ -6,6 +6,7 @@ import type { SafeProps } from "../../types"
 type Props = SafeProps<InputHTMLAttributes> & {
   path: string
   disabled?: boolean
+  inputClass?: string
 }
 
 const props = defineProps<Props>()
@@ -22,7 +23,8 @@ const { value, handleBlur } = useField(props.path)
 
       <input
         v-model="value"
-        class="checkbox checkbox-neutral"
+        class="checkbox"
+        :class="inputClass"
         type="checkbox"
         :disabled="disabled"
         @blur="handleBlur"

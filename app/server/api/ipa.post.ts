@@ -7,6 +7,9 @@ import { internal, unauthorized } from "~/utils/nuxt"
 export default eventHandler(async (event) => {
   const { GEMINI_API_KEY } = process.env
 
+  if (!GEMINI_API_KEY)
+    throw internal("GEMINI_API_KEY is not set in the environment")
+
   const user = event.context.user
 
   if (!user)

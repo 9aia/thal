@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { useI18n } from "@psitta/vue"
+import { useMutation, useQueryClient } from "@tanstack/vue-query"
+import queryKeys from "~/queryKeys"
 import { rightDrawer, rightDrawers } from "~/store"
 import type { MenuItem } from "~~/layers/ui/components/navigation/types"
 
@@ -8,12 +10,37 @@ const props = defineProps<{
   username: string
   avatarName: string
   hasContact: boolean
+  hasMessages: boolean
   addContact: () => void
 }>()
 
 const { t } = useI18n()
 
 const contactDeleteModalState = ref()
+
+const toast = useToast()
+
+const queryClient = useQueryClient()
+
+const {
+  mutate: clearMessage,
+} = useMutation({
+  mutationFn: () => $fetch(`/api/chat/history/${props.username}`, { method: "DELETE" }),
+  onError: () => {
+    toast.error(t("Failed to clear chat"))
+  },
+  onSuccess: () => {
+    toast.success(t("Chat has been cleared"))
+
+    queryClient.invalidateQueries({
+      queryKey: queryKeys.chat(props.username),
+    })
+
+    queryClient.invalidateQueries({
+      queryKey: queryKeys.lastMessages,
+    })
+  },
+})
 
 const items = computed<MenuItem[]>(() => [
   {
@@ -22,6 +49,14 @@ const items = computed<MenuItem[]>(() => [
     icon: "person",
     onClick: () => openContactView(),
   },
+  props.hasMessages
+    ? {
+        id: "clear-chat",
+        name: t("Clear chat"),
+        icon: "mop",
+        onClick: () => clearMessage(),
+      }
+    : null,
   props.hasContact
     ? {
         id: "delete-contact",
@@ -39,7 +74,7 @@ const items = computed<MenuItem[]>(() => [
           props.addContact()
         },
       },
-])
+].filter(item => item !== null))
 
 function openContactView() {
   // profileModal.open(props.username as string)

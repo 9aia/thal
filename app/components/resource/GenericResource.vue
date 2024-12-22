@@ -2,6 +2,7 @@
 const props = defineProps<{
   loading?: boolean
   error?: boolean
+  disableFirstLoading?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -19,7 +20,7 @@ watch(() => props.loading, (value) => {
 </script>
 
 <template>
-  <GenericLoading v-if="isFirstLoading" />
+  <GenericLoading v-if="disableFirstLoading ? loading : isFirstLoading" />
   <GenericError v-else-if="!!error || loading" :disabled="disabled" :loading="loading" @retry="retry" />
   <slot v-else />
 </template>

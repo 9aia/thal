@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import { drawers, isRootDrawerOpen, rightDrawer } from "~/store"
-import { useDiscoverPersonasModal } from "~/composables/useDiscoverPersonasModal"
-
-const { discoverPersonasModalState } = useDiscoverPersonasModal()
 </script>
 
 <template>
@@ -36,8 +33,8 @@ const { discoverPersonasModalState } = useDiscoverPersonasModal()
                 <Settings @close="drawers.settings = false" />
               </Drawer>
 
-              <Drawer :model-value="drawers.newChat">
-                <NewChat @close="drawers.newChat = false" />
+              <Drawer v-slot="{ close }" v-model="drawers.newChat">
+                <NewChat @close="close" />
               </Drawer>
 
               <Drawer v-slot="{ close }" v-model="drawers.myPersonas">
@@ -68,10 +65,6 @@ const { discoverPersonasModalState } = useDiscoverPersonasModal()
         </div>
       </div>
     </div>
-
-    <ClientOnly>
-      <DiscoverPersonasModal v-model="discoverPersonasModalState.modelValue" />
-    </ClientOnly>
   </div>
 </template>
 

@@ -1,4 +1,5 @@
 import { eq } from "drizzle-orm"
+import { categorizePersona } from "~/server/services/persona"
 import { now } from "~/utils/date"
 import { getValidated } from "~/utils/h3"
 import { badRequest, unauthorized } from "~/utils/nuxt"
@@ -26,6 +27,8 @@ export default eventHandler(async (event) => {
   if (existingPersonaUsername && existingPersonaUsername.personaId !== null)
     throw badRequest("Username already taken")
 
+  const categoryId = await categorizePersona(data)
+
   const [newPersona] = await orm
     .insert(personas)
     .values({
@@ -33,6 +36,7 @@ export default eventHandler(async (event) => {
       conversationStarters: JSON.stringify(personaData.conversationStarters),
       creatorId: user.id,
       createdAt: now().toString(),
+      categoryId,
     })
     .returning()
 

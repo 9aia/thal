@@ -30,9 +30,9 @@ function copy() {
         type="text"
         readonly
         :value="text"
-        class="input input-bordered w-full max-w-xs"
+        class="input input-bordered input-ghost w-full max-w-xs"
       >
-      <div class="input input-bordered flex items-center justify-center">
+      <div class="input flex items-center justify-center">
         <Icon class="" @click="copy"> content_copy </Icon>
       </div>
     </div>

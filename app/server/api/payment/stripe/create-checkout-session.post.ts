@@ -5,9 +5,13 @@ import { users } from "~~/db/schema"
 import { getAppUrl } from "~/utils/h3"
 import { PLANS } from "~/constants/payment"
 import { getStripe } from "~/utils/stripe"
+import { internal } from "~/utils/nuxt"
 
 export default eventHandler(async (event) => {
   const { STRIPE_SECRET_KEY } = process.env
+
+  if (!STRIPE_SECRET_KEY)
+    throw internal("STRIPE_SECRET_KEY is not set in the environment")
 
   const orm = event.context.orm
   const user = event.context.user

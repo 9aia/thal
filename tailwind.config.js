@@ -2,7 +2,7 @@ const { fadeAnimation, fadeKeyframes } = require("./layers/ui/animations/fade")
 
 module.exports = {
   content: [
-    "./src/**/*.{vue,js,ts,jsx,tsx}",
+    "./app/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
