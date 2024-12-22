@@ -83,6 +83,8 @@ function handleGoToChat(username: string) {
             >
               <PersonaItem
                 :name="persona.name"
+                :username="persona.username || undefined"
+                :category-id="persona.categoryId"
                 @delete="handleDeletePersona(persona as unknown as Persona)"
                 @edit="handleEditPersona(persona as unknown as Persona)"
                 @click="handleGoToChat(persona.username as string)"

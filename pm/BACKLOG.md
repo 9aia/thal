@@ -27,6 +27,8 @@
 
 ## Bugs
 
+- Fix hydration errors in "Discover"
+- Fix error when navigating back from the contact card
 - Fix (last) message status
 - Resolve the issue where the contact addition drawer fails to open on mobile devices when adding a contact directly from the chat
 - Fix UI updates on contact username changes

@@ -11,7 +11,7 @@
   - [x] Improve categorization by implementing JSON mode
   - [x] Add discoverable option to characters
   - [x] Add a category badge to characters
-  - [ ] Add more category badges to character view
+  - [x] Add more category badges to character view
 - [x] List all characters
 - [x] Paginate characters list
   - [x] Paginate API result

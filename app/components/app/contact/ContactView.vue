@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useQuery } from "@tanstack/vue-query"
 import { useI18n } from "@psitta/vue"
-import { contactData, drawers, rightDrawer, rightDrawers } from "~/store"
+import { rightDrawer, rightDrawers } from "~/store"
+import { categories } from "~/constants/discover"
 import queryKeys from "~/queryKeys"
 import type { MenuItem } from "~~/layers/ui/components/navigation/types"
 
@@ -47,6 +48,10 @@ function closeDrawer() {
   rightDrawer.value = false
   rightDrawers.contactView = false
 }
+
+const category = computed(() => {
+  return categories.find(cat => cat.id === data.value?.persona?.categoryId)
+})
 </script>
 
 <template>
@@ -81,9 +86,17 @@ function closeDrawer() {
         <h2 class="text-slate-900 text-center text-2xl mb-1">
           {{ displayName }}
         </h2>
-        <small class="text-slate-600 text-xs mb-4">@{{ data?.username }}</small>
+        <small class="text-slate-600 text-xs">@{{ data?.username }}</small>
 
-        <p class="text-slate-600 text-xs mt">
+        <div v-if="category" class="text-sm text-slate-600 flex gap-1 items-center">
+          <Badge class="bg-transparent border-none flex gap-1 px-0 py-3 text-xs text-slate-600">
+            <Icon :name="category?.icon" class="" style="font-size: 1.15rem" />
+
+            {{ category?.name }}
+          </Badge>
+        </div>
+
+        <p class="text-slate-600 text-xs mt-4">
           {{ data?.persona?.description }}
         </p>
       </div>

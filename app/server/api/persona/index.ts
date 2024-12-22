@@ -15,10 +15,11 @@ export default eventHandler(async (event) => {
     description: personas.description,
     instructions: personas.instructions,
     username: personaUsernames.username,
+    categoryId: personas.categoryId,
     discoverable: personas.discoverable,
   })
     .from(personas)
-    .where(eq(personas.creatorId, user.id))
+    .where(eq(personas.creatorId, user.id!))
     .leftJoin(personaUsernames, eq(personaUsernames.personaId, personas.id))
 
   return result
