@@ -15,7 +15,7 @@ export default defineEventHandler(async (event) => {
       content: true,
       datetime: true,
     },
-    where: eq(lastMessages.userId, user.id),
+    where: eq(lastMessages.userId, user.id!),
   })
 
   return results

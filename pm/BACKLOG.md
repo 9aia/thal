@@ -50,22 +50,9 @@
 
 ## Enhancements
 
-- Add contact search
-- Add chats search
-- Implement infinite scrolls
-- Add a locale modal on the home page
-- Add option to copy message
-- Add share button (copy link/username) to characters and contact options
-- Add option to fork characters
-- Add a warning for renaming character usernames
-- Add a empty fallback to chats
-- Improve "My Characters" edition action appearance
-- Add confirmation modal on chat clear
-- Inhibit narration
+- Add character search results to chat and contact search
 - Replace web modal API
-- Add a deleted/non-existent section in contacts
 - Change forms to another platform that supports localization
-- Add loading bar on route navigation
 - ---
 - Skip categorization on discoverability change
 - Stream translation
@@ -73,7 +60,6 @@
 - Improve route loading speed, especially "Chats" and "Discover Characters"
 - Improve icon loading on slow networks
 - ---
-- Fetch next character list page based on scroll
 - Improve stability by handling API errors gracefully
 - Improve error handling
 - Improve loading handling

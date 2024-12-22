@@ -64,6 +64,7 @@
 - "Surprise Me" feature for auto-generated character
 - Improve custom character building tab
   - Add "generate" icon button to each field (e.g., name, description)
+- Fork characters
 
 ### v0.4.0 - Sharing
 

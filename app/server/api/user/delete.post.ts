@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
   if (!user || !session)
     throw unauthorized()
 
-  await orm.delete(users).where(eq(users.id, user.id))
+  await orm.delete(users).where(eq(users.id, user.id!))
 
   await invalidateSession(orm, session.id)
 

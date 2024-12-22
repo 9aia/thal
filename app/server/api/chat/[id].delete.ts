@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
     .where(
       and(
         eq(chats.id, id),
-        eq(chats.userId, user.id),
+        eq(chats.userId, user.id!),
       ),
     ).returning()
 

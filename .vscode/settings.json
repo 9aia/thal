@@ -101,5 +101,11 @@
     "development": {
       "baseUrl": "http://localhost:3000/api"
     }
-  }
+  },
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": false
+  },
+  "editor.quickSuggestionsDelay": 10
 }

@@ -15,6 +15,7 @@
 - Add actions (simulations), such as payment
 - Add "read more" to long messages
 - Add message reactions
+- Add character trash
 
 ## Possible Bugs
 

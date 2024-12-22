@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { t } from "@psitta/vue"
+import { refDebounced } from "@vueuse/core"
+import { useForm } from "vee-validate"
 import queryKeys from "~/queryKeys"
 import { drawers, isRootDrawerOpen } from "~/store"
 
@@ -8,10 +11,23 @@ const emit = defineEmits<{
   (e: "close"): void
 }>()
 
+const form = useForm({
+  initialValues: {
+    search: "",
+  },
+})
+
+const search = refDebounced(toRef(form.values, "search"), 1000)
+
 const {
   data: chats,
 } = await useServerQuery(() => "/api/chat", {
-  queryKey: queryKeys.chats,
+  queryKey: queryKeys.chatsSearch(search),
+  params: () => {
+    return {
+      search: search.value,
+    }
+  },
 })
 
 const {
@@ -102,6 +118,11 @@ function getLastMessageByChatId(chatId: number) {
       </div>
     </div>
   </div>
+
+  <SearchField
+    :placeholder="t('Search')"
+    path="search"
+  />
 
   <div class="flex-1 overflow-y-auto bg-white">
     <ChatItem

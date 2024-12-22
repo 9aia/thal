@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { t } from "@psitta/vue"
+import { useForm } from "vee-validate"
+import { refDebounced } from "@vueuse/core"
 import { drawers, isRootDrawerOpen, personaBuilderData } from "~/store"
 import type { MenuItem } from "~~/layers/ui/components/navigation/types"
 import queryKeys from "~/queryKeys"
@@ -27,13 +29,20 @@ const discoverItems: MenuItem[] = [
   { id: "discover", icon: "collections_bookmark", name: t("Characters"), onClick: () => goToDiscover() },
 ]
 
+const form = useForm({
+  initialValues: {
+    search: "",
+  },
+})
+const search = refDebounced(toRef(form.values, "search"), 1000)
+
 const {
   data: contacts,
   isError,
   isPending,
   refetch,
 } = await useServerQuery("/api/contact", {
-  queryKey: queryKeys.contacts,
+  queryKey: queryKeys.contactsSearch(search),
 })
 
 function handleGoToChat(username: string) {
@@ -53,7 +62,6 @@ function handleGoToChat(username: string) {
       {{ t("New chat") }}
     </h1>
   </Navbar>
-
   <div class="py-4 flex-1 overflow-y-auto bg-white space-y-4">
     <SettingSection class="px-4">
       <MenuGroup
@@ -72,6 +80,13 @@ function handleGoToChat(username: string) {
         :loading="isPending"
         @execute="refetch"
       >
+        <div class="px-4 pt-3 mb-2">
+          <SearchField
+            :placeholder="t('Search name or username')"
+            path="search"
+          />
+        </div>
+
         <ContactItem
           v-for="contact in contacts"
           :key="`contact-${contact.id}`"
