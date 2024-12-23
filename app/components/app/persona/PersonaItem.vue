@@ -70,7 +70,7 @@ const category = computed(() => {
           class="btn btn-ghost btn-circle text-slate-700"
           @click.stop.prevent="emit('delete')"
         >
-          <Icon name="delete" class="text-slate-700 text-xs" />
+          <Icon name="delete" class="text-slate-700" />
         </button>
       </div>
     </div>
