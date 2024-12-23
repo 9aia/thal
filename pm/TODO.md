@@ -2,6 +2,7 @@
 
 - [x] Add a empty fallback to chats
 - [x] Inhibit narration
+- [x] Improve home view
 - [ ] Add contact search
 - [ ] Add chats search
 - [ ] Implement infinite scrolls
