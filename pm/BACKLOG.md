@@ -27,6 +27,7 @@
 
 ## Bugs
 
+- Fix drag scroller
 - Fix hydration errors in "Discover"
 - Fix error when navigating back from the contact card
 - Fix (last) message status
@@ -60,6 +61,7 @@
 - Improve route loading speed, especially "Chats" and "Discover Characters"
 - Improve icon loading on slow networks
 - ---
+- Pregenerate site pages
 - Improve stability by handling API errors gracefully
 - Improve error handling
 - Improve loading handling

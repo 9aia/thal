@@ -2,11 +2,7 @@
 export default defineNuxtConfig({
   srcDir: "./app",
   devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss", ["@nuxtjs/google-fonts", {
-    families: {
-      "Noto+Sans": true,
-    },
-  }], "nitro-cloudflare-dev", "@nuxt/eslint", "@nuxtjs/mdc", "@nuxt/image"],
+  modules: ["@nuxtjs/tailwindcss", "nitro-cloudflare-dev", "@nuxt/eslint", "@nuxtjs/mdc", "@nuxt/image", "@nuxt/fonts"],
   mdc: {
     remarkPlugins: {
       emoji: {
@@ -28,7 +24,7 @@ export default defineNuxtConfig({
     },
   },
   devServer: {
-    host: "",
+    host: "0.0.0.0",
   },
   extends: [
     "./layers/ui",
