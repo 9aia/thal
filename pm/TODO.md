@@ -7,7 +7,7 @@
 - [ ] Add option to copy message
 - [ ] Add share button (copy link/username) to characters and contact options
 - [ ] Add a warning for renaming character usernames
-- [ ] Add a empty fallback to chats
+- [x] Add a empty fallback to chats
 - [ ] Improve "My Characters" edition action appearance
 - [ ] Add confirmation modal on chat clear
 - [ ] Inhibit narration

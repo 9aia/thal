@@ -2,6 +2,7 @@
 
 ## Possible New Features
 
+- Add suggested characters in "New chat" drawer
 - Add conversation starters
 - Official characters
 - Add onboarding custom character
