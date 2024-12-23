@@ -119,10 +119,12 @@ function getLastMessageByChatId(chatId: number) {
     </div>
   </div>
 
-  <SearchField
-    :placeholder="t('Search')"
-    path="search"
-  />
+  <div class="bg-white px-4 py-2">
+    <SearchField
+      :placeholder="t('Search')"
+      path="search"
+    />
+  </div>
 
   <div class="flex-1 overflow-y-auto bg-white">
     <ChatItem
