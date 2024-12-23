@@ -19,8 +19,9 @@ const form = useForm({
 
 const search = refDebounced(toRef(form.values, "search"), 1000)
 
+const chats = ref([])
 const {
-  data: chats,
+  data, // : chats,
 } = await useServerQuery(() => "/api/chat", {
   queryKey: queryKeys.chatsSearch(search),
   params: () => {
@@ -80,7 +81,7 @@ function getLastMessageByChatId(chatId: number) {
 </script>
 
 <template>
-  <div class="bg-white relative h-full">
+  <div class="bg-white h-full">
     <Navbar class="bg-slate-800">
       <A href="/app/" class="text-lg font-bold text-teal-500 flex items-center">
         Thal
@@ -128,7 +129,7 @@ function getLastMessageByChatId(chatId: number) {
     </div>
 
     <div class="flex-1 overflow-y-auto bg-white">
-      <header v-if="!chats.length" class="w-full text-center absolute top-1/2 -translate-y-1/2">
+      <header v-if="!chats.length" class="w-full text-center pt-8">
         <div class="text-primary flex items-center justify-center">
           <Icon name="chat" style="font-size: 8rem" />
         </div>
