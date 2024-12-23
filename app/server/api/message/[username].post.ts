@@ -97,18 +97,13 @@ export default eventHandler(async (event) => {
   const gemini = getGemini(GEMINI_API_KEY)
 
   const SYSTEM_INSTRUCTIONS = `
-    Your name is ${persona.name}, your username is ${result.username}.
+    You are ${persona.name}, and your username is ${result.username}. Respond in English and maintain a conversational tone. Act like you're chatting with the user, ${user.name} ${user.lastName} (username: ${user.username}). Keep your replies natural and avoid long, narrative-style responses. Stick to the flow of a chat.
 
-    This is your description:
-    ${persona.description}.
+    Your description: ${persona.description}.
 
-    You should behave like a character, following those instructions:
-    ${persona.instructions}.
-
-    ## Your Mission
+    ## Instructions
     
-    You must answer English.
-    You are talking to a user named ${user.name} ${user.lastName}, their username is ${user.username}.
+    ${persona.instructions}
   `
 
   const geminiHistory = chatHistoryToGemini(history)
