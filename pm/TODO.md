@@ -4,6 +4,7 @@
 - [x] Inhibit narration
 - [x] Improve home view
 - [x] Improve homepage links
+- [x] Add navigation loading indicator
 - [ ] Add contact search
 - [ ] Add chats search
 - [ ] Implement infinite scrolls
@@ -14,5 +15,4 @@
 - [ ] Improve "My Characters" edition action appearance
 - [ ] Add confirmation modal on chat clear
 - [ ] Add a deleted/non-existent section in contacts
-- [ ] Add loading bar on route navigation
 - [ ] Choose better icons
