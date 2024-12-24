@@ -92,7 +92,7 @@ export async function getContactsWithPersonaByUser(
   const ormQuery = orm.query.contacts.findMany({
     where: (contacts, { eq }) => and(
       eq(contacts.userId!, user.id!),
-      search ? eq(contacts.name, sql.placeholder("search")) : undefined,
+      search ? sql`lower(${contacts.name}) like ${sql.placeholder("search")}` : undefined,
     ),
     columns: {
       id: true,

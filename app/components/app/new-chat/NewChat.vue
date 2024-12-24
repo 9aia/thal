@@ -79,27 +79,34 @@ function handleGoToChat(username: string) {
       <MenuGroup class="p-0 w-full" :items="discoverItems" />
     </SettingSection>
 
-    <SettingSection v-if="contacts?.length" :title="t('Contacts')" title-class="px-4">
-      <GenericResource
+    <SettingSection :title="t('Contacts')" title-class="px-4">
+      <div class="px-4 pt-3 mb-2">
+        <SearchField
+          :placeholder="t('Search name or username')"
+          path="search"
+        />
+      </div>
+
+      <Resource
         :error="isError"
         :loading="isPending"
         @execute="refetch"
       >
-        <div class="px-4 pt-3 mb-2">
-          <SearchField
-            :placeholder="t('Search name or username')"
-            path="search"
-          />
-        </div>
+        <template v-if="!contacts.length">
+          <p class="text-slate-500 text-sm py-2 px-6 text-center">
+            {{ search ? t(`No results found for "{query}"`, { query: search }) : t('No results found.') }}
+          </p>
+        </template>
 
         <ContactItem
           v-for="contact in contacts"
+          v-else
           :key="`contact-${contact.id}`"
           :name="contact.name"
           :description="contact.personaUsername.persona!.description"
           @click="handleGoToChat(contact.personaUsername.username)"
         />
-      </GenericResource>
+      </Resource>
     </SettingSection>
   </div>
 </template>
