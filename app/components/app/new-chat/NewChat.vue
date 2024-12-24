@@ -43,6 +43,11 @@ const {
   refetch,
 } = await useServerQuery("/api/contact", {
   queryKey: queryKeys.contactsSearch(search),
+  params: () => {
+    return {
+      search: search.value,
+    }
+  },
 })
 
 function handleGoToChat(username: string) {
@@ -91,8 +96,8 @@ function handleGoToChat(username: string) {
           v-for="contact in contacts"
           :key="`contact-${contact.id}`"
           :name="contact.name"
-          :description="contact.description"
-          @click="handleGoToChat(contact.username)"
+          :description="contact.personaUsername.persona!.description"
+          @click="handleGoToChat(contact.personaUsername.username)"
         />
       </GenericResource>
     </SettingSection>

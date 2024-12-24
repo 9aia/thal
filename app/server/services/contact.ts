@@ -1,9 +1,8 @@
-import { and, eq } from "drizzle-orm"
+import { and, eq, sql } from "drizzle-orm"
 import type { H3EventContext } from "h3"
 import type { ContactEntity, ContactGetDto, PersonaGet, User } from "~~/db/schema"
 import { contacts, personaUsernames, personas } from "~~/db/schema"
 import { notFound } from "~/utils/nuxt"
-import type { NonNullableKeys } from "~/utils/types"
 
 export async function getContactByUser(
   orm: H3EventContext["orm"],
@@ -23,7 +22,7 @@ export async function getContactByUser(
         },
       },
       contacts: {
-        where: eq(contacts.userId, user.id),
+        where: eq(contacts.userId, user.id!),
         columns: {
           id: true,
           name: true,
@@ -77,7 +76,7 @@ export async function getContactWithPersonaByUser(
     .from(contacts)
     .leftJoin(personaUsernames, eq(personaUsernames.id, contacts.personaUsernameId))
     .leftJoin(personas, eq(personas.id, personaUsernames.personaId))
-    .where(and(eq(contacts.userId, user.id), eq(personaUsernames.username, username)))
+    .where(and(eq(contacts.userId, user.id!), eq(personaUsernames.username, username)))
 
   if (!contact)
     throw notFound("Contact not found")
@@ -88,19 +87,33 @@ export async function getContactWithPersonaByUser(
 export async function getContactsWithPersonaByUser(
   orm: H3EventContext["orm"],
   user: User,
+  search?: string,
 ) {
-  const foundContacts = await orm
-    .select({
-      id: contacts.id,
-      name: contacts.name,
-      createdAt: contacts.createdAt,
-      username: personaUsernames.username,
-      description: personas.description,
-    })
-    .from(contacts)
-    .leftJoin(personaUsernames, eq(personaUsernames.id, contacts.personaUsernameId))
-    .leftJoin(personas, eq(personas.id, personaUsernames.personaId))
-    .where(eq(contacts.userId, user.id))
+  const ormQuery = orm.query.contacts.findMany({
+    where: (contacts, { eq }) => and(
+      eq(contacts.userId!, user.id!),
+      search ? eq(contacts.name, sql.placeholder("search")) : undefined,
+    ),
+    columns: {
+      id: true,
+      name: true,
+      createdAt: true,
+    },
+    with: {
+      personaUsername: {
+        columns: {
+          username: true,
+        },
+        with: {
+          persona: {
+            columns: {
+              description: true,
+            },
+          },
+        },
+      },
+    },
+  }).prepare()
 
-  return foundContacts as NonNullableKeys<typeof foundContacts[number]>[]
+  return await ormQuery.execute({ search: `%${search}%` })
 }

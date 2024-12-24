@@ -9,13 +9,11 @@ export default defineEventHandler(async (event) => {
   const user = event.context.user
 
   const { search } = await getValidated(event, "query", z.object({
-    search: z.string().optional(),
+    search: z.string().optional().transform(s => s?.trim()),
   }))
 
   if (!user)
     throw unauthorized()
-
-  console.log(search)
 
   const ormQuery = orm.select({
     id: chats.id,
