@@ -57,6 +57,8 @@
   - Add settings to adjust AI helper responses.
 - Real-time assistance features
 
+- [ ] Add a deleted/non-existent section in contacts
+
 ### v0.3.0 - Generative Character Building
 
 - Add character build tool based on Profile form

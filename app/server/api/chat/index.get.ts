@@ -1,4 +1,4 @@
-import { and, eq, or, sql } from "drizzle-orm"
+import { and, eq, inArray, or, sql } from "drizzle-orm"
 import { z } from "zod"
 import { getValidated } from "~/utils/h3"
 import { unauthorized } from "~/utils/nuxt"
@@ -15,57 +15,66 @@ export default defineEventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  const ormQuery = orm.select({
-    id: chats.id,
-    contact: {
-      name: contacts.name,
+  const preparedContacts = (orm.query.contacts.findMany({
+    where: contacts => search ? sql`lower(${contacts.name}) like ${sql.placeholder("search")}` : undefined,
+    columns: {
+      id: true,
     },
-    lastMessages: {
-      chatId: lastMessages.chatId,
-      content: lastMessages.content,
-      datetime: lastMessages.datetime,
+  })).prepare()
+
+  const contactIds = (await preparedContacts.execute({ search: `%${search}%` })).map(r => r.id)
+
+  console.log("contactIds", contactIds, search)
+
+  const preparedUsernames = (orm.query.personaUsernames.findMany({
+    where: personaUsernames => search ? sql`lower(${personaUsernames.username}) like ${sql.placeholder("search")}` : undefined,
+    columns: {
+      id: true,
     },
-    personaUsername: {
-      username: personaUsernames.username,
-    },
-    persona: {
-      name: personas.name,
-    },
-  }).from(chats)
-    .leftJoin(contacts, eq(contacts.id, chats.contactId))
-    .leftJoin(personaUsernames, eq(personaUsernames.id, chats.personaUsernameId))
-    .leftJoin(personas, eq(personas.id, personaUsernames.personaId))
-    .leftJoin(lastMessages, eq(lastMessages.chatId, chats.id))
-    .where(and(
-      or(
-        search
-          ? sql`lower(${contacts.name}) like ${sql.placeholder("search")}`
-          : undefined,
-        search
-          ? sql`lower(${personaUsernames.username}) like ${sql.placeholder("search")}`
-          : undefined,
-        search
-          ? sql`lower(${personas.name}) like ${sql.placeholder("search")}`
-          : undefined,
-      ),
+  })).prepare()
+
+  const usernameIds = (await preparedUsernames.execute({ search: `%${search}%` })).map(r => r.id)
+
+  const prepared = orm.query.chats.findMany({
+    where: and(
       eq(chats.userId, user.id!),
-    )).prepare()
+      or(
+        inArray(chats.personaUsernameId, usernameIds),
+        inArray(chats.contactId, contactIds),
+      ),
+    ),
+    columns: {
+      id: true,
+    },
+    with: {
+      personaUsername: {
+        columns: {
+          username: true,
+        },
+        with: {
+          persona: {
+            columns: {
+              name: true,
+            },
+          },
+        },
+      },
+      contact: {
+        columns: {
+          name: true,
+        },
+      },
+      lastMessages: {
+        columns: {
+          chatId: true,
+          content: true,
+          datetime: true,
+        },
+      },
+    },
+  }).prepare()
 
-  // const ormQuery = orm.query.chats.findMany({
-  //   with: {
-  //     personaUsername: {
-  //       with: {
-  //         persona: {
-  //           columns: {
-  //             name: true,
-  //           },
-  //         },
-  //       },
-  //     },
-  //   },
-  // }).prepare()
-
-  const result = await ormQuery.execute({ search: `%${search}%` })
+  const result = await prepared.execute({ search: `%${search}%` })
 
   return result
 })

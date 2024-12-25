@@ -8,14 +8,13 @@
 - [x] Add a locale modal opener on the home page footer
 - [x] Update Nuxt to v3.15
 - [x] Add contact search
-- [ ] Add chats search
-- [ ] Improve contact search performance
-- [ ] Implement infinite scrolls
+- [x] Add chats search
+- [ ] Choose better icons
 - [ ] Add option to copy message
 - [ ] Add share button (copy link/username) to characters and contact options
 - [ ] Add a warning for renaming character usernames
-- [ ] Improve "My Characters" edition action appearance
 - [ ] Add confirmation modal on chat clear
-- [ ] Add a deleted/non-existent section in contacts
-- [ ] Choose better icons
+- [ ] Improve "My Characters" edition action appearance
 - [ ] Add hydration loading indicator
+
+- [ ] Fix chat not displaying contact name

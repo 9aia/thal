@@ -4,6 +4,14 @@ GET {{baseUrl}}/chat
 Content-Type: application/json
 Cookie: session={{$dotenv COOKIE_TOKEN}};
 
+### Search chats
+
+@query = future
+
+GET {{baseUrl}}/chat?search={{query}}
+Content-Type: application/json
+Cookie: session={{$dotenv COOKIE_TOKEN}};
+
 ### Delete chat
 
 DELETE {{baseUrl}}/chat

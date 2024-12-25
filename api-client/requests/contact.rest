@@ -6,7 +6,7 @@ GET {{baseUrl}}/contact
 Content-Type: application/json
 Cookie: session={{$dotenv COOKIE_TOKEN}};
 
-### Search contact
+### Search contacts
 
 @query = beet
 

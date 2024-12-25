@@ -97,14 +97,14 @@ export async function getContactsWithPersonaByUser(
     },
   })).prepare()
 
-  const usernames = (await preparedUsernames.execute({ search: `%${search}%` })).map(r => r.id)
+  const usernameIds = (await preparedUsernames.execute({ search: `%${search}%` })).map(r => r.id)
 
   const prepared = orm.query.contacts.findMany({
     where: and(
-      eq(contacts.userId!, user.id!),
+      eq(contacts.userId, user.id!),
       or(
         search ? sql`lower(${contacts.name}) like ${sql.placeholder("search")}` : undefined,
-        inArray(contacts.personaUsernameId, usernames),
+        inArray(contacts.personaUsernameId, usernameIds),
       ),
     ),
     columns: {

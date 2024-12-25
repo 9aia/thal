@@ -128,7 +128,7 @@ function getLastMessageByChatId(chatId: number) {
     </div>
 
     <div class="flex-1 overflow-y-auto bg-white">
-      <header v-if="!chats.length" class="w-full text-center pt-8">
+      <header v-if="!chats.length && !search.trim()" class="w-full text-center pt-8">
         <div class="text-primary flex items-center justify-center">
           <Icon name="chat" style="font-size: 8rem" />
         </div>
@@ -146,6 +146,12 @@ function getLastMessageByChatId(chatId: number) {
           {{ t("New chat") }}
         </Btn>
       </header>
+
+      <template v-else-if="!chats.length">
+        <p class="text-slate-500 text-sm py-2 px-6 text-center">
+          {{ search ? t(`No results found for "{query}"`, { query: search }) : t('No results found.') }}
+        </p>
+      </template>
 
       <template v-else>
         <ChatItem
