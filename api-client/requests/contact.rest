@@ -6,6 +6,14 @@ GET {{baseUrl}}/contact
 Content-Type: application/json
 Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
 
+### Search contact
+
+@query = beet
+
+GET {{baseUrl}}/contact?search={{query}}
+Content-Type: application/json
+Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+
 ### Get contact
 
 GET {{baseUrl}}/contact/{{username}}

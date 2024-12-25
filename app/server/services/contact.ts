@@ -1,5 +1,6 @@
-import { and, eq, sql } from "drizzle-orm"
+import { and, eq, inArray, or, sql } from "drizzle-orm"
 import type { H3EventContext } from "h3"
+import persona from "../api/persona"
 import type { ContactEntity, ContactGetDto, PersonaGet, User } from "~~/db/schema"
 import { contacts, personaUsernames, personas } from "~~/db/schema"
 import { notFound } from "~/utils/nuxt"
@@ -89,10 +90,22 @@ export async function getContactsWithPersonaByUser(
   user: User,
   search?: string,
 ) {
-  const ormQuery = orm.query.contacts.findMany({
-    where: (contacts, { eq }) => and(
+  const preparedUsernames = (orm.query.personaUsernames.findMany({
+    where: personaUsernames => search ? sql`lower(${personaUsernames.username}) like ${sql.placeholder("search")}` : undefined,
+    columns: {
+      id: true,
+    },
+  })).prepare()
+
+  const usernames = (await preparedUsernames.execute({ search: `%${search}%` })).map(r => r.id)
+
+  const prepared = orm.query.contacts.findMany({
+    where: and(
       eq(contacts.userId!, user.id!),
-      search ? sql`lower(${contacts.name}) like ${sql.placeholder("search")}` : undefined,
+      or(
+        search ? sql`lower(${contacts.name}) like ${sql.placeholder("search")}` : undefined,
+        inArray(contacts.personaUsernameId, usernames),
+      ),
     ),
     columns: {
       id: true,
@@ -115,5 +128,5 @@ export async function getContactsWithPersonaByUser(
     },
   }).prepare()
 
-  return await ormQuery.execute({ search: `%${search}%` })
+  return await prepared.execute({ search: `%${search}%` })
 }

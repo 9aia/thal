@@ -7,8 +7,9 @@
 - [x] Add navigation loading indicator
 - [x] Add a locale modal opener on the home page footer
 - [x] Update Nuxt to v3.15
-- [ ] Add contact search
+- [x] Add contact search
 - [ ] Add chats search
+- [ ] Improve contact search performance
 - [ ] Implement infinite scrolls
 - [ ] Add option to copy message
 - [ ] Add share button (copy link/username) to characters and contact options
@@ -17,3 +18,4 @@
 - [ ] Add confirmation modal on chat clear
 - [ ] Add a deleted/non-existent section in contacts
 - [ ] Choose better icons
+- [ ] Add hydration loading indicator
