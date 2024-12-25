@@ -19,9 +19,8 @@ const form = useForm({
 
 const search = refDebounced(toRef(form.values, "search"), 1000)
 
-const chats = ref([])
 const {
-  data, // : chats,
+  data: chats,
 } = await useServerQuery(() => "/api/chat", {
   queryKey: queryKeys.chatsSearch(search),
   params: () => {

@@ -20,7 +20,7 @@ const {
   isLoading,
   isError,
   refetch,
-} = await useServerQuery(() => `/api/chat/${route.params.username}` as `/api/chat/:username`, {
+} = await useServerQuery(() => `/api/chat/item/${route.params.username}` as `/api/chat/find/:username`, {
   queryKey: queryKeys.chat(computed(() => route.params.username as string)),
 })
 

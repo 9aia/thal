@@ -5,10 +5,11 @@
 - [x] Improve home view
 - [x] Improve homepage links
 - [x] Add navigation loading indicator
+- [x] Add a locale modal opener on the home page footer
+- [x] Update Nuxt to v3.15
 - [ ] Add contact search
 - [ ] Add chats search
 - [ ] Implement infinite scrolls
-- [ ] Add a locale modal on the home page
 - [ ] Add option to copy message
 - [ ] Add share button (copy link/username) to characters and contact options
 - [ ] Add a warning for renaming character usernames
