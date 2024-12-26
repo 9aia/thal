@@ -11,9 +11,5 @@
 - [x] Add chats search
 - [x] Choose better icons
 - [x] Add share button (copy link/username) to chat and contact options
-- [ ] Add option to copy message
-- [ ] Add a warning for renaming character usernames
-- [ ] Improve "My Characters" edition action appearance
-- [ ] Add hydration loading indicator
 
 - [x] Fix character display name in chat and contact view

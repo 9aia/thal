@@ -56,6 +56,12 @@
 
 ## Enhancements
 
+- [ ] Add option to copy message
+- [ ] Improve "My Characters" edition action appearance
+- [ ] Improve contact view
+- [ ] Add a warning for renaming character usernames
+- [ ] Add hydration loading indicator
+- ---
 - [ ] Replace web modal API
 - [ ] Change forms to another platform that supports localization
 - [ ] Add character search results to chat and contact search
@@ -73,6 +79,12 @@
 - [ ] Improve brand identity
 - [ ] Add dark theme
 
+- [ ] Improve `package.json`
+- [ ] Improve `README.md`
+- [ ] Add security file
+- [ ] Add license file
+- [ ] Config GitHub repository metadata
+
 ## Performance Enhancements
 
 - [ ] Pregenerate site pages
@@ -89,6 +101,7 @@
 - [ ] Remove unused code
   - [ ] Unused files/functions
   - [ ] Use inferred schemas as DTOs
+  - [ ] Remove profile details features for now
 - [ ] Move schemas to their own files
 - [ ] Normalize schema payment field names to lower camel case
 - [ ] Change `Message.isBot` to boolean mode

@@ -22,26 +22,14 @@
 
 ### v0.1.0 - Fundamentals
 
-- Authentication
-- Settings
-- Subscription integration
-- My profile
-- Characters - adding, viewing, editing and deleting my characters; autocategorization; discovering (searching and filtering by category).
-- Contacts - listing, adding, editing, deleting and searching my contacts; viewing a single contact.
-- Chats - listing, sending messages, history, ...
-- Language assistance - translation
-- "App News" route
-- Moderation - report, ...
-- Homepage
-
----
-
-- Improve `package.json`
-- Improve `README.md`
-- Add security file
-- Add license file
-- Config GH repository metadata
-- Release package
+- User Accounts (Sign in, Manage Account, Subscribe)
+- Character Management (Discover, Manage)
+- Chats
+- Basic Language Assistance
+- Contacts
+- Basic Moderation
+- Basic Support & Legal (Issue Report, Terms & Privacy)
+- Site (Landing Page)
 
 ### v0.2.0 - Language Assistance
 

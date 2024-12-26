@@ -21,6 +21,12 @@
 - Add message reactions
 - Add character trash
 - Add different plans: family, business and school
+- Add multiple authentication accounts to the same account
+
+## Possible Enhancements
+
+- Roadmap vs. Changelog vs. What's New
+- [ ] Add character edit button (if its yours) to chat and contact options
 
 ## Possible Bugs
 

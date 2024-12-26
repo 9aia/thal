@@ -24,8 +24,6 @@ export default defineEventHandler(async (event) => {
 
   const contactIds = (await preparedContacts.execute({ search: `%${search}%` })).map(r => r.id)
 
-  console.log("contactIds", contactIds, search)
-
   const preparedUsernames = (orm.query.personaUsernames.findMany({
     where: personaUsernames => search ? sql`lower(${personaUsernames.username}) like ${sql.placeholder("search")}` : undefined,
     columns: {
