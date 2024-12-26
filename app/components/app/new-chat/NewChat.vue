@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { t } from "@psitta/vue"
+import { useForm } from "vee-validate"
+import { refDebounced } from "@vueuse/core"
 import { drawers, isRootDrawerOpen, personaBuilderData } from "~/store"
 import type { MenuItem } from "~~/layers/ui/components/navigation/types"
 import queryKeys from "~/queryKeys"
@@ -15,7 +17,7 @@ function handleCreatePersona() {
 
 const generalItems: MenuItem[] = [
   { id: "new-contact", icon: "person_add", name: t("New contact"), onClick: () => drawers.newContact = true },
-  { id: "create-persona", icon: "person_edit", name: t("Build character"), onClick: () => handleCreatePersona() },
+  { id: "create-persona", icon: "engineering", name: t("Build character"), onClick: () => handleCreatePersona() },
 ]
 
 function goToDiscover() {
@@ -24,8 +26,15 @@ function goToDiscover() {
 }
 
 const discoverItems: MenuItem[] = [
-  { id: "discover", icon: "collections_bookmark", name: t("Characters"), onClick: () => goToDiscover() },
+  { id: "discover", icon: "groups_3", name: t("Characters"), onClick: () => goToDiscover() },
 ]
+
+const form = useForm({
+  initialValues: {
+    search: "",
+  },
+})
+const search = refDebounced(toRef(form.values, "search"), 1000)
 
 const {
   data: contacts,
@@ -33,7 +42,12 @@ const {
   isPending,
   refetch,
 } = await useServerQuery("/api/contact", {
-  queryKey: queryKeys.contacts,
+  queryKey: queryKeys.contactsSearch(search),
+  params: () => {
+    return {
+      search: search.value,
+    }
+  },
 })
 
 function handleGoToChat(username: string) {
@@ -53,7 +67,6 @@ function handleGoToChat(username: string) {
       {{ t("New chat") }}
     </h1>
   </Navbar>
-
   <div class="py-4 flex-1 overflow-y-auto bg-white space-y-4">
     <SettingSection class="px-4">
       <MenuGroup
@@ -66,20 +79,34 @@ function handleGoToChat(username: string) {
       <MenuGroup class="p-0 w-full" :items="discoverItems" />
     </SettingSection>
 
-    <SettingSection v-if="contacts?.length" :title="t('Contacts')" title-class="px-4">
-      <GenericResource
+    <SettingSection :title="t('Contacts')" title-class="px-4">
+      <div class="px-4 pt-3 mb-2">
+        <SearchField
+          :placeholder="t('Search name or username')"
+          path="search"
+        />
+      </div>
+
+      <Resource
         :error="isError"
         :loading="isPending"
         @execute="refetch"
       >
+        <template v-if="!contacts.length">
+          <p class="text-slate-500 text-sm py-2 px-6 text-center">
+            {{ search ? t(`No results found for "{query}"`, { query: search }) : t('No results found.') }}
+          </p>
+        </template>
+
         <ContactItem
           v-for="contact in contacts"
+          v-else
           :key="`contact-${contact.id}`"
           :name="contact.name"
-          :description="contact.description"
-          @click="handleGoToChat(contact.username)"
+          :description="contact.personaUsername.persona!.description"
+          @click="handleGoToChat(contact.personaUsername.username)"
         />
-      </GenericResource>
+      </Resource>
     </SettingSection>
   </div>
 </template>

@@ -4,19 +4,19 @@
 
 GET {{baseUrl}}/persona
 Content-Type: application/json
-Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+Cookie: session={{$dotenv COOKIE_TOKEN}};
 
 ### Get persona
 
 GET {{baseUrl}}/persona/{{username}}
 Content-Type: application/json
-Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+Cookie: session={{$dotenv COOKIE_TOKEN}};
 
 ### Create persona
 
 POST {{baseUrl}}/persona
 Content-Type: application/json
-Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+Cookie: session={{$dotenv COOKIE_TOKEN}};
 
 {
   "username": "ishikawa",
@@ -30,7 +30,7 @@ Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
 
 PATCH {{baseUrl}}/persona/ishikawa
 Content-Type: application/json
-Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+Cookie: session={{$dotenv COOKIE_TOKEN}};
 
 {
   "name": "Ishikawa"
@@ -40,4 +40,4 @@ Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
 
 DELETE {{baseUrl}}/persona/{{username}}
 Content-Type: application/json
-Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+Cookie: session={{$dotenv COOKIE_TOKEN}};

@@ -2,11 +2,8 @@
 export default defineNuxtConfig({
   srcDir: "./app",
   devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss", ["@nuxtjs/google-fonts", {
-    families: {
-      "Noto+Sans": true,
-    },
-  }], "nitro-cloudflare-dev", "@nuxt/eslint", "@nuxtjs/mdc", "@nuxt/image"],
+  modules: ["@nuxtjs/tailwindcss", "nitro-cloudflare-dev", "@nuxt/eslint", "@nuxtjs/mdc", "@nuxt/image", "@nuxt/fonts"],
+
   mdc: {
     remarkPlugins: {
       emoji: {
@@ -14,6 +11,7 @@ export default defineNuxtConfig({
       },
     },
   },
+
   app: {
     head: {
       title: "Thal - Digital run to fluency",
@@ -27,21 +25,27 @@ export default defineNuxtConfig({
       ],
     },
   },
+
   devServer: {
     host: "",
   },
+
   extends: [
     "./layers/ui",
   ],
+
   eslint: {
     config: {
       standalone: false,
     },
   },
+
   components: [
     {
       path: "~/components",
       pathPrefix: false,
     },
   ],
+
+  compatibilityDate: "2024-12-25",
 })

@@ -27,6 +27,7 @@ const {
 const { displayName, hasContact, avatarName, addContact } = useContactInfo(data)
 
 const { t } = useI18n()
+const copyUsername = useCopyUsername(username)
 
 const items = computed<MenuItem[]>(() => [
   hasContact.value
@@ -42,6 +43,12 @@ const items = computed<MenuItem[]>(() => [
         icon: "add",
         onClick: () => addContact(),
       },
+  {
+    id: "share-character",
+    name: t("Share character"),
+    icon: "ios_share",
+    onClick: () => copyUsername(),
+  },
 ])
 
 function closeDrawer() {
@@ -86,7 +93,7 @@ const category = computed(() => {
         <h2 class="text-slate-900 text-center text-2xl mb-1">
           {{ displayName }}
         </h2>
-        <small class="text-slate-600 text-xs">@{{ data?.username }}</small>
+        <Username :username="data?.username!" :show-copy="true" class="mb-2" />
 
         <div v-if="category" class="text-sm text-slate-600 flex gap-1 items-center">
           <Badge class="bg-transparent border-none flex gap-1 px-0 py-3 text-xs text-slate-600">

@@ -6,6 +6,11 @@ const { state: localeModalState } = useLocaleModal()
 </script>
 
 <template>
+  <NuxtLoadingIndicator
+    color="repeating-linear-gradient(to right, #5eead4 0%, #14b8a6 100%)"
+    error-color="repeating-linear-gradient(to right, #f87171 0%, #ef4444 100%)"
+  />
+
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>

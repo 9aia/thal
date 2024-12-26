@@ -1,20 +1,16 @@
 <script setup lang="ts">
-import { useI18n, useLocale } from "@psitta/vue"
 import { categories } from "~/constants/discover"
 import { isRootDrawerOpen } from "~/store"
 
 const props = defineProps<{
   name: string
   description: string
-  username?: string
-  categoryId?: number
+  username: string
+  categoryId: number
   avatar?: string
   showCopy?: boolean
   showSendMessage?: boolean
 }>()
-
-const { t } = useI18n()
-const toast = useToast()
 
 function sendMessage() {
   isRootDrawerOpen.value = false
@@ -22,23 +18,10 @@ function sendMessage() {
   navigateTo(`/app/chat/${props.username}`)
 }
 
-async function copy() {
-  try {
-    await navigator.clipboard.writeText(props.username!)
-
-    toast.success(t("Username copied to clipboard"))
-  }
-  catch (error) {
-    toast.error(t("Failed to copy username to clipboard"))
-  }
-}
-
 function onClick() {
   if (props.showSendMessage && props.username)
     sendMessage()
 }
-
-useLocale()
 
 const category = computed(() => {
   return categories.find(category => category.id === props.categoryId)
@@ -60,18 +43,7 @@ const category = computed(() => {
           <div class="flex gap-2 items-center text-base text-slate-900 font-bold">
             {{ name }}
 
-            <div class="text-slate-600 flex gap-1 font-normal">
-              @{{ username }}
-
-              <button
-                v-if="showCopy && username"
-                size="sm"
-                class="text-teal-500 hover:text-teal-600 flex items-center"
-                @click.stop.prevent="copy"
-              >
-                <Icon name="content_copy" style="font-size: 1.15rem" />
-              </button>
-            </div>
+            <Username :username="username" :show-copy="true" />
           </div>
 
           <div v-if="category" class="text-sm text-slate-600 flex gap-1 items-center">

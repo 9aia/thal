@@ -2,13 +2,21 @@
 
 GET {{baseUrl}}/chat
 Content-Type: application/json
-Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+Cookie: session={{$dotenv COOKIE_TOKEN}};
+
+### Search chats
+
+@query = future
+
+GET {{baseUrl}}/chat?search={{query}}
+Content-Type: application/json
+Cookie: session={{$dotenv COOKIE_TOKEN}};
 
 ### Delete chat
 
 DELETE {{baseUrl}}/chat
 Content-Type: application/json
-Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+Cookie: session={{$dotenv COOKIE_TOKEN}};
 
 ### Get history
 
@@ -16,4 +24,4 @@ Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
 
 GET {{baseUrl}}/chat/history/{{username}}
 Content-Type: application/json
-Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+Cookie: session={{$dotenv COOKIE_TOKEN}};

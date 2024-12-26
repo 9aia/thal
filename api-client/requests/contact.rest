@@ -4,19 +4,27 @@
 
 GET {{baseUrl}}/contact
 Content-Type: application/json
-Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+Cookie: session={{$dotenv COOKIE_TOKEN}};
+
+### Search contacts
+
+@query = beet
+
+GET {{baseUrl}}/contact?search={{query}}
+Content-Type: application/json
+Cookie: session={{$dotenv COOKIE_TOKEN}};
 
 ### Get contact
 
 GET {{baseUrl}}/contact/{{username}}
 Content-Type: application/json
-Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+Cookie: session={{$dotenv COOKIE_TOKEN}};
 
 ### Create contact
 
 POST {{baseUrl}}/contact
 Content-Type: application/json
-Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+Cookie: session={{$dotenv COOKIE_TOKEN}};
 
 {
   "username": "motoko",
@@ -27,7 +35,7 @@ Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
 
 PATCH {{baseUrl}}/contact/{{username}}
 Content-Type: application/json
-Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+Cookie: session={{$dotenv COOKIE_TOKEN}};
 
 {
   "name": "Motoko Kusanagi"
@@ -37,4 +45,4 @@ Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
 
 DELETE {{baseUrl}}/contact/{{username}}
 Content-Type: application/json
-Cookie: auth_session={{$dotenv COOKIE_TOKEN}};
+Cookie: session={{$dotenv COOKIE_TOKEN}};

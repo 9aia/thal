@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import type { InternalApi } from "nitropack"
-import { useLocale } from "@psitta/vue"
-import type { MessageStatus } from "~/types"
 import { isRootDrawerOpen } from "~/store"
+import type { MessageStatus } from "~/types"
 
 type ChatResponse = InternalApi["/api/chat"]["get"][number]
 type LastMessage = InternalApi["/api/chat/lastMessages"]["default"][number]
@@ -16,7 +15,7 @@ const chat = computed(() => {
   return {
     id: props.chat.id,
     persona: {
-      name: props.chat.contact?.name || props.chat.personaUsername?.persona?.name || `@${props.chat.personaUsername!.username}`,
+      name: props.chat.personaUsername.contacts[0]?.name || props.chat?.personaUsername?.persona?.name || `@${props.chat.personaUsername!.username}`,
       username: props.chat.personaUsername!.username,
       avatar: undefined,
     },

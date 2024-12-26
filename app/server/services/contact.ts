@@ -1,9 +1,9 @@
-import { and, eq } from "drizzle-orm"
+import { and, eq, inArray, or, sql } from "drizzle-orm"
 import type { H3EventContext } from "h3"
+import persona from "../api/persona"
 import type { ContactEntity, ContactGetDto, PersonaGet, User } from "~~/db/schema"
 import { contacts, personaUsernames, personas } from "~~/db/schema"
 import { notFound } from "~/utils/nuxt"
-import type { NonNullableKeys } from "~/utils/types"
 
 export async function getContactByUser(
   orm: H3EventContext["orm"],
@@ -23,7 +23,7 @@ export async function getContactByUser(
         },
       },
       contacts: {
-        where: eq(contacts.userId, user.id),
+        where: eq(contacts.userId, user.id!),
         columns: {
           id: true,
           name: true,
@@ -77,7 +77,7 @@ export async function getContactWithPersonaByUser(
     .from(contacts)
     .leftJoin(personaUsernames, eq(personaUsernames.id, contacts.personaUsernameId))
     .leftJoin(personas, eq(personas.id, personaUsernames.personaId))
-    .where(and(eq(contacts.userId, user.id), eq(personaUsernames.username, username)))
+    .where(and(eq(contacts.userId, user.id!), eq(personaUsernames.username, username)))
 
   if (!contact)
     throw notFound("Contact not found")
@@ -88,19 +88,45 @@ export async function getContactWithPersonaByUser(
 export async function getContactsWithPersonaByUser(
   orm: H3EventContext["orm"],
   user: User,
+  search?: string,
 ) {
-  const foundContacts = await orm
-    .select({
-      id: contacts.id,
-      name: contacts.name,
-      createdAt: contacts.createdAt,
-      username: personaUsernames.username,
-      description: personas.description,
-    })
-    .from(contacts)
-    .leftJoin(personaUsernames, eq(personaUsernames.id, contacts.personaUsernameId))
-    .leftJoin(personas, eq(personas.id, personaUsernames.personaId))
-    .where(eq(contacts.userId, user.id))
+  const preparedUsernames = (orm.query.personaUsernames.findMany({
+    where: personaUsernames => search ? sql`lower(${personaUsernames.username}) like ${sql.placeholder("search")}` : undefined,
+    columns: {
+      id: true,
+    },
+  })).prepare()
 
-  return foundContacts as NonNullableKeys<typeof foundContacts[number]>[]
+  const usernameIds = (await preparedUsernames.execute({ search: `%${search}%` })).map(r => r.id)
+
+  const prepared = orm.query.contacts.findMany({
+    where: and(
+      eq(contacts.userId, user.id!),
+      or(
+        search ? sql`lower(${contacts.name}) like ${sql.placeholder("search")}` : undefined,
+        inArray(contacts.personaUsernameId, usernameIds),
+      ),
+    ),
+    columns: {
+      id: true,
+      name: true,
+      createdAt: true,
+    },
+    with: {
+      personaUsername: {
+        columns: {
+          username: true,
+        },
+        with: {
+          persona: {
+            columns: {
+              description: true,
+            },
+          },
+        },
+      },
+    },
+  }).prepare()
+
+  return await prepared.execute({ search: `%${search}%` })
 }

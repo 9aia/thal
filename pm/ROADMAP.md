@@ -20,28 +20,16 @@
 
 ## Releases
 
-### v0.1.0
+### v0.1.0 - Fundamentals
 
-- Authentication
-- Settings
-- Subscription integration
-- My profile
-- Characters - adding, viewing, editing and deleting my characters; autocategorization; discovering (searching and filtering by category).
-- Contacts - listing, adding, editing, deleting and searching my contacts; viewing a single contact.
-- Chats - listing, sending messages, history, ...
-- Language assistance - translation
-- "App News" route
-- Moderation - report, ...
-- Homepage
-
----
-
-- Improve `package.json`
-- Improve `README.md`
-- Add security file
-- Add license file
-- Config GH repository metadata
-- Release package
+- User Accounts (Sign in, Manage Account, Subscribe)
+- Character Management (Discover, Manage)
+- Chats
+- Basic Language Assistance
+- Contacts
+- Basic Moderation
+- Basic Support & Legal (Issue Report, Terms & Privacy)
+- Site (Landing Page)
 
 ### v0.2.0 - Language Assistance
 
@@ -57,6 +45,8 @@
   - Add settings to adjust AI helper responses.
 - Real-time assistance features
 
+- [ ] Add a deleted/non-existent section in contacts
+
 ### v0.3.0 - Generative Character Building
 
 - Add character build tool based on Profile form
@@ -64,6 +54,8 @@
 - "Surprise Me" feature for auto-generated character
 - Improve custom character building tab
   - Add "generate" icon button to each field (e.g., name, description)
+- Fork characters
+- [ ] Add profile photos (generate or upload)
 
 ### v0.4.0 - Sharing
 
@@ -72,6 +64,7 @@
   - Prevent private character actions in any request
   - Prevent private character to be accessed in URL
 - List private character from contact list in a different section
+- Share character via WhatsApp message
 
 ### v1.0.0 - Multiplayer
 

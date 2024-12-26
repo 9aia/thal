@@ -1,0 +1,21 @@
+import { useI18n } from "@psitta/vue"
+
+function useCopyUsername(username: MaybeRef<string>) {
+  const toast = useToast()
+  const { t } = useI18n()
+
+  return async () => {
+    try {
+      const _username = unref(username)
+      await navigator.clipboard.writeText(_username)
+
+      toast.success(t("Username copied to clipboard"))
+    }
+    catch (_e) {
+      const _ = _e
+      toast.error(t("Failed to copy username to clipboard"))
+    }
+  }
+}
+
+export default useCopyUsername

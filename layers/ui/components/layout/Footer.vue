@@ -1,18 +1,21 @@
 <script setup lang="ts">
 import { T, t } from "@psitta/vue"
+import Link from "~~/layers/ui/components/navigation/Link.vue"
+
+const user = useUser()
 
 interface SectionItem {
   title: string
-  items: Array<{ title: string, href: string, target?: string, localize?: boolean }>
+  items: Array<{ title: string, href: string, target?: string, localize?: boolean } | null>
 }
 
-const sections: SectionItem[] = [
+const sections = computed<SectionItem[]>(() => [
   {
     title: "Links",
     items: [
       { title: "Home", href: "/" },
       { title: "About", href: "/about" },
-      { title: "Pricing", href: "/pricing" },
+      !user?.value?.plan ? { title: "Pricing", href: "/pricing" } : null,
     ],
   },
   {
@@ -29,7 +32,9 @@ const sections: SectionItem[] = [
       { title: "Privacy Policy", href: "/privacy" },
     ],
   },
-]
+])
+
+const localeModal = useLocaleModal()
 </script>
 
 <template>
@@ -40,11 +45,13 @@ const sections: SectionItem[] = [
           {{ t(sections[0].title) }}
         </h5>
         <ul class="flex flex-col justify-start">
-          <li v-for="(item, i) in sections[0].items" :key="i" class="flex">
-            <A :href="item.href" class="text-xl link link-primary font-bold">
-              {{ t(item.title) }}
-            </A>
-          </li>
+          <template v-for="(item, i) in sections[0].items">
+            <li v-if="item" :key="i" class="flex">
+              <Link v-bind="item" class="text-xl link-primary">
+                {{ t(item.title) }}
+              </Link>
+            </li>
+          </template>
         </ul>
       </div>
 
@@ -53,11 +60,13 @@ const sections: SectionItem[] = [
           {{ t(sections[1].title) }}
         </h5>
         <ul class="flex flex-col justify-start">
-          <li v-for="(item, i) in sections[1].items" :key="i" class="flex">
-            <A v-bind="item" :href="t(item.href)" class="text-xl link link-primary font-bold">
-              {{ t(item.title) }}
-            </A>
-          </li>
+          <template v-for="(item, i) in sections[1].items">
+            <li v-if="item" :key="i" class="flex">
+              <Link v-bind="item" class="text-xl link-primary">
+                {{ t(item.title) }}
+              </Link>
+            </li>
+          </template>
         </ul>
       </div>
       <div class="w-full">
@@ -65,24 +74,31 @@ const sections: SectionItem[] = [
           {{ t(sections[2].title) }}
         </h5>
         <ul class="flex flex-col justify-start">
-          <li v-for="(item, i) in sections[2].items" :key="i" class="flex">
-            <A :href="item.href" class="text-xl link link-primary font-bold">
-              {{ t(item.title) }}
-            </A>
-          </li>
+          <template v-for="(item, i) in sections[2].items">
+            <li v-if="item" :key="i" class="flex">
+              <Link v-bind="item" class="text-xl link-primary">
+                {{ t(item.title) }}
+              </Link>
+            </li>
+          </template>
         </ul>
       </div>
     </div>
 
     <p class="px-4 py-4 text-primary w-full flex items-center sm:justify-center gap-1">
+      <button class="flex" @click="localeModal.open()">
+        <Icon name="language" class="text-teal-500" />
+      </button>
+
       <T
         text="{year} - Developed by {teamName}"
-        :values="{ year: [new Date(), { year: 'numeric' }], teamName: 'Thal' }" class="flex items-center gap-1"
+        :values="{ year: [new Date(), { year: 'numeric' }], teamName: 'NeoGaia Lab' }"
+        class="flex items-center justify-center gap-1"
       >
         <template #teamName="slotProps">
-          <A href="/about" class="font-bold flex items-center gap-1">
+          <Link href="https://neogaialab.github.io/" class="font-bold flex items-center gap-1">
             {{ slotProps.teamName }}
-          </A>
+          </Link>
         </template>
       </T>
     </p>
