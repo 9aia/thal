@@ -4,6 +4,7 @@
 
 - Add suggested characters in "New chat" drawer
 - Add conversation starters
+- Disappearing messages
 - Official characters
 - Add onboarding custom character
 - Credit system

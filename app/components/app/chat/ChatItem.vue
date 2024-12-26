@@ -15,7 +15,7 @@ const chat = computed(() => {
   return {
     id: props.chat.id,
     persona: {
-      name: props.chat.contact?.name || props.chat?.personaUsername?.persona?.name || `@${props.chat.personaUsername!.username}`,
+      name: props.chat.personaUsername.contacts[0]?.name || props.chat?.personaUsername?.persona?.name || `@${props.chat.personaUsername!.username}`,
       username: props.chat.personaUsername!.username,
       avatar: undefined,
     },

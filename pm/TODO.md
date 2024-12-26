@@ -17,5 +17,6 @@
 - [ ] Improve "My Characters" edition action appearance
 - [ ] Add hydration loading indicator
 
+- [x] Fix character display name in chat and contact view
 - [ ] Fix chat not displaying contact name
 - [ ] Fix character edition toast messages

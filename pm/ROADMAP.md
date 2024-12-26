@@ -75,6 +75,7 @@
   - Prevent private character actions in any request
   - Prevent private character to be accessed in URL
 - List private character from contact list in a different section
+- Share character via WhatsApp message
 
 ### v1.0.0 - Multiplayer
 

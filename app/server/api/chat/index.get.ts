@@ -57,11 +57,11 @@ export default defineEventHandler(async (event) => {
               name: true,
             },
           },
-        },
-      },
-      contact: {
-        columns: {
-          name: true,
+          contacts: {
+            columns: {
+              name: true,
+            },
+          },
         },
       },
       lastMessages: {

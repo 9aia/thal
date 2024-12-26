@@ -6,7 +6,7 @@ export function useContactInfo(data: Ref<any>) {
   })
 
   const displayName = computed(() => {
-    return data.value?.contact?.name || `@${data.value?.username}`
+    return data.value?.contact?.name || data.value?.name || data.value?.persona?.name
   })
 
   const avatarName = computed(() => {
