@@ -27,32 +27,21 @@
 
 ## Bugs
 
-- [ ] Fix chat not displaying contact name
-- [ ] Fix character edition toast messages
-- [ ] Implement chat search by character name
-- [ ] Fix drag scroller
-- [ ] Fix hydration errors in "Discover"
-- [ ] Fix error when navigating back from the contact card
-- [ ] Fix (last) message status
-- [ ] Fix status of chat messages
-- [ ] Resolve the issue where the contact addition drawer fails to open on mobile devices when adding a contact directly from the chat
-- [ ] Fix UI updates on contact username changes
+- [ ] Add rate-limit to Google auth callback
 - [ ] Use a single table for user and character usernames
 - [ ] Allow users to use only one session
 - [ ] Lower every username comparison
-- [ ] Rewrite left joins using Query API
-- [ ] Fix bug copying HTML in messages
-- [ ] Check user plan in API routes
-- [ ] Add rate-limit to Google auth callback
 - [ ] Fix retrial after account deletion
 - [ ] Fix bug after deleting and recreating an account, user can't rejoin the app
 - [ ] Handle invalid sessions
 - [ ] Fix logout not removing cookies
 - [ ] Fix "Try again" after cookie issue resolved in the database
+- [ ] ---
+- [ ] Implement chat search by character name
+- [ ] ---
 - [ ] Redirect from `/plan/expired` when your plan is not expired
 - [ ] Fix locale change routing (remove `/{locale}` from `/app`)
   - [ ] Use locale param in site routes
-- [ ] Prevent bots with turnstile
 
 ## Enhancements
 
@@ -89,7 +78,6 @@
 
 - [ ] Pregenerate site pages
 - [ ] Skip categorization on discoverability change
-- [ ] Stream translation
 - [ ] Improve route loading speed, especially "Chats" and "Discover Characters"
 - [ ] Improve icon loading on slow networks
 - [ ] Implement infinite scrolls

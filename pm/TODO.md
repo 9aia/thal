@@ -1,15 +1,13 @@
 # Current Tasks
 
-- [x] Add a empty fallback to chats
-- [x] Inhibit narration
-- [x] Improve home view
-- [x] Improve homepage links
-- [x] Add navigation loading indicator
-- [x] Add a locale modal opener on the home page footer
-- [x] Update Nuxt to v3.15
-- [x] Add contact search
-- [x] Add chats search
-- [x] Choose better icons
-- [x] Add share button (copy link/username) to chat and contact options
-
-- [x] Fix character display name in chat and contact view
+- [ ] Fix (last) message status
+- [ ] Fix status of chat messages
+- [ ] Fix issue related to adding contacts not opening the drawer on mobile devices when adding a contact directly from chat (from the top card or options)
+- [ ] Fix error when navigating back from the contact card
+- [ ] Fix drag scroller on mobile
+- [ ] Fix bug copying HTML in messages
+- [ ] Fix UI updates on contact username changes
+- [ ] Rewrite left joins using Query API
+- [ ] Check user plan in API routes that are necessary
+- [ ] Prevent bots with turnstile
+- [ ] Fix hydration errors
