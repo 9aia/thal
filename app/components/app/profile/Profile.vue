@@ -50,7 +50,7 @@ const user = useUser()
           <TitleContentItem :label="t('Username')" role="button" @click="drawers.account = true">
             <template #icon>
               <Icon class="text-primary">
-                badge
+                id_card
               </Icon>
             </template>
 

@@ -58,7 +58,7 @@ function handleGoToChat(username: string) {
     <div class="py-4 flex flex-col flex-1 overflow-y-auto bg-white gap-4">
       <header class="text-center">
         <div class="text-primary flex items-center justify-center">
-          <Icon name="person_edit" style="font-size: 5rem" />
+          <Icon name="manage_accounts" style="font-size: 5rem" />
         </div>
 
         <h2 class="text-lg font-bold px-4 py-2">

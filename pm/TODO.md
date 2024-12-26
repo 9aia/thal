@@ -9,7 +9,7 @@
 - [x] Update Nuxt to v3.15
 - [x] Add contact search
 - [x] Add chats search
-- [ ] Choose better icons
+- [x] Choose better icons
 - [ ] Add option to copy message
 - [ ] Add share button (copy link/username) to characters and contact options
 - [ ] Add a warning for renaming character usernames
@@ -18,3 +18,4 @@
 - [ ] Add hydration loading indicator
 
 - [ ] Fix chat not displaying contact name
+- [ ] Fix character edition toast messages

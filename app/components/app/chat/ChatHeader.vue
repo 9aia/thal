@@ -46,7 +46,7 @@ const items = computed<MenuItem[]>(() => [
   {
     id: "view-contact",
     name: t("View contact"),
-    icon: "person",
+    icon: "contact_page",
     onClick: () => openContactView(),
   },
   props.hasMessages

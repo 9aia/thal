@@ -17,7 +17,7 @@ function handleCreatePersona() {
 
 const generalItems: MenuItem[] = [
   { id: "new-contact", icon: "person_add", name: t("New contact"), onClick: () => drawers.newContact = true },
-  { id: "create-persona", icon: "person_edit", name: t("Build character"), onClick: () => handleCreatePersona() },
+  { id: "create-persona", icon: "engineering", name: t("Build character"), onClick: () => handleCreatePersona() },
 ]
 
 function goToDiscover() {
@@ -26,7 +26,7 @@ function goToDiscover() {
 }
 
 const discoverItems: MenuItem[] = [
-  { id: "discover", icon: "collections_bookmark", name: t("Characters"), onClick: () => goToDiscover() },
+  { id: "discover", icon: "groups_3", name: t("Characters"), onClick: () => goToDiscover() },
 ]
 
 const form = useForm({
