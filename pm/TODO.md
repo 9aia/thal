@@ -10,13 +10,10 @@
 - [x] Add contact search
 - [x] Add chats search
 - [x] Choose better icons
+- [x] Add share button (copy link/username) to chat and contact options
 - [ ] Add option to copy message
-- [ ] Add share button (copy link/username) to characters and contact options
 - [ ] Add a warning for renaming character usernames
-- [ ] Add confirmation modal on chat clear
 - [ ] Improve "My Characters" edition action appearance
 - [ ] Add hydration loading indicator
 
 - [x] Fix character display name in chat and contact view
-- [ ] Fix chat not displaying contact name
-- [ ] Fix character edition toast messages

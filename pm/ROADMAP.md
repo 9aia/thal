@@ -20,7 +20,7 @@
 
 ## Releases
 
-### v0.1.0
+### v0.1.0 - Fundamentals
 
 - Authentication
 - Settings
@@ -67,6 +67,7 @@
 - Improve custom character building tab
   - Add "generate" icon button to each field (e.g., name, description)
 - Fork characters
+- [ ] Add profile photos (generate or upload)
 
 ### v0.4.0 - Sharing
 

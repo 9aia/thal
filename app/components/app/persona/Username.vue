@@ -1,25 +1,10 @@
 <script setup lang="ts">
-import { useI18n } from "@psitta/vue"
-
 const props = defineProps<{
   username: string
   showCopy?: boolean
 }>()
 
-const { t } = useI18n()
-const toast = useToast()
-
-async function copy() {
-  try {
-    await navigator.clipboard.writeText(props.username)
-
-    toast.success(t("Username copied to clipboard"))
-  }
-  catch (_e) {
-    const _ = _e
-    toast.error(t("Failed to copy username to clipboard"))
-  }
-}
+const copy = useCopyUsername(props.username)
 </script>
 
 <template>

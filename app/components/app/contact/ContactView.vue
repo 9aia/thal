@@ -27,6 +27,7 @@ const {
 const { displayName, hasContact, avatarName, addContact } = useContactInfo(data)
 
 const { t } = useI18n()
+const copyUsername = useCopyUsername(username)
 
 const items = computed<MenuItem[]>(() => [
   hasContact.value
@@ -42,6 +43,12 @@ const items = computed<MenuItem[]>(() => [
         icon: "add",
         onClick: () => addContact(),
       },
+  {
+    id: "share-character",
+    name: t("Share character"),
+    icon: "ios_share",
+    onClick: () => copyUsername(),
+  },
 ])
 
 function closeDrawer() {

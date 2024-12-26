@@ -15,10 +15,10 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
+const toast = useToast()
+const copyUsername = useCopyUsername(props.username)
 
 const contactDeleteModalState = ref()
-
-const toast = useToast()
 
 const queryClient = useQueryClient()
 
@@ -48,6 +48,12 @@ const items = computed<MenuItem[]>(() => [
     name: t("View contact"),
     icon: "contact_page",
     onClick: () => openContactView(),
+  },
+  {
+    id: "share-character",
+    name: t("Share character"),
+    icon: "ios_share",
+    onClick: () => copyUsername(),
   },
   props.hasMessages
     ? {
