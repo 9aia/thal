@@ -5,7 +5,7 @@ import { useDebounceFn } from "@vueuse/core"
 import { useForm } from "vee-validate"
 import { descriptionSchema, instructionsSchema, nameSchema, usernameSchema } from "~~/db/schema"
 import { useToast } from "~~/layers/ui/composables/useToast"
-import { personaBuilderData } from "~/store"
+import { contactViewUsername, personaBuilderData } from "~/store"
 import type { Persona } from "~/types"
 import queryKeys from "~/queryKeys"
 
@@ -29,6 +29,7 @@ watch(personaBuilderData, () => {
 const hasErrors = useHasFormErrors(form)
 const loading = ref(false)
 const queryClient = useQueryClient()
+const { params } = useRoute()
 
 async function validateUsername(username: string) {
   if (!username)
@@ -77,6 +78,14 @@ const submit = form.handleSubmit(async (data) => {
       })
 
       toast.success(t("Persona has been edited successfully."))
+
+      const usernameQuery = params.username
+
+      if (personaBuilderData.value?.username === usernameQuery)
+        navigateTo(`/app/chat/${data.username}`)
+
+      if (personaBuilderData.value?.username === contactViewUsername.value)
+        contactViewUsername.value = data.username
 
       queryClient.invalidateQueries({
         queryKey: queryKeys.contactInfo(personaBuilderData.value!.username),

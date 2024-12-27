@@ -19,7 +19,15 @@ export const rightDrawers = reactive({
   translation: false,
 })
 
+export const replies = reactive<Replies>({})
 export const personaBuilderData = ref<Persona | null>(null)
 export const contactData = ref<Contact | null>(null)
 
-export const replies = reactive<Replies>({})
+export const contactViewUsername = ref<string>()
+
+export function openContactView(username: string) {
+  contactViewUsername.value = username
+
+  rightDrawer.value = true
+  rightDrawers.contactView = true
+}

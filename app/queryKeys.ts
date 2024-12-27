@@ -1,7 +1,7 @@
 export default {
   contacts: ["contacts"],
   contactsSearch: (search: MaybeRef<string>) => ["contacts", search],
-  contactInfo: (username: MaybeRef<string>) => ["contact-info", username],
+  contactInfo: (username: MaybeRef<string | undefined>) => ["contact-info", username],
   chat: (username: MaybeRef<string>) => ["chat", username],
   chats: ["chats"],
   chatsSearch: (search: MaybeRef<string>) => ["chats", search],
