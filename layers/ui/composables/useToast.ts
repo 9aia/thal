@@ -9,6 +9,7 @@ const message = ref<string>("")
 const type = ref<Type>("success")
 const duration = ref(3000)
 const visible = ref(false)
+const icon = ref<string>()
 const position = ref<Position>("end-bottom")
 
 const actions = ref<ToastAction[]>([])
@@ -20,6 +21,7 @@ export interface ToastOptions {
   duration?: number
   actions?: ToastAction[]
   position?: Position
+  icon?: string
 }
 
 export interface ToastAction {
@@ -30,6 +32,7 @@ export interface ToastAction {
 export interface ToastMoreOptions {
   actions?: ToastAction[]
   position?: Position
+  icon?: string
 }
 
 export function useToast() {
@@ -43,6 +46,7 @@ export function useToast() {
     position.value = options.position ?? "end-bottom"
     actions.value = options.actions ?? []
     update.value = !update.value
+    icon.value = options.icon
 
     if (timer)
       clearTimeout(timer)
@@ -76,6 +80,7 @@ export function useToast() {
     message,
     duration,
     type,
+    icon,
     actions,
     update,
   }

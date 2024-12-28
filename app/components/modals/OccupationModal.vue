@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useForm } from "vee-validate"
 import { useI18n } from "@psitta/vue"
-import type { User } from "~~/db/schema"
 import { useQueryClient } from "@tanstack/vue-query"
+import type { User } from "~~/db/schema"
 import { useToast } from "~~/layers/ui/composables/useToast"
 import { MAX_PROFESSION_CHARS } from "~/constants/base"
 import queryKeys from "~/queryKeys"
