@@ -2,13 +2,13 @@
 
 ## Possible New Features
 
+- Add onboarding custom character
 - Add suggested characters in "New chat" drawer
 - Add conversation starters
 - Disappearing messages
 - Official characters
 - Saving text for later
 - Create a character from saved text or from translated text
-- Add onboarding custom character
 - Credit system
 - Conversation scenarios
 - Add personal vocabulary lists that the chatbot can incorporate into the convo

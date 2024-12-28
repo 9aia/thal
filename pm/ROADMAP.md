@@ -66,6 +66,7 @@
   - Prevent private character to be accessed in URL
 - List private character from contact list in a different section
 - Share character via WhatsApp message
+- Send message via URL query
 
 ### v1.0.0 - Multiplayer
 

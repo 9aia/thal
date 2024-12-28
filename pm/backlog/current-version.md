@@ -5,14 +5,18 @@
 - [ ] Create community guidelines
 - [ ] Add community guidelines link to the "Character Builder", chats and settings
 - [ ] Add report button (open modal) to contact options
+- [ ] Assigning each user a unique ID and imposing a limit on the volume of user queries that can be submitted in a given period.
+- [ ] Prevent from Prompt injection in character instructions, etc.
 - [ ] Check safety of messages
 - [ ] Check safety of fields
 - [ ] Validate legally character on create
   - [ ] Give feedback
-- [ ] Add safety inflation flags
+- [ ] Add safety inflation flags and strikes
 - ---
+- [ ] Add "What's New" modal
+- [ ] Add onboarding
+- [ ] ---
 - [ ] Add contact editing
-- [ ] Add news chat/route
 - [ ] Add "View character details"
 - [ ] Add "Keep Character definition/instructions private"
 - [ ] Add language drawer containing UI language and translation settings

@@ -19,3 +19,5 @@
 - [ ] Check user plan in API routes that are necessary
 - [ ] Prevent bots with turnstile
 - [ ] Fix hydration errors
+
+- [ ] Save drawer/view state in URL
