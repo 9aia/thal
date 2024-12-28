@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import type { InternalApi } from "nitropack"
 import { useLocale } from "@psitta/vue"
-
-type LastMessage = InternalApi["/api/chat/lastMessages"]["default"][number]
+import type { LastMessage } from "~/types"
 
 const props = defineProps<{
   lastMessage?: LastMessage

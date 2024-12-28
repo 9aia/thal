@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import type { InternalApi } from "nitropack"
 import { isRootDrawerOpen } from "~/store"
-import type { MessageStatus } from "~/types"
+import type { LastMessage } from "~/types"
 
 type ChatResponse = InternalApi["/api/chat"]["get"][number]
-type LastMessage = InternalApi["/api/chat/lastMessages"]["default"][number]
 
 const props = defineProps<{
   chat: Readonly<ChatResponse>
@@ -22,7 +21,7 @@ const chat = computed(() => {
     lastMessage: props.lastMessage
       ? {
           date: new Date(props.lastMessage.datetime),
-          status: "sent" as MessageStatus,
+          status: props.lastMessage.status,
           text: props.lastMessage.content || "",
         }
       : undefined,
@@ -50,10 +49,10 @@ function handleGoToChat(username: string) {
       </div>
 
       <div
-        class="text-sm text-slate-600 flex items-center"
+        class="text-sm text-slate-600 flex items-center gap-0.5"
       >
         <MessageIcon
-          v-if="chat.lastMessage"
+          v-if="chat.lastMessage && chat.lastMessage.status"
           :status="chat.lastMessage.status"
         />
 

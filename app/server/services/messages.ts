@@ -14,7 +14,7 @@ export async function getHistory(
     where: eq(personaUsernames.username, username),
     with: {
       chats: {
-        where: eq(chats.userId, user.id),
+        where: eq(chats.userId, user.id!),
         with: {
           messages: true,
         },
@@ -40,7 +40,7 @@ export async function getHistory(
 
     return {
       id: message.id,
-      status: "sent",
+      status: "seen",
       from: message.isBot === 0 ? "user" : "bot",
       message: message.data.value,
       replyMessage,

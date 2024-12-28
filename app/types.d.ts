@@ -1,3 +1,4 @@
+import type { InternalApi } from "nitropack"
 import type { HOBBIES } from "./constants/base"
 import type { UserSelect } from "~~/db/schema"
 
@@ -64,6 +65,10 @@ export interface Message {
   time: number
   status: MessageStatus
   replyingId?: number | null
+}
+
+export type LastMessage = InternalApi["/api/chat/lastMessages"]["default"][number] & {
+  status?: MessageStatus
 }
 
 export interface Reply {

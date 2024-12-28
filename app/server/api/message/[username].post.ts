@@ -5,7 +5,7 @@ import { getHistory } from "~/server/services/messages"
 import { now } from "~/utils/date"
 import { chatHistoryToGemini, getGemini } from "~/utils/gemini"
 import { getValidated } from "~/utils/h3"
-import { internal, notFound, unauthorized } from "~/utils/nuxt"
+import { badRequest, internal, notFound, unauthorized } from "~/utils/nuxt"
 import type { MessageInsert } from "~~/db/schema"
 import { chats, contacts, lastMessages, messageSendSchema, messages, personaUsernames, usernameSchema } from "~~/db/schema"
 
@@ -36,10 +36,10 @@ export default eventHandler(async (event) => {
         },
       },
       chats: {
-        where: eq(chats.userId, user.id),
+        where: eq(chats.userId, user.id!),
       },
       contacts: {
-        where: eq(contacts.userId, user.id),
+        where: eq(contacts.userId, user.id!),
       },
     },
   })
@@ -59,7 +59,7 @@ export default eventHandler(async (event) => {
     const [newChat] = await orm
       .insert(chats)
       .values({
-        userId: user.id,
+        userId: user.id!,
         contactId: contact?.id,
         personaUsernameId: result.id,
         createdAt: now().toString(),
@@ -149,7 +149,7 @@ export default eventHandler(async (event) => {
       chatId: chat.id,
       content: botMessageContent,
       datetime: new Date(botMessageTime),
-      userId: user.id,
+      userId: user!.id!,
     })
   }
 

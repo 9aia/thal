@@ -2,9 +2,11 @@
 import type { InternalApi } from "nitropack"
 import { t } from "@psitta/vue"
 import { useMutation, useQueryClient } from "@tanstack/vue-query"
+import { useOnline } from "@vueuse/core"
 import AppLayout from "~/layouts/app.vue"
 import queryKeys from "~/queryKeys"
 import { replies } from "~/store"
+import type { LastMessage } from "~/types"
 
 const route = useRoute()
 
@@ -20,7 +22,7 @@ const {
   isLoading,
   isError,
   refetch,
-} = await useServerQuery(() => `/api/chat/item/${route.params.username}` as `/api/chat/find/:username`, {
+} = await useServerQuery(() => `/api/chat/item/${route.params.username}` as `/api/chat/item/:username`, {
   queryKey: queryKeys.chat(computed(() => route.params.username as string)),
 })
 
@@ -37,8 +39,6 @@ async function fixScroll() {
 
 const text = ref("")
 
-type LastMessage = InternalApi["/api/chat/lastMessages"]["default"][number]
-
 interface SendMessageData {
   type: "text"
   value: string
@@ -53,13 +53,15 @@ const replying = computed(() => {
   return replies[username]
 })
 
+const isOnline = useOnline()
+
 function updateHistory(newMessage: SendMessageData) {
   const newHistory = [...data.value.history || []]
 
   newHistory.push({
     id: newHistory.length + 1,
     from: "user",
-    status: "sending",
+    status: isOnline.value ? "seen" : "sending",
     message: newMessage.value,
     replyingId: newMessage.replyingId,
     replyMessage: newMessage.replyMessage,
@@ -77,6 +79,7 @@ function updateLastMessage(newMessage: SendMessageData) {
   const newLastMessage: LastMessage = {
     chatId: Number(data.value.chatId),
     content: newMessage.value,
+    status: isOnline.value ? "seen" : "sending",
     datetime: new Date().toISOString(),
   }
 
@@ -244,7 +247,7 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
             @resend="handleResend()"
           />
 
-          <ChatBubbleLoading v-if="isMessagePending" />
+          <ChatBubbleLoading v-if="isMessagePending && isOnline" />
         </main>
 
         <ChatFooter v-model="text" :username="route.params.username" @send="handleSend()" />
