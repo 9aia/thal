@@ -31,3 +31,6 @@ export function openContactView(username: string) {
   rightDrawer.value = true
   rightDrawers.contactView = true
 }
+
+export const sendingChatIds = ref<Set<number>>(new Set())
+export const sentErrorChatIds = ref<Set<number>>(new Set())

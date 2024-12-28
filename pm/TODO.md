@@ -8,9 +8,9 @@
   - [x] Fix message status on before send
   - [x] Fix chat item status
 - [x] Add "typing..."
-- [ ] Prevent double sent when offline
-- [ ] Add unread badgeC
+- [x] Prevent double sent when offline
 - [ ] Reorder chats by recent
+- [ ] Add unread badge
 - [ ] Fix issue related to adding contacts not opening the drawer on mobile devices when adding a contact directly from chat (from the top card or options)
 - [ ] Fix error when navigating back from the contact card
 - [ ] Fix drag scroller on mobile

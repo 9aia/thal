@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import type { InternalApi } from "nitropack"
 import { t } from "@psitta/vue"
 import { useMutation, useQueryClient } from "@tanstack/vue-query"
 import { useOnline } from "@vueuse/core"
 import AppLayout from "~/layouts/app.vue"
 import queryKeys from "~/queryKeys"
-import { replies } from "~/store"
+import { replies, sendingChatIds, sentErrorChatIds } from "~/store"
 import type { LastMessage } from "~/types"
 
 const route = useRoute()
@@ -75,11 +74,11 @@ function updateHistory(newMessage: SendMessageData) {
   })
 }
 
-function updateLastMessage(newMessage: SendMessageData) {
+function updateLastMessage(newMessage: SendMessageData, isError = false) {
   const newLastMessage: LastMessage = {
     chatId: Number(data.value.chatId),
     content: newMessage.value,
-    status: isOnline.value ? "seen" : "sending",
+    status: isError ? "error" : (isOnline.value ? "seen" : "sending"),
     datetime: new Date().toISOString(),
   }
 
@@ -105,14 +104,19 @@ function emptyInput() {
   text.value = ""
 }
 
+const newMessageTmp = ref()
+
 const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending } = useMutation({
   mutationFn: (data: SendMessageData) => $fetch(`/api/message/${route.params.username}`, {
     method: "POST",
     body: JSON.stringify(data),
   }),
   async onMutate(newMessage) {
+    sendingChatIds.value.add(data.value!.chatId!)
     if (newMessage.refresh)
       return
+
+    newMessageTmp.value = newMessage
 
     updateHistory(newMessage)
     updateLastMessage(newMessage)
@@ -129,10 +133,15 @@ const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending
       status: "error",
     }
 
+    updateLastMessage(newMessageTmp.value, true)
+
     queryClient.setQueryData(queryKeys.chat(route.params.username as string), {
       ...data.value,
       history: newHistory,
     })
+
+    sentErrorChatIds.value.add(data.value!.chatId!)
+    sendingChatIds.value.delete(data.value!.chatId!)
 
     fixScroll()
   },
@@ -151,6 +160,9 @@ const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending
       ...data.value,
       history: newHistory,
     })
+
+    sentErrorChatIds.value.delete(data.value!.chatId!)
+    sendingChatIds.value.delete(data.value!.chatId!)
 
     fixScroll()
   },
@@ -250,7 +262,12 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
           <ChatBubbleLoading v-if="isMessagePending && isOnline" />
         </main>
 
-        <ChatFooter v-model="text" :username="route.params.username" @send="handleSend()" />
+        <ChatFooter
+          v-model="text"
+          :username="route.params.username"
+          :chat-id="data!.chatId!"
+          @send="handleSend()"
+        />
       </GenericResource>
     </template>
   </AppLayout>

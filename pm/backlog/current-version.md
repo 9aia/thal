@@ -49,6 +49,7 @@
 - [ ] Improve "My Characters" edition action appearance
 - [ ] Improve contact view
 - [ ] Add a warning for renaming character usernames
+- [ ] Focus on inputs after opening drawers
 - [ ] Add hydration loading indicator
 - ---
 - [ ] Replace web modal API
@@ -59,14 +60,16 @@
 - [ ] Improve error handling
 - [ ] Improve loading handling
 - ---
+- [ ] Improve brand identity
+- [ ] Add dark theme
 - [ ] Add privacy info about account deletion (cannot delete before month ends, but users can delete manually before)
 - [ ] Redesign the authentication route
   - [ ] Redesign a auth view on app/ when unauthenticated
 - [ ] Improve the homepage
 - [ ] Improve the "Pricing" page and set up redirects
 - [ ] Move the "About" page to the NeoGaia website
-- [ ] Improve brand identity
-- [ ] Add dark theme
+---
+- [ ] Support multiple user message on offline
 
 - [ ] Improve `package.json`
 - [ ] Improve `README.md`
