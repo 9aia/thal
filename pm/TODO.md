@@ -7,9 +7,9 @@
   - [x] Fix message status on character answering
   - [x] Fix message status on before send
   - [x] Fix chat item status
+- [x] Add "typing..."
 - [ ] Prevent double sent when offline
-- [ ] Add unread badge
-- [ ] Add "typing..."
+- [ ] Add unread badgeC
 - [ ] Reorder chats by recent
 - [ ] Fix issue related to adding contacts not opening the drawer on mobile devices when adding a contact directly from chat (from the top card or options)
 - [ ] Fix error when navigating back from the contact card
@@ -19,6 +19,3 @@
 - [ ] Check user plan in API routes that are necessary
 - [ ] Prevent bots with turnstile
 - [ ] Fix hydration errors
-
----
-- [ ] Focus on inputs after opening drawers

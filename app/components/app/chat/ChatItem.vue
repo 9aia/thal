@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { InternalApi } from "nitropack"
+import { t } from "@psitta/vue"
 import { isRootDrawerOpen } from "~/store"
 import type { LastMessage } from "~/types"
 
@@ -51,14 +52,20 @@ function handleGoToChat(username: string) {
       <div
         class="text-sm text-slate-600 flex items-center gap-0.5"
       >
-        <MessageIcon
-          v-if="chat.lastMessage && chat.lastMessage.status"
-          :status="chat.lastMessage.status"
-        />
-
-        <div class="line-clamp-1" :class="{ invisible: !chat.lastMessage }">
-          {{ chat.lastMessage?.text || '-' }}
+        <div v-if="chat.lastMessage?.status === 'seen'" class="line-clamp-1 text-green-500" :class="{ invisible: !chat.lastMessage }">
+          {{ t('Typing...') }}
         </div>
+
+        <template v-else>
+          <MessageIcon
+            v-if="chat.lastMessage && chat.lastMessage.status"
+            :status="chat.lastMessage.status"
+          />
+
+          <div class="line-clamp-1" :class="{ invisible: !chat.lastMessage }">
+            {{ chat.lastMessage?.text || '-' }}
+          </div>
+        </template>
       </div>
     </div>
   </div>
