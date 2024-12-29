@@ -1,6 +1,7 @@
 # Current Tasks
 
 - [X] Fix UI updates on contact username changes
+- [x] Fix error when navigating back from the contact card
 - [x] Add offline toast
 - [x] Fix status of messages
   - [x] Fix status of previous chat messages
@@ -9,10 +10,10 @@
   - [x] Fix chat item status
 - [x] Add "typing..."
 - [x] Prevent double sent when offline
+- [x] Fix issue related to adding contacts not opening the drawer on mobile devices when adding a contact directly from chat (from the top card or options)
+- [ ] Fix modal opening on mobile
 - [ ] Reorder chats by recent
 - [ ] Add unread badge
-- [ ] Fix issue related to adding contacts not opening the drawer on mobile devices when adding a contact directly from chat (from the top card or options)
-- [ ] Fix error when navigating back from the contact card
 - [ ] Fix drag scroller on mobile
 - [ ] Fix bug copying HTML in messages
 - [ ] Rewrite left joins using Query API

@@ -3,14 +3,24 @@ import type { Contact, Persona, Replies } from "~/types"
 export const isRootDrawerOpen = ref(false)
 
 export const drawers = reactive({
+  newContact: false,
   profileSettings: false,
   account: false,
   settings: false,
   newChat: false,
   personaBuilder: false,
-  newContact: false,
   myPersonas: false,
   profile: false,
+})
+
+watch(isRootDrawerOpen, (value) => {
+  if (!value) {
+    setTimeout(() => {
+      for (const key in drawers) {
+        (drawers as any)[key] = false
+      }
+    }, 500)
+  }
 })
 
 export const rightDrawer = ref(false)

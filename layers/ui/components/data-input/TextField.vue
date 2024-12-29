@@ -21,10 +21,22 @@ const props = withDefaults(defineProps<Props>(), {
 const label = useSlotContent(() => props.label)
 
 const { value, errorMessage } = useField(props.path, props.rules)
+
+const labelRef = ref<HTMLInputElement>()
+
+function focus() {
+  if (labelRef.value) {
+    labelRef.value?.focus()
+  }
+}
+
+defineExpose({
+  focus,
+})
 </script>
 
 <template>
-  <label class="form-control w-full">
+  <label ref="labelRef" class="form-control w-full">
     <div v-if="label" class="label relative w-fit">
       <span class="label-text">
         {{ label }}
