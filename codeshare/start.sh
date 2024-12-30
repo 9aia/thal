@@ -6,7 +6,9 @@ PASSWORD=${PASSWORD:-password}
 
 # Set the root password or create a new user
 if [ "$USER" == "root" ]; then
-    echo "root:$PASSWORD" | chpasswd
+    echo "Root cannot be used as user to codeshare!"
+
+    exit 1;
 else
     # Add user without creating a home directory
     useradd -M "$USER"
@@ -24,6 +26,8 @@ else
     # Set the user's password
     echo "$USER:$PASSWORD" | chpasswd
 fi
+
+chmod -R 777 /app
 
 # Start the SSH server
 exec /usr/sbin/sshd -D
