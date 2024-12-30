@@ -50,12 +50,6 @@ export interface Contact {
   username: string
 }
 
-export interface Chat {
-  id: number
-  persona: Persona
-  lastMessage: MessageContent
-}
-
 export interface Message {
   id: number
   from: "user" | "bot"
@@ -67,8 +61,8 @@ export interface Message {
   replyingId?: number | null
 }
 
-export type LastMessage = InternalApi["/api/chat/lastMessages"]["default"][number] & {
-  status?: MessageStatus
+export type ChatItem = InternalApi["/api/chat"]["get"][number] & {
+  lastMessageStatus?: MessageStatus
 }
 
 export interface Reply {

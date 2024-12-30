@@ -104,8 +104,8 @@
 - [ ] Clean console warnings
 - [ ] Move `layers/ui` to `web/components/ui`
 - [ ] Move `app/` to `web/`
-- [ ] Improve dev mode session storage for the auth endpoint on the API client
 - [ ] Suggest extensions for developers
 - [ ] Add a guide for WIP commits
 - [ ] Add a guide for atomic commits
 - [ ] Move ssh config to repository
+- [ ] Update GCP metadata

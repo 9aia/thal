@@ -4,8 +4,8 @@ import { useMutation, useQueryClient } from "@tanstack/vue-query"
 import { useOnline } from "@vueuse/core"
 import AppLayout from "~/layouts/app.vue"
 import queryKeys from "~/queryKeys"
-import { replies, sendingChatIds, sentErrorChatIds } from "~/store"
-import type { LastMessage } from "~/types"
+import { chatItemSearch, replies, sendingChatIds, sentErrorChatIds } from "~/store"
+import type { ChatItem } from "~/types"
 
 const route = useRoute()
 
@@ -75,25 +75,31 @@ function updateHistory(newMessage: SendMessageData) {
 }
 
 function updateLastMessage(newMessage: SendMessageData, isError = false) {
-  const newLastMessage: LastMessage = {
+  const newChat: ChatItem = {
     chatId: Number(data.value.chatId),
-    content: newMessage.value,
-    status: isError ? "error" : (isOnline.value ? "seen" : "sending"),
-    datetime: new Date().toISOString(),
+    contactName: data.value.contact!.name,
+    personaUsername: data.value.username,
+    lastMessageContent: newMessage.value,
+    lastMessageStatus: isError ? "error" : (isOnline.value ? "seen" : "sending"),
+    lastMessageDatetime: new Date().getTime(),
+    personaName: data.value.name,
   }
 
-  queryClient.setQueryData(queryKeys.lastMessages, (oldData: LastMessage[]) => {
-    const newLastMessages = [...oldData]
+  queryClient.setQueryData(queryKeys.chatsSearch(chatItemSearch.value), (oldData: ChatItem[]) => {
+    let newChats = [...oldData]
 
-    const lastMessageIndex = newLastMessages.findIndex((lastMessage: any) => lastMessage.chatId === data.value.chatId)
+    const chatIndex = newChats.findIndex((lastMessage: ChatItem) => lastMessage.chatId === data.value.chatId)
 
-    if (lastMessageIndex !== -1)
-      newLastMessages[lastMessageIndex] = newLastMessage
+    if (chatIndex !== -1) {
+      newChats[chatIndex] = newChat
 
-    else
-      newLastMessages.push(newLastMessage)
+      newChats = swapToFirst(newChats, chatIndex)
+    }
+    else {
+      newChats.unshift(newChat)
+    }
 
-    return newLastMessages
+    return newChats
   })
 }
 
@@ -153,7 +159,7 @@ const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending
     }
 
     queryClient.invalidateQueries({
-      queryKey: queryKeys.lastMessages,
+      queryKey: queryKeys.chats,
     })
 
     queryClient.setQueryData(queryKeys.chat(route.params.username as string), {

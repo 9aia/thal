@@ -2,28 +2,25 @@
 import type { InternalApi } from "nitropack"
 import { t } from "@psitta/vue"
 import { isRootDrawerOpen } from "~/store"
-import type { LastMessage } from "~/types"
-
-type ChatResponse = InternalApi["/api/chat"]["get"][number]
+import type { ChatItem } from "~/types"
 
 const props = defineProps<{
-  chat: Readonly<ChatResponse>
-  lastMessage?: Readonly<LastMessage>
+  chat: Readonly<ChatItem>
 }>()
 
 const chat = computed(() => {
   return {
-    id: props.chat.id,
+    id: props.chat.chat_id,
     persona: {
-      name: props.chat.personaUsername.contacts[0]?.name || props.chat?.personaUsername?.persona?.name || `@${props.chat.personaUsername!.username}`,
-      username: props.chat.personaUsername!.username,
+      name: props.chat.contact_name || props.chat?.persona_name || `@${props.chat.persona_username}`,
+      username: props.chat.persona_username,
       avatar: undefined,
     },
-    lastMessage: props.lastMessage
+    lastMessage: props.chat.last_message_content
       ? {
-          date: new Date(props.lastMessage.datetime),
-          status: props.lastMessage.status,
-          text: props.lastMessage.content || "",
+          date: new Date(props.chat.last_message_datetime),
+          status: props.chat.lastMessageStatus,
+          text: props.chat.last_message_content || "",
         }
       : undefined,
   }
@@ -45,7 +42,7 @@ function handleGoToChat(username: string) {
         <a class="block text-base text-slate-800">{{ chat.persona.name }}</a>
 
         <ClientOnly v-if="chat.lastMessage">
-          <ChatItemTime :last-message="props.lastMessage" :date="chat.lastMessage.date" />
+          <ChatItemTime :chat="props.chat" :date="chat.lastMessage.date" />
         </Clientonly>
       </div>
 

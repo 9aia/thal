@@ -39,3 +39,20 @@ export function unwrapInfiniteData<
     pages: data.pages?.flatMap((page: typeof data.pages[number]) => page.data),
   }
 }
+
+export function swapToFirst<T>(arr: T[], from: number) {
+  if (from <= 0 || from >= arr.length)
+    return arr
+
+  const fromItem = arr[from]
+  const arrCopy = [fromItem]
+
+  for (let i = 0; i < arr.length; i++) {
+    if (i === from)
+      continue
+
+    arrCopy.push(arr[i])
+  }
+
+  return arrCopy
+}

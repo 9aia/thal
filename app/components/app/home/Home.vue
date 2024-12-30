@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { t } from "@psitta/vue"
-import { refDebounced } from "@vueuse/core"
+import { watchDebounced } from "@vueuse/core"
 import { useForm } from "vee-validate"
 import queryKeys from "~/queryKeys"
-import { drawers, isRootDrawerOpen } from "~/store"
+import { chatItemSearch, drawers, isRootDrawerOpen } from "~/store"
 
 import type { MenuItem } from "~~/layers/ui/components/navigation/types"
 
@@ -17,24 +17,19 @@ const form = useForm({
   },
 })
 
-const search = refDebounced(toRef(form.values, "search"), 1000)
+watchDebounced(toRef(form.values, "search"), () => {
+  chatItemSearch.value = form.values.search
+})
 
 const {
   data: chats,
 } = await useServerQuery(() => "/api/chat", {
-  queryKey: queryKeys.chatsSearch(search),
+  queryKey: queryKeys.chatsSearch(chatItemSearch),
   params: () => {
     return {
-      search: search.value,
+      search: chatItemSearch.value,
     }
   },
-})
-
-const {
-  data: lastMessages,
-} = await useServerQuery(() => "/api/chat/lastMessages", {
-  queryKey: queryKeys.lastMessages,
-  initialData: () => chats.value?.map(chat => chat.lastMessages),
 })
 
 const isNoteVisible = useCookie("isNoteVisible", {
@@ -70,13 +65,6 @@ const items: MenuItem[] = [
     onSubmit: logout,
   },
 ]
-
-function getLastMessageByChatId(chatId: number) {
-  if (!lastMessages.value)
-    return null
-
-  return lastMessages.value?.find(message => message.chatId === chatId)
-}
 </script>
 
 <template>
@@ -128,7 +116,7 @@ function getLastMessageByChatId(chatId: number) {
     </div>
 
     <div class="flex-1 overflow-y-auto bg-white">
-      <header v-if="!chats.length && !search.trim()" class="w-full text-center pt-8">
+      <header v-if="!chats.length && !chatItemSearch.trim()" class="w-full text-center pt-8">
         <div class="text-primary flex items-center justify-center">
           <Icon name="chat" style="font-size: 8rem" />
         </div>
@@ -149,16 +137,15 @@ function getLastMessageByChatId(chatId: number) {
 
       <template v-else-if="!chats.length">
         <p class="text-slate-500 text-sm py-2 px-6 text-center">
-          {{ search ? t(`No results found for "{query}"`, { query: search }) : t('No results found.') }}
+          {{ chatItemSearch ? t(`No results found for "{query}"`, { query: chatItemSearch }) : t('No results found.') }}
         </p>
       </template>
 
       <template v-else>
         <ChatItem
           v-for="chat in chats"
-          :key="chat.id"
+          :key="chat.chatId"
           :chat="chat"
-          :last-message="getLastMessageByChatId(chat.id)!"
           @click="emit('close')"
         />
       </template>

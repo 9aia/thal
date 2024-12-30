@@ -33,6 +33,8 @@ export const replies = reactive<Replies>({})
 export const personaBuilderData = ref<Persona | null>(null)
 export const contactData = ref<Contact | null>(null)
 
+export const chatItemSearch = ref("")
+
 export const contactViewUsername = ref<string>()
 
 export function openContactView(username: string) {

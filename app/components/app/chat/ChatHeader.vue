@@ -37,7 +37,7 @@ const {
     })
 
     queryClient.invalidateQueries({
-      queryKey: queryKeys.lastMessages,
+      queryKey: queryKeys.chats,
     })
   },
 })

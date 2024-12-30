@@ -11,8 +11,8 @@
 - [x] Add "typing..."
 - [x] Prevent double sent when offline
 - [x] Fix issue related to adding contacts not opening the drawer on mobile devices when adding a contact directly from chat (from the top card or options)
+- [x] Reorder chats by recent
 - [ ] Fix modal opening on mobile
-- [ ] Reorder chats by recent
 - [ ] Add unread badge
 - [ ] Fix drag scroller on mobile
 - [ ] Fix bug copying HTML in messages
