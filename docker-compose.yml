@@ -16,4 +16,4 @@ services:
       - PASSWORD=$CODESHARE_PASSWORD
     volumes:
       - /opt/codeshare-user:/home/$CODESHARE_USER/
-      - ./:/app
+      - ./:/codeshare

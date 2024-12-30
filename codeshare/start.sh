@@ -27,7 +27,7 @@ else
     echo "$USER:$PASSWORD" | chpasswd
 fi
 
-chmod -R 777 /app
+chmod -R 777 /codeshare
 
 # Start the SSH server
 exec /usr/sbin/sshd -D
