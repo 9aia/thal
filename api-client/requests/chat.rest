@@ -2,7 +2,7 @@
 
 GET {{baseUrl}}/chat
 Content-Type: application/json
-Cookie: session={{$dotenv COOKIE_TOKEN}};
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
 
 ### Search chats
 
@@ -10,13 +10,13 @@ Cookie: session={{$dotenv COOKIE_TOKEN}};
 
 GET {{baseUrl}}/chat?search={{query}}
 Content-Type: application/json
-Cookie: session={{$dotenv COOKIE_TOKEN}};
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
 
 ### Delete chat
 
 DELETE {{baseUrl}}/chat
 Content-Type: application/json
-Cookie: session={{$dotenv COOKIE_TOKEN}};
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
 
 ### Get history
 
@@ -24,4 +24,4 @@ Cookie: session={{$dotenv COOKIE_TOKEN}};
 
 GET {{baseUrl}}/chat/history/{{username}}
 Content-Type: application/json
-Cookie: session={{$dotenv COOKIE_TOKEN}};
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
