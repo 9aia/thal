@@ -1,4 +1,4 @@
-# Contributing
+# Developer Contribution Guide
 
 ## Installing
 
@@ -35,6 +35,18 @@ Make sure to install the dependencies:
 ```bash
 pnpm install
 ```
+
+## Project Management
+
+At NeoGaia, we’re dedicated to transparent and community-driven development. Curious about what’s on the horizon or how we bring ideas to life? Dive into our roadmap to stay updated on current progress, upcoming features, and key milestones. From brainstorming sessions to prioritized tasks, we’re excited to share every step of Thal’s journey with you. Explore the resources below to stay connected and see how Thal grows with each contribution!
+
+- **[Project Overview](/pm/OVERVIEW.md)**: A summary of Thal's mission, vision, and progress.
+- **[Backlog](/pm/BACKLOG.md)**: A list of tasks and ideas yet to be implemented.
+  - **[Archived](/pm/archived.md)**: Ideas that won’t be pursued.
+  - **[To Revise](/pm/to-revise.md)**: Concepts under review for potential inclusion.
+- **[Changelog](/pm/CHANGELOG.md)**: A detailed record of updates, changes, and improvements.
+- **[Roadmap](/pm/ROADMAP.md)**: Major milestones and planned features.
+- **[Todo](/pm/TODO.md)**: The current tasks we’re actively working on.
 
 ## Developing
 
@@ -96,6 +108,10 @@ Once set up, you can push your changes to both repositories with a single comman
 ```
 git push
 ```
+
+## Sharing Code
+
+// TODO
 
 ## Deploying
 
