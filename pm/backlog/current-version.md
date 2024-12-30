@@ -93,6 +93,7 @@
 
 ## Dev Enhancements
 
+- [ ] Add nuxt devserver to codeshare container
 - [ ] Remove unused code
   - [ ] Unused files/functions
   - [ ] Use inferred schemas as DTOs
