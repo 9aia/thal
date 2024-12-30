@@ -1,4 +1,4 @@
-# Backlog
+# Backlog (Current Version)
 
 ## Features
 
@@ -31,6 +31,15 @@
 
 ## Bugs
 
+- [ ] Fix modal opening on mobile
+- [ ] Add unread badge
+- [ ] Fix drag scroller on mobile
+- [ ] Fix bug copying HTML in messages
+- [ ] Rewrite left joins using Query API
+- [ ] Check user plan in API routes that are necessary
+- [ ] Prevent bots with turnstile
+- [ ] Fix hydration errors
+---
 - [ ] Add rate-limit to Google auth callback
 - [ ] Use a single table for user and character usernames
 - [ ] Allow users to use only one session
@@ -49,6 +58,7 @@
 
 ## Enhancements
 
+- [ ] Save drawer/view state in URL
 - [ ] Add option to copy message
 - [ ] Improve "My Characters" edition action appearance
 - [ ] Improve contact view
