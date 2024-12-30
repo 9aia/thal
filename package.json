@@ -20,7 +20,9 @@
     "up": "docker compose up -d",
     "down": "docker compose down",
     "stripe": "docker exec stripe-cli stripe",
-    "type:check": "tsc --noEmit"
+    "type:check": "tsc --noEmit",
+    "cs": "code --reuse-window --remote ssh-remote+codeshare@neogaia.lab:2222 ./app/",
+    "cs:n": "code --remote ssh-remote+codeshare@neogaia.lab:2222 ./app/"
   },
   "dependencies": {
     "@ark-ui/vue": "^0.11.0",

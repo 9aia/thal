@@ -106,6 +106,5 @@
     "other": true,
     "comments": false,
     "strings": false
-  },
-  "editor.quickSuggestionsDelay": 10,
+  }
 }
