@@ -2,7 +2,7 @@
 
 ## Description
 
-Thal is a chat-based, AI-powered English learning app that helps users practice English in a natural and interactive way. Inspired by messaging apps, Thal simulates real-life conversations, making language learning feel intuitive and engaging.
+Thal is an AI-powered English learning app inspired by messaging apps, designed to help users practice English through immersive, chat-based interactions with personalized characters. By simulating real-life conversations, Thal creates a dynamic and engaging environment for users to enhance their language skills. The app offers tailored experiences, allowing users to create custom characters for various contexts and receive real-time language assistance, including translations, corrections, and suggestions. With a focus on community involvement, users can share and discover characters created by others, enriching their learning experience. Thal’s intuitive interface is optimized for use across devices, making language learning accessible, engaging, and personalized for all levels of proficiency.
 
 ## Goals
 
