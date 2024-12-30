@@ -98,8 +98,11 @@
     "toml"
   ],
   "rest-client.environmentVariables": {
-    "development": {
+    "local": {
       "baseUrl": "http://localhost:3000/api"
+    },
+    "codeshare": {
+      "baseUrl": "http://neogaialab.org:3000/api"
     }
   },
   "editor.quickSuggestions": {
