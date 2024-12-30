@@ -53,7 +53,7 @@ const icons: Icons = {
   error: "error",
   info: "info",
 }
-const icon = computed(() => icons[toast.type.value || "info"])
+const icon = computed(() => toast.icon.value || icons[toast.type.value || "info"])
 
 effect(() => {
   const duration = toast.duration.value ?? 3000

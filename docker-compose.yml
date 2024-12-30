@@ -5,3 +5,15 @@ services:
     network_mode: host
     container_name: stripe-cli
     command: "listen --forward-to localhost:3000/api/payment/webhook/stripe --api-key ${STRIPE_SECRET_KEY}"
+  codeshare:
+    build:
+      context: ./codeshare
+      dockerfile: ./dockerfile
+    container_name: codeshare
+    network_mode: host
+    environment:
+      - USER=$CODESHARE_USER
+      - PASSWORD=$CODESHARE_PASSWORD
+    volumes:
+      - /opt/codeshare-user:/home/$CODESHARE_USER/
+      - ./:/codeshare

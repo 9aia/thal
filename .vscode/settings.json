@@ -18,7 +18,8 @@
     "package.json": "package-lock.json, pnpm-lock.yaml, .gitignore, tsconfig.json, *.d.ts, .release-it.json, eslint.config.*",
     "nuxt.config.ts": "vite.config.*, postcss.config.js, tailwind.config.js, i18n.*",
     "docker-compose.yml": "wrangler.*, .env*, .dev.vars, public_keys.*, drizzle.config.*",
-    "app.vue": "error.vue"
+    "app.vue": "error.vue",
+    "BACKLOG.md": "to-revise.md, archived.md"
   },
   "editor.tabSize": 2,
   "sqltools.connections": [
@@ -98,14 +99,16 @@
     "toml"
   ],
   "rest-client.environmentVariables": {
-    "development": {
+    "local": {
       "baseUrl": "http://localhost:3000/api"
+    },
+    "codeshare": {
+      "baseUrl": "http://neogaialab.org:3000/api"
     }
   },
   "editor.quickSuggestions": {
     "other": true,
     "comments": false,
     "strings": false
-  },
-  "editor.quickSuggestionsDelay": 10
+  }
 }

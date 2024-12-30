@@ -1,5 +1,6 @@
-import { and, eq, inArray, or, sql } from "drizzle-orm"
+import { sql } from "drizzle-orm"
 import { z } from "zod"
+import persona from "../persona"
 import { getValidated } from "~/utils/h3"
 import { unauthorized } from "~/utils/nuxt"
 import { chats, contacts, lastMessages, personaUsernames, personas } from "~~/db/schema"
@@ -9,70 +10,49 @@ export default defineEventHandler(async (event) => {
   const user = event.context.user
 
   const { search } = await getValidated(event, "query", z.object({
-    search: z.string().optional().transform(s => s?.trim()),
+    search: z.string().optional().transform(s => s?.trim().toLowerCase()),
   }))
 
   if (!user)
     throw unauthorized()
 
-  const preparedContacts = (orm.query.contacts.findMany({
-    where: contacts => search ? sql`lower(${contacts.name}) like ${sql.placeholder("search")}` : undefined,
-    columns: {
-      id: true,
-    },
-  })).prepare()
+  interface Result {
+    chatId: number
+    personaUsername: string
+    personaName: string
+    contactName?: string
+    lastMessageContent?: string
+    lastMessageDatetime?: number
+  }
 
-  const contactIds = (await preparedContacts.execute({ search: `%${search}%` })).map(r => r.id)
+  const searchLike = search ? `%${search}%` : null
+  const { results } = await orm.run(sql`
+    SELECT 
+      ${chats.id} AS chatId,
+      ${personaUsernames.username} AS personaUsername,
+      ${persona.name} AS personaName,
+      ${contacts.name} AS contactName,
+      ${lastMessages.content} AS lastMessageContent,
+      ${lastMessages.datetime} AS lastMessageDatetime
+    FROM 
+      ${chats}
+    LEFT JOIN 
+      ${personaUsernames} ON ${chats.personaUsernameId} = ${personaUsernames.id}
+    LEFT JOIN 
+      ${personas} ON ${personaUsernames.personaId} = ${personas.id}
+    LEFT JOIN 
+      ${contacts} ON ${chats.contactId} = ${contacts.id}
+    LEFT JOIN 
+      ${lastMessages} ON ${chats.id} = ${lastMessages.chatId}
+    WHERE
+      ${chats.userId} = ${user.id}
+      ${search
+          ? sql`AND (lower(${contacts.name}) LIKE ${searchLike} OR lower(${personaUsernames.username}) LIKE ${searchLike} OR lower(${persona.name}) LIKE ${searchLike})`
+          : sql``
+      }
+    ORDER BY 
+      ${lastMessages.datetime} DESC;
+  `)
 
-  const preparedUsernames = (orm.query.personaUsernames.findMany({
-    where: personaUsernames => search ? sql`lower(${personaUsernames.username}) like ${sql.placeholder("search")}` : undefined,
-    columns: {
-      id: true,
-    },
-  })).prepare()
-
-  const usernameIds = (await preparedUsernames.execute({ search: `%${search}%` })).map(r => r.id)
-
-  const prepared = orm.query.chats.findMany({
-    where: and(
-      eq(chats.userId, user.id!),
-      or(
-        inArray(chats.personaUsernameId, usernameIds),
-        inArray(chats.contactId, contactIds),
-      ),
-    ),
-    columns: {
-      id: true,
-    },
-    with: {
-      personaUsername: {
-        columns: {
-          username: true,
-        },
-        with: {
-          persona: {
-            columns: {
-              name: true,
-            },
-          },
-          contacts: {
-            columns: {
-              name: true,
-            },
-          },
-        },
-      },
-      lastMessages: {
-        columns: {
-          chatId: true,
-          content: true,
-          datetime: true,
-        },
-      },
-    },
-  }).prepare()
-
-  const result = await prepared.execute({ search: `%${search}%` })
-
-  return result
+  return results as Result[]
 })

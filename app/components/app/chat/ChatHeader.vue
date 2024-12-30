@@ -2,7 +2,7 @@
 import { useI18n } from "@psitta/vue"
 import { useMutation, useQueryClient } from "@tanstack/vue-query"
 import queryKeys from "~/queryKeys"
-import { rightDrawer, rightDrawers } from "~/store"
+import { openContactView } from "~/store"
 import type { MenuItem } from "~~/layers/ui/components/navigation/types"
 
 const props = defineProps<{
@@ -37,7 +37,7 @@ const {
     })
 
     queryClient.invalidateQueries({
-      queryKey: queryKeys.lastMessages,
+      queryKey: queryKeys.chats,
     })
   },
 })
@@ -47,7 +47,7 @@ const items = computed<MenuItem[]>(() => [
     id: "view-contact",
     name: t("View contact"),
     icon: "contact_page",
-    onClick: () => openContactView(),
+    onClick: () => openContactView(props.username),
   },
   {
     id: "share-character",
@@ -81,12 +81,6 @@ const items = computed<MenuItem[]>(() => [
         },
       },
 ].filter(item => item !== null))
-
-function openContactView() {
-  // profileModal.open(props.username as string)
-  rightDrawer.value = true
-  rightDrawers.contactView = true
-}
 </script>
 
 <template>
@@ -97,10 +91,10 @@ function openContactView() {
       <Icon name="arrow_back" />
     </label>
 
-    <Avatar :name="avatarName" class="w-10 text-sm" type="button" @click="openContactView()" />
+    <Avatar :name="avatarName" class="w-10 text-sm" type="button" @click="openContactView(username)" />
 
     <div class="flex-1 flex items-center justify-between gap-4">
-      <div tabindex="0" role="button" class="block text-primary w-full" @click="openContactView()">
+      <div tabindex="0" role="button" class="block text-primary w-full" @click="openContactView(username)">
         {{ name }}
       </div>
 

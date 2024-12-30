@@ -1,6 +1,8 @@
-import { contactData, drawers } from "~/store"
+import { contactData, drawers, isRootDrawerOpen } from "~/store"
 
 export function useContactInfo(data: Ref<any>) {
+  const { focusMainField } = useNewContactFocus()
+
   const hasContact = computed(() => {
     return !!data.value?.contact
   })
@@ -17,11 +19,13 @@ export function useContactInfo(data: Ref<any>) {
     if (!data.value)
       return
 
-    drawers.newContact = true
     contactData.value = {
       name: data.value.persona?.name,
       username: data.value.username,
     }
+    isRootDrawerOpen.value = true
+    drawers.newContact = true
+    focusMainField()
   }
 
   return {

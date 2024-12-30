@@ -26,11 +26,11 @@ import { drawers, isRootDrawerOpen, rightDrawer } from "~/store"
 
         <div class="flex flex-col h-dvh justify-between w-full sm:w-96">
           <Drawer :model-value="true">
-            <Home @close="isRootDrawerOpen = false" />
+            <Home @close="drawers.newChat = false" />
 
             <template #footer>
-              <Drawer :model-value="drawers.settings">
-                <Settings @close="drawers.settings = false" />
+              <Drawer v-slot="{ close }" :model-value="drawers.settings">
+                <Settings @close="close" />
               </Drawer>
 
               <Drawer v-slot="{ close }" v-model="drawers.newChat">

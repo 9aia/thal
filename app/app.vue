@@ -3,6 +3,7 @@ import "./style.css"
 import Toast from "~~/layers/ui/components/feedback/Toast.vue"
 
 const { state: localeModalState } = useLocaleModal()
+useInternetConnectionIndicator()
 </script>
 
 <template>

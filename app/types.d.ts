@@ -1,3 +1,4 @@
+import type { InternalApi } from "nitropack"
 import type { HOBBIES } from "./constants/base"
 import type { UserSelect } from "~~/db/schema"
 
@@ -49,12 +50,6 @@ export interface Contact {
   username: string
 }
 
-export interface Chat {
-  id: number
-  persona: Persona
-  lastMessage: MessageContent
-}
-
 export interface Message {
   id: number
   from: "user" | "bot"
@@ -64,6 +59,10 @@ export interface Message {
   time: number
   status: MessageStatus
   replyingId?: number | null
+}
+
+export type ChatItem = InternalApi["/api/chat"]["get"][number] & {
+  lastMessageStatus?: MessageStatus
 }
 
 export interface Reply {

@@ -45,6 +45,7 @@
   - Add settings to adjust AI helper responses.
 - Real-time assistance features
 
+- [ ] Stream translation
 - [ ] Add a deleted/non-existent section in contacts
 
 ### v0.3.0 - Generative Character Building
@@ -65,6 +66,7 @@
   - Prevent private character to be accessed in URL
 - List private character from contact list in a different section
 - Share character via WhatsApp message
+- Send message via URL query
 
 ### v1.0.0 - Multiplayer
 

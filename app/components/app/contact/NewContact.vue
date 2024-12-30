@@ -3,10 +3,11 @@ import { useI18n } from "@psitta/vue"
 import { useQueryClient } from "@tanstack/vue-query"
 import { useDebounceFn } from "@vueuse/core"
 import { useForm } from "vee-validate"
-import { contactData, isRootDrawerOpen } from "~/store"
+import { contactData, drawers, isRootDrawerOpen } from "~/store"
 import { nameSchema, usernameSchema } from "~~/db/schema"
 import { useToast } from "~~/layers/ui/composables/useToast"
 import queryKeys from "~/queryKeys"
+import type TextField from "~~/layers/ui/components/data-input/TextField.vue"
 
 const emit = defineEmits<{
   (e: "close"): void
@@ -59,6 +60,8 @@ async function validateUsername(username: string) {
     }
   }
   catch (e) {
+    const _ = e
+
     toast.error(t(
       "An error occurred while validating username.",
     ))
@@ -113,11 +116,14 @@ const submit = form.handleSubmit(async (data) => {
     })
   }
   catch (e) {
+    const _ = e
     toast.error(t("An error occurred while creating contact."))
   }
 
   loading.value = false
 })
+
+const { mainField } = useNewContactFocus()
 </script>
 
 <template>
@@ -135,7 +141,10 @@ const submit = form.handleSubmit(async (data) => {
       <SettingSection :title="t('General Information')">
         <form class="block space-y-2" @submit="submit">
           <TextField
-            path="name" :label="t('Name')" :rules="yupify(nameSchema, t(
+            ref="mainField"
+            path="name"
+            :label="t('Name')"
+            :rules="yupify(nameSchema, t(
               'Name must contain between 1 and 20 characters.',
             ))"
           />

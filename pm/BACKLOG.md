@@ -1,18 +1,22 @@
-# Backlog
+# Backlog (Current Version)
 
 ## Features
 
 - [ ] Create community guidelines
 - [ ] Add community guidelines link to the "Character Builder", chats and settings
 - [ ] Add report button (open modal) to contact options
+- [ ] Assigning each user a unique ID and imposing a limit on the volume of user queries that can be submitted in a given period.
+- [ ] Prevent from Prompt injection in character instructions, etc.
 - [ ] Check safety of messages
 - [ ] Check safety of fields
 - [ ] Validate legally character on create
   - [ ] Give feedback
-- [ ] Add safety inflation flags
+- [ ] Add safety inflation flags and strikes
 - ---
+- [ ] Add "What's New" modal
+- [ ] Add onboarding
+- [ ] ---
 - [ ] Add contact editing
-- [ ] Add news chat/route
 - [ ] Add "View character details"
 - [ ] Add "Keep Character definition/instructions private"
 - [ ] Add language drawer containing UI language and translation settings
@@ -27,39 +31,39 @@
 
 ## Bugs
 
-- [ ] Fix chat not displaying contact name
-- [ ] Fix character edition toast messages
-- [ ] Implement chat search by character name
-- [ ] Fix drag scroller
-- [ ] Fix hydration errors in "Discover"
-- [ ] Fix error when navigating back from the contact card
-- [ ] Fix (last) message status
-- [ ] Fix status of chat messages
-- [ ] Resolve the issue where the contact addition drawer fails to open on mobile devices when adding a contact directly from the chat
-- [ ] Fix UI updates on contact username changes
+- [ ] Fix modal opening on mobile
+- [ ] Add unread badge
+- [ ] Fix drag scroller on mobile
+- [ ] Fix bug copying HTML in messages
+- [ ] Rewrite left joins using Query API
+- [ ] Check user plan in API routes that are necessary
+- [ ] Prevent bots with turnstile
+- [ ] Fix hydration errors
+---
+- [ ] Add rate-limit to Google auth callback
 - [ ] Use a single table for user and character usernames
 - [ ] Allow users to use only one session
 - [ ] Lower every username comparison
-- [ ] Rewrite left joins using Query API
-- [ ] Fix bug copying HTML in messages
-- [ ] Check user plan in API routes
-- [ ] Add rate-limit to Google auth callback
 - [ ] Fix retrial after account deletion
 - [ ] Fix bug after deleting and recreating an account, user can't rejoin the app
 - [ ] Handle invalid sessions
 - [ ] Fix logout not removing cookies
 - [ ] Fix "Try again" after cookie issue resolved in the database
+- [ ] ---
+- [ ] Implement chat search by character name
+- [ ] ---
 - [ ] Redirect from `/plan/expired` when your plan is not expired
 - [ ] Fix locale change routing (remove `/{locale}` from `/app`)
   - [ ] Use locale param in site routes
-- [ ] Prevent bots with turnstile
 
 ## Enhancements
 
+- [ ] Save drawer/view state in URL
 - [ ] Add option to copy message
 - [ ] Improve "My Characters" edition action appearance
 - [ ] Improve contact view
 - [ ] Add a warning for renaming character usernames
+- [ ] Focus on inputs after opening drawers
 - [ ] Add hydration loading indicator
 - ---
 - [ ] Replace web modal API
@@ -70,14 +74,16 @@
 - [ ] Improve error handling
 - [ ] Improve loading handling
 - ---
+- [ ] Improve brand identity
+- [ ] Add dark theme
 - [ ] Add privacy info about account deletion (cannot delete before month ends, but users can delete manually before)
 - [ ] Redesign the authentication route
   - [ ] Redesign a auth view on app/ when unauthenticated
 - [ ] Improve the homepage
 - [ ] Improve the "Pricing" page and set up redirects
 - [ ] Move the "About" page to the NeoGaia website
-- [ ] Improve brand identity
-- [ ] Add dark theme
+---
+- [ ] Support multiple user message on offline
 
 - [ ] Improve `package.json`
 - [ ] Improve `README.md`
@@ -89,7 +95,6 @@
 
 - [ ] Pregenerate site pages
 - [ ] Skip categorization on discoverability change
-- [ ] Stream translation
 - [ ] Improve route loading speed, especially "Chats" and "Discover Characters"
 - [ ] Improve icon loading on slow networks
 - [ ] Implement infinite scrolls
@@ -98,6 +103,7 @@
 
 ## Dev Enhancements
 
+- [ ] Add nuxt devserver to codeshare container
 - [ ] Remove unused code
   - [ ] Unused files/functions
   - [ ] Use inferred schemas as DTOs
@@ -108,7 +114,8 @@
 - [ ] Clean console warnings
 - [ ] Move `layers/ui` to `web/components/ui`
 - [ ] Move `app/` to `web/`
-- [ ] Improve dev mode session storage for the auth endpoint on the API client
 - [ ] Suggest extensions for developers
 - [ ] Add a guide for WIP commits
 - [ ] Add a guide for atomic commits
+- [ ] Move ssh config to repository
+- [ ] Update GCP metadata

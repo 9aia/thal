@@ -1,17 +1,16 @@
 <script setup lang="ts">
 import type { InternalApi } from "nitropack"
 import { useLocale } from "@psitta/vue"
-
-type LastMessage = InternalApi["/api/chat/lastMessages"]["default"][number]
+import type { ChatItem } from "~/types"
 
 const props = defineProps<{
-  lastMessage?: LastMessage
+  chat?: Readonly<ChatItem>
 }>()
 
 const locale = useLocale()
 
 const date = computed(() => {
-  const date = props.lastMessage?.datetime ? new Date(props.lastMessage.datetime) : now()
+  const date = props.chat?.last_message_datetime ? new Date(props.chat.last_message_datetime) : now()
 
   if (isToday(date)) {
     const formatter = new Intl.DateTimeFormat(locale.value, {

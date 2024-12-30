@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import type { InternalApi } from "nitropack"
 import { t } from "@psitta/vue"
 import { useMutation, useQueryClient } from "@tanstack/vue-query"
+import { useOnline } from "@vueuse/core"
 import AppLayout from "~/layouts/app.vue"
 import queryKeys from "~/queryKeys"
-import { replies } from "~/store"
+import { chatItemSearch, replies, sendingChatIds, sentErrorChatIds } from "~/store"
+import type { ChatItem } from "~/types"
 
 const route = useRoute()
 
@@ -20,7 +21,7 @@ const {
   isLoading,
   isError,
   refetch,
-} = await useServerQuery(() => `/api/chat/item/${route.params.username}` as `/api/chat/find/:username`, {
+} = await useServerQuery(() => `/api/chat/item/${route.params.username}` as `/api/chat/item/:username`, {
   queryKey: queryKeys.chat(computed(() => route.params.username as string)),
 })
 
@@ -37,8 +38,6 @@ async function fixScroll() {
 
 const text = ref("")
 
-type LastMessage = InternalApi["/api/chat/lastMessages"]["default"][number]
-
 interface SendMessageData {
   type: "text"
   value: string
@@ -53,13 +52,15 @@ const replying = computed(() => {
   return replies[username]
 })
 
+const isOnline = useOnline()
+
 function updateHistory(newMessage: SendMessageData) {
   const newHistory = [...data.value.history || []]
 
   newHistory.push({
     id: newHistory.length + 1,
     from: "user",
-    status: "sending",
+    status: isOnline.value ? "seen" : "sending",
     message: newMessage.value,
     replyingId: newMessage.replyingId,
     replyMessage: newMessage.replyMessage,
@@ -73,25 +74,32 @@ function updateHistory(newMessage: SendMessageData) {
   })
 }
 
-function updateLastMessage(newMessage: SendMessageData) {
-  const newLastMessage: LastMessage = {
+function updateLastMessage(newMessage: SendMessageData, isError = false) {
+  const newChat: ChatItem = {
     chatId: Number(data.value.chatId),
-    content: newMessage.value,
-    datetime: new Date().toISOString(),
+    contactName: data.value.contact!.name,
+    personaUsername: data.value.username,
+    lastMessageContent: newMessage.value,
+    lastMessageStatus: isError ? "error" : (isOnline.value ? "seen" : "sending"),
+    lastMessageDatetime: new Date().getTime(),
+    personaName: data.value.name,
   }
 
-  queryClient.setQueryData(queryKeys.lastMessages, (oldData: LastMessage[]) => {
-    const newLastMessages = [...oldData]
+  queryClient.setQueryData(queryKeys.chatsSearch(chatItemSearch.value), (oldData: ChatItem[]) => {
+    let newChats = [...oldData]
 
-    const lastMessageIndex = newLastMessages.findIndex((lastMessage: any) => lastMessage.chatId === data.value.chatId)
+    const chatIndex = newChats.findIndex((lastMessage: ChatItem) => lastMessage.chatId === data.value.chatId)
 
-    if (lastMessageIndex !== -1)
-      newLastMessages[lastMessageIndex] = newLastMessage
+    if (chatIndex !== -1) {
+      newChats[chatIndex] = newChat
 
-    else
-      newLastMessages.push(newLastMessage)
+      newChats = swapToFirst(newChats, chatIndex)
+    }
+    else {
+      newChats.unshift(newChat)
+    }
 
-    return newLastMessages
+    return newChats
   })
 }
 
@@ -102,14 +110,19 @@ function emptyInput() {
   text.value = ""
 }
 
+const newMessageTmp = ref()
+
 const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending } = useMutation({
   mutationFn: (data: SendMessageData) => $fetch(`/api/message/${route.params.username}`, {
     method: "POST",
     body: JSON.stringify(data),
   }),
   async onMutate(newMessage) {
+    sendingChatIds.value.add(data.value!.chatId!)
     if (newMessage.refresh)
       return
+
+    newMessageTmp.value = newMessage
 
     updateHistory(newMessage)
     updateLastMessage(newMessage)
@@ -126,10 +139,15 @@ const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending
       status: "error",
     }
 
+    updateLastMessage(newMessageTmp.value, true)
+
     queryClient.setQueryData(queryKeys.chat(route.params.username as string), {
       ...data.value,
       history: newHistory,
     })
+
+    sentErrorChatIds.value.add(data.value!.chatId!)
+    sendingChatIds.value.delete(data.value!.chatId!)
 
     fixScroll()
   },
@@ -141,13 +159,16 @@ const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending
     }
 
     queryClient.invalidateQueries({
-      queryKey: queryKeys.lastMessages,
+      queryKey: queryKeys.chats,
     })
 
     queryClient.setQueryData(queryKeys.chat(route.params.username as string), {
       ...data.value,
       history: newHistory,
     })
+
+    sentErrorChatIds.value.delete(data.value!.chatId!)
+    sendingChatIds.value.delete(data.value!.chatId!)
 
     fixScroll()
   },
@@ -244,10 +265,15 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
             @resend="handleResend()"
           />
 
-          <ChatBubbleLoading v-if="isMessagePending" />
+          <ChatBubbleLoading v-if="isMessagePending && isOnline" />
         </main>
 
-        <ChatFooter v-model="text" :username="route.params.username" @send="handleSend()" />
+        <ChatFooter
+          v-model="text"
+          :username="route.params.username"
+          :chat-id="data!.chatId!"
+          @send="handleSend()"
+        />
       </GenericResource>
     </template>
   </AppLayout>

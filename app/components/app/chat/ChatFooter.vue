@@ -1,10 +1,14 @@
 <script lang="ts" setup>
-import { useMagicKeys } from "@vueuse/core"
+import { useMagicKeys, useOnline } from "@vueuse/core"
 import { useQueryClient } from "@tanstack/vue-query"
 import { useI18n } from "@psitta/vue"
 import { useEventListener } from "@vueuse/core/index.cjs"
-import { replies } from "~/store"
+import { replies, sendingChatIds, sentErrorChatIds } from "~/store"
 import queryKeys from "~/queryKeys"
+
+const props = defineProps<{
+  chatId: number
+}>()
 
 const emit = defineEmits<{
   (e: "send"): void
@@ -24,14 +28,30 @@ const username = computed(() => route.params.username as string)
 const {
   shift,
 } = useMagicKeys()
+const isOnline = useOnline()
+
+const isChatError = computed(() => sentErrorChatIds.value.has(props.chatId))
+const isChatSending = computed(() => sendingChatIds.value.has(props.chatId))
 
 const isEmpty = computed(() => !text.value.trim())
 const icon = computed(() => {
+  if (isChatSending.value && !isOnline.value)
+    return "wifi_off"
+
+  if (isChatSending.value)
+    return "pending"
+
+  if (isChatError.value && !isOnline.value)
+    return "wifi_off"
+
+  if (isChatError.value)
+    return "error"
+
   return isEmpty.value ? "mic" : "send"
 })
 
-function handleEnter(e: Event) {
-  if (!text.value.trim()) {
+function handleSend(e: Event) {
+  if (!text.value.trim() || isChatSending.value || isChatError.value) {
     e.preventDefault()
     return
   }
@@ -99,12 +119,18 @@ const replyMessage = computed(() => replies[username.value])
           v-model="text"
           class="flex w-full items-center text-sm outline-none"
           placeholder="Type a message"
-          @keydown.enter="handleEnter"
+          @keydown.enter="handleSend"
         />
       </label>
     </div>
 
-    <div v-if="!isEmpty" role="button" class="btn btn-ghost btn-circle avatar" @click="emit('send')">
+    <div
+      v-if="!isEmpty"
+      role="button"
+      class="btn btn-ghost btn-circle avatar"
+      :disabled="isChatError || isChatSending || undefined"
+      @click="handleSend"
+    >
       <Icon :name="icon" />
     </div>
   </footer>

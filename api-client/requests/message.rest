@@ -4,7 +4,7 @@
 
 POST {{baseUrl}}/message/{{username}}
 Content-Type: application/json
-Cookie: session={{$dotenv COOKIE_TOKEN}};
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
 
 {
   "type": "text",

@@ -4,7 +4,7 @@
 
 GET {{baseUrl}}/contact
 Content-Type: application/json
-Cookie: session={{$dotenv COOKIE_TOKEN}};
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
 
 ### Search contacts
 
@@ -12,19 +12,19 @@ Cookie: session={{$dotenv COOKIE_TOKEN}};
 
 GET {{baseUrl}}/contact?search={{query}}
 Content-Type: application/json
-Cookie: session={{$dotenv COOKIE_TOKEN}};
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
 
 ### Get contact
 
 GET {{baseUrl}}/contact/{{username}}
 Content-Type: application/json
-Cookie: session={{$dotenv COOKIE_TOKEN}};
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
 
 ### Create contact
 
 POST {{baseUrl}}/contact
 Content-Type: application/json
-Cookie: session={{$dotenv COOKIE_TOKEN}};
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
 
 {
   "username": "motoko",
@@ -35,7 +35,7 @@ Cookie: session={{$dotenv COOKIE_TOKEN}};
 
 PATCH {{baseUrl}}/contact/{{username}}
 Content-Type: application/json
-Cookie: session={{$dotenv COOKIE_TOKEN}};
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
 
 {
   "name": "Motoko Kusanagi"
@@ -45,4 +45,4 @@ Cookie: session={{$dotenv COOKIE_TOKEN}};
 
 DELETE {{baseUrl}}/contact/{{username}}
 Content-Type: application/json
-Cookie: session={{$dotenv COOKIE_TOKEN}};
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};

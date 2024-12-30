@@ -1,33 +1,30 @@
 <script setup lang="ts">
 import { useQuery } from "@tanstack/vue-query"
 import { useI18n } from "@psitta/vue"
-import { rightDrawer, rightDrawers } from "~/store"
+import { contactViewUsername, rightDrawer, rightDrawers } from "~/store"
 import { categories } from "~/constants/discover"
 import queryKeys from "~/queryKeys"
 import type { MenuItem } from "~~/layers/ui/components/navigation/types"
 
 const contactDeleteModalState = ref(false)
 
-const route = useRoute()
-const username = computed(() => route.params.username as string)
+const username = computed(() => contactViewUsername!.value!)
 
 const {
   data,
   isLoading,
   isError,
+  refetch,
 } = useQuery({
   queryKey: queryKeys.contactInfo(username),
-  queryFn: () => {
-    return $fetch(`/api/contact-info/${username.value}`, {
-      method: "GET",
-    })
-  },
+  queryFn: () => $fetch(`/api/contact-info/${username.value!}`),
+  enabled: computed(() => !!username.value),
 })
 
 const { displayName, hasContact, avatarName, addContact } = useContactInfo(data)
 
 const { t } = useI18n()
-const copyUsername = useCopyUsername(username)
+const copyUsername = useCopyUsername(contactViewUsername)
 
 const items = computed<MenuItem[]>(() => [
   hasContact.value
@@ -86,27 +83,39 @@ const category = computed(() => {
       </div>
     </header>
 
-    <GenericResource :loading="isLoading" :error="isError">
-      <div class="bg-white flex flex-1 flex-col items-center p-4">
-        <Avatar :name="avatarName" class="mx-auto w-24 h-24 text-2xl bg-slate-300 text-slate-800" />
-
-        <h2 class="text-slate-900 text-center text-2xl mb-1">
-          {{ displayName }}
-        </h2>
-        <Username :username="data?.username!" :show-copy="true" class="mb-2" />
-
-        <div v-if="category" class="text-sm text-slate-600 flex gap-1 items-center">
-          <Badge class="bg-transparent border-none flex gap-1 px-0 py-3 text-xs text-slate-600">
-            <Icon :name="category?.icon" class="" style="font-size: 1.15rem" />
-
-            {{ category?.name }}
-          </Badge>
+    <Resource :loading="isLoading" :error="isError">
+      <template #loading>
+        <div class="w-full h-full flex items-center justify-center">
+          <Spinner />
         </div>
+      </template>
 
-        <p class="text-slate-600 text-xs mt-4">
-          {{ data?.persona?.description }}
-        </p>
-      </div>
-    </GenericResource>
+      <template #error>
+        <GenericError :loading="isLoading" @retry="refetch" />
+      </template>
+
+      <template #default>
+        <div class="bg-white flex flex-1 flex-col items-center p-4">
+          <Avatar :name="avatarName" class="mx-auto w-24 h-24 text-2xl bg-slate-300 text-slate-800" />
+
+          <h2 class="text-slate-900 text-center text-2xl mb-1">
+            {{ displayName }}
+          </h2>
+          <Username :username="data?.username!" :show-copy="true" class="mb-2" />
+
+          <div v-if="category" class="text-sm text-slate-600 flex gap-1 items-center">
+            <Badge class="bg-transparent border-none flex gap-1 px-0 py-3 text-xs text-slate-600">
+              <Icon :name="category?.icon" class="" style="font-size: 1.15rem" />
+
+              {{ category?.name }}
+            </Badge>
+          </div>
+
+          <p class="text-slate-600 text-xs mt-4">
+            {{ data?.persona?.description }}
+          </p>
+        </div>
+      </template>
+    </Resource>
   </div>
 </template>
