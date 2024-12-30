@@ -107,3 +107,4 @@
 - [ ] Suggest extensions for developers
 - [ ] Add a guide for WIP commits
 - [ ] Add a guide for atomic commits
+- [ ] Move ssh config to repository

@@ -107,5 +107,5 @@
     "comments": false,
     "strings": false
   },
-  "editor.quickSuggestionsDelay": 10
+  "editor.quickSuggestionsDelay": 10,
 }
