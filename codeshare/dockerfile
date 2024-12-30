@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y openssh-server git
 
 RUN mkdir /var/run/sshd /app
 
-RUN mkdir -R 777 /app
+RUN chmod -R 777 /app
 
 # Allow the root login via SSH
 RUN echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config
