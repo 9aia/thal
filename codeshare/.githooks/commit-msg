@@ -21,12 +21,12 @@ if [[ ! -s "$COAUTHORS_FILE" ]]; then
   exit 0
 fi
 
-# Read the co-authors file and format each line as "Co-authored-by"
-COAUTHORS=$(awk '{print "Co-authored-by: " $0}' "$COAUTHORS_FILE")
+# Read the co-authors file, ignore lines starting with "#" or having "#" followed by a space
+COAUTHORS=$(awk '!/^#/' "$COAUTHORS_FILE" | awk '{print "Co-authored-by: " $0}')
 
 # Check if the commit message already contains co-authors to avoid duplication
 if grep -q "Co-authored-by:" "$COMMIT_MSG_FILE"; then
-  echo -e "${YELLOW}Co-authors already included in the commit message.${RESET}"
+  echo -e "${YELLOW}Warning: Co-authors already included in the commit message.${RESET}"
 else
   # Append the co-authors to the commit message
   echo -e "\n$COAUTHORS" >> "$COMMIT_MSG_FILE"
