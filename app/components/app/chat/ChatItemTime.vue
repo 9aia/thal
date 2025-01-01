@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { InternalApi } from "nitropack"
 import { useLocale } from "@psitta/vue"
 import type { ChatItem } from "~/types"
 

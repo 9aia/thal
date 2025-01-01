@@ -15,7 +15,7 @@ const { t } = useI18n()
 function highlightBubble(bubble: any) {
   // Reset animation
   bubble.style.animation = "none"
-  // eslint-disable-next-line no-unused-expressions
+
   bubble.offsetHeight
   bubble.style.animation = ""
 
@@ -70,12 +70,11 @@ const replyMessage = computed(() => trimReplyMessage(props.replyMessage))
     <h3 class="text-sm font-medium text-teal-600">
       {{ replyDisplayName }}
     </h3>
-    <p class="text-xs text-slate-600 line-clamp-3">
-      <MDC
-        :value="replyMessage"
-        tag="article"
-        class="prose prose-slate prose-sm"
-      />
-    </p>
+
+    <MDC
+      :value="replyMessage"
+      tag="article"
+      class="text-xs text-slate-600 line-clamp-3 prose prose-slate prose-sm"
+    />
   </div>
 </template>

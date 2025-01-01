@@ -17,10 +17,7 @@ export function getFullMessage(message?: string, replyMessage?: string, trim = 3
   return fullMessage
 }
 
-export function trimReplyMessage(replyMessage?: string, trim = 300, lineclamp = 3) {
-  if (!replyMessage)
-    return
-
+export function trimReplyMessage(replyMessage: string, trim = 300, lineclamp = 3) {
   if (replyMessage.length > trim) {
     const replyMessageLines = replyMessage.slice(0, trim - 3).split("\n")
     let replyMessageTrimmed = replyMessageLines.slice(0, lineclamp).join("\n")

@@ -15,7 +15,7 @@ const {
 </script>
 
 <template>
-  <div class="bg-yellow-100 rounded-2xl px-3 py-2 min-h-[38px] flex items-start justify-between gap-2 group/translation">
+  <div v-if="translation" class="bg-yellow-100 rounded-2xl px-3 py-2 min-h-[38px] flex items-start justify-between gap-2 group/translation">
     <div>
       <MDC :value="translation" tag="article" class="prose prose-slate prose-sm" />
     </div>
