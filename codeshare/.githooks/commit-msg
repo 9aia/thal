@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Color codes for formatting
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+RESET='\033[0m'
+
+COAUTHORS_FILE="./codeshare/co-authors" # Path to the co-authors file
+COMMIT_MSG_FILE="$1"                   # Path to the commit message file
+
+# Check if the co-authors file exists
+if [[ ! -f "$COAUTHORS_FILE" ]]; then
+  echo -e "${RED}Error: Co-authors file not found at $COAUTHORS_FILE${RESET}"
+  exit 1
+fi
+
+# Check if the co-authors file is empty
+if [[ ! -s "$COAUTHORS_FILE" ]]; then
+  echo -e "${YELLOW}Warning: Co-authors file is empty. No co-authors will be added.${RESET}"
+  exit 0
+fi
+
+# Read the co-authors file, ignore lines starting with "#" or having "#" followed by a space
+COAUTHORS=$(awk '!/^#/' "$COAUTHORS_FILE" | awk '{print "Co-authored-by: " $0}')
+
+# Check if the commit message already contains co-authors to avoid duplication
+if grep -q "Co-authored-by:" "$COMMIT_MSG_FILE"; then
+  echo -e "${YELLOW}Warning: Co-authors already included in the commit message.${RESET}"
+else
+  # Append the co-authors to the commit message
+  echo -e "\n$COAUTHORS" >> "$COMMIT_MSG_FILE"
+  echo -e "${GREEN}Co-authors added to the commit message.${RESET}"
+fi

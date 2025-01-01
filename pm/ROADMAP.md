@@ -47,6 +47,7 @@
 
 - [ ] Stream translation
 - [ ] Add a deleted/non-existent section in contacts
+- [ ] Add character search results to chat and contact search
 
 ### v0.3.0 - Generative Character Building
 

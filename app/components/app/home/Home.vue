@@ -116,7 +116,7 @@ const items: MenuItem[] = [
     </div>
 
     <div class="flex-1 overflow-y-auto bg-white">
-      <header v-if="!chats.length && !chatItemSearch.trim()" class="w-full text-center pt-8">
+      <header v-if="!chats?.length && !chatItemSearch.trim()" class="w-full text-center pt-8">
         <div class="text-primary flex items-center justify-center">
           <Icon name="chat" style="font-size: 8rem" />
         </div>
@@ -135,7 +135,7 @@ const items: MenuItem[] = [
         </Btn>
       </header>
 
-      <template v-else-if="!chats.length">
+      <template v-else-if="!chats?.length">
         <p class="text-slate-500 text-sm py-2 px-6 text-center">
           {{ chatItemSearch ? t(`No results found for "{query}"`, { query: chatItemSearch }) : t('No results found.') }}
         </p>
