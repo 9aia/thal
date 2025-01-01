@@ -1,13 +1,13 @@
-import type { H3Event } from "h3"
-import type { RouteLocationNormalized } from "vue-router"
-import type { SafeParseError, SafeParseSuccess, ZodSchema } from "zod"
-import { badRequest } from "~/utils/nuxt"
+import type { H3Event } from 'h3'
+import type { RouteLocationNormalized } from 'vue-router'
+import type { SafeParseError, SafeParseSuccess, ZodSchema } from 'zod'
+import { badRequest } from '~/utils/nuxt'
 
 export async function getValidatedForm<O>(event: H3Event, validate: (data: unknown) => SafeParseSuccess<O> | SafeParseError<O>) {
   const formData = await readFormData(event)
 
   if (!(formData instanceof FormData))
-    throw badRequest("Data should be formData")
+    throw badRequest('Data should be formData')
 
   const formDataValues = Object.fromEntries(formData.entries())
   return validate(formDataValues)
@@ -15,10 +15,10 @@ export async function getValidatedForm<O>(event: H3Event, validate: (data: unkno
 
 export async function getValidated<O>(
   event: H3Event,
-  type: "body" | "params" | "query" | "form",
+  type: 'body' | 'params' | 'query' | 'form',
   schema: ZodSchema<O>,
 ) {
-  if (type === "form") {
+  if (type === 'form') {
     const result = await getValidatedForm(event, data => schema.safeParse(data))
 
     if (!result.success)
@@ -46,8 +46,8 @@ export async function getValidated<O>(
 }
 
 export function getAppUrl(event: H3Event) {
-  const protocol = import.meta.dev ? "http:" : "https:"
-  const host = event.headers.get("host")!
+  const protocol = import.meta.dev ? 'http:' : 'https:'
+  const host = event.headers.get('host')!
 
   return new URL(`${protocol}${host}`)
 }

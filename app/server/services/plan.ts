@@ -1,10 +1,10 @@
-import { eq } from "drizzle-orm"
-import type { SQLiteUpdateSetSource } from "drizzle-orm/sqlite-core"
-import type { DrizzleD1Database } from "drizzle-orm/d1"
-import { users } from "~~/db/schema"
-import { notFound } from "~/utils/nuxt"
-import type { PlanType } from "~/types"
-import { now } from "~/utils/date"
+import { eq } from 'drizzle-orm'
+import type { SQLiteUpdateSetSource } from 'drizzle-orm/sqlite-core'
+import type { DrizzleD1Database } from 'drizzle-orm/d1'
+import { users } from '~~/db/schema'
+import { notFound } from '~/utils/nuxt'
+import type { PlanType } from '~/types'
+import { now } from '~/utils/date'
 
 export async function activePlan(
   orm: DrizzleD1Database<any>,

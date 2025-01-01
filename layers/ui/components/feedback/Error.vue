@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { t } from "@psitta/vue"
-import type { NuxtError } from "#app"
+import { t } from '@psitta/vue'
+import type { NuxtError } from '#app'
 
 const props = defineProps<{
   error: NuxtError
 }>()
 
 const emit = defineEmits<{
-  (e: "tryAgain"): void
+  (e: 'tryAgain'): void
 }>()
 
 const isNotFound = computed(() => props.error.statusCode === 404)

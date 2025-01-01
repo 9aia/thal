@@ -1,23 +1,23 @@
-import process from "node:process"
-import { eq, sql } from "drizzle-orm"
-import { z } from "zod"
-import { getHistory } from "~/server/services/messages"
-import { now } from "~/utils/date"
-import { chatHistoryToGemini, getGemini } from "~/utils/gemini"
-import { getValidated } from "~/utils/h3"
-import { badRequest, internal, notFound, unauthorized } from "~/utils/nuxt"
-import type { MessageInsert } from "~~/db/schema"
-import { chats, contacts, lastMessages, messageSendSchema, messages, personaUsernames, usernameSchema } from "~~/db/schema"
+import process from 'node:process'
+import { eq } from 'drizzle-orm'
+import { z } from 'zod'
+import { getHistory } from '~/server/services/messages'
+import { now } from '~/utils/date'
+import { chatHistoryToGemini, getGemini } from '~/utils/gemini'
+import { getValidated } from '~/utils/h3'
+import { internal, notFound, unauthorized } from '~/utils/nuxt'
+import type { MessageInsert } from '~~/db/schema'
+import { chats, contacts, lastMessages, messageSendSchema, messages, personaUsernames, usernameSchema } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const { GEMINI_API_KEY } = process.env
 
   if (!GEMINI_API_KEY)
-    throw internal("GEMINI_API_KEY is not set in the environment")
+    throw internal('GEMINI_API_KEY is not set in the environment')
 
-  const { username } = await getValidated(event, "params", z.object({ username: usernameSchema }))
+  const { username } = await getValidated(event, 'params', z.object({ username: usernameSchema }))
 
-  const data = await getValidated(event, "body", messageSendSchema)
+  const data = await getValidated(event, 'body', messageSendSchema)
 
   const orm = event.context.orm
   const user = event.context.user
@@ -45,12 +45,12 @@ export default eventHandler(async (event) => {
   })
 
   if (!result)
-    throw notFound("Persona Username not found")
+    throw notFound('Persona Username not found')
 
   const persona = result.persona
 
   if (!persona)
-    throw internal("Persona not found")
+    throw internal('Persona not found')
 
   const contact = result.contacts[0]
   let chat = result.chats[0]
@@ -74,8 +74,8 @@ export default eventHandler(async (event) => {
 
   history.push({
     id: history.length + 1,
-    from: "user",
-    status: "seen",
+    from: 'user',
+    status: 'seen',
     message: data.value,
     replyMessage: data.replyMessage,
     replyingId: data.replyingId,
@@ -113,14 +113,14 @@ export default eventHandler(async (event) => {
   const geminiResText = content?.parts?.[0]?.text
 
   if (!geminiResText)
-    throw internal("Empty response")
+    throw internal('Empty response')
 
   const botMessageTime = now().getTime()
   const botMessageContent = geminiResText
 
   const botMessagePayload: MessageInsert = {
     chatId: chat.id,
-    data: { type: "text", value: botMessageContent },
+    data: { type: 'text', value: botMessageContent },
     isBot: 1,
     createdAt: botMessageTime,
   }
@@ -156,8 +156,8 @@ export default eventHandler(async (event) => {
   history.push(
     {
       id: botMessageRecord.id,
-      from: "bot",
-      status: "seen",
+      from: 'bot',
+      status: 'seen',
       message: botMessageContent,
       time: botMessageTime,
     },

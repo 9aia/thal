@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useI18n } from "@psitta/vue"
-import queryKeys from "~/queryKeys"
-import { drawers, isRootDrawerOpen, personaBuilderData } from "~/store"
-import type { Persona } from "~/types"
+import { useI18n } from '@psitta/vue'
+import queryKeys from '~/queryKeys'
+import { drawers, isRootDrawerOpen, personaBuilderData } from '~/store'
+import type { Persona } from '~/types'
 
 const emit = defineEmits<{
-  (e: "close"): void
+  (e: 'close'): void
 }>()
 
 const { t } = useI18n()
@@ -15,7 +15,7 @@ const {
   isError,
   isPending,
   refetch,
-} = await useServerQuery("/api/persona", {
+} = await useServerQuery('/api/persona', {
   queryKey: queryKeys.myPersonas,
 })
 

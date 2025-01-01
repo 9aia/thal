@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { t } from "@psitta/vue"
-import type { User } from "~~/db/schema"
+import { t } from '@psitta/vue'
+import type { User } from '~~/db/schema'
 
-const user = inject<Ref<User>>("profile")!
+const user = inject<Ref<User>>('profile')!
 </script>
 
 <template>

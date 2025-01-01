@@ -1,5 +1,5 @@
-import type { User } from "~~/db/schema"
-import { now } from "~/utils/date"
+import type { User } from '~~/db/schema'
+import { now } from '~/utils/date'
 
 export function hasPlanExpired(user: User) {
   if (!user.plan || !user.plan_expires)

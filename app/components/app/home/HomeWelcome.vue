@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { t } from "@psitta/vue"
-import { isRootDrawerOpen } from "~/store"
+import { t } from '@psitta/vue'
+import { isRootDrawerOpen } from '~/store'
 </script>
 
 <template>

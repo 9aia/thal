@@ -1,17 +1,17 @@
-import { type OAuth2Tokens, decodeIdToken } from "arctic"
-import { ObjectParser } from "@pilcrowjs/object-parser"
+import { type OAuth2Tokens, decodeIdToken } from 'arctic'
+import { ObjectParser } from '@pilcrowjs/object-parser'
 
 export function getGoogleUser(tokens: OAuth2Tokens): GoogleUser {
   const claims = decodeIdToken(tokens.idToken())
   const claimsParser = new ObjectParser(claims)
 
-  const sub = claimsParser.getString("sub")
-  const givenName = claimsParser.getString("given_name")
-  const familyName = claimsParser.getString("family_name")
-  const name = claimsParser.getString("name")
-  const picture = claimsParser.getString("picture")
-  const email = claimsParser.getString("email")
-  const emailVerified = claimsParser.getBoolean("email_verified")
+  const sub = claimsParser.getString('sub')
+  const givenName = claimsParser.getString('given_name')
+  const familyName = claimsParser.getString('family_name')
+  const name = claimsParser.getString('name')
+  const picture = claimsParser.getString('picture')
+  const email = claimsParser.getString('email')
+  const emailVerified = claimsParser.getBoolean('email_verified')
 
   return {
     sub,

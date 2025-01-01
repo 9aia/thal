@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { RuleExpression } from "vee-validate"
-import { useField } from "vee-validate"
-import type { MaybeRef, SelectHTMLAttributes } from "vue"
-import type { SafeProps } from "../../types"
+import type { RuleExpression } from 'vee-validate'
+import { useField } from 'vee-validate'
+import type { MaybeRef, SelectHTMLAttributes } from 'vue'
+import type { SafeProps } from '../../types'
 
 type Props = SafeProps<SelectHTMLAttributes> & {
   label?: string
@@ -12,11 +12,11 @@ type Props = SafeProps<SelectHTMLAttributes> & {
   rules?: MaybeRef<RuleExpression<string>>
   mandatory?: boolean
   feedback?: string | boolean
-  iconPosition?: "none" | "right" | "left"
+  iconPosition?: 'none' | 'right' | 'left'
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  iconPosition: "none",
+  iconPosition: 'none',
 })
 const label = useSlotContent(() => props.label)
 

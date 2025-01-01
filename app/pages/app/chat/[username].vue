@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { t } from "@psitta/vue"
-import { useMutation, useQueryClient } from "@tanstack/vue-query"
-import { useOnline } from "@vueuse/core"
-import AppLayout from "~/layouts/app.vue"
-import queryKeys from "~/queryKeys"
-import { chatItemSearch, replies, sendingChatIds, sentErrorChatIds } from "~/store"
-import type { ChatItem } from "~/types"
+import { t } from '@psitta/vue'
+import { useMutation, useQueryClient } from '@tanstack/vue-query'
+import { useOnline } from '@vueuse/core'
+import AppLayout from '~/layouts/app.vue'
+import queryKeys from '~/queryKeys'
+import { chatItemSearch, replies, sendingChatIds, sentErrorChatIds } from '~/store'
+import type { ChatItem } from '~/types'
 
 const route = useRoute()
 
 definePageMeta({
   layout: false,
-  middleware: "premium",
+  middleware: 'premium',
 })
 
 const queryClient = useQueryClient()
@@ -36,15 +36,15 @@ async function fixScroll() {
   }, 0)
 }
 
-const text = ref("")
+const text = ref('')
 
 interface SendMessageData {
-  type: "text"
+  type: 'text'
   value: string
   refresh: boolean
   replyingId?: number
   replyMessage?: string
-  replyFrom?: "user" | "bot"
+  replyFrom?: 'user' | 'bot'
 }
 
 const replying = computed(() => {
@@ -59,8 +59,8 @@ function updateHistory(newMessage: SendMessageData) {
 
   newHistory.push({
     id: newHistory.length + 1,
-    from: "user",
-    status: isOnline.value ? "seen" : "sending",
+    from: 'user',
+    status: isOnline.value ? 'seen' : 'sending',
     message: newMessage.value,
     replyingId: newMessage.replyingId,
     replyMessage: newMessage.replyMessage,
@@ -80,7 +80,7 @@ function updateLastMessage(newMessage: SendMessageData, isError = false) {
     contactName: data.value.contact!.name,
     personaUsername: data.value.username,
     lastMessageContent: newMessage.value,
-    lastMessageStatus: isError ? "error" : (isOnline.value ? "seen" : "sending"),
+    lastMessageStatus: isError ? 'error' : (isOnline.value ? 'seen' : 'sending'),
     lastMessageDatetime: new Date().getTime(),
     personaName: data.value.name,
   }
@@ -107,14 +107,14 @@ function emptyInput() {
   const username = route.params.username as string
   delete replies[username]
 
-  text.value = ""
+  text.value = ''
 }
 
 const newMessageTmp = ref()
 
 const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending } = useMutation({
   mutationFn: (data: SendMessageData) => $fetch(`/api/message/${route.params.username}`, {
-    method: "POST",
+    method: 'POST',
     body: JSON.stringify(data),
   }),
   async onMutate(newMessage) {
@@ -136,7 +136,7 @@ const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending
 
     newHistory[newHistory.length - 1] = {
       ...lastMessage,
-      status: "error",
+      status: 'error',
     }
 
     updateLastMessage(newMessageTmp.value, true)
@@ -176,7 +176,7 @@ const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending
 
 function handleSend() {
   sendMessage({
-    type: "text",
+    type: 'text',
     value: text.value,
     refresh: false,
     replyingId: replying.value?.id,
@@ -188,9 +188,9 @@ function handleSend() {
 function handleResend() {
   const lastMessage = data.value.history[data.value.history.length - 1]
 
-  if (lastMessage.status === "error") {
+  if (lastMessage.status === 'error') {
     sendMessage({
-      type: "text",
+      type: 'text',
       value: lastMessage.message,
       refresh: true,
       replyingId: replying.value?.id,

@@ -1,9 +1,9 @@
-import Stripe from "stripe"
-import { PLANS } from "~/constants/payment"
+import Stripe from 'stripe'
+import { PLANS } from '~/constants/payment'
 
 export function getStripe({ stripeKey }: { stripeKey: string }) {
   if (!stripeKey)
-    throw internal("Can not initialize Stripe without stripe key")
+    throw internal('Can not initialize Stripe without stripe key')
 
   const client = new Stripe(stripeKey, {
     httpClient: Stripe.createFetchHttpClient(),

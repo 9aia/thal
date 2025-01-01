@@ -6,7 +6,7 @@ const props = withDefaults(defineProps<{
 })
 
 const emit = defineEmits<{
-  (e: "intersect"): void
+  (e: 'intersect'): void
 }>()
 
 const endMarkerRef = ref<HTMLDivElement>()
@@ -17,7 +17,7 @@ onMounted(() => {
   observer.value = new IntersectionObserver(
     ([entry]) => {
       if (entry.isIntersecting)
-        emit("intersect")
+        emit('intersect')
     },
     { threshold: 1.00 },
   )

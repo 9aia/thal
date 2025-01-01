@@ -1,15 +1,15 @@
-import type { Content, GenerationConfig } from "@google/generative-ai"
-import * as _ from "lodash-es"
-import { internal } from "./nuxt"
-import type { Message } from "~/types"
-import { getFullMessage } from "~/utils/chat"
+import type { Content, GenerationConfig } from '@google/generative-ai'
+import * as _ from 'lodash-es'
+import { internal } from './nuxt'
+import type { Message } from '~/types'
+import { getFullMessage } from '~/utils/chat'
 
 export function chatHistoryToGemini(history: Message[]): Content[] {
   return history.map((msg) => {
     const fullMessage = getFullMessage(msg.message, msg.replyMessage)
 
     return {
-      role: msg.from === "user" ? "user" : "model",
+      role: msg.from === 'user' ? 'user' : 'model',
       parts: [
         { text: fullMessage },
       ],
@@ -18,7 +18,7 @@ export function chatHistoryToGemini(history: Message[]): Content[] {
   )
 }
 
-export const GENERATE_CONTENT_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
+export const GENERATE_CONTENT_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent'
 
 export function getGemini(apiKey: string) {
   const generateContent = async (
@@ -50,14 +50,14 @@ export function getGemini(apiKey: string) {
 
     try {
       const response = await fetch(`${url}?key=${apiKey}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       })
 
       const data: any = await response.json()
 
-      if ("error" in data)
+      if ('error' in data)
         throw new Error(`Gemini internal error: ${data.error}`)
 
       return data
@@ -70,7 +70,7 @@ export function getGemini(apiKey: string) {
 
   const respondChat = async (history: Content[], systemInstruction?: string, generationConfig?: GenerationConfig) => {
     const url
-      = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
+      = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent'
     const body: any = {
       contents: history,
       generationConfig,
@@ -84,8 +84,8 @@ export function getGemini(apiKey: string) {
 
     try {
       const response = await fetch(`${url}?key=${apiKey}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       })
 

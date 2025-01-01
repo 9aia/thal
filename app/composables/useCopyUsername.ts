@@ -1,4 +1,4 @@
-import { useI18n } from "@psitta/vue"
+import { useI18n } from '@psitta/vue'
 
 function useCopyUsername(username: MaybeRef<string | undefined>) {
   const toast = useToast()
@@ -8,15 +8,15 @@ function useCopyUsername(username: MaybeRef<string | undefined>) {
     try {
       const _username = unref(username)
       if (!_username)
-        throw new Error("Username is not defined")
+        throw new Error('Username is not defined')
 
       await navigator.clipboard.writeText(_username)
 
-      toast.success(t("Username copied to clipboard"))
+      toast.success(t('Username copied to clipboard'))
     }
     catch (_e) {
       const _ = _e
-      toast.error(t("Failed to copy username to clipboard"))
+      toast.error(t('Failed to copy username to clipboard'))
     }
   }
 }

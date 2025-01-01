@@ -1,12 +1,12 @@
-import { eq } from "drizzle-orm"
-import type { H3EventContext } from "h3"
-import type { User } from "~~/db/schema"
-import type { Message } from "~/types"
-import { notFound } from "~/utils/nuxt"
-import { chats, personaUsernames } from "~~/db/schema"
+import { eq } from 'drizzle-orm'
+import type { H3EventContext } from 'h3'
+import type { User } from '~~/db/schema'
+import type { Message } from '~/types'
+import { notFound } from '~/utils/nuxt'
+import { chats, personaUsernames } from '~~/db/schema'
 
 export async function getHistory(
-  orm: H3EventContext["orm"],
+  orm: H3EventContext['orm'],
   user: User,
   username: string,
 ) {
@@ -23,7 +23,7 @@ export async function getHistory(
   })
 
   if (!result)
-    throw notFound("Persona Username not found")
+    throw notFound('Persona Username not found')
 
   const chat = result.chats[0]
 
@@ -31,7 +31,7 @@ export async function getHistory(
     return { chatId: null, history: [] } as { chatId: null, history: Message[] }
 
   const getReplyFrom = (replyingId: number) => {
-    return chat?.messages.find(m => m.id === replyingId)?.isBot === 0 ? "user" : "bot"
+    return chat?.messages.find(m => m.id === replyingId)?.isBot === 0 ? 'user' : 'bot'
   }
 
   // TODO perf: don't iterate again
@@ -40,8 +40,8 @@ export async function getHistory(
 
     return {
       id: message.id,
-      status: "seen",
-      from: message.isBot === 0 ? "user" : "bot",
+      status: 'seen',
+      from: message.isBot === 0 ? 'user' : 'bot',
       message: message.data.value,
       replyMessage,
       time: message.createdAt,

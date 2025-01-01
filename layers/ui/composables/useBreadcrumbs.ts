@@ -1,5 +1,5 @@
-import { computed } from "vue"
-import type { BreadcrumbItem } from "../components/navigation/types"
+import { computed } from 'vue'
+import type { BreadcrumbItem } from '../components/navigation/types'
 
 interface Options {
   path?: string
@@ -12,9 +12,9 @@ function useBreadcrumbs(options: Options) {
 
   const path = computed(() => {
     return route.path
-      .replaceAll(options.path!, "")
-      .split("/")
-      .filter(o => o !== "")
+      .replaceAll(options.path!, '')
+      .split('/')
+      .filter(o => o !== '')
   })
   const items = computed(() => {
     const currentItem = options.config.find(o => o.id === path.value[0])

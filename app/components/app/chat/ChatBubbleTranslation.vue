@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { t } from "@psitta/vue"
-import type { Translation } from "~/composables/useTranslation"
+import { t } from '@psitta/vue'
+import type { Translation } from '~/composables/useTranslation'
 
 const props = defineProps<{
   translation: Translation

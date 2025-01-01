@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import { tv } from "tailwind-variants"
+import { tv } from 'tailwind-variants'
 
 withDefaults(defineProps<{
-  size?: keyof typeof variants["size"]
+  size?: keyof typeof variants['size']
   is?: keyof HTMLElementTagNameMap
 }>(), {
-  size: "sm",
-  is: "span",
+  size: 'sm',
+  is: 'span',
 })
 
 const variants = {
   size: {
-    xs: "badge-xs",
-    sm: "badge-sm",
-    md: "badge-md",
-    lg: "badge-lg",
+    xs: 'badge-xs',
+    sm: 'badge-sm',
+    md: 'badge-md',
+    lg: 'badge-lg',
   },
 } as const
 
 const styles = tv({
-  base: "badge",
+  base: 'badge',
   variants,
 })
 </script>

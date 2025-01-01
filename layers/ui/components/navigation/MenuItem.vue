@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { t } from "@psitta/vue"
-import Icon from "../display/Icon.vue"
-import ChevronRight from "./ChevronRight.vue"
-import type { MenuItem } from "./types"
+import { t } from '@psitta/vue'
+import Icon from '../display/Icon.vue'
+import ChevronRight from './ChevronRight.vue'
+import type { MenuItem } from './types'
 
 defineProps<{
   is: MenuItem

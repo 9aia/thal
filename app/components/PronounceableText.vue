@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useI18n } from "@psitta/vue"
-import { tv } from "tailwind-variants"
+import { useI18n } from '@psitta/vue'
+import { tv } from 'tailwind-variants'
 
 const props = defineProps<{
   text: string
@@ -8,7 +8,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (
-    e: "result",
+    e: 'result',
     state: typeof pronounce.state.value,
   ): void
 }>()
@@ -21,15 +21,15 @@ watch(() => pronounce.isLoading.value, (value) => {
   if (value || pronounce.error.value)
     return
 
-  emit("result", pronounce.state.value)
+  emit('result', pronounce.state.value)
 })
 
 const btnStyles = tv({
-  base: "rounded",
+  base: 'rounded',
   variants: {
     type: {
-      recording: "bg-red-500 hover:bg-red-700",
-      notRecording: "bg-teal-500 hover:bg-teal-700",
+      recording: 'bg-red-500 hover:bg-red-700',
+      notRecording: 'bg-teal-500 hover:bg-teal-700',
     },
   },
 })

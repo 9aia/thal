@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useFieldError, useFieldValue, useForm } from "vee-validate"
-import { T, useI18n } from "@psitta/vue"
+import { useFieldError, useFieldValue, useForm } from 'vee-validate'
+import { T, useI18n } from '@psitta/vue'
 
 const { t } = useI18n()
 
@@ -20,13 +20,13 @@ const isOpen = defineModel({ default: false })
 
 function checkUsernameRule(inputValue: string) {
   if (!inputValue)
-    return t("Username is required")
+    return t('Username is required')
 
-  return inputValue === user.value!.username || t("Username does not match")
+  return inputValue === user.value!.username || t('Username does not match')
 }
 
-const isFieldError = useFieldError("username")
-const inputValue = useFieldValue("username")
+const isFieldError = useFieldError('username')
+const inputValue = useFieldValue('username')
 
 const isUsernameInvalid = computed(() => {
   return !(!isFieldError.value && !!inputValue.value)

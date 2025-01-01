@@ -1,41 +1,41 @@
 <script setup lang="ts">
-import { t } from "@psitta/vue"
-import { useForm } from "vee-validate"
-import { useFuse } from "@vueuse/integrations/useFuse"
-import type { Category } from "~/constants/discover"
-import { categories } from "~/constants/discover"
+import { t } from '@psitta/vue'
+import { useForm } from 'vee-validate'
+import { useFuse } from '@vueuse/integrations/useFuse'
+import type { Category } from '~/constants/discover'
+import { categories } from '~/constants/discover'
 
 defineProps<{
   selectedCategoryId?: number
 }>()
 
 const emit = defineEmits<{
-  (e: "categoryClick", categoryId: number): void
+  (e: 'categoryClick', categoryId: number): void
 }>()
 
 const modelValue = defineModel<boolean>()
 
 const { values, setValues } = useForm({
-  initialValues: { search: "" },
+  initialValues: { search: '' },
 })
 
 const {
   results: filteredCategories,
-} = useFuse(toRef(values, "search"), categories, {
+} = useFuse(toRef(values, 'search'), categories, {
   fuseOptions: {
-    keys: ["name"],
+    keys: ['name'],
   },
   matchAllWhenSearchEmpty: true,
 })
 
 function onItemClick(category: Category) {
-  emit("categoryClick", category.id)
+  emit('categoryClick', category.id)
   modelValue.value = false
 }
 
 watch(modelValue, (value) => {
   if (value)
-    setValues({ search: "" })
+    setValues({ search: '' })
 })
 </script>
 

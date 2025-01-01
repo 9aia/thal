@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { onMounted } from "vue"
-import { t } from "@psitta/vue"
+import { onMounted } from 'vue'
+import { t } from '@psitta/vue'
 
 onMounted(() => {
   const redirectUrl = useRedirectUrl()
-  redirectUrl.value = "/checkout/success"
+  redirectUrl.value = '/checkout/success'
 
-  const cookie = useCookie("free_trial_used", {
-    path: "/",
+  const cookie = useCookie('free_trial_used', {
+    path: '/',
   })
-  cookie.value = "1"
+  cookie.value = '1'
 })
 
 definePageMeta({
-  title: "Thanks for your order!",
-  middleware: "auth",
+  title: 'Thanks for your order!',
+  middleware: 'auth',
 })
 </script>
 

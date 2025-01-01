@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { T, t } from "@psitta/vue"
-import Btn from "~~/layers/ui/components/action/Btn.vue"
-import GoogleLogo from "~~/layers/ui/components/display/GoogleLogo.vue"
+import { T, t } from '@psitta/vue'
+import Btn from '~~/layers/ui/components/action/Btn.vue'
+import GoogleLogo from '~~/layers/ui/components/display/GoogleLogo.vue'
 </script>
 
 <template>

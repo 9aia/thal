@@ -1,11 +1,11 @@
-import { eq } from "drizzle-orm"
-import { z } from "zod"
-import { personaUsernames, personas, usernameSchema } from "~~/db/schema"
-import { getValidated } from "~/utils/h3"
-import { forbidden, notFound, unauthorized } from "~/utils/nuxt"
+import { eq } from 'drizzle-orm'
+import { z } from 'zod'
+import { personaUsernames, personas, usernameSchema } from '~~/db/schema'
+import { getValidated } from '~/utils/h3'
+import { forbidden, notFound, unauthorized } from '~/utils/nuxt'
 
 export default eventHandler(async (event) => {
-  const { username } = await getValidated(event, "params", z.object({ username: usernameSchema }))
+  const { username } = await getValidated(event, 'params', z.object({ username: usernameSchema }))
 
   const orm = event.context.orm
   const user = event.context.user

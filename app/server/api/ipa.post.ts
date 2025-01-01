@@ -1,21 +1,21 @@
-import process from "node:process"
-import { z } from "zod"
-import { getGemini } from "~/utils/gemini"
-import { getValidated } from "~/utils/h3"
-import { internal, unauthorized } from "~/utils/nuxt"
+import process from 'node:process'
+import { z } from 'zod'
+import { getGemini } from '~/utils/gemini'
+import { getValidated } from '~/utils/h3'
+import { internal, unauthorized } from '~/utils/nuxt'
 
 export default eventHandler(async (event) => {
   const { GEMINI_API_KEY } = process.env
 
   if (!GEMINI_API_KEY)
-    throw internal("GEMINI_API_KEY is not set in the environment")
+    throw internal('GEMINI_API_KEY is not set in the environment')
 
   const user = event.context.user
 
   if (!user)
     throw unauthorized()
 
-  const data = await getValidated(event, "body", z.object({
+  const data = await getValidated(event, 'body', z.object({
     text: z.string().min(1).max(300),
   }))
 
@@ -42,7 +42,7 @@ export default eventHandler(async (event) => {
   const text: string = bestPart?.text
 
   if (!text)
-    throw internal("Gemini did not return a valid translation")
+    throw internal('Gemini did not return a valid translation')
 
   let json: { transcript: string }
 
@@ -53,7 +53,8 @@ export default eventHandler(async (event) => {
       throw internal()
   }
   catch (e) {
-    throw internal("Gemini generated an invalid output.")
+    const _ = e
+    throw internal('Gemini generated an invalid output.')
   }
 
   return json

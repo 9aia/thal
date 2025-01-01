@@ -1,29 +1,29 @@
 <script setup lang="ts">
-import { t } from "@psitta/vue"
-import { watchDebounced } from "@vueuse/core"
-import { useForm } from "vee-validate"
-import queryKeys from "~/queryKeys"
-import { chatItemSearch, drawers, isRootDrawerOpen } from "~/store"
+import { t } from '@psitta/vue'
+import { watchDebounced } from '@vueuse/core'
+import { useForm } from 'vee-validate'
+import queryKeys from '~/queryKeys'
+import { chatItemSearch, drawers, isRootDrawerOpen } from '~/store'
 
-import type { MenuItem } from "~~/layers/ui/components/navigation/types"
+import type { MenuItem } from '~~/layers/ui/components/navigation/types'
 
 const emit = defineEmits<{
-  (e: "close"): void
+  (e: 'close'): void
 }>()
 
 const form = useForm({
   initialValues: {
-    search: "",
+    search: '',
   },
 })
 
-watchDebounced(toRef(form.values, "search"), () => {
+watchDebounced(toRef(form.values, 'search'), () => {
   chatItemSearch.value = form.values.search
 })
 
 const {
   data: chats,
-} = await useServerQuery(() => "/api/chat", {
+} = await useServerQuery(() => '/api/chat', {
   queryKey: queryKeys.chatsSearch(chatItemSearch),
   params: () => {
     return {
@@ -32,7 +32,7 @@ const {
   },
 })
 
-const isNoteVisible = useCookie("isNoteVisible", {
+const isNoteVisible = useCookie('isNoteVisible', {
   default: () => true,
 })
 
@@ -40,28 +40,28 @@ const logout = useLogout()
 
 function goToDiscover() {
   isRootDrawerOpen.value = false
-  navigateTo("/app/discover")
+  navigateTo('/app/discover')
 }
 
 const items: MenuItem[] = [
-  { id: "profile", name: "Profile", icon: "face", onClick: () => drawers.profile = true },
-  { id: "discover-personas", name: "Discover Characters", icon: "person_search", onClick: () => goToDiscover() },
-  { id: "my-characters", name: "My Characters", icon: "manage_accounts", onClick: () => drawers.myPersonas = true },
+  { id: 'profile', name: 'Profile', icon: 'face', onClick: () => drawers.profile = true },
+  { id: 'discover-personas', name: 'Discover Characters', icon: 'person_search', onClick: () => goToDiscover() },
+  { id: 'my-characters', name: 'My Characters', icon: 'manage_accounts', onClick: () => drawers.myPersonas = true },
   {
-    id: "plan",
-    name: "Subscription",
-    action: "/api/payment/stripe/create-portal-session",
-    method: "post",
-    icon: "subscriptions",
-    type: "external",
+    id: 'plan',
+    name: 'Subscription',
+    action: '/api/payment/stripe/create-portal-session',
+    method: 'post',
+    icon: 'subscriptions',
+    type: 'external',
   },
-  { id: "settings", name: "Settings", icon: "settings", onClick: () => drawers.settings = true },
+  { id: 'settings', name: 'Settings', icon: 'settings', onClick: () => drawers.settings = true },
   {
-    id: "logout",
-    name: "Logout",
-    action: "/api/auth/logout",
-    method: "post",
-    icon: "logout",
+    id: 'logout',
+    name: 'Logout',
+    action: '/api/auth/logout',
+    method: 'post',
+    icon: 'logout',
     onSubmit: logout,
   },
 ]

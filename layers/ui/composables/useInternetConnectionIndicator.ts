@@ -1,7 +1,7 @@
-import { useOnline } from "@vueuse/core"
-import { useI18n } from "@psitta/vue"
-import { watch } from "vue"
-import { useToast } from "~~/layers/ui/composables/useToast"
+import { useOnline } from '@vueuse/core'
+import { useI18n } from '@psitta/vue'
+import { watch } from 'vue'
+import { useToast } from '~~/layers/ui/composables/useToast'
 
 export default function useInternetConnectionIndicator() {
   const { t } = useI18n()
@@ -11,15 +11,15 @@ export default function useInternetConnectionIndicator() {
 
   watch(isOnline, (value) => {
     if (value) {
-      toast.success(t("Internet is back"), undefined, {
-        icon: "wifi",
-        position: "center-top",
+      toast.success(t('Internet is back'), undefined, {
+        icon: 'wifi',
+        position: 'center-top',
       })
     }
     else {
-      toast.error(t("No internet"), 0, {
-        position: "center-top",
-        icon: "wifi_off",
+      toast.error(t('No internet'), 0, {
+        position: 'center-top',
+        icon: 'wifi_off',
       })
     }
   })

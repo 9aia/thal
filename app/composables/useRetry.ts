@@ -1,4 +1,4 @@
-import { refAutoReset } from "@vueuse/core"
+import { refAutoReset } from '@vueuse/core'
 
 function useRetry(fn: () => void, afterMs = 3000) {
   const disabled = refAutoReset(false, afterMs)

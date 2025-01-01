@@ -3,13 +3,13 @@ const props = withDefaults(defineProps<{
   placeholder: string
   is: string
 }>(), {
-  is: "div",
+  is: 'div',
 })
 
 const inputRef = ref<HTMLSpanElement>()
 
 const modelValue = defineModel<string>({
-  default: "",
+  default: '',
 })
 
 watch(modelValue, (value) => {
@@ -20,7 +20,7 @@ watch(modelValue, (value) => {
 })
 
 onMounted(() => {
-  inputRef.value?.setAttribute("data-placeholder", props.placeholder)
+  inputRef.value?.setAttribute('data-placeholder', props.placeholder)
 })
 
 function edit(e: InputEvent) {

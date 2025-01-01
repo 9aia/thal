@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { T, t } from "@psitta/vue"
-import Link from "~~/layers/ui/components/navigation/Link.vue"
+import { T, t } from '@psitta/vue'
+import Link from '~~/layers/ui/components/navigation/Link.vue'
 
 const user = useUser()
 
@@ -11,25 +11,25 @@ interface SectionItem {
 
 const sections = computed<SectionItem[]>(() => [
   {
-    title: "Links",
+    title: 'Links',
     items: [
-      { title: "Home", href: "/" },
-      { title: "About", href: "/about" },
-      !user?.value?.plan ? { title: "Pricing", href: "/pricing" } : null,
+      { title: 'Home', href: '/' },
+      { title: 'About', href: '/about' },
+      !user?.value?.plan ? { title: 'Pricing', href: '/pricing' } : null,
     ],
   },
   {
-    title: "Support",
+    title: 'Support',
     items: [
-      { title: "Give us feedback", target: "_blank", localize: false, href: "https://forms.gle/5ePvXjrebyWGUrM26" },
-      { title: "Report a problem", target: "_blank", localize: false, href: "https://forms.gle/ANMv7qnwTHva1k7L8" },
+      { title: 'Give us feedback', target: '_blank', localize: false, href: 'https://forms.gle/5ePvXjrebyWGUrM26' },
+      { title: 'Report a problem', target: '_blank', localize: false, href: 'https://forms.gle/ANMv7qnwTHva1k7L8' },
     ],
   },
   {
-    title: "Legal",
+    title: 'Legal',
     items: [
-      { title: "Terms of Service", href: "/terms" },
-      { title: "Privacy Policy", href: "/privacy" },
+      { title: 'Terms of Service', href: '/terms' },
+      { title: 'Privacy Policy', href: '/privacy' },
     ],
   },
 ])

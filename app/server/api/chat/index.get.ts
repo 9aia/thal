@@ -1,15 +1,15 @@
-import { sql } from "drizzle-orm"
-import { z } from "zod"
-import persona from "../persona"
-import { getValidated } from "~/utils/h3"
-import { unauthorized } from "~/utils/nuxt"
-import { chats, contacts, lastMessages, personaUsernames, personas } from "~~/db/schema"
+import { sql } from 'drizzle-orm'
+import { z } from 'zod'
+import persona from '../persona'
+import { getValidated } from '~/utils/h3'
+import { unauthorized } from '~/utils/nuxt'
+import { chats, contacts, lastMessages, personaUsernames, personas } from '~~/db/schema'
 
 export default defineEventHandler(async (event) => {
   const orm = event.context.orm
   const user = event.context.user
 
-  const { search } = await getValidated(event, "query", z.object({
+  const { search } = await getValidated(event, 'query', z.object({
     search: z.string().optional().transform(s => s?.trim().toLowerCase()),
   }))
 

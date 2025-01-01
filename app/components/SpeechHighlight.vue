@@ -4,7 +4,7 @@ const props = defineProps<{
   currentWord: number
 }>()
 
-const textParts = computed(() => props.text.split(" "))
+const textParts = computed(() => props.text.split(' '))
 </script>
 
 <template>

@@ -1,5 +1,5 @@
-import { type DrizzleD1Database, drizzle as initializeDrizzle } from "drizzle-orm/d1"
-import * as schema from "../../../db/schema"
+import { type DrizzleD1Database, drizzle as initializeDrizzle } from 'drizzle-orm/d1'
+import * as schema from '../../../db/schema'
 
 let drizzle: DrizzleD1Database<typeof schema>
 
@@ -15,7 +15,7 @@ export default defineEventHandler(async (event) => {
   event.context.orm = drizzle
 })
 
-declare module "h3" {
+declare module 'h3' {
   interface H3EventContext {
     orm: DrizzleD1Database<typeof schema>
     cf: CfProperties

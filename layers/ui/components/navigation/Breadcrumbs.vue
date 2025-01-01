@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { t } from "@psitta/vue"
-import Icon from "../display/Icon.vue"
-import type { BreadcrumbItem } from "./types"
-import { A } from "#components"
+import { t } from '@psitta/vue'
+import Icon from '../display/Icon.vue'
+import type { BreadcrumbItem } from './types'
+import { A } from '#components'
 
 defineProps<{
   items: BreadcrumbItem[]

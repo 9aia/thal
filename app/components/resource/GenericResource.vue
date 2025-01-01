@@ -6,10 +6,10 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: "execute"): void
+  (e: 'execute'): void
 }>()
 
-const { disabled, retry } = useRetry(() => emit("execute"))
+const { disabled, retry } = useRetry(() => emit('execute'))
 
 const isFirstLoading = ref(props.loading)
 

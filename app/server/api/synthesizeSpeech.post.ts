@@ -1,28 +1,28 @@
-import process from "node:process"
-import { z } from "zod"
-import { getTts } from "~/utils/gcp"
-import { getValidated } from "~/utils/h3"
-import { internal, unauthorized } from "~/utils/nuxt"
+import process from 'node:process'
+import { z } from 'zod'
+import { getTts } from '~/utils/gcp'
+import { getValidated } from '~/utils/h3'
+import { internal, unauthorized } from '~/utils/nuxt'
 
 export default eventHandler(async (event) => {
   const { GCLOUD_ACCESS_TOKEN } = process.env
 
   if (!GCLOUD_ACCESS_TOKEN)
-    throw internal("GCLOUD_ACCESS_TOKEN is not set in the environment")
+    throw internal('GCLOUD_ACCESS_TOKEN is not set in the environment')
 
   const user = event.context.user
 
   if (!user)
     throw unauthorized()
 
-  const data = await getValidated(event, "body", z.object({
+  const data = await getValidated(event, 'body', z.object({
     text: z.string(),
-    locale: z.string().default("en-US"),
+    locale: z.string().default('en-US'),
   }))
 
   const tts = getTts(GCLOUD_ACCESS_TOKEN)
 
-  const ssml = `<speak>${data.text.split(" ").map((w, i) => `<mark name="${i}"/>${w}`).join(" ")}</speak>`
+  const ssml = `<speak>${data.text.split(' ').map((w, i) => `<mark name="${i}"/>${w}`).join(' ')}</speak>`
 
   const options = {
     input: {
@@ -30,12 +30,12 @@ export default eventHandler(async (event) => {
     },
     voice: {
       languageCode: data.locale,
-      ssmlGender: "FEMALE",
+      ssmlGender: 'FEMALE',
     },
     enableTimePointing: [
-      "SSML_MARK",
+      'SSML_MARK',
     ],
-    audioConfig: { audioEncoding: "MP3" },
+    audioConfig: { audioEncoding: 'MP3' },
   }
 
   const audio = await tts.synthesize(options)

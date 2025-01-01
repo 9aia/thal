@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { t } from "@psitta/vue"
-import type { Category } from "~/constants/discover"
+import { t } from '@psitta/vue'
+import type { Category } from '~/constants/discover'
 
 const props = defineProps<{
   categories: Category[]
@@ -8,7 +8,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: "click", category: Category): void
+  (e: 'click', category: Category): void
 }>()
 
 function checkIsSelected(categoryId: number) {

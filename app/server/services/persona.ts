@@ -1,16 +1,16 @@
-import process from "node:process"
-import type { ResponseSchema } from "@google/generative-ai"
-import { SchemaType } from "@google/generative-ai"
-import { eq } from "drizzle-orm"
-import type { H3EventContext } from "h3"
-import { categories } from "~/constants/discover"
-import { getGemini } from "~/utils/gemini"
-import { internal, notFound } from "~/utils/nuxt"
-import type { PersonaUpdate, User } from "~~/db/schema"
-import { contacts, personaUsernames } from "~~/db/schema"
+import process from 'node:process'
+import type { ResponseSchema } from '@google/generative-ai'
+import { SchemaType } from '@google/generative-ai'
+import { eq } from 'drizzle-orm'
+import type { H3EventContext } from 'h3'
+import { categories } from '~/constants/discover'
+import { getGemini } from '~/utils/gemini'
+import { internal, notFound } from '~/utils/nuxt'
+import type { PersonaUpdate, User } from '~~/db/schema'
+import { contacts, personaUsernames } from '~~/db/schema'
 
 export async function getPersonaByUsername(
-  orm: H3EventContext["orm"],
+  orm: H3EventContext['orm'],
   username: string,
 ) {
   const result = await orm.query.personaUsernames.findFirst({
@@ -23,7 +23,7 @@ export async function getPersonaByUsername(
   const persona = result?.persona
 
   if (!persona)
-    throw notFound("Persona not found")
+    throw notFound('Persona not found')
 
   return {
     ...persona,
@@ -34,7 +34,7 @@ export async function getPersonaByUsername(
 }
 
 export async function getPersonaWithContactByUser(
-  orm: H3EventContext["orm"],
+  orm: H3EventContext['orm'],
   user: User,
   username: string,
 ) {
@@ -59,12 +59,12 @@ export async function getPersonaWithContactByUser(
   })
 
   if (!result)
-    throw notFound("Persona Username not found")
+    throw notFound('Persona Username not found')
 
   const persona = result.persona
 
   if (!persona)
-    throw notFound("Persona not found")
+    throw notFound('Persona not found')
 
   const contact = {
     name: result.contacts[0]?.name,
@@ -83,7 +83,7 @@ export async function categorizePersona(data: PersonaUpdate) {
   const { GEMINI_API_KEY } = process.env
 
   if (!GEMINI_API_KEY)
-    throw internal("GEMINI_API_KEY is not set in the environment")
+    throw internal('GEMINI_API_KEY is not set in the environment')
 
   const systemInstruction = `You are a character categorizer. You are expected to categorize the character based on the given data.`
   const characterData = {
@@ -115,7 +115,7 @@ export async function categorizePersona(data: PersonaUpdate) {
 
   const gemini = getGemini(GEMINI_API_KEY as string)
   const res = await gemini.generateContent(prompt, systemInstruction, {
-    responseMimeType: "application/json",
+    responseMimeType: 'application/json',
     responseSchema: schema,
   })
 
@@ -124,7 +124,7 @@ export async function categorizePersona(data: PersonaUpdate) {
   const text: string = bestPart?.text
 
   if (!text)
-    throw internal("AI did not return a valid category")
+    throw internal('AI did not return a valid category')
 
   let categoryName: string
 
@@ -139,7 +139,7 @@ export async function categorizePersona(data: PersonaUpdate) {
   const categoryId = categories.find(category => category.name === categoryName)?.id
 
   if (!categoryId)
-    throw internal("AI did not return a valid category")
+    throw internal('AI did not return a valid category')
 
   return categoryId
 }

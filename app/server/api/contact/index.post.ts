@@ -1,12 +1,12 @@
-import { mapContactToDto } from "~/server/services/contact"
-import { getPersonaByUsername } from "~/server/services/persona"
-import { now } from "~/utils/date"
-import { getValidated } from "~/utils/h3"
-import { badRequest, internal, unauthorized } from "~/utils/nuxt"
-import { contactInsertSchema, contacts } from "~~/db/schema"
+import { mapContactToDto } from '~/server/services/contact'
+import { getPersonaByUsername } from '~/server/services/persona'
+import { now } from '~/utils/date'
+import { getValidated } from '~/utils/h3'
+import { badRequest, internal, unauthorized } from '~/utils/nuxt'
+import { contactInsertSchema, contacts } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
-  const data = await getValidated(event, "body", contactInsertSchema)
+  const data = await getValidated(event, 'body', contactInsertSchema)
 
   const orm = event.context.orm
   const user = event.context.user
@@ -32,8 +32,8 @@ export default eventHandler(async (event) => {
   catch (_e) {
     const e = _e as Error
 
-    if (e.message.includes("UNIQUE constraint"))
-      throw badRequest("Contact already added")
+    if (e.message.includes('UNIQUE constraint'))
+      throw badRequest('Contact already added')
 
     throw internal()
   }

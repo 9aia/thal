@@ -8,8 +8,8 @@ export function flattenObject<T extends Record<string, any>>(
 }
 
 export function parseInitialValues(selected: string) {
-  return selected.split(", ").reduce<Record<string, boolean>>((acc, key) => {
-    if (key === "")
+  return selected.split(', ').reduce<Record<string, boolean>>((acc, key) => {
+    if (key === '')
       return acc
     acc[key] = true
     return acc

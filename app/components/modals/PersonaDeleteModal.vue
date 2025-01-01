@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useFieldError, useFieldValue, useForm } from "vee-validate"
-import { T, useI18n } from "@psitta/vue"
-import { useMutation, useQueryClient } from "@tanstack/vue-query"
-import type { Persona } from "~/types"
-import queryKeys from "~/queryKeys"
+import { useFieldError, useFieldValue, useForm } from 'vee-validate'
+import { T, useI18n } from '@psitta/vue'
+import { useMutation, useQueryClient } from '@tanstack/vue-query'
+import type { Persona } from '~/types'
+import queryKeys from '~/queryKeys'
 
 const props = defineProps<{
   persona?: Persona
@@ -21,8 +21,8 @@ const {
   mutate,
 } = useMutation({
   mutationFn: async () => {
-    return $fetch(`/api/persona/${props.persona?.username}` as "/api/persona/:username", {
-      method: "DELETE",
+    return $fetch(`/api/persona/${props.persona?.username}` as '/api/persona/:username', {
+      method: 'DELETE',
     })
   },
   onSuccess: () => {
@@ -30,7 +30,7 @@ const {
       queryKey: queryKeys.myPersonas,
     })
     queryClient.invalidateQueries({
-      queryKey: ["discover-personas"],
+      queryKey: ['discover-personas'],
     })
 
     isOpen.value = false
@@ -50,13 +50,13 @@ watch(isOpen, () => {
 
 function checkUsernameRule(inputValue: string) {
   if (!inputValue)
-    return t("Username is required")
+    return t('Username is required')
 
-  return inputValue === props.persona?.username || t("Username does not match")
+  return inputValue === props.persona?.username || t('Username does not match')
 }
 
-const isFieldError = useFieldError("username")
-const inputValue = useFieldValue("username")
+const isFieldError = useFieldError('username')
+const inputValue = useFieldValue('username')
 
 const isUsernameInvalid = computed(() => {
   return !(!isFieldError.value && !!inputValue.value)

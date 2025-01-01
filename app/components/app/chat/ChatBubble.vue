@@ -1,36 +1,36 @@
 <script setup lang="ts">
-import { useLocale } from "@psitta/vue"
-import MessageIcon from "./MessageIcon.vue"
-import type { MessageStatus } from "~/types"
-import { replies } from "~/store"
+import { useLocale } from '@psitta/vue'
+import MessageIcon from './MessageIcon.vue'
+import type { MessageStatus } from '~/types'
+import { replies } from '~/store'
 
 const props = defineProps<{
   id: number
-  from: "user" | "bot"
+  from: 'user' | 'bot'
   time: number
   message: string
   replyMessage?: string
   replyingId?: number | null
-  replyFrom?: "user" | "bot"
+  replyFrom?: 'user' | 'bot'
   status: MessageStatus
   img: string
   showResend: boolean
 }>()
 const emit = defineEmits<{
-  (e: "resend"): void
+  (e: 'resend'): void
 }>()
 
-const right = computed(() => props.from === "user")
+const right = computed(() => props.from === 'user')
 
 const locale = useLocale()
 const route = useRoute()
 
 const time = computed(() => new Intl.DateTimeFormat(locale.value, {
-  hour: "2-digit",
-  minute: "2-digit",
+  hour: '2-digit',
+  minute: '2-digit',
 }).format(new Date(props.time)))
 
-const translation = useTranslation(toRef(props, "message"))
+const translation = useTranslation(toRef(props, 'message'))
 
 const username = computed(() => route.params.username as string)
 

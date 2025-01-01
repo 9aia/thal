@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { useI18n } from "@psitta/vue"
-import { useMutation, useQueryClient } from "@tanstack/vue-query"
-import queryKeys from "~/queryKeys"
-import { openContactView } from "~/store"
-import type { MenuItem } from "~~/layers/ui/components/navigation/types"
+import { useI18n } from '@psitta/vue'
+import { useMutation, useQueryClient } from '@tanstack/vue-query'
+import queryKeys from '~/queryKeys'
+import { openContactView } from '~/store'
+import type { MenuItem } from '~~/layers/ui/components/navigation/types'
 
 const props = defineProps<{
   name: string
@@ -25,12 +25,12 @@ const queryClient = useQueryClient()
 const {
   mutate: clearMessage,
 } = useMutation({
-  mutationFn: () => $fetch(`/api/chat/history/${props.username}`, { method: "DELETE" }),
+  mutationFn: () => $fetch(`/api/chat/history/${props.username}`, { method: 'DELETE' }),
   onError: () => {
-    toast.error(t("Failed to clear chat"))
+    toast.error(t('Failed to clear chat'))
   },
   onSuccess: () => {
-    toast.success(t("Chat has been cleared"))
+    toast.success(t('Chat has been cleared'))
 
     queryClient.invalidateQueries({
       queryKey: queryKeys.chat(props.username),
@@ -44,38 +44,38 @@ const {
 
 const items = computed<MenuItem[]>(() => [
   {
-    id: "view-contact",
-    name: t("View contact"),
-    icon: "contact_page",
+    id: 'view-contact',
+    name: t('View contact'),
+    icon: 'contact_page',
     onClick: () => openContactView(props.username),
   },
   {
-    id: "share-character",
-    name: t("Share character"),
-    icon: "ios_share",
+    id: 'share-character',
+    name: t('Share character'),
+    icon: 'ios_share',
     onClick: () => copyUsername(),
   },
   props.hasMessages
     ? {
-        id: "clear-chat",
-        name: t("Clear chat"),
-        icon: "mop",
+        id: 'clear-chat',
+        name: t('Clear chat'),
+        icon: 'mop',
         onClick: () => clearMessage(),
       }
     : null,
   props.hasContact
     ? {
-        id: "delete-contact",
-        name: t("Delete Contact"),
-        icon: "delete",
+        id: 'delete-contact',
+        name: t('Delete Contact'),
+        icon: 'delete',
         onClick: () => {
           contactDeleteModalState.value = true
         },
       }
     : {
-        id: "add-contact",
-        name: t("Add Contact"),
-        icon: "add",
+        id: 'add-contact',
+        name: t('Add Contact'),
+        icon: 'add',
         onClick: () => {
           props.addContact()
         },

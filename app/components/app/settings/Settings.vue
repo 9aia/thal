@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { t } from "@psitta/vue"
-import { ref } from "vue"
-import { SETTINGS } from "~/constants/settings"
-import { drawers } from "~/store"
+import { t } from '@psitta/vue'
+import { ref } from 'vue'
+import { SETTINGS } from '~/constants/settings'
+import { drawers } from '~/store'
 
 const emit = defineEmits<{
-  (e: "close"): void
+  (e: 'close'): void
 }>()
 
 const isLocaleModalOpen = ref(false)
@@ -15,7 +15,7 @@ const logout = useLogout()
 
 onMounted(() => {
   const redirectUrl = useRedirectUrl()
-  redirectUrl.value = "/app"
+  redirectUrl.value = '/app'
 })
 </script>
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue"
+import { computed } from 'vue'
 
 const props = defineProps<{
   placeholder?: string
@@ -11,11 +11,11 @@ const props = defineProps<{
 }>()
 
 const placeholder = computed(() => {
-  return props.placeholder || props.name?.[0].toUpperCase() || "U"
+  return props.placeholder || props.name?.[0].toUpperCase() || 'U'
 })
 
 const isBtn = computed(() => {
-  return props.type === "button" || props.type === "summary"
+  return props.type === 'button' || props.type === 'summary'
 })
 </script>
 

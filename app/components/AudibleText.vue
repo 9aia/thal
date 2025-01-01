@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useI18n } from "@psitta/vue"
-import { useToast } from "~~/layers/ui/composables/useToast"
+import { useI18n } from '@psitta/vue'
+import { useToast } from '~~/layers/ui/composables/useToast'
 
 const props = defineProps<{
   text: string
@@ -17,7 +17,8 @@ async function play() {
     await speech.synthesize()
   }
   catch (e) {
-    toast.error(t("Error synthesizing voice."))
+    const _ = e
+    toast.error(t('Error synthesizing voice.'))
     return
   }
   finally {

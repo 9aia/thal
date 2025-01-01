@@ -1,40 +1,40 @@
 /* eslint-disable ts/no-use-before-define */
-import { foreignKey, int, sqliteTable, text, unique } from "drizzle-orm/sqlite-core"
-import { createInsertSchema, createSelectSchema } from "drizzle-zod"
-import { relations, sql } from "drizzle-orm"
-import { z } from "zod"
-import { MAX_GOALS_AMOUNT, MAX_HOBBIES_AMOUNT, MAX_OBSERVATION_CHARS, MAX_PROFESSION_CHARS } from "../../app/constants/base"
-import type { MessageData } from "~/types"
+import { foreignKey, int, sqliteTable, text, unique } from 'drizzle-orm/sqlite-core'
+import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
+import { relations, sql } from 'drizzle-orm'
+import { z } from 'zod'
+import { MAX_GOALS_AMOUNT, MAX_HOBBIES_AMOUNT, MAX_OBSERVATION_CHARS, MAX_PROFESSION_CHARS } from '../../app/constants/base'
+import type { MessageData } from '~/types'
 
 // #region Users
 
-export const users = sqliteTable("User", {
-  id: text("id").primaryKey(),
-  username: text("username").unique().notNull(),
-  name: text("name").notNull(),
-  lastName: text("last_name").notNull(),
-  pronouns: text("pronouns"),
-  picture: text("picture"),
-  createdAt: text("created_at").notNull(),
-  email: text("email"),
-  plan: text("plan"),
-  payment_gateway_customer_id: text("payment_gateway_customer_id"),
-  payment_gateway_session_id: text("payment_gateway_session_id"),
-  plan_expires: text("plan_expires"),
-  free_trial_used: int("free_trial_used").default(0),
-  location: text("location"),
-  goals: text("goals"),
-  profession: text("profession"),
-  hobbies: text("hobbies"),
-  observation: text("observation"),
+export const users = sqliteTable('User', {
+  id: text('id').primaryKey(),
+  username: text('username').unique().notNull(),
+  name: text('name').notNull(),
+  lastName: text('last_name').notNull(),
+  pronouns: text('pronouns'),
+  picture: text('picture'),
+  createdAt: text('created_at').notNull(),
+  email: text('email'),
+  plan: text('plan'),
+  payment_gateway_customer_id: text('payment_gateway_customer_id'),
+  payment_gateway_session_id: text('payment_gateway_session_id'),
+  plan_expires: text('plan_expires'),
+  free_trial_used: int('free_trial_used').default(0),
+  location: text('location'),
+  goals: text('goals'),
+  profession: text('profession'),
+  hobbies: text('hobbies'),
+  observation: text('observation'),
 })
 
-export const sessions = sqliteTable("Session", {
-  id: text("id").primaryKey(),
-  userId: text("user_id")
+export const sessions = sqliteTable('Session', {
+  id: text('id').primaryKey(),
+  userId: text('user_id')
     .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-  expiresAt: int("expires_at", { mode: "timestamp" }).notNull(),
+    .references(() => users.id, { onDelete: 'cascade' }),
+  expiresAt: int('expires_at', { mode: 'timestamp' }).notNull(),
 })
 
 export const sessionRelations = relations(sessions, ({ one }) => ({
@@ -44,20 +44,20 @@ export const sessionRelations = relations(sessions, ({ one }) => ({
   }),
 }))
 
-export const oAuthAccounts = sqliteTable("OAuthAccount", {
-  providerId: text("provider_id").notNull(),
-  providerUserId: text("provider_user_id").notNull(),
-  userId: text("user_id")
+export const oAuthAccounts = sqliteTable('OAuthAccount', {
+  providerId: text('provider_id').notNull(),
+  providerUserId: text('provider_user_id').notNull(),
+  userId: text('user_id')
     .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
+    .references(() => users.id, { onDelete: 'cascade' }),
 })
 
 export const usernameSchema = z
   .string()
-  .min(1, { message: "Username must be at least 1 character long" })
-  .max(20, { message: "Username must be at most 20 characters long" })
-  .regex(/^[a-zA-Z0-9_]+$/, {
-    message: "Username can only contain letters, numbers, and underscores",
+  .min(1, { message: 'Username must be at least 1 character long' })
+  .max(20, { message: 'Username must be at most 20 characters long' })
+  .regex(/^\w+$/, {
+    message: 'Username can only contain letters, numbers, and underscores',
   })
 
 export const nameSchema = z.string().min(1).max(20)
@@ -89,7 +89,7 @@ export const userUpdateSchema = createInsertSchema(users, {
   email: z.string().email(),
   hobbies: hobbies =>
     hobbies.refine(
-      hobbies => hobbies.split(",").length <= MAX_HOBBIES_AMOUNT,
+      hobbies => hobbies.split(',').length <= MAX_HOBBIES_AMOUNT,
       {
         message: `Hobbies must contain at most ${MAX_HOBBIES_AMOUNT} items separated by commas`,
       },
@@ -103,7 +103,7 @@ export const userUpdateSchema = createInsertSchema(users, {
     ),
   goals: goals =>
     goals.refine(
-      goals => goals.split(",").length <= MAX_GOALS_AMOUNT,
+      goals => goals.split(',').length <= MAX_GOALS_AMOUNT,
       {
         message: `Goals must contain at most ${MAX_GOALS_AMOUNT} items separated by commas`,
       },
@@ -134,17 +134,17 @@ export type Session = SessionSelect
 export const descriptionSchema = z.string().min(1).max(100)
 export const instructionsSchema = z.string().min(1).max(500)
 
-export const personas = sqliteTable("Persona", {
-  id: int("id").primaryKey({ autoIncrement: true }),
-  name: text("name").notNull(),
-  description: text("description").notNull(),
-  instructions: text("instructions").notNull(),
-  conversationStarters: text("conversation_starters").notNull(),
-  createdAt: text("created_at").notNull(),
-  categoryId: int("category_id").notNull(),
-  discoverable: int("discoverable", { mode: "boolean" }).default(true).notNull(),
-  creatorId: text("creator_id")
-    .references(() => users.id, { onDelete: "no action" }),
+export const personas = sqliteTable('Persona', {
+  id: int('id').primaryKey({ autoIncrement: true }),
+  name: text('name').notNull(),
+  description: text('description').notNull(),
+  instructions: text('instructions').notNull(),
+  conversationStarters: text('conversation_starters').notNull(),
+  createdAt: text('created_at').notNull(),
+  categoryId: int('category_id').notNull(),
+  discoverable: int('discoverable', { mode: 'boolean' }).default(true).notNull(),
+  creatorId: text('creator_id')
+    .references(() => users.id, { onDelete: 'no action' }),
 })
 
 export const personaRelations = relations(personas, ({ one }) => ({
@@ -192,11 +192,11 @@ export type PersonaUpdate = z.infer<typeof personaUpdateSchema>
 
 // #region PersonaUsernames
 
-export const personaUsernames = sqliteTable("PersonaUsername", {
-  id: int("id").primaryKey({ autoIncrement: true }),
-  personaId: int("persona_id")
-    .references(() => personas.id, { onDelete: "set null" }),
-  username: text("username").unique().notNull(),
+export const personaUsernames = sqliteTable('PersonaUsername', {
+  id: int('id').primaryKey({ autoIncrement: true }),
+  personaId: int('persona_id')
+    .references(() => personas.id, { onDelete: 'set null' }),
+  username: text('username').unique().notNull(),
 })
 
 export const personaUsernameUpdateSchema = createInsertSchema(personaUsernames, {
@@ -222,16 +222,16 @@ export const personaUsernameRelations = relations(personaUsernames, ({ one, many
 
 // #region Contacts
 
-export const contacts = sqliteTable("Contact", {
-  id: int("id").primaryKey({ autoIncrement: true }),
-  name: text("name").notNull(),
-  personaUsernameId: int("persona_username_id")
+export const contacts = sqliteTable('Contact', {
+  id: int('id').primaryKey({ autoIncrement: true }),
+  name: text('name').notNull(),
+  personaUsernameId: int('persona_username_id')
     .notNull()
-    .references(() => personaUsernames.id, { onDelete: "no action" }),
-  userId: text("user_id")
+    .references(() => personaUsernames.id, { onDelete: 'no action' }),
+  userId: text('user_id')
     .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-  createdAt: text("created_at").notNull(),
+    .references(() => users.id, { onDelete: 'cascade' }),
+  createdAt: text('created_at').notNull(),
 }, t => ({
   unq: unique().on(t.userId, t.personaUsernameId),
 }))
@@ -291,18 +291,18 @@ export type ContactUpdateDto = z.infer<typeof contactUpdateSchema>
 
 // #region Chats
 
-export const lastMessages = sqliteTable("LastMessage", {
-  id: int("id").primaryKey({ autoIncrement: true }),
-  chatId: int("chat_id")
+export const lastMessages = sqliteTable('LastMessage', {
+  id: int('id').primaryKey({ autoIncrement: true }),
+  chatId: int('chat_id')
     .notNull()
-    .references(() => chats.id, { onDelete: "cascade" }),
-  content: text("content").notNull(),
-  datetime: int("datetime", { mode: "timestamp_ms" })
+    .references(() => chats.id, { onDelete: 'cascade' }),
+  content: text('content').notNull(),
+  datetime: int('datetime', { mode: 'timestamp_ms' })
     .notNull()
     .$defaultFn(() => sql`CURRENT_TIMESTAMP`),
-  userId: text("user_id")
+  userId: text('user_id')
     .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
+    .references(() => users.id, { onDelete: 'cascade' }),
 })
 
 export const lastMessageRelations = relations(lastMessages, ({ one }) => ({
@@ -318,17 +318,17 @@ export const insertLastMessageSchema = createInsertSchema(lastMessages)
 export type LastMessageSelect = z.infer<typeof selectLastMessageSchema>
 export type LastMessageInsert = z.infer<typeof insertLastMessageSchema>
 
-export const chats = sqliteTable("Chat", {
-  id: int("id").primaryKey({ autoIncrement: true }),
-  personaUsernameId: int("persona_username_id")
+export const chats = sqliteTable('Chat', {
+  id: int('id').primaryKey({ autoIncrement: true }),
+  personaUsernameId: int('persona_username_id')
     .notNull()
-    .references(() => personaUsernames.id, { onDelete: "no action" }),
-  userId: text("user_id")
+    .references(() => personaUsernames.id, { onDelete: 'no action' }),
+  userId: text('user_id')
     .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-  contactId: int("contact_id")
-    .references(() => contacts.id, { onDelete: "set null" }),
-  createdAt: text("created_at").notNull(),
+    .references(() => users.id, { onDelete: 'cascade' }),
+  contactId: int('contact_id')
+    .references(() => contacts.id, { onDelete: 'set null' }),
+  createdAt: text('created_at').notNull(),
 }, t => ({
   unq: unique().on(t.userId, t.personaUsernameId),
 }))
@@ -354,20 +354,20 @@ export const chatsRelations = relations(chats, ({ one, many }) => ({
 
 // #region Messages
 
-export const messages = sqliteTable("Message", {
-  id: int("id").primaryKey({ autoIncrement: true }),
-  chatId: int("chat_id")
+export const messages = sqliteTable('Message', {
+  id: int('id').primaryKey({ autoIncrement: true }),
+  chatId: int('chat_id')
     .notNull()
-    .references(() => chats.id, { onDelete: "cascade" }),
-  data: text("data", { mode: "json" }).$type<MessageData>().notNull(),
-  replyingId: int("replying_id"),
-  isBot: int("is_bot").default(0).notNull(),
-  createdAt: int("created_at").notNull(),
+    .references(() => chats.id, { onDelete: 'cascade' }),
+  data: text('data', { mode: 'json' }).$type<MessageData>().notNull(),
+  replyingId: int('replying_id'),
+  isBot: int('is_bot').default(0).notNull(),
+  createdAt: int('created_at').notNull(),
 }, self => ({
   parentReference: foreignKey({
     columns: [self.replyingId],
     foreignColumns: [self.id],
-    name: "messages_replying_id_fkey",
+    name: 'messages_replying_id_fkey',
   }),
 }))
 
@@ -379,18 +379,18 @@ export const messageRelations = relations(messages, ({ one }) => ({
 }))
 
 export const messageSendSchema = z.object({
-  type: z.enum(["text"]),
+  type: z.enum(['text']),
   value: z.string(),
   replyingId: z.number().optional(),
   replyMessage: z.string().optional(),
-  replyFrom: z.enum(["user", "bot"]).optional(),
+  replyFrom: z.enum(['user', 'bot']).optional(),
 })
 
 export const selectMessageSchema = createSelectSchema(messages)
 export const insertMessageSchema = createInsertSchema(messages)
 
 export type MessageSelect = z.infer<typeof selectMessageSchema>
-export type MessageInsert = Omit<z.infer<typeof insertMessageSchema>, "data"> & {
+export type MessageInsert = Omit<z.infer<typeof insertMessageSchema>, 'data'> & {
   data: MessageData
 }
 

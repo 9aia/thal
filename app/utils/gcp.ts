@@ -1,4 +1,4 @@
-import { internal } from "./nuxt"
+import { internal } from './nuxt'
 
 interface Alternative {
   transcript: string
@@ -24,10 +24,10 @@ export function getStt(apiKey: string) {
   ) => {
     try {
       const res = await fetch(`https://speech.googleapis.com/v1/speech:recognize?key=${apiKey}`, {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify(options),
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       })
 
@@ -58,10 +58,10 @@ export function getTts(apiKey: string) {
   ) => {
     try {
       const res = await fetch(`https://texttospeech.googleapis.com/v1beta1/text:synthesize?key=${apiKey}`, {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify(options),
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       })
 

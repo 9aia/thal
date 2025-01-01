@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { User } from "~~/db/schema"
-import { useForm } from "vee-validate"
-import { useI18n } from "@psitta/vue"
-import { useQueryClient } from "@tanstack/vue-query"
-import { useToast } from "~~/layers/ui/composables/useToast"
-import { MAX_OBSERVATION_CHARS } from "~/constants/base"
-import queryKeys from "~/queryKeys"
+import { useForm } from 'vee-validate'
+import { useI18n } from '@psitta/vue'
+import { useQueryClient } from '@tanstack/vue-query'
+import type { User } from '~~/db/schema'
+import { useToast } from '~~/layers/ui/composables/useToast'
+import { MAX_OBSERVATION_CHARS } from '~/constants/base'
+import queryKeys from '~/queryKeys'
 
 const { t } = useI18n()
 const toast = useToast()
@@ -14,7 +14,7 @@ const user = useUser()
 const queryClient = useQueryClient()
 
 const form = useForm<{
-  observation: User["observation"]
+  observation: User['observation']
 }>({
   initialValues: {
     observation: user.value!.observation,
@@ -32,7 +32,7 @@ const submit = form.handleSubmit(async () => {
 
   try {
     await $fetch(`/api/profile/${username}`, {
-      method: "patch",
+      method: 'patch',
       body: {
         observation: data.observation,
       },
@@ -40,14 +40,15 @@ const submit = form.handleSubmit(async () => {
 
     user.value = { ...user.value!, observation: data.observation }
 
-    toast.success(t("Observation has been updated successfully."))
+    toast.success(t('Observation has been updated successfully.'))
 
     queryClient.invalidateQueries({
       queryKey: queryKeys.profile(user.value!.username),
     })
   }
   catch (e) {
-    toast.error(t("An error occurred while updating your observation."))
+    const _ = e
+    toast.error(t('An error occurred while updating your observation.'))
   }
 
   loading.value = false

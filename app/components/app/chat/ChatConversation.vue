@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import type { Message } from "~/types"
+import type { Message } from '~/types'
 
 defineProps<{ history: Message[], isError: boolean }>()
 
 const emit = defineEmits<{
-  (e: "fixScroll"): void
-  (e: "resend"): void
+  (e: 'fixScroll'): void
+  (e: 'resend'): void
 }>()
 
 onMounted(() => {
-  emit("fixScroll")
+  emit('fixScroll')
 })
 </script>
 

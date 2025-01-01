@@ -1,7 +1,7 @@
-import { eq } from "drizzle-orm"
-import { users } from "~~/db/schema"
-import { unauthorized } from "~/utils/nuxt"
-import { invalidateSession } from "~/server/services/auth"
+import { eq } from 'drizzle-orm'
+import { users } from '~~/db/schema'
+import { unauthorized } from '~/utils/nuxt'
+import { invalidateSession } from '~/server/services/auth'
 
 export default defineEventHandler(async (event) => {
   const orm = event.context.orm
@@ -15,5 +15,5 @@ export default defineEventHandler(async (event) => {
 
   await invalidateSession(orm, session.id)
 
-  return sendRedirect(event, "/deleted-account")
+  return sendRedirect(event, '/deleted-account')
 })

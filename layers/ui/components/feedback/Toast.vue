@@ -1,38 +1,38 @@
 <script setup lang="ts">
-import { tv } from "tailwind-variants"
-import { computed, effect, ref } from "vue"
-import Icon from "../display/Icon.vue"
-import { useToast } from "../../composables/useToast"
+import { tv } from 'tailwind-variants'
+import { computed, effect, ref } from 'vue'
+import Icon from '../display/Icon.vue'
+import { useToast } from '../../composables/useToast'
 
 const styles = tv({
-  base: "z-50 alert border-0",
+  base: 'z-50 alert border-0',
   variants: {
     type: {
-      info: "alert-info",
-      warning: "alert-warning",
-      error: "alert-error",
-      success: "alert-success",
+      info: 'alert-info',
+      warning: 'alert-warning',
+      error: 'alert-error',
+      success: 'alert-success',
     },
   },
 })
 
 const actionStyles = tv({
-  base: "btn btn-sm btn-outline btn-neutral",
+  base: 'btn btn-sm btn-outline btn-neutral',
 })
 
 const toastStyles = tv({
-  base: "toast",
+  base: 'toast',
   variants: {
     position: {
-      "start-top": "toast-start toast-top",
-      "start-middle": "toast-start toast-middle",
-      "start-bottom": "toast-start toast-bottom",
-      "center-top": "toast-center toast-top",
-      "center-middle": "toast-center toast-middle",
-      "center-bottom": "toast-center toast-bottom",
-      "end-top": "toast-end toast-top",
-      "end-middle": "toast-end toast-middle",
-      "end-bottom": "toast-end toast-bottom",
+      'start-top': 'toast-start toast-top',
+      'start-middle': 'toast-start toast-middle',
+      'start-bottom': 'toast-start toast-bottom',
+      'center-top': 'toast-center toast-top',
+      'center-middle': 'toast-center toast-middle',
+      'center-bottom': 'toast-center toast-bottom',
+      'end-top': 'toast-end toast-top',
+      'end-middle': 'toast-end toast-middle',
+      'end-bottom': 'toast-end toast-bottom',
     },
   },
 })
@@ -48,12 +48,12 @@ interface Icons {
   info: string
 }
 const icons: Icons = {
-  success: "check_circle",
-  warning: "warning",
-  error: "error",
-  info: "info",
+  success: 'check_circle',
+  warning: 'warning',
+  error: 'error',
+  info: 'info',
 }
-const icon = computed(() => toast.icon.value || icons[toast.type.value || "info"])
+const icon = computed(() => toast.icon.value || icons[toast.type.value || 'info'])
 
 effect(() => {
   const duration = toast.duration.value ?? 3000
@@ -62,15 +62,15 @@ effect(() => {
     if (duration < 1)
       return
 
-    el.value.style.animationPlayState = "running"
+    el.value.style.animationPlayState = 'running'
   }
 })
 
 watch(toast.update, () => {
   if (el.value) {
-    el.value.classList.remove("animate-progress")
+    el.value.classList.remove('animate-progress')
     void el.value.offsetWidth
-    el.value.classList.add("animate-progress")
+    el.value.classList.add('animate-progress')
   }
 }, { immediate: true })
 </script>

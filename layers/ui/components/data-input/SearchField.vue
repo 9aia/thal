@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type RuleExpression, useField } from "vee-validate"
+import { type RuleExpression, useField } from 'vee-validate'
 
 const props = defineProps<{
   path: string

@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { T, useI18n } from "@psitta/vue"
-import { drawers } from "~/store"
+import { useI18n } from '@psitta/vue'
+import { drawers } from '~/store'
 
 const emit = defineEmits<{
-  (e: "close"): void
+  (e: 'close'): void
 }>()
 
 const { t } = useI18n()

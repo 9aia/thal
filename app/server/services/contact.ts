@@ -1,12 +1,11 @@
-import { and, eq, inArray, or, sql } from "drizzle-orm"
-import type { H3EventContext } from "h3"
-import persona from "../api/persona"
-import type { ContactEntity, ContactGetDto, PersonaGet, User } from "~~/db/schema"
-import { contacts, personaUsernames, personas } from "~~/db/schema"
-import { notFound } from "~/utils/nuxt"
+import { and, eq, inArray, or, sql } from 'drizzle-orm'
+import type { H3EventContext } from 'h3'
+import type { ContactEntity, ContactGetDto, PersonaGet, User } from '~~/db/schema'
+import { contacts, personaUsernames, personas } from '~~/db/schema'
+import { notFound } from '~/utils/nuxt'
 
 export async function getContactByUser(
-  orm: H3EventContext["orm"],
+  orm: H3EventContext['orm'],
   user: User,
   username: string,
 ) {
@@ -33,15 +32,15 @@ export async function getContactByUser(
   })
 
   if (!result)
-    throw notFound("Persona Username not found")
+    throw notFound('Persona Username not found')
 
   const persona = result.persona
 
   if (!persona)
-    throw notFound("Persona not found")
+    throw notFound('Persona not found')
 
   if (!result.contacts.length)
-    throw notFound("Contact not found")
+    throw notFound('Contact not found')
 
   return {
     id: result.contacts[0].id,
@@ -62,7 +61,7 @@ export function mapContactToDto(contact: ContactEntity, persona: PersonaGet): Co
 }
 
 export async function getContactWithPersonaByUser(
-  orm: H3EventContext["orm"],
+  orm: H3EventContext['orm'],
   user: User,
   username: string,
 ) {
@@ -80,18 +79,18 @@ export async function getContactWithPersonaByUser(
     .where(and(eq(contacts.userId, user.id!), eq(personaUsernames.username, username)))
 
   if (!contact)
-    throw notFound("Contact not found")
+    throw notFound('Contact not found')
 
   return contact
 }
 
 export async function getContactsWithPersonaByUser(
-  orm: H3EventContext["orm"],
+  orm: H3EventContext['orm'],
   user: User,
   search?: string,
 ) {
   const preparedUsernames = (orm.query.personaUsernames.findMany({
-    where: personaUsernames => search ? sql`lower(${personaUsernames.username}) like ${sql.placeholder("search")}` : undefined,
+    where: personaUsernames => search ? sql`lower(${personaUsernames.username}) like ${sql.placeholder('search')}` : undefined,
     columns: {
       id: true,
     },
@@ -103,7 +102,7 @@ export async function getContactsWithPersonaByUser(
     where: and(
       eq(contacts.userId, user.id!),
       or(
-        search ? sql`lower(${contacts.name}) like ${sql.placeholder("search")}` : undefined,
+        search ? sql`lower(${contacts.name}) like ${sql.placeholder('search')}` : undefined,
         inArray(contacts.personaUsernameId, usernameIds),
       ),
     ),

@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { t } from "@psitta/vue"
-
 const emit = defineEmits<{
-  (e: "edit"): void
+  (e: 'edit'): void
 }>()
 
 const user = useUser()

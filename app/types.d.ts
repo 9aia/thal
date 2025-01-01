@@ -1,6 +1,6 @@
-import type { InternalApi } from "nitropack"
-import type { HOBBIES } from "./constants/base"
-import type { UserSelect } from "~~/db/schema"
+import type { InternalApi } from 'nitropack'
+import type { HOBBIES } from './constants/base'
+import type { UserSelect } from '~~/db/schema'
 
 // #region Settings
 
@@ -24,11 +24,11 @@ export interface PlanType {
 // #region Chat
 
 export interface MessageData {
-  type: "text"
+  type: 'text'
   value: string
 }
 
-export type MessageStatus = "seen" | "sent" | "received" | "sending" | "error"
+export type MessageStatus = 'seen' | 'sent' | 'received' | 'sending' | 'error'
 
 export interface MessageContent {
   date: Date
@@ -52,23 +52,23 @@ export interface Contact {
 
 export interface Message {
   id: number
-  from: "user" | "bot"
+  from: 'user' | 'bot'
   message: string
   replyMessage?: string
-  replyFrom?: "user" | "bot"
+  replyFrom?: 'user' | 'bot'
   time: number
   status: MessageStatus
   replyingId?: number | null
 }
 
-export type ChatItem = InternalApi["/api/chat"]["get"][number] & {
+export type ChatItem = InternalApi['/api/chat']['get'][number] & {
   lastMessageStatus?: MessageStatus
 }
 
 export interface Reply {
   id: number
   message: string
-  from: "user" | "bot"
+  from: 'user' | 'bot'
 }
 
 export interface Replies {

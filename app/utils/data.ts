@@ -1,5 +1,5 @@
-import type { InfiniteData } from "@tanstack/vue-query"
-import type { Pagination } from "~~/layers/ui/schemas/paginator.schema"
+import type { InfiniteData } from '@tanstack/vue-query'
+import type { Pagination } from '~~/layers/ui/schemas/paginator.schema'
 
 export function getBase64(file: Blob) {
   return new Promise((resolve, reject) => {
@@ -33,7 +33,7 @@ export function getPaginatedDto<T extends Array<D>, D>(query: Pagination, result
 
 export function unwrapInfiniteData<
   T extends { data: any[] },
->(data: InfiniteData<T>): InfiniteData<T["data"][number]> {
+>(data: InfiniteData<T>): InfiniteData<T['data'][number]> {
   return {
     ...data,
     pages: data.pages?.flatMap((page: typeof data.pages[number]) => page.data),

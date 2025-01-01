@@ -1,6 +1,6 @@
-import { eq } from "drizzle-orm"
-import { unauthorized } from "~/utils/nuxt"
-import { personaUsernames, personas } from "~~/db/schema"
+import { eq } from 'drizzle-orm'
+import { unauthorized } from '~/utils/nuxt'
+import { personaUsernames, personas } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const orm = event.context.orm

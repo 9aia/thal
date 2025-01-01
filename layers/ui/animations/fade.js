@@ -1,14 +1,14 @@
 const fadeAnimation = {
-  fade: "fade 1s ease-in-out",
+  fade: 'fade 1s ease-in-out',
 }
 
 const fadeKeyframes = {
   fade: {
-    "0%": {
-      opacity: "1",
+    '0%': {
+      opacity: '1',
     },
-    "100%": {
-      opacity: "0",
+    '100%': {
+      opacity: '0',
     },
   },
 }

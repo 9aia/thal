@@ -1,8 +1,8 @@
-import { and, eq } from "drizzle-orm"
-import { z } from "zod"
-import { getValidated } from "~/utils/h3"
-import { unauthorized } from "~/utils/nuxt"
-import { contacts, personaUsernames, usernameSchema } from "~~/db/schema"
+import { and, eq } from 'drizzle-orm'
+import { z } from 'zod'
+import { getValidated } from '~/utils/h3'
+import { unauthorized } from '~/utils/nuxt'
+import { personaUsernames, usernameSchema } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const orm = event.context.orm
@@ -11,7 +11,7 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  const { username } = await getValidated(event, "params", z.object({ username: z.string() }))
+  const { username } = await getValidated(event, 'params', z.object({ username: z.string() }))
 
   if (!usernameSchema.safeParse(username).success) {
     return {

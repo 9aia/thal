@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { t } from "@psitta/vue"
-import { useForm } from "vee-validate"
-import { refDebounced } from "@vueuse/core"
-import { drawers, isRootDrawerOpen, personaBuilderData } from "~/store"
-import type { MenuItem } from "~~/layers/ui/components/navigation/types"
-import queryKeys from "~/queryKeys"
+import { t } from '@psitta/vue'
+import { useForm } from 'vee-validate'
+import { refDebounced } from '@vueuse/core'
+import { drawers, isRootDrawerOpen, personaBuilderData } from '~/store'
+import type { MenuItem } from '~~/layers/ui/components/navigation/types'
+import queryKeys from '~/queryKeys'
 
 const emit = defineEmits<({
-  (e: "close"): void
+  (e: 'close'): void
 })>()
 
 function handleCreatePersona() {
@@ -16,32 +16,32 @@ function handleCreatePersona() {
 }
 
 const generalItems: MenuItem[] = [
-  { id: "new-contact", icon: "person_add", name: t("New contact"), onClick: () => drawers.newContact = true },
-  { id: "create-persona", icon: "engineering", name: t("Build character"), onClick: () => handleCreatePersona() },
+  { id: 'new-contact', icon: 'person_add', name: t('New contact'), onClick: () => drawers.newContact = true },
+  { id: 'create-persona', icon: 'engineering', name: t('Build character'), onClick: () => handleCreatePersona() },
 ]
 
 function goToDiscover() {
   isRootDrawerOpen.value = false
-  navigateTo("/app/discover")
+  navigateTo('/app/discover')
 }
 
 const discoverItems: MenuItem[] = [
-  { id: "discover", icon: "groups_3", name: t("Characters"), onClick: () => goToDiscover() },
+  { id: 'discover', icon: 'groups_3', name: t('Characters'), onClick: () => goToDiscover() },
 ]
 
 const form = useForm({
   initialValues: {
-    search: "",
+    search: '',
   },
 })
-const search = refDebounced(toRef(form.values, "search"), 1000)
+const search = refDebounced(toRef(form.values, 'search'), 1000)
 
 const {
   data: contacts,
   isError,
   isPending,
   refetch,
-} = await useServerQuery("/api/contact", {
+} = await useServerQuery('/api/contact', {
   queryKey: queryKeys.contactsSearch(search),
   params: () => {
     return {

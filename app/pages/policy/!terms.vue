@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useLocale } from "@psitta/vue"
+import { useLocale } from '@psitta/vue'
 
 const locale = useLocale()
 
 definePageMeta({
-  layout: "site",
+  layout: 'site',
 })
 </script>
 

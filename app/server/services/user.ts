@@ -1,13 +1,13 @@
-import { and, eq, sql } from "drizzle-orm"
-import type { H3EventContext } from "h3"
-import type { OAuthProviderParams } from "../types"
-import { now } from "~/utils/date"
-import type { UserInsert } from "~~/db/schema"
-import { oAuthAccounts, users } from "~~/db/schema"
-import { generateId } from "~/utils/auth"
+import { and, eq, sql } from 'drizzle-orm'
+import type { H3EventContext } from 'h3'
+import type { OAuthProviderParams } from '../types'
+import { now } from '~/utils/date'
+import type { UserInsert } from '~~/db/schema'
+import { oAuthAccounts, users } from '~~/db/schema'
+import { generateId } from '~/utils/auth'
 
 export async function createUser(
-  orm: H3EventContext["orm"],
+  orm: H3EventContext['orm'],
   userInsert: UserInsert,
   providerParams: OAuthProviderParams,
 ) {
@@ -30,7 +30,7 @@ export async function createUser(
 }
 
 export async function getUser(
-  orm: H3EventContext["orm"],
+  orm: H3EventContext['orm'],
   providerParams: OAuthProviderParams,
 ) {
   const user = await orm
@@ -39,7 +39,7 @@ export async function getUser(
     .where(
       and(
         eq(oAuthAccounts.providerId, providerParams.providerId),
-        eq(oAuthAccounts.providerUserId, sql.placeholder("id")),
+        eq(oAuthAccounts.providerUserId, sql.placeholder('id')),
       ),
     )
     .prepare()

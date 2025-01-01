@@ -1,17 +1,17 @@
-import { setSessionTokenCookie, validateSessionToken } from "../services/auth"
-import type { Session, User } from "~~/db/schema"
+import { setSessionTokenCookie, validateSessionToken } from '../services/auth'
+import type { Session, User } from '~~/db/schema'
 
 export default defineEventHandler(async (event) => {
   // CSRF protection
-  if (!isMethod(event, "GET")) {
-    const originHeader = getHeader(event, "Origin") ?? null
-    const hostHeader = getHeader(event, "Host") ?? null
+  if (!isMethod(event, 'GET')) {
+    const originHeader = getHeader(event, 'Origin') ?? null
+    const hostHeader = getHeader(event, 'Host') ?? null
 
     if (originHeader === null || hostHeader === null)
       return sendNoContent(event, 403)
 
-    const originUrl = new URL(originHeader.startsWith("http") ? originHeader : `http://${originHeader}`)
-    const hostUrl = new URL(hostHeader.startsWith("http") ? hostHeader : `http://${hostHeader}`)
+    const originUrl = new URL(originHeader.startsWith('http') ? originHeader : `http://${originHeader}`)
+    const hostUrl = new URL(hostHeader.startsWith('http') ? hostHeader : `http://${hostHeader}`)
 
     if (originUrl.host !== hostUrl.host)
       return sendNoContent(event, 403)
@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
 
   const orm = event.context.orm
 
-  const token = getCookie(event, "session") ?? null
+  const token = getCookie(event, 'session') ?? null
 
   if (token === null) {
     event.context.session = null
@@ -41,7 +41,7 @@ export default defineEventHandler(async (event) => {
   event.context.user = user
 })
 
-declare module "h3" {
+declare module 'h3' {
   interface H3EventContext {
     user: User | null
     session: Session | null

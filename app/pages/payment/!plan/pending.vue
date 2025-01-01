@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { refAutoReset } from "@vueuse/core"
-import { useI18n } from "@psitta/vue"
-import { useToast } from "~~/layers/ui/composables/useToast"
+import { refAutoReset } from '@vueuse/core'
+import { useI18n } from '@psitta/vue'
+import { useToast } from '~~/layers/ui/composables/useToast'
 
 definePageMeta({
-  middleware: "auth",
+  middleware: 'auth',
 })
 
 const toast = useToast()
@@ -17,17 +17,17 @@ const user = useUser()
 async function goToApp() {
   disabled.value = true
 
-  const userFetch = await $fetch("/api/user")
+  const userFetch = await $fetch('/api/user')
 
   user.value = userFetch
 
   if (!userFetch?.plan) {
-    toast.warn(t("Your subscription is being processed yet."))
+    toast.warn(t('Your subscription is being processed yet.'))
 
     return
   }
 
-  await navigateTo("/app")
+  await navigateTo('/app')
 }
 </script>
 

@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { useI18n } from "@psitta/vue"
-import { useQueryClient } from "@tanstack/vue-query"
-import { useDebounceFn } from "@vueuse/core"
-import { useForm } from "vee-validate"
-import { contactData, drawers, isRootDrawerOpen } from "~/store"
-import { nameSchema, usernameSchema } from "~~/db/schema"
-import { useToast } from "~~/layers/ui/composables/useToast"
-import queryKeys from "~/queryKeys"
-import type TextField from "~~/layers/ui/components/data-input/TextField.vue"
+import { useI18n } from '@psitta/vue'
+import { useQueryClient } from '@tanstack/vue-query'
+import { useDebounceFn } from '@vueuse/core'
+import { useForm } from 'vee-validate'
+import { contactData, isRootDrawerOpen } from '~/store'
+import { nameSchema, usernameSchema } from '~~/db/schema'
+import { useToast } from '~~/layers/ui/composables/useToast'
+import queryKeys from '~/queryKeys'
+import type TextField from '~~/layers/ui/components/data-input/TextField.vue'
 
 const emit = defineEmits<{
-  (e: "close"): void
+  (e: 'close'): void
 }>()
 const { t } = useI18n()
 const toast = useToast()
@@ -43,19 +43,19 @@ async function validateUsername(username: string) {
 
     if (!isUsernameValid) {
       form.setErrors({
-        username: t("Username is invalid."),
+        username: t('Username is invalid.'),
       })
     }
 
     else if (personaNotFound) {
       form.setErrors({
-        username: t("Character not found."),
+        username: t('Character not found.'),
       })
     }
 
     else if (alreadyAdded) {
       form.setErrors({
-        username: t("Contact already added."),
+        username: t('Contact already added.'),
       })
     }
   }
@@ -63,7 +63,7 @@ async function validateUsername(username: string) {
     const _ = e
 
     toast.error(t(
-      "An error occurred while validating username.",
+      'An error occurred while validating username.',
     ))
   }
 }
@@ -83,13 +83,13 @@ const submit = form.handleSubmit(async (data) => {
 
   try {
     await $fetch(`/api/contact`, {
-      method: "post",
+      method: 'post',
       body: {
         ...data,
       },
     })
 
-    emit("close")
+    emit('close')
 
     queryClient.invalidateQueries({
       queryKey: queryKeys.contacts,
@@ -105,19 +105,19 @@ const submit = form.handleSubmit(async (data) => {
 
     form.resetForm()
 
-    toast.success(t("{name} was added to your contacts.", { name: data.name }), 5000, {
+    toast.success(t('{name} was added to your contacts.', { name: data.name }), 5000, {
       actions: [
         {
-          title: t("Message"),
+          title: t('Message'),
           onClick: () => handleGoToChat(data.username),
         },
       ],
-      position: "start-bottom",
+      position: 'start-bottom',
     })
   }
   catch (e) {
     const _ = e
-    toast.error(t("An error occurred while creating contact."))
+    toast.error(t('An error occurred while creating contact.'))
   }
 
   loading.value = false

@@ -1,12 +1,12 @@
-import { and, eq } from "drizzle-orm"
-import { z } from "zod"
-import { chats } from "~~/db/schema"
-import { badRequest, unauthorized } from "~/utils/nuxt"
-import { getValidated } from "~/utils/h3"
-import { numericString } from "~/utils/zod"
+import { and, eq } from 'drizzle-orm'
+import { z } from 'zod'
+import { chats } from '~~/db/schema'
+import { badRequest, unauthorized } from '~/utils/nuxt'
+import { getValidated } from '~/utils/h3'
+import { numericString } from '~/utils/zod'
 
 export default defineEventHandler(async (event) => {
-  const { id } = await getValidated(event, "params", z.object({
+  const { id } = await getValidated(event, 'params', z.object({
     id: numericString(z.number()),
   }))
 
@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
     ).returning()
 
   if (!deletedChat)
-    throw badRequest("Chat not found")
+    throw badRequest('Chat not found')
 
   return deletedChat
 })

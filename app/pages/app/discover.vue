@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useI18n } from "@psitta/vue"
-import { isRootDrawerOpen } from "~/store"
-import AppLayout from "~/layouts/app.vue"
+import { useI18n } from '@psitta/vue'
+import { isRootDrawerOpen } from '~/store'
+import AppLayout from '~/layouts/app.vue'
 
 definePageMeta({
   layout: false,
-  middleware: "premium",
+  middleware: 'premium',
 })
 
 const { t } = useI18n()

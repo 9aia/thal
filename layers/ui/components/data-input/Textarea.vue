@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { RuleExpression } from "vee-validate"
-import { useField } from "vee-validate"
-import type { MaybeRef, TextareaHTMLAttributes } from "vue"
-import type { SafeProps } from "../../types"
+import type { RuleExpression } from 'vee-validate'
+import { useField } from 'vee-validate'
+import type { MaybeRef, TextareaHTMLAttributes } from 'vue'
+import type { SafeProps } from '../../types'
 
 type Props = SafeProps<TextareaHTMLAttributes> & {
   label?: string

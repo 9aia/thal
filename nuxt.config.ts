@@ -1,38 +1,16 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  srcDir: "./app",
+  srcDir: './app',
   devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss", "nitro-cloudflare-dev", "@nuxt/eslint", "@nuxtjs/mdc", "@nuxt/image", "@nuxt/fonts"],
+  modules: ['@nuxtjs/tailwindcss', 'nitro-cloudflare-dev', '@nuxt/eslint', '@nuxtjs/mdc', '@nuxt/image', '@nuxt/fonts'],
 
   mdc: {
     remarkPlugins: {
       emoji: {
-        src: "remark-emoji",
+        src: 'remark-emoji',
       },
     },
   },
-
-  app: {
-    head: {
-      title: "Thal - Digital run to fluency",
-      meta: [
-        { name: "description", content: "Welcome to an AI-powered English learning app, providing personalized learning experiences." },
-        { name: "keywords", content: "English learning, AI-powered, personalized learning, language learning" },
-        { name: "author", content: "Luis Emidio" },
-      ],
-      link: [
-        { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" },
-      ],
-    },
-  },
-
-  devServer: {
-    host: "",
-  },
-
-  extends: [
-    "./layers/ui",
-  ],
 
   eslint: {
     config: {
@@ -40,12 +18,34 @@ export default defineNuxtConfig({
     },
   },
 
+  app: {
+    head: {
+      title: 'Thal - Digital run to fluency',
+      meta: [
+        { name: 'description', content: 'Welcome to an AI-powered English learning app, providing personalized learning experiences.' },
+        { name: 'keywords', content: 'English learning, AI-powered, personalized learning, language learning' },
+        { name: 'author', content: 'Luis Emidio' },
+      ],
+      link: [
+        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined' },
+      ],
+    },
+  },
+
+  devServer: {
+    host: '',
+  },
+
+  extends: [
+    './layers/ui',
+  ],
+
   components: [
     {
-      path: "~/components",
+      path: '~/components',
       pathPrefix: false,
     },
   ],
 
-  compatibilityDate: "2024-12-25",
+  compatibilityDate: '2024-12-25',
 })

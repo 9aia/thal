@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { tv } from "tailwind-variants"
-import type { MessageStatus } from "~/types"
+import { tv } from 'tailwind-variants'
+import type { MessageStatus } from '~/types'
 
 const props = defineProps<{
   status: MessageStatus
@@ -10,20 +10,20 @@ const icon = computed(() => {
   let icon: string
 
   switch (props.status) {
-    case "sending":
-      icon = "schedule"
+    case 'sending':
+      icon = 'schedule'
       break
-    case "seen":
-      icon = "done_all"
+    case 'seen':
+      icon = 'done_all'
       break
-    case "received":
-      icon = "done_all"
+    case 'received':
+      icon = 'done_all'
       break
-    case "sent":
-      icon = "check"
+    case 'sent':
+      icon = 'check'
       break
-    case "error":
-      icon = "error"
+    case 'error':
+      icon = 'error'
       break
   }
 
@@ -33,11 +33,11 @@ const icon = computed(() => {
 const styles = tv({
   variants: {
     type: {
-      error: "text-red-600",
-      seen: "text-sky-500",
-      sending: "text-slate-500",
-      received: "text-slate-500",
-      sent: "text-slate-500",
+      error: 'text-red-600',
+      seen: 'text-sky-500',
+      sending: 'text-slate-500',
+      received: 'text-slate-500',
+      sent: 'text-slate-500',
     },
   },
 })

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { localizeUrl } from "@psitta/core"
-import { useLocale } from "@psitta/vue"
+import { localizeUrl } from '@psitta/core'
+import { useLocale } from '@psitta/vue'
 
 interface Props {
   activeClass?: string

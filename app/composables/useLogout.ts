@@ -1,5 +1,5 @@
-import { useI18n } from "@psitta/vue"
-import { useToast } from "~~/layers/ui/composables/useToast"
+import { useI18n } from '@psitta/vue'
+import { useToast } from '~~/layers/ui/composables/useToast'
 
 function useLogout() {
   const toast = useToast()
@@ -8,15 +8,16 @@ function useLogout() {
 
   const logout = async () => {
     try {
-      await $fetch("/api/auth/logout", {
-        method: "POST",
+      await $fetch('/api/auth/logout', {
+        method: 'POST',
       })
       user.value = null
 
-      navigateTo("/sign-in")
+      navigateTo('/sign-in')
     }
-    catch (error) {
-      toast.error(t("An error occurred while logging out."))
+    catch (e) {
+      const _ = e
+      toast.error(t('An error occurred while logging out.'))
     }
   }
 

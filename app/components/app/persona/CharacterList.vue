@@ -1,18 +1,16 @@
 <script setup lang="ts">
-import { useI18n } from "@psitta/vue"
-import { refDebounced } from "@vueuse/core"
-import { useToggle } from "@vueuse/core/index.cjs"
-import { useForm } from "vee-validate"
-import type { Category } from "~/constants/discover"
-import { categories } from "~/constants/discover"
-import queryKeys from "~/queryKeys"
+import { useI18n } from '@psitta/vue'
+import { refDebounced } from '@vueuse/core'
+import { useForm } from 'vee-validate'
+import { categories } from '~/constants/discover'
+import queryKeys from '~/queryKeys'
 
 const { t } = useI18n()
 const form = useForm({
-  initialValues: { search: "" },
+  initialValues: { search: '' },
 })
 
-const search = refDebounced(toRef(form.values, "search"), 1000)
+const search = refDebounced(toRef(form.values, 'search'), 1000)
 const categoryId = ref<number>()
 
 function toggleCategory(id: number) {
@@ -28,7 +26,7 @@ const {
   hasNextPage,
 } = usePaginationQuery({
   queryKey: queryKeys.discoverPersonas(search, categoryId),
-  queryFn: ({ params }) => $fetch("/api/persona/discover", {
+  queryFn: ({ params }) => $fetch('/api/persona/discover', {
     params: {
       ...params,
       search: search.value,

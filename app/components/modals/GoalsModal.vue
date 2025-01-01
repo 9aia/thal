@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useForm } from "vee-validate"
-import { useI18n } from "@psitta/vue"
-import { useQueryClient } from "@tanstack/vue-query"
-import { GOALS } from "~/constants/base"
-import { useToast } from "~~/layers/ui/composables/useToast"
-import queryKeys from "~/queryKeys"
+import { useForm } from 'vee-validate'
+import { useI18n } from '@psitta/vue'
+import { useQueryClient } from '@tanstack/vue-query'
+import { GOALS } from '~/constants/base'
+import { useToast } from '~~/layers/ui/composables/useToast'
+import queryKeys from '~/queryKeys'
 
 const { t } = useI18n()
 const toast = useToast()
@@ -12,7 +12,7 @@ const user = useUser()
 
 const queryClient = useQueryClient()
 
-const initialValues = parseInitialValues(user.value!.goals || "")
+const initialValues = parseInitialValues(user.value!.goals || '')
 const form = useForm<Record<string, boolean | undefined>>({
   initialValues,
 })
@@ -20,7 +20,7 @@ const keys = computed(() => {
   const values = form.values
   return Object.keys(values)
     .filter(key => values[key])
-    .join(", ")
+    .join(', ')
 })
 
 const isOpen = defineModel({ default: false })
@@ -34,7 +34,7 @@ const submit = form.handleSubmit(async () => {
 
   try {
     await $fetch(`/api/profile/${username}`, {
-      method: "patch",
+      method: 'patch',
       body: {
         goals: currentKeys,
       },
@@ -43,14 +43,15 @@ const submit = form.handleSubmit(async () => {
 
     user.value = { ...user.value!, goals: currentKeys }
 
-    toast.success(t("Goals were updated successfully."))
+    toast.success(t('Goals were updated successfully.'))
 
     queryClient.invalidateQueries({
       queryKey: queryKeys.profile(user.value!.username),
     })
   }
   catch (e) {
-    toast.error(t("An error occurred while updating your goals."))
+    const _ = e
+    toast.error(t('An error occurred while updating your goals.'))
   }
 
   loading.value = false

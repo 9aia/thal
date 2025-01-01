@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { t } from "@psitta/vue"
-import Header from "~~/layers/ui/components/layout/Header.vue"
-import Footer from "~~/layers/ui/components/layout/Footer.vue"
-import type { MenuItem } from "~~/layers/ui/components/navigation/types"
+import { t } from '@psitta/vue'
+import Header from '~~/layers/ui/components/layout/Header.vue'
+import Footer from '~~/layers/ui/components/layout/Footer.vue'
+import type { MenuItem } from '~~/layers/ui/components/navigation/types'
 
 const user = useUser()
 const logout = useLogout()
@@ -10,22 +10,22 @@ const logout = useLogout()
 const localeModal = useLocaleModal()
 
 const menuItems: MenuItem[] = [
-  { id: "app", name: "App", icon: "chat", href: "/app" },
-  { id: "settings", name: "Account Settings", icon: "settings", href: "/settings/account" },
+  { id: 'app', name: 'App', icon: 'chat', href: '/app' },
+  { id: 'settings', name: 'Account Settings', icon: 'settings', href: '/settings/account' },
   {
-    id: "language",
-    name: "Language",
-    icon: "language",
+    id: 'language',
+    name: 'Language',
+    icon: 'language',
     onClick: () => {
       localeModal.open()
     },
   },
   {
-    id: "logout",
-    name: "Logout",
-    action: "/api/auth/logout",
-    method: "post",
-    icon: "logout",
+    id: 'logout',
+    name: 'Logout',
+    action: '/api/auth/logout',
+    method: 'post',
+    icon: 'logout',
     onSubmit: logout,
   },
 ]

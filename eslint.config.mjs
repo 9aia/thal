@@ -1,15 +1,25 @@
 // @ts-check
-import antfu from "@antfu/eslint-config"
-import withNuxt from "./.nuxt/eslint.config.mjs"
+import antfu from '@antfu/eslint-config'
+import withNuxt from './.nuxt/eslint.config.mjs'
 
 export default withNuxt(
   antfu({
-    vue: true,
     stylistic: {
-      quotes: "double",
+      indent: 2,
+      quotes: 'single',
     },
+
+    typescript: true,
+    vue: true,
+
+    jsonc: false,
+    yaml: false,
+
     rules: {
-      "no-console": ["off"],
+      'no-console': ['off'],
+      'ts/no-unused-expressions': ['off'],
+      'eslint-comments/no-unlimited-disable': ['off'],
+      'eslint-comments/no-unused-disable': 'off',
     },
   }),
 )

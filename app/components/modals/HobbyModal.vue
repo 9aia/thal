@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import * as _ from "lodash-es"
-import { useForm } from "vee-validate"
-import { useI18n } from "@psitta/vue"
-import { useQueryClient } from "@tanstack/vue-query"
-import { HOBBIES, MAX_HOBBIES_AMOUNT } from "~/constants/base"
-import { useToast } from "~~/layers/ui/composables/useToast"
-import queryKeys from "~/queryKeys"
+import * as _ from 'lodash-es'
+import { useForm } from 'vee-validate'
+import { useI18n } from '@psitta/vue'
+import { useQueryClient } from '@tanstack/vue-query'
+import { HOBBIES, MAX_HOBBIES_AMOUNT } from '~/constants/base'
+import { useToast } from '~~/layers/ui/composables/useToast'
+import queryKeys from '~/queryKeys'
 
 const { t } = useI18n()
 const toast = useToast()
@@ -13,7 +13,7 @@ const user = useUser()
 
 const queryClient = useQueryClient()
 
-const initialValues = parseInitialValues(user.value!.hobbies || "")
+const initialValues = parseInitialValues(user.value!.hobbies || '')
 const form = useForm<Record<string, boolean | undefined>>({
   initialValues,
 })
@@ -21,14 +21,14 @@ const keys = computed(() => {
   const values = form.values
   return Object.keys(values)
     .filter(key => values[key])
-    .join(", ")
+    .join(', ')
 })
 const hobbyNames = computed(() => {
   const hobbies = parseJoin(keys.value, HOBBIES)
   return hobbies.map(hobby => hobby.name)
 })
 
-const search = ref("")
+const search = ref('')
 const filteredList = computed(() => {
   return HOBBIES.filter(hobby =>
     hobby.name.toLowerCase().includes(search.value.toLowerCase()),
@@ -46,7 +46,7 @@ const submit = form.handleSubmit(async () => {
 
   try {
     await $fetch(`/api/profile/${username}`, {
-      method: "patch",
+      method: 'patch',
       body: {
         hobbies: currentKeys,
       },
@@ -54,14 +54,15 @@ const submit = form.handleSubmit(async () => {
 
     user.value = { ...user.value!, hobbies: currentKeys }
 
-    toast.success(t("Hobbies were updated successfully."))
+    toast.success(t('Hobbies were updated successfully.'))
 
     queryClient.invalidateQueries({
       queryKey: queryKeys.profile(user.value!.username),
     })
   }
   catch (e) {
-    toast.error(t("An error occurred while updating hobbies."))
+    const _ = e
+    toast.error(t('An error occurred while updating hobbies.'))
   }
 
   loading.value = false

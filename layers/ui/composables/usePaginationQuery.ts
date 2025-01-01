@@ -1,6 +1,6 @@
-import { useInfiniteQuery } from "@tanstack/vue-query"
+import { useInfiniteQuery } from '@tanstack/vue-query'
 
-export type QueryKey = Parameters<typeof useInfiniteQuery>[0]["queryKey"]
+export type QueryKey = Parameters<typeof useInfiniteQuery>[0]['queryKey']
 
 export interface UseInfiniteQueryFnPayload {
   params: {

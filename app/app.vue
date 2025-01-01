@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import "./style.css"
-import Toast from "~~/layers/ui/components/feedback/Toast.vue"
+import './style.css'
+import Toast from '~~/layers/ui/components/feedback/Toast.vue'
 
 const { state: localeModalState } = useLocaleModal()
 useInternetConnectionIndicator()

@@ -1,4 +1,4 @@
-export type ProviderId = "google"
+export type ProviderId = 'google'
 
 export interface OAuthProviderParams {
   providerId: ProviderId

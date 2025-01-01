@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Btn from "./Btn.vue"
+import Btn from './Btn.vue'
 
 const props = withDefaults(
   defineProps<{
@@ -14,16 +14,16 @@ const props = withDefaults(
     noPadding?: boolean
   }>(),
   {
-    classes: "",
-    confirmText: "Confirm",
-    cancelText: "Cancel",
+    classes: '',
+    confirmText: 'Confirm',
+    cancelText: 'Cancel',
     hideConfirm: false,
     showCancel: false,
     showCloseButton: false,
   },
 )
 
-const emit = defineEmits(["cancel", "confirm"])
+const emit = defineEmits(['cancel', 'confirm'])
 
 const dialog = ref<HTMLDialogElement>()
 

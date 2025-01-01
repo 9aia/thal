@@ -1,4 +1,4 @@
-import { contactData, drawers, isRootDrawerOpen } from "~/store"
+import { contactData, drawers, isRootDrawerOpen } from '~/store'
 
 export function useContactInfo(data: Ref<any>) {
   const { focusMainField } = useNewContactFocus()

@@ -1,10 +1,10 @@
 import type {
   Slot,
-} from "vue"
+} from 'vue'
 import {
   computed,
   useSlots,
-} from "vue"
+} from 'vue'
 
 function getSlotContent(slot?: Slot) {
   if (!slot)

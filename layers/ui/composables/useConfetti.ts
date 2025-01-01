@@ -1,7 +1,7 @@
 export function useConfetti() {
   let timer: any
   let frame: number | undefined
-  const containerId = "confetti-container"
+  const containerId = 'confetti-container'
 
   const make = () => {
     const random = Math.random
@@ -137,21 +137,21 @@ export function useConfetti() {
     }
 
     // Create the overarching container
-    const container = document.createElement("div")
+    const container = document.createElement('div')
     container.id = containerId
-    container.style.position = "fixed"
-    container.style.top = "0"
-    container.style.left = "0"
-    container.style.width = "100%"
-    container.style.height = "0"
-    container.style.overflow = "visible"
-    container.style.zIndex = "9999"
+    container.style.position = 'fixed'
+    container.style.top = '0'
+    container.style.left = '0'
+    container.style.width = '100%'
+    container.style.height = '0'
+    container.style.overflow = 'visible'
+    container.style.zIndex = '9999'
 
     // Confetto constructor
     class Confetto {
       frame: number = 0
-      outer: HTMLDivElement = document.createElement("div")
-      inner: HTMLDivElement = document.createElement("div")
+      outer: HTMLDivElement = document.createElement('div')
+      inner: HTMLDivElement = document.createElement('div')
       axis: string
       theta: number
       dTheta: number
@@ -167,14 +167,14 @@ export function useConfetti() {
 
         const outerStyle = this.outer.style
         const innerStyle = this.inner.style
-        outerStyle.position = "absolute"
+        outerStyle.position = 'absolute'
         outerStyle.width = `${sizeMin + sizeMax * random()}px`
         outerStyle.height = `${sizeMin + sizeMax * random()}px`
-        innerStyle.width = "100%"
-        innerStyle.height = "100%"
+        innerStyle.width = '100%'
+        innerStyle.height = '100%'
         innerStyle.backgroundColor = theme()
 
-        outerStyle.perspective = "50px"
+        outerStyle.perspective = '50px'
         outerStyle.transform = `rotate(${360 * random()}deg)`
         this.axis = `rotate3D(${cos(360 * random())},${cos(360 * random())},0,`
         this.theta = 360 * random()
@@ -271,7 +271,7 @@ export function useConfetti() {
     if (!container)
       return
 
-    container.classList.add("animate-fade")
+    container.classList.add('animate-fade')
 
     const removeConfetti = () => {
       container.remove()

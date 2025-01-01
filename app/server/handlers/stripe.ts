@@ -1,10 +1,10 @@
-import type { H3Event } from "h3"
-import type Stripe from "stripe"
-import { activePlan, cancelSubscription, updateSubscription } from "../services/plan"
-import { getPlan } from "../../utils/stripe"
-import { notFound } from "~/utils/nuxt"
-import { PLANS } from "~/constants/payment"
-import { fromSToMillis } from "~/utils/date"
+import type { H3Event } from 'h3'
+import type Stripe from 'stripe'
+import { activePlan, cancelSubscription, updateSubscription } from '../services/plan'
+import { getPlan } from '../../utils/stripe'
+import { notFound } from '~/utils/nuxt'
+import { PLANS } from '~/constants/payment'
+import { fromSToMillis } from '~/utils/date'
 
 export async function handleCheckoutCompleted(
   e: Stripe.CheckoutSessionCompletedEvent,
@@ -17,9 +17,9 @@ export async function handleCheckoutCompleted(
   const userId = session.client_reference_id
 
   if (!userId)
-    throw notFound("Client reference not found")
+    throw notFound('Client reference not found')
 
-  const isPaymentAsync = session.payment_status !== "paid"
+  const isPaymentAsync = session.payment_status !== 'paid'
 
   if (isPaymentAsync)
     return
@@ -38,12 +38,12 @@ export async function handleAsyncPaymentSucceeded(
   const plan = getPlan(session)
 
   if (!userId)
-    throw notFound("Client reference not found")
+    throw notFound('Client reference not found')
 
   if (!plan)
-    throw notFound("Plan not found")
+    throw notFound('Plan not found')
 
-  const isPaid = session.payment_status === "paid"
+  const isPaid = session.payment_status === 'paid'
 
   if (!isPaid)
     return

@@ -9,8 +9,8 @@ export interface MenuItem {
   for?: string
   action?: string
   method?: string
-  type?: "external" | "internal" | "accordion"
-  meaning?: "warning" | "danger"
+  type?: 'external' | 'internal' | 'accordion'
+  meaning?: 'warning' | 'danger'
   newTab?: boolean
   emit?: string
   localize?: boolean

@@ -1,19 +1,19 @@
-import { OAuth2RequestError, type OAuth2Tokens } from "arctic"
-import { getGoogleUser } from "../../../../utils/google"
-import { createUser, getUser } from "../../../services/user"
-import { createSession, setSessionTokenCookie } from "~/server/services/auth"
-import type { OAuthProviderParams } from "~/server/types"
-import { generateSessionToken, generateUsername } from "~/utils/auth"
-import { badRequest, internal } from "~/utils/nuxt"
-import type { UserInsert } from "~~/db/schema"
+import { OAuth2RequestError, type OAuth2Tokens } from 'arctic'
+import { getGoogleUser } from '../../../../utils/google'
+import { createUser, getUser } from '../../../services/user'
+import { createSession, setSessionTokenCookie } from '~/server/services/auth'
+import type { OAuthProviderParams } from '~/server/types'
+import { generateSessionToken, generateUsername } from '~/utils/auth'
+import { badRequest, internal } from '~/utils/nuxt'
+import type { UserInsert } from '~~/db/schema'
 
 export default defineEventHandler(async (event) => {
   const google = event.context.google!
   const orm = event.context.orm
 
-  const storedState = getCookie(event, "google_oauth_state") ?? null
-  const codeVerifier = getCookie(event, "code_verifier")
-  const redirectUrl = getCookie(event, "redirect_url") || "/"
+  const storedState = getCookie(event, 'google_oauth_state') ?? null
+  const codeVerifier = getCookie(event, 'code_verifier')
+  const redirectUrl = getCookie(event, 'redirect_url') || '/'
 
   const query = getQuery(event)
   const code = query.code?.toString() ?? null
@@ -28,14 +28,14 @@ export default defineEventHandler(async (event) => {
       tokens = await google.validateAuthorizationCode(code, codeVerifier)
     }
     catch {
-      return new Response("Please restart the process.", {
+      return new Response('Please restart the process.', {
         status: 400,
       })
     }
 
     const googleUser = getGoogleUser(tokens)
     const providerParams: OAuthProviderParams = {
-      providerId: "google",
+      providerId: 'google',
       providerUserId: googleUser.sub,
     }
 

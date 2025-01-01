@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useLocale } from "@psitta/vue"
-import { categories } from "~/constants/discover"
+import { useLocale } from '@psitta/vue'
+import { categories } from '~/constants/discover'
 
 const props = defineProps<{
   name: string
@@ -11,8 +11,8 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: "edit"): void
-  (e: "delete"): void
+  (e: 'edit'): void
+  (e: 'delete'): void
 }>()
 
 useLocale()

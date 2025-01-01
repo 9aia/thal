@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { categories } from "~/constants/discover"
-import { isRootDrawerOpen } from "~/store"
+import { categories } from '~/constants/discover'
+import { isRootDrawerOpen } from '~/store'
 
 const props = defineProps<{
   name: string

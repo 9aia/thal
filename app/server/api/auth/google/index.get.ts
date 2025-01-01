@@ -1,9 +1,9 @@
-import { generateCodeVerifier, generateState } from "arctic"
+import { generateCodeVerifier, generateState } from 'arctic'
 
 export default defineEventHandler(async (event) => {
   const google = event.context.google!
 
-  const scopeOrigin = "https://www.googleapis.com"
+  const scopeOrigin = 'https://www.googleapis.com'
 
   const scopes = [
     `${scopeOrigin}/auth/userinfo.email`,
@@ -14,16 +14,16 @@ export default defineEventHandler(async (event) => {
   const codeVerifier = generateCodeVerifier()
   const url = google.createAuthorizationURL(state, codeVerifier, scopes)
 
-  setCookie(event, "google_oauth_state", state, {
+  setCookie(event, 'google_oauth_state', state, {
     httpOnly: true,
     secure: !import.meta.dev,
-    path: "/",
+    path: '/',
     maxAge: 60 * 10, // 10min
   })
 
-  setCookie(event, "code_verifier", codeVerifier, {
+  setCookie(event, 'code_verifier', codeVerifier, {
     secure: !import.meta.dev,
-    path: "/",
+    path: '/',
     httpOnly: true,
     maxAge: 60 * 10, // 10min
   })

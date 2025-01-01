@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import type { InternalApi } from "nitropack"
-import { t } from "@psitta/vue"
-import { isRootDrawerOpen } from "~/store"
-import type { ChatItem } from "~/types"
+import { t } from '@psitta/vue'
+import { isRootDrawerOpen } from '~/store'
+import type { ChatItem } from '~/types'
 
 const props = defineProps<{
   chat: Readonly<ChatItem>
@@ -12,7 +11,7 @@ const name = computed(() => {
   return props.chat.contactName || props.chat.personaName
 })
 const content = computed(() => {
-  return props.chat.lastMessageContent || ""
+  return props.chat.lastMessageContent || ''
 })
 
 function handleGoToChat(username: string) {

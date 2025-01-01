@@ -1,5 +1,5 @@
-import { invalidateSession } from "../../services/auth"
-import { unauthorized } from "~/utils/nuxt"
+import { invalidateSession } from '../../services/auth'
+import { unauthorized } from '~/utils/nuxt'
 
 export default eventHandler(async (event) => {
   const orm = event.context.orm
@@ -10,5 +10,5 @@ export default eventHandler(async (event) => {
 
   await invalidateSession(orm, session.id)
 
-  return sendRedirect(event, "/sign-in")
+  return sendRedirect(event, '/sign-in')
 })

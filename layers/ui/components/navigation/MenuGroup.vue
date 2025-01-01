@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { MenuItem as MenuItemType } from "./types"
+import type { MenuItem as MenuItemType } from './types'
 
 defineProps<{
   items: MenuItemType[]
 }>()
 
 const emit = defineEmits<{
-  (e: "action", emitValue: string): void
+  (e: 'action', emitValue: string): void
 }>()
 
 function closeMenu() {

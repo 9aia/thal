@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/vue-query"
+import { useQuery } from '@tanstack/vue-query'
 
 export type Translation = ReturnType<typeof useTranslation>
 
@@ -7,12 +7,12 @@ function useTranslation(message: MaybeRef<string>) {
   const enabled = ref(false)
 
   const translationQuery = useQuery({
-    queryKey: ["message-translation", unref(message)],
-    queryFn: async () => $fetch("/api/translate", {
-      method: "POST",
+    queryKey: ['message-translation', unref(message)],
+    queryFn: async () => $fetch('/api/translate', {
+      method: 'POST',
       body: {
         text: unref(message),
-        locale: "pt-br",
+        locale: 'pt-br',
       },
     }),
     enabled,

@@ -1,6 +1,5 @@
-import { z } from "zod"
-import type { InfiniteData } from "@tanstack/vue-query"
-import { numericString } from "~/utils/zod"
+import { z } from 'zod'
+import { numericString } from '~/utils/zod'
 
 export interface PaginationOptions {
   defaultPage?: number

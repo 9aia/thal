@@ -1,7 +1,7 @@
-import type { DefaultError, QueryClient, QueryKey, UseQueryOptions } from "@tanstack/vue-query"
-import { useQuery } from "@tanstack/vue-query"
-import type { NitroFetchRequest } from "nitropack"
-import type { Params } from "~/utils/types"
+import type { DefaultError, QueryClient, QueryKey, UseQueryOptions } from '@tanstack/vue-query'
+import { useQuery } from '@tanstack/vue-query'
+import type { NitroFetchRequest } from 'nitropack'
+import type { Params } from '~/utils/types'
 
 async function useServerQuery<
   DefaultR extends NitroFetchRequest = NitroFetchRequest,
@@ -20,9 +20,9 @@ async function useServerQuery<
   const headers = useRequestHeaders()
   const { params, ...restOptions } = options
 
-  const fetcher = () => $fetch(typeof request === "function" ? request() : request, {
+  const fetcher = () => $fetch(typeof request === 'function' ? request() : request, {
     headers,
-    params: typeof params === "function" ? params() : params,
+    params: typeof params === 'function' ? params() : params,
   })
 
   const { suspense, ...rest } = useQuery({
@@ -32,7 +32,7 @@ async function useServerQuery<
 
   onServerPrefetch(async () => await suspense())
 
-  return rest as Omit<typeof rest, "data"> & {
+  return rest as Omit<typeof rest, 'data'> & {
     data: Ref<Readonly<Awaited<ReturnType<typeof fetcher>>>>
   }
 }

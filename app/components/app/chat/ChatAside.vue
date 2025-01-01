@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Translation } from "~/composables/useTranslation"
+import type { Translation } from '~/composables/useTranslation'
 
 const props = defineProps<{
   translation: Translation
@@ -7,7 +7,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: "setReply"): void
+  (e: 'setReply'): void
 }>()
 
 const hideTranslateBtn = computed(() => {

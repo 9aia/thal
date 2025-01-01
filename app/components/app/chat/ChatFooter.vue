@@ -1,17 +1,17 @@
 <script lang="ts" setup>
-import { useMagicKeys, useOnline } from "@vueuse/core"
-import { useQueryClient } from "@tanstack/vue-query"
-import { useI18n } from "@psitta/vue"
-import { useEventListener } from "@vueuse/core/index.cjs"
-import { replies, sendingChatIds, sentErrorChatIds } from "~/store"
-import queryKeys from "~/queryKeys"
+import { useMagicKeys, useOnline } from '@vueuse/core'
+import { useQueryClient } from '@tanstack/vue-query'
+import { useI18n } from '@psitta/vue'
+import { useEventListener } from '@vueuse/core/index.cjs'
+import { replies, sendingChatIds, sentErrorChatIds } from '~/store'
+import queryKeys from '~/queryKeys'
 
 const props = defineProps<{
   chatId: number
 }>()
 
 const emit = defineEmits<{
-  (e: "send"): void
+  (e: 'send'): void
 }>()
 
 const text = defineModel<string>({
@@ -36,18 +36,18 @@ const isChatSending = computed(() => sendingChatIds.value.has(props.chatId))
 const isEmpty = computed(() => !text.value.trim())
 const icon = computed(() => {
   if (isChatSending.value && !isOnline.value)
-    return "wifi_off"
+    return 'wifi_off'
 
   if (isChatSending.value)
-    return "pending"
+    return 'pending'
 
   if (isChatError.value && !isOnline.value)
-    return "wifi_off"
+    return 'wifi_off'
 
   if (isChatError.value)
-    return "error"
+    return 'error'
 
-  return isEmpty.value ? "mic" : "send"
+  return isEmpty.value ? 'mic' : 'send'
 })
 
 function handleSend(e: Event) {
@@ -58,7 +58,7 @@ function handleSend(e: Event) {
 
   if (!shift.value) {
     e.preventDefault()
-    emit("send")
+    emit('send')
   }
 }
 
@@ -71,17 +71,17 @@ const replying = computed(() => replies[username.value])
 const data = computed(() => queryClient.getQueryData(queryKeys.chat(username)))
 const { displayName } = useContactInfo(data)
 
-const replyDisplayName = computed(() => replying.value.from === "user"
-  ? t("You")
+const replyDisplayName = computed(() => replying.value.from === 'user'
+  ? t('You')
   : displayName.value,
 )
 
 const contentEditableRef = ref()
 
 onMounted(() => {
-  const chatContainer = document.querySelector("#chat-container")
+  const chatContainer = document.querySelector('#chat-container')
 
-  useEventListener(chatContainer, "keydown", () => {
+  useEventListener(chatContainer, 'keydown', () => {
     contentEditableRef.value?.focus()
   })
 

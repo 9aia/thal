@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { drawers, isRootDrawerOpen, rightDrawer } from "~/store"
+import { drawers, isRootDrawerOpen, rightDrawer } from '~/store'
 </script>
 
 <template>

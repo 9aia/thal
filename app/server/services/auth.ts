@@ -1,10 +1,10 @@
-import { eq } from "drizzle-orm"
-import { encodeHexLowerCase } from "@oslojs/encoding"
-import { sha256 } from "@oslojs/crypto/sha2"
-import type { H3Event, H3EventContext } from "h3"
-import { type Session, type User, sessions, users } from "~~/db/schema"
+import { eq } from 'drizzle-orm'
+import { encodeHexLowerCase } from '@oslojs/encoding'
+import { sha256 } from '@oslojs/crypto/sha2'
+import type { H3Event, H3EventContext } from 'h3'
+import { type Session, type User, sessions } from '~~/db/schema'
 
-export async function createSession(orm: H3EventContext["orm"], token: string, userId: string): Promise<Session> {
+export async function createSession(orm: H3EventContext['orm'], token: string, userId: string): Promise<Session> {
   const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)))
   const session: Session = {
     id: sessionId,
@@ -16,7 +16,7 @@ export async function createSession(orm: H3EventContext["orm"], token: string, u
   return session
 }
 
-export async function validateSessionToken(orm: H3EventContext["orm"], token: string): Promise<SessionValidationResult> {
+export async function validateSessionToken(orm: H3EventContext['orm'], token: string): Promise<SessionValidationResult> {
   const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)))
 
   const result = await orm.query.sessions.findFirst({
@@ -49,26 +49,26 @@ export async function validateSessionToken(orm: H3EventContext["orm"], token: st
   return { session, user }
 }
 
-export async function invalidateSession(orm: H3EventContext["orm"], sessionId: string): Promise<void> {
+export async function invalidateSession(orm: H3EventContext['orm'], sessionId: string): Promise<void> {
   await orm.delete(sessions).where(eq(sessions.id, sessionId))
 }
 
 export function setSessionTokenCookie(event: H3Event, token: string, expiresAt: Date): void {
-  setCookie(event, "session", token, {
+  setCookie(event, 'session', token, {
     httpOnly: true,
-    path: "/",
+    path: '/',
     secure: !import.meta.dev,
-    sameSite: "lax",
+    sameSite: 'lax',
     expires: expiresAt,
   })
 }
 
 export function deleteSessionTokenCookie(event: H3Event): void {
-  setCookie(event, "session", "", {
+  setCookie(event, 'session', '', {
     httpOnly: true,
-    path: "/",
+    path: '/',
     secure: !import.meta.dev,
-    sameSite: "lax",
+    sameSite: 'lax',
     maxAge: 0,
   })
 }

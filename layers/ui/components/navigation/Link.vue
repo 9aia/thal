@@ -14,7 +14,7 @@ const isExternal = computed(() => {
   if (props.href === undefined)
     return false
 
-  const regex = /^(http|https|mailto):\/\//i
+  const regex = /^(?:http|https|mailto):\/\//i
   return regex.test(props.href)
 })
 </script>

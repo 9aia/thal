@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useI18n } from "@psitta/vue"
-import { useMutation, useQueryClient } from "@tanstack/vue-query"
-import queryKeys from "~/queryKeys"
+import { useI18n } from '@psitta/vue'
+import { useMutation, useQueryClient } from '@tanstack/vue-query'
+import queryKeys from '~/queryKeys'
 
 const props = defineProps<{
   contactUsername: string
@@ -17,8 +17,8 @@ const {
   mutate,
 } = useMutation({
   mutationFn: async () => {
-    return $fetch(`/api/contact/${props.contactUsername}` as "/api/contact/:username", {
-      method: "DELETE",
+    return $fetch(`/api/contact/${props.contactUsername}` as '/api/contact/:username', {
+      method: 'DELETE',
     })
   },
   onSuccess: () => {

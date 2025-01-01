@@ -12,8 +12,8 @@ function useSpeech(text: string) {
   const synthesis = ref<Synthesis>()
 
   const synthesize = async () => {
-    const res = await $fetch("/api/synthesizeSpeech", {
-      method: "post",
+    const res = await $fetch('/api/synthesizeSpeech', {
+      method: 'post',
       body: {
         text,
       },
@@ -22,7 +22,7 @@ function useSpeech(text: string) {
     const audioBase64 = res.audioContent
     const byteCharacters = atob(audioBase64)
     const byteArray = Uint8Array.from(byteCharacters, c => c.charCodeAt(0))
-    const audioBlob = new Blob([byteArray], { type: "audio/mp3" })
+    const audioBlob = new Blob([byteArray], { type: 'audio/mp3' })
 
     const audioUrl = URL.createObjectURL(audioBlob)
     const timepoints = [...res.timepoints, { timeSeconds: 1 }]

@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { useDebounceFn } from "@vueuse/core"
-import { useForm } from "vee-validate"
-import { useI18n } from "@psitta/vue"
-import { useQueryClient } from "@tanstack/vue-query"
-import type { User } from "~~/db/schema"
-import { nameSchema, pronounsSchema, usernameSchema } from "~~/db/schema"
-import { useToast } from "~~/layers/ui/composables/useToast"
-import type { MenuItem } from "~~/layers/ui/components/navigation/types"
-import queryKeys from "~/queryKeys"
+import { useDebounceFn } from '@vueuse/core'
+import { useForm } from 'vee-validate'
+import { useI18n } from '@psitta/vue'
+import { useQueryClient } from '@tanstack/vue-query'
+import type { User } from '~~/db/schema'
+import { nameSchema, pronounsSchema, usernameSchema } from '~~/db/schema'
+import { useToast } from '~~/layers/ui/composables/useToast'
+import type { MenuItem } from '~~/layers/ui/components/navigation/types'
+import queryKeys from '~/queryKeys'
 
 definePageMeta({
-  middleware: "auth",
-  layout: "site",
+  middleware: 'auth',
+  layout: 'site',
 })
 
 const { t } = useI18n()
@@ -43,8 +43,9 @@ async function validateUsername(username: string) {
     invalid = !valid && currentUsername !== username
   }
   catch (e) {
+    const _ = e
     toast.error(t(
-      "An error occurred while validating username.",
+      'An error occurred while validating username.',
     ))
     invalid = false
   }
@@ -52,8 +53,8 @@ async function validateUsername(username: string) {
   invalidUsername.value = invalid
 
   form.setFieldError(
-    "username",
-    invalid ? t("Username is invalid.") : undefined,
+    'username',
+    invalid ? t('Username is invalid.') : undefined,
   )
 }
 
@@ -67,7 +68,7 @@ const submit = form.handleSubmit(async (data) => {
 
   try {
     await $fetch(`/api/profile/${username}`, {
-      method: "patch",
+      method: 'patch',
       body: data,
     })
 
@@ -75,14 +76,15 @@ const submit = form.handleSubmit(async (data) => {
 
     user.value = updatedUser
 
-    toast.success(t("Personal data has been updated successfully."))
+    toast.success(t('Personal data has been updated successfully.'))
 
     queryClient.invalidateQueries({
       queryKey: queryKeys.profile(updatedUser.username),
     })
   }
   catch (e) {
-    toast.error(t("An error occurred while updating personal data."))
+    const _ = e
+    toast.error(t('An error occurred while updating personal data.'))
   }
 
   loading.value = false
@@ -90,11 +92,11 @@ const submit = form.handleSubmit(async (data) => {
 
 const dangerItems: MenuItem[] = [
   {
-    id: "delete",
-    icon: "delete",
-    name: t("Delete account"),
-    description: t("This action is irreversible."),
-    type: "accordion",
+    id: 'delete',
+    icon: 'delete',
+    name: t('Delete account'),
+    description: t('This action is irreversible.'),
+    type: 'accordion',
     onClick: () => {
       isDeleteModalOpen.value = true
     },

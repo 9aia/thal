@@ -1,12 +1,12 @@
-import { psitta } from "@psitta/core"
-import messages from "./locales/index"
+import { psitta } from '@psitta/core'
+import messages from './locales/index'
 
 psitta({
-  locales: ["en", "pt"],
+  locales: ['en', 'pt'],
   messages,
 })
 
-declare module "@psitta/core" {
+declare module '@psitta/core' {
   interface Register {
     messages: any
   }

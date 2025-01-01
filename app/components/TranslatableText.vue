@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { useAsyncState } from "@vueuse/core"
-import Tooltip from "~~/layers/ui/components/feedback/Tooltip.vue"
+import { useAsyncState } from '@vueuse/core'
+import Tooltip from '~~/layers/ui/components/feedback/Tooltip.vue'
 
 const props = defineProps<{
   text: string
 }>()
 
 const translation = useAsyncState(async () => {
-  return await $fetch("/api/translate", {
-    method: "POST",
+  return await $fetch('/api/translate', {
+    method: 'POST',
     body: {
       text: props.text,
-      locale: "pt-br",
+      locale: 'pt-br',
     },
   })
 }, undefined, { immediate: false })

@@ -1,7 +1,7 @@
-import { getConfig } from "@psitta/core"
-import "../../../i18n"
-import type { NuxtPage } from "nuxt/schema"
-import { defineNuxtModule } from "nuxt/kit"
+import { getConfig } from '@psitta/core'
+import '../../../i18n'
+import type { NuxtPage } from 'nuxt/schema'
+import { defineNuxtModule } from 'nuxt/kit'
 
 export interface ModuleOptions {
   forcePathSymbol: string
@@ -9,15 +9,15 @@ export interface ModuleOptions {
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: "psitta",
-    configKey: "psitta",
+    name: 'psitta',
+    configKey: 'psitta',
   },
   defaults: {
-    forcePathSymbol: "!",
+    forcePathSymbol: '!',
   },
   async setup({ forcePathSymbol }, nuxt) {
     nuxt.addHooks({
-      "pages:extend": (pages) => {
+      'pages:extend': (pages) => {
         const i18nConfig = getConfig()
 
         pages.forEach((page, index) => {
@@ -49,7 +49,7 @@ function changeChildrenNamesRecursively(children: NuxtPage[], locale: string) {
 }
 
 function removeLastIndex(path: string) {
-  if (path.endsWith("index"))
+  if (path.endsWith('index'))
     return path.slice(0, -5)
 
   return path
@@ -66,7 +66,7 @@ function normalizePath(path: string, symbol: string) {
 
 function localizedPage(page: NuxtPage, locale: string, symbol: string) {
   const path = normalizePath(page.path, symbol)
-  const nameWithoutSymbol = page.name?.replace(symbol, "")
+  const nameWithoutSymbol = page.name?.replace(symbol, '')
 
   const children = changeChildrenNamesRecursively(page.children || [], locale)
 
@@ -83,7 +83,7 @@ function pageWithoutSymbol(page: NuxtPage, symbol: string) {
 
   return {
     ...page,
-    name: page.name?.replace(symbol, ""),
+    name: page.name?.replace(symbol, ''),
     path,
   }
 }

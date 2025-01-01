@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useQuery } from "@tanstack/vue-query"
-import { useI18n } from "@psitta/vue"
-import { contactViewUsername, rightDrawer, rightDrawers } from "~/store"
-import { categories } from "~/constants/discover"
-import queryKeys from "~/queryKeys"
-import type { MenuItem } from "~~/layers/ui/components/navigation/types"
+import { useQuery } from '@tanstack/vue-query'
+import { useI18n } from '@psitta/vue'
+import { contactViewUsername, rightDrawer, rightDrawers } from '~/store'
+import { categories } from '~/constants/discover'
+import queryKeys from '~/queryKeys'
+import type { MenuItem } from '~~/layers/ui/components/navigation/types'
 
 const contactDeleteModalState = ref(false)
 
@@ -29,21 +29,21 @@ const copyUsername = useCopyUsername(contactViewUsername)
 const items = computed<MenuItem[]>(() => [
   hasContact.value
     ? {
-        id: "delete-contact",
-        name: t("Delete Contact"),
-        icon: "delete",
+        id: 'delete-contact',
+        name: t('Delete Contact'),
+        icon: 'delete',
         onClick: () => contactDeleteModalState.value = true,
       }
     : {
-        id: "add-contact",
-        name: t("Add Contact"),
-        icon: "add",
+        id: 'add-contact',
+        name: t('Add Contact'),
+        icon: 'add',
         onClick: () => addContact(),
       },
   {
-    id: "share-character",
-    name: t("Share character"),
-    icon: "ios_share",
+    id: 'share-character',
+    name: t('Share character'),
+    icon: 'ios_share',
     onClick: () => copyUsername(),
   },
 ])

@@ -1,35 +1,35 @@
 <script setup lang="ts">
-import type { VariantProps } from "tailwind-variants"
-import { tv } from "tailwind-variants"
-import { type ButtonHTMLAttributes, useAttrs } from "vue"
-import type { SafeProps, SafeVariantProps } from "../../types"
+import type { VariantProps } from 'tailwind-variants'
+import { tv } from 'tailwind-variants'
+import type { ButtonHTMLAttributes } from 'vue'
+import type { SafeProps, SafeVariantProps } from '../../types'
 
 const props = withDefaults(defineProps<Props & {
-  size?: keyof typeof variants["size"]
-  shape?: "circle" | "square" | "normal"
+  size?: keyof typeof variants['size']
+  shape?: 'circle' | 'square' | 'normal'
   class: string
 }>(), {
-  size: "sm",
-  shape: "normal",
-  class: "",
+  size: 'sm',
+  shape: 'normal',
+  class: '',
 })
 
 const variants = {
   size: {
-    xs: "btn-xs",
-    sm: "btn-sm",
-    md: "",
-    lg: "btn-lg",
+    xs: 'btn-xs',
+    sm: 'btn-sm',
+    md: '',
+    lg: 'btn-lg',
   },
   shape: {
-    circle: "btn-circle",
-    square: "btn-square",
-    normal: "",
+    circle: 'btn-circle',
+    square: 'btn-square',
+    normal: '',
   },
 } as const
 
 const styles = tv({
-  base: "btn h-fit",
+  base: 'btn h-fit',
   variants,
 })
 

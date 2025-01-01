@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { t } from "@psitta/vue"
+import { t } from '@psitta/vue'
 
 definePageMeta({
   middleware: () => {
@@ -9,7 +9,7 @@ definePageMeta({
       return
 
     if (user.value.plan)
-      return navigateTo("/app")
+      return navigateTo('/app')
   },
 })
 </script>

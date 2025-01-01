@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed, ref } from "vue"
-import { t } from "@psitta/vue"
-import { GOALS, HOBBIES } from "~/constants/base"
+import { computed, ref } from 'vue'
+import { t } from '@psitta/vue'
+import { GOALS, HOBBIES } from '~/constants/base'
 
 const emit = defineEmits<{
-  (e: "close"): void
+  (e: 'close'): void
 }>()
 
 const user = useUser()
@@ -15,10 +15,10 @@ const isGoalsModalOpen = ref(false)
 const isObservationModalOpen = ref(false)
 
 const hobbies = computed(() => {
-  return parseJoin(user.value!.hobbies || "", HOBBIES)
+  return parseJoin(user.value!.hobbies || '', HOBBIES)
 })
 const goals = computed(() => {
-  return parseJoin(user.value!.goals || "", GOALS)
+  return parseJoin(user.value!.goals || '', GOALS)
 })
 </script>
 

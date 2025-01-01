@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { useI18n } from "@psitta/vue"
-import { useQueryClient } from "@tanstack/vue-query"
-import { useDebounceFn } from "@vueuse/core"
-import { useForm } from "vee-validate"
-import { descriptionSchema, instructionsSchema, nameSchema, usernameSchema } from "~~/db/schema"
-import { useToast } from "~~/layers/ui/composables/useToast"
-import { contactViewUsername, personaBuilderData } from "~/store"
-import type { Persona } from "~/types"
-import queryKeys from "~/queryKeys"
+import { useI18n } from '@psitta/vue'
+import { useQueryClient } from '@tanstack/vue-query'
+import { useDebounceFn } from '@vueuse/core'
+import { useForm } from 'vee-validate'
+import { descriptionSchema, instructionsSchema, nameSchema, usernameSchema } from '~~/db/schema'
+import { useToast } from '~~/layers/ui/composables/useToast'
+import { contactViewUsername, personaBuilderData } from '~/store'
+import type { Persona } from '~/types'
+import queryKeys from '~/queryKeys'
 
 const emit = defineEmits<{
-  (e: "close"): void
+  (e: 'close'): void
 }>()
 const { t } = useI18n()
 const toast = useToast()
@@ -47,15 +47,17 @@ async function validateUsername(username: string) {
     invalid = !valid
   }
   catch (e) {
+    const _ = e
+
     toast.error(t(
-      "An error occurred while validating username.",
+      'An error occurred while validating username.',
     ))
     invalid = false
   }
 
   form.setFieldError(
-    "username",
-    invalid ? t("Username is invalid.") : undefined,
+    'username',
+    invalid ? t('Username is invalid.') : undefined,
   )
 }
 
@@ -69,15 +71,15 @@ const submit = form.handleSubmit(async (data) => {
 
   try {
     if (isEditing.value) {
-      await $fetch(`/api/persona/${personaBuilderData.value?.username}` as "/api/persona/:username", {
-        method: "PATCH",
+      await $fetch(`/api/persona/${personaBuilderData.value?.username}` as '/api/persona/:username', {
+        method: 'PATCH',
         body: {
           ...data,
           conversationStarters: [],
         },
       })
 
-      toast.success(t("Persona has been edited successfully."))
+      toast.success(t('Persona has been edited successfully.'))
 
       const usernameQuery = params.username
 
@@ -93,14 +95,14 @@ const submit = form.handleSubmit(async (data) => {
     }
     else {
       await $fetch(`/api/persona`, {
-        method: "post",
+        method: 'post',
         body: {
           ...data,
           conversationStarters: [],
         },
       })
 
-      toast.success(t("Persona has been created successfully."))
+      toast.success(t('Persona has been created successfully.'))
     }
 
     queryClient.invalidateQueries({
@@ -111,12 +113,13 @@ const submit = form.handleSubmit(async (data) => {
       queryKey: queryKeys.discoverPersonas(),
     })
 
-    emit("close")
+    emit('close')
 
     form.resetForm()
   }
   catch (e) {
-    toast.error(t("An error occurred while creating persona."))
+    const _ = e
+    toast.error(t('An error occurred while creating persona.'))
   }
 
   loading.value = false

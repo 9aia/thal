@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { t } from "@psitta/vue"
-import type { User } from "~~/db/schema"
-import { GOALS } from "~/constants/base"
+import { t } from '@psitta/vue'
+import type { User } from '~~/db/schema'
+import { GOALS } from '~/constants/base'
 
-const user = inject<Ref<User>>("profile")!
+const user = inject<Ref<User>>('profile')!
 const goals = computed(() => {
-  return parseJoin(user.value!.goals || "", GOALS)
+  return parseJoin(user.value!.goals || '', GOALS)
 })
 </script>
 

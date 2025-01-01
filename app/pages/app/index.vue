@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import AppLayout from "~/layouts/app.vue"
+import AppLayout from '~/layouts/app.vue'
 
 definePageMeta({
   layout: false,
-  middleware: "premium",
+  middleware: 'premium',
 })
 </script>
 

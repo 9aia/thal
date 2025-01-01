@@ -1,4 +1,4 @@
-import type { Contact, Persona, Replies } from "~/types"
+import type { Contact, Persona, Replies } from '~/types'
 
 export const isRootDrawerOpen = ref(false)
 
@@ -33,7 +33,7 @@ export const replies = reactive<Replies>({})
 export const personaBuilderData = ref<Persona | null>(null)
 export const contactData = ref<Contact | null>(null)
 
-export const chatItemSearch = ref("")
+export const chatItemSearch = ref('')
 
 export const contactViewUsername = ref<string>()
 

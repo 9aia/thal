@@ -1,12 +1,12 @@
-import { eq } from "drizzle-orm"
-import { categorizePersona } from "~/server/services/persona"
-import { now } from "~/utils/date"
-import { getValidated } from "~/utils/h3"
-import { badRequest, unauthorized } from "~/utils/nuxt"
-import { personaInsertSchema, personaUsernames, personas } from "~~/db/schema"
+import { eq } from 'drizzle-orm'
+import { categorizePersona } from '~/server/services/persona'
+import { now } from '~/utils/date'
+import { getValidated } from '~/utils/h3'
+import { badRequest, unauthorized } from '~/utils/nuxt'
+import { personaInsertSchema, personaUsernames, personas } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
-  const data = await getValidated(event, "body", personaInsertSchema)
+  const data = await getValidated(event, 'body', personaInsertSchema)
 
   const orm = event.context.orm
   const user = event.context.user
@@ -25,7 +25,7 @@ export default eventHandler(async (event) => {
     .where(eq(personaUsernames.username, username))
 
   if (existingPersonaUsername && existingPersonaUsername.personaId !== null)
-    throw badRequest("Username already taken")
+    throw badRequest('Username already taken')
 
   const categoryId = await categorizePersona(data)
 

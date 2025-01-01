@@ -1,6 +1,6 @@
 <script setup lang="ts">
 function onNewResult(a: any) {
-  console.log("new result", a)
+  console.log('new result', a)
 }
 </script>
 

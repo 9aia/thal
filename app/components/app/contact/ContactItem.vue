@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useLocale } from "@psitta/vue"
+import { useLocale } from '@psitta/vue'
 
 defineProps<{
   name: string
@@ -10,8 +10,8 @@ defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: "edit"): void
-  (e: "delete"): void
+  (e: 'edit'): void
+  (e: 'delete'): void
 }>()
 
 useLocale()
