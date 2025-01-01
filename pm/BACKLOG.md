@@ -3,22 +3,19 @@
 ## Features
 
 - [ ] Create community guidelines
-- [ ] Add community guidelines link to the "Character Builder", chats and settings
+  - [ ] Add community guidelines link to the "Character Builder", chats and settings
 - [ ] Add report button (open modal) to contact options
-- [ ] Assigning each user a unique ID and imposing a limit on the volume of user queries that can be submitted in a given period.
 - [ ] Prevent from Prompt injection in character instructions, etc.
 - [ ] Check safety of messages
 - [ ] Check safety of fields
-- [ ] Validate legally character on create
+- [ ] Validate legally character on create/edit
   - [ ] Give feedback
 - [ ] Add safety inflation flags and strikes
+  - [ ] Assigning each user a unique ID and imposing a limit on the volume of user queries that can be submitted in a given period.
 - ---
 - [ ] Add "What's New" modal
 - [ ] Add onboarding
 - [ ] ---
-- [ ] Add contact editing
-- [ ] Add "View character details"
-- [ ] Add "Keep Character definition/instructions private"
 - [ ] Add language drawer containing UI language and translation settings
 - ---
 - [ ] Add markdown preview in the message input
@@ -28,17 +25,22 @@
 - ---
 - [ ] Implement basic analytics to track user engagement and app performance
 - [ ] Add logger
+- [ ] ---
+- [ ] Add unread badge
 
 ## Bugs
 
 - [ ] Fix modal opening on mobile
-- [ ] Add unread badge
 - [ ] Fix drag scroller on mobile
 - [ ] Fix bug copying HTML in messages
 - [ ] Rewrite left joins using Query API
 - [ ] Check user plan in API routes that are necessary
 - [ ] Prevent bots with turnstile
 - [ ] Fix hydration errors
+- [ ] Implement chat search by character name
+- [ ] Redirect from `/plan/expired` when your plan is not expired
+- [ ] Fix locale change routing (remove `/{locale}` from `/app`)
+  - [ ] Use locale param in site routes
 ---
 - [ ] Add rate-limit to Google auth callback
 - [ ] Use a single table for user and character usernames
@@ -49,26 +51,18 @@
 - [ ] Handle invalid sessions
 - [ ] Fix logout not removing cookies
 - [ ] Fix "Try again" after cookie issue resolved in the database
-- [ ] ---
-- [ ] Implement chat search by character name
-- [ ] ---
-- [ ] Redirect from `/plan/expired` when your plan is not expired
-- [ ] Fix locale change routing (remove `/{locale}` from `/app`)
-  - [ ] Use locale param in site routes
 
 ## Enhancements
 
 - [ ] Save drawer/view state in URL
 - [ ] Add option to copy message
 - [ ] Improve "My Characters" edition action appearance
-- [ ] Improve contact view
 - [ ] Add a warning for renaming character usernames
 - [ ] Focus on inputs after opening drawers
 - [ ] Add hydration loading indicator
 - ---
 - [ ] Replace web modal API
 - [ ] Change forms to another platform that supports localization
-- [ ] Add character search results to chat and contact search
 - ---
 - [ ] Improve stability by handling API errors gracefully
 - [ ] Improve error handling
@@ -103,19 +97,18 @@
 
 ## Dev Enhancements
 
-- [ ] Add nuxt devserver to codeshare container
+- [ ] Clean console warnings
 - [ ] Remove unused code
   - [ ] Unused files/functions
   - [ ] Use inferred schemas as DTOs
   - [ ] Remove profile details features for now
 - [ ] Move schemas to their own files
+- [ ] Move `app/` to `web/`
+- [ ] Move `layers/ui` to `web/components/ui`
 - [ ] Normalize schema payment field names to lower camel case
 - [ ] Change `Message.isBot` to boolean mode
-- [ ] Clean console warnings
-- [ ] Move `layers/ui` to `web/components/ui`
-- [ ] Move `app/` to `web/`
-- [ ] Suggest extensions for developers
-- [ ] Add a guide for WIP commits
-- [ ] Add a guide for atomic commits
-- [ ] Move ssh config to repository
+- [ ] Add nuxt devserver to codeshare container
+- [ ] Improve contributing guide
+  - [ ] Add a guide for WIP commits
+  - [ ] Add a guide for atomic commits
 - [ ] Update GCP metadata
