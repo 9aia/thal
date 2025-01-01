@@ -10,7 +10,7 @@ const props = defineProps<{
 const locale = useLocale()
 
 const date = computed(() => {
-  const date = props.chat?.last_message_datetime ? new Date(props.chat.last_message_datetime) : now()
+  const date = props.chat?.lastMessageDatetime ? new Date(props.chat.lastMessageDatetime) : now()
 
   if (isToday(date)) {
     const formatter = new Intl.DateTimeFormat(locale.value, {

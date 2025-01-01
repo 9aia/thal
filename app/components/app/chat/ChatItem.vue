@@ -8,22 +8,11 @@ const props = defineProps<{
   chat: Readonly<ChatItem>
 }>()
 
-const chat = computed(() => {
-  return {
-    id: props.chat.chat_id,
-    persona: {
-      name: props.chat.contact_name || props.chat?.persona_name || `@${props.chat.persona_username}`,
-      username: props.chat.persona_username,
-      avatar: undefined,
-    },
-    lastMessage: props.chat.last_message_content
-      ? {
-          date: new Date(props.chat.last_message_datetime),
-          status: props.chat.lastMessageStatus,
-          text: props.chat.last_message_content || "",
-        }
-      : undefined,
-  }
+const name = computed(() => {
+  return props.chat.contactName || props.chat.personaName
+})
+const content = computed(() => {
+  return props.chat.lastMessageContent || ""
 })
 
 function handleGoToChat(username: string) {
@@ -34,33 +23,33 @@ function handleGoToChat(username: string) {
 </script>
 
 <template>
-  <div role="button" class="px-3 py-1 hover:bg-slate-100 flex gap-2" @click="handleGoToChat(chat.persona.username)">
-    <Avatar :name="chat.persona.name" class="w-10 text-sm bg-slate-300 text-slate-800" type="button" />
+  <div role="button" class="px-3 py-1 hover:bg-slate-100 flex gap-2" @click="handleGoToChat(chat.personaUsername)">
+    <Avatar :name="chat.personaName" class="w-10 text-sm bg-slate-300 text-slate-800" type="button" />
 
     <div class="flex-1 flex flex-col justify-center w-10px">
       <div class="flex justify-between items-center">
-        <a class="block text-base text-slate-800">{{ chat.persona.name }}</a>
+        <a class="block text-base text-slate-800">{{ name }}</a>
 
-        <ClientOnly v-if="chat.lastMessage">
-          <ChatItemTime :chat="props.chat" :date="chat.lastMessage.date" />
+        <ClientOnly v-if="content">
+          <ChatItemTime :chat="chat" />
         </Clientonly>
       </div>
 
       <div
         class="text-sm text-slate-600 flex items-center gap-0.5"
       >
-        <div v-if="chat.lastMessage?.status === 'seen'" class="line-clamp-1 text-green-500" :class="{ invisible: !chat.lastMessage }">
+        <div v-if="chat.lastMessageStatus === 'seen'" class="line-clamp-1 text-green-500" :class="{ invisible: !chat.lastMessageContent }">
           {{ t('Typing...') }}
         </div>
 
         <template v-else>
           <MessageIcon
-            v-if="chat.lastMessage && chat.lastMessage.status"
-            :status="chat.lastMessage.status"
+            v-if="chat.lastMessageContent && chat.lastMessageStatus"
+            :status="chat.lastMessageStatus"
           />
 
-          <div class="line-clamp-1" :class="{ invisible: !chat.lastMessage }">
-            {{ chat.lastMessage?.text || '-' }}
+          <div class="line-clamp-1" :class="{ invisible: !content }">
+            {{ content || '-' }}
           </div>
         </template>
       </div>

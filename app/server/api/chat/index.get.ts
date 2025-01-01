@@ -16,21 +16,12 @@ export default defineEventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  interface Result {
-    chatId: number
-    personaUsername: string
-    personaName: string
-    contactName?: string
-    lastMessageContent?: string
-    lastMessageDatetime?: number
-  }
-
   const searchLike = search ? `%${search}%` : null
   const { results } = await orm.run(sql`
     SELECT 
       ${chats.id} AS chatId,
       ${personaUsernames.username} AS personaUsername,
-      ${persona.name} AS personaName,
+      ${personas.name} AS personaName,
       ${contacts.name} AS contactName,
       ${lastMessages.content} AS lastMessageContent,
       ${lastMessages.datetime} AS lastMessageDatetime
@@ -54,5 +45,12 @@ export default defineEventHandler(async (event) => {
       ${lastMessages.datetime} DESC;
   `)
 
-  return results as Result[]
+  return results as {
+    chatId: number
+    personaUsername: string
+    personaName: string
+    contactName?: string
+    lastMessageContent?: string
+    lastMessageDatetime?: number
+  }[]
 })
