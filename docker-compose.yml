@@ -15,5 +15,6 @@ services:
       - USER=$CODESHARE_USER
       - PASSWORD=$CODESHARE_PASSWORD
     volumes:
+      - ~/.gitconfig:/home/$CODESHARE_USER/.gitconfig:ro
       - /opt/codeshare-user:/home/$CODESHARE_USER/
       - ./:/codeshare
