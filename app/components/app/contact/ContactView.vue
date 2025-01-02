@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useQuery } from '@tanstack/vue-query'
 import { useI18n } from '@psitta/vue'
-import { contactViewUsername, rightDrawer, rightDrawers } from '~/store'
+import { contactViewUsername, manageContact, rightDrawer, rightDrawers } from '~/store'
 import { categories } from '~/constants/discover'
 import queryKeys from '~/queryKeys'
 import type { MenuItem } from '~~/layers/ui/components/navigation/types'
@@ -29,6 +29,23 @@ const copyUsername = useCopyUsername(contactViewUsername)
 const items = computed<MenuItem[]>(() => [
   hasContact.value
     ? {
+        id: 'edit-contact',
+        name: t('Edit Contact'),
+        icon: 'edit',
+        onClick: () => {
+          if (!data.value)
+            return
+
+          manageContact({
+            id: data.value.username,
+            username: data.value.username,
+            name: data.value.contact.name,
+          })
+        },
+      }
+    : null,
+  hasContact.value
+    ? {
         id: 'delete-contact',
         name: t('Delete Contact'),
         icon: 'delete',
@@ -46,7 +63,7 @@ const items = computed<MenuItem[]>(() => [
     icon: 'ios_share',
     onClick: () => copyUsername(),
   },
-])
+].filter(item => item !== null))
 
 function closeDrawer() {
   rightDrawer.value = false

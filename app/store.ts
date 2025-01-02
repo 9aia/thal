@@ -1,9 +1,11 @@
 import type { Contact, Persona, Replies } from '~/types'
 
+/* Core */
+
 export const isRootDrawerOpen = ref(false)
 
 export const drawers = reactive({
-  newContact: false,
+  manageContact: false,
   profileSettings: false,
   account: false,
   settings: false,
@@ -29,11 +31,15 @@ export const rightDrawers = reactive({
   translation: false,
 })
 
-export const replies = reactive<Replies>({})
-export const personaBuilderData = ref<Persona | null>(null)
+/* Contact */
+
 export const contactData = ref<Contact | null>(null)
 
-export const chatItemSearch = ref('')
+watch(() => drawers.manageContact, (value) => {
+  if (!value) {
+    contactData.value = null
+  }
+})
 
 export const contactViewUsername = ref<string>()
 
@@ -44,5 +50,26 @@ export function openContactView(username: string) {
   rightDrawers.contactView = true
 }
 
+export function manageContact(data?: Contact | null) {
+  if (data) {
+    contactData.value = data
+  }
+  else {
+    contactData.value = null
+  }
+
+  isRootDrawerOpen.value = true
+  drawers.manageContact = true
+}
+
+/* Chat */
+
+export const replies = reactive<Replies>({})
+export const chatItemSearch = ref('')
+
 export const sendingChatIds = ref<Set<number>>(new Set())
 export const sentErrorChatIds = ref<Set<number>>(new Set())
+
+/* Character */
+
+export const personaBuilderData = ref<Persona | null>(null)

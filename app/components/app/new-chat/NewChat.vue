@@ -2,7 +2,7 @@
 import { t } from '@psitta/vue'
 import { useForm } from 'vee-validate'
 import { refDebounced } from '@vueuse/core'
-import { drawers, isRootDrawerOpen, personaBuilderData } from '~/store'
+import { drawers, isRootDrawerOpen, manageContact, personaBuilderData } from '~/store'
 import type { MenuItem } from '~~/layers/ui/components/navigation/types'
 import queryKeys from '~/queryKeys'
 
@@ -16,7 +16,7 @@ function handleCreatePersona() {
 }
 
 const generalItems: MenuItem[] = [
-  { id: 'new-contact', icon: 'person_add', name: t('New contact'), onClick: () => drawers.newContact = true },
+  { id: 'new-contact', icon: 'person_add', name: t('New contact'), onClick: () => manageContact(null) },
   { id: 'create-persona', icon: 'engineering', name: t('Build character'), onClick: () => handleCreatePersona() },
 ]
 

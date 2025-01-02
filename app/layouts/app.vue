@@ -57,8 +57,8 @@ import { drawers, isRootDrawerOpen, rightDrawer } from '~/store'
                 <BuildPersona @close="close" />
               </Drawer>
 
-              <Drawer v-slot="{ close }" v-model="drawers.newContact">
-                <NewContact @close="close" />
+              <Drawer v-slot="{ close }" v-model="drawers.manageContact">
+                <ManageContact @close="close" />
               </Drawer>
             </template>
           </Drawer>

@@ -130,8 +130,7 @@ const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending
     fixScroll()
   },
   onError: async (e) => {
-    console.log(e)
-
+    const _ = e
     const newHistory = [...data.value.history || []]
 
     const lastMessage = newHistory[newHistory.length - 1]

@@ -2,7 +2,7 @@
 import { useI18n } from '@psitta/vue'
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
-import { openContactView } from '~/store'
+import { manageContact, openContactView } from '~/store'
 import type { MenuItem } from '~~/layers/ui/components/navigation/types'
 
 const props = defineProps<{
@@ -61,6 +61,20 @@ const items = computed<MenuItem[]>(() => [
         name: t('Clear chat'),
         icon: 'mop',
         onClick: () => clearMessage(),
+      }
+    : null,
+  props.hasContact
+    ? {
+        id: 'edit-contact',
+        name: t('Edit Contact'),
+        icon: 'edit',
+        onClick: () => {
+          manageContact({
+            id: props.username,
+            username: props.username,
+            name: props.name,
+          })
+        },
       }
     : null,
   props.hasContact
