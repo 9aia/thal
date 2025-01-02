@@ -21,8 +21,8 @@
     "down": "docker compose down",
     "stripe": "docker exec stripe-cli stripe",
     "type:check": "tsc --noEmit",
-    "cs": "bash ./codeshare/scripts/setup-git.sh && code --reuse-window --remote ssh-remote+codeshare@neogaialab.org:2222 ./codeshare/",
-    "cs:n": "bash ./codeshare/scripts/setup-git.sh && code --remote ssh-remote+codeshare@neogaialab.org:2222 ./codeshare/",
+    "cs": "bash ./codeshare/scripts/setup-git.sh && code --reuse-window --remote ssh-remote+codeshare@9aia.dev:2222 ./codeshare/",
+    "cs:n": "bash ./codeshare/scripts/setup-git.sh && code --remote ssh-remote+codeshare@9aia.dev:2222 ./codeshare/",
     "cs:rsg": "bash ./codeshare/scripts/reset-git.sh"
   },
   "dependencies": {

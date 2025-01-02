@@ -26,7 +26,7 @@ For Visual Studio Code, consider installing the following extensions:
 Clone the repository to your local machine:
 
 ```sh
-git clone https://github.com/neogaialab/thal.git
+git clone https://github.com/9aia/thal.git
 cd thal/
 ```
 
@@ -38,7 +38,7 @@ pnpm install
 
 ## Project Management
 
-At NeoGaia, we’re dedicated to transparent and community-driven development. Curious about what’s on the horizon or how we bring ideas to life? Dive into our roadmap to stay updated on current progress, upcoming features, and key milestones. From brainstorming sessions to prioritized tasks, we’re excited to share every step of Thal’s journey with you. Explore the resources below to stay connected and see how Thal grows with each contribution!
+At Gaia, we’re dedicated to transparent and community-driven development. Curious about what’s on the horizon or how we bring ideas to life? Dive into our roadmap to stay updated on current progress, upcoming features, and key milestones. From brainstorming sessions to prioritized tasks, we’re excited to share every step of Thal’s journey with you. Explore the resources below to stay connected and see how Thal grows with each contribution!
 
 - **[Project Overview](/pm/OVERVIEW.md)**: A summary of Thal's mission, vision, and progress.
 - **[Backlog](/pm/BACKLOG.md)**: A list of tasks and ideas yet to be implemented.
@@ -97,8 +97,8 @@ For testing the API, we utilize the [Vscode REST Client extension](https://marke
 To ensure your changes are synchronized across both GitHub and Gitea repositories, configure your origin remote with multiple push URLs:
 
 ```
-git remote set-url --add --push origin ssh://git@gitea.homelab.vini.center:2222/neogaialab/thal.git
-git remote set-url --add --push origin git@github.com:neogaialab/thal.git
+git remote set-url --add --push origin ssh://git@gitea.homelab.vini.center:2222/9aia/thal.git
+git remote set-url --add --push origin git@github.com:9aia/thal.git
 ```
 
 #### Pushing
@@ -112,6 +112,8 @@ git push
 ## Sharing Code
 
 // TODO
+
+-
 
 ## Deploying
 

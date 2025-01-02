@@ -75,7 +75,7 @@
   - [ ] Redesign a auth view on app/ when unauthenticated
 - [ ] Improve the homepage
 - [ ] Improve the "Pricing" page and set up redirects
-- [ ] Move the "About" page to the NeoGaia website
+- [ ] Move the "About" page to the Gaia website
 ---
 - [ ] Support multiple user message on offline
 

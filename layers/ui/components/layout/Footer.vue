@@ -92,11 +92,11 @@ const localeModal = useLocaleModal()
 
       <T
         text="{year} - Developed by {teamName}"
-        :values="{ year: [new Date(), { year: 'numeric' }], teamName: 'NeoGaia Lab' }"
+        :values="{ year: [new Date(), { year: 'numeric' }], teamName: 'Gaia' }"
         class="flex items-center justify-center gap-1"
       >
         <template #teamName="slotProps">
-          <Link href="https://neogaialab.github.io/" class="font-bold flex items-center gap-1">
+          <Link href="https://9aia.github.io/" class="font-bold flex items-center gap-1">
             {{ slotProps.teamName }}
           </Link>
         </template>

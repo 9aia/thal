@@ -1,0 +1,15 @@
+# What's New
+
+## Welcome to Thal 0.1.0!
+
+We're excited to introduce the first release of Thal, our chat-based app to practice and learn english though simulated conversations in a interactive way. This first release focuses on building the core functionalities for a streamlined learning experience:
+
+- **Create AI-powered characters**: Design unique characters for personalized conversations with ease.
+- **Discover Characters from the Community**: Explore from other people's characters.
+- **Chat with AI Characters**: Practice English through engaging conversations.
+- **Get assistance**: Translations, suggestions, and more are at your fingertips.
+- **Manage your Contacts**: Easily connect and chat with the characters you create and discover.
+
+**This is just the beginning!** We're actively developing Thal and welcome your feedback. Please report any issues or share your suggestions for improvement.
+
+We hope you enjoy using Thal!
