@@ -19,7 +19,7 @@ const general: MenuItem[] = [
   {
     id: 'my-personas',
     icon: 'manage_accounts',
-    name: 'My Characters',
+    name: 'My characters',
     onClick: () => drawers.myPersonas = true,
   },
 ]

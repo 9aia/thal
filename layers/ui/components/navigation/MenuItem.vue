@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
+import { tv } from 'tailwind-variants'
 import Icon from '../display/Icon.vue'
 import ChevronRight from './ChevronRight.vue'
 import type { MenuItem } from './types'
@@ -7,29 +8,64 @@ import type { MenuItem } from './types'
 defineProps<{
   is: MenuItem
 }>()
+
+const iconStyles = tv({
+  variants: {
+    color: {
+      normal: 'text-slate-800',
+      warning: 'text-warning',
+      info: 'text-info',
+      danger: 'text-error',
+    },
+  },
+})
+
+const titleStyles = tv({
+  base: 'text-sm',
+  variants: {
+    color: {
+      normal: 'text-slate-900',
+      warning: 'text-warning',
+      danger: 'text-error',
+      info: 'text-info',
+    },
+  },
+})
+
+const descriptionStyles = tv({
+  base: 'text-xs',
+  variants: {
+    color: {
+      normal: 'text-slate-700',
+      warning: 'text-warning',
+      danger: 'text-error',
+      info: 'text-info',
+    },
+  },
+})
 </script>
 
 <template>
   <div
     class="flex justify-between items-center gap-2"
-    :class="{
-      'text-warning font-bold': is.meaning === 'warning',
-      'text-danger font-bold': is.meaning === 'danger',
-    }"
   >
-    <Icon v-if="is.icon">
+    <Icon v-if="is.icon" :class="iconStyles({ color: is.meaning || 'normal' })">
       {{ is.icon }}
     </Icon>
-    <div class="flex flex-col items-start">
-      <div>
+
+    <div class="flex flex-col w-full items-start">
+      <div class="text-sm flex items-center justify-center gap-1" :class="titleStyles({ color: is.meaning || 'normal' })">
         {{ t(is.name as any) }}
+        <slot name="title" />
       </div>
 
-      <div v-if="is.description" class="text-xs text-slate-700">
+      <div v-if="is.description" :class="descriptionStyles({ color: is.meaning || 'normal' })">
         {{ is.description }}
+        <slot name="description" />
       </div>
     </div>
   </div>
+
   <Icon v-if="is.type === 'external'">
     north_east
   </Icon>

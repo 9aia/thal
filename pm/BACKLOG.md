@@ -76,6 +76,8 @@
 - [ ] Improve the homepage
 - [ ] Improve the "Pricing" page and set up redirects
 - [ ] Move the "About" page to the Gaia website
+- ---
+- [ ] Warn Clipboard API not allowed
 ---
 - [ ] Support multiple user message on offline
 

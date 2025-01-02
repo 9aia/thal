@@ -21,10 +21,17 @@ function handleSubmit(event: Event) {
 <template>
   <template v-if="!!is.onClick">
     <button
-      class="flex w-full py-2 justify-between items-center"
+      class="flex w-full justify-between items-center"
       @click="is.onClick"
     >
-      <MenuItem :is="is" />
+      <MenuItem :is="is">
+        <template #title>
+          <slot name="title" />
+        </template>
+        <template #description>
+          <slot name="description" />
+        </template>
+      </MenuItem>
     </button>
   </template>
 
@@ -33,23 +40,44 @@ function handleSubmit(event: Event) {
       :action="is.action" :method="is.method" class="flex w-full"
       v-on="{ submit: !!is.onSubmit ? handleSubmit : undefined }"
     >
-      <button type="submit" class="flex w-full py-2 justify-between items-center">
-        <MenuItem :is="is" />
+      <button type="submit" class="flex w-full justify-between items-center">
+        <MenuItem :is="is">
+          <template #title>
+            <slot name="title" />
+          </template>
+          <template #description>
+            <slot name="description" />
+          </template>
+        </MenuItem>
       </button>
     </form>
   </template>
   <template v-else-if="is.for">
-    <label :for="is.for" class="cursor-pointer flex w-full py-2 justify-between items-center">
-      <MenuItem :is="is" />
+    <label :for="is.for" class="cursor-pointer flex w-full justify-between items-center">
+      <MenuItem :is="is">
+        <template #title>
+          <slot name="title" />
+        </template>
+        <template #description>
+          <slot name="description" />
+        </template>
+      </MenuItem>
     </label>
   </template>
 
   <template v-else-if="is.emit">
     <div
-      class="cursor-pointer flex w-full py-2 justify-between items-center"
+      class="cursor-pointer flex w-full justify-between items-center"
       @click="emit('action', is.emit)"
     >
-      <MenuItem :is="is" />
+      <MenuItem :is="is">
+        <template #title>
+          <slot name="title" />
+        </template>
+        <template #description>
+          <slot name="description" />
+        </template>
+      </MenuItem>
     </div>
   </template>
 
@@ -58,7 +86,14 @@ function handleSubmit(event: Event) {
       :href="is.href ? t(is.href as any) : undefined" class="flex w-full gap-2 justify-between items-center py-2"
       :target="is.newTab ? '_blank' : undefined" :localize="is.localize ?? true"
     >
-      <MenuItem :is="is" />
+      <MenuItem :is="is">
+        <template #title>
+          <slot name="title" />
+        </template>
+        <template #description>
+          <slot name="description" />
+        </template>
+      </MenuItem>
     </A>
   </template>
 </template>

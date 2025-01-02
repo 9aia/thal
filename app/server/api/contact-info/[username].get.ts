@@ -24,6 +24,7 @@ export default eventHandler(async (event) => {
           name: true,
           description: true,
           categoryId: true,
+          createdAt: true,
         },
       },
       contacts: {

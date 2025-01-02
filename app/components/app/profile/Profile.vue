@@ -62,12 +62,12 @@ const user = useUser()
           </TitleContentItem>
         </SettingSection>
 
-        <div>
+        <!-- <div>
           <Btn class="" @click="() => drawers.profileSettings = true">
             <Icon name="edit" />
             {{ t('Edit details') }}
           </Btn>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

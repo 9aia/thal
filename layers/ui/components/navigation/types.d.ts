@@ -10,7 +10,7 @@ export interface MenuItem {
   action?: string
   method?: string
   type?: 'external' | 'internal' | 'accordion'
-  meaning?: 'warning' | 'danger'
+  meaning?: 'warning' | 'danger' | 'info' | 'normal'
   newTab?: boolean
   emit?: string
   localize?: boolean

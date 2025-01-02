@@ -109,7 +109,6 @@ export async function getContactsWithPersonaByUser(
     columns: {
       id: true,
       name: true,
-      createdAt: true,
     },
     with: {
       personaUsername: {

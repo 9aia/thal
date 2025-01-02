@@ -100,12 +100,13 @@ function onSuccess(data: typeof form.values) {
   const message = isEditing.value
     ? t('{name} was edited.', { name: data.name })
     : t('{name} was added to your contacts.', { name: data.name })
+  const username = data.username
 
   toast.success(message, 5000, {
     actions: [
       {
         title: t('Message'),
-        onClick: () => handleGoToChat(data.username),
+        onClick: () => handleGoToChat(username),
       },
     ],
     position: 'start-bottom',
