@@ -113,7 +113,9 @@ git push
 
 // TODO
 
--
+> Execute `git config core.hooksPath ./codeshare/.githooks` (once in the project)
+
+Don't forget to modify `./codeshare/co-authors`.
 
 ## Deploying
 

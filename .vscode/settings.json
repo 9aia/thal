@@ -102,7 +102,7 @@
       "baseUrl": "http://localhost:3000/api"
     },
     "codeshare": {
-      "baseUrl": "http://9aia.dev:3000/api"
+      "baseUrl": "http://9aia-dev.com:3000/api"
     }
   },
   "editor.quickSuggestions": {

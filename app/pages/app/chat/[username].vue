@@ -77,7 +77,7 @@ function updateHistory(newMessage: SendMessageData) {
 function updateLastMessage(newMessage: SendMessageData, isError = false) {
   const newChat: ChatItem = {
     chatId: Number(data.value.chatId),
-    contactName: data.value.contact!.name,
+    contactName: data.value.contact?.name,
     personaUsername: data.value.username,
     lastMessageContent: newMessage.value,
     lastMessageStatus: isError ? 'error' : (isOnline.value ? 'seen' : 'sending'),
@@ -129,7 +129,9 @@ const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending
     emptyInput()
     fixScroll()
   },
-  onError: async () => {
+  onError: async (e) => {
+    console.log(e)
+
     const newHistory = [...data.value.history || []]
 
     const lastMessage = newHistory[newHistory.length - 1]
