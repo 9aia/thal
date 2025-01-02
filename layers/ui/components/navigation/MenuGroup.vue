@@ -3,6 +3,7 @@ import type { MenuItem as MenuItemType } from './types'
 
 defineProps<{
   items: MenuItemType[]
+  itemClass: string
 }>()
 
 const emit = defineEmits<{
@@ -23,6 +24,7 @@ function closeMenu() {
       <div>
         <Item
           :is="item"
+          :class="itemClass"
           @action="emit('action', $event)"
         />
       </div>

@@ -52,7 +52,11 @@ onMounted(() => {
 
       <div class="space-y-4 px-4 py-4">
         <SettingSection :title="t('General')">
-          <MenuGroup class="p-0 w-full shadow-none" :items="SETTINGS.general">
+          <MenuGroup
+            class="p-0 w-full shadow-none"
+            item-class="py-2"
+            :items="SETTINGS.general"
+          >
             <template #footer>
               <li class="group" @click="isLocaleModalOpen = true">
                 <div>
@@ -68,11 +72,18 @@ onMounted(() => {
         </SettingSection>
 
         <SettingSection :title="t('Support')">
-          <MenuGroup :items="SETTINGS.support" />
+          <MenuGroup
+            item-class="py-2"
+            :items="SETTINGS.support"
+          />
         </SettingSection>
 
         <SettingSection :title="t('Legal')">
-          <MenuGroup class="p-0 w-full shadow-none" :items="SETTINGS.legal" />
+          <MenuGroup
+            class="p-0 w-full shadow-none"
+            item-class="py-2"
+            :items="SETTINGS.legal"
+          />
         </SettingSection>
 
         <section>

@@ -71,12 +71,17 @@ function handleGoToChat(username: string) {
     <SettingSection class="px-4">
       <MenuGroup
         class="p-0 w-full"
+        item-class="py-2"
         :items="generalItems"
       />
     </SettingSection>
 
     <SettingSection :title="t('Discover')" class="px-4">
-      <MenuGroup class="p-0 w-full" :items="discoverItems" />
+      <MenuGroup
+        class="p-0 w-full"
+        item-class="py-2"
+        :items="discoverItems"
+      />
     </SettingSection>
 
     <SettingSection :title="t('Contacts')" title-class="px-4">

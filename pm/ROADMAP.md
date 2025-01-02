@@ -59,7 +59,15 @@
 - Fork characters
 - Add profile photos (generate or upload)
 
-### v0.4.0 - Sharing
+### v0.4.0 - Support
+
+- Add a warning for renaming character usernames
+- Add good field placeholders
+- Add onboarding
+- Add "About Thal" in help section in settings
+- Add view about how Thal works
+
+### v0.5.0 - Sharing
 
 - Add contact QR code
 - Add character visibility option instead of just discoverability

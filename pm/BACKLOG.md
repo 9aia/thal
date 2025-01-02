@@ -12,9 +12,10 @@
   - Give feedback
 - Add safety inflation flags and strikes
   - Assigning each user a unique ID and imposing a limit on the volume of user queries that can be submitted in a given period.
+- Add "View character details"
+- Add "Keep Character definition/instructions private"
 - ---
 - Add "What's New" modal
-- Add onboarding
 - ---
 - Add language drawer containing UI language and translation settings
 - ---
@@ -32,52 +33,52 @@
 - Fix modal opening on mobile
 - Fix drag scroller on mobile
 - Fix bug copying HTML in messages
-- Rewrite left joins using Query API
 - Check user plan in API routes that are necessary
 - Prevent bots with turnstile
+- Rewrite left joins using Query API
 - Fix hydration errors
 - Implement chat search by character name
 - Fix locale change routing (remove `/{locale}` from `/app`)
   - Use locale param in site routes
 ---
 - Add rate-limit to Google auth callback
-- Use a single table for user and character usernames
 - Allow users to use only one session
-- Lower every username comparison
-- Fix retrial after account deletion
-- Fix bug after deleting and recreating an account, user can't rejoin the app
 - Handle invalid sessions
 - Fix logout not removing cookies
+- Fix retrial after account deletion
+- Fix bug after deleting and recreating an account, user can't rejoin the app
+- Use a single table for user and character usernames
+- Lower every username comparison
+---
 - Fix "Try again" after cookie issue resolved in the database
 
 ## Enhancements
 
-- Save drawer/view state in URL
 - Add option to copy message
 - Improve "My Characters" edition action appearance
-- Add a warning for renaming character usernames
+- ---
+- Save drawer/view state in URL
 - Focus on inputs after opening drawers
 - Add hydration loading indicator
 - ---
-- Replace web modal API
 - Change forms to another platform that supports localization
 - ---
 - Improve stability by handling API errors gracefully
 - Improve error handling
 - Improve loading handling
 - ---
+- Replace web modal API
+- ---
 - Improve brand identity
 - Add dark theme
-- Add privacy info about account deletion (cannot delete before month ends, but users can delete manually before)
 - Redesign the authentication route
   - Redesign a auth view on app/ when unauthenticated
 - Improve the homepage
 - Improve the "Pricing" page and set up redirects
 - Move the "About" page to the Gaia website
+- Add privacy info about account deletion (cannot delete before month ends, but users can delete manually before)
 - ---
 - Warn Clipboard API not allowed
----
-- Support multiple user message on offline
 
 - Improve `package.json`
 - Improve `README.md`

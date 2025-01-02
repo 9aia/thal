@@ -185,7 +185,11 @@ const logout = useLogout()
           <hr class="border-b-2 border-error">
         </template>
         <template #default>
-          <MenuGroup class="p-0 w-full shadow-none" :items="dangerItems" />
+          <MenuGroup
+            class="p-0 w-full shadow-none"
+            item-class="py-2"
+            :items="dangerItems"
+          />
 
           <ClientOnly>
             <AccountDeleteModal v-model="isDeleteModalOpen" />
