@@ -8,7 +8,7 @@
     "dev": "nuxt dev --host",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
+    "postinstall": "git config core.hooksPath ./codeshare/.githooks && nuxt prepare",
     "release": "release-it",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
