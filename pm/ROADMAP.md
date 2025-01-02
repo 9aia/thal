@@ -45,9 +45,9 @@
   - Add settings to adjust AI helper responses.
 - Real-time assistance features
 
-- [ ] Stream translation
-- [ ] Add a deleted/non-existent section in contacts
-- [ ] Add character search results to chat and contact search
+- Stream translation
+- Add a deleted/non-existent section in contacts
+- Add character search results to chat and contact search
 
 ### v0.3.0 - Generative Character Building
 
@@ -57,7 +57,7 @@
 - Improve custom character building tab
   - Add "generate" icon button to each field (e.g., name, description)
 - Fork characters
-- [ ] Add profile photos (generate or upload)
+- Add profile photos (generate or upload)
 
 ### v0.4.0 - Sharing
 
