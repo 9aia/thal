@@ -65,6 +65,7 @@
 - Add good field placeholders
 - Add onboarding
 - Add "About Thal" in help section in settings
+- Open character info by clicking on the AI warning item in the contact view
 - Add view about how Thal works
 
 ### v0.5.0 - Sharing
@@ -84,4 +85,5 @@
 - Blocking
 - Public profile
 - Person-person chats
+- Groups of 1 character and max of 5 people
 - Groups
