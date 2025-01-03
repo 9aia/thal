@@ -12,8 +12,6 @@
   - Give feedback
 - Add safety inflation flags and strikes
   - Assigning each user a unique ID and imposing a limit on the volume of user queries that can be submitted in a given period.
-- Add "View character details"
-- Add "Keep Character definition/instructions private"
 - ---
 - Add language drawer containing UI language and translation settings
 - ---
@@ -28,12 +26,12 @@
 
 ## Bugs
 
+- Fix chat items not displaying contact name
 - Fix modal opening on mobile
 - Fix bug copying HTML in messages
 - Check user plan in API routes that are necessary
 - Prevent bots with turnstile
 - Rewrite left joins using Query API
-- Fix hydration errors
 - Implement chat search by character name
 - Fix locale change routing (remove `/{locale}` from `/app`)
   - Use locale param in site routes
@@ -75,7 +73,10 @@
 - Move the "About" page to the Gaia website
 - Add privacy info about account deletion (cannot delete before month ends, but users can delete manually before)
 - ---
+- Improve a11y
 - Warn Clipboard API not allowed
+- ---
+- Add character search to new-chat view search
 
 - Improve `package.json`
 - Improve `README.md`

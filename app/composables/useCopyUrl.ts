@@ -10,11 +10,11 @@ function useCopyUsername() {
 
       await navigator.clipboard.writeText(currentUrl)
 
-      toast.success(t('Link copied to clipboard'))
+      toast.success(t('Copied character link to clipboard'))
     }
     catch (_e) {
       const _ = _e
-      toast.error(t('Failed to copy link to clipboard'))
+      toast.error(t('Failed to copy character link to clipboard'))
     }
   }
 }

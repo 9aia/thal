@@ -13,7 +13,7 @@ definePageMeta({
       <NewChat />
     </template>
     <template #content>
-      <HomeWelcome />
+      <Welcome />
     </template>
   </AppLayout>
 </template>

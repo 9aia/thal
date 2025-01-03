@@ -124,6 +124,8 @@ const submit = form.handleSubmit(async (data) => {
 
   loading.value = false
 })
+
+const { mainField } = useBuildPersonaFocus()
 </script>
 
 <template>
@@ -141,7 +143,10 @@ const submit = form.handleSubmit(async (data) => {
       <SettingSection :title="t('General Information')">
         <form class="block space-y-2" @submit="submit">
           <TextField
-            path="name" :label="t('Name')" :rules="yupify(nameSchema, t(
+            ref="mainField"
+            path="name"
+            :label="t('Name')"
+            :rules="yupify(nameSchema, t(
               'Name must contain between 1 and 20 characters.',
             ))"
           />

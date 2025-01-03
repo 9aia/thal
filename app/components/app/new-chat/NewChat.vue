@@ -2,7 +2,7 @@
 import { t } from '@psitta/vue'
 import { useForm } from 'vee-validate'
 import { refDebounced } from '@vueuse/core'
-import { drawers, isRootDrawerOpen, manageContact, personaBuilderData } from '~/store'
+import { buildPersona, drawers, isRootDrawerOpen, manageContact, personaBuilderData } from '~/store'
 import type { MenuItem } from '~~/layers/ui/components/navigation/types'
 import queryKeys from '~/queryKeys'
 
@@ -10,14 +10,9 @@ const emit = defineEmits<({
   (e: 'close'): void
 })>()
 
-function handleCreatePersona() {
-  drawers.personaBuilder = true
-  personaBuilderData.value = null
-}
-
 const generalItems: MenuItem[] = [
   { id: 'new-contact', icon: 'person_add', name: t('New contact'), onClick: () => manageContact(null) },
-  { id: 'create-persona', icon: 'engineering', name: t('Build character'), onClick: () => handleCreatePersona() },
+  { id: 'create-persona', icon: 'engineering', name: t('Build character'), onClick: () => buildPersona(null) },
 ]
 
 function goToDiscover() {
@@ -68,6 +63,13 @@ function handleGoToChat(username: string) {
     </h1>
   </Navbar>
   <div class="py-4 flex-1 overflow-y-auto bg-white space-y-4">
+    <div class="px-4 mb-2">
+      <SearchField
+        :placeholder="t('Search contact')"
+        path="search"
+      />
+    </div>
+
     <SettingSection class="px-4">
       <MenuGroup
         class="p-0 w-full"
@@ -85,13 +87,6 @@ function handleGoToChat(username: string) {
     </SettingSection>
 
     <SettingSection :title="t('Contacts')" title-class="px-4">
-      <div class="px-4 pt-3 mb-2">
-        <SearchField
-          :placeholder="t('Search name or username')"
-          path="search"
-        />
-      </div>
-
       <Resource
         :error="isError"
         :loading="isPending"

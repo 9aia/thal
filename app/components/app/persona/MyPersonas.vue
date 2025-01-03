@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from '@psitta/vue'
 import queryKeys from '~/queryKeys'
-import { drawers, isRootDrawerOpen, personaBuilderData } from '~/store'
+import { buildPersona, drawers, isRootDrawerOpen, personaBuilderData } from '~/store'
 import type { Persona } from '~/types'
 
 const emit = defineEmits<{
@@ -25,16 +25,6 @@ const personaToDelete = ref<Persona>()
 function handleDeletePersona(persona: Persona) {
   deletePersona.value = true
   personaToDelete.value = persona
-}
-
-function handleEditPersona(persona: Persona) {
-  drawers.personaBuilder = true
-  personaBuilderData.value = persona
-}
-
-function handleCreatePersona() {
-  drawers.personaBuilder = true
-  personaBuilderData.value = null
 }
 
 function handleGoToChat(username: string) {
@@ -86,12 +76,12 @@ function handleGoToChat(username: string) {
                 :username="persona.username || undefined"
                 :category-id="persona.categoryId"
                 @delete="handleDeletePersona(persona as unknown as Persona)"
-                @edit="handleEditPersona(persona as unknown as Persona)"
+                @edit="buildPersona(persona as unknown as Persona)"
                 @click="handleGoToChat(persona.username as string)"
               />
             </li>
 
-            <li class="group px-4 mt-2" @click="handleCreatePersona()">
+            <li class="group px-4 mt-2" @click="buildPersona(null)">
               <div>
                 <div class="cursor-pointer flex w-full gap-2 justify-between items-center py-2">
                   <MenuItem

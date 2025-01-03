@@ -2,7 +2,7 @@ import type { Contact, Persona, Replies } from '~/types'
 
 /* Core */
 
-export const isRootDrawerOpen = ref(false)
+export const isRootDrawerOpen = ref(true)
 
 export const drawers = reactive({
   manageContact: false,
@@ -50,6 +50,8 @@ export function openContactView(username: string) {
   rightDrawers.contactView = true
 }
 
+const { focusMainField: focusContactMainField } = useNewContactFocus()
+
 export function manageContact(data?: Contact | null) {
   if (data) {
     contactData.value = data
@@ -60,6 +62,7 @@ export function manageContact(data?: Contact | null) {
 
   isRootDrawerOpen.value = true
   drawers.manageContact = true
+  focusContactMainField()
 }
 
 /* Chat */
@@ -73,3 +76,18 @@ export const sentErrorChatIds = ref<Set<number>>(new Set())
 /* Character */
 
 export const personaBuilderData = ref<Persona | null>(null)
+
+export const { focusMainField: focusPersonaMainField } = useBuildPersonaFocus()
+
+export function buildPersona(data?: Persona | null) {
+  if (data) {
+    personaBuilderData.value = data
+  }
+  else {
+    personaBuilderData.value = null
+  }
+
+  isRootDrawerOpen.value = true
+  drawers.personaBuilder = true
+  focusPersonaMainField()
+}

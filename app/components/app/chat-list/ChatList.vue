@@ -5,8 +5,6 @@ import { useForm } from 'vee-validate'
 import queryKeys from '~/queryKeys'
 import { chatItemSearch, drawers, isRootDrawerOpen } from '~/store'
 
-import type { MenuItem } from '~~/layers/ui/components/navigation/types'
-
 const emit = defineEmits<{
   (e: 'close'): void
 }>()
@@ -36,36 +34,7 @@ const isNoteVisible = useCookie('isNoteVisible', {
   default: () => true,
 })
 
-const logout = useLogout()
 const { open: openWhatsNewModal } = useWhatsNewModal()
-
-function goToDiscover() {
-  isRootDrawerOpen.value = false
-  navigateTo('/app/discover')
-}
-
-const items: MenuItem[] = [
-  { id: 'profile', name: 'Profile', icon: 'face', onClick: () => drawers.profile = true },
-  { id: 'discover-personas', name: 'Discover characters', icon: 'person_search', onClick: () => goToDiscover() },
-  { id: 'my-characters', name: 'My characters', icon: 'manage_accounts', onClick: () => drawers.myPersonas = true },
-  {
-    id: 'plan',
-    name: 'Subscription',
-    action: '/api/payment/stripe/create-portal-session',
-    method: 'post',
-    icon: 'subscriptions',
-    type: 'external',
-  },
-  { id: 'settings', name: 'Settings', icon: 'settings', onClick: () => drawers.settings = true },
-  {
-    id: 'logout',
-    name: 'Logout',
-    action: '/api/auth/logout',
-    method: 'post',
-    icon: 'logout',
-    onSubmit: logout,
-  },
-]
 </script>
 
 <template>
@@ -80,13 +49,7 @@ const items: MenuItem[] = [
           <Icon name="news" />
         </button>
 
-        <div class="dropdown dropdown-end">
-          <button class="btn btn-circle btn-ghost text-primary" @click="updateRedirectUrl">
-            <Icon>more_vert</Icon>
-          </button>
-
-          <Menu :items="items" />
-        </div>
+        <ChatListOptionsButton />
       </div>
     </Navbar>
 
@@ -123,24 +86,7 @@ const items: MenuItem[] = [
     </div>
 
     <div class="flex-1 overflow-y-auto bg-white">
-      <header v-if="!chats?.length && !chatItemSearch.trim()" class="w-full text-center pt-8">
-        <div class="text-primary flex items-center justify-center">
-          <Icon name="chat" style="font-size: 8rem" />
-        </div>
-
-        <h2 class="text-lg font-medium px-4 py-2">
-          {{ t("New Chat") }}
-        </h2>
-
-        <p class="px-4 text-sm text-gray-700 mb-8">
-          {{ t("Begin a conversation with a character or create a custom one tailored to your learning objectives.") }}
-        </p>
-
-        <Btn class="btn-primary pl-2" @click="drawers.newChat = true">
-          <Icon name="add" />
-          {{ t("New chat") }}
-        </Btn>
-      </header>
+      <ChatListEmpty v-if="!chats?.length && !chatItemSearch.trim()" />
 
       <template v-else-if="!chats?.length">
         <p class="text-slate-500 text-sm py-2 px-6 text-center">

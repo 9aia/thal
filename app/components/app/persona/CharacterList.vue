@@ -37,7 +37,12 @@ const {
 })
 
 const isCategoryModalOpen = ref(false)
-const isEnabled = true
+
+const searchEl = ref<HTMLInputElement | null>(null)
+
+onMounted(() => {
+  searchEl.value?.focus()
+})
 </script>
 
 <template>
@@ -54,6 +59,7 @@ const isEnabled = true
     <div class="mx-auto pb-4">
       <div class="px-4 pt-4 mb-4">
         <TextField
+          ref="searchEl"
           :placeholder="t('Search for characters')"
           path="search"
           icon-position="right"
@@ -110,7 +116,7 @@ const isEnabled = true
           {{ t("Characters") }}
         </h2>
 
-        <div class="pl-2 pr-4 pb-2 space-y-1 overflow-y-auto mt-4 flex flex-col items-center">
+        <div class="px-4 pb-2 space-y-1 overflow-y-auto mt-4 flex flex-col items-center w-screen sm:w-[500px] lg:w-[600px]">
           <Resource
             :error="isError"
             :loading="isPending"

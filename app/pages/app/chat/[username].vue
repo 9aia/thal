@@ -207,7 +207,7 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
 <template>
   <AppLayout>
     <template #sidebar>
-      <Home />
+      <ChatList />
     </template>
 
     <template #content>

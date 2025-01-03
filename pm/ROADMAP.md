@@ -51,6 +51,8 @@
 
 ### v0.3.0 - Generative Character Building
 
+- Add "View character details"
+- Add "Keep Character definition/instructions private"
 - Add character build tool based on Profile form
 - Input prompt to generate a character
 - "Surprise Me" feature for auto-generated character

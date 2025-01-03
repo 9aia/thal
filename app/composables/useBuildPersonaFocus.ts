@@ -2,7 +2,7 @@ import type { Component } from 'vue'
 
 const mainField = ref<Component>()
 
-export default function useNewContactFocus() {
+export default function useBuildPersonaFocus() {
   const focusMainField = () => {
     if (mainField.value) {
       setTimeout(() => {

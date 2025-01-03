@@ -1,5 +1,6 @@
 import type { MenuItem } from '~~/layers/ui/components/navigation/types'
 import { drawers } from '~/store'
+import { useWhatsNewModal } from '~/composables/useWhatsNewModal'
 
 const general: MenuItem[] = [
   {
@@ -17,25 +18,26 @@ const general: MenuItem[] = [
     type: 'external',
   },
   {
-    id: 'my-personas',
+    id: 'my-characters',
     icon: 'manage_accounts',
     name: 'My characters',
     onClick: () => drawers.myPersonas = true,
+  },
+  {
+    id: 'discover-characters',
+    icon: 'person_search',
+    name: 'Discover characters',
+    href: '/app/discover',
   },
 ]
 
 const { open: openWhatsNewModal } = useWhatsNewModal()
 
 const support: MenuItem[] = [
-  /* {
-    id: "how_Thal_works",
-    name: "How Thal works",
-    href: "/how-thal-works",
-  }, */
   {
     id: 'whats-new',
     icon: 'news',
-    name: 'What\'s new',
+    name: 'What\'s New',
     onClick: () => openWhatsNewModal(),
     type: 'accordion',
   },
@@ -57,11 +59,28 @@ const support: MenuItem[] = [
     newTab: true,
     localize: false,
   },
+  // TODO
+  // {
+  //   id: 'about-thal',
+  //   icon: 'info',
+  //   name: 'About Thal',
+  //   // onClick: () => openAboutThalModal(),
+  //   type: 'accordion',
+  // },
+  // {
+  //   id: 'help-center',
+  //   icon: 'help_center',
+  //   name: 'Help Center',
+  //   href: '/help',
+  //   type: 'external',
+  // },
 ]
 
 const legal: MenuItem[] = [
+  // { id: 'guidelines', icon: 'gavel', name: 'Guidelines'/* , href: '/guidelines' */ },
+  // { id: 'reports', icon: 'flag', name: 'Reports'/* , href: '/reports' */ },
   { id: 'terms', icon: 'gavel', name: 'Terms of Service', href: '/terms' },
-  { id: 'privacy', icon: 'policy', name: 'Privacy policy', href: '/privacy' },
+  { id: 'privacy', icon: 'policy', name: 'Privacy Policy', href: '/privacy' },
 ]
 
 export const SETTINGS = {

@@ -1,8 +1,6 @@
 import { manageContact } from '~/store'
 
 export function useContactInfo(data: Ref<any>) {
-  const { focusMainField } = useNewContactFocus()
-
   const hasContact = computed(() => {
     return !!data.value?.contact
   })
@@ -23,7 +21,6 @@ export function useContactInfo(data: Ref<any>) {
       name: data.value.persona?.name,
       username: data.value.username,
     })
-    focusMainField()
   }
 
   return {

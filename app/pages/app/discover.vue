@@ -14,7 +14,7 @@ const { t } = useI18n()
 <template>
   <AppLayout>
     <template #side>
-      <Home />
+      <ChatList />
     </template>
 
     <template #content>
