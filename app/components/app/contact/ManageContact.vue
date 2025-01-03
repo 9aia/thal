@@ -7,7 +7,6 @@ import { contactData, drawers, isRootDrawerOpen } from '~/store'
 import { nameSchema, usernameSchema } from '~~/db/schema'
 import { useToast } from '~~/layers/ui/composables/useToast'
 import queryKeys from '~/queryKeys'
-import type TextField from '~~/layers/ui/components/data-input/TextField.vue'
 import type { Contact } from '~/types'
 
 const emit = defineEmits<{
@@ -95,6 +94,10 @@ function onSuccess(data: typeof form.values) {
 
   queryClient.invalidateQueries({
     queryKey: queryKeys.contactInfo(contactData.value?.id || data.username),
+  })
+
+  queryClient.invalidateQueries({
+    queryKey: queryKeys.chats,
   })
 
   const message = isEditing.value

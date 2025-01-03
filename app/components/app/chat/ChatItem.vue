@@ -16,7 +16,6 @@ const content = computed(() => {
 
 function handleGoToChat(username: string) {
   isRootDrawerOpen.value = false
-
   navigateTo(`/app/chat/${username}`)
 }
 </script>

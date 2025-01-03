@@ -1,6 +1,5 @@
 import { sql } from 'drizzle-orm'
 import { z } from 'zod'
-import persona from '../persona'
 import { getValidated } from '~/utils/h3'
 import { unauthorized } from '~/utils/nuxt'
 import { chats, contacts, lastMessages, personaUsernames, personas } from '~~/db/schema'
@@ -38,7 +37,7 @@ export default defineEventHandler(async (event) => {
     WHERE
       ${chats.userId} = ${user.id}
       ${search
-          ? sql`AND (lower(${contacts.name}) LIKE ${searchLike} OR lower(${personaUsernames.username}) LIKE ${searchLike} OR lower(${persona.name}) LIKE ${searchLike})`
+          ? sql`AND (lower(${contacts.name}) LIKE ${searchLike} OR lower(${personaUsernames.username}) LIKE ${searchLike} OR lower(${personas.name}) LIKE ${searchLike})`
           : sql``
       }
     ORDER BY 

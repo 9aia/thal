@@ -49,6 +49,8 @@
 - Add a deleted/non-existent section in contacts
 - Add character search results to chat and contact search
 
+- Save drawer/view state in URL
+
 ### v0.3.0 - Generative Character Building
 
 - Add "View character details"
@@ -68,8 +70,8 @@
 - Add a warning for renaming character usernames
 - Add "About Thal" in help section in settings
 - Add "App Info" (app name, icon, version, author, licenses)
-- Add onboarding
 - Open character info by clicking on the AI warning item in the contact view
+- Add onboarding
 
 ### v0.5.0 - Sharing
 
@@ -81,12 +83,12 @@
 - Share character via WhatsApp message
 - Send message via URL query
 - Display character author in the contact view
+- Add a top absolute toast "Share your invite code with friends" and menu option "Invite"
 
 ### v1.0.0 - Multiplayer
 
-- Add a top absolute toast "Share your invite code with friends" and menu option "Invite"
-- Blocking
 - Public profile
 - Person-person chats
+- Blocks
 - Groups of 1 character and max of 5 people
 - Groups

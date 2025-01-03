@@ -26,13 +26,10 @@
 
 ## Bugs
 
-- Fix chat items not displaying contact name
-- Fix modal opening on mobile
 - Fix bug copying HTML in messages
 - Check user plan in API routes that are necessary
 - Prevent bots with turnstile
 - Rewrite left joins using Query API
-- Implement chat search by character name
 - Fix locale change routing (remove `/{locale}` from `/app`)
   - Use locale param in site routes
 ---
@@ -52,10 +49,6 @@
 - Add option to copy message
 - Improve "My Characters" edition action appearance
 - ---
-- Save drawer/view state in URL
-- Focus on inputs after opening drawers
-- Add hydration loading indicator
-- ---
 - Change forms to another platform that supports localization
 - ---
 - Improve stability by handling API errors gracefully
@@ -73,6 +66,7 @@
 - Move the "About" page to the Gaia website
 - Add privacy info about account deletion (cannot delete before month ends, but users can delete manually before)
 - ---
+- Add hydration loading indicator
 - Improve a11y
 - Warn Clipboard API not allowed
 - ---

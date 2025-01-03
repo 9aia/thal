@@ -34,6 +34,10 @@ const {
       queryKey: queryKeys.contactInfo(props.contactUsername),
     })
 
+    queryClient.invalidateQueries({
+      queryKey: queryKeys.chats,
+    })
+
     isOpen.value = false
   },
 })

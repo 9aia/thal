@@ -17,7 +17,7 @@ const form = useForm({
 
 watchDebounced(toRef(form.values, 'search'), () => {
   chatItemSearch.value = form.values.search
-})
+}, { debounce: 500 })
 
 const {
   data: chats,

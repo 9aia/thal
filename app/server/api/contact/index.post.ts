@@ -1,9 +1,10 @@
+import { and, eq } from 'drizzle-orm'
 import { mapContactToDto } from '~/server/services/contact'
 import { getPersonaByUsername } from '~/server/services/persona'
 import { now } from '~/utils/date'
 import { getValidated } from '~/utils/h3'
 import { badRequest, internal, unauthorized } from '~/utils/nuxt'
-import { contactInsertSchema, contacts } from '~~/db/schema'
+import { chats, contactInsertSchema, contacts } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const data = await getValidated(event, 'body', contactInsertSchema)
@@ -26,6 +27,17 @@ export default eventHandler(async (event) => {
         createdAt: now().toString(),
       })
       .returning()
+
+    await orm
+      .update(chats)
+      .set({ contactId: newContact.id })
+      .where(
+        and(
+          eq(chats.userId, user.id),
+          eq(chats.personaUsernameId, newContact.personaUsernameId),
+        ),
+      )
+      .run()
 
     return mapContactToDto(newContact, result)
   }

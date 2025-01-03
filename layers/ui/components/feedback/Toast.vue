@@ -17,7 +17,7 @@ const styles = tv({
 })
 
 const actionStyles = tv({
-  base: 'btn btn-sm btn-outline btn-neutral',
+  base: 'btn btn-sm btn-outline border-slate-800 text-slate-800 hover:bg-slate-800 hover:border-slate-800 hover:text-primary',
 })
 
 const toastStyles = tv({
