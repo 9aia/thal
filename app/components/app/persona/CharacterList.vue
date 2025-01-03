@@ -37,6 +37,7 @@ const {
 })
 
 const isCategoryModalOpen = ref(false)
+const isEnabled = true
 </script>
 
 <template>
@@ -86,9 +87,13 @@ const isCategoryModalOpen = ref(false)
           </button>
         </div>
 
-        <div v-drag-scroller class="flex gap-2 px-4 overflow-x-hidden w-screen sm:w-[500px] lg:w-[600px] cursor-grab pb-3">
+        <DraggableArea
+          v-slot="{ bindData }"
+          class="flex gap-2 px-4 overflow-x-hidden w-screen sm:w-[500px] lg:w-[600px] cursor-grab pb-3"
+        >
           <CategoryCard
             v-for="category, index in categories"
+            v-bind="bindData"
             :key="`category-${index}`"
             :name="t(category.name)"
             :description="t(category.description)"
@@ -97,7 +102,7 @@ const isCategoryModalOpen = ref(false)
             :is-selected="categoryId === category.id"
             @click="toggleCategory(category.id)"
           />
-        </div>
+        </DraggableArea>
       </div>
 
       <div class="space-y-2">

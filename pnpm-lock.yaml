@@ -74,9 +74,9 @@ importers:
       vue:
         specifier: ^3.4.19
         version: 3.5.13(typescript@5.7.2)
-      vue-drag-scroller:
-        specifier: ^1.8.6
-        version: 1.8.6(typescript@5.7.2)
+      vue-dragscroll:
+        specifier: ^4.0.6
+        version: 4.0.6(typescript@5.7.2)
       vue-router:
         specifier: ^4.3.0
         version: 4.5.0(vue@3.5.13(typescript@5.7.2))
@@ -6765,8 +6765,8 @@ packages:
   vue-devtools-stub@0.1.0:
     resolution: {integrity: sha512-RutnB7X8c5hjq39NceArgXg28WZtZpGc3+J16ljMiYnFhKvd8hITxSWQSQ5bvldxMDU6gG5mkxl1MTQLXckVSQ==}
 
-  vue-drag-scroller@1.8.6:
-    resolution: {integrity: sha512-RtfvpwzGXBugha1//niX/LzhAezSvhmLbosTfsusiWsQL9e+v+KCjE5AmH5Ln3T3u2S3rm4OTQHFi+9cOpfwhg==}
+  vue-dragscroll@4.0.6:
+    resolution: {integrity: sha512-zW1k58p41yhmFhmg/JxfesUM4Srl0JfXg7xSINqffVGpHJKvnEHMK4QgF6mUVkPMTgibn976fhPYkomcXPvvFA==}
 
   vue-eslint-parser@9.4.3:
     resolution: {integrity: sha512-2rYRLWlIpaiN8xbPiDyXZXRgLGOtWxERV7ND5fFAv5qo1D2N9Fu9MNajBNc6o13lZ+24DAWCkQCvj4klgmcITg==}
@@ -6973,7 +6973,7 @@ snapshots:
       '@clack/prompts': 0.7.0
       '@eslint-community/eslint-plugin-eslint-comments': 4.4.1(eslint@8.57.1)
       '@stylistic/eslint-plugin': 2.12.1(eslint@8.57.1)(typescript@5.7.2)
-      '@typescript-eslint/eslint-plugin': 8.18.2(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2)
+      '@typescript-eslint/eslint-plugin': 8.18.2(@typescript-eslint/parser@8.18.2(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2)
       '@typescript-eslint/parser': 8.18.2(eslint@8.57.1)(typescript@5.7.2)
       '@vitest/eslint-plugin': 1.1.20(@typescript-eslint/utils@8.18.2(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2)
       eslint: 8.57.1
@@ -8899,10 +8899,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/eslint-plugin@8.18.2(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2)':
+  '@typescript-eslint/eslint-plugin@8.18.2(@typescript-eslint/parser@8.18.2(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2)':
     dependencies:
       '@eslint-community/regexpp': 4.12.1
-      '@typescript-eslint/parser': 7.18.0(eslint@8.57.1)(typescript@5.7.2)
+      '@typescript-eslint/parser': 8.18.2(eslint@8.57.1)(typescript@5.7.2)
       '@typescript-eslint/scope-manager': 8.18.2
       '@typescript-eslint/type-utils': 8.18.2(eslint@8.57.1)(typescript@5.7.2)
       '@typescript-eslint/utils': 8.18.2(eslint@8.57.1)(typescript@5.7.2)
@@ -11001,7 +11001,7 @@ snapshots:
     dependencies:
       eslint: 8.57.1
     optionalDependencies:
-      '@typescript-eslint/eslint-plugin': 8.18.2(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2)
+      '@typescript-eslint/eslint-plugin': 8.18.2(@typescript-eslint/parser@8.18.2(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2)
 
   eslint-plugin-vue@9.32.0(eslint@8.57.1):
     dependencies:
@@ -14825,7 +14825,7 @@ snapshots:
 
   vue-devtools-stub@0.1.0: {}
 
-  vue-drag-scroller@1.8.6(typescript@5.7.2):
+  vue-dragscroll@4.0.6(typescript@5.7.2):
     dependencies:
       vue: 3.5.13(typescript@5.7.2)
     transitivePeerDependencies:
