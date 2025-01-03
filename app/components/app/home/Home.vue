@@ -37,6 +37,7 @@ const isNoteVisible = useCookie('isNoteVisible', {
 })
 
 const logout = useLogout()
+const { open: openWhatsNewModal } = useWhatsNewModal()
 
 function goToDiscover() {
   isRootDrawerOpen.value = false
@@ -74,12 +75,18 @@ const items: MenuItem[] = [
         Thal
       </A>
 
-      <div class="dropdown dropdown-end">
-        <button class="btn btn-circle btn-ghost text-primary" @click="updateRedirectUrl">
-          <Icon>more_vert</Icon>
+      <div>
+        <button class="btn btn-circle btn-ghost text-primary" @click="openWhatsNewModal">
+          <Icon name="news" />
         </button>
 
-        <Menu :items="items" />
+        <div class="dropdown dropdown-end">
+          <button class="btn btn-circle btn-ghost text-primary" @click="updateRedirectUrl">
+            <Icon>more_vert</Icon>
+          </button>
+
+          <Menu :items="items" />
+        </div>
       </div>
     </Navbar>
 

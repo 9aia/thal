@@ -3,6 +3,8 @@ import './style.css'
 import Toast from '~~/layers/ui/components/feedback/Toast.vue'
 
 const { state: localeModalState } = useLocaleModal()
+const { state: whatsNewModalState } = useWhatsNewModal()
+
 useInternetConnectionIndicator()
 </script>
 
@@ -18,5 +20,6 @@ useInternetConnectionIndicator()
 
   <Toast />
 
+  <WhatsNewModal v-model="whatsNewModalState" />
   <LocaleModal v-model="localeModalState" />
 </template>

@@ -67,7 +67,7 @@ const submit = form.handleSubmit(async () => {
     @confirm="submit"
   >
     <template #default>
-      <h1 class="font-bold text-2xl mb-2 mt-4">
+      <h1 class="font-bold text-2xl mb-2 mt-4 text-slate-900">
         {{ t("Why are you learning English?") }}
       </h1>
 

@@ -2,7 +2,15 @@
 export default defineNuxtConfig({
   srcDir: './app',
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss', 'nitro-cloudflare-dev', '@nuxt/eslint', '@nuxtjs/mdc', '@nuxt/image', '@nuxt/fonts'],
+  modules: ['@nuxtjs/tailwindcss', 'nitro-cloudflare-dev', '@nuxt/eslint', '@nuxtjs/mdc', '@nuxt/image', '@nuxt/fonts', '@nuxt/content'],
+
+  content: {
+    watch: {
+      ws: {
+        hostname: '9aia-dev.com',
+      },
+    },
+  },
 
   mdc: {
     remarkPlugins: {

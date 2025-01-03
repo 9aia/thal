@@ -96,6 +96,9 @@ importers:
       '@google/generative-ai':
         specifier: ^0.21.0
         version: 0.21.0
+      '@nuxt/content':
+        specifier: 2.13.4
+        version: 2.13.4(db0@0.2.1(drizzle-orm@0.38.3(@cloudflare/workers-types@4.20241224.0)))(ioredis@5.4.2)(magicast@0.3.5)(nuxt@3.15.0(@parcel/watcher@2.5.0)(@types/node@22.10.2)(db0@0.2.1(drizzle-orm@0.38.3(@cloudflare/workers-types@4.20241224.0)))(drizzle-orm@0.38.3(@cloudflare/workers-types@4.20241224.0))(eslint@8.57.1)(ioredis@5.4.2)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.29.1)(terser@5.37.0)(typescript@5.7.2)(vite@6.0.5(@types/node@22.10.2)(jiti@2.4.2)(terser@5.37.0)(yaml@2.6.1))(yaml@2.6.1))(rollup@4.29.1)(vue@3.5.13(typescript@5.7.2))
       '@nuxt/eslint':
         specifier: ^0.3.10
         version: 0.3.13(eslint@8.57.1)(magicast@0.3.5)(rollup@4.29.1)(typescript@5.7.2)(vite@6.0.5(@types/node@22.10.2)(jiti@2.4.2)(terser@5.37.0)(yaml@2.6.1))
@@ -1448,6 +1451,9 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
+  '@nuxt/content@2.13.4':
+    resolution: {integrity: sha512-NBaHL/SNYUK7+RLgOngSFmKqEPYc0dYdnwVFsxIdrOZUoUbD8ERJJDaoRwwtyYCMOgUeFA/zxAkuADytp+DKiQ==}
+
   '@nuxt/devalue@2.0.2':
     resolution: {integrity: sha512-GBzP8zOc7CGWyFQS6dv1lQz8VVpz5C2yRszbXufwG/9zhStTIH50EtD87NmWbTMwXDvZLNg8GIpb1UFdH93JCA==}
 
@@ -1919,6 +1925,9 @@ packages:
     resolution: {integrity: sha512-LtoMMhxAlorcGhmFYI+LhPgbPZCkgP6ra1YL604EeF6U98pLlQ3iWIGMdWSC+vWmPBWBNgmDBAhnAobLROJmwg==}
     engines: {node: '>=18'}
 
+  '@socket.io/component-emitter@3.1.2':
+    resolution: {integrity: sha512-9BCxFwvbGg/RsZK9tjXd8s4UcwR0MWeFQ1XEKIQVVvAGJyINdrqKMcTRyLoK8Rse1GjzLV9cwjWV1olXRWEXVA==}
+
   '@stylistic/eslint-plugin@2.12.1':
     resolution: {integrity: sha512-fubZKIHSPuo07FgRTn6S4Nl0uXPRPYVNpyZzIDGfp7Fny6JjNus6kReLD7NI380JXi4HtUTSOZ34LBuNPO1XLQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
@@ -2258,8 +2267,16 @@ packages:
   '@vueuse/core@10.11.1':
     resolution: {integrity: sha512-guoy26JQktXPcz+0n3GukWIy/JDNKti9v6VEMu6kV2sYBsWuGiTU8OWdg+ADfUbHg3/3DlqySDe7JmdHrktiww==}
 
+  '@vueuse/core@11.3.0':
+    resolution: {integrity: sha512-7OC4Rl1f9G8IT6rUfi9JrKiXy4bfmHhZ5x2Ceojy0jnd3mHNEvV4JaRygH362ror6/NZ+Nl+n13LPzGiPN8cKA==}
+
   '@vueuse/core@12.2.0':
     resolution: {integrity: sha512-jksyNu+5EGwggNkRWd6xX+8qBkYbmrwdFQMgCABsz+wq8bKF6w3soPFLB8vocFp3wFIzn0OYkSPM9JP+AFKwsg==}
+
+  '@vueuse/head@2.0.0':
+    resolution: {integrity: sha512-ykdOxTGs95xjD4WXE4na/umxZea2Itl0GWBILas+O4oqS7eXIods38INvk3XkJKjqMdWPcpCyLX/DioLQxU1KA==}
+    peerDependencies:
+      vue: '>=2.7 || >=3'
 
   '@vueuse/integrations@12.2.0':
     resolution: {integrity: sha512-Bc0unXiGNZ0w7xqSvzCuP7AflBRKcZX6ib7tGi7vAjOxhLd6GtN3J8qizIbSPnI62XyPy5fauOkq2i2HUPq6MQ==}
@@ -2305,11 +2322,22 @@ packages:
   '@vueuse/metadata@10.11.1':
     resolution: {integrity: sha512-IGa5FXd003Ug1qAZmyE8wF3sJ81xGLSqTqtQ6jaVfkeZ4i5kS2mwQF61yhVqojRnenVew5PldLyRgvdl4YYuSw==}
 
+  '@vueuse/metadata@11.3.0':
+    resolution: {integrity: sha512-pwDnDspTqtTo2HwfLw4Rp6yywuuBdYnPYDq+mO38ZYKGebCUQC/nVj/PXSiK9HX5otxLz8Fn7ECPbjiRz2CC3g==}
+
   '@vueuse/metadata@12.2.0':
     resolution: {integrity: sha512-x6zynZtTh1l52m0y8d/EgzpshnMjg8cNZ2KWoncJ62Z5qPSGoc4FUunmMVrrRM/I/5542rTEY89CGftngZvrkQ==}
 
+  '@vueuse/nuxt@11.3.0':
+    resolution: {integrity: sha512-FxtRTgFmsoASamR3lOftv/r11o1BojF9zir8obbTnKamVZdlQ5rgJ0hHgVbrgA6dlMuEx/PzwqAmiKNFdU4oCQ==}
+    peerDependencies:
+      nuxt: ^3.0.0
+
   '@vueuse/shared@10.11.1':
     resolution: {integrity: sha512-LHpC8711VFZlDaYUXEBbFBCQ7GS3dVU9mjOhhMhXP6txTV4EhYQg/KGnQuvt/sPAtoUKq7VVUnL6mVtFoL42sA==}
+
+  '@vueuse/shared@11.3.0':
+    resolution: {integrity: sha512-P8gSSWQeucH5821ek2mn/ciCk+MS/zoRKqdQIM3bHq6p7GXDAJLmnRRKmF5F65sAVJIfzQlwR3aDzwCn10s8hA==}
 
   '@vueuse/shared@12.2.0':
     resolution: {integrity: sha512-SRr4AZwv/giS+EmyA1ZIzn3/iALjjnWAGaBNmoDTMEob9JwQaevAocuaMDnPAvU7Z35Y5g3CFRusCWgp1gVJ3Q==}
@@ -3155,6 +3183,15 @@ packages:
       supports-color:
         optional: true
 
+  debug@4.3.7:
+    resolution: {integrity: sha512-Er2nc/H7RrMXZBFCEim6TCmMk02Z8vLC2Rbi1KEBggpo0fS6l0S1nnapwmIi3yW/+GOJap1Krg4w0Hg80oCqgQ==}
+    engines: {node: '>=6.0'}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
+
   debug@4.4.0:
     resolution: {integrity: sha512-6WTZ/IxCY/T6BALoZHaE4ctp9xm+Z5kY/pzYaCHRFeyVhojxlrm+46y68HA6hr0TcwEssoxNiDEUJQjfPZ/RYA==}
     engines: {node: '>=6.0'}
@@ -3446,6 +3483,13 @@ packages:
 
   end-of-stream@1.4.4:
     resolution: {integrity: sha512-+uw1inIHVPQoaVuHzRyXd21icM+cnt4CzD5rW+NC1wjOUSTOs+Te7FOv7AhN7vS9x/oIyhLP5PR1H+phQAHu5Q==}
+
+  engine.io-client@6.6.2:
+    resolution: {integrity: sha512-TAr+NKeoVTjEVW8P3iHguO1LO6RlUz9O5Y8o7EY0fU+gY1NYqas7NN3slpFtbXEsLMHk0h90fJMfKjRkQ0qUIw==}
+
+  engine.io-parser@5.2.3:
+    resolution: {integrity: sha512-HqD3yTBfnBxIrbnM1DoD6Pcq8NECnh8d4As1Qgh0z5Gg3jRRIqijury0CL3ghu/edArpUYiYqQiDUQBIs4np3Q==}
+    engines: {node: '>=10.0.0'}
 
   enhanced-resolve@5.18.0:
     resolution: {integrity: sha512-0/r0MySGYG8YqlayBZ6MuCfECmHFdJ5qyPh8s8wa5Hnm6SaFLSK1VYCbj+NKp090Nm1caZhD+QTnmxO7esYGyQ==}
@@ -4731,6 +4775,9 @@ packages:
   mdn-data@2.12.2:
     resolution: {integrity: sha512-IEn+pegP1aManZuckezWCO+XZQDplx1366JoVhTpMpBB1sPey/SbveZQUosKiKiGYjg1wH4pMlNgXbCiYgihQA==}
 
+  mdurl@2.0.0:
+    resolution: {integrity: sha512-Lf+9+2r+Tdp5wXDXC4PcIBjTDtq4UKjCPMQhKIuzpJNW0b96kVqSwW0bT7FhRSfmAiFYgP+SCRvdrDozfh0U5w==}
+
   media-typer@0.3.0:
     resolution: {integrity: sha512-dq+qelQ9akHpcOl/gUVRTxVIOkAJ1wR3QAvb4RsVjS8oVoFjDGTc679wJYmUmknUF5HwMLOgb5O+a3KxfWapPQ==}
     engines: {node: '>= 0.6'}
@@ -4910,6 +4957,9 @@ packages:
   minipass@7.1.2:
     resolution: {integrity: sha512-qOOzS1cBTWYF4BH8fVePDBOO9iptMnGUEZwNc/cMWnTV2nVLZ7VoNWEPHkYczZA0pdoA7dl6e7FL659nX9S2aw==}
     engines: {node: '>=16 || 14 >=14.17'}
+
+  minisearch@7.1.1:
+    resolution: {integrity: sha512-b3YZEYCEH4EdCAtYP7OlDyx7FdPwNzuNwLQ34SfJpM9dlbBZzeXndGavTrC+VCiRWomL21SWfMc6SCKO/U2ZNw==}
 
   minizlib@2.1.2:
     resolution: {integrity: sha512-bAxsR8BVfj60DWXHE3u30oHzfl4G7khkSuPW+qvpd7jFRHm7dLxOjUk1EHACJ/hxLY8phGJ0YhYHZo7jil7Qdg==}
@@ -6011,12 +6061,24 @@ packages:
   slashes@3.0.12:
     resolution: {integrity: sha512-Q9VME8WyGkc7pJf6QEkj3wE+2CnvZMI+XJhwdTPR8Z/kWQRXi7boAWLDibRPyHRTUTPx5FaU7MsyrjI3yLB4HA==}
 
+  slugify@1.6.6:
+    resolution: {integrity: sha512-h+z7HKHYXj6wJU+AnS/+IH8Uh9fdcX1Lrhg1/VMdf9PwoBQXFcXiAdsy2tSK0P6gKwJLXp02r90ahUCqHk9rrw==}
+    engines: {node: '>=8.0.0'}
+
   smart-buffer@4.2.0:
     resolution: {integrity: sha512-94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg==}
     engines: {node: '>= 6.0.0', npm: '>= 3.0.0'}
 
   smob@1.5.0:
     resolution: {integrity: sha512-g6T+p7QO8npa+/hNx9ohv1E5pVCmWrVCUzUXJyLdMmftX6ER0oiWY/w9knEonLpnOp6b6FenKnMfR8gqwWdwig==}
+
+  socket.io-client@4.8.1:
+    resolution: {integrity: sha512-hJVXfu3E28NmzGk8o1sHhN3om52tRvwYeidbj7xKy2eIIse5IoKX3USlS6Tqt3BHAtflLIkCQBkzVrEEfWUyYQ==}
+    engines: {node: '>=10.0.0'}
+
+  socket.io-parser@4.2.4:
+    resolution: {integrity: sha512-/GbIKmo8ioc+NIWIhwdecY0ge+qVBSMdgxGygevmdHj24bsfgtCmcUUcQ5ZzcylGFHsN3k4HB4Cgkl96KVnuew==}
+    engines: {node: '>=10.0.0'}
 
   socks-proxy-agent@8.0.5:
     resolution: {integrity: sha512-HehCEsotFqbPW9sJ8WVYB6UbmIMv7kUUORIF2Nncq4VQvBfNBLibW9YZR5dlYCSUhwcD628pRllm7n+E+YTzJw==}
@@ -6864,6 +6926,18 @@ packages:
   wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
 
+  ws@8.17.1:
+    resolution: {integrity: sha512-6XQFvXTkbfUOZOKKILFG1PDK2NDQs4azKQl26T0YS5CxqWLgXajbPZ+h4gZekJyRqFU8pvnbAbbs/3TgRPy+GQ==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: '>=5.0.2'
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+
   ws@8.18.0:
     resolution: {integrity: sha512-8VbfWfHLbbwu3+N6OKsOMpBdT4kXPDDB9cJk2bJ6mh9ucxdlnNvH1e+roYkKmN9Nxw2yjz7VzeO9oOz2zJ04Pw==}
     engines: {node: '>=10.0.0'}
@@ -6883,6 +6957,10 @@ packages:
   xml-name-validator@4.0.0:
     resolution: {integrity: sha512-ICP2e+jsHvAj2E2lIHxa5tjXRlKDJo4IdvPvCXbXQGdzSfmSpNVyIKMvoZHjDY9DP0zV17iI85o90vRFXNccRw==}
     engines: {node: '>=12'}
+
+  xmlhttprequest-ssl@2.1.2:
+    resolution: {integrity: sha512-TEU+nJVUUnA4CYJFLvK5X9AOeH4KvDvhIfm0vV1GaQRtchnG0hgK5p8hw/xjv8cunWYCsiPCSDzObPyhEwq3KQ==}
+    engines: {node: '>=0.4.0'}
 
   xss@1.0.15:
     resolution: {integrity: sha512-FVdlVVC67WOIPvfOwhoMETV72f6GbW7aOabBC3WxN/oUdoEMDyLz4OgRv5/gck2ZeNqEQu+Tb0kloovXOfpYVg==}
@@ -8006,6 +8084,63 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.18.0
 
+  '@nuxt/content@2.13.4(db0@0.2.1(drizzle-orm@0.38.3(@cloudflare/workers-types@4.20241224.0)))(ioredis@5.4.2)(magicast@0.3.5)(nuxt@3.15.0(@parcel/watcher@2.5.0)(@types/node@22.10.2)(db0@0.2.1(drizzle-orm@0.38.3(@cloudflare/workers-types@4.20241224.0)))(drizzle-orm@0.38.3(@cloudflare/workers-types@4.20241224.0))(eslint@8.57.1)(ioredis@5.4.2)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.29.1)(terser@5.37.0)(typescript@5.7.2)(vite@6.0.5(@types/node@22.10.2)(jiti@2.4.2)(terser@5.37.0)(yaml@2.6.1))(yaml@2.6.1))(rollup@4.29.1)(vue@3.5.13(typescript@5.7.2))':
+    dependencies:
+      '@nuxt/kit': 3.15.0(magicast@0.3.5)(rollup@4.29.1)
+      '@nuxtjs/mdc': 0.9.5(magicast@0.3.5)(rollup@4.29.1)
+      '@vueuse/core': 11.3.0(vue@3.5.13(typescript@5.7.2))
+      '@vueuse/head': 2.0.0(vue@3.5.13(typescript@5.7.2))
+      '@vueuse/nuxt': 11.3.0(magicast@0.3.5)(nuxt@3.15.0(@parcel/watcher@2.5.0)(@types/node@22.10.2)(db0@0.2.1(drizzle-orm@0.38.3(@cloudflare/workers-types@4.20241224.0)))(drizzle-orm@0.38.3(@cloudflare/workers-types@4.20241224.0))(eslint@8.57.1)(ioredis@5.4.2)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.29.1)(terser@5.37.0)(typescript@5.7.2)(vite@6.0.5(@types/node@22.10.2)(jiti@2.4.2)(terser@5.37.0)(yaml@2.6.1))(yaml@2.6.1))(rollup@4.29.1)(vue@3.5.13(typescript@5.7.2))
+      consola: 3.3.1
+      defu: 6.1.4
+      destr: 2.0.3
+      json5: 2.2.3
+      knitwork: 1.2.0
+      listhen: 1.9.0
+      mdast-util-to-string: 4.0.0
+      mdurl: 2.0.0
+      micromark: 4.0.1
+      micromark-util-sanitize-uri: 2.0.1
+      micromark-util-types: 2.0.1
+      minisearch: 7.1.1
+      ohash: 1.1.4
+      pathe: 1.1.2
+      scule: 1.3.0
+      shiki: 1.24.4
+      slugify: 1.6.6
+      socket.io-client: 4.8.1
+      ufo: 1.5.4
+      unist-util-stringify-position: 4.0.0
+      unstorage: 1.14.1(db0@0.2.1(drizzle-orm@0.38.3(@cloudflare/workers-types@4.20241224.0)))(ioredis@5.4.2)
+      ws: 8.18.0
+    transitivePeerDependencies:
+      - '@azure/app-configuration'
+      - '@azure/cosmos'
+      - '@azure/data-tables'
+      - '@azure/identity'
+      - '@azure/keyvault-secrets'
+      - '@azure/storage-blob'
+      - '@capacitor/preferences'
+      - '@deno/kv'
+      - '@netlify/blobs'
+      - '@planetscale/database'
+      - '@upstash/redis'
+      - '@vercel/blob'
+      - '@vercel/kv'
+      - '@vue/composition-api'
+      - aws4fetch
+      - bufferutil
+      - db0
+      - idb-keyval
+      - ioredis
+      - magicast
+      - nuxt
+      - rollup
+      - supports-color
+      - uploadthing
+      - utf-8-validate
+      - vue
+
   '@nuxt/devalue@2.0.2': {}
 
   '@nuxt/devtools-kit@1.6.4(magicast@0.3.5)(rollup@4.29.1)(vite@6.0.5(@types/node@22.10.2)(jiti@2.4.2)(terser@5.37.0)(yaml@2.6.1))':
@@ -8768,6 +8903,8 @@ snapshots:
 
   '@sindresorhus/merge-streams@2.3.0': {}
 
+  '@socket.io/component-emitter@3.1.2': {}
+
   '@stylistic/eslint-plugin@2.12.1(eslint@8.57.1)(typescript@5.7.2)':
     dependencies:
       '@typescript-eslint/utils': 8.18.2(eslint@8.57.1)(typescript@5.7.2)
@@ -9249,6 +9386,16 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
+  '@vueuse/core@11.3.0(vue@3.5.13(typescript@5.7.2))':
+    dependencies:
+      '@types/web-bluetooth': 0.0.20
+      '@vueuse/metadata': 11.3.0
+      '@vueuse/shared': 11.3.0(vue@3.5.13(typescript@5.7.2))
+      vue-demi: 0.14.10(vue@3.5.13(typescript@5.7.2))
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
+
   '@vueuse/core@12.2.0(typescript@5.7.2)':
     dependencies:
       '@types/web-bluetooth': 0.0.20
@@ -9257,6 +9404,14 @@ snapshots:
       vue: 3.5.13(typescript@5.7.2)
     transitivePeerDependencies:
       - typescript
+
+  '@vueuse/head@2.0.0(vue@3.5.13(typescript@5.7.2))':
+    dependencies:
+      '@unhead/dom': 1.11.14
+      '@unhead/schema': 1.11.14
+      '@unhead/ssr': 1.11.14
+      '@unhead/vue': 1.11.14(vue@3.5.13(typescript@5.7.2))
+      vue: 3.5.13(typescript@5.7.2)
 
   '@vueuse/integrations@12.2.0(change-case@5.4.4)(focus-trap@7.5.4)(fuse.js@7.0.0)(typescript@5.7.2)':
     dependencies:
@@ -9272,9 +9427,33 @@ snapshots:
 
   '@vueuse/metadata@10.11.1': {}
 
+  '@vueuse/metadata@11.3.0': {}
+
   '@vueuse/metadata@12.2.0': {}
 
+  '@vueuse/nuxt@11.3.0(magicast@0.3.5)(nuxt@3.15.0(@parcel/watcher@2.5.0)(@types/node@22.10.2)(db0@0.2.1(drizzle-orm@0.38.3(@cloudflare/workers-types@4.20241224.0)))(drizzle-orm@0.38.3(@cloudflare/workers-types@4.20241224.0))(eslint@8.57.1)(ioredis@5.4.2)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.29.1)(terser@5.37.0)(typescript@5.7.2)(vite@6.0.5(@types/node@22.10.2)(jiti@2.4.2)(terser@5.37.0)(yaml@2.6.1))(yaml@2.6.1))(rollup@4.29.1)(vue@3.5.13(typescript@5.7.2))':
+    dependencies:
+      '@nuxt/kit': 3.15.0(magicast@0.3.5)(rollup@4.29.1)
+      '@vueuse/core': 11.3.0(vue@3.5.13(typescript@5.7.2))
+      '@vueuse/metadata': 11.3.0
+      local-pkg: 0.5.1
+      nuxt: 3.15.0(@parcel/watcher@2.5.0)(@types/node@22.10.2)(db0@0.2.1(drizzle-orm@0.38.3(@cloudflare/workers-types@4.20241224.0)))(drizzle-orm@0.38.3(@cloudflare/workers-types@4.20241224.0))(eslint@8.57.1)(ioredis@5.4.2)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.29.1)(terser@5.37.0)(typescript@5.7.2)(vite@6.0.5(@types/node@22.10.2)(jiti@2.4.2)(terser@5.37.0)(yaml@2.6.1))(yaml@2.6.1)
+      vue-demi: 0.14.10(vue@3.5.13(typescript@5.7.2))
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - magicast
+      - rollup
+      - supports-color
+      - vue
+
   '@vueuse/shared@10.11.1(vue@3.5.13(typescript@5.7.2))':
+    dependencies:
+      vue-demi: 0.14.10(vue@3.5.13(typescript@5.7.2))
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
+
+  '@vueuse/shared@11.3.0(vue@3.5.13(typescript@5.7.2))':
     dependencies:
       vue-demi: 0.14.10(vue@3.5.13(typescript@5.7.2))
     transitivePeerDependencies:
@@ -10377,6 +10556,10 @@ snapshots:
     dependencies:
       ms: 2.1.3
 
+  debug@4.3.7:
+    dependencies:
+      ms: 2.1.3
+
   debug@4.4.0(supports-color@9.4.0):
     dependencies:
       ms: 2.1.3
@@ -10543,6 +10726,20 @@ snapshots:
     dependencies:
       once: 1.4.0
     optional: true
+
+  engine.io-client@6.6.2:
+    dependencies:
+      '@socket.io/component-emitter': 3.1.2
+      debug: 4.3.7
+      engine.io-parser: 5.2.3
+      ws: 8.17.1
+      xmlhttprequest-ssl: 2.1.2
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+
+  engine.io-parser@5.2.3: {}
 
   enhanced-resolve@5.18.0:
     dependencies:
@@ -12301,6 +12498,8 @@ snapshots:
 
   mdn-data@2.12.2: {}
 
+  mdurl@2.0.0: {}
+
   media-typer@0.3.0: {}
 
   merge-stream@2.0.0: {}
@@ -12575,6 +12774,8 @@ snapshots:
   minipass@5.0.0: {}
 
   minipass@7.1.2: {}
+
+  minisearch@7.1.1: {}
 
   minizlib@2.1.2:
     dependencies:
@@ -14036,9 +14237,29 @@ snapshots:
 
   slashes@3.0.12: {}
 
+  slugify@1.6.6: {}
+
   smart-buffer@4.2.0: {}
 
   smob@1.5.0: {}
+
+  socket.io-client@4.8.1:
+    dependencies:
+      '@socket.io/component-emitter': 3.1.2
+      debug: 4.3.7
+      engine.io-client: 6.6.2
+      socket.io-parser: 4.2.4
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+
+  socket.io-parser@4.2.4:
+    dependencies:
+      '@socket.io/component-emitter': 3.1.2
+      debug: 4.3.7
+    transitivePeerDependencies:
+      - supports-color
 
   socks-proxy-agent@8.0.5:
     dependencies:
@@ -14957,11 +15178,15 @@ snapshots:
 
   wrappy@1.0.2: {}
 
+  ws@8.17.1: {}
+
   ws@8.18.0: {}
 
   xdg-basedir@5.1.0: {}
 
   xml-name-validator@4.0.0: {}
+
+  xmlhttprequest-ssl@2.1.2: {}
 
   xss@1.0.15:
     dependencies:

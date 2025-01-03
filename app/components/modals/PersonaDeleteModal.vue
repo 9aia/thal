@@ -66,7 +66,7 @@ const isUsernameInvalid = computed(() => {
 <template>
   <Modal v-model="isOpen">
     <template #default>
-      <h1 class="font-bold text-2xl mb-2 mt-4">
+      <h1 class="font-bold text-2xl mb-2 mt-4 text-slate-900">
         {{ t("Are you sure?") }}
       </h1>
 

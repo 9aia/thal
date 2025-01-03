@@ -15,8 +15,6 @@
 - Add "View character details"
 - Add "Keep Character definition/instructions private"
 - ---
-- Add "What's New" modal
-- ---
 - Add language drawer containing UI language and translation settings
 - ---
 - Add "Export account data"

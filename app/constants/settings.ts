@@ -24,12 +24,21 @@ const general: MenuItem[] = [
   },
 ]
 
+const { open: openWhatsNewModal } = useWhatsNewModal()
+
 const support: MenuItem[] = [
   /* {
     id: "how_Thal_works",
     name: "How Thal works",
     href: "/how-thal-works",
   }, */
+  {
+    id: 'whats-new',
+    icon: 'news',
+    name: 'What\'s new',
+    onClick: () => openWhatsNewModal(),
+    type: 'accordion',
+  },
   {
     id: 'feedback',
     icon: 'feedback',

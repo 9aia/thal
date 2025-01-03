@@ -61,12 +61,13 @@
 
 ### v0.4.0 - Support
 
-- Add a warning for renaming character usernames
 - Add good field placeholders
-- Add onboarding
+- Add help center
+- Add a warning for renaming character usernames
 - Add "About Thal" in help section in settings
+- Add "App Info" (app name, icon, version, author, licenses)
+- Add onboarding
 - Open character info by clicking on the AI warning item in the contact view
-- Add view about how Thal works
 
 ### v0.5.0 - Sharing
 

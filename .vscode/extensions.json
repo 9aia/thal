@@ -7,7 +7,8 @@
     "bradlc.vscode-tailwindcss",
     "GitHub.copilot",
     "Vue.volar",
-    "eamodio.gitlens"
+    "eamodio.gitlens",
+    "Nuxt.mdc"
   ],
   "unwantedRecommendations": []
 }
