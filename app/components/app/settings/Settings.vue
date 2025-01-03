@@ -60,7 +60,7 @@ onMounted(() => {
             <template #footer>
               <li class="group" @click="isLocaleModalOpen = true">
                 <div>
-                  <div class="cursor-pointer flex w-full gap-2 justify-between items-center py-2">
+                  <div class="cursor-pointer flex w-full gap-2 justify-between items-center">
                     <MenuItem
                       :is="{ id: 'language', name: 'Language', icon: 'globe', type: 'accordion' }"
                       class="py-2"

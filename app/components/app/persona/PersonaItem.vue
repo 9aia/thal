@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useLocale } from '@psitta/vue'
+import type { MenuItem } from '~/components/ui/navigation/types'
 import { categories } from '~/constants/discover'
 
 const props = defineProps<{
@@ -13,13 +13,21 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'edit'): void
   (e: 'delete'): void
+  (e: 'chat'): void
 }>()
-
-useLocale()
 
 const category = computed(() => {
   return categories.find(category => category.id === props.categoryId)
 })
+
+const copyUsername = useCopyUsername(toRef(() => props.username))
+
+const items: MenuItem[] = [
+  { id: 'edit-character', name: 'Edit character', icon: 'person_edit', onClick: () => emit('edit') },
+  { id: 'delete-character', name: 'Delete character', icon: 'delete', onClick: () => emit('delete') },
+  { id: 'share-character', name: 'Share character', icon: 'ios_share', onClick: () => copyUsername() },
+  { id: 'chat', name: 'Message character', icon: 'chat', onClick: () => emit('chat') },
+]
 </script>
 
 <template>
@@ -54,24 +62,17 @@ const category = computed(() => {
       </div>
 
       <div
-        class="flex sm:hidden group-hover:flex right-0 absolute gap-1 py-1 bg-gradient-to-r from-transparent via-white to-white"
+        class="flex right-0 absolute gap-1 py-1 bg-gradient-to-r from-transparent via-white to-white"
       >
-        <button
-          class="btn btn-ghost btn-circle text-slate-700"
-          @click.stop.prevent="emit('edit')"
-        >
-          <Icon
-            name="edit"
-            class="text-slate-700"
-          />
-        </button>
+        <div class="dropdown dropdown-end">
+          <button class="btn btn-circle btn-ghost text-slate-800" @click.stop.prevent="updateRedirectUrl">
+            <Icon>
+              more_vert
+            </Icon>
+          </button>
 
-        <button
-          class="btn btn-ghost btn-circle text-slate-700"
-          @click.stop.prevent="emit('delete')"
-        >
-          <Icon name="delete" class="text-slate-700" />
-        </button>
+          <Menu :items="items" item-class="py-2" @click.stop.prevent />
+        </div>
       </div>
     </div>
   </div>

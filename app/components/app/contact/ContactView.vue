@@ -89,10 +89,8 @@ const date = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-col h-full w-96 bg-white">
-    <ContactDeleteModal v-model="contactDeleteModalState" :contact-username="username" />
-
-    <header class="px-3 flex gap-2">
+  <div class="flex flex-col h-dvh justify-between">
+    <header class="px-3 flex gap-2 bg-white">
       <h1 class="text-md py-2 text-slate-800 flex items-center gap-1">
         <Button size="md" class="btn-ghost btn-circle" @click="closeDrawer">
           <Icon name="close" />
@@ -113,7 +111,11 @@ const date = computed(() => {
       </div>
     </header>
 
-    <div class="bg-white flex w-full flex-1 flex-col items-center divide-y-2 divide-slate-200">
+    <div class="flex-1 overflow-y-auto bg-white divide-y-2 divide-slate-200">
+      <Teleport to="body">
+        <ContactDeleteModal v-model="contactDeleteModalState" :contact-username="username" />
+      </Teleport>
+
       <Resource :loading="isLoading" :error="isError">
         <template #loading>
           <div class="w-full h-full flex items-center justify-center">

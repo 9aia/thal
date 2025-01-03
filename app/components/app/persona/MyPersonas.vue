@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from '@psitta/vue'
+import { Teleport } from 'vue'
 import queryKeys from '~/queryKeys'
 import { buildPersona, drawers, isRootDrawerOpen, personaBuilderData } from '~/store'
 import type { Persona } from '~/types'
@@ -45,8 +46,8 @@ function handleGoToChat(username: string) {
       </h1>
     </Navbar>
 
-    <div class="py-4 flex flex-col flex-1 overflow-y-auto bg-white gap-4">
-      <header class="text-center">
+    <div class="flex-1 overflow-y-auto bg-white">
+      <div class="pt-4 text-center">
         <div class="text-primary flex items-center justify-center">
           <Icon name="manage_accounts" style="font-size: 5rem" />
         </div>
@@ -58,47 +59,47 @@ function handleGoToChat(username: string) {
         <p class="px-4 text-sm text-gray-900">
           {{ t("Create a custom character that matches your specific goals in learning English.") }}
         </p>
-      </header>
+      </div>
 
-      <SettingSection :title="t('Characters')" title-class="px-4">
-        <StyledResource
-          :error="isError"
-          :loading="isPending"
-          @execute="refetch"
-        >
-          <ul>
-            <li
-              v-for="persona in personas"
-              :key="`persona-${persona.id}`"
-            >
-              <PersonaItem
-                :name="persona.name"
-                :username="persona.username || undefined"
-                :category-id="persona.categoryId"
-                @delete="handleDeletePersona(persona as unknown as Persona)"
-                @edit="buildPersona(persona as unknown as Persona)"
-                @click="handleGoToChat(persona.username as string)"
-              />
-            </li>
+      <div class="py-4 overflow-y-hidden">
+        <SettingSection :title="t('Characters')" title-class="px-4">
+          <Teleport to="body">
+            <PersonaDeleteModal
+              v-model="deletePersona"
+              :persona="personaToDelete!"
+            />
+          </Teleport>
 
-            <li class="group px-4 mt-2" @click="buildPersona(null)">
-              <div>
-                <div class="cursor-pointer flex w-full gap-2 justify-between items-center py-2">
+          <div v-if="personas" class="h-full">
+            <ul>
+              <li
+                v-for="persona in personas"
+                :key="`persona-${persona.id}`"
+                class="group"
+              >
+                <PersonaItem
+                  :name="persona.name"
+                  :username="persona.username || undefined"
+                  :category-id="persona.categoryId"
+                  @delete="handleDeletePersona(persona as unknown as Persona)"
+                  @edit="buildPersona(persona as unknown as Persona)"
+                  @chat="handleGoToChat(persona.username as string)"
+                  @click="buildPersona(persona as unknown as Persona)"
+                />
+              </li>
+
+              <li class="group px-4 mt-2" @click="buildPersona(null)">
+                <div class="cursor-pointer flex w-full gap-2 justify-between items-center">
                   <MenuItem
                     :is="{ id: 'add-persona', name: 'Create character', icon: 'add' }"
                     class="py-2"
                   />
                 </div>
-              </div>
-            </li>
-          </ul>
-        </StyledResource>
-      </SettingSection>
-
-      <PersonaDeleteModal
-        v-model="deletePersona"
-        :persona="personaToDelete!"
-      />
+              </li>
+            </ul>
+          </div>
+        </SettingSection>
+      </div>
     </div>
   </div>
 </template>

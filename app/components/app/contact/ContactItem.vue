@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useLocale } from '@psitta/vue'
-
 defineProps<{
   name: string
   description: string
@@ -13,8 +11,6 @@ const emit = defineEmits<{
   (e: 'edit'): void
   (e: 'delete'): void
 }>()
-
-useLocale()
 </script>
 
 <template>

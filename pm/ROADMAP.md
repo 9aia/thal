@@ -80,7 +80,7 @@
   - Prevent private character actions in any request
   - Prevent private character to be accessed in URL
 - List private character from contact list in a different section
-- Share character via WhatsApp message
+- Share character card (WhatsApp, X, Facebook, etc)
 - Send message via URL query
 - Display character author in the contact view
 - Add a top absolute toast "Share your invite code with friends" and menu option "Invite"

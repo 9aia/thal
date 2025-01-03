@@ -47,7 +47,6 @@
 ## Enhancements
 
 - Add option to copy message
-- Improve "My Characters" edition action appearance
 - ---
 - Change forms to another platform that supports localization
 - ---
@@ -75,6 +74,7 @@
 - Improve `package.json`
 - Improve `README.md`
 - Config GitHub repository metadata
+- Update GCP metadata
 
 ## Performance Enhancements
 
@@ -88,17 +88,14 @@
 
 ## Dev Enhancements
 
-- Clean console warnings
 - Remove unused code
   - Unused files/functions
   - Use inferred schemas as DTOs
   - Remove profile details features for now
 - Move schemas to their own files
-- Move `app/` to `web/`
 - Normalize schema payment field names to lower camel case
 - Change `Message.isBot` to boolean mode
 - Add nuxt devserver to codeshare container
 - Improve contributing guide
   - Add a guide for WIP commits
   - Add a guide for atomic commits
-- Update GCP metadata
