@@ -26,9 +26,9 @@ const goals = computed(() => {
   <div class="flex flex-col h-dvh justify-between">
     <Navbar>
       <h1 class="text-lg py-2 text-primary font-bold flex items-center gap-1">
-        <Btn size="sm" class="btn-ghost btn-circle" @click="emit('close')">
+        <Button size="sm" class="btn-ghost btn-circle" @click="emit('close')">
           <Icon name="arrow_back" />
-        </Btn>
+        </Button>
         {{ t("Profile") }}
       </h1>
     </Navbar>
@@ -53,7 +53,7 @@ const goals = computed(() => {
             {{ t("No goals added.") }}
           </div>
 
-          <Btn
+          <Button
             class="text-black flex items-center"
             :class="{ 'btn-primary': !goals?.length }"
             @click="isGoalsModalOpen = true"
@@ -66,7 +66,7 @@ const goals = computed(() => {
               <Icon>edit</Icon>
               {{ t("Edit goals") }}
             </template>
-          </Btn>
+          </Button>
 
           <GoalsModal v-model="isGoalsModalOpen" />
         </div>
@@ -91,7 +91,7 @@ const goals = computed(() => {
             {{ t("No hobbies added.") }}
           </div>
 
-          <Btn
+          <Button
             class="text-black flex items-center"
             :class="{ 'btn-primary': !hobbies?.length }"
             @click="isHobbyModalOpen = true"
@@ -104,7 +104,7 @@ const goals = computed(() => {
               <Icon>edit</Icon>
               {{ t("Edit hobbies") }}
             </template>
-          </Btn>
+          </Button>
 
           <HobbyModal v-model="isHobbyModalOpen" />
         </div>
@@ -120,7 +120,7 @@ const goals = computed(() => {
             </div>
           </div>
 
-          <Btn
+          <Button
             class="text-black flex items-center"
             :class="{ 'btn-primary': !user!.profession }"
             @click="isOccupationModalOpen = true"
@@ -134,7 +134,7 @@ const goals = computed(() => {
               <Icon>edit</Icon>
               {{ t("Edit occupation") }}
             </template>
-          </Btn>
+          </Button>
 
           <OccupationModal v-model="isOccupationModalOpen" />
         </div>
@@ -158,7 +158,7 @@ const goals = computed(() => {
             />
           </div>
 
-          <Btn
+          <Button
             class="text-black flex items-center"
             @click="isObservationModalOpen = true"
           >
@@ -171,7 +171,7 @@ const goals = computed(() => {
               <Icon>edit</Icon>
               {{ t("Edit observation") }}
             </template>
-          </Btn>
+          </Button>
         </div>
       </SettingSection>
     </div>

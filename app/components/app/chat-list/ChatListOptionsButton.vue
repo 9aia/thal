@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { chatItemSearch, drawers, isRootDrawerOpen } from '~/store'
-import type { MenuItem } from '~~/layers/ui/components/navigation/types'
+import type { MenuItem } from '~/components/ui/navigation/types'
 
 const logout = useLogout()
 
@@ -28,6 +28,7 @@ const items: MenuItem[] = [
     action: '/api/auth/logout',
     method: 'post',
     icon: 'logout',
+    meaning: 'warning',
     onSubmit: logout,
   },
 ]
@@ -39,6 +40,6 @@ const items: MenuItem[] = [
       <Icon>more_vert</Icon>
     </button>
 
-    <Menu :items="items" />
+    <Menu :items="items" item-class="py-2" />
   </div>
 </template>

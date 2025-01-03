@@ -1,6 +1,11 @@
 import type { InternalApi } from 'nitropack'
+import type { VariantProps } from 'tailwind-variants'
+import type { HTMLAttributes } from 'vue'
 import type { HOBBIES } from './constants/base'
 import type { UserSelect } from '~~/db/schema'
+
+export interface SafeProps<T extends HTMLAttributes> extends /* @vue-ignore */ T {}
+export interface SafeVariantProps<T extends VariantProps> extends /* @vue-ignore */ T {}
 
 // #region Settings
 

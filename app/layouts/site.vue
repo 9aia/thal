@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
-import Header from '~~/layers/ui/components/layout/Header.vue'
-import Footer from '~~/layers/ui/components/layout/Footer.vue'
-import type { MenuItem } from '~~/layers/ui/components/navigation/types'
+import type { MenuItem } from '~/components/ui/navigation/types'
 
 const user = useUser()
 const logout = useLogout()
@@ -26,6 +24,7 @@ const menuItems: MenuItem[] = [
     action: '/api/auth/logout',
     method: 'post',
     icon: 'logout',
+    meaning: 'warning',
     onSubmit: logout,
   },
 ]
@@ -45,7 +44,7 @@ const menuItems: MenuItem[] = [
               <div class="dropdown dropdown-end">
                 <Avatar type="button" class="w-10" :button="true" @click="updateRedirectUrl" />
 
-                <Menu :items="menuItems" />
+                <Menu :items="menuItems" item-class="py-2" />
               </div>
             </div>
 

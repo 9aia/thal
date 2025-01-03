@@ -3,7 +3,7 @@ import { calculatePagination, getPaginatedDto } from '~/utils/data'
 import { getValidated } from '~/utils/h3'
 import { unauthorized } from '~/utils/nuxt'
 import { numericString } from '~/utils/zod'
-import { paginationSchema } from '~~/layers/ui/schemas/paginator.schema'
+import { paginationSchema } from '~/schemas/data'
 
 export default eventHandler(async (event) => {
   const query = await getValidated(event, 'query', paginationSchema().extend({

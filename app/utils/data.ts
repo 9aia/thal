@@ -1,5 +1,5 @@
 import type { InfiniteData } from '@tanstack/vue-query'
-import type { Pagination } from '~~/layers/ui/schemas/paginator.schema'
+import type { Pagination } from '~/schemas/data'
 
 export function getBase64(file: Blob) {
   return new Promise((resolve, reject) => {

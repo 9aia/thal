@@ -23,10 +23,10 @@ import { isRootDrawerOpen } from '~/store'
           </p>
         </div>
 
-        <Btn class="lg:hidden btn-outline btn-primary mt-4" @click="isRootDrawerOpen = true">
+        <Button class="lg:hidden btn-outline btn-primary mt-4" @click="isRootDrawerOpen = true">
           <Icon name="chat" />
           {{ t('Chats') }}
-        </Btn>
+        </Button>
       </div>
     </main>
 

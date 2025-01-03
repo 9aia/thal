@@ -1,4 +1,4 @@
-const { fadeAnimation, fadeKeyframes } = require('./layers/ui/animations/fade')
+const { fadeAnimation, fadeKeyframes, thal } = require('./app/daisy.config.js')
 
 module.exports = {
   content: [
@@ -16,6 +16,6 @@ module.exports = {
   },
   plugins: [require('daisyui'), require('@tailwindcss/typography')],
   daisyui: {
-    themes: [require('./layers/ui/config/daisy.js')],
+    themes: [{ thal }],
   },
 }

@@ -1,4 +1,4 @@
-import type { MenuItem } from '~~/layers/ui/components/navigation/types'
+import type { MenuItem } from '~/components/ui/navigation/types'
 import { drawers } from '~/store'
 import { useWhatsNewModal } from '~/composables/useWhatsNewModal'
 
@@ -79,8 +79,8 @@ const support: MenuItem[] = [
 const legal: MenuItem[] = [
   // { id: 'guidelines', icon: 'gavel', name: 'Guidelines'/* , href: '/guidelines' */ },
   // { id: 'reports', icon: 'flag', name: 'Reports'/* , href: '/reports' */ },
-  { id: 'terms', icon: 'gavel', name: 'Terms of Service', href: '/terms' },
-  { id: 'privacy', icon: 'policy', name: 'Privacy Policy', href: '/privacy' },
+  { id: 'terms', icon: 'gavel', name: 'Terms of Service', href: '/terms', type: 'external', newTab: true },
+  { id: 'privacy', icon: 'policy', name: 'Privacy Policy', href: '/privacy', type: 'external', newTab: true },
 ]
 
 export const SETTINGS = {

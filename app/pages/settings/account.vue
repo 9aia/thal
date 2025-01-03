@@ -5,8 +5,7 @@ import { useI18n } from '@psitta/vue'
 import { useQueryClient } from '@tanstack/vue-query'
 import type { User } from '~~/db/schema'
 import { nameSchema, pronounsSchema, usernameSchema } from '~~/db/schema'
-import { useToast } from '~~/layers/ui/composables/useToast'
-import type { MenuItem } from '~~/layers/ui/components/navigation/types'
+import type { MenuItem } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
 
 definePageMeta({
@@ -146,11 +145,11 @@ const dangerItems: MenuItem[] = [
 
           <div class="h-2" />
 
-          <Btn :loading="loading" class="btn-primary" :disabled="hasErrors">
+          <Button :loading="loading" class="btn-primary" :disabled="hasErrors">
             {{
               t("Save")
             }}
-          </Btn>
+          </Button>
         </form>
 
         <ul class="mt-6">

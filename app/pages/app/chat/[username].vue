@@ -211,7 +211,7 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
     </template>
 
     <template #content>
-      <GenericResource :loading="isLoading" :error="isError" @execute="refetch">
+      <StyledResource :loading="isLoading" :error="isError" @execute="refetch">
         <ChatHeader
           :name="displayName"
           :avatar-name="avatarName"
@@ -228,7 +228,7 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
           class="bg-slate-200 py-4 px-2 sm:px-12 flex-1 overflow-y-auto relative focus:outline-none"
         >
           <div class="mb-4 text-slate-800 text-xs bg-orange-100 px-4 py-2 rounded-lg flex gap-1">
-            <Icon name="science" style="font-size: 1.15rem" />
+            <Icon name="science" class="text-green-500" style="font-size: 1.15rem" />
             <p>
               {{ t('This app is for educational and entertainment purposes only. Content and interactions do not represent professional instruction. Verify information independently and use responsibly.') }}
             </p>
@@ -251,10 +251,10 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
               </p>
 
               <div class="card-actions justify-center">
-                <Btn class="btn-outline btn-primary" @click="addContact()">
+                <Button class="btn-outline btn-primary" @click="addContact()">
                   <Icon name="person_add" />
                   Add
-                </Btn>
+                </Button>
               </div>
             </div>
           </div>
@@ -275,7 +275,7 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
           :chat-id="data!.chatId!"
           @send="handleSend()"
         />
-      </GenericResource>
+      </StyledResource>
     </template>
   </AppLayout>
 </template>

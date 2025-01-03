@@ -1,5 +1,4 @@
 import { useI18n } from '@psitta/vue'
-import { useToast } from '~~/layers/ui/composables/useToast'
 
 function useLogout() {
   const toast = useToast()

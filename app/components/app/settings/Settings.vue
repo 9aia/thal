@@ -23,9 +23,9 @@ onMounted(() => {
   <div class="flex flex-col h-dvh justify-between">
     <Navbar>
       <h1 class="text-lg py-2 text-primary font-bold flex items-center gap-1">
-        <Btn size="sm" class="btn-ghost btn-circle" @click="emit('close')">
+        <Button size="sm" class="btn-ghost btn-circle" @click="emit('close')">
           <Icon name="arrow_back" />
-        </Btn>
+        </Button>
         {{ t("Settings") }}
       </h1>
     </Navbar>
@@ -61,7 +61,10 @@ onMounted(() => {
               <li class="group" @click="isLocaleModalOpen = true">
                 <div>
                   <div class="cursor-pointer flex w-full gap-2 justify-between items-center py-2">
-                    <MenuItem :is="{ id: 'language', name: 'Language', icon: 'globe', type: 'accordion' }" />
+                    <MenuItem
+                      :is="{ id: 'language', name: 'Language', icon: 'globe', type: 'accordion' }"
+                      class="py-2"
+                    />
                   </div>
                 </div>
               </li>

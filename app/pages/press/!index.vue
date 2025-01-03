@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
-import Icon from '~~/layers/ui/components/display/Icon.vue'
 </script>
 
 <template>
@@ -21,7 +20,7 @@ import Icon from '~~/layers/ui/components/display/Icon.vue'
           </p>
 
           <A class="btn btn-primary text-neutral-content" href="/app">{{
-            t("Try Thal")
+            t("Start chatting")
           }}</A>
         </div>
       </div>
@@ -52,7 +51,7 @@ import Icon from '~~/layers/ui/components/display/Icon.vue'
         <p class="text-slate-900">
           {{
             t(
-              "Create your Thal profile in moments and start your personalized English learning journey. With advanced AI, Thal adapts to your learning style, making each lesson unique. Immerse yourself in a world of English adapted especially for you.",
+              "Create your Thal profile in minutes and start your personalized English learning journey. Powered by advanced AI, Thal adapts to your unique learning style, ensuring every lesson is tailored just for you. Immerse yourself in a world of English designed to fit your pace and goals.",
             )
           }}
         </p>

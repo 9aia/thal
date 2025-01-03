@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { refAutoReset } from '@vueuse/core'
 import { useI18n } from '@psitta/vue'
-import { useToast } from '~~/layers/ui/composables/useToast'
 
 definePageMeta({
   middleware: 'auth',

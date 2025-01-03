@@ -4,7 +4,6 @@ import { useQueryClient } from '@tanstack/vue-query'
 import { useDebounceFn } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import { descriptionSchema, instructionsSchema, nameSchema, usernameSchema } from '~~/db/schema'
-import { useToast } from '~~/layers/ui/composables/useToast'
 import { contactViewUsername, personaBuilderData } from '~/store'
 import type { Persona } from '~/types'
 import queryKeys from '~/queryKeys'
@@ -132,9 +131,9 @@ const { mainField } = useBuildPersonaFocus()
   <div class="flex flex-col h-dvh justify-between">
     <Navbar>
       <h1 class="text-lg py-2 text-primary font-bold flex items-center gap-1">
-        <Btn size="sm" class="btn-ghost btn-circle" @click="emit('close')">
+        <Button size="sm" class="btn-ghost btn-circle" @click="emit('close')">
           <Icon name="arrow_back" />
-        </Btn>
+        </Button>
         {{ t("Build Character") }}
       </h1>
     </Navbar>
@@ -182,11 +181,11 @@ const { mainField } = useBuildPersonaFocus()
 
           <div class="h-2" />
 
-          <Btn :loading="loading" class="btn-primary" :disabled="hasErrors">
+          <Button :loading="loading" class="btn-primary" :disabled="hasErrors">
             {{
               t("Save")
             }}
-          </Btn>
+          </Button>
         </form>
       </SettingSection>
     </div>

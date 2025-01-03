@@ -25,25 +25,25 @@ function goToDiscover() {
     </p>
 
     <div class="px-4 flex gap-2 justify-center flex-wrap">
-      <Btn class="btn-outline pl-2 border-green-500 text-green-500 hover:bg-green-500 hover:border-green-500 hover:text-slate-900" @click="goToDiscover">
+      <Button class="btn-outline pl-2 border-green-500 text-green-500 hover:bg-green-500 hover:border-green-500 hover:text-slate-900" @click="goToDiscover">
         <Icon name="person_search" />
         {{ t("Discover characters") }}
-      </Btn>
+      </Button>
 
-      <Btn class="btn-outline pl-2 border-purple-500 text-purple-500 hover:bg-purple-500 hover:border-purple-500 hover:text-slate-900" @click="buildPersona(null)">
+      <Button class="btn-outline pl-2 border-purple-500 text-purple-500 hover:bg-purple-500 hover:border-purple-500 hover:text-slate-900" @click="buildPersona(null)">
         <Icon name="person_edit" />
         {{ t("Create character") }}
-      </Btn>
+      </Button>
 
-      <Btn class="btn-outline pl-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:border-orange-500 hover:text-slate-900" @click="manageContact(null)">
+      <Button class="btn-outline pl-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:border-orange-500 hover:text-slate-900" @click="manageContact(null)">
         <Icon name="person_add" />
         {{ t("Add contact") }}
-      </Btn>
+      </Button>
 
-      <Btn class="btn-outline pl-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:border-blue-500 hover:text-slate-900" @click="openWhatsNewModal">
+      <Button class="btn-outline pl-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:border-blue-500 hover:text-slate-900" @click="openWhatsNewModal">
         <Icon name="news" />
         {{ t("What's New") }}
-      </Btn>
+      </Button>
     </div>
   </div>
 </template>

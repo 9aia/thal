@@ -95,7 +95,6 @@
   - Remove profile details features for now
 - Move schemas to their own files
 - Move `app/` to `web/`
-- Move `layers/ui` to `web/components/ui`
 - Normalize schema payment field names to lower camel case
 - Change `Message.isBot` to boolean mode
 - Add nuxt devserver to codeshare container

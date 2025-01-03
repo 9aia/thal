@@ -21,9 +21,9 @@ const {
     </div>
 
     <div class="items-start min-w-[32px] min-h-[32px] flex">
-      <Btn class="btn-ghost hidden group-hover/translation:block" size="sm" shape="circle" @click="isOpen = false">
+      <Button class="btn-ghost hidden group-hover/translation:block" size="sm" shape="circle" @click="isOpen = false">
         <Icon name="close" style="font-size: 1.15rem" />
-      </Btn>
+      </Button>
     </div>
   </div>
 
@@ -36,13 +36,13 @@ const {
     </div>
 
     <div class="items-start min-w-[64px] min-h-[32px] flex">
-      <Btn class="btn-ghost hidden group-hover/translation:block" size="sm" shape="circle" @click="refetch()">
+      <Button class="btn-ghost hidden group-hover/translation:block" size="sm" shape="circle" @click="refetch()">
         <Icon name="refresh" style="font-size: 1.15rem" />
-      </Btn>
+      </Button>
 
-      <Btn class="btn-ghost hidden group-hover/translation:block" size="sm" shape="circle" @click="isOpen = false">
+      <Button class="btn-ghost hidden group-hover/translation:block" size="sm" shape="circle" @click="isOpen = false">
         <Icon name="close" style="font-size: 1.15rem" />
-      </Btn>
+      </Button>
     </div>
   </div>
 </template>

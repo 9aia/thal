@@ -1,6 +1,5 @@
 import { useI18n } from '@psitta/vue'
 import { useAsyncState, useDevicesList, useUserMedia } from '@vueuse/core'
-import { useToast } from '~~/layers/ui/composables/useToast'
 
 const toast = useToast()
 

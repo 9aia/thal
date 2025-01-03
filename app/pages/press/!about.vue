@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
-import Icon from '~~/layers/ui/components/display/Icon.vue'
 
 const items = [
   {

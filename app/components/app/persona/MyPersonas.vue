@@ -38,9 +38,9 @@ function handleGoToChat(username: string) {
   <div class="flex flex-col h-dvh justify-between">
     <Navbar>
       <h1 class="text-lg py-2 text-primary font-bold flex items-center gap-1">
-        <Btn size="sm" class="btn-ghost btn-circle" @click="emit('close')">
+        <Button size="sm" class="btn-ghost btn-circle" @click="emit('close')">
           <Icon name="arrow_back" />
-        </Btn>
+        </Button>
         {{ t("My Characters") }}
       </h1>
     </Navbar>
@@ -61,7 +61,7 @@ function handleGoToChat(username: string) {
       </header>
 
       <SettingSection :title="t('Characters')" title-class="px-4">
-        <GenericResource
+        <StyledResource
           :error="isError"
           :loading="isPending"
           @execute="refetch"
@@ -86,12 +86,13 @@ function handleGoToChat(username: string) {
                 <div class="cursor-pointer flex w-full gap-2 justify-between items-center py-2">
                   <MenuItem
                     :is="{ id: 'add-persona', name: 'Create character', icon: 'add' }"
+                    class="py-2"
                   />
                 </div>
               </div>
             </li>
           </ul>
-        </GenericResource>
+        </StyledResource>
       </SettingSection>
 
       <PersonaDeleteModal

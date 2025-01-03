@@ -105,9 +105,9 @@ const { open: openWhatsNewModal } = useWhatsNewModal()
     </div>
 
     <div class="absolute bottom-4 right-4">
-      <Btn size="md" class="btn-circle btn-primary" @click="drawers.newChat = true">
+      <Button size="md" class="btn-circle btn-primary" @click="drawers.newChat = true">
         <Icon name="add" />
-      </Btn>
+      </Button>
     </div>
   </div>
 </template>

@@ -20,9 +20,9 @@ defineProps<{
           </div>
         </div>
 
-        <Btn v-if="!disableEditButton" class="btn-circle btn-ghost">
+        <Button v-if="!disableEditButton" class="btn-circle btn-ghost">
           <Icon name="edit" class="cursor-pointer" />
-        </Btn>
+        </Button>
       </div>
 
       <div>

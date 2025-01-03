@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useI18n } from '@psitta/vue'
 import { manageContact, openContactView } from '~/store'
-import type { MenuItem } from '~~/layers/ui/components/navigation/types'
+import type { MenuItem } from '~/components/ui/navigation/types'
 
 const props = defineProps<{
   name: string
@@ -31,14 +31,6 @@ const items = computed<MenuItem[]>(() => [
     icon: 'ios_share',
     onClick: () => copyUsername(),
   },
-  props.hasMessages
-    ? {
-        id: 'clear-chat',
-        name: t('Clear chat'),
-        icon: 'mop',
-        onClick: () => clearChat(),
-      }
-    : null,
   props.hasContact
     ? {
         id: 'edit-contact',
@@ -66,6 +58,15 @@ const items = computed<MenuItem[]>(() => [
         icon: 'add',
         onClick: () => props.addContact(),
       },
+  props.hasMessages
+    ? {
+        id: 'clear-chat',
+        name: t('Clear chat'),
+        icon: 'mop',
+        meaning: 'danger',
+        onClick: () => clearChat(),
+      }
+    : null,
 ].filter(item => item !== null))
 </script>
 
@@ -90,7 +91,7 @@ const items = computed<MenuItem[]>(() => [
             <Icon>more_vert</Icon>
           </button>
 
-          <Menu :items="items" />
+          <Menu :items="items" item-class="py-2" />
         </div>
       </div>
     </div>

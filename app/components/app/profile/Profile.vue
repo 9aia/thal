@@ -15,15 +15,15 @@ const user = useUser()
   <div class="flex flex-col h-dvh justify-between">
     <Navbar>
       <h1 class="text-lg py-2 text-primary font-bold flex items-center gap-1">
-        <Btn size="sm" class="btn-ghost btn-circle" @click="emit('close')">
+        <Button size="sm" class="btn-ghost btn-circle" @click="emit('close')">
           <Icon name="arrow_back" />
-        </Btn>
+        </Button>
         {{ t("Profile") }}
       </h1>
     </Navbar>
 
     <div class="flex-1 overflow-y-auto bg-white">
-      <Header @edit="drawers.account = true" />
+      <ProfileHeader @edit="drawers.account = true" />
 
       <div class="p-4 flex-1 space-y-4">
         <SettingSection class="space-y-4">
@@ -63,10 +63,10 @@ const user = useUser()
         </SettingSection>
 
         <!-- <div>
-          <Btn class="" @click="() => drawers.profileSettings = true">
+          <Button class="" @click="() => drawers.profileSettings = true">
             <Icon name="edit" />
             {{ t('Edit details') }}
-          </Btn>
+          </Button>
         </div> -->
       </div>
     </div>

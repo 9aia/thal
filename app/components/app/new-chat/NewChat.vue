@@ -3,7 +3,7 @@ import { t } from '@psitta/vue'
 import { useForm } from 'vee-validate'
 import { refDebounced } from '@vueuse/core'
 import { buildPersona, drawers, isRootDrawerOpen, manageContact, personaBuilderData } from '~/store'
-import type { MenuItem } from '~~/layers/ui/components/navigation/types'
+import type { MenuItem } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
 
 const emit = defineEmits<({
@@ -56,9 +56,9 @@ function handleGoToChat(username: string) {
 <template>
   <Navbar>
     <h1 class="text-lg py-2 text-primary font-bold flex items-center gap-1">
-      <Btn size="sm" class="btn-ghost btn-circle" @click="emit('close')">
+      <Button size="sm" class="btn-ghost btn-circle" @click="emit('close')">
         <Icon name="arrow_back" />
-      </Btn>
+      </Button>
       {{ t("New chat") }}
     </h1>
   </Navbar>

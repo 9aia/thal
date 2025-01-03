@@ -10,7 +10,7 @@ const emit = defineEmits<{
   (e: 'setReply'): void
 }>()
 
-const hideTranslateBtn = computed(() => {
+const hideTranslateButton = computed(() => {
   return props.translation.isOpen.value === true
     && !props.translation.isError.value
     && !props.translation.isLoading.value
@@ -22,8 +22,8 @@ const hideTranslateBtn = computed(() => {
     class="w-[108px] flex gap-1"
     :class="right ? 'flex-row-reverse' : 'flex-row'"
   >
-    <Btn
-      v-if="!hideTranslateBtn"
+    <Button
+      v-if="!hideTranslateButton"
       shape="circle"
       size="sm"
       :class="translation.isLoading.value ? 'block' : 'hidden group-hover:block'"
@@ -35,9 +35,9 @@ const hideTranslateBtn = computed(() => {
         name="translate"
         style="font-size: 1rem"
       />
-    </Btn>
+    </Button>
 
-    <Btn
+    <Button
       shape="circle"
       size="sm"
       class="hidden group-hover:block"
@@ -47,6 +47,6 @@ const hideTranslateBtn = computed(() => {
         name="reply"
         style="font-size: 1rem"
       />
-    </Btn>
+    </Button>
   </div>
 </template>

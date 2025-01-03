@@ -5,7 +5,6 @@ import { useDebounceFn } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import { contactData, drawers, isRootDrawerOpen } from '~/store'
 import { nameSchema, usernameSchema } from '~~/db/schema'
-import { useToast } from '~~/layers/ui/composables/useToast'
 import queryKeys from '~/queryKeys'
 import type { Contact } from '~/types'
 
@@ -149,9 +148,9 @@ const submit = form.handleSubmit(() => isEditing.value
   <div class="flex flex-col h-dvh justify-between">
     <Navbar>
       <h1 class="text-lg py-2 text-primary font-bold flex items-center gap-1">
-        <Btn size="sm" class="btn-ghost btn-circle" @click="emit('close')">
+        <Button size="sm" class="btn-ghost btn-circle" @click="emit('close')">
           <Icon name="arrow_back" />
-        </Btn>
+        </Button>
         {{ isEditing ? t("Edit Contact") : t("New Contact") }}
       </h1>
     </Navbar>
@@ -178,11 +177,11 @@ const submit = form.handleSubmit(() => isEditing.value
 
           <div class="h-2" />
 
-          <Btn :loading="loading" class="btn-primary" :disabled="hasErrors">
+          <Button :loading="loading" class="btn-primary" :disabled="hasErrors">
             {{
               t("Save")
             }}
-          </Btn>
+          </Button>
         </form>
       </SettingSection>
     </div>

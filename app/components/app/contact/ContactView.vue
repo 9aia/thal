@@ -4,7 +4,7 @@ import { useI18n } from '@psitta/vue'
 import { contactViewUsername, manageContact, rightDrawer, rightDrawers } from '~/store'
 import { categories } from '~/constants/discover'
 import queryKeys from '~/queryKeys'
-import type { MenuItem } from '~~/layers/ui/components/navigation/types'
+import type { MenuItem } from '~/components/ui/navigation/types'
 
 const contactDeleteModalState = ref(false)
 const username = computed(() => contactViewUsername!.value!)
@@ -94,20 +94,20 @@ const date = computed(() => {
 
     <header class="px-3 flex gap-2">
       <h1 class="text-md py-2 text-slate-800 flex items-center gap-1">
-        <Btn size="md" class="btn-ghost btn-circle" @click="closeDrawer">
+        <Button size="md" class="btn-ghost btn-circle" @click="closeDrawer">
           <Icon name="close" />
-        </Btn>
+        </Button>
         {{ t("Character Info") }}
       </h1>
 
       <div class="flex-1 flex items-center justify-end gap-4">
         <div>
           <div class="dropdown dropdown-end">
-            <Btn size="md" class="btn-ghost btn-circle" @click="updateRedirectUrl">
+            <Button size="md" class="btn-ghost btn-circle" @click="updateRedirectUrl">
               <Icon name="more_vert" />
-            </Btn>
+            </Button>
 
-            <Menu :items="items" />
+            <Menu :items="items" item-class="py-2" />
           </div>
         </div>
       </div>
@@ -117,12 +117,12 @@ const date = computed(() => {
       <Resource :loading="isLoading" :error="isError">
         <template #loading>
           <div class="w-full h-full flex items-center justify-center">
-            <Spinner />
+            <Spinner class="text-slate-800" />
           </div>
         </template>
 
         <template #error>
-          <GenericError :loading="isLoading" @retry="refetch" />
+          <ErrorFallback :loading="isLoading" @retry="refetch" />
         </template>
 
         <template #default>
@@ -136,15 +136,15 @@ const date = computed(() => {
             <Username :username="data?.username!" :show-copy="true" class="mx-auto" />
 
             <div class="w-full flex justify-center mt-3 gap-2">
-              <Btn v-if="!hasContact" size="sm" class="btn-primary btn-outline flex" @click="addContact">
+              <Button v-if="!hasContact" size="sm" class="btn-primary btn-outline flex" @click="addContact">
                 <Icon name="person_add" />
                 <span class="">{{ t('Save') }}</span>
-              </Btn>
+              </Button>
 
-              <Btn size="sm" class="btn-primary btn-outline flex" @click="copyUrl">
+              <Button size="sm" class="btn-primary btn-outline flex" @click="copyUrl">
                 <Icon name="ios_share" />
                 <span class="">{{ t('Share') }}</span>
-              </Btn>
+              </Button>
             </div>
           </section>
 
@@ -155,6 +155,7 @@ const date = computed(() => {
                 name: data?.persona?.description!,
                 icon: 'person',
               }"
+              class="py-2"
             />
             <MenuItem
               :is="{
@@ -162,6 +163,7 @@ const date = computed(() => {
                 name: category?.name!,
                 icon: 'category',
               }"
+              class="py-2"
             />
 
             <!-- <div v-if="category" class="text-sm text-slate-600 flex gap-1 items-center">
@@ -188,6 +190,7 @@ const date = computed(() => {
                 description: t('This character leverages AI to simulate responses.'),
                 meaning: 'info',
               }"
+              class="py-2"
             />
           </section>
 

@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   content: {
     watch: {
       ws: {
-        hostname: '9aia-dev.com',
+        // hostname: '9aia-dev.com',
       },
     },
   },
@@ -44,13 +44,13 @@ export default defineNuxtConfig({
     host: '',
   },
 
-  extends: [
-    './layers/ui',
-  ],
-
   components: [
     {
       path: '~/components',
+      pathPrefix: false,
+    },
+    {
+      path: '~/modals',
       pathPrefix: false,
     },
   ],
