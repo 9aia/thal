@@ -15,14 +15,14 @@ if [[ ! -f "$COAUTHORS_FILE" ]]; then
   exit 1
 fi
 
-# Check if the co-authors file is empty
-if [[ ! -s "$COAUTHORS_FILE" ]]; then
-  echo -e "${YELLOW}Warning: Co-authors file is empty. No co-authors will be added.${RESET}"
-  exit 0
-fi
-
 # Read the co-authors file, ignore lines starting with "#" or having "#" followed by a space
 COAUTHORS=$(awk '!/^#/' "$COAUTHORS_FILE" | awk '{print "Co-authored-by: " $0}')
+
+# Check if co-authors is empty
+if [[ -z "$COAUTHORS" ]]; then
+  echo -e "${YELLOW}Warning: No co-authors found in the file.${RESET}"
+  exit 0
+fi
 
 # Check if the commit message already contains co-authors to avoid duplication
 if grep -q "Co-authored-by:" "$COMMIT_MSG_FILE"; then
