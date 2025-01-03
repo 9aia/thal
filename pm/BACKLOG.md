@@ -71,11 +71,9 @@
 - Warn Clipboard API not allowed
 - ---
 - Add character search to new-chat view search
-
+- ---
 - Improve `package.json`
 - Improve `README.md`
-- Add security file
-- Add license file
 - Config GitHub repository metadata
 
 ## Performance Enhancements

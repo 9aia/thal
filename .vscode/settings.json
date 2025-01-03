@@ -19,7 +19,8 @@
     "nuxt.config.ts": "vite.config.*, postcss.config.js, tailwind.config.js, i18n.*",
     "docker-compose.yml": "wrangler.*, .env*, .dev.vars, public_keys.*, drizzle.config.*",
     "app.vue": "error.vue",
-    "BACKLOG.md": "to-revise.md, archived.md"
+    "BACKLOG.md": "to-revise.md, archived.md",
+    "README.md": "CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, LICENSE.md",
   },
   "editor.tabSize": 2,
   "sqltools.connections": [
