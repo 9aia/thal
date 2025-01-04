@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { chatItemSearch, drawers, isRootDrawerOpen } from '~/store'
+import { drawers, isRootDrawerOpen } from '~/store'
 import type { MenuItem } from '~/components/ui/navigation/types'
 
 const logout = useLogout()
