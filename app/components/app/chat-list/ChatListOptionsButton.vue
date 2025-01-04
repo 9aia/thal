@@ -4,14 +4,17 @@ import type { MenuItem } from '~/components/ui/navigation/types'
 
 const logout = useLogout()
 
-function goToDiscover() {
+const { focusMainField: focusSearch } = useDiscoverFocus()
+
+async function goToDiscover() {
   isRootDrawerOpen.value = false
-  navigateTo('/app/discover')
+  await navigateTo('/app/discover')
+  focusSearch()
 }
 
 const items: MenuItem[] = [
   { id: 'profile', name: 'Profile', icon: 'face', onClick: () => drawers.profile = true },
-  { id: 'discover-personas', name: 'Discover characters', icon: 'person_search', onClick: () => goToDiscover() },
+  { id: 'discover-characters', name: 'Discover characters', icon: 'person_search', onClick: () => goToDiscover() },
   { id: 'my-characters', name: 'My characters', icon: 'manage_accounts', onClick: () => drawers.myPersonas = true },
   {
     id: 'plan',

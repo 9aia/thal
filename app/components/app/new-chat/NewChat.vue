@@ -12,16 +12,19 @@ const emit = defineEmits<({
 
 const generalItems: MenuItem[] = [
   { id: 'new-contact', icon: 'person_add', name: t('New contact'), onClick: () => manageContact(null) },
-  { id: 'create-persona', icon: 'engineering', name: t('Build character'), onClick: () => buildPersona(null) },
+  { id: 'create-character', icon: 'engineering', name: t('Build character'), onClick: () => buildPersona(null) },
 ]
 
-function goToDiscover() {
+const { focusMainField: focusSearch } = useDiscoverFocus()
+
+async function goToDiscover() {
   isRootDrawerOpen.value = false
-  navigateTo('/app/discover')
+  await navigateTo('/app/discover')
+  focusSearch()
 }
 
 const discoverItems: MenuItem[] = [
-  { id: 'discover', icon: 'groups_3', name: t('Characters'), onClick: () => goToDiscover() },
+  { id: 'discover-characters', icon: 'groups_3', name: t('Characters'), onClick: () => goToDiscover() },
 ]
 
 const form = useForm({

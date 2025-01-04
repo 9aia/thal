@@ -54,7 +54,6 @@
 ## Enhancements
 
 - Add option to copy message
-- Focus discover search on menu item reclick
 - Improve chat loading by rendering the skeleton on the backend and the message on the client
   - Improve chat loading and error state fallbacks
 - ---

@@ -1,6 +1,14 @@
 import type { MenuItem } from '~/components/ui/navigation/types'
-import { drawers } from '~/store'
+import { drawers, isRootDrawerOpen } from '~/store'
 import { useWhatsNewModal } from '~/composables/useWhatsNewModal'
+
+const { focusMainField: focusSearch } = useDiscoverFocus()
+
+async function goToDiscover() {
+  isRootDrawerOpen.value = false
+  await navigateTo('/app/discover')
+  focusSearch()
+}
 
 const general: MenuItem[] = [
   {
@@ -27,7 +35,7 @@ const general: MenuItem[] = [
     id: 'discover-characters',
     icon: 'person_search',
     name: 'Discover characters',
-    href: '/app/discover',
+    onClick: () => goToDiscover(),
   },
 ]
 

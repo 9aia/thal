@@ -38,10 +38,10 @@ const {
 
 const isCategoryModalOpen = ref(false)
 
-const searchEl = ref<HTMLInputElement | null>(null)
+const { focusMainField: focusSearch, mainField: searchEl } = useDiscoverFocus()
 
 onMounted(() => {
-  searchEl.value?.focus()
+  focusSearch({ immediate: true })
 })
 </script>
 
