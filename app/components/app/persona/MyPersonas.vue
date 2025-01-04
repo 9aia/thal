@@ -1,19 +1,28 @@
 <script setup lang="ts">
-import { useI18n } from '@psitta/vue'
+import { t } from '@psitta/vue'
+import { useQuery } from '@tanstack/vue-query'
+import Spinner from '~/components/ui/feedback/Spinner.vue'
 import queryKeys from '~/queryKeys'
-import { buildPersona, isRootDrawerOpen } from '~/store'
+import { buildPersona, drawers, isRootDrawerOpen } from '~/store'
 import type { Persona } from '~/types'
 
 const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
-const { t } = useI18n()
-
 const {
   data: personas,
-} = await useServerQuery('/api/persona', {
+  isPending,
+  isError,
+  refetch,
+} = useQuery({
   queryKey: queryKeys.myPersonas,
+  queryFn: () => $fetch('/api/persona'),
+  enabled: toRef(() => drawers.myPersonas),
+})
+
+watch(() => drawers.myPersonas, () => {
+  console.log('myPersonas', drawers.myPersonas)
 })
 
 const deletePersona = ref(false)
@@ -32,7 +41,7 @@ function handleGoToChat(username: string) {
 </script>
 
 <template>
-  <div class="flex flex-col h-dvh justify-between">
+  <div v-if="drawers.myPersonas" class="flex flex-col h-dvh justify-between">
     <Navbar>
       <h1 class="text-lg py-2 text-primary font-bold flex items-center gap-1">
         <Button size="sm" class="btn-ghost btn-circle" @click="emit('close')">
@@ -66,24 +75,34 @@ function handleGoToChat(username: string) {
             />
           </Teleport>
 
-          <div v-if="personas" class="h-full">
-            <ul>
-              <li
-                v-for="persona in personas"
-                :key="`persona-${persona.id}`"
-                class="group"
-              >
-                <PersonaItem
-                  :name="persona.name"
-                  :username="persona.username || undefined"
-                  :category-id="persona.categoryId"
-                  @delete="handleDeletePersona(persona as unknown as Persona)"
-                  @edit="buildPersona(persona as unknown as Persona)"
-                  @chat="handleGoToChat(persona.username as string)"
-                  @click="buildPersona(persona as unknown as Persona)"
-                />
-              </li>
+          <StyledResource
+            :loading="isPending"
+            :error="isError"
+            @execute="refetch"
+          >
+            <div class="h-full">
+              <ul>
+                <li
+                  v-for="persona in personas"
+                  :key="`persona-${persona.id}`"
+                  class="group"
+                >
+                  <PersonaItem
+                    :name="persona.name"
+                    :username="persona.username || undefined"
+                    :category-id="persona.categoryId"
+                    @delete="handleDeletePersona(persona as unknown as Persona)"
+                    @edit="buildPersona(persona as unknown as Persona)"
+                    @chat="handleGoToChat(persona.username as string)"
+                    @click="buildPersona(persona as unknown as Persona)"
+                  />
+                </li>
+              </ul>
+            </div>
+          </StyledResource>
 
+          <div>
+            <ul>
               <li class="group px-4 mt-2" @click="buildPersona(null)">
                 <div class="cursor-pointer flex w-full gap-2 justify-between items-center">
                   <MenuItem

@@ -9,6 +9,8 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
+  console.log('personas')
+
   const result = await orm.select({
     id: personas.id,
     name: personas.name,

@@ -22,6 +22,9 @@ watchDebounced(toRef(form.values, 'search'), () => {
 
 const {
   data: chats,
+  isPending,
+  isError,
+  refetch,
 } = await useServerQuery(() => '/api/chat', {
   queryKey: queryKeys.chatsSearch(chatItemSearch),
   params: () => {
@@ -128,22 +131,28 @@ async function openWhatsNewModal() {
     </div>
 
     <div class="flex-1 overflow-y-auto bg-white">
-      <ChatListEmpty v-if="!chats?.length && !chatItemSearch.trim()" />
+      <StyledResource
+        :loading="isPending"
+        :error="isError"
+        @execute="refetch"
+      >
+        <ChatListEmpty v-if="!chats?.length && !chatItemSearch.trim()" />
 
-      <template v-else-if="!chats?.length">
-        <p class="text-slate-500 text-sm py-2 px-6 text-center">
-          {{ chatItemSearch ? t(`No results found for "{query}"`, { query: chatItemSearch }) : t('No results found.') }}
-        </p>
-      </template>
+        <template v-else-if="!chats?.length">
+          <p class="text-slate-500 text-sm py-2 px-6 text-center">
+            {{ chatItemSearch ? t(`No results found for "{query}"`, { query: chatItemSearch }) : t('No results found.') }}
+          </p>
+        </template>
 
-      <template v-else>
-        <ChatItem
-          v-for="chat in chats"
-          :key="chat.chatId"
-          :chat="chat"
-          @click="emit('close')"
-        />
-      </template>
+        <template v-else>
+          <ChatItem
+            v-for="chat in chats"
+            :key="chat.chatId"
+            :chat="chat"
+            @click="emit('close')"
+          />
+        </template>
+      </StyledResource>
     </div>
 
     <div class="absolute bottom-4 right-4">

@@ -1,5 +1,13 @@
 # Backlog (Current Version)
 
+- Revise looking for missing implementation of:
+  - Mutation toast errors
+  - Mutation loading
+  - Query error fallback
+  - Query loading fallback
+  - Array data pagination
+  - a11y
+
 ## Features
 
 - Create community guidelines
@@ -46,6 +54,9 @@
 ## Enhancements
 
 - Add option to copy message
+- Focus discover search on menu item reclick
+- Improve chat loading by rendering the skeleton on the backend and the message on the client
+  - Improve chat loading and error state fallbacks
 - ---
 - Change forms to another platform that supports localization
 - ---
@@ -64,7 +75,7 @@
 - Move the "About" page to the Gaia website
 - Add privacy info about account deletion (cannot delete before month ends, but users can delete manually before)
 - ---
-- Add hydration loading indicator
+- Add loading splashscreen for hydration, data loading, etc
 - Improve a11y
 - Warn Clipboard API not allowed
 - ---
@@ -81,14 +92,14 @@
 - Improve icon loading on slow networks
 - Skip categorization on discoverability change
 - Improve route loading speed, especially "Chats" and "Discover Characters"
+- Lazy load drawers
 - Implement infinite scrolls
 - Paginate contact and chat search
 
 ## Dev Enhancements
 
-- Remove unused code
-  - Unused files/functions
-  - Use inferred schemas as DTOs
+- Unused files/functions
+- Use inferred schemas as DTOs
 - Move schemas to their own files
 - Normalize schema payment field names to lower camel case
 - Change `Message.isBot` to boolean mode

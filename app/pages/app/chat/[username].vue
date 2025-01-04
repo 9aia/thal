@@ -18,7 +18,7 @@ const queryClient = useQueryClient()
 
 const {
   data,
-  isLoading,
+  isPending,
   isError,
   refetch,
 } = await useServerQuery(() => `/api/chat/item/${route.params.username}` as `/api/chat/item/:username`, {
@@ -211,71 +211,77 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
     </template>
 
     <template #content>
-      <StyledResource :loading="isLoading" :error="isError" @execute="refetch">
-        <ChatHeader
-          :name="displayName"
-          :avatar-name="avatarName"
-          :username="data!.username"
-          :has-contact="hasContact"
-          :add-contact="addContact"
-          :has-messages="data?.history.length > 0"
-        />
-
-        <main
-          id="chat-container"
-          ref="scrollContainer"
-          :tabindex="0"
-          class="bg-slate-200 py-4 px-2 sm:px-12 flex-1 overflow-y-auto relative focus:outline-none"
+      <div class="flex flex-col h-dvh justify-center items-center">
+        <StyledResource
+          :loading="isPending"
+          :error="isError"
+          @execute="refetch"
         >
-          <div class="mb-4 text-slate-800 text-xs bg-orange-100 px-4 py-2 rounded-lg flex gap-1">
-            <Icon name="science" class="text-green-500" style="font-size: 1.15rem" />
-            <p>
-              {{ t('This app is for educational and entertainment purposes only. Content and interactions do not represent professional instruction. Verify information independently and use responsibly.') }}
-            </p>
-          </div>
-
-          <div
-            v-if="!hasContact"
-            class="card bg-neutral text-neutral-content text-center sm:max-w-lg mx-auto"
-          >
-            <div class="card-body">
-              <Avatar :name="avatarName" class="mx-auto w-20 h-20 text-lg bg-slate-300 text-slate-800" />
-
-              <h2 class="text-slate-900 text-center mb-1">
-                {{ displayName }}
-              </h2>
-              <small class="text-slate-600 text-xs">~ {{ data?.description }}</small>
-
-              <p class="mb-2 text-slate-600 text-sm">
-                {{ t('Not a contact') }}
-              </p>
-
-              <div class="card-actions justify-center">
-                <Button class="btn-outline btn-primary" @click="addContact()">
-                  <Icon name="person_add" />
-                  Add
-                </Button>
-              </div>
-            </div>
-          </div>
-
-          <ChatConversation
-            :history="data.history"
-            :is-error="mutationError"
-            @fix-scroll="fixScroll"
-            @resend="handleResend()"
+          <ChatHeader
+            :name="displayName"
+            :avatar-name="avatarName"
+            :username="data!.username"
+            :has-contact="hasContact"
+            :add-contact="addContact"
+            :has-messages="data?.history.length > 0"
           />
 
-          <ChatBubbleLoading v-if="isMessagePending && isOnline" />
-        </main>
+          <main
+            id="chat-container"
+            ref="scrollContainer"
+            :tabindex="0"
+            class="bg-slate-200 py-4 px-2 sm:px-12 flex-1 overflow-y-auto relative focus:outline-none"
+          >
+            <div class="mb-4 text-slate-800 text-xs bg-orange-100 px-4 py-2 rounded-lg flex gap-1">
+              <Icon name="science" class="text-green-500" style="font-size: 1.15rem" />
+              <p>
+                {{ t('This app is for educational and entertainment purposes only. Content and interactions do not represent professional instruction. Verify information independently and use responsibly.') }}
+              </p>
+            </div>
 
-        <ChatFooter
-          v-model="text"
-          :username="route.params.username"
-          :chat-id="data!.chatId!"
-          @send="handleSend()"
-        />
-      </StyledResource>
+            <div
+              v-if="!hasContact"
+              class="card bg-neutral text-neutral-content text-center sm:max-w-lg mx-auto"
+            >
+              <div class="card-body">
+                <Avatar :name="avatarName" class="mx-auto w-20 h-20 text-lg bg-slate-300 text-slate-800" />
+
+                <h2 class="text-slate-900 text-center mb-1">
+                  {{ displayName }}
+                </h2>
+                <small class="text-slate-600 text-xs">~ {{ data?.description }}</small>
+
+                <p class="mb-2 text-slate-600 text-sm">
+                  {{ t('Not a contact') }}
+                </p>
+
+                <div class="card-actions justify-center">
+                  <Button class="btn-outline btn-primary" @click="addContact()">
+                    <Icon name="person_add" />
+                    Add
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            <ChatConversation
+              :history="data.history"
+              :is-error="mutationError"
+              @fix-scroll="fixScroll"
+              @resend="handleResend()"
+            />
+
+            <ChatBubbleLoading v-if="isMessagePending && isOnline" />
+          </main>
+
+          <ChatFooter
+            v-model="text"
+            :username="route.params.username"
+            :chat-id="data!.chatId!"
+            @send="handleSend()"
+          />
+        </StyledResource>
+      </div>
     </template>
   </AppLayout>
 </template>

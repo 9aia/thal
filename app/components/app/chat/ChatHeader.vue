@@ -71,7 +71,7 @@ const items = computed<MenuItem[]>(() => [
 </script>
 
 <template>
-  <header class="px-3 py-2 bg-slate-800 flex gap-2">
+  <header class="px-3 py-2 bg-slate-800 flex gap-2 w-full">
     <ContactDeleteModal v-model="contactDeleteModalState" :contact-username="username" />
 
     <label for="my-drawer" class="lg:hidden btn btn-ghost btn-circle text-primary drawer-button">

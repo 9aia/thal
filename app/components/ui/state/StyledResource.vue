@@ -1,8 +1,7 @@
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
   loading?: boolean
   error?: boolean
-  disableFirstLoading?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -10,17 +9,12 @@ const emit = defineEmits<{
 }>()
 
 const { disabled, retry } = useRetry(() => emit('execute'))
-
-const isFirstLoading = ref(props.loading)
-
-watch(() => props.loading, (value) => {
-  if (!value)
-    isFirstLoading.value = false
-})
 </script>
 
 <template>
-  <SpinnerAbsCenter v-if="disableFirstLoading ? loading : isFirstLoading" />
-  <ErrorFallback v-else-if="!!error || loading" :disabled="disabled" :loading="loading" @retry="retry" />
+  <ErrorFallback v-if="!!error" :disabled="disabled" :loading="disabled" @retry="retry" />
+  <div v-else-if="loading" class="py-4 w-full flex justify-center">
+    <Spinner class="loading-sm text-orange-500" />
+  </div>
   <slot v-else />
 </template>

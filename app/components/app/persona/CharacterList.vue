@@ -117,7 +117,7 @@ onMounted(() => {
         </h2>
 
         <div class="px-4 pb-2 space-y-1 overflow-y-auto mt-4 flex flex-col items-center w-screen sm:w-[500px] lg:w-[600px]">
-          <Resource
+          <StyledResource
             :error="isError"
             :loading="isPending"
             @execute="refetch"
@@ -143,7 +143,7 @@ onMounted(() => {
                 {{ search ? t(`No results found for "{query}"`, { query: search }) : t('No results found.') }}
               </p>
             </template>
-          </resource>
+          </StyledResource>
         </div>
       </div>
     </div>

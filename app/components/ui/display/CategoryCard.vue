@@ -20,7 +20,7 @@ defineProps<{
       <Icon :name="icon" />
     </Button>
 
-    <div class="text-center text-xs" :class="isSelected ? 'text-primary' : 'text-slate-900'">
+    <div class="text-center text-xs" :class="isSelected ? 'text-slate-800 font-bold' : 'text-slate-900'">
       {{ name }}
     </div>
   </div>

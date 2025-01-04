@@ -7,7 +7,7 @@ import { replies, sendingChatIds, sentErrorChatIds } from '~/store'
 import queryKeys from '~/queryKeys'
 
 const props = defineProps<{
-  chatId: number
+  chatId: number | null
 }>()
 
 const emit = defineEmits<{
@@ -30,8 +30,8 @@ const {
 } = useMagicKeys()
 const isOnline = useOnline()
 
-const isChatError = computed(() => sentErrorChatIds.value.has(props.chatId))
-const isChatSending = computed(() => sendingChatIds.value.has(props.chatId))
+const isChatError = computed(() => props.chatId ? sentErrorChatIds.value.has(props.chatId) : false)
+const isChatSending = computed(() => props.chatId ? sendingChatIds.value.has(props.chatId) : false)
 
 const isEmpty = computed(() => !text.value.trim())
 const icon = computed(() => {
@@ -93,7 +93,7 @@ const replyMessage = computed(() => replies[username.value])
 </script>
 
 <template>
-  <footer class="px-3 py-2 bg-white flex items-end justify-center gap-2">
+  <footer class="px-3 py-2 bg-white flex items-end justify-center gap-2 w-full">
     <div class="flex-1 flex flex-col">
       <label class="input flex flex-col w-full h-full items-center justify-center p-2 textarea" for="input">
         <div
