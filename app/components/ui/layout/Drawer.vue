@@ -21,7 +21,7 @@ const modelValue = defineModel<boolean>({
 
     <div class="drawer-side">
       <div class="flex flex-col h-dvh justify-between w-full">
-        <slot :close="() => modelValue = false" />
+        <slot v-if="modelValue" :close="() => modelValue = false" />
       </div>
 
       <slot name="footer" />

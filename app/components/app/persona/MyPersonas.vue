@@ -18,11 +18,6 @@ const {
 } = useQuery({
   queryKey: queryKeys.myPersonas,
   queryFn: () => $fetch('/api/persona'),
-  enabled: toRef(() => drawers.myPersonas),
-})
-
-watch(() => drawers.myPersonas, () => {
-  console.log('myPersonas', drawers.myPersonas)
 })
 
 const deletePersona = ref(false)
