@@ -45,10 +45,6 @@ import { drawers, isRootDrawerOpen, rightDrawer } from '~/store'
                 <Profile @close="close" />
               </Drawer>
 
-              <Drawer v-slot="{ close }" v-model="drawers.profileSettings">
-                <ProfileSettings @close="close" />
-              </Drawer>
-
               <Drawer v-slot="{ close }" v-model="drawers.account">
                 <AccountSettings @close="close" />
               </Drawer>

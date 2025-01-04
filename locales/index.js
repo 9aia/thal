@@ -1,12 +1,6 @@
 export default {
-  'Summary': {
-    pt: 'Resumo',
-  },
   'About me': {
     pt: 'Sobre mim',
-  },
-  'Interests e hobbies': {
-    pt: 'Interesses e hobbies',
   },
   'Edit interests': {
     pt: 'Editar interesses',
@@ -98,20 +92,11 @@ export default {
   '/privacy': {
     pt: '/privacy',
   },
-  'Goals': {
-    pt: 'Objetivos',
-  },
-  'What are your learning goals? Are they aiming for basic conversation, business English, reading comprehension, writing skills, or something else?': {
-    pt: 'Quais são seus objetivos de aprendizagem? Eles visam conversação básica, inglês comercial, compreensão de leitura, habilidades de escrita ou algo mais?',
-  },
   'Fun': {
     pt: 'Diversão',
   },
   'Personal Development': {
     pt: 'Desenvolvimento Pessoal',
-  },
-  'What are your hobbies, interests, and profession? This helps personalize content and examples to make learning more engaging.': {
-    pt: 'Quais são seus hobbies, interesses e profissão? Isso ajuda a personalizar o conteúdo e os exemplos para tornar o aprendizado mais envolvente.',
   },
   'Home improvement': {
     pt: 'Melhoria da casa',
@@ -125,15 +110,6 @@ export default {
   'Share any additional details you think might help AI personalize your learning experience.': {
     pt: 'Compartilhe quaisquer detalhes adicionais que você ache que possam ajudar a IA a personalizar sua experiência de aprendizagem.',
   },
-  'Edit goals': {
-    pt: 'Editar objetivos',
-  },
-  'An error occurred while updating goals.': {
-    pt: 'Ocorreu um erro ao atualizar os objetivos.',
-  },
-  'Goals were updated successfully.': {
-    pt: 'Os objetivos foram atualizados com sucesso.',
-  },
   'Username not found.': {
     pt: 'Nome de usuário não encontrado.',
   },
@@ -145,21 +121,6 @@ export default {
   },
   'Select all that apply.': {
     pt: 'Selecione tudo o que se aplica.',
-  },
-  'Edit hobbies': {
-    pt: 'Editar hobbies',
-  },
-  'An error occurred while updating hobbies.': {
-    pt: 'Ocorreu um erro ao atualizar os hobbies.',
-  },
-  'Hobbies were updated successfully.': {
-    pt: 'Os hobbies foram atualizados com sucesso.',
-  },
-  'Hobbies': {
-    pt: 'Hobbies',
-  },
-  'Pick up to {max} hobbies or sports you enjoy that you want to AI know about you.': {
-    pt: 'Escolha até {max} hobbies ou esportes que você gosta e que deseja que a IA saiba sobre você.',
   },
   '{selected}/{max} selected': {
     pt: '{selected}/{max} selecionados',

@@ -61,13 +61,6 @@ const user = useUser()
             </template>
           </TitleContentItem>
         </SettingSection>
-
-        <!-- <div>
-          <Button class="" @click="() => drawers.profileSettings = true">
-            <Icon name="edit" />
-            {{ t('Edit details') }}
-          </Button>
-        </div> -->
       </div>
     </div>
   </div>

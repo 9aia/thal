@@ -3,7 +3,6 @@ import { foreignKey, int, sqliteTable, text, unique } from 'drizzle-orm/sqlite-c
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
 import { relations, sql } from 'drizzle-orm'
 import { z } from 'zod'
-import { MAX_GOALS_AMOUNT, MAX_HOBBIES_AMOUNT, MAX_OBSERVATION_CHARS, MAX_PROFESSION_CHARS } from '../../app/constants/base'
 import type { MessageData } from '~/types'
 
 // #region Users
@@ -22,11 +21,6 @@ export const users = sqliteTable('User', {
   payment_gateway_session_id: text('payment_gateway_session_id'),
   plan_expires: text('plan_expires'),
   free_trial_used: int('free_trial_used').default(0),
-  location: text('location'),
-  goals: text('goals'),
-  profession: text('profession'),
-  hobbies: text('hobbies'),
-  observation: text('observation'),
 })
 
 export const sessions = sqliteTable('Session', {
@@ -87,34 +81,6 @@ export const userUpdateSchema = createInsertSchema(users, {
   username: usernameSchema,
   pronouns: pronounsSchema,
   email: z.string().email(),
-  hobbies: hobbies =>
-    hobbies.refine(
-      hobbies => hobbies.split(',').length <= MAX_HOBBIES_AMOUNT,
-      {
-        message: `Hobbies must contain at most ${MAX_HOBBIES_AMOUNT} items separated by commas`,
-      },
-    ),
-  profession: profession =>
-    profession.refine(
-      profession => profession.length <= MAX_PROFESSION_CHARS,
-      {
-        message: `Profession must contain at most ${MAX_PROFESSION_CHARS} characters`,
-      },
-    ),
-  goals: goals =>
-    goals.refine(
-      goals => goals.split(',').length <= MAX_GOALS_AMOUNT,
-      {
-        message: `Goals must contain at most ${MAX_GOALS_AMOUNT} items separated by commas`,
-      },
-    ),
-  observation: profession =>
-    profession.refine(
-      profession => profession.length <= MAX_OBSERVATION_CHARS,
-      {
-        message: `Observation must contain at most ${MAX_OBSERVATION_CHARS} characters`,
-      },
-    ),
 }).partial()
 
 export type UserSelect = z.infer<typeof userSelectSchema>

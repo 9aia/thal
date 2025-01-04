@@ -6,7 +6,6 @@ export const isRootDrawerOpen = ref(true)
 
 export const drawers = reactive({
   manageContact: false,
-  profileSettings: false,
   account: false,
   settings: false,
   newChat: false,

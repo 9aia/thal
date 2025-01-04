@@ -32,10 +32,6 @@ definePageMeta({
       <p>Além das informações pessoais, também podemos coletar:</p>
       <ul>
         <li>Data e horário do cadastro</li>
-        <li>Profissão</li>
-        <li>Hobbies/Esportes</li>
-        <li>Metas de Aprendizado</li>
-        <li>Observação Extra</li>
       </ul>
 
       <h2>2. Como Usamos Suas Informações</h2>
@@ -136,10 +132,6 @@ definePageMeta({
       <p>In addition to personal information, we may also collect:</p>
       <ul>
         <li>Registration date and time</li>
-        <li>Profession</li>
-        <li>Hobbies/Sports</li>
-        <li>Learning Goals</li>
-        <li>Extra Observation</li>
       </ul>
 
       <h2>2. How We Use Your Information</h2>

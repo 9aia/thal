@@ -78,9 +78,9 @@
 ## Performance Enhancements
 
 - Pregenerate site pages
+- Improve icon loading on slow networks
 - Skip categorization on discoverability change
 - Improve route loading speed, especially "Chats" and "Discover Characters"
-- Improve icon loading on slow networks
 - Implement infinite scrolls
 - Paginate contact and chat search
 
@@ -89,7 +89,6 @@
 - Remove unused code
   - Unused files/functions
   - Use inferred schemas as DTOs
-  - Remove profile details features for now
 - Move schemas to their own files
 - Normalize schema payment field names to lower camel case
 - Change `Message.isBot` to boolean mode
