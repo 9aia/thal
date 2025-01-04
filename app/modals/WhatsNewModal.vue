@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { t } from '@psitta/vue'
+import { t, useLocale } from '@psitta/vue'
 
 const modelValue = defineModel<boolean>()
 
@@ -7,6 +7,8 @@ const articleTypes = [
   { id: 'release', name: 'Release', icon: 'star' },
   { id: 'announcement', name: 'Announcement', icon: 'megaphone' },
 ]
+
+const locale = useLocale()
 </script>
 
 <template>
@@ -22,20 +24,34 @@ const articleTypes = [
     </h1>
 
     <div class="px-6 h-[250px] lg:h-[350px] overflow-y-auto mt-4 mb-4">
-      <ContentList v-slot="{ list }" path="/whats-new">
-        <div v-for="article, i in list.reverse()" :key="article._path" class="flex flex-col">
-          <h2 class="text-xl text-slate-900">
-            {{ article.title }}
-          </h2>
+      <ContentList path="whats-new" :where="{ _path: { $regex: `^/whats-new/${locale}/.*$` } }">
+        <template #default="{ list }">
+          <div
+            v-for="article, i in list.reverse()"
+            :key="article._path"
+            class="flex flex-col"
+          >
+            <h2 class="text-xl text-slate-900">
+              {{ article.title }}
+            </h2>
 
-          <Badge size="md" class="badge-primary badge-outline mb-4 mt-2">
-            {{ articleTypes.find((type) => type.id === article.type)?.name }}
-          </Badge>
+            <Badge size="md" class="badge-primary badge-outline mb-4 mt-2">
+              {{ articleTypes.find((type) => type.id === article.type)?.name }}
+            </Badge>
 
-          <ContentRendererMarkdown :value="article" class="prose prose-slate prose-sm" />
+            <ContentRendererMarkdown :value="article" class="prose prose-slate prose-sm" />
 
-          <div v-if="i !== list.length - 1" class="b-1 w-full border border-slate-400/50 my-6" />
-        </div>
+            <div v-if="i !== list.length - 1" class="b-1 w-full border border-slate-400/50 my-6" />
+          </div>
+        </template>
+
+        <template #not-found>
+          <div class="flex flex-col items-center justify-center h-full">
+            <p class="text-slate text-center text-lg font-semibold mb-4">
+              {{ t('No articles found') }}
+            </p>
+          </div>
+        </template>
       </ContentList>
     </div>
   </Modal>

@@ -1,3 +1,6 @@
+import { getConfig } from '@psitta/core'
+import './i18n'
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   srcDir: './app',
@@ -10,6 +13,8 @@ export default defineNuxtConfig({
         // hostname: '9aia-dev.com',
       },
     },
+    locales: getConfig().locales,
+    defaultLocale: getConfig().defaultLocale,
   },
 
   mdc: {

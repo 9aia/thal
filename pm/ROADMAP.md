@@ -53,14 +53,15 @@
 
 ### v0.3.0 - Generative Character Building
 
-- Add "View character details"
-- Add "Keep Character definition/instructions private"
-- Add character build tool based on Profile form
-- Input prompt to generate a character
+- Generate a character using a prompt
+- Generate a character from a framework (asking the learning goals, interests, occupation and observations)
 - "Surprise Me" feature for auto-generated character
 - Improve custom character building tab
   - Add "generate" icon button to each field (e.g., name, description)
+- Display character configured instructions
+  - Add "Keep Character instructions private" to Character Builder
 - Fork characters
+
 - Add profile photos (generate or upload)
 
 ### v0.4.0 - Support

@@ -29,7 +29,7 @@ import { drawers, isRootDrawerOpen, rightDrawer } from '~/store'
             <ChatList @close="drawers.newChat = false" />
 
             <template #footer>
-              <Drawer v-slot="{ close }" :model-value="drawers.settings">
+              <Drawer v-slot="{ close }" v-model="drawers.settings">
                 <Settings @close="close" />
               </Drawer>
 
