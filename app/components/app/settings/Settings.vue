@@ -36,10 +36,10 @@ onMounted(() => {
         @click="drawers.profile = true"
       >
         <div class="flex gap-4 items-center">
-          <Avatar :name="user!.name" class="w-16 text-md" />
+          <Avatar :name="user?.name" class="w-16 text-md" />
 
           <label class="relative cursor-pointer flex flex-col gap-0">
-            <h2 class="text-lg font-bold">{{ user!.name }}</h2>
+            <h2 class="text-lg font-bold">{{ user?.name }}</h2>
 
             <small class="text-primary">
               {{ t("Show profile") }}

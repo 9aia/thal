@@ -5,7 +5,7 @@ import { GOALS } from '~/constants/base'
 
 const user = inject<Ref<User>>('profile')!
 const goals = computed(() => {
-  return parseJoin(user.value!.goals || '', GOALS)
+  return parseJoin(user.value?.goals || '', GOALS)
 })
 </script>
 

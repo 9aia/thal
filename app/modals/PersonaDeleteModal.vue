@@ -10,12 +10,11 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
+const queryClient = useQueryClient()
 
 const isOpen = defineModel({ default: false })
 
 const { handleSubmit, resetForm } = useForm()
-
-const queryClient = useQueryClient()
 
 const {
   mutate,

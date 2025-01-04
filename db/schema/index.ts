@@ -61,14 +61,14 @@ export const usernameSchema = z
   })
 
 export const nameSchema = z.string().min(1).max(20)
-export const pronounsSchema = z.string().min(0).max(20).nullable()
+export const pronounsSchema = z.string().min(0).max(20).nullish()
 
 export const userSelectSchema = createSelectSchema(users, {
   name: nameSchema,
   lastName: nameSchema,
   username: usernameSchema,
   pronouns: pronounsSchema,
-  email: z.string().email(),
+  email: z.string().email().optional().nullable(),
 })
 
 export const userInsertSchema = createInsertSchema(users, {

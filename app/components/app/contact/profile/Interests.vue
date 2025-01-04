@@ -5,7 +5,7 @@ import { HOBBIES } from '~/constants/base'
 
 const user = inject<Ref<User>>('profile')!
 const hobbies = computed(() => {
-  return parseJoin(user!.value.hobbies || '', HOBBIES)
+  return parseJoin(user?.value.hobbies || '', HOBBIES)
 })
 </script>
 
@@ -29,9 +29,9 @@ const hobbies = computed(() => {
 
       <div class="flex items-center gap-2">
         <Icon>work</Icon>
-        <div v-if="user!.profession">
+        <div v-if="user?.profession">
           <span class="font-bold">My profession</span>:
-          <span>{{ user!.profession }}</span>
+          <span>{{ user?.profession }}</span>
         </div>
         <div v-else>
           {{ t("No profession added.") }}

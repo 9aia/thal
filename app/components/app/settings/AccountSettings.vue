@@ -30,7 +30,7 @@ async function validateUsername(username: string) {
   if (!username)
     return
 
-  const currentUsername = user.value!.username
+  const currentUsername = user.value?.username
 
   let invalid = false
 
@@ -60,7 +60,7 @@ const debouncedValidateUsername = useDebounceFn(validateUsername, 500)
 watch(() => form.values.username, debouncedValidateUsername)
 
 const submit = form.handleSubmit(async (data) => {
-  const username = user.value!.username
+  const username = user.value?.username
 
   loading.value = true
 
@@ -70,7 +70,7 @@ const submit = form.handleSubmit(async (data) => {
       body: data,
     })
 
-    const updatedUser = { ...user.value!, ...data }
+    const updatedUser = { ...user.value, ...data }
 
     user.value = updatedUser
 

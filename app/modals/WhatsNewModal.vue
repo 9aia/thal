@@ -1,12 +1,8 @@
 <script setup lang="ts">
 import { t, useLocale } from '@psitta/vue'
+import { ARTICLE_TYPES } from '~/constants/content'
 
 const modelValue = defineModel<boolean>()
-
-const articleTypes = [
-  { id: 'release', name: 'Release', icon: 'star' },
-  { id: 'announcement', name: 'Announcement', icon: 'megaphone' },
-]
 
 const locale = useLocale()
 </script>
@@ -36,7 +32,7 @@ const locale = useLocale()
             </h2>
 
             <Badge size="md" class="badge-primary badge-outline mb-4 mt-2">
-              {{ articleTypes.find((type) => type.id === article.type)?.name }}
+              {{ ARTICLE_TYPES.find((type) => type.id === article.type)?.name }}
             </Badge>
 
             <ContentRendererMarkdown :value="article" class="prose prose-slate prose-sm" />

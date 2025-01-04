@@ -9,7 +9,6 @@ import queryKeys from '~/queryKeys'
 const { t } = useI18n()
 const toast = useToast()
 const user = useUser()
-
 const queryClient = useQueryClient()
 
 const form = useForm<{

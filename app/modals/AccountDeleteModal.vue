@@ -22,7 +22,7 @@ function checkUsernameRule(inputValue: string) {
   if (!inputValue)
     return t('Username is required')
 
-  return inputValue === user.value!.username || t('Username does not match')
+  return inputValue === user.value?.username || t('Username does not match')
 }
 
 const isFieldError = useFieldError('username')
@@ -62,7 +62,7 @@ const isUsernameInvalid = computed(() => {
       <p class="mb-4 mt-4 text-slate-800" />
 
       <p class="mb-2 text-slate-800">
-        <T text="To confirm, please insert {username} below:" :values="{ username: user!.username }">
+        <T text="To confirm, please insert {username} below:" :values="{ username: user?.username }">
           <template #username="slotProps">
             <span class="text-warning font-bold">
               {{ slotProps.username }} {{ ' ' }}

@@ -15,6 +15,22 @@ export default defineEventHandler(async (event) => {
   const codeVerifier = getCookie(event, 'code_verifier')
   const redirectUrl = getCookie(event, 'redirect_url') || '/'
 
+  setCookie(event, 'google_oauth_state', '', {
+    httpOnly: true,
+    secure: !import.meta.dev,
+    path: '/',
+    sameSite: 'lax',
+    maxAge: 0,
+  })
+
+  setCookie(event, 'code_verifier', '', {
+    secure: !import.meta.dev,
+    path: '/',
+    httpOnly: true,
+    sameSite: 'lax',
+    maxAge: 0,
+  })
+
   const query = getQuery(event)
   const code = query.code?.toString() ?? null
   const state = query.state?.toString() ?? null

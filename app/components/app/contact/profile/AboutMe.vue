@@ -22,7 +22,7 @@ const hasAtLeastOne = computed(() => ITEMS.some(item => !!user.value[item.id]))
           class="flex items-center gap-2"
         >
           <Icon>{{ item.icon }}</Icon>
-          <span>{{ item.label }} {{ user![item.id] }}</span>
+          <span>{{ item.label }} {{ user?.[item.id] }}</span>
         </div>
       </div>
     </label>

@@ -36,7 +36,6 @@
 - Add rate-limit to Google auth callback
 - Allow users to use only one session
 - Handle invalid sessions
-- Fix logout not removing cookies
 - Fix retrial after account deletion
 - Fix bug after deleting and recreating an account, user can't rejoin the app
 - Use a single table for user and character usernames

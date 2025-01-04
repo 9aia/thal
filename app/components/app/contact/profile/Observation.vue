@@ -13,15 +13,15 @@ const user = inject<Ref<User>>('profile')!
       </h2>
 
       <div class="flex flex-wrap gap-2 mb-4">
-        <div v-if="user!.observation" class="w-full">
+        <div v-if="user?.observation" class="w-full">
           <textarea
             readonly
             class="textarea text-md leading-[1.6em] h-40 w-full resize-none"
-            :value="user!.observation"
+            :value="user?.observation"
           />
         </div>
 
-        <div v-if="!user!.observation?.trim()">
+        <div v-if="!user?.observation?.trim()">
           {{ t("No observation added.") }}
         </div>
       </div>

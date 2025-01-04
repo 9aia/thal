@@ -14,7 +14,7 @@ const user = useUser()
   >
     <div class="flex flex-col gap-4 w-full">
       <div class="pt-4 flex justify-center">
-        <Avatar :name="user!.name" class="w-32 text-3xl mx-auto bg-slate-300 text-slate-800" />
+        <Avatar :name="user?.name" class="w-32 text-3xl mx-auto bg-slate-300 text-slate-800" />
       </div>
     </div>
   </div>
