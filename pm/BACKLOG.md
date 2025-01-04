@@ -83,7 +83,6 @@
 - Improve route loading speed, especially "Chats" and "Discover Characters"
 - Improve icon loading on slow networks
 - Implement infinite scrolls
-- Improve contact and chat search query performance
 - Paginate contact and chat search
 
 ## Dev Enhancements
@@ -96,6 +95,4 @@
 - Normalize schema payment field names to lower camel case
 - Change `Message.isBot` to boolean mode
 - Add nuxt devserver to codeshare container
-- Improve contributing guide
-  - Add a guide for WIP commits
-  - Add a guide for atomic commits
+- Improve dev contributing guide (wip and atomic commits)

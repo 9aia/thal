@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
-import { useForm } from 'vee-validate'
 import { refDebounced } from '@vueuse/core'
-import { buildPersona, drawers, isRootDrawerOpen, manageContact, personaBuilderData } from '~/store'
+import { useForm } from 'vee-validate'
 import type { MenuItem } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
+import { buildPersona, drawers, isRootDrawerOpen, manageContact } from '~/store'
 
 const emit = defineEmits<({
   (e: 'close'): void
@@ -29,7 +29,7 @@ const form = useForm({
     search: '',
   },
 })
-const search = refDebounced(toRef(form.values, 'search'), 1000)
+const search = refDebounced(toRef(form.values, 'search'), 500)
 
 const {
   data: contacts,
@@ -65,7 +65,7 @@ function handleGoToChat(username: string) {
   <div class="py-4 flex-1 overflow-y-auto bg-white space-y-4">
     <div class="px-4 mb-2">
       <SearchField
-        :placeholder="t('Search contact')"
+        :placeholder="t('Search name or username...')"
         path="search"
       />
     </div>
@@ -101,10 +101,10 @@ function handleGoToChat(username: string) {
         <ContactItem
           v-for="contact in contacts"
           v-else
-          :key="`contact-${contact.id}`"
-          :name="contact.name"
-          :description="contact.personaUsername.persona!.description"
-          @click="handleGoToChat(contact.personaUsername.username)"
+          :key="`contact-${contact.contactId}`"
+          :name="contact.contactName"
+          :description="contact.personaDescription"
+          @click="handleGoToChat(contact.personaUsername)"
         />
       </Resource>
     </SettingSection>

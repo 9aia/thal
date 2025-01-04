@@ -8,7 +8,7 @@ export default eventHandler(async (event) => {
   const user = event.context.user
 
   const { search } = await getValidated(event, 'query', z.object({
-    search: z.string().optional().transform(s => s?.trim()),
+    search: z.string().optional().transform(s => s?.trim().toLowerCase()),
   }))
 
   if (!user)

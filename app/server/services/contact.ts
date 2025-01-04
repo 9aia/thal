@@ -1,8 +1,8 @@
-import { and, eq, inArray, or, sql } from 'drizzle-orm'
+import { and, eq, sql } from 'drizzle-orm'
 import type { H3EventContext } from 'h3'
+import { notFound } from '~/utils/nuxt'
 import type { ContactEntity, ContactGetDto, PersonaGet, User } from '~~/db/schema'
 import { contacts, personaUsernames, personas } from '~~/db/schema'
-import { notFound } from '~/utils/nuxt'
 
 export async function getContactByUser(
   orm: H3EventContext['orm'],
@@ -89,42 +89,31 @@ export async function getContactsWithPersonaByUser(
   user: User,
   search?: string,
 ) {
-  const preparedUsernames = (orm.query.personaUsernames.findMany({
-    where: personaUsernames => search ? sql`lower(${personaUsernames.username}) like ${sql.placeholder('search')}` : undefined,
-    columns: {
-      id: true,
-    },
-  })).prepare()
+  const searchLike = search ? `%${search}%` : null
+  const { results } = await orm.run(sql`
+      SELECT 
+        ${contacts.id} AS contactId,
+        ${contacts.name} AS contactName,
+        ${personaUsernames.username} AS personaUsername,
+        ${personas.description} AS personaDescription
+      FROM 
+        ${contacts}
+      LEFT JOIN 
+        ${personaUsernames} ON ${contacts.personaUsernameId} = ${personaUsernames.id}
+      LEFT JOIN 
+        ${personas} ON ${personaUsernames.personaId} = ${personas.id}
+      WHERE
+        ${contacts.userId} = ${user.id}
+        ${search
+            ? sql`AND (lower(${contacts.name}) LIKE ${searchLike} OR lower(${personaUsernames.username}) LIKE ${searchLike} OR lower(${personas.name}) LIKE ${searchLike})`
+            : sql``
+        }
+    `)
 
-  const usernameIds = (await preparedUsernames.execute({ search: `%${search}%` })).map(r => r.id)
-
-  const prepared = orm.query.contacts.findMany({
-    where: and(
-      eq(contacts.userId, user.id!),
-      or(
-        search ? sql`lower(${contacts.name}) like ${sql.placeholder('search')}` : undefined,
-        inArray(contacts.personaUsernameId, usernameIds),
-      ),
-    ),
-    columns: {
-      id: true,
-      name: true,
-    },
-    with: {
-      personaUsername: {
-        columns: {
-          username: true,
-        },
-        with: {
-          persona: {
-            columns: {
-              description: true,
-            },
-          },
-        },
-      },
-    },
-  }).prepare()
-
-  return await prepared.execute({ search: `%${search}%` })
+  return results as {
+    contactId: number
+    contactName: string
+    personaUsername: string
+    personaDescription: string
+  }[]
 }

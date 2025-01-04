@@ -80,7 +80,7 @@ const { open: openWhatsNewModal } = useWhatsNewModal()
 
     <div class="px-4 py-2">
       <SearchField
-        :placeholder="t('Search by name or username')"
+        :placeholder="t('Search name or username...')"
         path="search"
       />
     </div>

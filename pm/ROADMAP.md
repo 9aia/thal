@@ -65,7 +65,7 @@
 
 ### v0.4.0 - Support
 
-- Add good field placeholders
+- Add intuitive placeholders to fields
 - Add help center
 - Add a warning for renaming character usernames
 - Add "About Thal" in help section in settings
