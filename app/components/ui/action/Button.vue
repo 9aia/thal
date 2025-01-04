@@ -8,10 +8,12 @@ const props = withDefaults(defineProps<Props & {
   size?: keyof typeof variants['size']
   shape?: 'circle' | 'square' | 'normal'
   class: string
+  noDisableOnLoading?: boolean
 }>(), {
   size: 'sm',
   shape: 'normal',
   class: '',
+  noDisableOnLoading: false,
 })
 
 const variants = {
@@ -43,7 +45,7 @@ type Props = SafeProps<ButtonHTMLAttributes> &
 <template>
   <button
     :class="styles({ size, shape, class: props.class })"
-    :disabled="loading"
+    :disabled="loading && !noDisableOnLoading"
   >
     <slot />
     <span v-if="loading" class="loading loading-spinner" />

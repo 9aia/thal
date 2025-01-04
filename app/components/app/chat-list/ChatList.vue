@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
+import { useQuery } from '@tanstack/vue-query'
 import { watchDebounced } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import queryKeys from '~/queryKeys'
@@ -34,7 +35,37 @@ const isNoteVisible = useCookie('isNoteVisible', {
   default: () => true,
 })
 
-const { open: openWhatsNewModal } = useWhatsNewModal()
+const lastSavedContentCount = useCookie('lastSavedContentCount', {
+  default: () => 0,
+})
+
+const countQuery = useQuery({
+  queryKey: ['content-count'],
+  queryFn: async () => {
+    const contentCount = await queryContent().count()
+    return contentCount
+  },
+})
+
+const hasUnreadContent = computed(() => {
+  if (!countQuery.data.value) {
+    return false
+  }
+
+  return countQuery.data.value > lastSavedContentCount.value
+})
+
+const { open: openWhatsNewModalFn } = useWhatsNewModal()
+
+async function openWhatsNewModal() {
+  openWhatsNewModalFn()
+
+  const contentAmount = await queryContent().count()
+
+  if (hasUnreadContent.value) {
+    lastSavedContentCount.value = contentAmount
+  }
+}
 </script>
 
 <template>
@@ -45,9 +76,20 @@ const { open: openWhatsNewModal } = useWhatsNewModal()
       </A>
 
       <div>
-        <button class="btn btn-circle btn-ghost text-primary" @click="openWhatsNewModal">
-          <Icon name="news" />
-        </button>
+        <Button
+          class="btn-ghost"
+          size="md"
+          shape="circle"
+          no-disable-on-loading
+          :class="{
+            'text-primary': hasUnreadContent,
+            'text-slate-600': !hasUnreadContent,
+          }"
+          :loading="countQuery.isLoading.value"
+          @click="openWhatsNewModal"
+        >
+          <Icon v-show="!countQuery.isLoading.value" name="news" />
+        </Button>
 
         <ChatListOptionsButton />
       </div>

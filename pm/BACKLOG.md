@@ -26,12 +26,12 @@
 
 ## Bugs
 
+- Fix locale change routing (remove `/{locale}` from `/app`)
+  - Use locale param in site routes
 - Fix bug copying HTML in messages
 - Check user plan in API routes that are necessary
 - Prevent bots with turnstile
 - Rewrite left joins using Query API
-- Fix locale change routing (remove `/{locale}` from `/app`)
-  - Use locale param in site routes
 ---
 - Add rate-limit to Google auth callback
 - Allow users to use only one session
