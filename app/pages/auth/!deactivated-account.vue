@@ -7,7 +7,7 @@ import { t } from '@psitta/vue'
     <div class="card sm:w-96 bg-slate-900 text-white shadow-lg">
       <div class="card-body">
         <h1 class="card-title text-teal-500">
-          {{ t('Your account has been deleted.') }}
+          {{ t('Your account has been deactivated.') }}
         </h1>
 
         <div class="mt-4">
@@ -15,7 +15,7 @@ import { t } from '@psitta/vue'
         </div>
 
         <div class="mt-4">
-          {{ t('If you change your mind, you can always create a new account.') }}
+          {{ t('If you change your mind, you can always login to recover your account.') }}
         </div>
 
         <A

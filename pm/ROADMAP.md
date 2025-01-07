@@ -73,6 +73,7 @@
 - Add "App Info" (app name, icon, version, author, licenses)
 - Open character info by clicking on the AI warning item in the contact view
 - Add onboarding
+- Delete account data
 
 ### v0.5.0 - Sharing
 

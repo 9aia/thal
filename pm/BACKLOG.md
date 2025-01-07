@@ -10,27 +10,10 @@
 
 ## Features
 
-- Create community guidelines
-  - Add community guidelines link to the "Character Builder", chats and settings
-- Add report button (open modal) to contact options
-- Prevent from Prompt injection in character instructions, etc.
-- Check safety of messages
-- Check safety of fields
-- Validate legally character on create/edit
-  - Give feedback
-- Add safety inflation flags and strikes
-  - Assigning each user a unique ID and imposing a limit on the volume of user queries that can be submitted in a given period.
-- ---
-- Add language drawer containing UI language and translation settings
-- ---
-- Add "Export account data"
-- ---
-- Implement basic analytics to track user engagement and app performance
-- Add logger
-- ---
-- Add date stamps in chat
-- Add unread badge
-- Add markdown preview in the message input
+## Security
+
+- Verify necessity of rate-limit to Google auth callback
+- Verify necessity of preventing bots
 
 ## Bugs
 
@@ -38,14 +21,11 @@
   - Use locale param in site routes
 - Fix bug copying HTML in messages
 - Check user plan in API routes that are necessary
-- Prevent bots with turnstile
 - Rewrite left joins using Query API
 ---
-- Add rate-limit to Google auth callback
 - Allow users to use only one session
 - Handle invalid sessions
 - Fix retrial after account deletion
-- Fix bug after deleting and recreating an account, user can't rejoin the app
 - Use a single table for user and character usernames
 - Lower every username comparison
 ---
@@ -65,14 +45,7 @@
 - ---
 - Replace web modal API
 - ---
-- Improve brand identity
 - Add dark theme
-- Redesign the authentication route
-  - Redesign a auth view on app/ when unauthenticated
-- Improve the homepage
-- Improve the "Pricing" page and set up redirects
-- Move the "About" page to the Gaia website
-- Add privacy info about account deletion (cannot delete before month ends, but users can delete manually before)
 - ---
 - Add loading splashscreen for hydration, data loading, etc
 - Improve a11y
@@ -104,3 +77,4 @@
 - Change `Message.isBot` to boolean mode
 - Add nuxt devserver to codeshare container
 - Improve dev contributing guide (wip and atomic commits)
+- Fix codeshare perms

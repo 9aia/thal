@@ -21,4 +21,5 @@ useInternetConnectionIndicator()
 
   <WhatsNewModal v-model="whatsNewModalState" />
   <LocaleModal v-model="localeModalState" />
+  <AccountReactivatedModal />
 </template>

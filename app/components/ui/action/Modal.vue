@@ -24,12 +24,11 @@ const props = withDefaults(
 )
 
 const emit = defineEmits(['cancel', 'confirm'])
+const visible = defineModel({ default: false })
 
 const dialog = ref<HTMLDialogElement>()
 
-const visible = defineModel({ default: false })
-
-watch(visible, () => {
+watch([visible, dialog], () => {
   if (visible.value)
     dialog.value?.showModal()
   else

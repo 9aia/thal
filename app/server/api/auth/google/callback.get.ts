@@ -1,11 +1,12 @@
 import { OAuth2RequestError, type OAuth2Tokens } from 'arctic'
+import { eq } from 'drizzle-orm'
 import { getGoogleUser } from '../../../../utils/google'
 import { createUser, getUser } from '../../../services/user'
 import { createSession, setSessionTokenCookie } from '~/server/services/auth'
 import type { OAuthProviderParams } from '~/server/types'
 import { generateSessionToken, generateUsername } from '~/utils/auth'
 import { badRequest, internal } from '~/utils/nuxt'
-import type { UserInsert } from '~~/db/schema'
+import { type UserInsert, users } from '~~/db/schema'
 
 export default defineEventHandler(async (event) => {
   const google = event.context.google!
@@ -61,6 +62,14 @@ export default defineEventHandler(async (event) => {
       const token = generateSessionToken()
       const session = await createSession(orm, token, existingUser.userId)
       setSessionTokenCookie(event, token, session.expiresAt)
+
+      const [user] = await orm.select().from(users).where(eq(users.id, existingUser.userId))
+
+      setCookie(event, 'user_reactivated', user.deactivatedAt ? '1' : '')
+
+      if (user.deactivatedAt) {
+        await orm.update(users).set({ deactivatedAt: null }).where(eq(users.id, user.id))
+      }
 
       return sendRedirect(event, redirectUrl)
     }

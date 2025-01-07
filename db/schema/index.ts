@@ -21,6 +21,7 @@ export const users = sqliteTable('User', {
   payment_gateway_session_id: text('payment_gateway_session_id'),
   plan_expires: text('plan_expires'),
   free_trial_used: int('free_trial_used').default(0),
+  deactivatedAt: int('deactivated_at', { mode: 'timestamp_ms' }),
 })
 
 export const sessions = sqliteTable('Session', {

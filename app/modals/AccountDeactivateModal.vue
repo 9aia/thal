@@ -34,12 +34,12 @@ const isUsernameInvalid = computed(() => {
 </script>
 
 <template>
-  <form ref="formDeleteUserRef" action="/api/user/delete" method="POST" aria-hidden class="hidden" />
+  <form ref="formDeleteUserRef" action="/api/user/deactivate" method="POST" aria-hidden class="hidden" />
 
   <Modal v-model="isOpen">
     <template #default>
       <h1 class="font-bold text-2xl mb-2 mt-4 text-slate-900">
-        {{ t("Are you sure?") }}
+        {{ t("Deactivate Account") }}
       </h1>
 
       <div role="alert" class="flex items-center gap-2 bg-transparent">
@@ -48,12 +48,12 @@ const isUsernameInvalid = computed(() => {
         </Icon>
 
         <T
-          text="This action {cannot} be undone. This will permanently delete your profile, stats and progress."
-          :values="{ cannot: 'cannot' }"
+          text="This action will {hide} your account and all associated data. You can reactivate it anytime."
+          :values="{ hide: 'hide' }"
         >
-          <template #cannot="slotProps">
+          <template #hide="slotProps">
             <span class="font-bold">
-              {{ slotProps.cannot }} {{ ' ' }}
+              {{ slotProps.hide }} {{ ' ' }}
             </span>
           </template>
         </T>
@@ -76,7 +76,7 @@ const isUsernameInvalid = computed(() => {
 
     <template #actions>
       <Button value="true" class="btn-error" :disabled="isUsernameInvalid" @click.prevent="submit">
-        {{ t('Delete my account') }}
+        {{ t('Deactivate my account') }}
       </Button>
 
       <Button value="false" class="btn btn-primary" @click="isOpen = false">
