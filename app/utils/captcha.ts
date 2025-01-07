@@ -2,12 +2,12 @@ import process from 'node:process'
 
 interface TurnstileResponse {
   'success': boolean
-  'error-codes': []
-  'challenge_ts': '2025-01-07T01:13:02.061Z'
-  'hostname': 'localhost'
-  'action': ''
-  'cdata': ''
-  'metadata': { interactive: false }
+  'error-codes': string[]
+  'challenge_ts': string
+  'hostname': string
+  'action': string
+  'cdata': string
+  'metadata': Record<string, unknown>
 }
 
 export async function validateTurnstileToken(token: string) {
