@@ -61,11 +61,13 @@
 - Display character configured instructions
   - Add "Keep Character instructions private" to Character Builder
 - Fork characters
+- Add character edit button (if its yours) to chat and contact options
 
 - Add profile photos (generate or upload)
 
 ### v0.4.0 - Support
 
+- Add report button (open modal) to contact options
 - Add intuitive placeholders to fields
 - Add help center
 - Add a warning for renaming character usernames
@@ -73,6 +75,7 @@
 - Add "App Info" (app name, icon, version, author, licenses)
 - Open character info by clicking on the AI warning item in the contact view
 - Add onboarding
+- Add "Export account data"
 - Delete account data
 
 ### v0.5.0 - Sharing

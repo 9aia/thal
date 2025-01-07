@@ -22,28 +22,31 @@
 
 - Create community guidelines
   - Add community guidelines link to the "Character Builder", chats and settings
-- Add report button (open modal) to contact options
+- Give safety feedback on character create/edit
+- Give safety feedback on message send/receive
+- Give safety feedback on fields
 - Prevent from Prompt injection in character instructions, etc.
-- Check safety of messages
-- Check safety of fields
-- Validate legally character on create/edit
-  - Give feedback
 - Add safety inflation flags and strikes
   - Assigning each user a unique ID and imposing a limit on the volume of user queries that can be submitted in a given period.
 - ---
 - Add language drawer containing UI language and translation settings
 - ---
-- Add "Export account data"
+- Add "about me" textarea in profile to help AI generate message suggestions
+- Add message suggestion generator with a input to prompt (useful for generating from an idea)
+- Add next message suggestions (2-4 options)
+- Add message option "Listen to"
+- Improve prompt to chats be more conversational/chat-like
 - ---
 - Implement basic analytics to track user engagement and app performance
 - Add logger
 - ---
 - Add date stamps in chat
-- Add unread badge
 - Add markdown preview in the message input
 
 ## Enhancements
 
+- Add option to copy message
+---
 - Improve brand identity
 - Redesign the authentication route
   - Redesign a auth view on app/ when unauthenticated
@@ -54,4 +57,4 @@
 
 ## Bugs
 
-- Fix bug after deleting and recreating an account, user can't rejoin the app
+- Rewrite left joins using Query API
