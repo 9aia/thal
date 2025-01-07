@@ -1,17 +1,21 @@
-# Backlog
+---
+description: A prioritized list of tasks, features, and ideas for future development.
+---
 
-- Revise looking for missing implementation of:
-  - Mutation toast errors
-  - Mutation loading
-  - Query error fallback
-  - Query loading fallback
-  - Array data pagination
-  - a11y
+# Backlog
 
 ## Features
 
+- Add date stamps in chat
 - Add unread badge
 - Add dark theme
+- Add markdown preview in the message input
+- Add calls
+- Add character unique voices
+- Add character knowledge
+- Add profile photos (generate or upload)
+- Add a deleted/non-existent section in contacts
+- Add character search results to chat and contact search
 
 ## Security
 
@@ -20,31 +24,24 @@
 
 ## Bugs
 
+- Use a single table for user and character usernames
+- Lower every username comparison
+- Rewrite left joins using Query API
+- Replace web modal API
 - Check user plan in API routes that are necessary
+- Allow users to use only one session
+- Handle invalid sessions
 - Fix bug copying HTML in messages
 - Fix locale change routing (remove `/{locale}` from `/app`)
   - Use locale param in site routes
----
-- Allow users to use only one session
-- Handle invalid sessions
-- Fix retrial after account deletion
-- Use a single table for user and character usernames
-- Lower every username comparison
----
-- Fix "Try again" after cookie issue resolved in the database
----
-- Replace web modal API
 
 ## Enhancements
 
 - Improve chat loading by rendering the skeleton on the backend and the message on the client
   - Improve chat loading and error state fallbacks
+- Save drawer/view state in URL
 - ---
 - Change forms to another platform that supports localization
-- ---
-- Improve stability by handling API errors gracefully
-- Improve error handling
-- Improve loading handling
 - ---
 - Add loading splashscreen for hydration, data loading, etc
 - Improve a11y
@@ -52,10 +49,9 @@
 - ---
 - Add character search to new-chat view search
 - ---
-- Improve `package.json`
-- Improve `README.md`
-- Config GitHub repository metadata
-- Update GCP metadata
+- Improve stability by handling API errors gracefully
+- Improve error handling
+- Improve loading handling
 
 ## Performance Enhancements
 

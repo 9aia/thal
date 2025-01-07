@@ -1,3 +1,7 @@
+---
+description: A high-level summary of the project.
+---
+
 # Project Overview
 
 ## Description

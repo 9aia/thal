@@ -1,0 +1,40 @@
+---
+description: A collection of ideas and feedback from stakeholders or team members.
+---
+
+# Suggestions
+
+## Features
+
+- Add official characters
+- Add onboarding custom character
+- Add different plans: family, business and school
+- Add search in chat
+- Saving text for later
+- Add multiple authentication accounts to the same account
+- Support multiple messages when user is offline
+- Add character trash
+- Add suggested characters in "New chat" drawer
+- Add message reactions
+- Starred messages
+- Disappearing messages
+- Add "read more" to long messages
+- Add activities like minigames
+- Add actions (simulations), such as payment
+- Credit system instead of subscription
+
+---
+
+- Add conversation starters
+- Create a character from saved text or from translated text
+- Add conversation scenarios
+- Add personal vocabulary lists that the chatbot can incorporate into the convo
+
+## Enhancements
+
+- Roadmap vs. Changelog vs. What's New
+
+## Bugs
+
+- Clearing chats shouldn't clear message history
+  - Add confirmation modal on chat clear

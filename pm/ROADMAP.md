@@ -1,3 +1,7 @@
+---
+description: A timeline of key milestones and upcoming features or releases.
+---
+
 # Roadmap
 
 ## Contract
@@ -18,9 +22,9 @@
 - **Post-`v1.0.0`**:
   - Payment systems will be fully operational (no sandbox mode).
 
-## Releases
+## Milestones
 
-### v0.1.0 - Fundamentals
+### 0.1* - Fundamentals (24-01-31)
 
 - User Accounts (Sign in, Manage Account, Subscribe)
 - Character Management (Discover, Manage)
@@ -31,7 +35,7 @@
 - Basic Support & Legal (Issue Report, Terms & Privacy)
 - Site (Landing Page)
 
-### v0.2.0 - Language Assistance
+### 0.2* - Language Assistance
 
 - Add option to listen to the message
 - Add PT-EN translator in the chat input
@@ -44,18 +48,13 @@
   - Add a help request item in the header menu (AI-driven).
   - Add settings to adjust AI helper responses.
 - Real-time assistance features
-
 - Stream translation
-- Add a deleted/non-existent section in contacts
-- Add character search results to chat and contact search
 
-- Save drawer/view state in URL
-
-### v0.3.0 - Generative Character Building
+### 0.3* - Generative Character Building
 
 - Generate a character using a prompt
 - Generate a character from a framework (asking the learning goals, interests, occupation and observations)
-- "Surprise Me" feature for auto-generated character
+- "Surprise Me" feature for auto-generated character based on "about me" textarea
 - Improve custom character building tab
   - Add "generate" icon button to each field (e.g., name, description)
 - Display character configured instructions
@@ -63,9 +62,7 @@
 - Fork characters
 - Add character edit button (if its yours) to chat and contact options
 
-- Add profile photos (generate or upload)
-
-### v0.4.0 - Support
+### 0.4* - Support
 
 - Add report button (open modal) to contact options
 - Add intuitive placeholders to fields
@@ -78,7 +75,7 @@
 - Add "Export account data"
 - Delete account data
 
-### v0.5.0 - Sharing
+### 0.5* - Sharing
 
 - Add contact QR code
 - Add character visibility option instead of just discoverability
@@ -90,10 +87,17 @@
 - Display character author in the contact view
 - Add a top absolute toast "Share your invite code with friends" and menu option "Invite"
 
-### v1.0.0 - Multiplayer
+### 1.0* - Multiplayer
 
 - Public profile
 - Person-person chats
 - Blocks
+
+### 1.1* - Groups
+
 - Groups of 1 character and max of 5 people
 - Groups
+
+### 1.2* - Communities
+
+- Add communities

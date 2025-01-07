@@ -1,6 +1,6 @@
-# Archived
+# Backlog
 
-## Out-of-scope Features
+## Features
 
 - Public profile followers/following
 - Character likes/dislikes
