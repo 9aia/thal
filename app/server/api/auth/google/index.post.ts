@@ -1,4 +1,8 @@
 import { generateCodeVerifier, generateState } from 'arctic'
+import { z } from 'zod'
+import { getValidated } from '~/utils/h3'
+import { badRequest } from '~/utils/nuxt'
+import { validateTurnstileToken } from '~/utils/captcha'
 
 export default defineEventHandler(async (event) => {
   const google = event.context.google!
@@ -9,6 +13,15 @@ export default defineEventHandler(async (event) => {
     `${scopeOrigin}/auth/userinfo.email`,
     `${scopeOrigin}/auth/userinfo.profile`,
   ]
+
+  const { cfTurnstileResponse } = await getValidated(event, 'body', z.object({
+    cfTurnstileResponse: z.string(),
+  }))
+
+  const isTurnstileValid = await validateTurnstileToken(cfTurnstileResponse)
+
+  if (!isTurnstileValid)
+    throw badRequest('Invalid captcha challenge')
 
   const state = generateState()
   const codeVerifier = generateCodeVerifier()

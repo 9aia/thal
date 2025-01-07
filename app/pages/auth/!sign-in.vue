@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { T, t } from '@psitta/vue'
+
+const token = ref('')
 </script>
 
 <template>
@@ -11,8 +13,12 @@ import { T, t } from '@psitta/vue'
         </h1>
 
         <div class="card-actions">
-          <form action="/api/auth/google" method="GET">
-            <Button type="submit" class="bg-white mt-2 py-2 w-full flex gap-1">
+          <form action="/api/auth/google" method="POST">
+            <TurnstileWidget v-model="token" />
+
+            <input v-model="token" type="hidden" name="cfTurnstileResponse">
+
+            <Button :loading="!token" type="submit" class="bg-white mt-2 py-2 w-full flex gap-1">
               <GoogleLogo />
               {{ t('Sign in with Google') }}
             </Button>

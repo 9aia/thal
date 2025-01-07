@@ -49,6 +49,7 @@
     "vue": "^3.4.19",
     "vue-dragscroll": "^4.0.6",
     "vue-router": "^4.3.0",
+    "vue-turnstile": "^1.0.11",
     "yaml": "^2.6.1",
     "zod": "^3.22.4"
   },

@@ -30,7 +30,6 @@
   - Use locale param in site routes
 - Fix bug copying HTML in messages
 - Check user plan in API routes that are necessary
-- Prevent bots with turnstile
 - Rewrite left joins using Query API
 ---
 - Add rate-limit to Google auth callback

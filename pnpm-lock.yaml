@@ -80,6 +80,9 @@ importers:
       vue-router:
         specifier: ^4.3.0
         version: 4.5.0(vue@3.5.13(typescript@5.7.2))
+      vue-turnstile:
+        specifier: ^1.0.11
+        version: 1.0.11(vue@3.5.13(typescript@5.7.2))
       yaml:
         specifier: ^2.6.1
         version: 2.6.1
@@ -6841,6 +6844,11 @@ packages:
     peerDependencies:
       vue: ^3.2.0
 
+  vue-turnstile@1.0.11:
+    resolution: {integrity: sha512-iaTBoZ5oUqtNRto6bmbn6FQvW0h/sK7mPUJc1Qn4em+cELXN59U2FQTcpWfKssV3OY6lEZzmCpcn/zrb7htK3A==}
+    peerDependencies:
+      vue: ^3.2.45
+
   vue@3.5.13:
     resolution: {integrity: sha512-wmeiSMxkZCSc+PM2w2VRsOYAZC8GdipNFRTsLSfodVqI9mbejKeXEGr8SckuLnrQPGe3oJN5c3K0vpoU9q/wCQ==}
     peerDependencies:
@@ -7051,7 +7059,7 @@ snapshots:
       '@clack/prompts': 0.7.0
       '@eslint-community/eslint-plugin-eslint-comments': 4.4.1(eslint@8.57.1)
       '@stylistic/eslint-plugin': 2.12.1(eslint@8.57.1)(typescript@5.7.2)
-      '@typescript-eslint/eslint-plugin': 8.18.2(@typescript-eslint/parser@8.18.2(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2)
+      '@typescript-eslint/eslint-plugin': 8.18.2(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2)
       '@typescript-eslint/parser': 8.18.2(eslint@8.57.1)(typescript@5.7.2)
       '@vitest/eslint-plugin': 1.1.20(@typescript-eslint/utils@8.18.2(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2)
       eslint: 8.57.1
@@ -9036,10 +9044,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/eslint-plugin@8.18.2(@typescript-eslint/parser@8.18.2(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2)':
+  '@typescript-eslint/eslint-plugin@8.18.2(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2)':
     dependencies:
       '@eslint-community/regexpp': 4.12.1
-      '@typescript-eslint/parser': 8.18.2(eslint@8.57.1)(typescript@5.7.2)
+      '@typescript-eslint/parser': 7.18.0(eslint@8.57.1)(typescript@5.7.2)
       '@typescript-eslint/scope-manager': 8.18.2
       '@typescript-eslint/type-utils': 8.18.2(eslint@8.57.1)(typescript@5.7.2)
       '@typescript-eslint/utils': 8.18.2(eslint@8.57.1)(typescript@5.7.2)
@@ -11198,7 +11206,7 @@ snapshots:
     dependencies:
       eslint: 8.57.1
     optionalDependencies:
-      '@typescript-eslint/eslint-plugin': 8.18.2(@typescript-eslint/parser@8.18.2(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2)
+      '@typescript-eslint/eslint-plugin': 8.18.2(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2)
 
   eslint-plugin-vue@9.32.0(eslint@8.57.1):
     dependencies:
@@ -15068,6 +15076,10 @@ snapshots:
   vue-router@4.5.0(vue@3.5.13(typescript@5.7.2)):
     dependencies:
       '@vue/devtools-api': 6.6.4
+      vue: 3.5.13(typescript@5.7.2)
+
+  vue-turnstile@1.0.11(vue@3.5.13(typescript@5.7.2)):
+    dependencies:
       vue: 3.5.13(typescript@5.7.2)
 
   vue@3.5.13(typescript@5.7.2):
