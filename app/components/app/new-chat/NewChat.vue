@@ -58,7 +58,7 @@ function handleGoToChat(username: string) {
 
 <template>
   <Navbar>
-    <h1 class="text-lg py-2 text-primary font-bold flex items-center gap-1">
+    <h1 class="text-lg py-2 text-gradient-1 flex items-center gap-1">
       <Button size="sm" class="btn-ghost btn-circle" @click="emit('close')">
         <Icon name="arrow_back" />
       </Button>
@@ -96,7 +96,7 @@ function handleGoToChat(username: string) {
         @execute="refetch"
       >
         <template v-if="!contacts.length">
-          <p class="text-slate-500 text-sm py-2 px-6 text-center">
+          <p class="text-gray-500 text-sm py-2 px-6 text-center">
             {{ search ? t(`No results found for "{query}"`, { query: search }) : t('No results found.') }}
           </p>
         </template>
@@ -113,3 +113,12 @@ function handleGoToChat(username: string) {
     </SettingSection>
   </div>
 </template>
+
+<style scoped>
+.text-gradient-1 {
+  background: radial-gradient(theme('colors.blue.500'), theme('colors.cyan.500')) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+</style>

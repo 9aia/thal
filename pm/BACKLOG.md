@@ -73,3 +73,4 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Add nuxt devserver to codeshare container
 - Improve dev contributing guide (wip and atomic commits)
 - Fix codeshare perms
+- Add docs about the software architecture

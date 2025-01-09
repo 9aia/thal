@@ -16,7 +16,7 @@ const styles = tv({
 })
 
 const actionStyles = tv({
-  base: 'btn btn-sm btn-outline border-slate-800 text-slate-800 hover:bg-slate-800 hover:border-slate-800 hover:text-primary',
+  base: 'btn btn-sm btn-outline border-gray-800 text-gray-800 hover:bg-gray-800 hover:border-gray-800 hover:text-primary',
 })
 
 const toastStyles = tv({
@@ -78,9 +78,9 @@ watch(toast.update, () => {
   <Transition>
     <div v-if="toast.visible.value" class="overflow-hidden" :class="toastStyles({ position: toast.position.value })">
       <div class="relative overflow-hidden" :class="styles({ type: toast.type.value })">
-        <Icon :name="icon" class="text-neutral" />
+        <Icon :name="icon" class="text-gray-800" />
 
-        <h3 class="text-neutral">
+        <h3 class="text-gray-800">
           {{ toast.message.value }}
         </h3>
 
@@ -100,7 +100,7 @@ watch(toast.update, () => {
             class="w-5 h-5 flex items-center justify-center cursor-pointer"
             @click="toast.close()"
           >
-            <Icon name="close" class="text-neutral" />
+            <Icon name="close" class="text-gray-800" />
           </button>
         </div>
 
@@ -108,7 +108,7 @@ watch(toast.update, () => {
           <div
             v-if="toast.duration.value > 0"
             ref="el"
-            class="animate-progress h-[2px] bg-neutral"
+            class="animate-progress h-[2px] bg-gray-800"
             :style="{
               'animation-duration': `${toast.duration.value}ms`,
             }"
@@ -119,7 +119,11 @@ watch(toast.update, () => {
   </Transition>
 </template>
 
-<style>
+<style scoped>
+.bg-gradient-1 {
+  background: radial-gradient(circle, theme('colors.magenta.50'), theme('colors.white'));
+}
+
 .animate-progress {
   animation: fill-progress linear;
   animation-play-state: paused;

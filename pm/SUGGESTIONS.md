@@ -8,13 +8,16 @@ description: A collection of ideas and feedback from stakeholders or team member
 
 - Add official characters
 - Add onboarding custom character
-- Add different plans: family, business and school
+- Add Spanish and/or other languages
 - Add search in chat
+- Add different plans: family, business and school
 - Saving text for later
 - Add multiple authentication accounts to the same account
 - Support multiple messages when user is offline
-- Add character trash
 - Add suggested characters in "New chat" drawer
+- Create a character from saved text or from translated text
+- Add character trash
+- Add conversation scenarios
 - Add message reactions
 - Starred messages
 - Disappearing messages
@@ -22,12 +25,7 @@ description: A collection of ideas and feedback from stakeholders or team member
 - Add activities like minigames
 - Add actions (simulations), such as payment
 - Credit system instead of subscription
-
----
-
 - Add conversation starters
-- Create a character from saved text or from translated text
-- Add conversation scenarios
 - Add personal vocabulary lists that the chatbot can incorporate into the convo
 
 ## Enhancements

@@ -33,27 +33,27 @@ const items: MenuItem[] = [
 <template>
   <div
     role="button"
-    class="px-3 hover:bg-slate-100 flex gap-2 rounded items-center group relative"
+    class="px-3 hover:bg-gradient-1 flex gap-2 rounded items-center group relative"
   >
-    <Avatar :name="name" class="w-10 text-sm bg-slate-300 text-slate-800" type="button" />
+    <Avatar :name="name" class="w-10 text-sm bg-gray-300 text-gray-800" type="button" />
 
     <div
       class="flex-1 flex flex-col justify-center"
     >
       <div class="py-1">
-        <div class="flex gap-2 items-center text-base text-slate-900 font-bold">
+        <div class="flex gap-2 items-center text-base text-gray-900 font-bold">
           {{ name }}
 
           <div
             v-if="username"
-            class="text-slate-600 flex gap-1 font-normal"
+            class="text-gray-600 flex gap-1 font-normal"
           >
             @{{ username }}
           </div>
         </div>
 
-        <div v-if="category" class="text-sm text-slate-600 flex gap-1 items-center">
-          <Badge class="bg-transparent border-none flex gap-1 px-0 py-3 text-xs text-slate-500">
+        <div v-if="category" class="text-sm text-gray-600 flex gap-1 items-center">
+          <Badge class="bg-transparent border-none flex gap-1 px-0 py-3 text-xs text-gray-500">
             <Icon :name="category?.icon" class="" style="font-size: 1.15rem" />
 
             {{ category?.name }}
@@ -65,7 +65,7 @@ const items: MenuItem[] = [
         class="flex right-0 absolute gap-1 py-1 bg-gradient-to-r from-transparent via-white to-white"
       >
         <div class="dropdown dropdown-end">
-          <button class="btn btn-circle btn-ghost text-slate-800" @click.stop.prevent="updateRedirectUrl">
+          <button class="btn btn-circle btn-ghost text-gray-800" @click.stop.prevent="updateRedirectUrl">
             <Icon>
               more_vert
             </Icon>
@@ -77,3 +77,9 @@ const items: MenuItem[] = [
     </div>
   </div>
 </template>
+
+<style scoped>
+.hover\:bg-gradient-1:hover {
+  background: radial-gradient(circle, theme('colors.magenta.50'), theme('colors.white'));
+}
+</style>

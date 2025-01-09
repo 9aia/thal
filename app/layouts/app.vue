@@ -66,7 +66,7 @@ import { drawers, isRootDrawerOpen, rightDrawer } from '~/store'
 
 <style>
 body {
-  @apply bg-slate-300;
+  @apply bg-gray-300;
 }
 
 * {

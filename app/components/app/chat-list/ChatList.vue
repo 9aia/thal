@@ -73,8 +73,8 @@ async function openWhatsNewModal() {
 
 <template>
   <div class="bg-white h-full">
-    <Navbar class="bg-slate-800">
-      <A href="/app/" class="text-lg font-bold text-teal-500 flex items-center">
+    <Navbar class="bg-black">
+      <A href="/app/" class="text-lg text-black flex items-center">
         Thal
       </A>
 
@@ -85,8 +85,8 @@ async function openWhatsNewModal() {
           shape="circle"
           no-disable-on-loading
           :class="{
-            'text-primary': hasUnreadContent,
-            'text-slate-600': !hasUnreadContent,
+            'text-red-500': hasUnreadContent,
+            'text-black': !hasUnreadContent,
           }"
           :loading="countQuery.isLoading.value"
           @click="openWhatsNewModal"
@@ -98,7 +98,7 @@ async function openWhatsNewModal() {
       </div>
     </Navbar>
 
-    <div v-show="isNoteVisible" class="bg-slate-200 px-3 py-4 flex items-center justify-between w-min-full">
+    <div v-show="isNoteVisible" class="bg-gray-200 px-3 py-4 flex items-center justify-between w-min-full">
       <div class="flex items-center gap-2">
         <div>
           <div class="p-2 flex items-center justify-center">
@@ -107,10 +107,10 @@ async function openWhatsNewModal() {
         </div>
 
         <div class="flex flex-col">
-          <h2 class="text-lg text-slate-800">
+          <h2 class="text-lg text-gray-800">
             Welcome!
           </h2>
-          <p class="text-sm text-slate-800">
+          <p class="text-sm text-gray-800">
             Every conversation is a step closer to your goals.
           </p>
         </div>
@@ -139,7 +139,7 @@ async function openWhatsNewModal() {
         <ChatListEmpty v-if="!chats?.length && !chatItemSearch.trim()" />
 
         <template v-else-if="!chats?.length">
-          <p class="text-slate-500 text-sm py-2 px-6 text-center">
+          <p class="text-gray-500 text-sm py-2 px-6 text-center">
             {{ chatItemSearch ? t(`No results found for "{query}"`, { query: chatItemSearch }) : t('No results found.') }}
           </p>
         </template>

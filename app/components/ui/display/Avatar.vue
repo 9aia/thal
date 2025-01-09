@@ -28,13 +28,13 @@ const isButton = computed(() => {
     :role="isButton ? 'button' : undefined"
   >
     <template v-if="url">
-      <div :class="props.class" class="bg-neutral text-neutral-content rounded-full">
+      <div :class="props.class" class="bg-gray-50 text-gray-800 rounded-full">
         <img :src="url" :alt="props.alt">
       </div>
     </template>
 
     <template v-else>
-      <div class="bg-neutral text-neutral-content rounded-full" :class="props.class">
+      <div class="bg-gray-50 text-gray-800 rounded-full" :class="props.class">
         <span>{{ placeholder }}</span>
       </div>
     </template>

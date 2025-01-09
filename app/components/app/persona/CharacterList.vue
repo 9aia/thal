@@ -48,7 +48,7 @@ onMounted(() => {
 <template>
   <main
     :tabindex="0"
-    class="bg-slate-200 flex-1 flex items-start overflow-y-auto focus:outline-none overflow-x-hidden"
+    class="bg-gradient-1 flex-1 flex items-start overflow-y-auto focus:outline-none overflow-x-hidden"
   >
     <CategoriesModal
       v-model="isCategoryModalOpen"
@@ -82,11 +82,11 @@ onMounted(() => {
 
       <div class="space-y-4">
         <div class="flex justify-between px-4">
-          <h2 class="text-slate-800 text-sm font-bold">
+          <h2 class="text-gray-800 text-sm font-bold">
             {{ t("Categories") }}
           </h2>
           <button
-            class="text-teal-500 text-xs font-bold float-right"
+            class="text-blue-500 text-xs float-right"
             @click="isCategoryModalOpen = true"
           >
             {{ t("View all") }}
@@ -112,7 +112,7 @@ onMounted(() => {
       </div>
 
       <div class="space-y-2">
-        <h2 class="text-slate-800 font-bold px-4 text-sm">
+        <h2 class="text-gray-800 font-bold px-4 text-sm">
           {{ t("Characters") }}
         </h2>
 
@@ -139,7 +139,7 @@ onMounted(() => {
             </template>
 
             <template v-else>
-              <p class="text-slate-500 text-sm py-2 px-6 text-center">
+              <p class="text-gray-500 text-sm py-2 px-6 text-center">
                 {{ search ? t(`No results found for "{query}"`, { query: search }) : t('No results found.') }}
               </p>
             </template>
@@ -149,3 +149,9 @@ onMounted(() => {
     </div>
   </main>
 </template>
+
+<style scoped>
+.bg-gradient-1 {
+  background: radial-gradient(at top, theme('colors.magenta.50'), theme('colors.gray.50'));
+}
+</style>

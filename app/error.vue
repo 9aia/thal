@@ -51,11 +51,11 @@ function handleError() {
       <h1 class="text-8xl font-bold text-center mb-4" :class="errorMessage.color">
         {{ error!.statusCode }}
       </h1>
-      <p class="text-center text-xl text-slate-900">
+      <p class="text-center text-xl text-gray-900">
         {{ t(errorMessage.message) }}
       </p>
 
-      <A href="/" class="mt-4 btn btn-primary text-slate-900" @click="handleError">
+      <A href="/" class="mt-4 btn btn-primary text-gray-900" @click="handleError">
         {{ t('Access the home page') }}
       </A>
     </div>

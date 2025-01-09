@@ -39,7 +39,7 @@ const items: MenuItem[] = [
 
 <template>
   <div class="dropdown dropdown-end">
-    <button class="btn btn-circle btn-ghost text-primary" @click="updateRedirectUrl">
+    <button class="btn btn-circle btn-ghost text-black" @click="updateRedirectUrl">
       <Icon>more_vert</Icon>
     </button>
 

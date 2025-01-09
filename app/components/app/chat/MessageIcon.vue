@@ -35,9 +35,9 @@ const styles = tv({
     type: {
       error: 'text-red-600',
       seen: 'text-sky-500',
-      sending: 'text-slate-500',
-      received: 'text-slate-500',
-      sent: 'text-slate-500',
+      sending: 'text-gray-500',
+      received: 'text-gray-500',
+      sent: 'text-gray-500',
     },
   },
 })

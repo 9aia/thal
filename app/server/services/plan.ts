@@ -1,8 +1,10 @@
 import { eq } from 'drizzle-orm'
 import type { SQLiteUpdateSetSource } from 'drizzle-orm/sqlite-core'
 import type { DrizzleD1Database } from 'drizzle-orm/d1'
+import type Stripe from 'stripe'
+import type { User } from '~~/db/schema'
 import { users } from '~~/db/schema'
-import { notFound } from '~/utils/nuxt'
+import { internal, notFound } from '~/utils/nuxt'
 import type { PlanType } from '~/types'
 import { now } from '~/utils/date'
 
@@ -63,4 +65,56 @@ export async function updateSubscription(
     .update(users)
     .set(values)
     .where(eq(users.payment_gateway_customer_id, paymentGatewayCustomerId))
+}
+
+export async function getSubscriptionId(stripe: Stripe, user: User) {
+  const customerId = user.payment_gateway_customer_id
+
+  if (!customerId)
+    throw internal('No customer ID found for user')
+
+  let customer: Stripe.Customer | null = null
+
+  try {
+    customer = await stripe.customers.retrieve(customerId, {
+      expand: ['subscriptions.data'],
+    }) as Stripe.Customer
+  }
+  catch (_e) {
+    const _ = _e
+    throw internal('Error pausing subscription')
+  }
+
+  if (!customer.subscriptions || customer.subscriptions.data.length === 0) {
+    throw internal('No subscription found for customer')
+  }
+
+  return customer.subscriptions.data[0].id
+}
+
+export async function pauseSubscription(stripe: Stripe, subscriptionId: string) {
+  try {
+    await stripe.subscriptions.update(subscriptionId, {
+      pause_collection: {
+        behavior: 'mark_uncollectible',
+        resumes_at: undefined,
+      },
+    })
+  }
+  catch (_e) {
+    const _ = _e
+    throw internal('Error pausing subscription')
+  }
+}
+
+export async function resumeSubscription(stripe: Stripe, subscriptionId: string) {
+  try {
+    await stripe.subscriptions.update(subscriptionId, {
+      pause_collection: null,
+    })
+  }
+  catch (_e) {
+    const _ = _e
+    throw internal('Error resuming subscription')
+  }
 }

@@ -57,7 +57,7 @@ defineExpose({
 
       <input
         v-model="value"
-        class="input input-bordered input-ghost w-full"
+        class="input bg-gray-50 w-full"
         :placeholder="placeholder"
         :class="{
           'pr-12': iconPosition === 'right',

@@ -91,7 +91,7 @@ const date = computed(() => {
 <template>
   <div class="flex flex-col h-dvh justify-between">
     <header class="px-3 flex gap-2 bg-white">
-      <h1 class="text-md py-2 text-slate-800 flex items-center gap-1">
+      <h1 class="text-md py-2 text-gray-800 flex items-center gap-1">
         <Button size="md" class="btn-ghost btn-circle" @click="closeDrawer">
           <Icon name="close" />
         </Button>
@@ -111,7 +111,7 @@ const date = computed(() => {
       </div>
     </header>
 
-    <div class="flex-1 overflow-y-auto bg-white divide-y-2 divide-slate-200">
+    <div class="flex-1 overflow-y-auto bg-white divide-y-2 divide-gray-50">
       <Teleport to="body">
         <ContactDeleteModal v-model="contactDeleteModalState" :contact-username="username" />
       </Teleport>
@@ -119,7 +119,7 @@ const date = computed(() => {
       <Resource :loading="isLoading" :error="isError">
         <template #loading>
           <div class="w-full h-full flex items-center justify-center">
-            <Spinner class="text-slate-800" />
+            <Spinner class="text-gray-800" />
           </div>
         </template>
 
@@ -129,21 +129,21 @@ const date = computed(() => {
 
         <template #default>
           <section class="w-full px-4 pb-4 flex flex-col justify-center">
-            <Avatar :name="avatarName" class="mx-auto w-24 h-24 text-2xl bg-slate-300 text-slate-800" />
+            <Avatar :name="avatarName" class="mx-auto w-24 h-24 text-2xl bg-gray-300 text-gray-800" />
 
-            <h2 class="text-slate-900 text-center text-xl">
+            <h2 class="text-gray-900 text-center text-xl">
               {{ displayName }}
             </h2>
 
             <Username :username="data?.username!" :show-copy="true" class="mx-auto" />
 
             <div class="w-full flex justify-center mt-3 gap-2">
-              <Button v-if="!hasContact" size="sm" class="btn-primary btn-outline flex" @click="addContact">
+              <Button v-if="!hasContact" size="sm" class="bg-transparent border border-cyan-500 rounded-full text-black hover:border-cyan-500 hover:bg-cyan-500 flex" @click="addContact">
                 <Icon name="person_add" />
                 <span class="">{{ t('Save') }}</span>
               </Button>
 
-              <Button size="sm" class="btn-primary btn-outline flex" @click="copyUrl">
+              <Button size="sm" class="bg-transparent border border-cyan-500 rounded-full text-black hover:border-cyan-500 hover:bg-cyan-500 flex" @click="copyUrl">
                 <Icon name="ios_share" />
                 <span class="">{{ t('Share') }}</span>
               </Button>
@@ -168,8 +168,8 @@ const date = computed(() => {
               class="py-2"
             />
 
-            <!-- <div v-if="category" class="text-sm text-slate-600 flex gap-1 items-center">
-              <Badge class="bg-transparent border-none flex gap-1 px-0 py-3 text-xs text-slate-600">
+            <!-- <div v-if="category" class="text-sm text-gray-600 flex gap-1 items-center">
+              <Badge class="bg-transparent border-none flex gap-1 px-0 py-3 text-xs text-gray-600">
                 <Icon :name="category?.icon" class="" style="font-size: 1.15rem" />
 
                 {{ category?.name }}
@@ -178,7 +178,7 @@ const date = computed(() => {
           </section>
 
           <section v-if="date" class="w-full px-4 py-4">
-            <p class="text-slate-800 text-sm">
+            <p class="text-gray-800 text-sm">
               {{ t('Created at {date}', { date }) }}
             </p>
           </section>

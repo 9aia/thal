@@ -43,7 +43,7 @@ const date = computed(() => {
 </script>
 
 <template>
-  <div class="text-xs text-slate-600">
+  <div class="text-xs text-gray-600">
     {{ date }}
   </div>
 </template>

@@ -9,8 +9,8 @@ defineProps<{
   <section>
     <slot name="header" />
 
-    <div v-if="title" class="text-primary">
-      <h2 class="font-bold text-sm py-2" :class="titleClass">
+    <div v-if="title" class="text-brown-500">
+      <h2 class="text-sm py-2" :class="titleClass">
         {{ title }}
       </h2>
     </div>

@@ -4,6 +4,7 @@ interface Props {
   href?: string
   localize?: boolean | undefined
   locale?: string
+  disableColor?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -25,10 +26,13 @@ const isExternal = computed(() => {
     :active-class="activeClass"
     :locale="locale"
     :localize="localize"
-    class="flex items-center gap-1"
+    class="flex items-center gap-1  group"
     :target="isExternal ? '_blank' : undefined"
+    :class="{ 'text-cyan-500': !disableColor }"
   >
-    <slot />
+    <span class="group-hover:underline">
+      <slot />
+    </span>
     <Icon v-if="isExternal">
       north_east
     </Icon>

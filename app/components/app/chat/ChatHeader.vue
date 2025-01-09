@@ -71,23 +71,25 @@ const items = computed<MenuItem[]>(() => [
 </script>
 
 <template>
-  <header class="px-3 py-2 bg-slate-800 flex gap-2 w-full">
+  <header class="px-3 py-2 bg-white flex gap-2 w-full">
     <ContactDeleteModal v-model="contactDeleteModalState" :contact-username="username" />
 
-    <label for="my-drawer" class="lg:hidden btn btn-ghost btn-circle text-primary drawer-button">
+    <label for="my-drawer" class="lg:hidden btn btn-ghost btn-circle text-black drawer-button">
       <Icon name="arrow_back" />
     </label>
 
     <Avatar :name="avatarName" class="w-10 text-sm" type="button" @click="openContactView(username)" />
 
     <div class="flex-1 flex items-center justify-between gap-4">
-      <div tabindex="0" role="button" class="block text-primary w-full" @click="openContactView(username)">
-        {{ name }}
+      <div tabindex="0" role="button" class="block w-full" @click="openContactView(username)">
+        <span class="text-gradient-1">
+          {{ name }}
+        </span>
       </div>
 
       <div>
         <div class="dropdown dropdown-end">
-          <button class="btn btn-circle btn-ghost text-primary" @click="updateRedirectUrl">
+          <button class="btn btn-circle btn-ghost text-black" @click="updateRedirectUrl">
             <Icon>more_vert</Icon>
           </button>
 
@@ -97,3 +99,12 @@ const items = computed<MenuItem[]>(() => [
     </div>
   </header>
 </template>
+
+<style scoped>
+.text-gradient-1 {
+  background: radial-gradient(theme('colors.magenta.500'), theme('colors.blue.500')) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+</style>

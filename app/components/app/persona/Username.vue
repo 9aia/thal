@@ -8,7 +8,7 @@ const copy = useCopyUsername(props.username)
 </script>
 
 <template>
-  <div class="text-slate-600 flex gap-1 font-normal">
+  <div class="text-gray-600 flex gap-1 font-normal">
     @{{ username }}
 
     <button

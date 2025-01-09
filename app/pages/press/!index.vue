@@ -3,32 +3,33 @@ import { t } from '@psitta/vue'
 </script>
 
 <template>
-  <div>
+  <div class="">
     <div
-      class="hero !bg-white"
-      style="min-height: calc(100vh - 64px - 40px); background: url(''); background-size: cover"
+      class="hero relative"
+      style="height: calc(100dvh - 64px);"
     >
-      <div class="hero-overlay bg-opacity-60" />
-      <div class="hero-content">
-        <div class="max-w-2xl text-center">
-          <h1 class="text-5xl sm:text-6xl italic font-bold text-primary max-w-lg tracking-wide">
-            {{ t("Master English, Transform Your Future.") }}
+      <div class="bg-gradient-hero" />
+
+      <div class="hero-content z-30">
+        <div class="max-w-2xl flex flex-col justify-center text-center">
+          <h1 class="text-5xl mb-4 sm:text-6xl font-medium text-white max-w-lg tracking-wide">
+            {{ t("Talk to Learn. Learn to Talk.") }}
           </h1>
 
-          <p class="py-6 text-xl sm:text-2xl text-slate-800 mx-auto max-w-lg">
-            {{ t("Learn English with Artificial Intelligence effectively and fun!") }}
+          <p class="mb-8 text-xl sm:text-2xl text-white mx-auto max-w-lg">
+            {{ t("Practice real-world English skills with AI characters tailored to your learning goals. Simple, intuitive, and fun!") }}
           </p>
 
-          <A class="btn btn-primary text-neutral-content" href="/app">{{
+          <A class="bg-gradient-to-tr from-cyan-500 to-cyan-400 text-black flex justify-center items-center px-6 py-3 w-fit rounded-full mx-auto" href="/app">{{
             t("Start chatting")
           }}</A>
         </div>
       </div>
 
-      <div class="absolute bottom-4 right-1/2 translate-x-1/2 text-slate-800">
+      <div class="absolute bottom-4 right-1/2 translate-x-1/2 text-white z-30">
         <a
           href="#features"
-          class="no-underline flex flex-col gap-2 items-center text-slate-800"
+          class="no-underline flex flex-col gap-2 items-center text-white"
         >
           {{ t("Learn more") }}
           <Icon
@@ -41,47 +42,47 @@ import { t } from '@psitta/vue'
 
     <section
       id="features"
-      class="bg-slate-300 px-4 py-12 text-center"
+      class="bg-white px-4 py-12 text-center"
     >
       <div class="max-w-md mx-auto">
-        <h2 class="text-4xl font-bold text-primary mb-4">
-          {{ t("Personalize your Learning Journey") }}
+        <h2 class="text-4xl text-gray-800 mb-4">
+          {{ t("Dynamic Conversations") }}
         </h2>
 
-        <p class="text-slate-900">
+        <p class="text-gray-800">
           {{
             t(
-              "Create your Thal profile in minutes and start your personalized English learning journey. Powered by advanced AI, Thal adapts to your unique learning style, ensuring every lesson is tailored just for you. Immerse yourself in a world of English designed to fit your pace and goals.",
+              "Practice English in interactive conversations that feel authentic and immersive. Thal adapts to your language level and style, providing real-time suggestions, translations, and grammar fixes so you can improve naturally as you chat.",
             )
           }}
         </p>
       </div>
     </section>
 
-    <section class="bg-slate-300 overflow-y-hidden">
+    <section class="bg-white overflow-y-hidden">
       <div
         class="mx-auto px-4 py-12 max-w-[800px] max-h-[500px] md:max-h-[400px] text-center md:text-left"
       >
         <div class="flex gap-12 flex-col md:flex-row">
           <div class="mx-auto">
-            <h2 class="text-4xl text-slate-800 font-bold mb-6 max-w-sm">
-              {{ t("Multiplatform Learning Experience") }}
+            <h2 class="text-4xl text-gray-800 mb-6 max-w-sm">
+              {{ t("Interactive Language Assistance") }}
             </h2>
 
-            <p class="text-slate-900 max-w-sm">
+            <p class="text-gray-800 max-w-sm">
               {{
                 t(
-                  "Learn English on any device - cell phone, tablet or computer. Marathongue offers a learning experience consistent and effective, whether you're at home or on the go. Learn flexibly and conveniently, with full compatibility between devices.",
+                  "Get seamless language support during your conversations. The app offers instant translations, personalized suggestions, and more, empowering you to learn without interrupting the flow of your dialogue.",
                 )
               }}
             </p>
           </div>
 
           <div class="drop-shadow-2xl relative z-[10] mx-auto">
-            <div class="mockup-phone border-primary">
+            <div class="mockup-phone border-blue-500">
               <div class="camera" />
               <div class="display">
-                <div class="artboard artboard-demo phone-1" />
+                <div class="artboard artboard-demo phone-1 bg-cyan-950" />
               </div>
             </div>
           </div>
@@ -89,16 +90,16 @@ import { t } from '@psitta/vue'
       </div>
     </section>
 
-    <section class="mx-auto bg-white text-center">
+    <section class="mx-auto bg-gradient-3 text-black text-center">
       <div class="px-4 py-12 mx-auto max-w-sm">
-        <h2 class="text-4xl text-primary font-bold mb-6">
-          {{ t("Stand out with English Proficiency") }}
+        <h2 class="text-4xl mb-6">
+          {{ t("Discover Characters") }}
         </h2>
 
-        <p class="text-slate-900">
+        <p class="">
           {{
             t(
-              "By using Thal, you are preparing yourself to stand out globally. With fluent English, you open doors to opportunities international, increasing your credibility and professional visibility.",
+              "Explore a diverse range of AI-powered characters designed to match your learning goals. Whether you want to practice small talk, tackle professional scenarios, or dive into roleplay, there's always a character ready to help you learn.",
             )
           }}
         </p>
@@ -115,14 +116,14 @@ import { t } from '@psitta/vue'
       >
         <div class="mx-auto w-full flex flex-col md:flex-row">
           <div class="w-full md:w-1/2 text-center md:text-left">
-            <h2 class="text-4xl text-slate-800 font-bold mb-6">
-              {{ t("Direct and Efficient Learning") }}
+            <h2 class="text-4xl text-gray-800 mb-6">
+              {{ t("Create Your Own Character") }}
             </h2>
 
-            <p class="text-slate-900 max-w-lg mx-auto mb-8">
+            <p class="text-gray-800 max-w-lg mx-auto mb-8">
               {{
                 t(
-                  "With Thal, learning English is straightforward and hassle-free. Without the need for complex registrations, get started quickly and Focus on what really matters: your language progress English.",
+                  "Unleash your creativity by designing characters tailored to your learning needs. Customize their personality, background, and conversation style to create a unique and engaging practice partner.",
                 )
               }}
             </p>
@@ -132,28 +133,28 @@ import { t } from '@psitta/vue'
       </div>
     </section>
 
-    <section class="w-full bg-slate-300 mx-auto text-center">
+    <section class="w-full bg-gradient-2  mx-auto text-center">
       <div class="px-4 py-12">
-        <h2 class="text-4xl text-primary font-bold mb-6">
-          {{ t("Track your progress") }}
+        <h2 class="text-4xl text-gray-800 mb-6">
+          {{ t("Save Your Favorite Characters") }}
         </h2>
 
-        <p class="text-slate-900 max-w-lg mx-auto mb-8">
+        <p class="text-gray-800 max-w-lg mx-auto mb-8">
           {{
             t(
-              "Monitor your progress in English with Thal. Receive comments snapshot and insights into your learning, allowing you to understand your strengths and areas for improvement, and make strategic decisions in your learning process.",
+              "Keep track of the characters you enjoy the most. Add them to your contacts for easy access to future conversations. Build your own set of companions to practice with as you progress.",
             )
           }}
         </p>
 
         <div class="drop-shadow-2xl max-w-[800px] mx-auto relative z-[10] ">
-          <div class="mockup-browser border border-slate-900 bg-slate-800 text-white">
-            <div class="mockup-browser-toolbar flex relative">
-              <div class="input bg-white px-4 rounded-xl text-slate-900">
-                https://thal.app
+          <div class="mockup-browser border border-gray-300 bg-white text-cyan-500">
+            <div class="mockup-browser-toolbar flex relative ">
+              <div class="!bg-white px-4 rounded-xl text-gray-800">
+                thal.app
               </div>
             </div>
-            <div class="flex justify-center px-4 py-16 bg-white h-[400px]" />
+            <div class="flex justify-center px-4 py-16 bg-cyan-950 h-[400px]" />
           </div>
         </div>
       </div>
@@ -166,13 +167,38 @@ import { t } from '@psitta/vue'
       <div class="hero-overlay bg-opacity-60" />
       <div class="hero-content text-center w-full">
         <div class="">
-          <h1 class="text-4xl sm:text-5xl text-slate-800 font-bold mb-8">
-            {{ t("Start learning now") }}
+          <h1 class="text-4xl sm:text-5xl text-gray-800 mb-8">
+            {{ t("Start chatting") }}
           </h1>
-          <A class="btn btn-primary text-slate-900" href="/app">
-            {{ t("Try Thal") }}</A>
+          <A class="bg-cyan-500 text-black border-none rounded-full items-center px-6 py-3 " href="/app">
+            {{ t("Start now") }}</A>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<style>
+.bg-gradient-hero {
+  @apply absolute top-0 left-0 w-full h-full z-10 ;
+
+  background-image:
+  radial-gradient(at bottom,
+      theme('colors.blue.500'),
+      theme('colors.white')
+    )
+    ;
+}
+
+.bg-gradient-2 {
+  background-image: radial-gradient(at bottom center,
+      theme('colors.red.500'),
+      theme('colors.white'));
+}
+
+.bg-gradient-3 {
+  background-image: radial-gradient(at center center,
+      theme('colors.green.500'),
+      theme('colors.white'));
+}
+</style>

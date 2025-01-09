@@ -35,13 +35,13 @@ const user = useUser()
             </template>
 
             <template #main>
-              <div class="text-base text-slate-900">
+              <div class="text-base text-gray-900">
                 {{ user?.name }} {{ user?.lastName }}
               </div>
             </template>
 
             <template #footer>
-              <span class="text-xs text-slate-500">
+              <span class="text-xs text-gray-500">
                 {{ t('This name will be passed to the characters.') }}
               </span>
             </template>
@@ -55,7 +55,7 @@ const user = useUser()
             </template>
 
             <template #main>
-              <div class="text-base text-slate-900 mb-2">
+              <div class="text-base text-gray-900 mb-2">
                 @{{ user?.username }}
               </div>
             </template>

@@ -26,10 +26,10 @@ function checkIsSelected(categoryId: number) {
   >
     <Icon
       :name="category.icon"
-      class="text-teal-500 group-hover:text-teal-600"
+      class="text-cyan-500"
     />
 
-    <div :class="checkIsSelected(category.id) ? 'text-primary' : 'text-slate-800 group-hover:text-slate-900'">
+    <div :class="checkIsSelected(category.id) ? 'text-primary' : 'text-gray-800 group-hover:underline'">
       {{ t(category.name) }}
     </div>
   </div>

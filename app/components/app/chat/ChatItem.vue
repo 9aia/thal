@@ -21,12 +21,12 @@ function handleGoToChat(username: string) {
 </script>
 
 <template>
-  <div role="button" class="px-3 py-1 hover:bg-slate-100 flex gap-2" @click="handleGoToChat(chat.personaUsername)">
-    <Avatar :name="chat.personaName" class="w-10 text-sm bg-slate-300 text-slate-800" type="button" />
+  <div role="button" class="px-3 py-1 hover:bg-gradient-1 flex gap-2" @click="handleGoToChat(chat.personaUsername)">
+    <Avatar :name="chat.personaName" class="w-10 text-sm bg-gray-300 text-gray-800" type="button" />
 
     <div class="flex-1 flex flex-col justify-center w-10px">
       <div class="flex justify-between items-center">
-        <a class="block text-base text-slate-800">{{ name }}</a>
+        <a class="block text-base text-gray-800">{{ name }}</a>
 
         <ClientOnly v-if="content">
           <ChatItemTime :chat="chat" />
@@ -34,7 +34,7 @@ function handleGoToChat(username: string) {
       </div>
 
       <div
-        class="text-sm text-slate-600 flex items-center gap-0.5"
+        class="text-sm text-gray-600 flex items-center gap-0.5"
       >
         <div v-if="chat.lastMessageStatus === 'seen'" class="line-clamp-1 text-green-500" :class="{ invisible: !chat.lastMessageContent }">
           {{ t('Typing...') }}
@@ -54,3 +54,9 @@ function handleGoToChat(username: string) {
     </div>
   </div>
 </template>
+
+<style scoped>
+.hover\:bg-gradient-1:hover {
+  background: radial-gradient(circle, theme('colors.magenta.50'), theme('colors.white'));
+}
+</style>

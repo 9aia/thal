@@ -95,7 +95,7 @@ function setReply() {
     <div class="chat-footer opacity-90 flex items-center mt-1 gap-1">
       <div class="flex">
         <button
-          v-if="(from === 'user') && showResend" class="btn btn-sm btn-circle btn-ghost btn-neutral text-teal-500"
+          v-if="(from === 'user') && showResend" class="btn btn-sm btn-circle btn-ghost btn-gray text-teal-500"
           @click="emit('resend')"
         >
           <Icon style="font-size: 1.15rem">

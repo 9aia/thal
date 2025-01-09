@@ -4,8 +4,8 @@ import { isRootDrawerOpen } from '~/store'
 </script>
 
 <template>
-  <div class="flex flex-col w-full h-dvh bg-slate-100">
-    <Navbar class="bg-slate-800 lg:hidden">
+  <div class="flex flex-col w-full h-dvh bg-gradient-1">
+    <Navbar class="bg-gray-800 lg:hidden">
       <h1 class="text-lg text-primary font-bold flex items-center gap-1">
         {{ t('Thal') }}
       </h1>
@@ -13,11 +13,11 @@ import { isRootDrawerOpen } from '~/store'
 
     <main class="flex-1 px-4 py-4 w-screen sm:w-[500px] lg:w-[600px] sm:mx-auto">
       <div class="flex flex-col h-full items-center justify-center">
-        <h1 class="text-6xl font-bold text-primary mb-2 flex items-center gap-2">
+        <h1 class="text-6xl text-black mb-2 flex items-center gap-2">
           Thal
         </h1>
 
-        <div class="text-center text-lg text-slate-600 space-y-1 max-w-lg">
+        <div class="text-center text-lg text-black space-y-1 max-w-lg">
           <p>
             {{ t('Talk to Learn. Learn to Talk.') }}
           </p>
@@ -33,9 +33,15 @@ import { isRootDrawerOpen } from '~/store'
     <footer class="flex px-4 py-4 w-screen sm:w-[500px] lg:w-[600px] sm:mx-auto gap-2 items-center justify-center">
       <Icon name="science" class="text-green-500 text-xl" />
 
-      <p class="text-slate-600 text-xs">
+      <p class="text-gray-600 text-xs">
         {{ t('Thal is for learning, practice and fun. AI chats aren’t professional instruction. Use responsibly.') }}
       </p>
     </footer>
   </div>
 </template>
+
+<style scoped>
+.bg-gradient-1 {
+  background: radial-gradient(at bottom, theme('colors.blue.100'), theme('colors.gray.50'));
+}
+</style>

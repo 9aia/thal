@@ -19,7 +19,7 @@ const { t } = useI18n()
       {{ t('Oops! Something Went Wrong') }}
     </h1>
 
-    <p class="text-slate-600 text-sm mb-2">
+    <p class="text-gray-600 text-sm mb-2">
       {{ t('An unexpected error has occurred. Please try again later.') }}
     </p>
 
@@ -29,7 +29,7 @@ const { t } = useI18n()
       </Button>
     </div>
 
-    <p class="text-xs text-slate-600">
+    <p class="text-xs text-gray-600">
       <T text="If the problem persists, please {reportIssue}." :values="{ reportIssue: 'true' }">
         <template #reportIssue>
           <A

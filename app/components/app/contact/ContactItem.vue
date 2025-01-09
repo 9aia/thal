@@ -14,15 +14,15 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div role="button" class="px-3 py-1 hover:bg-slate-100 flex gap-2 rounded items-center group">
-    <Avatar :name="name" class="w-10 text-sm bg-slate-300 text-slate-800" type="button" />
+  <div role="button" class="px-3 py-1 hover:bg-gradient-1 flex gap-2 rounded items-center group">
+    <Avatar :name="name" class="w-10 text-sm bg-gray-300 text-gray-800" type="button" />
 
     <div class="flex-1 flex flex-col justify-center">
       <div class="flex flex-col justify-between">
-        <a class="block text-base text-slate-800">{{ name }}</a>
+        <a class="block text-base text-gray-800">{{ name }}</a>
 
         <div
-          class="text-xs text-slate-600 line-clamp-2"
+          class="text-xs text-gray-600 line-clamp-2"
           :title="description"
         >
           {{ description }}
@@ -36,7 +36,7 @@ const emit = defineEmits<{
         class="btn btn-md btn-ghost btn-circle"
         @click.prevent="emit('edit')"
       >
-        <Icon name="edit" class="text-slate-700" />
+        <Icon name="edit" class="text-gray-700" />
       </button>
 
       <button
@@ -44,8 +44,14 @@ const emit = defineEmits<{
         class="btn btn-ghost btn-circle"
         @click.prevent="emit('delete')"
       >
-        <Icon name="delete" class="text-slate-700 text-xs" />
+        <Icon name="delete" class="text-gray-700 text-xs" />
       </button>
     </div>
   </div>
 </template>
+
+<style scoped>
+.hover\:bg-gradient-1:hover {
+  background: radial-gradient(circle, theme('colors.magenta.50'), theme('colors.white'));
+}
+</style>

@@ -95,15 +95,15 @@ const replyMessage = computed(() => replies[username.value])
 <template>
   <footer class="px-3 py-2 bg-white flex items-end justify-center gap-2 w-full">
     <div class="flex-1 flex flex-col">
-      <label class="input flex flex-col w-full h-full items-center justify-center p-2 textarea" for="input">
+      <label class="input bg-gray-50 flex flex-col w-full h-full items-center justify-center p-2 textarea" for="input">
         <div
           v-if="isReplying"
-          class="rounded-md border-l-4 border-teal-500 bg-slate-400/40 p-1 px-2 mb-3 relative w-full"
+          class="rounded-md border-l-4 border-teal-500 bg-gray-400/40 p-1 px-2 mb-3 relative w-full"
         >
           <h3 class="text-sm font-medium text-teal-600">
             {{ replyDisplayName }}
           </h3>
-          <p class="text-xs text-slate-600 line-clamp-3">
+          <p class="text-xs text-gray-600 line-clamp-3">
             {{ replyMessage.message }}
           </p>
 

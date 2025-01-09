@@ -134,7 +134,7 @@ const logout = useLogout()
 
       <div class="h-2" />
 
-      <Button :loading="loading" class="btn-primary" :disabled="hasErrors">
+      <Button :loading="loading" class="btn-primary rounded-full px-4" :disabled="hasErrors">
         {{
           t("Save")
         }}
@@ -147,7 +147,7 @@ const logout = useLogout()
           check
         </Icon>
 
-        <span class="text-sm text-slate-800">{{ t('Signed in with Google') }}</span>
+        <span class="text-sm text-gray-800">{{ t('Signed in with Google') }}</span>
       </li>
 
       <li class="flex gap-2 items-center">
@@ -155,7 +155,7 @@ const logout = useLogout()
           check
         </Icon>
 
-        <span class="text-sm text-slate-800">{{ t('Connected with Stripe') }}</span>
+        <span class="text-sm text-gray-800">{{ t('Connected with Stripe') }}</span>
       </li>
     </ul>
   </SettingSection>

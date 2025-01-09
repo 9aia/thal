@@ -28,21 +28,23 @@ description: Tasks and items for the release.
 - Add option to copy message
 ---
 - Improve brand identity
-- Redesign the authentication route
-  - Redesign a auth view on app/ when unauthenticated
 - Improve the homepage
 - Improve the "Pricing" page and set up redirects
-- Move the "About" page to the Gaia website
+- Redesign the authentication route
+  - Redesign a auth view on app/ when unauthenticated
 - Add privacy info about account deletion (cannot delete before month ends, but users can delete manually before)
+- Move the "About" page to the Gaia website
 
 ## Bugs
 
 - Fix "Join to app" or "Try again" after checkout
 - Prevent from Prompt injection in character instructions, etc.
 
-## Misc
+## Dev Enhancements
 
 - Lint
+
+## Misc
 
 - Translate content to pt-br
 - Improve `package.json`

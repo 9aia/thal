@@ -61,7 +61,7 @@ const replyMessage = computed(() => trimReplyMessage(props.replyMessage))
 
 <template>
   <div
-    class="rounded-2xl bg-slate-100 py-1 px-3 relative w-full overflow-hidden" role="button"
+    class="rounded-2xl bg-gray-100 py-1 px-3 relative w-full overflow-hidden" role="button"
     @click="scrollToMessage"
   >
     <div class="w-1 bg-teal-500 h-full absolute top-0 left-0" />
@@ -70,6 +70,6 @@ const replyMessage = computed(() => trimReplyMessage(props.replyMessage))
       {{ replyDisplayName }}
     </h3>
 
-    <MDC :value="replyMessage" tag="article" class="text-xs text-slate-600 line-clamp-3 prose prose-slate prose-sm" />
+    <MDC :value="replyMessage" tag="article" class="text-xs text-gray-600 line-clamp-3 prose prose-slate prose-sm" />
   </div>
 </template>

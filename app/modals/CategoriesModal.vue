@@ -49,7 +49,7 @@ watch(modelValue, (value) => {
   >
     <template #default>
       <div class="px-6 pt-6 mb-4">
-        <h1 class="font-bold text-2xl mb-2 mt-4 text-slate-900">
+        <h1 class="font-bold text-2xl mb-2 mt-4 text-gray-900">
           {{ t("All categories") }}
         </h1>
 
@@ -85,7 +85,7 @@ watch(modelValue, (value) => {
         />
 
         <template v-else>
-          <p class="text-slate-500 text-sm py-2 px-6 text-center">
+          <p class="text-gray-500 text-sm py-2 px-6 text-center">
             {{ t(`No results found for "{query}"`, { query: values.search }) }}
           </p>
 

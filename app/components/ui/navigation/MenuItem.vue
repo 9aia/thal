@@ -12,7 +12,7 @@ defineProps<{
 const iconStyles = tv({
   variants: {
     color: {
-      normal: 'text-slate-800',
+      normal: 'text-gray-800',
       warning: 'text-warning',
       info: 'text-info',
       danger: 'text-error',
@@ -24,7 +24,7 @@ const titleStyles = tv({
   base: 'text-sm',
   variants: {
     color: {
-      normal: 'text-slate-900',
+      normal: 'text-gray-900',
       warning: 'text-warning font-semibold',
       danger: 'text-error font-semibold',
       info: 'text-info font-semibold',
@@ -36,7 +36,7 @@ const descriptionStyles = tv({
   base: 'text-xs',
   variants: {
     color: {
-      normal: 'text-slate-700',
+      normal: 'text-gray-700',
       warning: 'text-warning',
       danger: 'text-error',
       info: 'text-info',
@@ -67,7 +67,7 @@ const descriptionStyles = tv({
       </div>
     </div>
 
-    <Icon v-if="is.type === 'external'" class="text-slate-800">
+    <Icon v-if="is.type === 'external'" class="text-gray-800">
       north_east
     </Icon>
     <ChevronRight v-if="is.type === 'accordion'" />

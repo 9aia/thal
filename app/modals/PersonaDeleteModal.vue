@@ -65,7 +65,7 @@ const isUsernameInvalid = computed(() => {
 <template>
   <Modal v-model="isOpen">
     <template #default>
-      <h1 class="font-bold text-2xl mb-2 mt-4 text-slate-900">
+      <h1 class="font-bold text-2xl mb-2 mt-4 text-gray-900">
         {{ t("Are you sure?") }}
       </h1>
 
@@ -86,9 +86,9 @@ const isUsernameInvalid = computed(() => {
         </T>
       </div>
 
-      <p class="mb-4 mt-4 text-slate-800" />
+      <p class="mb-4 mt-4 text-gray-800" />
 
-      <p class="mb-2 text-slate-800">
+      <p class="mb-2 text-gray-800">
         <T text="To confirm, please insert {username} below:" :values="{ username: true }">
           <template #username>
             <span class="text-warning font-bold">

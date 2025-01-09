@@ -35,7 +35,7 @@ async function openTooltip() {
 
     <template #content>
       <div v-if="translation.isLoading.value" class="flex">
-        <Spinner class="text-slate-800" />
+        <Spinner class="text-gray-800" />
       </div>
 
       <div v-else class="flex flex-wrap gap-[0.4ch]">

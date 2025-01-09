@@ -1,13 +1,13 @@
 const thal = {
-  'primary': '#14b8a6',
+  'primary': '#00ffff',
   'secondary': '#0F172A',
-  'accent': '#f43f5e',
+  'accent': '#0000ff',
   'neutral': '#ffffff',
-  'base-100': '#CBD5E1',
-  'info': '#06b6d4',
-  'success': '#22c55e',
-  'warning': '#f97316',
-  'error': '#ef4444',
+  'base-100': '#F5F5F5',
+  'info': '#0000ff',
+  'success': '#00ff00',
+  'warning': '#ff6600',
+  'error': '#ff0000',
 }
 
 const fadeAnimation = {

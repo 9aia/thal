@@ -16,11 +16,11 @@ defineProps<{
       :class="color"
       class="relative overflow-hidden border-none"
     >
-      <div class="w-full h-1/2 bg-black/5 absolute top-0 -z-1" />
+      <!-- <div class="w-full h-1/2 bg-black/5 absolute top-0 -z-1" /> -->
       <Icon :name="icon" />
     </Button>
 
-    <div class="text-center text-xs" :class="isSelected ? 'text-slate-800 font-bold' : 'text-slate-900'">
+    <div class="text-center text-xs" :class="isSelected ? 'text-gray-800 font-bold' : 'text-gray-900'">
       {{ name }}
     </div>
   </div>

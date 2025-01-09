@@ -147,7 +147,7 @@ const submit = form.handleSubmit(() => isEditing.value
 <template>
   <div class="flex flex-col h-dvh justify-between">
     <Navbar>
-      <h1 class="text-lg py-2 text-primary font-bold flex items-center gap-1">
+      <h1 class="text-lg py-2 text-gradient-1 flex items-center gap-1">
         <Button size="sm" class="btn-ghost btn-circle" @click="emit('close')">
           <Icon name="arrow_back" />
         </Button>
@@ -177,7 +177,7 @@ const submit = form.handleSubmit(() => isEditing.value
 
           <div class="h-2" />
 
-          <Button :loading="loading" class="btn-primary" :disabled="hasErrors">
+          <Button :loading="loading" class="btn-primary rounded-full px-4" :disabled="hasErrors">
             {{
               t("Save")
             }}
@@ -187,3 +187,12 @@ const submit = form.handleSubmit(() => isEditing.value
     </div>
   </div>
 </template>
+
+<style scoped>
+.text-gradient-1 {
+  background: radial-gradient(theme('colors.blue.500'), theme('colors.cyan.500')) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+</style>

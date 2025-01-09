@@ -42,7 +42,7 @@ const submit = form.handleSubmit(async (data) => {
 <template>
   <Modal v-model="isOpen" :loading="loading" :confirm-text="t('Save')" @confirm="submit">
     <template #default>
-      <h1 class="font-bold text-2xl mb-2 mt-4 text-slate-900">
+      <h1 class="font-bold text-2xl mb-2 mt-4 text-gray-900">
         {{ t("Select the interface language") }}
       </h1>
 

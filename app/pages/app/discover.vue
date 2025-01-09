@@ -18,8 +18,8 @@ const { t } = useI18n()
     </template>
 
     <template #content>
-      <Navbar class="px-3 py-2 bg-slate-800 flex gap-2 h-[64px]">
-        <h1 class="text-lg py-2 text-primary font-bold flex items-center gap-1">
+      <Navbar class="px-3 py-2 bg-gray-800 flex gap-2 h-[64px]">
+        <h1 class="text-lg py-2 text-blue-500 flex items-center gap-1">
           <Button size="sm" class="btn-ghost lg:hidden btn-circle" @click="isRootDrawerOpen = true">
             <Icon name="arrow_back" />
           </Button>

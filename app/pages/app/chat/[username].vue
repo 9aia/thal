@@ -230,9 +230,9 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
             id="chat-container"
             ref="scrollContainer"
             :tabindex="0"
-            class="bg-slate-200 py-4 px-2 sm:px-12 flex-1 overflow-y-auto relative focus:outline-none"
+            class="bg-gray-50 py-4 px-2 sm:px-12 flex-1 overflow-y-auto relative focus:outline-none"
           >
-            <div class="mb-4 text-slate-800 text-xs bg-orange-100 px-4 py-2 rounded-lg flex gap-1">
+            <div class="mb-4 text-gray-800 text-xs bg-gradient-2 px-4 py-2 rounded-lg flex gap-1">
               <Icon name="science" class="text-green-500" style="font-size: 1.15rem" />
               <p>
                 {{ t('This app is for educational and entertainment purposes only. Content and interactions do not represent professional instruction. Verify information independently and use responsibly.') }}
@@ -241,22 +241,22 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
 
             <div
               v-if="!hasContact"
-              class="card bg-neutral text-neutral-content text-center sm:max-w-lg mx-auto"
+              class="bg-gradient-1 text-gray-800 text-center sm:max-w-lg mx-auto rounded-3xl"
             >
-              <div class="card-body">
-                <Avatar :name="avatarName" class="mx-auto w-20 h-20 text-lg bg-slate-300 text-slate-800" />
+              <div class="py-8">
+                <Avatar :name="avatarName" class="mx-auto w-20 h-20 text-lg bg-gray-100 text-gray-800" />
 
-                <h2 class="text-slate-900 text-center mb-1">
+                <h2 class="text-gray-900 text-center mb-1">
                   {{ displayName }}
                 </h2>
-                <small class="text-slate-600 text-xs">~ {{ data?.description }}</small>
+                <small class="text-gray-600 text-xs">~ {{ data?.description }}</small>
 
-                <p class="mb-2 text-slate-600 text-sm">
+                <p class="mb-2 text-gray-600 text-sm">
                   {{ t('Not a contact') }}
                 </p>
 
                 <div class="card-actions justify-center">
-                  <Button class="btn-outline btn-primary" @click="addContact()">
+                  <Button class="border border-cyan-500 bg-transparent rounded-full px-4 py-1 hover:border-cyan-500 text-black hover:bg-cyan-500" @click="addContact()">
                     <Icon name="person_add" />
                     Add
                   </Button>
@@ -285,3 +285,13 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
     </template>
   </AppLayout>
 </template>
+
+<style>
+.bg-gradient-1 {
+  background: radial-gradient(theme('colors.blue.50'), theme('colors.gray.50'));
+}
+
+.bg-gradient-2 {
+  background: radial-gradient(theme('colors.yellow.50'), theme('colors.gray.50'));
+}
+</style>

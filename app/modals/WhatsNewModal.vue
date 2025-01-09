@@ -15,7 +15,7 @@ const locale = useLocale()
     no-padding
     content-class="pb-6"
   >
-    <h1 class="px-6 pt-6 mb-2 mt-4 font-bold text-2xl text-slate-900">
+    <h1 class="px-6 pt-6 mb-2 mt-4 font-bold text-2xl text-gray-900">
       {{ t("What's New") }}
     </h1>
 
@@ -27,7 +27,7 @@ const locale = useLocale()
             :key="article._path"
             class="flex flex-col"
           >
-            <h2 class="text-xl text-slate-900">
+            <h2 class="text-xl text-gray-900">
               {{ article.title }}
             </h2>
 
@@ -37,13 +37,13 @@ const locale = useLocale()
 
             <ContentRendererMarkdown :value="article" class="prose prose-slate prose-sm" />
 
-            <div v-if="i !== list.length - 1" class="b-1 w-full border border-slate-400/50 my-6" />
+            <div v-if="i !== list.length - 1" class="b-1 w-full border border-gray-400/50 my-6" />
           </div>
         </template>
 
         <template #not-found>
           <div class="flex flex-col items-center justify-center h-full">
-            <p class="text-slate text-center text-lg font-semibold mb-4">
+            <p class="text-gray-800 text-center text-lg font-semibold mb-4">
               {{ t('No articles found') }}
             </p>
           </div>

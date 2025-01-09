@@ -32,13 +32,13 @@ const menuItems: MenuItem[] = [
 
 <template>
   <div>
-    <div class="text-center bg-teal-500 text-slate-800 py-2 px-4">
+    <div class="text-center bg-teal-500 text-gray-800 py-2 px-4">
       We're currently undergoing active development!
     </div>
 
     <Header>
       <template #navbar-end>
-        <div class="flex items-center gap-2 text-slate-900">
+        <div class="flex items-center gap-2 text-gray-900">
           <div>
             <div v-if="!!user">
               <div class="dropdown dropdown-end">

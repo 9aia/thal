@@ -48,7 +48,7 @@ const team = [
           <h2 class="text-center mb-2 text-gray-500 font-bold italic">
             {{ t("Our mission") }}
           </h2>
-          <p class="text-3xl max-w-2xl sm:text-5xl text-primary text-center">
+          <p class="text-3xl max-w-2xl sm:text-5xl text-gradient-1 text-center">
             {{
               t(
                 "Transforming English learning with AI-powered personalization.",
@@ -62,7 +62,7 @@ const team = [
     <section class="pb-20 bg-white">
       <div class="px-4 max-w-[800px] mx-auto mt-16 gap-6 grid grid-cols-1 sm:grid-cols-2">
         <div>
-          <h2 class="text-slate-800 text-4xl font-bold mb-4">
+          <h2 class="text-gray-800 text-4xl font-bold mb-4">
             {{ t("Our values") }}
           </h2>
 
@@ -77,12 +77,12 @@ const team = [
 
         <div>
           <div class="flex flex-col gap-4">
-            <div v-for="(item, i) in items" :key="i" class="collapse collapse-plus border border-primary">
+            <div v-for="(item, i) in items" :key="i" class="collapse collapse-plus border border-blue-500">
               <input type="radio" name="my-accordion-3" value="checked">
-              <div class="collapse-title text-slate-800 font-bold text-xl">
+              <div class="collapse-title text-gray-800 font-bold text-xl">
                 {{ t(item.title) }}
               </div>
-              <div class="collapse-content text-slate-900">
+              <div class="collapse-content text-gray-900">
                 <p>{{ item.text }}</p>
               </div>
             </div>
@@ -91,9 +91,9 @@ const team = [
       </div>
     </section>
 
-    <section class="pb-20 bg-slate-300">
+    <section class="pb-20 bg-white">
       <div class="px-4 max-w-[800px] mx-auto mt-16">
-        <h2 class="text-slate-800 text-center text-4xl font-bold mb-4">
+        <h2 class="text-gray-800 text-center text-4xl font-bold mb-4">
           {{ t("Our team") }}
         </h2>
 
@@ -108,20 +108,20 @@ const team = [
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div v-for="(item, i) in team" :key="i" class="card w-full !bg-transparent border border-slate-800 shadow-xl image-full">
+          <div v-for="(item, i) in team" :key="i" class="card w-full !bg-transparent border border-blue-500 shadow-xl image-full">
             <figure class="p-24">
               <img :src="item.logo" alt="Logo">
             </figure>
             <div class="card-body">
               <div>
-                <h2 class="card-title text-slate-800 font-bold">
+                <h2 class="card-title text-gray-800 font-bold">
                   {{ t(item.name) }}
                 </h2>
-                <p class="text-slate-900">
+                <p class="text-gray-900">
                   {{ t(item.role) }}
                 </p>
               </div>
-              <p class="text-slate-900">
+              <p class="text-gray-900">
                 {{ t(item.description) }}
               </p>
 
@@ -137,3 +137,9 @@ const team = [
     </section>
   </div>
 </template>
+
+<style>
+.text-gradient-1 {
+  @apply bg-clip-text text-transparent bg-gradient-to-tr from-blue-500 to-cyan-500;
+}
+</style>

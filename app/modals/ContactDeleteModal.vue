@@ -45,11 +45,11 @@ const {
 <template>
   <Modal v-model="isOpen">
     <template #default>
-      <h1 class="font-bold text-2xl mb-2 mt-4 text-slate-900">
+      <h1 class="font-bold text-2xl mb-2 mt-4 text-gray-900">
         {{ t("Deleting Contact") }}
       </h1>
 
-      <p class="mb-4 mt-4 text-slate-800">
+      <p class="mb-4 mt-4 text-gray-800">
         {{ t("Are you sure you want to delete this contact?") }}
       </p>
     </template>

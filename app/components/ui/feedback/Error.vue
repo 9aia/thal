@@ -15,7 +15,7 @@ const isForbidden = computed(() => props.error.statusCode === 403)
 </script>
 
 <template>
-  <div class="card w-96 bg-slate-800 text-primary-content">
+  <div class="card w-96 bg-gray-800 text-primary-content">
     <div class="card-body items-center text-center">
       <h2 class="card-title text-teal-500">
         <slot
