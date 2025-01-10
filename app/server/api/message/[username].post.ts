@@ -96,8 +96,17 @@ export default eventHandler(async (event) => {
 
   const gemini = getGemini(GEMINI_API_KEY)
 
+  const datetime = new Date(userMessageTime).toLocaleString('en-US', {
+    timeZone: 'UTC',
+    hour12: false,
+  })
+
   const SYSTEM_INSTRUCTIONS = `
     You are ${persona.name}, and your username is ${result.username}. Respond in English and maintain a conversational tone. Act like you're chatting with the user, ${user.name} ${user.lastName} (username: ${user.username}). Keep your replies natural and avoid long, narrative-style responses. Stick to the flow of a chat.
+
+    ANSWER IN PURE TEXT. Do not include any special formatting.
+
+    Time: ${datetime}.
 
     Your description: ${persona.description}.
 
