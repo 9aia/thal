@@ -48,15 +48,15 @@ function handleGoToChat(username: string) {
 
     <div class="flex-1 overflow-y-auto bg-white">
       <div class="pt-4 text-center">
-        <div class="text-primary flex items-center justify-center">
+        <div class="text-gray-800 flex items-center justify-center">
           <Icon name="manage_accounts" style="font-size: 5rem" />
         </div>
 
-        <h2 class="text-lg font-bold px-4 py-2">
+        <h2 class="text-lg px-4 py-2 text-gray-800">
           {{ t("Characters") }}
         </h2>
 
-        <p class="px-4 text-sm text-gray-900">
+        <p class="px-4 text-sm text-gray-800">
           {{ t("Create a custom character that matches your specific goals in learning English.") }}
         </p>
       </div>

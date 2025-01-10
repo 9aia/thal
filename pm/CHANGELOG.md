@@ -25,7 +25,7 @@ description: A detailed, chronological record of all changes made to a project, 
   - List characters with name, username, and category badges
 - Implemented Chats: list, search, send and receive messages, view history
 - Implemented Contacts: manage (add, edit, delete, search), view, and initiate chats from contact profiles
-- Added language assistance features including translation
+- Added language assistance features including translation and listening to messages
 - Created "What's New"
 - Added moderation tools including reporting mechanisms
 - Created and linked issue report and feedback forms using Google Forms

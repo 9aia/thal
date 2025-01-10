@@ -140,6 +140,7 @@ const team = [
 
 <style>
 .text-gradient-1 {
-  @apply bg-clip-text text-transparent bg-gradient-to-tr from-blue-500 to-cyan-500;
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-500;
+
 }
 </style>

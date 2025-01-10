@@ -14,7 +14,6 @@ description: Tasks and items for the release.
   - Add "about me" textarea in profile to help AI generate message suggestions
   - Add message suggestion generator with a input to prompt (useful for generating from an idea)
   - Add next message suggestions (2-4 options)
-  - Add message option "Listen to"
 
 - ---
 - Add language drawer containing UI language and translation settings
@@ -22,9 +21,10 @@ description: Tasks and items for the release.
 - Implement basic analytics to track user engagement and app performance
 - Add logger
 
+- Add config for time
+
 ## Enhancements
 
-- Improve prompt to chats be more conversational/chat-like
 - Add option to copy message
 ---
 - Improve brand identity

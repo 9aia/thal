@@ -6,6 +6,7 @@ description: A collection of ideas and feedback from stakeholders or team member
 
 ## Features
 
+- Add markdown
 - Add official characters
 - Add onboarding custom character
 - Add Spanish and/or other languages

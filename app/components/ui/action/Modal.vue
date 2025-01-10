@@ -40,11 +40,11 @@ watch([visible, dialog], () => {
   <ClientOnly>
     <dialog
       ref="dialog"
-      class="modal modal-bottom sm:modal-middle"
+      class="modal modal-bottom sm:modal-middle "
       @close="visible = false"
     >
       <form
-        class="modal-box rounded-none"
+        class="modal-box rounded-none bg-white"
         method="dialog"
         :class="{
           'p-0': props.noPadding,

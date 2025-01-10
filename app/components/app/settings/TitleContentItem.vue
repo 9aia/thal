@@ -12,7 +12,7 @@ defineProps<{
         <div class="flex flex-col space-y-0 w-full">
           <div class="flex items-center space-x-2">
             <slot name="icon" />
-            <span class="text-primary font-bold text-sm">{{ label }}</span>
+            <span class="text-gray-800 text-sm">{{ label }}</span>
           </div>
 
           <div class="flex gap-2 w-full pt-1">

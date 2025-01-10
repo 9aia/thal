@@ -15,7 +15,7 @@ const {
 </script>
 
 <template>
-  <div v-if="translation" class="bg-yellow-100 rounded-2xl px-3 py-2 min-h-[38px] flex items-start justify-between gap-2 group/translation">
+  <div v-if="translation" class="bg-gradient-7 rounded-2xl px-3 py-2 min-h-[38px] flex items-start justify-between gap-2 group/translation">
     <div>
       <MDC :value="translation" tag="article" class="prose prose-slate prose-sm" />
     </div>
@@ -29,9 +29,9 @@ const {
 
   <div
     v-if="isError && isOpen"
-    class="bg-red-100 rounded-lg mt-2 mb-1 px-3 py-2 min-h-[38px] flex items-start justify-between gap-2 group/translation"
+    class="bg-gradient-8 rounded-lg mt-2 mb-1 px-3 py-2 min-h-[38px] flex items-start justify-between gap-2 group/translation"
   >
-    <div class="text-error">
+    <div class="text-gray-800 text-sm">
       {{ t("An error occurred while translating the message") }}
     </div>
 
@@ -46,3 +46,13 @@ const {
     </div>
   </div>
 </template>
+
+<style scoped>
+.bg-gradient-7 {
+  background: radial-gradient(theme('colors.yellow.100'), theme('colors.white'));
+}
+
+.bg-gradient-8 {
+  background: radial-gradient(theme('colors.red.100'), theme('colors.white'));
+}
+</style>

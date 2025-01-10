@@ -98,9 +98,9 @@ const replyMessage = computed(() => replies[username.value])
       <label class="input bg-gray-50 flex flex-col w-full h-full items-center justify-center p-2 textarea" for="input">
         <div
           v-if="isReplying"
-          class="rounded-md border-l-4 border-teal-500 bg-gray-400/40 p-1 px-2 mb-3 relative w-full"
+          class="rounded-lg rounded-bl-none border-l border-gray-100 p-3 mb-3 relative w-full"
         >
-          <h3 class="text-sm font-medium text-teal-600">
+          <h3 class="text-sm font-medium text-brown-500">
             {{ replyDisplayName }}
           </h3>
           <p class="text-xs text-gray-600 line-clamp-3">
@@ -135,3 +135,11 @@ const replyMessage = computed(() => replies[username.value])
     </div>
   </footer>
 </template>
+
+<style scoped>
+.bg-gradient-6 {
+  background: linear-gradient(to right, theme('colors.blue.50'), theme('colors.blue.100'), theme('colors.blue.50'));
+
+  background: radial-gradient(circle, theme('colors.white'), theme('colors.magenta.50'));
+}
+</style>

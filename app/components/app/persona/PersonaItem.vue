@@ -41,7 +41,7 @@ const items: MenuItem[] = [
       class="flex-1 flex flex-col justify-center"
     >
       <div class="py-1">
-        <div class="flex gap-2 items-center text-base text-gray-900 font-bold">
+        <div class="flex gap-2 items-center text-base text-gray-900">
           {{ name }}
 
           <div

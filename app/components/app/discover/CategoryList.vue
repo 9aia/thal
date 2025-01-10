@@ -26,7 +26,7 @@ function checkIsSelected(categoryId: number) {
   >
     <Icon
       :name="category.icon"
-      class="text-cyan-500"
+      class="text-gray-800"
     />
 
     <div :class="checkIsSelected(category.id) ? 'text-primary' : 'text-gray-800 group-hover:underline'">

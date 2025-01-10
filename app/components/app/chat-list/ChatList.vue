@@ -98,11 +98,11 @@ async function openWhatsNewModal() {
       </div>
     </Navbar>
 
-    <div v-show="isNoteVisible" class="bg-gray-200 px-3 py-4 flex items-center justify-between w-min-full">
+    <div v-show="isNoteVisible" class="bg-gradient-1 px-3 py-4 flex items-center justify-between w-min-full">
       <div class="flex items-center gap-2">
         <div>
           <div class="p-2 flex items-center justify-center">
-            <Icon name="waving_hand" class="text-primary" />
+            <Icon name="waving_hand" class="text-gray-800" />
           </div>
         </div>
 
@@ -117,7 +117,7 @@ async function openWhatsNewModal() {
 
         <div>
           <button class="btn btn-md btn-ghost btn-circle" @click="isNoteVisible = false">
-            <Icon name="close" class="text-primary" />
+            <Icon name="close" class="text-gray-800" />
           </button>
         </div>
       </div>
@@ -156,9 +156,15 @@ async function openWhatsNewModal() {
     </div>
 
     <div class="absolute bottom-4 right-4">
-      <Button size="md" class="btn-circle btn-primary" @click="drawers.newChat = true">
+      <Button size="md" class="btn-circle border-none bg-cyan-500" @click="drawers.newChat = true">
         <Icon name="add" />
       </Button>
     </div>
   </div>
 </template>
+
+<style scoped>
+.bg-gradient-1 {
+  background: radial-gradient(theme('colors.blue.100'), theme('colors.white')) !important;
+}
+</style>

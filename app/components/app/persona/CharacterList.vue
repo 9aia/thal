@@ -82,7 +82,7 @@ onMounted(() => {
 
       <div class="space-y-4">
         <div class="flex justify-between px-4">
-          <h2 class="text-gray-800 text-sm font-bold">
+          <h2 class="text-brown-500 text-sm">
             {{ t("Categories") }}
           </h2>
           <button
@@ -112,7 +112,7 @@ onMounted(() => {
       </div>
 
       <div class="space-y-2">
-        <h2 class="text-gray-800 font-bold px-4 text-sm">
+        <h2 class="text-brown-500 px-4 text-sm">
           {{ t("Characters") }}
         </h2>
 
@@ -152,6 +152,6 @@ onMounted(() => {
 
 <style scoped>
 .bg-gradient-1 {
-  background: radial-gradient(at top, theme('colors.magenta.50'), theme('colors.gray.50'));
+  background: radial-gradient(at top, theme('colors.green.50'), theme('colors.gray.50'));
 }
 </style>

@@ -4,23 +4,22 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 # Backlog
 
+## Security
+
+- Verify necessity of rate-limit to Google auth callback
+- Verify necessity of preventing bots
+
 ## Features
 
 - Add date stamps in chat
 - Add unread badge
-- Add dark theme
-- Add markdown preview in the message input
 - Add calls
 - Add character unique voices
 - Add character knowledge
 - Add profile photos (generate or upload)
 - Add a deleted/non-existent section in contacts
 - Add character search results to chat and contact search
-
-## Security
-
-- Verify necessity of rate-limit to Google auth callback
-- Verify necessity of preventing bots
+- Add dark theme
 
 ## Bugs
 
@@ -31,7 +30,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Check user plan in API routes that are necessary
 - Allow users to use only one session
 - Handle invalid sessions
-- Fix bug copying HTML in messages
+- Remove <br> appearing when copying HTML into the ContentEditable
 - Fix locale change routing (remove `/{locale}` from `/app`)
   - Use locale param in site routes
 

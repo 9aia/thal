@@ -138,12 +138,12 @@ const date = computed(() => {
             <Username :username="data?.username!" :show-copy="true" class="mx-auto" />
 
             <div class="w-full flex justify-center mt-3 gap-2">
-              <Button v-if="!hasContact" size="sm" class="bg-transparent border border-cyan-500 rounded-full text-black hover:border-cyan-500 hover:bg-cyan-500 flex" @click="addContact">
+              <Button v-if="!hasContact" size="sm" class="border-none bg-cyan-500 rounded-full text-black  hover:bg-cyan-600 py-2 px-4 flex" @click="addContact">
                 <Icon name="person_add" />
                 <span class="">{{ t('Save') }}</span>
               </Button>
 
-              <Button size="sm" class="bg-transparent border border-cyan-500 rounded-full text-black hover:border-cyan-500 hover:bg-cyan-500 flex" @click="copyUrl">
+              <Button size="sm" class="border-none bg-cyan-500 rounded-full text-black  hover:bg-cyan-600 py-2 px-4 flex" @click="copyUrl">
                 <Icon name="ios_share" />
                 <span class="">{{ t('Share') }}</span>
               </Button>

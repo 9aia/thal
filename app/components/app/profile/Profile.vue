@@ -14,7 +14,7 @@ const user = useUser()
 <template>
   <div class="flex flex-col h-dvh justify-between">
     <Navbar>
-      <h1 class="text-lg py-2 text-primary font-bold flex items-center gap-1">
+      <h1 class="text-lg py-2 text-gradient-1 flex items-center gap-1">
         <Button size="sm" class="btn-ghost btn-circle" @click="emit('close')">
           <Icon name="arrow_back" />
         </Button>
@@ -29,7 +29,7 @@ const user = useUser()
         <SettingSection class="space-y-4">
           <TitleContentItem :label="t('Name')" role="button" @click="drawers.account = true">
             <template #icon>
-              <Icon class="text-primary">
+              <Icon class="text-gray-800">
                 person
               </Icon>
             </template>
@@ -49,7 +49,7 @@ const user = useUser()
 
           <TitleContentItem :label="t('Username')" role="button" @click="drawers.account = true">
             <template #icon>
-              <Icon class="text-primary">
+              <Icon class="text-gray-800">
                 id_card
               </Icon>
             </template>
@@ -65,3 +65,12 @@ const user = useUser()
     </div>
   </div>
 </template>
+
+<style scoped>
+.text-gradient-1 {
+  background: radial-gradient(theme('colors.blue.500'), theme('colors.cyan.500')) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+</style>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from '@psitta/vue'
+import { useMutation } from '@tanstack/vue-query'
 
 const props = defineProps<{
   text: string
@@ -7,30 +8,44 @@ const props = defineProps<{
 const { t } = useI18n()
 const toast = useToast()
 
-const loading = ref(false)
 const speech = useSpeech(props.text)
 
-async function play() {
-  try {
-    loading.value = true
-    await speech.synthesize()
-  }
-  catch (e) {
-    const _ = e
-    toast.error(t('Error synthesizing voice.'))
-    return
-  }
-  finally {
-    loading.value = false
-  }
+const playMutation = useMutation({
+  mutationFn: async () => {
+    if (!speech.hasDataFetched.value) {
+      await speech.synthesize()
+    }
 
-  speech.play()
-}
+    speech.play()
+  },
+  onError: () => toast.error(t('Error synthesizing voice.')),
+})
+
+const currentWord = computed(() => speech.currentWord.value)
+
+const textParts = computed(() => {
+  const text = props.text.trim()
+  return text.split(/\s+/)
+})
+
+defineExpose({
+  playMutation,
+})
 </script>
 
 <template>
-  <button :loading="loading" class="flex items-center" @click="play">
-    <Icon>volume_up</Icon>
-    <SpeechHighlight :text="props.text" :current-word="speech.currentWord.value" />
-  </button>
+  <article class="text-sm text-gray-700 text-left">
+    <span v-for="part, j in textParts" :key="j" :class="{ 'text-gradient-4': j === currentWord }">
+      {{ ' ' }}
+      {{ part }}
+    </span>
+  </article>
 </template>
+
+<style scoped>
+.text-gradient-4 {
+  background: linear-gradient(#f0f, #f00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+</style>

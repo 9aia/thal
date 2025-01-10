@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Translation } from '~/composables/useTranslation'
 
-const props = defineProps<{
+defineProps<{
   translation: Translation
   right: boolean
 }>()
@@ -9,12 +9,6 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'setReply'): void
 }>()
-
-const hideTranslateButton = computed(() => {
-  return props.translation.isOpen.value === true
-    && !props.translation.isError.value
-    && !props.translation.isLoading.value
-})
 </script>
 
 <template>
@@ -22,21 +16,6 @@ const hideTranslateButton = computed(() => {
     class="w-[108px] flex gap-1"
     :class="right ? 'flex-row-reverse' : 'flex-row'"
   >
-    <Button
-      v-if="!hideTranslateButton"
-      shape="circle"
-      size="sm"
-      :class="translation.isLoading.value ? 'block' : 'hidden group-hover:block'"
-      :loading="translation.isLoading.value"
-      @click="translation.onTranslate"
-    >
-      <Icon
-        v-if="!translation.isLoading.value"
-        name="translate"
-        style="font-size: 1rem"
-      />
-    </Button>
-
     <Button
       shape="circle"
       size="sm"

@@ -14,7 +14,7 @@ const copy = useCopyUsername(props.username)
     <button
       v-if="showCopy && username"
       size="sm"
-      class="text-teal-500 hover:text-teal-600 flex items-center"
+      class="text-blue-500 hover:text-blue-600 flex items-center"
       @click.stop.prevent="copy"
     >
       <Icon name="content_copy" style="font-size: 1.15rem" />

@@ -134,7 +134,7 @@ const logout = useLogout()
 
       <div class="h-2" />
 
-      <Button :loading="loading" class="btn-primary rounded-full px-4" :disabled="hasErrors">
+      <Button :loading="loading" class="border-none bg-gradient-5 rounded-full px-4" :disabled="hasErrors">
         {{
           t("Save")
         }}
@@ -181,3 +181,9 @@ const logout = useLogout()
     </template>
   </SettingSection>
 </template>
+
+<style scoped>
+.bg-gradient-5 {
+  background: linear-gradient(35deg, theme('colors.cyan.50'), theme('colors.cyan.500')) !important;
+}
+</style>

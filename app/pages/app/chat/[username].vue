@@ -211,7 +211,7 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
     </template>
 
     <template #content>
-      <div class="flex flex-col h-dvh justify-center items-center">
+      <div class="flex flex-col h-dvh justify-center items-center bg-gray-50">
         <StyledResource
           :loading="isPending"
           :error="isError"
@@ -256,7 +256,7 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
                 </p>
 
                 <div class="card-actions justify-center">
-                  <Button class="border border-cyan-500 bg-transparent rounded-full px-4 py-1 hover:border-cyan-500 text-black hover:bg-cyan-500" @click="addContact()">
+                  <Button class="bg-cyan-500 border-none rounded-full px-4 py-2 text-gray-800 hover:bg-cyan-400" @click="addContact()">
                     <Icon name="person_add" />
                     Add
                   </Button>
@@ -288,10 +288,10 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
 
 <style>
 .bg-gradient-1 {
-  background: radial-gradient(theme('colors.blue.50'), theme('colors.gray.50'));
+  background: radial-gradient(theme('colors.cyan.100'), theme('colors.gray.50'));
 }
 
 .bg-gradient-2 {
-  background: radial-gradient(theme('colors.yellow.50'), theme('colors.gray.50'));
+  background: radial-gradient(theme('colors.yellow.100'), theme('colors.gray.50'));
 }
 </style>

@@ -82,7 +82,7 @@ const items = computed<MenuItem[]>(() => [
 
     <div class="flex-1 flex items-center justify-between gap-4">
       <div tabindex="0" role="button" class="block w-full" @click="openContactView(username)">
-        <span class="text-gradient-1">
+        <span class="text-gray-800">
           {{ name }}
         </span>
       </div>
@@ -99,12 +99,3 @@ const items = computed<MenuItem[]>(() => [
     </div>
   </header>
 </template>
-
-<style scoped>
-.text-gradient-1 {
-  background: radial-gradient(theme('colors.magenta.500'), theme('colors.blue.500')) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  color: transparent !important;
-}
-</style>

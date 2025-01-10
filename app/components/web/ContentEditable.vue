@@ -73,16 +73,21 @@ defineExpose({
     inputRef.value.focus()
   },
 })
+
+function handlePaste(event: ClipboardEvent) {
+  event.preventDefault()
+  const plainText = event.clipboardData?.getData('text/plain')
+
+  if (inputRef.value) {
+    document.execCommand('insertText', false, plainText)
+  }
+}
 </script>
 
 <template>
   <component
-    :is="props.is"
-    ref="inputRef"
-    role="textbox"
-    contenteditable
-    @input="edit"
-    @blur="saveCursorPosition"
+    :is="props.is" ref="inputRef" role="textbox" contenteditable @input="edit" @blur="saveCursorPosition"
+    @paste="handlePaste"
   />
 </template>
 

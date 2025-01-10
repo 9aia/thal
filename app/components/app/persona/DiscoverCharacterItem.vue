@@ -40,7 +40,7 @@ const category = computed(() => {
     <div class="flex-1 flex flex-col justify-center">
       <div class="flex justify-between">
         <div class="flex flex-col">
-          <div class="flex gap-2 items-center text-base text-gray-900 font-bold">
+          <div class="flex gap-2 items-center text-base text-gray-900">
             {{ name }}
 
             <Username :username="username" :show-copy="true" />
@@ -65,7 +65,7 @@ const category = computed(() => {
         <div class="flex gap-2 items-center">
           <button
             v-if="showSendMessage && username"
-            class="text-teal-500 hover:text-teal-600"
+            class="text-gray-800 hover:text-gray-600"
           >
             <Icon name="chat" />
           </button>

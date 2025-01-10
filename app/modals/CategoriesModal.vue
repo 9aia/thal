@@ -85,11 +85,11 @@ watch(modelValue, (value) => {
         />
 
         <template v-else>
-          <p class="text-gray-500 text-sm py-2 px-6 text-center">
+          <p class="text-orange-500 text-sm py-2 px-6 text-center">
             {{ t(`No results found for "{query}"`, { query: values.search }) }}
           </p>
 
-          <h2 class="font-bold text-sm py-2 text-primary px-6">
+          <h2 class="text-sm py-2 text-brown-500 px-6">
             {{ t("Browse by categories") }}
           </h2>
 
