@@ -23,7 +23,7 @@ onMounted(() => {
   <div class="flex flex-col h-dvh justify-between">
     <Navbar>
       <h1 class="text-lg py-2 text-gradient-1 flex items-center gap-1">
-        <Button size="sm" class="btn-ghost btn-circle" @click="emit('close')">
+        <Button size="sm" class="btn-ghost" shape="circle" @click="emit('close')">
           <Icon name="arrow_back" />
         </Button>
         {{ t("Settings") }}
@@ -101,7 +101,7 @@ onMounted(() => {
 
 <style scoped>
 .bg-gradient-1 {
-  background: radial-gradient(circle, theme('colors.magenta.50'), theme('colors.white'));
+  background: radial-gradient(circle at bottom, theme('colors.magenta.50'), theme('colors.white'));
 }
 
 .text-gradient-1 {

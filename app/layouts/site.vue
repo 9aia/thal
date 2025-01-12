@@ -48,7 +48,7 @@ const menuItems: MenuItem[] = [
               </div>
             </div>
 
-            <A v-else class="link link-primary" href="/sign-in">
+            <A v-else class="link link-red-500" href="/sign-in">
               {{ t("Sign in") }}
             </A>
           </div>

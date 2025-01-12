@@ -120,8 +120,8 @@ const localeModal = useLocaleModal()
 
 <style>
 .bg-gradient-footer {
-  background-image: radial-gradient(at center left,
-      theme('colors.magenta.500'),
+  background-image: radial-gradient(at center bottom,
+      theme('colors.magenta.100'),
       theme('colors.white'));
       background-size: 100% 100%;
 }

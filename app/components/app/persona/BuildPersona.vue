@@ -131,7 +131,7 @@ const { mainField } = useBuildPersonaFocus()
   <div class="flex flex-col h-dvh justify-between">
     <Navbar>
       <h1 class="text-lg py-2 text-gradient-1 flex items-center gap-1">
-        <Button size="sm" class="btn-ghost btn-circle" @click="emit('close')">
+        <Button size="sm" class="btn-ghost" shape="circle" @click="emit('close')">
           <Icon name="arrow_back" />
         </Button>
         {{ t("Build Character") }}

@@ -26,7 +26,7 @@ const variants = {
   shape: {
     circle: 'btn-circle',
     square: 'btn-square',
-    normal: '',
+    normal: 'rounded-full px-4 py-2',
   },
 } as const
 

@@ -152,6 +152,9 @@ onMounted(() => {
 
 <style scoped>
 .bg-gradient-1 {
-  background: radial-gradient(at top, theme('colors.green.50'), theme('colors.gray.50'));
+  background: radial-gradient(at top,
+  theme('colors.gray.100'),
+  theme('colors.white')
+  );
 }
 </style>

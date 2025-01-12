@@ -165,6 +165,6 @@ async function openWhatsNewModal() {
 
 <style scoped>
 .bg-gradient-1 {
-  background: radial-gradient(theme('colors.blue.100'), theme('colors.white')) !important;
+  background: radial-gradient(at top, theme('colors.blue.100'), theme('colors.white')) !important;
 }
 </style>

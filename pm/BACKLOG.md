@@ -24,6 +24,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 ## Bugs
 
 - Use a single table for user and character usernames
+- Fix listening to long messages
 - Lower every username comparison
 - Rewrite left joins using Query API
 - Replace web modal API

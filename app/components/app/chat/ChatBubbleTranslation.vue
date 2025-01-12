@@ -49,10 +49,10 @@ const {
 
 <style scoped>
 .bg-gradient-7 {
-  background: radial-gradient(theme('colors.yellow.100'), theme('colors.white'));
+  background: radial-gradient(at top, theme('colors.yellow.100'), theme('colors.white'));
 }
 
 .bg-gradient-8 {
-  background: radial-gradient(theme('colors.red.100'), theme('colors.white'));
+  background: radial-gradient(at top, theme('colors.red.100'), theme('colors.white'));
 }
 </style>

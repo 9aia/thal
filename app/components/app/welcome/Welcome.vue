@@ -42,6 +42,6 @@ import { isRootDrawerOpen } from '~/store'
 
 <style scoped>
 .bg-gradient-1 {
-  background: radial-gradient(at bottom, theme('colors.blue.100'), theme('colors.gray.50'));
+  background: radial-gradient(at bottom, theme('colors.gray.100'), theme('colors.gray.50'));
 }
 </style>

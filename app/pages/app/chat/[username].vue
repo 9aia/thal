@@ -288,10 +288,10 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
 
 <style>
 .bg-gradient-1 {
-  background: radial-gradient(theme('colors.cyan.100'), theme('colors.gray.50'));
+  background: radial-gradient(at top, theme('colors.blue.100'), theme('colors.gray.50'));
 }
 
 .bg-gradient-2 {
-  background: radial-gradient(theme('colors.yellow.100'), theme('colors.gray.50'));
+  background: radial-gradient(at bottom, theme('colors.yellow.100'), theme('colors.gray.50'));
 }
 </style>

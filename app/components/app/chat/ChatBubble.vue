@@ -74,7 +74,7 @@ const audiableTextMutation = computed(() => {
 
       <div
         class="bg-white rounded-3xl px-4 py-2 min-w-32 max-w-[300px] sm:max-w-[400px] lg:max-w-[500px] bubble"
-        :class="[[replyMessage ? 'px-0 py-1' : 'px-1', right ? 'rounded-tr-md' : 'rounded-tl-md']]"
+        :class="[[replyMessage ? 'px-0 py-1' : 'px-1', right ? 'rounded-br-md' : 'rounded-bl-md']]"
       >
         <div v-if="!!replyMessage" class="px-1 mb-1">
           <ChatReply
@@ -109,6 +109,7 @@ const audiableTextMutation = computed(() => {
       <div class="flex gap-1 items-center" :class="{ 'flex-row-reverse': !right }">
         <Button
           v-if="(from === 'user') && showResend" class="btn btn-sm btn-circle btn-ghost btn-gray text-magenta-500 hidden group-hover:block"
+          shape="circle"
           @click="emit('resend')"
         >
           <Icon style="font-size: 1.15rem">
@@ -118,6 +119,7 @@ const audiableTextMutation = computed(() => {
 
         <Button
           class="text-gray-800 btn-circle btn-ghost hidden group-hover:block"
+          shape="circle"
           no-disable-on-loading
           :loading="audiableTextMutation?.isPending.value"
           @click="audiableTextMutation?.mutate()"
@@ -129,6 +131,7 @@ const audiableTextMutation = computed(() => {
 
         <Button
           class="text-gray-800 btn-circle btn-ghost hidden group-hover:block"
+          shape="circle"
           :loading="translation.isLoading.value"
           @click="translation.onTranslate()"
         >

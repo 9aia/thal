@@ -3,7 +3,7 @@ import { t } from '@psitta/vue'
 </script>
 
 <template>
-  <div class="">
+  <div class="w-full">
     <div
       class="hero relative"
       style="height: calc(100dvh - 64px);"
@@ -12,11 +12,11 @@ import { t } from '@psitta/vue'
 
       <div class="hero-content z-30">
         <div class="max-w-2xl flex flex-col justify-center text-center">
-          <h1 class="text-5xl mb-4 sm:text-6xl font-medium text-white max-w-lg tracking-wide">
+          <h1 class="text-5xl mb-4 sm:text-6xl font-medium text-black max-w-lg tracking-wide">
             {{ t("Talk to Learn. Learn to Talk.") }}
           </h1>
 
-          <p class="mb-8 text-xl sm:text-2xl text-white mx-auto max-w-lg">
+          <p class="mb-8 text-xl sm:text-2xl text-black mx-auto max-w-lg">
             {{ t("Practice real-world English skills with AI characters tailored to your learning goals. Simple, intuitive, and fun!") }}
           </p>
 
@@ -29,7 +29,7 @@ import { t } from '@psitta/vue'
       <div class="absolute bottom-4 right-1/2 translate-x-1/2 text-white z-30">
         <a
           href="#features"
-          class="no-underline flex flex-col gap-2 items-center text-white"
+          class="no-underline flex flex-col gap-2 items-center text-black"
         >
           {{ t("Learn more") }}
           <Icon
@@ -184,7 +184,7 @@ import { t } from '@psitta/vue'
 
   background-image:
   radial-gradient(at bottom,
-      theme('colors.blue.500'),
+      theme('colors.blue.100'),
       theme('colors.white')
     )
     ;
@@ -192,13 +192,13 @@ import { t } from '@psitta/vue'
 
 .bg-gradient-2 {
   background-image: radial-gradient(at bottom center,
-      theme('colors.red.500'),
+      theme('colors.red.100'),
       theme('colors.white'));
 }
 
 .bg-gradient-3 {
   background-image: radial-gradient(at center center,
-      theme('colors.green.500'),
+      theme('colors.green.100'),
       theme('colors.white'));
 }
 </style>
