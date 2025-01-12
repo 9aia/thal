@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { t as _t } from '@psitta/vue'
+import { T, t as _t } from '@psitta/vue'
 
 const t = ((text, values, locale) => _t(text, values, locale)) as typeof _t
 
@@ -45,19 +45,36 @@ function handleError() {
 
 <template>
   <NuxtLayout>
-    <div
-      class="flex flex-col items-center absolute right-1/2 translate-x-1/2 bottom-1/2 translate-y-1/2"
-    >
-      <h1 class="text-8xl font-bold text-center mb-4" :class="errorMessage.color">
-        {{ error!.statusCode }}
-      </h1>
-      <p class="text-center text-xl text-gray-900">
-        {{ t(errorMessage.message) }}
-      </p>
+    <div class="w-full bg-gradient-7 relative" style="height: calc(100vh - 64px)">
+      <div class="absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 flex flex-col items-center">
+        <h1 class="text-8xl font-bold text-center mb-4" :class="errorMessage.color">
+          {{ error!.statusCode }}
+        </h1>
 
-      <A href="/" class="mt-4 btn btn-primary text-gray-900" @click="handleError">
-        {{ t('Access the home page') }}
-      </A>
+        <p class="text-md text-gray-600">
+          <T text="If the problem persists, please {reportIssue}." :values="{ reportIssue: 'true' }">
+            <template #reportIssue>
+              <A
+                target="_blank" :localize="false" :href="t('https://forms.gle/ANMv7qnwTHva1k7L8')"
+                class="text-warning underline"
+              >{{ t('report the issue here') }}</A>
+            </template>
+          </T>
+        </p>
+
+        <A href="/" class="mt-4 btn btn-primary text-gray-900" @click="handleError">
+          {{ t('Access the home page') }}
+        </A>
+      </div>
     </div>
   </NuxtLayout>
 </template>
+
+<style scoped>
+.bg-gradient-7 {
+  background-image: radial-gradient(at bottom,
+
+      theme('colors.red.100'),
+      theme('colors.white'));
+}
+</style>

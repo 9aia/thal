@@ -32,7 +32,7 @@ import { T, t } from '@psitta/vue'
   </div>
 </template>
 
-<style>
+<style scoped>
 .bg-gradient-7 {
   background-image: radial-gradient(at top,
 
