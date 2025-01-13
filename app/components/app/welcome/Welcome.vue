@@ -4,7 +4,7 @@ import { isRootDrawerOpen } from '~/store'
 </script>
 
 <template>
-  <div class="flex flex-col w-full h-dvh bg-gradient-1">
+  <div class="flex flex-col w-full h-dvh bg-white p-4">
     <Navbar class="bg-gray-800 lg:hidden">
       <h1 class="text-lg text-primary font-bold flex items-center gap-1">
         {{ t('Thal') }}
@@ -30,10 +30,10 @@ import { isRootDrawerOpen } from '~/store'
       </div>
     </main>
 
-    <footer class="flex px-4 py-4 w-screen sm:w-[500px] lg:w-[600px] sm:mx-auto gap-2 items-center justify-center">
-      <Icon name="science" class="text-green-500 text-xl" />
+    <footer class="bg-gradient-1 text-blue-500 rounded-lg flex px-4 py-2 sm:max-w-5xl md:max-w-6xl lg:max-w-9xl mx-auto gap-2 items-center justify-center">
+      <Icon name="science" class="text-xl" />
 
-      <p class="text-gray-600 text-xs">
+      <p class="text-xs">
         {{ t('Thal is for learning, practice and fun. AI chats aren’t professional instruction. Use responsibly.') }}
       </p>
     </footer>
@@ -42,6 +42,6 @@ import { isRootDrawerOpen } from '~/store'
 
 <style scoped>
 .bg-gradient-1 {
-  background: radial-gradient(at bottom, theme('colors.gray.100'), theme('colors.gray.50'));
+  background: radial-gradient(at bottom, theme('colors.blue.50'), theme('colors.gray.50'));
 }
 </style>

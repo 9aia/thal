@@ -48,7 +48,7 @@ onMounted(() => {
 <template>
   <main
     :tabindex="0"
-    class="bg-gradient-1 flex-1 flex items-start overflow-y-auto focus:outline-none overflow-x-hidden"
+    class="bg-white flex-1 flex items-start overflow-y-auto focus:outline-none overflow-x-hidden"
   >
     <CategoriesModal
       v-model="isCategoryModalOpen"
@@ -149,12 +149,3 @@ onMounted(() => {
     </div>
   </main>
 </template>
-
-<style scoped>
-.bg-gradient-1 {
-  background: radial-gradient(at top,
-  theme('colors.gray.100'),
-  theme('colors.white')
-  );
-}
-</style>

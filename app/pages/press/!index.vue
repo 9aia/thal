@@ -11,25 +11,25 @@ import { t } from '@psitta/vue'
       <div class="bg-gradient-hero" />
 
       <div class="hero-content z-30">
-        <div class="max-w-2xl flex flex-col justify-center text-center">
-          <h1 class="text-5xl mb-4 sm:text-6xl font-medium text-black max-w-lg tracking-wide">
+        <div class="max-w-2xl flex flex-col justify-center text-center text-black">
+          <h1 class="text-5xl mb-4 sm:text-6xl max-w-lg tracking-wide text-gradient-1">
             {{ t("Talk to Learn. Learn to Talk.") }}
           </h1>
 
-          <p class="mb-8 text-xl sm:text-2xl text-black mx-auto max-w-lg">
+          <p class="mb-8 text-xl sm:text-2xl mx-auto max-w-lg">
             {{ t("Practice real-world English skills with AI characters tailored to your learning goals. Simple, intuitive, and fun!") }}
           </p>
 
-          <A class="bg-gradient-to-tr from-cyan-500 to-cyan-400 text-black flex justify-center items-center px-6 py-3 w-fit rounded-full mx-auto" href="/app">{{
+          <A class="bg-cyan-500 text-black flex justify-center items-center px-6 py-3 w-fit rounded-full mx-auto" href="/app">{{
             t("Start chatting")
           }}</A>
         </div>
       </div>
 
-      <div class="absolute bottom-4 right-1/2 translate-x-1/2 text-white z-30">
+      <div class="absolute bottom-4 right-1/2 translate-x-1/2 text-black z-30">
         <a
           href="#features"
-          class="no-underline flex flex-col gap-2 items-center text-black"
+          class="no-underline flex flex-col gap-2 items-center"
         >
           {{ t("Learn more") }}
           <Icon
@@ -179,17 +179,6 @@ import { t } from '@psitta/vue'
 </template>
 
 <style>
-.bg-gradient-hero {
-  @apply absolute top-0 left-0 w-full h-full z-10 ;
-
-  background-image:
-  radial-gradient(at bottom,
-      theme('colors.blue.100'),
-      theme('colors.white')
-    )
-    ;
-}
-
 .bg-gradient-2 {
   background-image: radial-gradient(at bottom center,
       theme('colors.red.100'),

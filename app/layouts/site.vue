@@ -32,10 +32,6 @@ const menuItems: MenuItem[] = [
 
 <template>
   <div>
-    <div class="text-center bg-teal-500 text-gray-800 py-2 px-4">
-      We're currently undergoing active development!
-    </div>
-
     <Header>
       <template #navbar-end>
         <div class="flex items-center gap-2 text-gray-900">
@@ -57,7 +53,7 @@ const menuItems: MenuItem[] = [
     </Header>
 
     <main class="bg-white flex flex-col" style="min-height: calc(100vh)">
-      <div class="max-w-lg mx-auto py-12 px-4 bg-white">
+      <div class="w-full max-w-[800px] mx-auto py-12 px-4 bg-white">
         <slot />
       </div>
     </main>
@@ -66,8 +62,3 @@ const menuItems: MenuItem[] = [
   </div>
 </template>
 
-<style>
-* {
-  scrollbar-width: auto;
-}
-</style>

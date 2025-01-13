@@ -18,7 +18,7 @@ export function useContactInfo(data: Ref<any>) {
       return
 
     manageContact({
-      name: data.value.persona?.name,
+      name: data.value.name,
       username: data.value.username,
     })
   }

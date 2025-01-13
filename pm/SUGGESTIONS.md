@@ -28,6 +28,9 @@ description: A collection of ideas and feedback from stakeholders or team member
 - Credit system instead of subscription
 - Add conversation starters
 - Add personal vocabulary lists that the chatbot can incorporate into the convo
+- Add "about me" textarea in profile to help AI generate message suggestions
+- Add message suggestion generator with a input to prompt (useful for generating from an idea)
+- Add next message suggestions (2-4 options)
 
 ## Enhancements
 

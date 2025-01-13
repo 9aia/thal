@@ -208,7 +208,7 @@ const date = computed(() => {
               <template #title>
                 <button
                   size="sm"
-                  class="text-teal-500 hover:text-teal-600 flex items-center"
+                  class="text-blue-500 hover:text-blue-600 flex items-center"
                   @click.stop.prevent="copyUsername"
                 >
                   <Icon name="content_copy" style="font-size: 1.15rem" />

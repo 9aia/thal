@@ -66,21 +66,21 @@ const replyMessage = computed(() => trimReplyMessage(props.replyMessage))
     class="rounded-2xl bg-gradient-1 py-1 px-3 relative w-full overflow-hidden pb-4" role="button"
     @click="scrollToMessage"
   >
-    <div class="flex items-center gap-1 text-xs text-gray-300">
+    <div class="flex items-center gap-1 text-xs text-blue-500">
       <Icon name="reply" class="text-sm" />
       {{ t('Replying to') }}
     </div>
 
-    <h3 class="text-sm text-gray-500">
+    <h3 class="text-sm text-blue-500">
       {{ replyDisplayName }}
     </h3>
 
-    <MDC :value="replyMessage" tag="article" class="text-xs text-gray-400 line-clamp-3 prose prose-slate prose-sm" />
+    <MDC :value="replyMessage" tag="article" class="text-xs text-blue-500 line-clamp-3 prose prose-slate prose-sm" />
   </div>
 </template>
 
 <style scoped>
 .bg-gradient-1 {
-  background: radial-gradient(at bottom, theme('colors.blue.100'), theme('colors.gray.50'));
+  background: radial-gradient(at bottom, theme('colors.blue.50'), theme('colors.gray.50'));
 }
 </style>

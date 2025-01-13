@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { tv } from 'tailwind-variants'
 
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   size?: keyof typeof variants['size']
-  is?: keyof HTMLElementTagNameMap
+  is?: keyof HTMLElementTagNameMap,
+  noBg?: boolean
 }>(), {
   size: 'sm',
   is: 'span',
+  noBg: false,
 })
 
 const variants = {
@@ -18,10 +20,10 @@ const variants = {
   },
 } as const
 
-const styles = tv({
-  base: 'badge',
+const styles = computed(() => tv({
+  base: props.noBg ? 'badge' : 'badge bg-gradient-badge text-blue-500',
   variants,
-})
+}))
 </script>
 
 <template>
@@ -29,3 +31,10 @@ const styles = tv({
     <slot />
   </component>
 </template>
+
+<style scoped>
+.bg-gradient-badge {
+  background: radial-gradient(at bottom, theme('colors.blue.50'), theme('colors.gray.50'));
+}
+</style>
+

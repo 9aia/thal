@@ -27,6 +27,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 ## Bugs
 
 - Don't consider long context
+- Fix scroll look and feel
 - Use a single table for user and character usernames
 - Fix listening to long messages
 - Lower every username comparison

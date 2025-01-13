@@ -39,7 +39,7 @@ const localeModal = useLocaleModal()
 
 <template>
   <footer class="sticky top-[100vh]">
-    <div class="z-20 bg-gradient-footer w-full py-12 sm:py-32 ">
+    <div class="z-20 bg-white border-t border-gray-100 w-full py-12 sm:py-32 ">
       <div class="mx-auto max-w-[800px] gap-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 grid flex-col">
         <div class="w-full px-4">
           <h5 class="text-2xl text-gray-900 mb-6 flex">
@@ -119,13 +119,6 @@ const localeModal = useLocaleModal()
 </template>
 
 <style scoped>
-.bg-gradient-footer {
-  background-image: radial-gradient(at center bottom,
-      theme('colors.magenta.100'),
-      theme('colors.white'));
-      background-size: 100% 100%;
-}
-
 .text-gradient-1 {
   background: radial-gradient(theme('colors.green.500'), theme('colors.blue.500')) !important;
   -webkit-background-clip: text !important;

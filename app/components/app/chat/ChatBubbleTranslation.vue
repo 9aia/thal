@@ -16,9 +16,9 @@ const {
 
 <template>
   <div v-if="translation" class="bg-gradient-7 rounded-2xl px-3 py-2 min-h-[38px] flex items-start justify-between gap-2 group/translation">
-    <div>
-      <MDC :value="translation" tag="article" class="prose prose-slate prose-sm" />
-    </div>
+    <article class="text-gradient-7 text-sm">
+      {{ translation }}
+    </article>
 
     <div class="items-start min-w-[32px] min-h-[32px] flex">
       <Button class="btn-ghost hidden group-hover/translation:block" size="sm" shape="circle" @click="isOpen = false">
@@ -49,7 +49,16 @@ const {
 
 <style scoped>
 .bg-gradient-7 {
-  background: radial-gradient(at top, theme('colors.yellow.100'), theme('colors.white'));
+  /* @apply bg-yellow-500/20; */
+  background: radial-gradient(at bottom, theme('colors.magenta.50'), theme('colors.gray.50'));
+  @apply text-orange-900;
+}
+
+.text-gradient-7 {
+  background: linear-gradient(12deg, theme('colors.magenta.500'), theme('colors.red.500')) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
 }
 
 .bg-gradient-8 {

@@ -9,15 +9,13 @@ definePageMeta({
 
 <template>
   <div class="flex flex-col h-dvh justify-between">
-    <Navbar class="bg-transparent">
-      <h1 class="text-lg py-2 text-primary font-bold flex items-center gap-1">
-        {{ t("Account Settings") }}
-      </h1>
-    </Navbar>
+    <h1 class="text-lg text-black flex items-center gap-1 mb-4">
+      {{ t("Account Settings") }}
+    </h1>
 
-    <div class="px-3 py-4 flex-1 bg-white space-y-4">
-      <div>
-        <AccountSettingsForm />
+    <div class="flex-1 bg-white space-y-4 w-full flex">
+      <div class="w-full flex flex-col">
+        <AccountSettingsForm class="w-full" />
       </div>
     </div>
   </div>

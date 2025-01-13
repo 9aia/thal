@@ -6,19 +6,10 @@ description: Tasks and items for the release.
 
 ## Current Tasks
 
-- Display error on input translate
-- Consider replies in message translations
----
 - Hide deactivated account
 
 ## Features
 
-- Add language assistance
-  - Add "about me" textarea in profile to help AI generate message suggestions
-  - Add message suggestion generator with a input to prompt (useful for generating from an idea)
-  - Add next message suggestions (2-4 options)
-
-- ---
 - Add language drawer containing UI language and translation settings
 - ---
 - Implement basic analytics to track user engagement and app performance

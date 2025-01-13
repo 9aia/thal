@@ -47,7 +47,7 @@ const category = computed(() => {
           </div>
 
           <div v-if="category" class="text-sm text-gray-600 flex gap-1 items-center">
-            <Badge class="bg-transparent border-none flex gap-1 px-0 py-3 text-xs text-gray-500">
+            <Badge no-bg class="bg-transparent border-none flex gap-1 px-0 py-3 text-xs text-black">
               <Icon :name="category?.icon" class="" style="font-size: 1.15rem" />
 
               {{ category?.name }}

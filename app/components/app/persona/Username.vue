@@ -8,16 +8,9 @@ const copy = useCopyUsername(props.username)
 </script>
 
 <template>
-  <div class="text-gray-600 flex gap-1 font-normal">
+  <button v-if="showCopy && username" size="sm" class="text-blue-500 hover:text-blue-600 flex items-center gap-1"
+    @click.stop.prevent="copy">
     @{{ username }}
-
-    <button
-      v-if="showCopy && username"
-      size="sm"
-      class="text-blue-500 hover:text-blue-600 flex items-center"
-      @click.stop.prevent="copy"
-    >
-      <Icon name="content_copy" style="font-size: 1.15rem" />
-    </button>
-  </div>
+    <Icon name="content_copy" style="font-size: 1.15rem" />
+  </button>
 </template>

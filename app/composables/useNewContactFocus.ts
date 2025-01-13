@@ -8,8 +8,9 @@ export default function useNewContactFocus() {
       setTimeout(() => {
         if (mainField.value) {
           (mainField.value as any).focus()
+          console.log('a')
         }
-      }, 10)
+      }, 500)
     }
   }
 

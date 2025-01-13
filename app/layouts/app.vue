@@ -68,8 +68,4 @@ import { drawers, isRootDrawerOpen, rightDrawer } from '~/store'
 body {
   @apply bg-gray-100;
 }
-
-* {
-  scrollbar-width: thin;
-}
 </style>

@@ -31,7 +31,7 @@ const locale = useLocale()
               {{ article.title }}
             </h2>
 
-            <Badge size="md" class="badge-primary badge-outline mb-4 mt-2">
+            <Badge size="md" class="mb-4 mt-2">
               {{ ARTICLE_TYPES.find((type) => type.id === article.type)?.name }}
             </Badge>
 

@@ -20,9 +20,8 @@ watchDebounced(toRef(form.values, 'search'), () => {
   chatItemSearch.value = form.values.search
 }, { debounce: 500 })
 
-const chats = ref([])
 const {
-  // data: chats,
+  data: chats,
   isPending,
   isError,
   refetch,
@@ -99,7 +98,7 @@ async function openWhatsNewModal() {
       </div>
     </Navbar>
 
-    <div v-show="isNoteVisible" class="bg-gradient-1 px-3 py-4 flex items-center justify-between w-min-full">
+    <div v-show="isNoteVisible" class="bg-gradient-1 px-3 py-2 flex items-center justify-between w-min-full">
       <div class="flex items-center gap-2 w-full">
         <div>
           <div class="p-2 flex items-center justify-center">

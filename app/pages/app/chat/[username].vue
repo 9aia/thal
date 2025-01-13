@@ -236,11 +236,11 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
             id="chat-container"
             ref="scrollContainer"
             :tabindex="0"
-            class="bg-white w-full py-4 px-2 sm:px-12 flex-1 overflow-y-auto relative focus:outline-none"
+            class="bg-white w-full py-4 px-4 flex-1 overflow-y-auto relative focus:outline-none"
           >
             <div class="sm:max-w-5xl md:max-w-6xl lg:max-w-9xl mx-auto">
-              <div class="mb-4 text-gray-800 text-xs bg-gradient-2 px-4 py-2 rounded-lg flex gap-1">
-                <Icon name="science" class="text-green-500" style="font-size: 1.15rem" />
+              <div class="mb-4 text-blue-500 text-xs bg-gradient-2 px-4 py-2 rounded-lg flex gap-1">
+                <Icon name="science" class="text-blue-500" style="font-size: 1.15rem" />
                 <p>
                   {{ t('This app is for educational and entertainment purposes only. Content and interactions do not represent professional instruction. Verify information independently and use responsibly.') }}
                 </p>
@@ -248,7 +248,7 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
 
               <div
                 v-if="!hasContact"
-                class="bg-gradient-1 text-gray-800 text-center sm:max-w-lg mx-auto rounded-3xl"
+                class="bg-gradient-1 mb-8 text-gray-800 text-center sm:max-w-lg mx-auto rounded-3xl"
               >
                 <div class="py-8">
                   <Avatar :name="avatarName" class="mx-auto w-20 h-20 text-lg bg-gray-100 text-gray-800" />
@@ -284,7 +284,7 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
                 <Button
                   shape="circle"
                   size="sm"
-                  class="transition-opacity duration-500 opacity-0 ease-in-out sticky btn btn-gray text-blue-500"
+                  class="transition-opacity duration-500 opacity-0 ease-in-out text-blue-500"
                   :class="{ 'opacity-100': !isScrollBottom, 'pointer-events-none': isScrollBottom }"
                   @click="goToBottom"
                 >
@@ -310,10 +310,10 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
 
 <style scoped>
 .bg-gradient-1 {
-  background: radial-gradient(at top, theme('colors.blue.100'), theme('colors.gray.50'));
+  background: radial-gradient(at top, theme('colors.yellow.50'), theme('colors.gray.50'));
 }
 
 .bg-gradient-2 {
-  background: radial-gradient(at bottom, theme('colors.yellow.100'), theme('colors.gray.50'));
+  background: radial-gradient(at bottom, theme('colors.blue.50'), theme('colors.gray.50'));
 }
 </style>

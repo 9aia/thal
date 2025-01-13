@@ -9,7 +9,7 @@ export default function useBuildPersonaFocus() {
         if (mainField.value) {
           (mainField.value as any).focus()
         }
-      }, 10)
+      }, 500)
     }
   }
 

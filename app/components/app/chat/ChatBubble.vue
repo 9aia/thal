@@ -65,7 +65,7 @@ const audiableTextMutation = computed(() => {
 
 <template>
   <div
-    :id="`bubble-container-${id}`" class="chat group bubble-scrollable" :class="{
+    :id="`bubble-container-${id}`" class="group bubble-scrollable" :class="{
       'chat-start': !right,
       'chat-end': right,
     }"
@@ -148,11 +148,11 @@ const audiableTextMutation = computed(() => {
 
   0%,
   100% {
-    @apply bg-white;
+    @apply bg-gray-50;
   }
 
   50% {
-    @apply bg-yellow-500;
+    @apply bg-cyan-100;
   }
 }
 </style>

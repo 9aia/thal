@@ -134,7 +134,7 @@ const logout = useLogout()
 
       <div class="h-2" />
 
-      <Button :loading="loading" class="border-none bg-gradient-5 rounded-full px-4" :disabled="hasErrors">
+      <Button :loading="loading" class="border-none px-4 py-2 bg-cyan-500 hover:bg-cyan-500 rounded-full" :disabled="hasErrors">
         {{
           t("Save")
         }}
@@ -160,11 +160,11 @@ const logout = useLogout()
     </ul>
   </SettingSection>
 
-  <button class="underline font-bold text-warning mt-2" @click="logout">
+  <button class="text-left w-fit underline font-bold text-orange-500 mt-4" @click="logout">
     {{ t("Logout") }}
   </button>
 
-  <SettingSection :title="t('Danger zone')" class="pt-4" title-class="text-error">
+  <SettingSection :title="t('Danger zone')" class="pt-4 mt-4" title-class="text-error">
     <template #header>
       <hr class="border-b-2 border-error">
     </template>
@@ -181,9 +181,3 @@ const logout = useLogout()
     </template>
   </SettingSection>
 </template>
-
-<style scoped>
-.bg-gradient-5 {
-  background: linear-gradient(35deg, theme('colors.cyan.50'), theme('colors.cyan.500')) !important;
-}
-</style>

@@ -56,7 +56,7 @@ const {
 
     <template #actions>
       <Button
-        class="btn-error"
+        class="btn-error text-white"
         @click.prevent="mutate()"
       >
         {{ t('Delete contact') }}

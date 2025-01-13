@@ -81,10 +81,6 @@ const menuItems: MenuItem[] = [
 </template>
 
 <style scoped>
-* {
-  scrollbar-width: auto;
-}
-
 .text-gradient-1 {
   background: radial-gradient(theme('colors.green.500'), theme('colors.blue.500'));
   -webkit-background-clip: text;

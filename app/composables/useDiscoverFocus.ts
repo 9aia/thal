@@ -22,7 +22,7 @@ export default function useDiscoverFocus() {
       if (mainField.value) {
         (mainField.value as any).focus()
       }
-    }, 10)
+    }, 500)
   }
 
   return { mainField, focusMainField }

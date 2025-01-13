@@ -44,7 +44,7 @@ defineExpose({
 
 <style scoped>
 .text-gradient-4 {
-  background: linear-gradient(#f0f, #f00);
+  background: linear-gradient(66deg, theme('colors.red.500'), theme('colors.magenta.500'));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
