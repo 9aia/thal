@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
-import { useOnline } from '@vueuse/core'
+import { useOnline, useScroll } from '@vueuse/core'
 import AppLayout from '~/layouts/app.vue'
 import queryKeys from '~/queryKeys'
 import { chatItemSearch, replies, sendingChatIds, sentErrorChatIds } from '~/store'
@@ -27,14 +27,20 @@ const {
 
 const scrollContainer = ref<HTMLElement | null>(null)
 
-async function fixScroll() {
+const mainScroll = useScroll(scrollContainer, {
+  behavior: 'smooth',
+})
+
+async function goToBottom() {
   await nextTick()
 
-  setTimeout(() => {
-    if (scrollContainer.value)
-      scrollContainer.value.scrollTop = scrollContainer.value.scrollHeight
-  }, 0)
+  if (!scrollContainer.value)
+    return
+
+  mainScroll.y.value = scrollContainer.value.scrollHeight
 }
+
+const isScrollBottom = computed(() => mainScroll.arrivedState.bottom)
 
 const text = ref('')
 
@@ -127,7 +133,7 @@ const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending
     updateHistory(newMessage)
     updateLastMessage(newMessage)
     emptyInput()
-    fixScroll()
+    goToBottom()
   },
   onError: async (e) => {
     const _ = e
@@ -150,7 +156,7 @@ const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending
     sentErrorChatIds.value.add(data.value!.chatId!)
     sendingChatIds.value.delete(data.value!.chatId!)
 
-    fixScroll()
+    goToBottom()
   },
   onSuccess: async (newHistory) => {
     if (data.value.history.length === 1) {
@@ -171,7 +177,7 @@ const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending
     sentErrorChatIds.value.delete(data.value!.chatId!)
     sendingChatIds.value.delete(data.value!.chatId!)
 
-    fixScroll()
+    goToBottom()
   },
 })
 
@@ -230,48 +236,64 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
             id="chat-container"
             ref="scrollContainer"
             :tabindex="0"
-            class="bg-gray-50 py-4 px-2 sm:px-12 flex-1 overflow-y-auto relative focus:outline-none"
+            class="bg-white w-full py-4 px-2 sm:px-12 flex-1 overflow-y-auto relative focus:outline-none"
           >
-            <div class="mb-4 text-gray-800 text-xs bg-gradient-2 px-4 py-2 rounded-lg flex gap-1">
-              <Icon name="science" class="text-green-500" style="font-size: 1.15rem" />
-              <p>
-                {{ t('This app is for educational and entertainment purposes only. Content and interactions do not represent professional instruction. Verify information independently and use responsibly.') }}
-              </p>
-            </div>
-
-            <div
-              v-if="!hasContact"
-              class="bg-gradient-1 text-gray-800 text-center sm:max-w-lg mx-auto rounded-3xl"
-            >
-              <div class="py-8">
-                <Avatar :name="avatarName" class="mx-auto w-20 h-20 text-lg bg-gray-100 text-gray-800" />
-
-                <h2 class="text-gray-900 text-center mb-1">
-                  {{ displayName }}
-                </h2>
-                <small class="text-gray-600 text-xs">~ {{ data?.description }}</small>
-
-                <p class="mb-2 text-gray-600 text-sm">
-                  {{ t('Not a contact') }}
+            <div class="sm:max-w-5xl md:max-w-6xl lg:max-w-9xl mx-auto">
+              <div class="mb-4 text-gray-800 text-xs bg-gradient-2 px-4 py-2 rounded-lg flex gap-1">
+                <Icon name="science" class="text-green-500" style="font-size: 1.15rem" />
+                <p>
+                  {{ t('This app is for educational and entertainment purposes only. Content and interactions do not represent professional instruction. Verify information independently and use responsibly.') }}
                 </p>
+              </div>
 
-                <div class="card-actions justify-center">
-                  <Button class="bg-cyan-500 border-none rounded-full px-4 py-2 text-gray-800 hover:bg-cyan-400" @click="addContact()">
-                    <Icon name="person_add" />
-                    Add
-                  </Button>
+              <div
+                v-if="!hasContact"
+                class="bg-gradient-1 text-gray-800 text-center sm:max-w-lg mx-auto rounded-3xl"
+              >
+                <div class="py-8">
+                  <Avatar :name="avatarName" class="mx-auto w-20 h-20 text-lg bg-gray-100 text-gray-800" />
+
+                  <h2 class="text-gray-900 text-center mb-1">
+                    {{ displayName }}
+                  </h2>
+                  <small class="text-gray-600 text-xs">~ {{ data?.description }}</small>
+
+                  <p class="mb-2 text-gray-600 text-sm">
+                    {{ t('Not a contact') }}
+                  </p>
+
+                  <div class="card-actions justify-center">
+                    <Button class="bg-cyan-500 border-none rounded-full px-4 py-2 text-gray-800 hover:bg-cyan-400" @click="addContact()">
+                      <Icon name="person_add" />
+                      Add
+                    </Button>
+                  </div>
                 </div>
               </div>
+
+              <ChatConversation
+                :history="data.history"
+                :is-error="mutationError"
+                @fix-scroll="goToBottom"
+                @resend="handleResend()"
+              />
+
+              <ChatBubbleLoading v-if="isMessagePending && isOnline" />
+
+              <div class="sticky bottom-0 right-0 flex justify-end h-[32px]">
+                <Button
+                  shape="circle"
+                  size="sm"
+                  class="transition-opacity duration-500 opacity-0 ease-in-out sticky btn btn-gray text-blue-500"
+                  :class="{ 'opacity-100': !isScrollBottom, 'pointer-events-none': isScrollBottom }"
+                  @click="goToBottom"
+                >
+                  <Icon class="text-lg">
+                    keyboard_arrow_down
+                  </Icon>
+                </Button>
+              </div>
             </div>
-
-            <ChatConversation
-              :history="data.history"
-              :is-error="mutationError"
-              @fix-scroll="fixScroll"
-              @resend="handleResend()"
-            />
-
-            <ChatBubbleLoading v-if="isMessagePending && isOnline" />
           </main>
 
           <ChatFooter
@@ -286,7 +308,7 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
   </AppLayout>
 </template>
 
-<style>
+<style scoped>
 .bg-gradient-1 {
   background: radial-gradient(at top, theme('colors.blue.100'), theme('colors.gray.50'));
 }

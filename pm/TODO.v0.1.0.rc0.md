@@ -6,7 +6,10 @@ description: Tasks and items for the release.
 
 ## Current Tasks
 
-- [ ] Hide deactivated account
+- Display error on input translate
+- Consider replies in message translations
+---
+- Hide deactivated account
 
 ## Features
 

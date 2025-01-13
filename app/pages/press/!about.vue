@@ -138,7 +138,7 @@ const team = [
   </div>
 </template>
 
-<style>
+<style scoped>
 .text-gradient-1 {
   @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-500;
 

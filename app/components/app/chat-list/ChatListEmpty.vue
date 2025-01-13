@@ -11,39 +11,104 @@ function goToDiscover() {
 </script>
 
 <template>
-  <div class="w-full text-center pt-8">
-    <div class="text-primary flex items-center justify-center">
-      <Icon name="chat" style="font-size: 8rem" />
-    </div>
-
-    <h2 class="text-lg font-medium px-4 py-2">
+  <div class="w-full text-center pt-8 pb-8">
+    <h2 class="flex items-center justify-center gap-1 text-lg font-medium px-4 py-2">
+      <div class="flex items-center justify-center">
+        <Icon name="contextual_token_add" class="text-4xl -scale-x-100" />
+      </div>
       {{ t("New Chat") }}
     </h2>
 
-    <p class="px-4 text-sm text-gray-700 mb-8">
-      {{ t("Begin a conversation with a character or create a custom one tailored to your learning objectives.") }}
+    <p class="px-4 text-xs text-gray-700 mb-8">
+      {{ t('Start chatting with an AI character to improve your English!') }}
     </p>
 
     <div class="px-4 flex gap-2 justify-center flex-wrap">
-      <Button class="btn-outline pl-2 border-green-500 text-green-500 hover:bg-green-500 hover:border-green-500 hover:text-gray-900" @click="goToDiscover">
-        <Icon name="person_search" />
-        {{ t("Discover characters") }}
+      <Button class="border-gradient-1" @click="goToDiscover">
+        <span class="px-4 py-2 flex items-center justify-center gap-1">
+          <Icon name="person_search" />
+          {{ t("Discover characters") }}
+        </span>
       </Button>
 
-      <Button class="btn-outline pl-2 border-purple-500 text-purple-500 hover:bg-purple-500 hover:border-purple-500 hover:text-gray-900" @click="buildPersona(null)">
-        <Icon name="person_edit" />
-        {{ t("Create character") }}
+      <Button class="border-gradient-2" @click="buildPersona(null)">
+        <span class="px-4 py-2 flex items-center justify-center gap-1">
+          <Icon name="person_edit" />
+          {{ t("Create character") }}
+        </span>
       </Button>
 
-      <Button class="btn-outline pl-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:border-orange-500 hover:text-gray-900" @click="manageContact(null)">
-        <Icon name="person_add" />
-        {{ t("Add contact") }}
+      <Button class="border-gradient-3" @click="manageContact(null)">
+        <span class="px-4 py-2 flex items-center justify-center gap-1">
+          <Icon name="person_add" />
+          {{ t("Add contact") }}
+        </span>
       </Button>
 
-      <Button class="btn-outline pl-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:border-blue-500 hover:text-gray-900" @click="openWhatsNewModal">
-        <Icon name="news" />
-        {{ t("What's New") }}
+      <Button class="border-gradient-4" @click="openWhatsNewModal">
+        <span class="px-4 py-2 flex items-center justify-center gap-1">
+          <Icon name="news" />
+          {{ t("What's New") }}
+        </span>
       </Button>
     </div>
   </div>
 </template>
+
+<style scoped>
+.text-gradient-1 {
+  @apply text-gray-100;
+}
+
+.border-gradient-1 {
+  @apply border-2 border-gray-100 p-0;
+
+  background: linear-gradient(50deg, theme('colors.blue.500'), theme('colors.magenta.500')) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+
+.border-gradient-1:hover {
+  @apply border-2 border-gray-200 p-0;
+}
+
+.border-gradient-2 {
+  @apply border-2 border-gray-100 p-0;
+
+  background: linear-gradient(50deg, theme('colors.red.500'), theme('colors.magenta.500')) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+
+.border-gradient-2:hover {
+  @apply border-2 border-gray-200 p-0;
+}
+
+.border-gradient-3 {
+  @apply border-2 border-gray-100 p-0;
+
+  background: linear-gradient(50deg, theme('colors.orange.500'), theme('colors.red.500')) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+
+.border-gradient-3:hover {
+  @apply border-2 border-gray-200 p-0;
+}
+
+.border-gradient-4 {
+  @apply border-2 border-gray-100 p-0;
+
+  background: linear-gradient(50deg, theme('colors.blue.500'), theme('colors.cyan.500')) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+
+.border-gradient-4:hover {
+  @apply border-2 border-gray-200 p-0;
+}
+</style>

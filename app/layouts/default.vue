@@ -80,7 +80,7 @@ const menuItems: MenuItem[] = [
   </div>
 </template>
 
-<style>
+<style scoped>
 * {
   scrollbar-width: auto;
 }

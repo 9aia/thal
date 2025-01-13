@@ -11,6 +11,8 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## Features
 
+- Add English locale preference (eg. US or UK)
+- Add native language preference (eg. BR or PT)
 - Add date stamps in chat
 - Add unread badge
 - Add calls
@@ -20,9 +22,11 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Add a deleted/non-existent section in contacts
 - Add character search results to chat and contact search
 - Add dark theme
+- Add character rating (unrated, teen, mature, everyone)
 
 ## Bugs
 
+- Don't consider long context
 - Use a single table for user and character usernames
 - Fix listening to long messages
 - Lower every username comparison

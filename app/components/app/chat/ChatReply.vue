@@ -21,6 +21,8 @@ function highlightBubble(bubble: any) {
 
   // Add animation class
   bubble.classList.add('animate-highlight')
+
+  console.log('a')
 }
 
 function scrollToMessage() {
@@ -30,7 +32,7 @@ function scrollToMessage() {
 
   message.scrollIntoView({ behavior: 'smooth' })
 
-  const bubble = message.querySelector('.bubble') as any
+  const bubble = message.querySelector('.chat-bubble-bg') as any
   if (!bubble)
     return
 
@@ -61,15 +63,24 @@ const replyMessage = computed(() => trimReplyMessage(props.replyMessage))
 
 <template>
   <div
-    class="rounded-2xl bg-gray-100 py-1 px-3 relative w-full overflow-hidden" role="button"
+    class="rounded-2xl bg-gradient-1 py-1 px-3 relative w-full overflow-hidden pb-4" role="button"
     @click="scrollToMessage"
   >
-    <div class="w-1 bg-teal-500 h-full absolute top-0 left-0" />
+    <div class="flex items-center gap-1 text-xs text-gray-300">
+      <Icon name="reply" class="text-sm" />
+      {{ t('Replying to') }}
+    </div>
 
-    <h3 class="text-sm font-medium text-teal-600">
+    <h3 class="text-sm text-gray-500">
       {{ replyDisplayName }}
     </h3>
 
-    <MDC :value="replyMessage" tag="article" class="text-xs text-gray-600 line-clamp-3 prose prose-slate prose-sm" />
+    <MDC :value="replyMessage" tag="article" class="text-xs text-gray-400 line-clamp-3 prose prose-slate prose-sm" />
   </div>
 </template>
+
+<style scoped>
+.bg-gradient-1 {
+  background: radial-gradient(at bottom, theme('colors.blue.100'), theme('colors.gray.50'));
+}
+</style>

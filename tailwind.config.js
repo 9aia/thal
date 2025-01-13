@@ -117,6 +117,19 @@ module.exports = {
           900: '#000000', // Black
           950: '#000000', // Very dark gray (same as black)
         },
+        orange: {
+          50: '#FFE0B3', // Lightest orange
+          100: '#FFCC80',
+          200: '#FFB84D',
+          300: '#FFA31A',
+          400: '#FF8C00',
+          500: '#FF6600', // Base orange
+          600: '#E65C00',
+          700: '#CC5200',
+          800: '#B34700',
+          900: '#993D00', // Dark orange
+          950: '#4D1A00', // Very dark orange
+        },
       },
     },
   },

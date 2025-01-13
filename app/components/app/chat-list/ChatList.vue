@@ -20,8 +20,9 @@ watchDebounced(toRef(form.values, 'search'), () => {
   chatItemSearch.value = form.values.search
 }, { debounce: 500 })
 
+const chats = ref([])
 const {
-  data: chats,
+  // data: chats,
   isPending,
   isError,
   refetch,
@@ -99,20 +100,17 @@ async function openWhatsNewModal() {
     </Navbar>
 
     <div v-show="isNoteVisible" class="bg-gradient-1 px-3 py-4 flex items-center justify-between w-min-full">
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2 w-full">
         <div>
           <div class="p-2 flex items-center justify-center">
             <Icon name="waving_hand" class="text-gray-800" />
           </div>
         </div>
 
-        <div class="flex flex-col">
-          <h2 class="text-lg text-gray-800">
-            Welcome!
+        <div class="flex flex-col w-full">
+          <h2 class="text-lg text-gradient-1 w-fit">
+            {{ t('Welcome!') }}
           </h2>
-          <p class="text-sm text-gray-800">
-            Every conversation is a step closer to your goals.
-          </p>
         </div>
 
         <div>
@@ -123,7 +121,7 @@ async function openWhatsNewModal() {
       </div>
     </div>
 
-    <div class="px-4 py-2">
+    <div v-if="chats?.length" class="px-4 py-2">
       <SearchField
         :placeholder="t('Search name or username...')"
         path="search"
@@ -164,7 +162,10 @@ async function openWhatsNewModal() {
 </template>
 
 <style scoped>
-.bg-gradient-1 {
-  background: radial-gradient(at top, theme('colors.blue.100'), theme('colors.white')) !important;
+.text-gradient-1 {
+  background: linear-gradient(50deg, theme('colors.magenta.500'), theme('colors.red.500')) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
 }
 </style>

@@ -31,6 +31,7 @@ const icon = computed(() => {
 })
 
 const styles = tv({
+  base: 'text-base',
   variants: {
     type: {
       error: 'text-red-600',
@@ -47,6 +48,5 @@ const styles = tv({
   <Icon
     :name="icon"
     :class="styles({ type: props.status })"
-    style="font-size: 1.15rem"
   />
 </template>

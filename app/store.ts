@@ -1,5 +1,7 @@
 import type { Contact, Persona, Replies } from '~/types'
 
+export const contentEditableRef = ref()
+
 /* Core */
 
 export const isRootDrawerOpen = ref(true)

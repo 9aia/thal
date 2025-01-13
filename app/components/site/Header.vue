@@ -22,8 +22,6 @@
 </template>
 
 <style>
-.custom-badge-container {}
-
 .custom-badge-content {
   @apply border-transparent border-double border-2 rounded-full;
   background-image: linear-gradient(white, white), radial-gradient(circle at top left, #0f0, #0ff);

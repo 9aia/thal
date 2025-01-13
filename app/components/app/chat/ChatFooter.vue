@@ -3,7 +3,7 @@ import { useMagicKeys, useOnline } from '@vueuse/core'
 import { useQueryClient } from '@tanstack/vue-query'
 import { useI18n } from '@psitta/vue'
 import { useEventListener } from '@vueuse/core/index.cjs'
-import { replies, sendingChatIds, sentErrorChatIds } from '~/store'
+import { contentEditableRef, replies, sendingChatIds, sentErrorChatIds } from '~/store'
 import queryKeys from '~/queryKeys'
 
 const props = defineProps<{
@@ -76,8 +76,6 @@ const replyDisplayName = computed(() => replying.value.from === 'user'
   : displayName.value,
 )
 
-const contentEditableRef = ref()
-
 onMounted(() => {
   const chatContainer = document.querySelector('#chat-container')
 
@@ -90,56 +88,75 @@ onMounted(() => {
 
 const isReplying = computed(() => !!replies[username.value])
 const replyMessage = computed(() => replies[username.value])
+
+const translation = useTranslation({
+  message: text,
+  replyMessageId: computed(() => replyMessage.value ? replyMessage.value.id : undefined),
+  chatUsername: username,
+  toNative: false,
+  refetchOnTranslate: true,
+})
+
+watch(translation.isLoading, (value) => {
+  if (value || translation.isError.value) {
+    return
+  }
+
+  text.value = translation.translation.value!
+})
 </script>
 
 <template>
-  <footer class="px-3 py-2 bg-white flex items-end justify-center gap-2 w-full">
-    <div class="flex-1 flex flex-col">
-      <label class="input bg-gray-50 flex flex-col w-full h-full items-center justify-center p-2 textarea" for="input">
-        <div
-          v-if="isReplying"
-          class="rounded-lg rounded-bl-none border-l border-gray-100 p-3 mb-3 relative w-full"
-        >
-          <h3 class="text-sm font-medium text-brown-500">
-            {{ replyDisplayName }}
-          </h3>
-          <p class="text-xs text-gray-600 line-clamp-3">
-            {{ replyMessage.message }}
-          </p>
+  <footer class="bg-white flex items-end justify-center gap-2 w-full">
+    <div class="flex flex-col w-full gap-1">
+      <div v-if="isReplying" class="border-l-4 border-blue-100 bg-blue-50 p-3 relative w-full">
+        <h3 class="text-sm font-medium text-blue-500">
+          {{ replyDisplayName }}
+        </h3>
 
-          <div role="button" class="btn btn-xs btn-ghost btn-circle avatar absolute top-1 right-1" @click="removeReply">
-            <Icon name="close" style="font-size: 1rem" />
-          </div>
+        <p class="text-xs text-gray-600 line-clamp-3">
+          {{ replyMessage.message }}
+        </p>
+
+        <div role="button" class="btn btn-xs btn-ghost btn-circle absolute top-1 right-1" @click="removeReply">
+          <Icon name="close" style="font-size: 1rem" />
+        </div>
+      </div>
+
+      <div class="flex gap-2 px-3 py-2">
+        <div class="flex-1 flex flex-col">
+          <label
+            class="input bg-gray-50 flex gap-1 w-full h-full items-center justify-center p-2 textarea"
+            for="input"
+          >
+            <Button
+              v-if="!isEmpty" size="sm" shape="circle" :disabled="isChatError || isChatSending || undefined"
+              class="btn-ghost" :loading="translation.isLoading.value" @click="translation.onTranslate()"
+            >
+              <Icon name="translate" class="text-base" />
+            </Button>
+
+            <ContentEditable
+              is="span" id="input" ref="contentEditableRef" v-model="text"
+              class="flex w-full items-center text-sm outline-none" placeholder="Type a message"
+              @keydown.enter="handleSend"
+            />
+          </label>
         </div>
 
-        <ContentEditable
-          is="span"
-          id="input"
-          ref="contentEditableRef"
-          v-model="text"
-          class="flex w-full items-center text-sm outline-none"
-          placeholder="Type a message"
-          @keydown.enter="handleSend"
-        />
-      </label>
-    </div>
-
-    <div
-      v-if="!isEmpty"
-      role="button"
-      class="btn btn-ghost btn-circle avatar"
-      :disabled="isChatError || isChatSending || undefined"
-      @click="handleSend"
-    >
-      <Icon :name="icon" />
+        <div
+          v-if="!isEmpty" role="button" class="btn btn-ghost btn-circle avatar"
+          :disabled="isChatError || isChatSending || undefined" @click="handleSend"
+        >
+          <Icon :name="icon" />
+        </div>
+      </div>
     </div>
   </footer>
 </template>
 
 <style scoped>
 .bg-gradient-6 {
-  background: linear-gradient(to right, theme('colors.blue.50'), theme('colors.blue.100'), theme('colors.blue.50'));
-
   background: radial-gradient(circle, theme('colors.white'), theme('colors.magenta.50'));
 }
 </style>
