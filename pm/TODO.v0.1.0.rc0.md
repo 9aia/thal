@@ -19,8 +19,6 @@ description: Tasks and items for the release.
 
 ## Enhancements
 
-- Add option to copy message
----
 - Improve brand identity
 - Improve the homepage
 - Improve the "Pricing" page and set up redirects
@@ -32,7 +30,6 @@ description: Tasks and items for the release.
 ## Bugs
 
 - Fix "Join to app" or "Try again" after checkout
-- Prevent from Prompt injection in character instructions, etc.
 
 ## Dev Enhancements
 

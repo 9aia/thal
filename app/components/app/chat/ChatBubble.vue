@@ -35,6 +35,7 @@ const time = computed(() => new Intl.DateTimeFormat(locale.value, {
   minute: '2-digit',
 }).format(new Date(props.time)))
 
+const copyToClipboard = useClipboard(toRef(props, 'message'))
 const translation = useTranslation({
   chatUsername: username.value,
   message: toRef(props, 'message'),
@@ -110,6 +111,15 @@ const audiableTextMutation = computed(() => {
         >
           <Icon class="text-base">
             refresh
+          </Icon>
+        </Button>
+
+        <Button
+          class="text-gray-800 btn-ghost hidden group-hover:block" shape="circle"
+          @click="copyToClipboard"
+        >
+          <Icon class="text-base">
+            content_copy
           </Icon>
         </Button>
 
