@@ -8,7 +8,7 @@ description: A collection of ideas and feedback from stakeholders or team member
 
 - Add markdown
 - Add official characters
-- Add onboarding custom character
+- Add onboarding (custom character)
 - Add Spanish and/or other languages
 - Add search in chat
 - Add different plans: family, business and school

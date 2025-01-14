@@ -45,14 +45,18 @@ function handleError() {
 
 <template>
   <NuxtLayout>
-    <div class="w-full bg-gradient-7 relative" style="height: calc(100vh - 64px)">
-      <div class="absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 flex flex-col items-center">
-        <h1 class="text-8xl font-bold text-center mb-4" :class="errorMessage.color">
+    <div class="w-full relative" style="height: calc(100vh - 64px)">
+      <div class="text-center absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 flex flex-col items-center w-full max-w-md">
+        <h1 class="text-8xl text-gradient-1 text-center mb-4" :class="errorMessage.color">
           {{ error!.statusCode }}
         </h1>
 
         <p class="text-md text-gray-600">
-          <T text="If the problem persists, please {reportIssue}." :values="{ reportIssue: 'true' }">
+          <template v-if="error!.statusCode === 404">
+            {{ t('Oops, the page you are looking for does not exist.') }}
+          </template>
+
+          <T v-else text="If the problem persists, please {reportIssue}." :values="{ reportIssue: 'true' }">
             <template #reportIssue>
               <A
                 target="_blank" :localize="false" :href="t('https://forms.gle/ANMv7qnwTHva1k7L8')"
@@ -62,7 +66,7 @@ function handleError() {
           </T>
         </p>
 
-        <A href="/" class="mt-4 btn btn-primary text-gray-900" @click="handleError">
+        <A class="mt-4 w-fit rounded-full px-4 py-2 bg-cyan-500 text-black hover:bg-cyan-600" href="/" @click="handleError">
           {{ t('Access the home page') }}
         </A>
       </div>
@@ -71,10 +75,9 @@ function handleError() {
 </template>
 
 <style scoped>
-.bg-gradient-7 {
-  background-image: radial-gradient(at bottom,
-
-      theme('colors.red.100'),
-      theme('colors.white'));
+.text-gradient-1 {
+  background: linear-gradient(66deg, theme('colors.orange.500'), theme('colors.red.500'));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 </style>

@@ -6,7 +6,7 @@ import { isRootDrawerOpen } from '~/store'
 <template>
   <div class="flex flex-col w-full h-dvh bg-white p-4">
     <Navbar class="bg-gray-800 lg:hidden">
-      <h1 class="text-lg text-primary font-bold flex items-center gap-1">
+      <h1 class="text-lg text-primary flex items-center gap-1">
         {{ t('Thal') }}
       </h1>
     </Navbar>

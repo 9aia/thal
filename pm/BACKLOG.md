@@ -15,14 +15,14 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Add native language preference (eg. BR or PT)
 - Add date stamps in chat
 - Add unread badge
-- Add calls
-- Add character unique voices
-- Add character knowledge
-- Add profile photos (generate or upload)
 - Add a deleted/non-existent section in contacts
 - Add character search results to chat and contact search
 - Add dark theme
 - Add character rating (unrated, teen, mature, everyone)
+- Add calls
+- Add character unique voices
+- Add character knowledge
+- Add profile photos (generate or upload)
 
 ## Bugs
 
@@ -57,8 +57,9 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Improve stability by handling API errors gracefully
 - Improve error handling
 - Improve loading handling
+- Update README and docs
 
-## Performance Enhancements
+## Performance
 
 - Pregenerate site pages
 - Improve icon loading on slow networks
@@ -68,7 +69,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Implement infinite scrolls
 - Paginate contact and chat search
 
-## Dev Enhancements
+## DX
 
 - Normalize schema payment field names to lower camel case
 - Change `Message.isBot` to boolean mode

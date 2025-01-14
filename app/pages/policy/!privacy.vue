@@ -39,8 +39,7 @@ definePageMeta({
         Coletamos informações pessoais para personalizar a experiência de
         aprendizado com o uso de inteligência artificial. Essas informações são
         fornecidas à IA para gerar conteúdo personalizado para uma experiência
-        envolvente. Por padrão, não usamos seu nome e sobrenome para personalizar
-        o conteúdo.
+        envolvente.
       </p>
 
       <h2>3. Divulgação de Suas Informações</h2>
@@ -90,9 +89,7 @@ definePageMeta({
 
       <h2>8. Retenção dos Dados</h2>
       <p>
-        Quando você exclui sua conta Thal, removeremos imediatamente seus dados pessoais de nossos sistemas
-        ativos.
-        No entanto, cópias residuais das suas informações podem permanecer nos nossos sistemas de backup ou registos por
+        Quando você desativa sua conta Thal, cópias residuais das suas informações podem permanecer nos nossos sistemas de backup ou registos por
         um período limitado.
       </p>
       <p>
@@ -107,7 +104,7 @@ definePageMeta({
       <p>
         Se você tiver alguma dúvida sobre esta Política de Privacidade, entre em
         contato conosco em
-        <a href="mailto:suporte@thal.app">suporte@thal.app</a>.
+        <a href="mailto:thal@9aia.com">thal@9aia.com</a>.
       </p>
     </template>
     <template v-else>
@@ -138,8 +135,7 @@ definePageMeta({
       <p>
         We collect personal information to personalize the learning experience
         powered by AI. This information is provided to the AI to generate
-        personalized content for an engaging experience. By default, we do not use
-        your name and last name to personalize the content.
+        personalized content for an engaging experience.
       </p>
 
       <h2>3. Disclosure of Your Information</h2>
@@ -187,8 +183,7 @@ definePageMeta({
 
       <h2>8. Data Retention</h2>
       <p>
-        When you delete your Thal account, we will promptly remove your personal data from our active systems.
-        However, residual copies of your information may remain in our backup systems or logs for a limited period.
+        When you deactivate your Thal account, residual copies of your information may remain in our backup systems or logs for a limited period.
       </p>
       <p>
         Rest assured that any retained personal data will not be actively used for any purpose. We are committed to
@@ -213,11 +208,11 @@ p {
 }
 
 a {
-  @apply text-teal-600 font-bold underline;
+  @apply text-blue-500 underline;
 }
 
 a:hover {
-  @apply text-teal-700;
+  @apply text-blue-500;
 }
 
 ul {

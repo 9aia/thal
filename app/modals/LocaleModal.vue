@@ -56,10 +56,6 @@ const submit = form.handleSubmit(async (data) => {
           {{ item.name }}
         </Radio>
       </div>
-
-      <p class="text-sm text-gray-600">
-        {{ t('P.S. Choosing your native language for the interface will not impact the lessons themselves.') }}
-      </p>
     </template>
   </Modal>
 </template>

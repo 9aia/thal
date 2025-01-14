@@ -41,12 +41,13 @@ pnpm install
 At Gaia, we’re dedicated to transparent and community-driven development. Curious about what’s on the horizon or how we bring ideas to life? Dive into our roadmap to stay updated on current progress, upcoming features, and key milestones. From brainstorming sessions to prioritized tasks, we’re excited to share every step of Thal’s journey with you. Explore the resources below to stay connected and see how Thal grows with each contribution!
 
 - **[Project Overview](/pm/OVERVIEW.md)**: A summary of Thal's mission, vision, and progress.
-- **[Backlog](/pm/BACKLOG.md)**: A list of tasks and ideas yet to be implemented.
-  - **[Archived](/pm/archived.md)**: Ideas that won’t be pursued.
-  - **[To Revise](/pm/to-revise.md)**: Concepts under review for potential inclusion.
+- **[Roadmap](/pm/ROADMAP.md)**: Key milestones and planned features to guide development.
+- **[Backlog](/pm/BACKLOG.md)**: A collection of tasks and ideas pending implementation.
+- **[Todo](/pm/TODO.md)**: The current tasks we’re working on.
+- **[Suggestions](/pm/SUGGESTIONS.md)**: Concepts and ideas under review for potential inclusion.
 - **[Changelog](/pm/CHANGELOG.md)**: A detailed record of updates, changes, and improvements.
-- **[Roadmap](/pm/ROADMAP.md)**: Major milestones and planned features.
-- **[Todo](/pm/TODO.md)**: The current tasks we’re actively working on.
+- **Archived**
+  - **[Backlog](/pm/archived/BACKLOG.md)**: A record of ideas that have been set aside and will not be pursued.
 
 ## Developing
 

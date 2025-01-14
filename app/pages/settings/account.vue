@@ -9,7 +9,7 @@ definePageMeta({
 
 <template>
   <div class="flex flex-col h-dvh justify-between">
-    <h1 class="text-lg text-black flex items-center gap-1 mb-4">
+    <h1 class="text-4xl mb-4 font-bold">
       {{ t("Account Settings") }}
     </h1>
 

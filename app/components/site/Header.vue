@@ -23,8 +23,8 @@
 
 <style>
 .custom-badge-content {
-  @apply border-transparent border-double border-2 rounded-full;
-  background-image: linear-gradient(white, white), radial-gradient(circle at top left, #0f0, #0ff);
+  @apply border-transparent border-double border-2 rounded-3xl;
+  background-image: linear-gradient(white, white), radial-gradient(circle at top left, theme('colors.green.500'), theme('colors.cyan.500'));
   background-origin: border-box;
   background-clip: content-box, border-box;
 }

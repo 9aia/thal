@@ -1,128 +1,82 @@
 <script setup lang="ts">
+import { type Value, formatValue } from '@psitta/core'
 import { T, t } from '@psitta/vue'
 import Link from '~/components/ui/navigation/Link.vue'
 
 const user = useUser()
-
-interface SectionItem {
-  title: string
-  items: Array<{ title: string, href: string, target?: string, localize?: boolean } | null>
-}
-
-const sections = computed<SectionItem[]>(() => [
-  {
-    title: 'Links',
-    items: [
-      { title: 'Home', href: '/' },
-      { title: 'About', href: '/about' },
-      !user?.value?.plan ? { title: 'Pricing', href: '/pricing' } : null,
-    ],
-  },
-  {
-    title: 'Support',
-    items: [
-      { title: 'Give us feedback', target: '_blank', localize: false, href: 'https://forms.gle/5ePvXjrebyWGUrM26' },
-      { title: 'Report a problem', target: '_blank', localize: false, href: 'https://forms.gle/ANMv7qnwTHva1k7L8' },
-    ],
-  },
-  {
-    title: 'Legal',
-    items: [
-      { title: 'Terms of Service', href: '/terms' },
-      { title: 'Privacy Policy', href: '/privacy' },
-    ],
-  },
-])
-
 const localeModal = useLocaleModal()
+const logout = useLogout()
 </script>
 
 <template>
   <footer class="sticky top-[100vh]">
-    <div class="z-20 bg-white border-t border-gray-100 w-full py-12 sm:py-32 ">
-      <div class="mx-auto max-w-[800px] gap-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 grid flex-col">
-        <div class="w-full px-4">
-          <h5 class="text-2xl text-gray-900 mb-6 flex">
-            {{ t(sections[0].title) }}
-          </h5>
-          <ul class="flex flex-col justify-start">
-            <template v-for="(item, i) in sections[0].items">
-              <li v-if="item" :key="i" class="flex">
-                <Link v-bind="item" class="text-base !text-black">
-                  {{ t(item.title) }}
-                </Link>
-              </li>
-            </template>
-          </ul>
+    <div class="z-20 bg-white text-black w-full py-4">
+      <div class="mx-auto max-w-[800px] px-4 flex gap-2 flex-wrap items-center justify-between">
+        <div class="flex items-center justify-center gap-4">
+          <A href="/" active-class="text-gray-200" class="flex items-center gap-1 text-black hover:underline">
+            {{ t('Home') }}
+          </A>
+
+          <A v-if="!user?.plan" href="/pricing" active-class="text-gray-200" class="flex items-center gap-1 text-black hover:underline">
+            {{ t('Pricing') }}
+          </A>
+
+          <A href="/terms" active-class="text-gray-200" class="flex items-center gap-1 text-black hover:underline">
+            {{ t('Terms') }}
+          </A>
+
+          <A href="/privacy" active-class="text-gray-200" class="flex items-center gap-1 text-black hover:underline">
+            {{ t('Privacy') }}
+          </A>
         </div>
 
-        <div class="w-full px-4">
-          <h5 class="text-2xl text-gray-900 mb-6 flex">
-            {{ t(sections[1].title) }}
-          </h5>
-          <ul class="flex flex-col justify-start">
-            <template v-for="(item, i) in sections[1].items">
-              <li v-if="item" :key="i" class="flex">
-                <Link v-bind="item" class="text-base !text-black">
-                  {{ t(item.title) }}
-                </Link>
-              </li>
-            </template>
-          </ul>
-        </div>
-
-        <div class="w-full px-4">
-          <h5 class="text-2xl text-gray-900 mb-6 flex">
-            {{ t(sections[2].title) }}
-          </h5>
-          <ul class="flex flex-col justify-start">
-            <template v-for="(item, i) in sections[2].items">
-              <li v-if="item" :key="i" class="flex">
-                <Link v-bind="item" class="text-base !text-black">
-                  {{ t(item.title) }}
-                </Link>
-              </li>
-            </template>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="z-20 bg-white text-black w-full">
-      <div class="mx-auto max-w-[800px] px-4 py-4 flex items-center justify-between">
-        <div class="flex items-center justify-center gap-1">
+        <div class="flex items-center justify-center gap-2">
+          <A class="flex" href="/app">
+            <Icon name="chat" />
+          </A>
+          <A v-if="user" class="flex" href="/settings/account">
+            <Icon name="settings" />
+          </A>
           <button class="flex" @click="localeModal.open()">
             <Icon name="language" />
           </button>
+          <button v-if="user" class="flex text-orange-500" @click="logout()">
+            <Icon name="logout" />
+          </button>
+        </div>
+      </div>
 
+      <div class="max-w-[800px] mx-auto px-4 pb-4 mt-2 flex flex-col md:flex-row flex-wrap md:flex-nowrap gap-2 justify-between items-center">
+        <div class="flex gap-4 w-full items-center flex-wrap">
+          <Link href="https://forms.gle/5ePvXjrebyWGUrM26" :localize="false" target="_blank" class="flex items-center gap-1 !text-black">
+            {{ t('Give us feedback') }}
+          </Link>
+
+          <Link href="https://forms.gle/ANMv7qnwTHva1k7L8" :localize="false" target="_blank" class="flex items-center gap-1 !text-black">
+            {{ t('Report a problem') }}
+          </Link>
+        </div>
+
+        <div class="flex w-full items-center mt-2 md:justify-end gap-1">
           <T
             text="{year} - Developed by {teamName}"
             :values="{ year: [new Date(), { year: 'numeric' }], teamName: 'Gaia' }"
             class="flex items-center justify-center gap-1"
           >
+            <template #year="slotProps">
+              <span class="text-gray-500">
+                {{ formatValue(slotProps.year as Value) }}
+              </span>
+            </template>
+
             <template #teamName="slotProps">
-              <Link href="https://9aia.github.io/" disable class="text-gradient-1 flex items-center gap-1">
+              <Link href="https://9aia.github.io/" disable class="!text-blue-500 flex items-center gap-1">
                 {{ slotProps.teamName }}
               </Link>
             </template>
           </T>
         </div>
-
-        <div>
-          <p href="/" class="flex items-center gap-1 text-black">
-            Thal {{ new Date().getFullYear() }}
-          </p>
-        </div>
       </div>
     </div>
   </footer>
 </template>
-
-<style scoped>
-.text-gradient-1 {
-  background: radial-gradient(theme('colors.green.500'), theme('colors.blue.500')) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  color: transparent !important;
-}
-</style>

@@ -24,12 +24,12 @@ description: A timeline of key milestones and upcoming features or releases.
 
 ## Milestones
 
-### 0.1* - Fundamentals (24-01-31)
+### 0.1* - Fundamentals (25-01-31)
 
 - User Accounts (Sign in, Manage Account, Subscribe)
 - Character Management (Discover, Manage)
 - Chats
-- Basic Language Assistance
+- Basic Language Assistance (Message Translation, Input Translation, Listen to Message)
 - Contacts
 - Basic Moderation
 - Basic Support & Legal (Issue Report, Terms & Privacy)
@@ -37,8 +37,6 @@ description: A timeline of key milestones and upcoming features or releases.
 
 ### 0.2* - Language Assistance
 
-- Add option to listen to the message
-- Add PT-EN translator in the chat input
 - Add suggestions in chat
 - Add tips
 - Add modal "Dictionary"
@@ -61,6 +59,7 @@ description: A timeline of key milestones and upcoming features or releases.
   - Add "Keep Character instructions private" to Character Builder
 - Fork characters
 - Add character edit button (if its yours) to chat and contact options
+- Add recently created section in new chat view
 
 ### 0.4* - Support
 
@@ -71,7 +70,6 @@ description: A timeline of key milestones and upcoming features or releases.
 - Add "About Thal" in help section in settings
 - Add "App Info" (app name, icon, version, author, licenses)
 - Open character info by clicking on the AI warning item in the contact view
-- Add onboarding
 - Add "Export account data"
 - Delete account data
 

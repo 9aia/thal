@@ -3,6 +3,7 @@ import { refAutoReset } from '@vueuse/core'
 import { useI18n } from '@psitta/vue'
 
 definePageMeta({
+  title: 'Your free trial is being processed',
   middleware: 'auth',
 })
 
@@ -31,40 +32,44 @@ async function goToApp() {
 </script>
 
 <template>
-  <div class="absolute bottom-1/2 right-1/2 translate-x-1/2 translate-y-1/2">
-    <div class="card w-[28rem] bg-base-100 shadow-xl">
-      <div class="card-body">
-        <h2 class="card-title">
-          {{ t('Your free trial is being processed.') }}
-        </h2>
+  <div class="w-full relative" style="height: calc(100vh - 64px)">
+    <div class="text-center w-full max-w-2xl absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2">
+      <h1 class="text-3xl text-black text-center mb-4">
+        {{ t('Your free trial is being processed.') }}
+      </h1>
 
-        <p>
-          {{ t('If you have any problem, you can contact us at:') }}
-          <a href="mailto:support@thal.app">support@thal.app</a>
-        </p>
+      <p class="text-black text-sm">
+        {{ t('You will receive access to the app as soon as possible.') }}
+      </p>
 
-        <p>
-          {{ t('Thank you for choosing us!') }}
-        </p>
+      <div class="flex items-center justify-center h-fit mt-4 gap-2">
+        <form action="/app" method="get" @submit.prevent="goToApp">
+          <Button type="submit" class="py-4 bg-cyan-500 border-none flex gap-1" :disabled="disabled">
+            {{ t('Try access') }}
+          </Button>
+        </form>
 
-        <div class="card-actions">
-          <form action="/app" method="get" @submit.prevent="goToApp">
-            <button
-              type="submit"
-              class="btn btn-primary"
-              :disabled="disabled"
-            >
-              {{ t('Try again') }}
-            </button>
-          </form>
-
-          <form action="/api/payment/stripe/create-portal-session" method="post">
-            <button type="submit" class="btn">
-              {{ t('Manage your billing information') }}
-            </button>
-          </form>
-        </div>
+        <form action="/api/payment/stripe/create-portal-session" method="post" class="flex gap-2">
+          <Button type="submit" class="py-4 bg-cyan-500 border-none flex gap-1">
+            {{ t('Manage your billing information') }}
+          </Button>
+        </form>
       </div>
+
+      <p class="text-sm text-gray-600 mt-4 w-full flex items-center justify-center">
+        <T
+          class="flex flex-col items-center justify-center"
+          text="If you have any problem, you can contact us at: {link}" :values="{
+            link: 'thal@9aia.com',
+          }"
+        >
+          <template #link="{ link }">
+            <Link class="!text-brown-500 w-fit" :href="`mailto:${link}`">
+              {{ link }}
+            </Link>
+          </template>
+        </T>
+      </p>
     </div>
   </div>
 </template>

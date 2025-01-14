@@ -61,9 +61,9 @@ const menuItems: MenuItem[] = [
 
             <A
               v-else
-              class="hover:underline text-gradient-1"
+              active-class="text-gray-200 hover:no-underline pointer-events-none"
+              class="text-black hover:underline"
               href="/sign-in"
-              active-class="text-gray-900"
             >
               {{ t("Sign in") }}
             </A>
@@ -79,12 +79,3 @@ const menuItems: MenuItem[] = [
     <Footer />
   </div>
 </template>
-
-<style scoped>
-.text-gradient-1 {
-  background: radial-gradient(theme('colors.green.500'), theme('colors.blue.500'));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-</style>

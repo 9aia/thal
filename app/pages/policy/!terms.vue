@@ -44,8 +44,8 @@ definePageMeta({
           não autorizado à sua conta.
         </li>
         <li>
-          <strong>Exclusão de conta:</strong> Você tem o direito de excluir sua conta Thal e informações pessoais
-          associadas. Para iniciar o processo de exclusão da conta, siga as instruções fornecidas nas <a
+          <strong>Desativação de conta:</strong> Você tem o direito de desativar sua conta Thal e informações pessoais
+          associadas. Para iniciar o processo de desativação da conta, siga as instruções fornecidas nas <a
             href="/settings/account"
           >configurações do aplicativo</a>.
         </li>
@@ -115,7 +115,7 @@ definePageMeta({
       <p>
         Se você tiver alguma dúvida sobre estes Termos de Serviço, entre em
         contato conosco em
-        <a href="mailto:suporte@thal.app">suporte@thal.app</a>.
+        <a href="mailto:thal@9aia.com">thal@9aia.com</a>.
       </p>
     </template>
     <template v-else>
@@ -150,8 +150,8 @@ definePageMeta({
           unauthorized access to your account.
         </li>
         <li>
-          <strong>Account Deletion:</strong> You have the right to delete your Thal account and associated
-          personal information. To initiate the account deletion process, please follow the instructions provided in the
+          <strong>Account Deactivation:</strong> You have the right to deactivate your Thal account and associated
+          personal information. To initiate the account deactivation process, please follow the instructions provided in the
           <a href="/settings/account">app settings</a>.
         </li>
         <li>
@@ -218,7 +218,7 @@ definePageMeta({
       <p>
         If you have any questions about these Terms of Service, please contact us
         at
-        <a href="mailto:support@thal.app">support@thal.app</a>.
+        <a href="mailto:thal@9aia.com">thal@9aia.com</a>.
       </p>
     </template>
   </div>
@@ -238,11 +238,11 @@ p {
 }
 
 a {
-  @apply text-teal-600 font-bold underline;
+  @apply text-blue-500 underline;
 }
 
 a:hover {
-  @apply text-teal-700;
+  @apply text-blue-500;
 }
 
 ul {
