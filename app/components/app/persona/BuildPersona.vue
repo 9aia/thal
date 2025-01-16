@@ -78,7 +78,7 @@ const submit = form.handleSubmit(async (data) => {
         },
       })
 
-      toast.success(t('Persona has been edited successfully.'), undefined, {
+      toast.success(t('Character has been edited successfully.'), undefined, {
         actions: [
           {
             title: t('Message'),
@@ -108,7 +108,14 @@ const submit = form.handleSubmit(async (data) => {
         },
       })
 
-      toast.success(t('Persona has been created successfully.'))
+      toast.success(t('Character has been created successfully.'), undefined, {
+        actions: [
+          {
+            title: t('Message'),
+            onClick: () => navigateTo(`/app/chat/${data.username}`),
+          },
+        ],
+      })
     }
 
     queryClient.invalidateQueries({
@@ -125,7 +132,7 @@ const submit = form.handleSubmit(async (data) => {
   }
   catch (e) {
     const _ = e
-    toast.error(t('An error occurred while creating persona.'))
+    toast.error(t('An error occurred while creating character.'))
   }
 
   loading.value = false
