@@ -4,7 +4,7 @@ import { computed, effect, ref } from 'vue'
 import Icon from '../display/Icon.vue'
 
 const styles = tv({
-  base: 'z-50 alert border-0',
+  base: 'alert border-0 flex justify-between',
   variants: {
     type: {
       info: 'alert-info',
@@ -20,7 +20,7 @@ const actionStyles = tv({
 })
 
 const toastStyles = tv({
-  base: 'toast',
+  base: 'toast z-50 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5',
   variants: {
     position: {
       'start-top': 'toast-start toast-top',
@@ -55,6 +55,8 @@ const icons: Icons = {
 const icon = computed(() => toast.icon.value || icons[toast.type.value || 'info'])
 
 effect(() => {
+  toast.duration.value = -1
+
   const duration = toast.duration.value ?? 3000
 
   if (el.value) {
@@ -78,11 +80,13 @@ watch(toast.update, () => {
   <Transition>
     <div v-if="toast.visible.value" class="overflow-hidden" :class="toastStyles({ position: toast.position.value })">
       <div class="relative overflow-hidden" :class="styles({ type: toast.type.value })">
-        <Icon :name="icon" class="text-gray-800" />
+        <div class="flex items-center justify-center gap-2">
+          <Icon :name="icon" class="text-gray-800" />
 
-        <h3 class="text-gray-800">
-          {{ toast.message.value }}
-        </h3>
+          <h3 class="text-gray-800 text-wrap text-left">
+            {{ toast.message.value }}
+          </h3>
+        </div>
 
         <div class="flex items-center justify-center gap-4">
           <div v-if="toast.actions.value.length">
