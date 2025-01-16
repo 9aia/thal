@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
-import { useOnline, useScroll } from '@vueuse/core'
+import { useEventListener, useOnline, useScroll } from '@vueuse/core'
 import AppLayout from '~/layouts/app.vue'
 import queryKeys from '~/queryKeys'
 import { chatItemSearch, replies, sendingChatIds, sentErrorChatIds } from '~/store'
@@ -25,7 +25,7 @@ const {
   queryKey: queryKeys.chat(computed(() => route.params.username as string)),
 })
 
-const scrollContainer = ref<HTMLElement | null>(null)
+const scrollContainer = ref<HTMLDivElement>()
 
 const mainScroll = useScroll(scrollContainer, {
   behavior: 'smooth',
@@ -40,7 +40,21 @@ async function goToBottom() {
   mainScroll.y.value = scrollContainer.value.scrollHeight
 }
 
-const isScrollBottom = computed(() => mainScroll.arrivedState.bottom)
+const isScrollable = ref(false)
+
+useEventListener(scrollContainer, 'scroll', () => {
+  const element = scrollContainer.value
+
+  if (!element) {
+    return
+  }
+
+  isScrollable.value = element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth
+})
+
+const isScrollDownButtonVisible = computed(() => {
+  return !mainScroll.arrivedState.bottom && isScrollable.value
+})
 
 const text = ref('')
 
@@ -285,7 +299,7 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
                   shape="circle"
                   size="sm"
                   class="transition-opacity duration-500 opacity-0 ease-in-out text-blue-500"
-                  :class="{ 'opacity-100': !isScrollBottom, 'pointer-events-none': isScrollBottom }"
+                  :class="{ 'opacity-100': isScrollDownButtonVisible, 'pointer-events-none': !isScrollDownButtonVisible }"
                   @click="goToBottom"
                 >
                   <Icon class="text-lg">
