@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
-import { getConfig } from '@psitta/core'
+import { detectLocaleFromPathname, getConfig } from '@psitta/core'
 import { useI18n } from '@psitta/vue'
 import { LOCALES } from '~/constants/base'
 
@@ -19,6 +19,10 @@ onMounted(() => {
 const isOpen = defineModel({ default: false })
 const loading = ref(false)
 
+const route = useRoute()
+
+const { urlWithoutLocale } = detectLocaleFromPathname(route.path)
+
 const submit = form.handleSubmit(async (data) => {
   const locale = data.locale
 
@@ -27,10 +31,19 @@ const submit = form.handleSubmit(async (data) => {
 
   loading.value = true
 
+  const scrollX = window.scrollX
+  const scrollY = window.scrollY
+
   if (locale === defaultLocale)
-    await navigateTo(`/app`)
+    await navigateTo(urlWithoutLocale)
   else
-    await navigateTo(`/${locale}/app`)
+    await navigateTo(`/${locale}${urlWithoutLocale}`)
+
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      window.scrollTo(scrollX, scrollY)
+    }, 0)
+  })
 
   toast.success(t('The language has been updated successfully.'))
 

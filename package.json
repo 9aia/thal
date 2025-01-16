@@ -5,6 +5,7 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev --host",
+    "dev:cs": "docker compose up codeshare",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "git config core.hooksPath ./codeshare/.githooks && nuxt prepare",
