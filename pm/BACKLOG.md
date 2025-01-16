@@ -59,6 +59,8 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Improve error handling
 - Improve loading handling
 - Update README and docs
+- ---
+- Add custom payment pages
 
 ## Performance
 

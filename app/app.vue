@@ -9,8 +9,8 @@ useInternetConnectionIndicator()
 
 <template>
   <NuxtLoadingIndicator
-    color="repeating-linear-gradient(to right, #5eead4 0%, #14b8a6 100%)"
-    error-color="repeating-linear-gradient(to right, #f87171 0%, #ef4444 100%)"
+    color="repeating-linear-gradient(to right, #00ffff 0%, #0000ff 100%)"
+    error-color="repeating-linear-gradient(to right, #ff0000 0%, #ff6600 100%)"
   />
 
   <NuxtLayout>
