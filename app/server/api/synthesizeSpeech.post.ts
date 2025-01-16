@@ -5,10 +5,10 @@ import { getValidated } from '~/utils/h3'
 import { internal, unauthorized } from '~/utils/nuxt'
 
 export default eventHandler(async (event) => {
-  const { GCLOUD_ACCESS_TOKEN } = process.env
+  const { GCP_CLOUD_TTS_API_KEY } = process.env
 
-  if (!GCLOUD_ACCESS_TOKEN)
-    throw internal('GCLOUD_ACCESS_TOKEN is not set in the environment')
+  if (!GCP_CLOUD_TTS_API_KEY)
+    throw internal('GCP_CLOUD_TTS_API_KEY is not set in the environment')
 
   const user = event.context.user
 
@@ -20,7 +20,7 @@ export default eventHandler(async (event) => {
     locale: z.string().default('en-US'),
   }))
 
-  const tts = getTts(GCLOUD_ACCESS_TOKEN)
+  const tts = getTts(GCP_CLOUD_TTS_API_KEY)
 
   const ssml = `<speak>${data.text.split(' ').map((w, i) => `<mark name="${i}"/>${w}`).join(' ')}</speak>`
 

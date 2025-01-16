@@ -5,10 +5,10 @@ import { getValidated } from '~/utils/h3'
 import { internal, unauthorized } from '~/utils/nuxt'
 
 export default eventHandler(async (event) => {
-  const { GCLOUD_ACCESS_TOKEN } = process.env
+  const { GCP_CLOUD_STT_API_KEY } = process.env
 
-  if (!GCLOUD_ACCESS_TOKEN)
-    throw internal('GCLOUD_ACCESS_TOKEN is not set in the environment')
+  if (!GCP_CLOUD_STT_API_KEY)
+    throw internal('GCP_CLOUD_STT_API_KEY is not set in the environment')
 
   const user = event.context.user
 
@@ -19,7 +19,7 @@ export default eventHandler(async (event) => {
     audio: z.string(),
   }))
 
-  const stt = getStt(GCLOUD_ACCESS_TOKEN)
+  const stt = getStt(GCP_CLOUD_STT_API_KEY)
 
   const options = {
     config: {
