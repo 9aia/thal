@@ -28,6 +28,12 @@ const menuItems: MenuItem[] = [
     onSubmit: logout,
   },
 ]
+
+const redirectUrl = useRedirectUrl()
+
+function updateRedirectUrlToApp() {
+  redirectUrl.value = '/app'
+}
 </script>
 
 <template>
@@ -38,13 +44,13 @@ const menuItems: MenuItem[] = [
           <div>
             <div v-if="!!user">
               <div class="dropdown dropdown-end">
-                <Avatar type="button" class="w-10" :button="true" @click="updateRedirectUrl" />
+                <Avatar type="button" class="w-10" :button="true" />
 
                 <Menu :items="menuItems" item-class="py-2" />
               </div>
             </div>
 
-            <A v-else class="link link-red-500" href="/sign-in">
+            <A v-else class="link link-red-500" href="/sign-in" @click="updateRedirectUrlToApp">
               {{ t("Sign in") }}
             </A>
           </div>
@@ -61,4 +67,3 @@ const menuItems: MenuItem[] = [
     <Footer />
   </div>
 </template>
-

@@ -53,7 +53,7 @@ export function openContactView(username: string) {
 
 const { focusMainField: focusContactMainField } = useNewContactFocus()
 
-export function manageContact(data?: Contact | null) {
+export async function manageContact(data?: Contact | null) {
   if (data) {
     contactData.value = data
   }
@@ -63,6 +63,9 @@ export function manageContact(data?: Contact | null) {
 
   isRootDrawerOpen.value = true
   drawers.manageContact = true
+
+  await nextTick()
+
   focusContactMainField()
 }
 
@@ -80,7 +83,7 @@ export const personaBuilderData = ref<Persona | null>(null)
 
 export const { focusMainField: focusPersonaMainField } = useBuildPersonaFocus()
 
-export function buildPersona(data?: Persona | null) {
+export async function buildPersona(data?: Persona | null) {
   if (data) {
     personaBuilderData.value = data
   }
@@ -90,5 +93,8 @@ export function buildPersona(data?: Persona | null) {
 
   isRootDrawerOpen.value = true
   drawers.personaBuilder = true
+
+  await nextTick()
+
   focusPersonaMainField()
 }

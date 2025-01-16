@@ -34,7 +34,7 @@ import { isRootDrawerOpen } from '~/store'
       <Icon name="science" class="text-xl" />
 
       <p class="text-xs">
-        {{ t('Thal is for learning, practice and fun. AI chats aren’t professional instruction. Use responsibly.') }}
+        {{ t('Talk to thals to practice, learn, and have fun. Chats are not professional instruction. Use responsibly.') }}
       </p>
     </footer>
   </div>

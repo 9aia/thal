@@ -7,10 +7,10 @@ const styles = tv({
   base: 'alert border-0 flex justify-between',
   variants: {
     type: {
-      info: 'alert-info',
-      warning: 'alert-warning',
-      error: 'alert-error',
-      success: 'alert-success',
+      info: 'bg-gradient-info',
+      warning: 'bg-gradient-warning',
+      error: 'bg-gradient-error',
+      success: 'bg-gradient-success',
     },
   },
 })
@@ -55,8 +55,6 @@ const icons: Icons = {
 const icon = computed(() => toast.icon.value || icons[toast.type.value || 'info'])
 
 effect(() => {
-  toast.duration.value = -1
-
   const duration = toast.duration.value ?? 3000
 
   if (el.value) {
@@ -124,8 +122,20 @@ watch(toast.update, () => {
 </template>
 
 <style scoped>
-.bg-gradient-1 {
-  background: radial-gradient(circle, theme('colors.magenta.50'), theme('colors.white'));
+.bg-gradient-success {
+  background: radial-gradient(at top, theme('colors.green.100'), theme('colors.gray.50'));
+}
+
+.bg-gradient-error {
+  background: radial-gradient(at top, theme('colors.red.100'), theme('colors.gray.50'));
+}
+
+.bg-gradient-warning {
+  background: radial-gradient(at top, theme('colors.orange.100'), theme('colors.gray.50'));
+}
+
+.bg-gradient-info {
+  background: radial-gradient(at top, theme('colors.blue.100'), theme('colors.gray.50'));
 }
 
 .animate-progress {

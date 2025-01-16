@@ -20,6 +20,9 @@ const { focusMainField: focusSearch } = useDiscoverFocus()
 async function goToDiscover() {
   isRootDrawerOpen.value = false
   await navigateTo('/app/discover')
+
+  await nextTick()
+
   focusSearch()
 }
 

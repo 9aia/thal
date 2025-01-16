@@ -85,13 +85,13 @@ async function openWhatsNewModal() {
           shape="circle"
           no-disable-on-loading
           :class="{
-            'text-red-500': hasUnreadContent,
+            'text-orange-500': hasUnreadContent,
             'text-black': !hasUnreadContent,
           }"
           :loading="countQuery.isLoading.value"
           @click="openWhatsNewModal"
         >
-          <Icon v-show="!countQuery.isLoading.value" name="news" />
+          <Icon v-show="!countQuery.isLoading.value" name="campaign" />
         </Button>
 
         <ChatListOptionsButton />

@@ -22,7 +22,6 @@ description: Tasks and items for the release.
 
 ## Enhancements
 
-- Add message action to character saving toast
 - Set up pricing redirects
 
 ## Performance

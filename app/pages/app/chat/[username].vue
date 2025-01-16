@@ -108,7 +108,7 @@ function updateLastMessage(newMessage: SendMessageData, isError = false) {
   queryClient.setQueryData(queryKeys.chatsSearch(chatItemSearch.value), (oldData: ChatItem[]) => {
     let newChats = [...oldData]
 
-    const chatIndex = newChats.findIndex((lastMessage: ChatItem) => lastMessage.chatId === data.value.chatId)
+    const chatIndex = newChats.findIndex((lastMessage: ChatItem) => lastMessage.personaUsername === data.value.username)
 
     if (chatIndex !== -1) {
       newChats[chatIndex] = newChat
@@ -253,10 +253,10 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
             class="bg-white w-full py-4 px-4 flex-1 overflow-y-auto relative focus:outline-none"
           >
             <div class="sm:max-w-5xl md:max-w-6xl lg:max-w-9xl mx-auto">
-              <div class="mb-4 text-blue-500 text-xs bg-gradient-2 px-4 py-2 rounded-lg flex gap-1">
+              <div class="max-w-xs sm:max-w-2xl md:max-w-3xl w-fit mx-auto flex items-center justify-center gap-1 mb-4 text-blue-500 text-xs bg-gradient-2 px-4 py-2 rounded-lg">
                 <Icon name="science" class="text-blue-500" style="font-size: 1.15rem" />
                 <p>
-                  {{ t('This app is for educational and entertainment purposes only. Content and interactions do not represent professional instruction. Verify information independently and use responsibly.') }}
+                  {{ t('This character uses AI to simulate interactions. Please use responsibly.') }}
                 </p>
               </div>
 

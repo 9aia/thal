@@ -27,13 +27,13 @@ watch(() => contactData.value, () => {
   else {
     form.resetForm()
   }
-})
+}, { immediate: true })
 
 watch(() => drawers.manageContact, (value) => {
   if (!value) {
     form.resetForm()
   }
-})
+}, { immediate: true })
 
 async function validateUsername(username: string) {
   if (!username || username === contactData.value?.username)

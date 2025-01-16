@@ -18,11 +18,9 @@ export default function useDiscoverFocus() {
       return
     }
 
-    setTimeout(() => {
-      if (mainField.value) {
-        (mainField.value as any).focus()
-      }
-    }, 500)
+    if (mainField.value) {
+      (mainField.value as any).focus()
+    }
   }
 
   return { mainField, focusMainField }

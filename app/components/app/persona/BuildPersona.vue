@@ -78,7 +78,14 @@ const submit = form.handleSubmit(async (data) => {
         },
       })
 
-      toast.success(t('Persona has been edited successfully.'))
+      toast.success(t('Persona has been edited successfully.'), undefined, {
+        actions: [
+          {
+            title: t('Message'),
+            onClick: () => navigateTo(`/app/chat/${data.username}`),
+          },
+        ],
+      })
 
       const usernameQuery = params.username
 

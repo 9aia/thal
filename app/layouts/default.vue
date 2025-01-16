@@ -28,6 +28,12 @@ const menuItems: MenuItem[] = [
     onSubmit: logout,
   },
 ]
+
+const redirectUrl = useRedirectUrl()
+
+function updateRedirectUrlToApp() {
+  redirectUrl.value = '/app'
+}
 </script>
 
 <template>
@@ -51,8 +57,10 @@ const menuItems: MenuItem[] = [
             <div v-if="!!user">
               <div class="dropdown dropdown-end">
                 <Avatar
-                  type="button" class="w-10 bg-gray-200 text-gray-800" :button="true"
-                  @click="updateRedirectUrl"
+                  type="button"
+                  class="w-10 bg-gray-200 text-gray-800"
+                  :button="true"
+                  @click="updateRedirectUrlToApp()"
                 />
 
                 <Menu :items="menuItems" item-class="py-2" />

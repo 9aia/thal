@@ -34,7 +34,7 @@ const styles = tv({
   base: 'text-base',
   variants: {
     type: {
-      error: 'text-red-600',
+      error: 'text-red-500',
       seen: 'text-blue-500',
       sending: 'text-gray-500',
       received: 'text-gray-500',

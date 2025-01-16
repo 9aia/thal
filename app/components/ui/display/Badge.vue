@@ -3,7 +3,7 @@ import { tv } from 'tailwind-variants'
 
 const props = withDefaults(defineProps<{
   size?: keyof typeof variants['size']
-  is?: keyof HTMLElementTagNameMap,
+  is?: keyof HTMLElementTagNameMap
   noBg?: boolean
 }>(), {
   size: 'sm',
@@ -21,7 +21,7 @@ const variants = {
 } as const
 
 const styles = computed(() => tv({
-  base: props.noBg ? 'badge' : 'badge bg-gradient-badge text-blue-500',
+  base: props.noBg ? 'badge border-none"' : 'badge border-none bg-gradient-badge text-blue-500',
   variants,
 }))
 </script>
@@ -34,7 +34,6 @@ const styles = computed(() => tv({
 
 <style scoped>
 .bg-gradient-badge {
-  background: radial-gradient(at bottom, theme('colors.blue.50'), theme('colors.gray.50'));
+  background: radial-gradient(at bottom, theme('colors.blue.100'), theme('colors.gray.50'));
 }
 </style>
-

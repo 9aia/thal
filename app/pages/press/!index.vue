@@ -54,14 +54,15 @@ import { T, t } from '@psitta/vue'
       class="bg-white px-4 py-12 text-center"
     >
       <div class="max-w-lg mx-auto">
-        <h2 class="text-4xl text-gray-800 mb-4">
+        <h2 class="text-4xl text-gray-800 mb-6 flex flex-col items-center gap-1">
+          <Icon name="chat" class="text-6xl" />
           {{ t("Dynamic Conversations") }}
         </h2>
 
         <p class="text-gray-800">
           {{
             t(
-              "Practice English in interactive conversations that feel authentic and immersive. Thal adapts to your language level and style, providing real-time suggestions, translations, and grammar fixes so you can improve naturally as you chat.",
+              "Practice English in interactive conversations that feel authentic and immersive. The thals adapt to your goals, while the intuitive UI offers translations and grammar corrections, helping you improve naturally as you chat.",
             )
           }}
         </p>
@@ -70,7 +71,7 @@ import { T, t } from '@psitta/vue'
 
     <section class="bg-white overflow-y-hidden">
       <div
-        class="mx-auto px-4 py-12 max-w-[800px] max-h-[500px] md:max-h-[400px] text-center md:text-left"
+        class="mx-auto px-4 py-12 max-w-[800px] max-h-[755px] md:max-h-[423px] text-center md:text-left"
       >
         <div class="flex gap-12 flex-col md:flex-row">
           <div class="mx-auto">
@@ -91,8 +92,10 @@ import { T, t } from '@psitta/vue'
           <div class="drop-shadow-2xl relative z-[10] mx-auto">
             <div class="mockup-phone border-blue-500">
               <div class="camera" />
-              <div class="display">
-                <div class="artboard artboard-demo phone-1 bg-cyan-950" />
+              <div class="display bg-white">
+                <div class="artboard artboard-demo phone-1 mt-24">
+                  <img src="/screenshots/app_chat_max_nova(Pixel 7).png" alt="Discover" class="w-full h-auto">
+                </div>
               </div>
             </div>
           </div>
@@ -110,19 +113,16 @@ import { T, t } from '@psitta/vue'
         <p class="mb-8 max-w-lg">
           {{
             t(
-              "Explore a diverse range of AI-powered characters designed to match your learning goals. Whether you want to practice small talk, tackle professional scenarios, or dive into roleplay, there's always a character ready to help you learn.",
+              "Explore a diverse range of AI-powered characters tailored to your learning goals. Whether practicing small talk, handling professional scenarios, or diving into roleplay, a character is always ready to engage.",
             )
           }}
         </p>
 
         <div class="drop-shadow-2xl w-full max-w-[800px] mx-auto relative z-[10] ">
-          <div class="mockup-browser border border-gray-300 bg-white text-cyan-500">
-            <div class="mockup-browser-toolbar flex relative ">
-              <div class="!bg-white px-4 rounded-xl text-gray-800">
-                thal.9aia.com
-              </div>
+          <div class="mockup-window border border-none bg-gray-50 text-black">
+            <div class="flex justify-center bg-cyan-950">
+              <img src="/screenshots/app_discover.png" alt="Discover" class="w-full h-auto">
             </div>
-            <div class="flex justify-center px-4 py-16 bg-cyan-950 h-[400px]" />
           </div>
         </div>
       </div>

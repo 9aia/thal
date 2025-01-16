@@ -106,7 +106,7 @@ const audiableTextMutation = computed(() => {
       <div class="flex gap-1 items-center min-h-8" :class="{ 'flex-row-reverse': !right }">
         <Button
           v-if="(from === 'user') && showResend"
-          class="btn btn-sm btn-circle btn-ghost btn-gray text-magenta-500 hidden group-hover:block" shape="circle"
+          class="btn btn-sm btn-circle btn-ghost btn-gray text-magenta-500 sm:hidden group-hover:block" shape="circle"
           @click="emit('resend')"
         >
           <Icon class="text-base">
@@ -115,7 +115,7 @@ const audiableTextMutation = computed(() => {
         </Button>
 
         <Button
-          class="text-gray-800 btn-ghost hidden group-hover:block" shape="circle"
+          class="text-gray-800 btn-ghost sm:hidden group-hover:block" shape="circle"
           @click="copyToClipboard"
         >
           <Icon class="text-base">
@@ -124,7 +124,7 @@ const audiableTextMutation = computed(() => {
         </Button>
 
         <Button
-          class="text-gray-800 btn-ghost hidden group-hover:block" shape="circle" no-disable-on-loading
+          class="text-gray-800 btn-ghost sm:hidden group-hover:block" shape="circle" no-disable-on-loading
           :loading="audiableTextMutation?.isPending.value" @click="audiableTextMutation?.mutate()"
         >
           <Icon class="text-base">
@@ -133,7 +133,7 @@ const audiableTextMutation = computed(() => {
         </Button>
 
         <Button
-          class="text-gray-800 btn-ghost hidden group-hover:block" shape="circle"
+          class="text-gray-800 btn-ghost sm:hidden group-hover:block" shape="circle"
           :loading="translation.isLoading.value" @click="translation.onTranslate()"
         >
           <Icon class="text-base">

@@ -48,11 +48,11 @@ const logout = useLogout()
 
       <div class="max-w-[800px] mx-auto px-4 pb-4 mt-2 flex flex-col md:flex-row flex-wrap md:flex-nowrap gap-2 justify-between items-center">
         <div class="flex gap-4 w-full items-center flex-wrap">
-          <Link href="https://forms.gle/5ePvXjrebyWGUrM26" :localize="false" target="_blank" class="flex items-center gap-1 !text-black">
+          <Link :href="t('https://forms.gle/5ePvXjrebyWGUrM26')" :localize="false" target="_blank" class="flex items-center gap-1 !text-black">
             {{ t('Give us feedback') }}
           </Link>
 
-          <Link href="https://forms.gle/ANMv7qnwTHva1k7L8" :localize="false" target="_blank" class="flex items-center gap-1 !text-black">
+          <Link :href="t('https://forms.gle/ANMv7qnwTHva1k7L8')" :localize="false" target="_blank" class="flex items-center gap-1 !text-black">
             {{ t('Report a problem') }}
           </Link>
         </div>
