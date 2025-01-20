@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { refAutoReset } from '@vueuse/core'
-import { useI18n } from '@psitta/vue'
+import { T, useI18n } from '@psitta/vue'
 
 definePageMeta({
   title: 'Your free trial is being processed',

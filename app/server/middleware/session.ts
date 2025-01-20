@@ -2,7 +2,10 @@ import { setSessionTokenCookie, validateSessionToken } from '../services/auth'
 import type { Session, User } from '~~/db/schema'
 
 export default defineEventHandler(async (event) => {
-  // CSRF protection
+  if (event.path === '/api/payment/webhook/stripe') {
+    return
+  }
+
   if (!isMethod(event, 'GET')) {
     const originHeader = getHeader(event, 'Origin') ?? null
     const hostHeader = getHeader(event, 'Host') ?? null
