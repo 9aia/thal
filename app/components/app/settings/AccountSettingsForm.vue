@@ -160,11 +160,19 @@ const logout = useLogout()
     </ul>
   </SettingSection>
 
-  <button class="text-left w-fit underline font-bold text-orange-500 mt-4" @click="logout">
-    {{ t("Logout") }}
-  </button>
+  <div class="flex gap-4 items-center mt-4">
+    <form method="POST" action="/api/payment/stripe/create-portal-session">
+      <button type="submit" class="text-left w-fit underline text-black">
+        {{ t("Manage your billing information") }}
+      </button>
+    </form>
 
-  <SettingSection :title="t('Danger zone')" class="pt-4 mt-4" title-class="text-error">
+    <button class="text-left w-fit underline font-bold text-orange-500" @click="logout">
+      {{ t("Logout") }}
+    </button>
+  </div>
+
+  <SettingSection :title="t('Danger zone')" class="pt-4 mt-12" title-class="text-error">
     <template #header>
       <hr class="border-b-2 border-error">
     </template>
