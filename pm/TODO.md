@@ -7,6 +7,11 @@ description: Tasks and items for the release.
 ## Current Tasks
 
 - Translate content to pt-br
+- Add Free Trial info in pricing
+- Set up pricing redirects
+- Message/AI rate in trial instead of time
+- Message/AI rate in price
+- Lint
 
 ---
 
@@ -14,15 +19,8 @@ description: Tasks and items for the release.
 
 ## Features
 
-- Hide deactivated account
-- Add Free Trial info in pricing
-
 ## Enhancements
-
-- Set up pricing redirects
 
 ## Performance
 
 ## DX
-
-- Lint
