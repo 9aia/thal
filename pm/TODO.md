@@ -6,10 +6,11 @@ description: Tasks and items for the release.
 
 ## Current Tasks
 
-- Update terms to include info about price changing and inform cancel anytime before the trial ends to avoid charges.
-- Translate content to pt-br
 - Message/AI rate in trial instead of time
 - Message/AI rate in price
+
+- Update terms to include info about price changing and inform cancel anytime before the trial ends to avoid charges.
+- Translate content to pt-br
 - Lint
 
 ---
