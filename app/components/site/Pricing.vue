@@ -1,5 +1,25 @@
 <script setup lang="ts">
-import { t } from '@psitta/vue'
+import { t, useLocale } from '@psitta/vue'
+
+const locale = useLocale()
+const price = computed(() => new Intl.NumberFormat(locale.value, {
+  style: 'currency',
+  currency: 'BRL',
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+})
+  .format(39.99),
+)
+const discountPrice = computed(() => new Intl.NumberFormat(locale.value, {
+  style: 'currency',
+  currency: 'BRL',
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+})
+  .format(0),
+)
+
+const x = 4
 </script>
 
 <template>
@@ -16,12 +36,7 @@ import { t } from '@psitta/vue'
           {{ t('All-in-One Plan') }}
         </h2>
 
-        <div class="flex items-center justify-center py-2 mb-4">
-          <span class="text-4xl text-gradient-7">R$29.99</span>
-          <span class="text-gray-800 ml-1">/{{ t('month') }}</span>
-        </div>
-
-        <p class="text-gray-500 text-sm mb-2 text-center">
+        <p class="text-gray-500 text-sm mb-2 mt-4 text-center">
           {{ t('What’s included:') }}
         </p>
 
@@ -38,7 +53,7 @@ import { t } from '@psitta/vue'
             <Icon name="check" class="text-blue-500" />
             <div class="gap-2">
               <span class="text-blue-500">{{ t('Interactive Assistance:') }}</span>
-              {{ t('Translations, corrections, and listening on the go.') }}
+              {{ t('Translations, corrections, and listening while chatting.') }}
             </div>
           </li>
 
@@ -51,11 +66,33 @@ import { t } from '@psitta/vue'
           </li>
         </ul>
 
-        <p class="text-gray-500 text-xs mb-4 text-center">
-          {{ t('No hidden fees. Access every feature without additional charges. Cancel anytime.') }}
-        </p>
+        <div class="flex flex-col items-center justify-center py-2 gap-1 text-2xl">
+          <div class="flex justify-center items-center gap-1">
+            <div class="flex items-center gap-1">
+              <div class="line-through">
+                {{ price }}
+              </div>
+              <span class="text-gradient-7">
+                {{ discountPrice }}
+              </span>
+            </div>
+          </div>
 
-        <p class="text-black text-sm mb-4 text-center">
+          <span class="text-gray-800 ml-1">
+            <div>{{ t('for the first {x} (day|days)', { x }) }}</div>
+          </span>
+
+          <div class="text-gray-500 text-base text-center">
+            {{ t('{price}/month after', { price }) }}
+          </div>
+        </div>
+
+        <div class="text-gray-500 text-xs text-center">
+          {{ t('No hidden fees. Cancel anytime.') }}
+          <A class="underline text-brown-500" href="/terms">{{ t('Terms apply') }}</A>
+        </div>
+
+        <p class="text-black text-sm mb-4 text-center mt-6">
           {{ t('Curious to see how chatting can boost your English?') }}
         </p>
 
@@ -65,7 +102,7 @@ import { t } from '@psitta/vue'
               id="checkout-and-portal-button" type="submit"
               class="h-fit btn py-4 rounded-full bg-cyan-500 border-none flex gap-1"
             >
-              {{ t('Subscribe now') }}
+              {{ t('Start Your Free Trial Now') }}
             </button>
           </form>
         </div>

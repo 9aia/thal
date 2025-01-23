@@ -1,1 +1,1 @@
-docker exec a54eaa1eb86f chmod -R 777 /codeshare
+docker exec codeshare chmod -R 777 /codeshare
