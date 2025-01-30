@@ -5,7 +5,7 @@ import { getHistory } from '~/server/services/messages'
 import { now } from '~/utils/date'
 import { chatHistoryToGemini, getGemini } from '~/utils/gemini'
 import { getValidated } from '~/utils/h3'
-import { internal, notFound, unauthorized } from '~/utils/nuxt'
+import { internal, notFound, rateLimit, unauthorized } from '~/utils/nuxt'
 import type { MessageInsert } from '~~/db/schema'
 import { chats, contacts, lastMessages, messageSendSchema, messages, personaUsernames, usernameSchema } from '~~/db/schema'
 
@@ -15,15 +15,22 @@ export default eventHandler(async (event) => {
   if (!GEMINI_API_KEY)
     throw internal('GEMINI_API_KEY is not set in the environment')
 
+  const user = event.context.user
+
+  if (!user)
+    throw unauthorized()
+
+  const { success } = await event.context.cloudflare.env.MESSAGE_RATE_LIMIT.limit({ key: `send-message-${user.id}` })
+
+  if (!success) {
+    throw rateLimit()
+  }
+
   const { username } = await getValidated(event, 'params', z.object({ username: usernameSchema }))
 
   const data = await getValidated(event, 'body', messageSendSchema)
 
   const orm = event.context.orm
-  const user = event.context.user
-
-  if (!user)
-    throw unauthorized()
 
   const result = await orm.query.personaUsernames.findFirst({
     where: eq(personaUsernames.username, username),

@@ -55,3 +55,7 @@ export function updateRedirectUrl() {
   const redirectUrl = useRedirectUrl()
   redirectUrl.value = route.path
 }
+
+export function rateLimit(message?: string) {
+  return error(429, message || 'Rate limit exceeded')
+}

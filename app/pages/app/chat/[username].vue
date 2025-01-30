@@ -1,13 +1,17 @@
 <script setup lang="ts">
-import { t } from '@psitta/vue'
+import type { FetchError } from 'ofetch'
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { useEventListener, useOnline, useScroll } from '@vueuse/core'
+import { useI18n } from '@psitta/vue'
 import AppLayout from '~/layouts/app.vue'
 import queryKeys from '~/queryKeys'
 import { chatItemSearch, replies, sendingChatIds, sentErrorChatIds } from '~/store'
 import type { ChatItem } from '~/types'
 
 const route = useRoute()
+const toast = useToast()
+
+const { t } = useI18n()
 
 definePageMeta({
   layout: false,
@@ -132,6 +136,8 @@ function emptyInput() {
 
 const newMessageTmp = ref()
 
+const RATE_LIMIT_STATUS_CODE = 429
+
 const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending } = useMutation({
   mutationFn: (data: SendMessageData) => $fetch(`/api/message/${route.params.username}`, {
     method: 'POST',
@@ -150,7 +156,14 @@ const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending
     goToBottom()
   },
   onError: async (e) => {
-    const _ = e
+    const error = e as FetchError
+
+    const errorStatus = error.response?.status
+
+    if (errorStatus === RATE_LIMIT_STATUS_CODE) {
+      toast.error(t('You are sending messages too fast. Please wait a moment.'))
+    }
+
     const newHistory = [...data.value.history || []]
 
     const lastMessage = newHistory[newHistory.length - 1]
