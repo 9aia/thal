@@ -11,6 +11,8 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## Features
 
+- Message/AI rate in trial instead of time
+- Message/AI rate in price
 - Add English locale preference (eg. US or UK)
 - Add native language preference (eg. BR or PT)
 - Add date stamps in chat

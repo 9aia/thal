@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
 import { useQuery } from '@tanstack/vue-query'
-import Spinner from '~/components/ui/feedback/Spinner.vue'
 import queryKeys from '~/queryKeys'
 import { buildPersona, drawers, isRootDrawerOpen } from '~/store'
 import type { Persona } from '~/types'

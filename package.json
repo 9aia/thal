@@ -38,6 +38,7 @@
     "arctic": "^2.2.2",
     "drizzle-orm": "^0.38.2",
     "drizzle-zod": "^0.6.0",
+    "fast-glob": "^3.3.3",
     "fuse.js": "^7",
     "h3": "^1.11.1",
     "lodash-es": "^4.17.21",

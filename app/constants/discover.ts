@@ -7,10 +7,12 @@ export interface Category {
   color: string
 }
 
+const t = (x: string) => x
+
 export const categories: Category[] = [
   {
     id: 1,
-    name: 'Travel, Tourism & Transportation',
+    name: t('Travel, Tourism & Transportation'),
     icon: 'flight_takeoff',
     description: 'Practice conversations for traveling abroad, including booking accommodations, asking for directions, and more.',
     example: 'A hotel receptionist or a local tour guide.',
@@ -18,7 +20,7 @@ export const categories: Category[] = [
   },
   {
     id: 2,
-    name: 'Shopping & Retail',
+    name: t('Shopping & Retail'),
     icon: 'storefront',
     description: 'Characters in a retail setting, such as shopping for clothes, groceries, or electronics, designed to practice consumer interactions.',
     example: 'A salesperson or a barber.',
@@ -26,7 +28,7 @@ export const categories: Category[] = [
   },
   {
     id: 3,
-    name: 'Food & Beverage',
+    name: t('Food & Beverage'),
     icon: 'restaurant_menu',
     description: 'Characters for practicing conversations in restaurants, cafes, and food-related situations like menu ordering, dietary preferences, and cooking.',
     example: 'A chef or a waiter.',
@@ -34,7 +36,7 @@ export const categories: Category[] = [
   },
   {
     id: 4,
-    name: 'Science & Nature',
+    name: t('Science & Nature'),
     icon: 'science',
     description: 'Characters discussing scientific topics, nature, and environmental issues.',
     example: 'A biologist or an environmentalist.',
@@ -42,7 +44,7 @@ export const categories: Category[] = [
   },
   {
     id: 5,
-    name: 'Dating & Relationships',
+    name: t('Dating & Relationships'),
     icon: 'favorite',
     description: 'Characters for practicing conversations related to dating, relationships, and social interactions.',
     example: 'A romantic partner or a friend.',
@@ -50,7 +52,7 @@ export const categories: Category[] = [
   },
   {
     id: 6,
-    name: 'Education & Learning',
+    name: t('Education & Learning'),
     icon: 'school',
     description: 'Simulate discussions in educational settings, from classroom dialogues to study groups.',
     example: 'A professor or a classmate.',
@@ -58,7 +60,7 @@ export const categories: Category[] = [
   },
   {
     id: 7,
-    name: 'Health & Wellness',
+    name: t('Health & Wellness'),
     icon: 'local_hospital',
     description: 'Characters that discuss health, fitness, mental well-being, and lifestyle topics.',
     example: 'A doctor or a first responder.',
@@ -66,7 +68,7 @@ export const categories: Category[] = [
   },
   {
     id: 8,
-    name: 'Technology & Engineering',
+    name: t('Technology & Engineering'),
     icon: 'memory',
     description: 'Characters discussing tech trends, engineering concepts, and digital innovations.',
     example: 'A software engineer or a tech entrepreneur.',
@@ -74,7 +76,7 @@ export const categories: Category[] = [
   },
   {
     id: 9,
-    name: 'Historical Figures',
+    name: t('Historical Figures'),
     icon: 'history_edu',
     description: 'Interact with simulated characters from different historical eras to learn about their lives and achievements.',
     example: 'A Victorian-era gentleman or a World War II soldier.',
@@ -82,7 +84,7 @@ export const categories: Category[] = [
   },
   {
     id: 10,
-    name: 'Business & Career',
+    name: t('Business & Career'),
     icon: 'work',
     description: 'Focused on professional settings, such as meetings, emails, and workplace interactions.',
     example: 'A CEO or a recruiter.',
@@ -90,7 +92,7 @@ export const categories: Category[] = [
   },
   {
     id: 11,
-    name: 'Family & Relatives',
+    name: t('Family & Relatives'),
     icon: 'family_restroom',
     description: 'Focused on family dynamics, parenting, and relationships between relatives.',
     example: 'A parent or a uncle.',
@@ -98,7 +100,7 @@ export const categories: Category[] = [
   },
   {
     id: 12,
-    name: 'Law & Justice',
+    name: t('Law & Justice'),
     icon: 'gavel',
     description: 'Characters discussing legal matters, court cases, and justice-related topics.',
     example: 'A lawyer or a police officer.',
@@ -106,7 +108,7 @@ export const categories: Category[] = [
   },
   {
     id: 13,
-    name: 'Religion & Spirituality',
+    name: t('Religion & Spirituality'),
     icon: 'church',
     description: 'Characters discussing religious beliefs, spiritual practices, and philosophical topics.',
     example: 'A priest or a spiritual guru.',
@@ -114,7 +116,7 @@ export const categories: Category[] = [
   },
   {
     id: 14,
-    name: 'Sports & recreation',
+    name: t('Sports & recreation'),
     icon: 'sports_soccer',
     description: 'Characters discussing sports, fitness, and recreational activities.',
     example: 'A coach or a fitness trainer.',
@@ -122,7 +124,7 @@ export const categories: Category[] = [
   },
   {
     id: 15,
-    name: 'Hotel & Lodging',
+    name: t('Hotel & Lodging'),
     icon: 'hotel',
     description: 'Characters for practicing conversations in hotels, hostels, and other lodging situations.',
     example: 'A hotel receptionist or a concierge.',
@@ -130,7 +132,7 @@ export const categories: Category[] = [
   },
   {
     id: 16,
-    name: 'Comedy & Entertainment',
+    name: t('Comedy & Entertainment'),
     icon: 'movie',
     description: 'Characters related to the entertainment industry, including actors, comedians, and performers.',
     example: 'A movie star or a music producer.',
@@ -138,7 +140,7 @@ export const categories: Category[] = [
   },
   {
     id: 17,
-    name: 'Real Estate',
+    name: t('Real Estate'),
     icon: 'house',
     description: 'Characters for practicing conversations in real estate, including buying, selling, or renting properties.',
     example: 'A real estate agent or a property manager.',
@@ -146,7 +148,7 @@ export const categories: Category[] = [
   },
   {
     id: 18,
-    name: 'Art & Design',
+    name: t('Art & Design'),
     icon: 'palette',
     description: 'Characters related to art, design, and creative fields.',
     example: 'An artist or a graphic designer.',
@@ -154,7 +156,7 @@ export const categories: Category[] = [
   },
   {
     id: 19,
-    name: 'Casual & Everyday',
+    name: t('Casual & Everyday'),
     icon: 'chat',
     description: 'Characters for casual conversations about everyday life, hobbies, and interests.',
     example: 'A friendly neighbor or a fellow commuter.',
@@ -162,7 +164,7 @@ export const categories: Category[] = [
   },
   {
     id: 20,
-    name: 'News & Media',
+    name: t('News & Media'),
     icon: 'article',
     description: 'Characters discussing current events, news stories, and media topics.',
     example: 'A journalist or a news anchor.',
@@ -170,7 +172,7 @@ export const categories: Category[] = [
   },
   {
     id: 21,
-    name: 'Miscellaneous & Others',
+    name: t('Miscellaneous & Others'),
     icon: 'more_vert',
     description: 'Characters that don\'t fit into other categories.',
     example: 'A character with a unique background or profession.',

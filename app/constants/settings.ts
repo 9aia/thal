@@ -4,6 +4,8 @@ import { useWhatsNewModal } from '~/composables/useWhatsNewModal'
 
 const { focusMainField: focusSearch } = useDiscoverFocus()
 
+const t = (x: string) => x
+
 async function goToDiscover() {
   isRootDrawerOpen.value = false
   await navigateTo('/app/discover')
@@ -17,12 +19,12 @@ const general: MenuItem[] = [
   {
     id: 'account',
     icon: 'person',
-    name: 'Account',
+    name: t('Account'),
     onClick: () => drawers.account = true,
   },
   {
     id: 'plan',
-    name: 'Subscription',
+    name: t('Subscription'),
     action: '/api/payment/stripe/create-portal-session',
     method: 'post',
     icon: 'subscriptions',
@@ -31,13 +33,13 @@ const general: MenuItem[] = [
   {
     id: 'my-characters',
     icon: 'manage_accounts',
-    name: 'My characters',
+    name: t('My characters'),
     onClick: () => drawers.myPersonas = true,
   },
   {
     id: 'discover-characters',
     icon: 'person_search',
-    name: 'Discover characters',
+    name: t('Discover characters'),
     onClick: () => goToDiscover(),
   },
 ]

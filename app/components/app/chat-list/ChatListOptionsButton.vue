@@ -1,8 +1,11 @@
 <script setup lang="ts">
+import { useI18n } from '@psitta/vue'
 import { drawers, isRootDrawerOpen } from '~/store'
 import type { MenuItem } from '~/components/ui/navigation/types'
 
 const logout = useLogout()
+
+const t = (x: string) => x
 
 const { focusMainField: focusSearch } = useDiscoverFocus()
 
@@ -16,21 +19,21 @@ async function goToDiscover() {
 }
 
 const items: MenuItem[] = [
-  { id: 'profile', name: 'Profile', icon: 'face', onClick: () => drawers.profile = true },
-  { id: 'discover-characters', name: 'Discover characters', icon: 'person_search', onClick: () => goToDiscover() },
-  { id: 'my-characters', name: 'My characters', icon: 'manage_accounts', onClick: () => drawers.myPersonas = true },
+  { id: 'profile', name: t('Profile'), icon: 'face', onClick: () => drawers.profile = true },
+  { id: 'discover-characters', name: t('Discover characters'), icon: 'person_search', onClick: () => goToDiscover() },
+  { id: 'my-characters', name: t('My characters'), icon: 'manage_accounts', onClick: () => drawers.myPersonas = true },
   {
     id: 'plan',
-    name: 'Subscription',
+    name: t('Subscription'),
     action: '/api/payment/stripe/create-portal-session',
     method: 'post',
     icon: 'subscriptions',
     type: 'external',
   },
-  { id: 'settings', name: 'Settings', icon: 'settings', onClick: () => drawers.settings = true },
+  { id: 'settings', name: t('Settings'), icon: 'settings', onClick: () => drawers.settings = true },
   {
     id: 'logout',
-    name: 'Logout',
+    name: t('Logout'),
     action: '/api/auth/logout',
     method: 'post',
     icon: 'logout',
