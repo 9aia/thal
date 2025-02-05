@@ -17,6 +17,10 @@ export default defineNuxtConfig({
     defaultLocale: getConfig().defaultLocale,
   },
 
+  nitro: {
+    preset: 'cloudflare-pages',
+  },
+
   mdc: {
     remarkPlugins: {
       emoji: {

@@ -4,10 +4,14 @@ import * as schema from '../../../db/schema'
 let drizzle: DrizzleD1Database<typeof schema>
 
 export default defineEventHandler(async (event) => {
-  const { DB } = event.context.cloudflare.env
+  const cloudflareEnvs = event.context.cloudflare?.env
+
+  if (!cloudflareEnvs) {
+    return
+  }
 
   if (!drizzle) {
-    drizzle = initializeDrizzle(DB, {
+    drizzle = initializeDrizzle(cloudflareEnvs.DB, {
       schema,
     })
   }
