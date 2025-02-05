@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useI18n } from '@psitta/vue'
 import { drawers, isRootDrawerOpen } from '~/store'
 import type { MenuItem } from '~/components/ui/navigation/types'
 
