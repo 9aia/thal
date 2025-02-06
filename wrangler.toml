@@ -1,5 +1,6 @@
 name = "thal"
 compatibility_date = "2025-01-30"
+compatibility_flags = [ "nodejs_compat" ]
 
 [[d1_databases]]
 binding = "DB"
