@@ -6,6 +6,8 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+## [0.1.0-0] - 2025-02-05
+
 ### Added
 
 - Integrated sign-in via Google
