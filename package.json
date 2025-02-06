@@ -15,7 +15,7 @@
     "lint:fix": "eslint . --fix",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "wrangler d1 migrations apply thal --local",
-    "db:migrate:prod": "wranger d1 migrations apply thal",
+    "db:migrate:prod": "wrangler d1 migrations apply thal --remote",
     "db:studio": "drizzle-kit studio",
     "cf:types": "wrangler types",
     "up": "docker compose up -d",
