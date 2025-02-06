@@ -6,7 +6,8 @@
   },
   "github": {
     "release": true,
-    "releaseName": "Release ${version}"
+    "releaseName": "Release ${version}",
+    "releaseNotes": "echo 'Please refer to [CHANGELOG.md](https://github.com/9aia/thal/blob/main/pm/CHANGELOG.md) for details.'"
   },
   "npm": {
     "publish": false
