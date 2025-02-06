@@ -116,7 +116,10 @@ git push
 
 Don't forget to modify `./codeshare/co-authors`.
 
-## Deploying
+## Releasing/Deploying
+
+https://github.com/release-it/release-it
+https://www.npmjs.com/package/@release-it/keep-a-changelog
 
 Build the application for production:
 

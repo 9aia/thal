@@ -26,6 +26,9 @@ importers:
       '@psitta/vue':
         specifier: ^0.2.0
         version: 0.2.0(@psitta/core@0.2.0)(vue@3.5.13(typescript@5.7.2))
+      '@release-it/keep-a-changelog':
+        specifier: ^6.0.0
+        version: 6.0.0(release-it@17.11.0(typescript@5.7.2))
       '@tanstack/vue-query':
         specifier: ^5.45.0
         version: 5.62.9(vue@3.5.13(typescript@5.7.2))
@@ -1732,6 +1735,12 @@ packages:
     resolution: {integrity: sha512-xRuVZqMVRFzqjbUCpOTra4tbnmQMWsya996omZMV3WgD084Z6OWB3FXflhAp93E/yAmbWlWZpddw758AyoaLSw==}
     engines: {node: '>=14.19.0', npm: '>=7.0.0'}
 
+  '@release-it/keep-a-changelog@6.0.0':
+    resolution: {integrity: sha512-+z3Hzo96v4rI4AU0DyRXclc1FKgjfVUk5cxYktjmHE4t5e/M3jyolvZZsBOna+3fRmmo86M2+BrtZvy5gj3qag==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      release-it: ^18.0.0
+
   '@rollup/plugin-alias@5.1.1':
     resolution: {integrity: sha512-PR9zDb+rOzkRb2VD+EuKB7UC41vU5DIwZ5qqCpk0KJudcWAyi8rvYOhS7+L5aZCspw1stTViLgN5v6FF1p5cgQ==}
     engines: {node: '>=14.0.0'}
@@ -3285,6 +3294,10 @@ packages:
   detect-libc@2.0.3:
     resolution: {integrity: sha512-bwy0MGW55bG41VqxxypOsdSdGqLwXPI/focwgTYCFMbdUiBAxLg9CFzG08sz2aqzknwiX7Hkl0bQENjg8iLByw==}
     engines: {node: '>=8'}
+
+  detect-newline@4.0.1:
+    resolution: {integrity: sha512-qE3Veg1YXzGHQhlA6jzebZN2qVf6NX+A7m7qlhCGG30dJixrAQhYOsJjsnBjJkCSmuOPpCk30145fr8FV0bzog==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   devalue@5.1.1:
     resolution: {integrity: sha512-maua5KUiapvEwiEAe+XnlZ3Rh0GD+qI1J/nb9vrJc3muPXvcF/8gXYTWF76+5DAqHyDUtOIImEuo0YKE9mshVw==}
@@ -6162,6 +6175,9 @@ packages:
   streamx@2.21.1:
     resolution: {integrity: sha512-PhP9wUnFLa+91CPy3N6tiQsK+gnYyUNuk15S3YG/zjYE7RuPeCjJngqnzpC31ow0lzBHQ+QGO4cNJnd0djYUsw==}
 
+  string-template@1.0.0:
+    resolution: {integrity: sha512-SLqR3GBUXuoPP5MmYtD7ompvXiG87QjT6lzOszyXjTM86Uu7At7vNnt2xgyTLq5o9T4IxTYFyGxcULqpsmsfdg==}
+
   string-width@4.2.3:
     resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==}
     engines: {node: '>=8'}
@@ -8742,6 +8758,13 @@ snapshots:
       - encoding
       - supports-color
 
+  '@release-it/keep-a-changelog@6.0.0(release-it@17.11.0(typescript@5.7.2))':
+    dependencies:
+      detect-newline: 4.0.1
+      release-it: 17.11.0(typescript@5.7.2)
+      semver: 7.6.3
+      string-template: 1.0.0
+
   '@rollup/plugin-alias@5.1.1(rollup@4.29.1)':
     optionalDependencies:
       rollup: 4.29.1
@@ -10617,6 +10640,8 @@ snapshots:
   detect-libc@1.0.3: {}
 
   detect-libc@2.0.3: {}
+
+  detect-newline@4.0.1: {}
 
   devalue@5.1.1: {}
 
@@ -14337,6 +14362,8 @@ snapshots:
       text-decoder: 1.2.3
     optionalDependencies:
       bare-events: 2.5.0
+
+  string-template@1.0.0: {}
 
   string-width@4.2.3:
     dependencies:

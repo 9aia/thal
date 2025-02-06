@@ -33,6 +33,7 @@
     "@pilcrowjs/object-parser": "^0.0.4",
     "@psitta/core": "^0.2.0",
     "@psitta/vue": "^0.2.0",
+    "@release-it/keep-a-changelog": "^6.0.0",
     "@tanstack/vue-query": "^5.45.0",
     "@tanstack/vue-virtual": "^3.11.2",
     "@vueuse/core": "^10.9.0",

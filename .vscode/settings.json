@@ -110,5 +110,7 @@
     "other": true,
     "comments": false,
     "strings": false
-  }
+  },
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs":"active"
 }

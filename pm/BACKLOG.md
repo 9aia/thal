@@ -74,6 +74,10 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Implement infinite scrolls
 - Paginate contact and chat search
 
+## Legal
+
+- Update terms to include info about price changing and inform cancel anytime before the trial ends to avoid charges.
+
 ## DX
 
 - Normalize schema payment field names to lower camel case

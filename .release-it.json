@@ -10,5 +10,19 @@
   },
   "npm": {
     "publish": false
+  },
+  "plugins": {
+    "@release-it/keep-a-changelog": {
+      "addUnreleased": true,
+      "strictLatest": false,
+      "filename": "./pm/CHANGELOG.md"
+    }
+  },
+  "hooks": {
+    "before:init": [
+      "pnpm lint"
+    ],
+    "after:bump": "pnpm run build && pnpm run deploy",
+    "after:release": "echo Successfully released v${version} to ${repo.repository}."
   }
 }
