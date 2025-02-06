@@ -94,7 +94,7 @@ import { T, t } from '@psitta/vue'
               <div class="camera" />
               <div class="display bg-white">
                 <div class="artboard artboard-demo phone-1 mt-24">
-                  <img src="/screenshots/app_chat_max_nova(Pixel 7).png" alt="Discover" class="w-full h-auto">
+                  <img src="/screenshots/app_chat_max_nova.png" alt="Discover" class="w-full h-auto">
                 </div>
               </div>
             </div>
