@@ -119,8 +119,6 @@ async function main() {
 }
 
 async function translate(chunk: Chunk) {
-  console.log('called translate', chunk)
-
   const { GEMINI_API_KEY } = process.env
 
   const prompt = `

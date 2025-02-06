@@ -1,14 +1,14 @@
-import process from 'node:process'
 import { z } from 'zod'
+import { getEnv } from '~/utils/envs'
 import { getStt } from '~/utils/gcp'
 import { getValidated } from '~/utils/h3'
 import { internal, unauthorized } from '~/utils/nuxt'
 
 export default eventHandler(async (event) => {
-  const { GCP_CLOUD_STT_API_KEY } = process.env
+  const { GCP_CLOUD_TTS_API_KEY } = getEnv(event)
 
-  if (!GCP_CLOUD_STT_API_KEY)
-    throw internal('GCP_CLOUD_STT_API_KEY is not set in the environment')
+  if (!GCP_CLOUD_TTS_API_KEY)
+    throw internal('GCP_CLOUD_TTS_API_KEY is not set in the environment')
 
   const user = event.context.user
 

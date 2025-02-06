@@ -1,10 +1,10 @@
-import process from 'node:process'
+import { getEnv } from '~/utils/envs'
 import { getAppUrl } from '~/utils/h3'
 import { internal, notFound } from '~/utils/nuxt'
 import { getStripe } from '~/utils/stripe'
 
 export default eventHandler(async (event) => {
-  const { STRIPE_SECRET_KEY } = process.env
+  const { STRIPE_SECRET_KEY } = getEnv(event)
 
   if (!STRIPE_SECRET_KEY)
     throw internal('STRIPE_SECRET_KEY is not set in the environment')

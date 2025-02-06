@@ -1,12 +1,12 @@
-import process from 'node:process'
 import { initializeGoogle } from '../../utils/auth'
 import { getAppUrl } from '~/utils/h3'
 import { internal } from '~/utils/nuxt'
+import { getEnv } from '~/utils/envs'
 
 let google: ReturnType<typeof initializeGoogle>
 
 export default defineEventHandler(async (event) => {
-  const { GOOGLE_CLIENT_SECRET } = process.env
+  const { GOOGLE_CLIENT_SECRET } = getEnv(event)
 
   if (!GOOGLE_CLIENT_SECRET)
     throw internal('GOOGLE_CLIENT_SECRET is not set in the environment')

@@ -19,6 +19,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Add unread badge
 - Add a deleted/non-existent section in contacts
 - Add character search results to chat and contact search
+- Add delete character action
 - Add dark theme
 - Add character rating (unrated, teen, mature, everyone)
 - Add calls

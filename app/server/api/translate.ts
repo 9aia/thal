@@ -1,4 +1,3 @@
-import process from 'node:process'
 import { z } from 'zod'
 import { eq } from 'drizzle-orm'
 import { getHistory } from '../services/messages'
@@ -7,9 +6,10 @@ import { getValidated } from '~/utils/h3'
 import { internal, unauthorized } from '~/utils/nuxt'
 import type { Persona } from '~/types'
 import { messages, personaUsernames } from '~~/db/schema'
+import { getEnv } from '~/utils/envs'
 
 export default defineEventHandler(async (event) => {
-  const { GEMINI_API_KEY } = process.env
+  const { GEMINI_API_KEY } = getEnv(event)
 
   if (!GEMINI_API_KEY)
     throw internal('GEMINI_API_KEY is not set in the environment')

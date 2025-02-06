@@ -36,7 +36,7 @@ export default eventHandler(async (event) => {
     ...personaData
   } = data
 
-  const categoryId = await categorizePersona(data)
+  const categoryId = await categorizePersona(event, data)
 
   const updatedPersona = await orm
     .update(personas)

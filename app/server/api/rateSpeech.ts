@@ -1,11 +1,11 @@
-import process from 'node:process'
 import { z } from 'zod'
+import { getEnv } from '~/utils/envs'
 import { getGemini } from '~/utils/gemini'
 import { getValidated } from '~/utils/h3'
 import { internal, unauthorized } from '~/utils/nuxt'
 
 export default eventHandler(async (event) => {
-  const { GEMINI_API_KEY } = process.env
+  const { GEMINI_API_KEY } = getEnv(event)
 
   if (!GEMINI_API_KEY)
     throw internal('GEMINI_API_KEY is not set in the environment')

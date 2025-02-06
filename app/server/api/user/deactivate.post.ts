@@ -1,4 +1,3 @@
-import process from 'node:process'
 import { eq } from 'drizzle-orm'
 import { invalidateSession } from '~/server/services/auth'
 import { getSubscriptionId, pauseSubscription } from '~/server/services/plan'
@@ -6,13 +5,14 @@ import { now } from '~/utils/date'
 import { internal, unauthorized } from '~/utils/nuxt'
 import { getStripe } from '~/utils/stripe'
 import { users } from '~~/db/schema'
+import { getEnv } from '~/utils/envs'
 
 export default defineEventHandler(async (event) => {
   const orm = event.context.orm
   const user = event.context.user
   const session = event.context.session
 
-  const { STRIPE_SECRET_KEY } = process.env
+  const { STRIPE_SECRET_KEY } = getEnv(event)
 
   if (!STRIPE_SECRET_KEY)
     throw internal('STRIPE_SECRET_KEY is not set in the environment')

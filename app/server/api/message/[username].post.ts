@@ -1,4 +1,3 @@
-import process from 'node:process'
 import { eq } from 'drizzle-orm'
 import { z } from 'zod'
 import { getHistory } from '~/server/services/messages'
@@ -8,9 +7,10 @@ import { getValidated } from '~/utils/h3'
 import { internal, notFound, rateLimit, unauthorized } from '~/utils/nuxt'
 import type { MessageInsert } from '~~/db/schema'
 import { chats, contacts, lastMessages, messageSendSchema, messages, personaUsernames, usernameSchema } from '~~/db/schema'
+import { getEnv } from '~/utils/envs'
 
 export default eventHandler(async (event) => {
-  const { GEMINI_API_KEY } = process.env
+  const { GEMINI_API_KEY } = getEnv(event)
 
   if (!GEMINI_API_KEY)
     throw internal('GEMINI_API_KEY is not set in the environment')

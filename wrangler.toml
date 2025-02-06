@@ -13,3 +13,6 @@ name = "MESSAGE_RATE_LIMIT"
 type = "ratelimit"
 namespace_id = "1001"
 simple = { limit = 10, period = 60 }
+
+[observability.logs]
+enabled = true

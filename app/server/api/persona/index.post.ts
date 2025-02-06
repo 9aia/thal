@@ -27,7 +27,7 @@ export default eventHandler(async (event) => {
   if (existingPersonaUsername && existingPersonaUsername.personaId !== null)
     throw badRequest('Username already taken')
 
-  const categoryId = await categorizePersona(data)
+  const categoryId = await categorizePersona(event, data)
 
   const [newPersona] = await orm
     .insert(personas)

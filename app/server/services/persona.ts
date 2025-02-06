@@ -1,13 +1,13 @@
-import process from 'node:process'
 import type { ResponseSchema } from '@google/generative-ai'
 import { SchemaType } from '@google/generative-ai'
 import { eq } from 'drizzle-orm'
-import type { H3EventContext } from 'h3'
+import type { H3Event, H3EventContext } from 'h3'
 import { categories } from '~/constants/discover'
 import { getGemini } from '~/utils/gemini'
 import { internal, notFound } from '~/utils/nuxt'
 import type { PersonaUpdate, User } from '~~/db/schema'
 import { contacts, personaUsernames } from '~~/db/schema'
+import { getEnv } from '~/utils/envs'
 
 export async function getPersonaByUsername(
   orm: H3EventContext['orm'],
@@ -79,8 +79,8 @@ export async function getPersonaWithContactByUser(
   }
 }
 
-export async function categorizePersona(data: PersonaUpdate) {
-  const { GEMINI_API_KEY } = process.env
+export async function categorizePersona(event: H3Event, data: PersonaUpdate) {
+  const { GEMINI_API_KEY } = getEnv(event)
 
   if (!GEMINI_API_KEY)
     throw internal('GEMINI_API_KEY is not set in the environment')
