@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { t, useLocale } from '@psitta/vue'
-import Button from '../ui/action/Button.vue'
 import { PLANS } from '~/constants/payment'
 import queryKeys from '~/queryKeys'
 
