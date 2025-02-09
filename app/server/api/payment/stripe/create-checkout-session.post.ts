@@ -6,7 +6,6 @@ import { PLANS } from '~/constants/payment'
 import { getStripe } from '~/utils/stripe'
 import { internal } from '~/utils/nuxt'
 
-
 export default eventHandler(async (event) => {
   const { STRIPE_SECRET_KEY } = useRuntimeConfig(event)
 

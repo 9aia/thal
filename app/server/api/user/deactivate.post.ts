@@ -6,7 +6,6 @@ import { internal, unauthorized } from '~/utils/nuxt'
 import { getStripe } from '~/utils/stripe'
 import { users } from '~~/db/schema'
 
-
 export default defineEventHandler(async (event) => {
   const orm = event.context.orm
   const user = event.context.user

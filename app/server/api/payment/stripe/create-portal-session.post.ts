@@ -1,4 +1,3 @@
-
 import { getAppUrl } from '~/utils/h3'
 import { internal, notFound } from '~/utils/nuxt'
 import { getStripe } from '~/utils/stripe'

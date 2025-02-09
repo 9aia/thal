@@ -2,7 +2,6 @@ import { initializeGoogle } from '../../utils/auth'
 import { getAppUrl } from '~/utils/h3'
 import { internal } from '~/utils/nuxt'
 
-
 let google: ReturnType<typeof initializeGoogle>
 
 export default defineEventHandler(async (event) => {

@@ -8,7 +8,6 @@ import { internal, notFound } from '~/utils/nuxt'
 import type { PersonaUpdate, User } from '~~/db/schema'
 import { contacts, personaUsernames } from '~~/db/schema'
 
-
 export async function getPersonaByUsername(
   orm: H3EventContext['orm'],
   username: string,

@@ -8,7 +8,6 @@ import { internal, notFound, rateLimit, unauthorized } from '~/utils/nuxt'
 import type { MessageInsert } from '~~/db/schema'
 import { chats, contacts, lastMessages, messageSendSchema, messages, personaUsernames, usernameSchema } from '~~/db/schema'
 
-
 export default eventHandler(async (event) => {
   const { GEMINI_API_KEY } = useRuntimeConfig(event)
 

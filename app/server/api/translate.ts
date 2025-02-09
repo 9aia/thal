@@ -7,7 +7,6 @@ import { internal, unauthorized } from '~/utils/nuxt'
 import type { Persona } from '~/types'
 import { messages, personaUsernames } from '~~/db/schema'
 
-
 export default defineEventHandler(async (event) => {
   const { GEMINI_API_KEY } = useRuntimeConfig(event)
 

@@ -3,7 +3,6 @@ import * as stripeHandlers from '../../../handlers/stripe'
 import { getStripe } from '~/utils/stripe'
 import { badRequest, internal } from '~/utils/nuxt'
 
-
 export default eventHandler(async (event) => {
   const { STRIPE_ENDPOINT_SECRET, STRIPE_SECRET_KEY } = useRuntimeConfig(event)
 
