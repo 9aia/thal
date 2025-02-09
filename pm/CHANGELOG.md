@@ -6,6 +6,11 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix environment variables not being loaded in production
+- Change build preset to cloudflare-modules
+
 ## [0.1.0-0] - 2025-02-05
 
 ### Added
