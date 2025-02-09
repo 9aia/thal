@@ -8,14 +8,15 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ### Changed
 
-- Retrieve and display plan price from Stripe
+- Retrieved and display plan price from Stripe
+- Improved pages layout
 
 ## [0.1.0-1] - 2025-02-08
 
 ### Fixed
 
-- Fix environment variables not being loaded in production
-- Change build preset to cloudflare-modules
+- Fixed environment variables not being loaded in production
+- Changed build preset to cloudflare-modules
 
 ## [0.1.0-0] - 2025-02-05
 
