@@ -39,7 +39,7 @@ const trialPeriodDays = PLANS.allInOne.trialPeriodDays
 <template>
   <div class="w-full">
     <p class="text-black text-sm text-center mb-8 max-w-lg mx-auto">
-      <span class="text-gradient-7">Simple, Transparent Pricing.</span>
+      <span class="text-gradient-7">{{ t('Simple, Transparent Pricing.') }}</span>
       {{ t('We believe in making language learning accessible and straightforward. That’s why we offer a single plan with everything you need to improve your English.') }}
     </p>
 

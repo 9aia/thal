@@ -10,6 +10,8 @@ description: A detailed, chronological record of all changes made to a project, 
 
 - Retrieved and display plan price from Stripe
 - Improved pages layout
+- Improved page titles
+- Improved translations
 
 ## [0.1.0-1] - 2025-02-08
 

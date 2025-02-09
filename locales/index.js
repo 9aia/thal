@@ -342,10 +342,28 @@
     "pt": "Preços"
   },
   "Talk to Learn. Learn to Talk.": {
-    "pt": "Converse para aprender. Aprenda a conversar."
+    "pt": "Converse para aprender. Aprenda para conversar."
   },
   "English skills with AI characters": {
-    "pt": "Habilidades em inglês com personagens de IA"
+    "pt": "Habilidades em inglês com personagens de IA "
+  },
+  "Get seamless language support during your conversations. The app offers instant translations, message fixing, and more, empowering you to learn without interrupting the flow of your dialogue.": {
+    "pt": "Receba suporte de idioma sem interrupções durante suas conversas. O aplicativo oferece traduções instantâneas, correção de mensagens e muito mais, permitindo que você aprenda sem interromper o fluxo do seu diálogo."
+  },
+  "Practice English in interactive conversations that feel authentic and immersive. The thals adapt to your goals, while the intuitive UI offers translations and grammar corrections, helping you improve naturally as you chat.": {
+    "pt": "Pratique inglês em conversas interativas que parecem autênticas e imersivas. Os thals se adaptam aos seus objetivos, enquanto a interface intuitiva oferece traduções e correções gramaticais, ajudando você a melhorar naturalmente enquanto conversa."
+  },
+  "Explore a diverse range of AI-powered characters tailored to your learning goals. Whether practicing small talk, handling professional scenarios, or diving into roleplay, a character is always ready to engage.": {
+    "pt": "Explore uma ampla variedade de personagens com tecnologia de IA adaptados aos seus objetivos de aprendizado. Seja praticando conversas informais, lidando com cenários profissionais ou mergulhando em jogos de interpretação, um personagem está sempre pronto para se envolver."
+  },
+  "Unleash your creativity by designing characters tailored to your learning needs. Customize their personality, background, and conversation style to create a unique and engaging practice partner.": {
+    "pt": "Liberte sua criatividade projetando personagens adaptados às suas necessidades de aprendizado. Personalize sua personalidade, histórico e estilo de conversa para criar um parceiro de prática único e envolvente."
+  },
+  "Keep track of the characters you enjoy the most. Add them to your contacts for easy access to future conversations. Build your own set of companions to practice with as you progress.": {
+    "pt": "Acompanhe os personagens que você mais gosta. Adicione-os aos seus contatos para facilitar o acesso a futuras conversas. Construa seu próprio conjunto de companheiros para praticar à medida que avança."
+  },
+  "Simple, Transparent Pricing.": {
+    "pt": "Preços simples e transparentes."
   },
   "Start chatting": {
     "pt": "Começar a conversar"
@@ -375,10 +393,31 @@
     "pt": "Acreditamos em tornar o aprendizado de idiomas acessível e direto. É por isso que oferecemos um único plano com tudo o que você precisa para melhorar seu inglês."
   },
   "All-in-One Plan": {
-    "pt": "Plano tudo em um"
+    "pt": "Plano All-in-One"
   },
   "What’s included:": {
     "pt": "O que está incluído:"
+  },
+  "If you have any problem, you can contact us at: {link}": {
+    "pt": "Se tiver algum problema, pode entrar em contato conosco em: {link}"
+  },
+  "If the problem persists, please {reportIssue}.": {
+    "pt": "Se o problema persistir, por favor {reportIssue}."
+  },
+  "This action will {hide} your account and all associated data. You can reactivate it anytime.": {
+    "pt": "Esta ação irá {hide} sua conta e todos os dados associados. Você pode reativá-la a qualquer momento."
+  },
+  "This action {cannot} be undone. This will permanently delete the character.": {
+    "pt": "Esta ação {cannot} ser desfeita. Isso excluirá permanentemente o personagem."
+  },
+  "We’d love to know why you decided not to subscribe. Please share your feedback with us {link}. Your input helps us improve!": {
+    "pt": "Adoraríamos saber por que você decidiu não se inscrever. Por favor, compartilhe seu feedback conosco {link}. Sua opinião nos ajuda a melhorar!"
+  },
+  "Practice real-world {EnglishSkillsWithAICharacters}  tailored to your learning goals. Simple, intuitive, and fun!": {
+    "pt": "Pratique {EnglishSkillsWithAICharacters} do mundo real adaptado aos seus objetivos de aprendizado. Simples, intuitivo e divertido!"
+  },
+  "{year} - Developed by {teamName}": {
+    "pt": "{year} - Desenvolvido por {teamName}"
   },
   "Engaging Conversations:": {
     "pt": "Conversas envolventes:"
