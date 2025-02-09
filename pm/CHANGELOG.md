@@ -13,6 +13,10 @@ description: A detailed, chronological record of all changes made to a project, 
 - Improved page titles
 - Improved translations
 
+### Fixed
+
+- Implemented query invalidation in "Discover characters"
+
 ## [0.1.0-1] - 2025-02-08
 
 ### Fixed

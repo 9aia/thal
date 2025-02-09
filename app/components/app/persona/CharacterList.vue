@@ -25,7 +25,7 @@ const {
   refetch,
   hasNextPage,
 } = usePaginationQuery({
-  queryKey: queryKeys.discoverPersonas(search, categoryId),
+  queryKey: queryKeys.discoverPersonasSearch(search, categoryId),
   queryFn: ({ params }) => $fetch('/api/persona/discover', {
     params: {
       ...params,
