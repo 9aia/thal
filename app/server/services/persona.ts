@@ -7,7 +7,7 @@ import { getGemini } from '~/utils/gemini'
 import { internal, notFound } from '~/utils/nuxt'
 import type { PersonaUpdate, User } from '~~/db/schema'
 import { contacts, personaUsernames } from '~~/db/schema'
-import { getEnv } from '~/utils/envs'
+
 
 export async function getPersonaByUsername(
   orm: H3EventContext['orm'],
@@ -80,7 +80,7 @@ export async function getPersonaWithContactByUser(
 }
 
 export async function categorizePersona(event: H3Event, data: PersonaUpdate) {
-  const { GEMINI_API_KEY } = getEnv(event)
+  const { GEMINI_API_KEY } = useRuntimeConfig(event)
 
   if (!GEMINI_API_KEY)
     throw internal('GEMINI_API_KEY is not set in the environment')

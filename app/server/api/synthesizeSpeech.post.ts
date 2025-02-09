@@ -1,11 +1,11 @@
 import { z } from 'zod'
-import { getEnv } from '~/utils/envs'
+
 import { getTts } from '~/utils/gcp'
 import { getValidated } from '~/utils/h3'
 import { internal, unauthorized } from '~/utils/nuxt'
 
 export default eventHandler(async (event) => {
-  const { GCP_CLOUD_TTS_API_KEY } = getEnv(event)
+  const { GCP_CLOUD_TTS_API_KEY } = useRuntimeConfig(event)
 
   if (!GCP_CLOUD_TTS_API_KEY)
     throw internal('GCP_CLOUD_TTS_API_KEY is not set in the environment')

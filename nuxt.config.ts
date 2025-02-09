@@ -1,3 +1,4 @@
+import process from 'node:process'
 import { getConfig } from '@psitta/core'
 import './i18n'
 
@@ -51,6 +52,13 @@ export default defineNuxtConfig({
 
   devServer: {
     host: '',
+  },
+
+  runtimeConfig: {
+    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+    GEMINI_API_KEY: process.env.GEMINI_API_KEY,
+    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+    STRIPE_ENDPOINT_SECRET: process.env.STRIPE_ENDPOINT_SECRET,
   },
 
   components: [

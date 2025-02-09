@@ -2,10 +2,10 @@ import Stripe from 'stripe'
 import * as stripeHandlers from '../../../handlers/stripe'
 import { getStripe } from '~/utils/stripe'
 import { badRequest, internal } from '~/utils/nuxt'
-import { getEnv } from '~/utils/envs'
+
 
 export default eventHandler(async (event) => {
-  const { STRIPE_ENDPOINT_SECRET, STRIPE_SECRET_KEY } = getEnv(event)
+  const { STRIPE_ENDPOINT_SECRET, STRIPE_SECRET_KEY } = useRuntimeConfig(event)
 
   if (!STRIPE_ENDPOINT_SECRET || !STRIPE_SECRET_KEY)
     throw internal('Stripe environment variables not set')
