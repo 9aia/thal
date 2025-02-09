@@ -15,8 +15,7 @@ export interface Item { id: keyof UserSelect, icon: string, label: string }
 // #region Payment
 
 export interface PlanType {
-  amount: number
-  name: string
+  trialPeriodDays: number
   lookupKey: string
 }
 

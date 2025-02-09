@@ -6,6 +6,10 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Changed
+
+- Retrieve and display plan price from Stripe
+
 ## [0.1.0-1] - 2025-02-08
 
 ### Fixed

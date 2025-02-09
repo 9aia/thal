@@ -24,7 +24,7 @@ export default eventHandler(async (event) => {
     return sendRedirect(event, '/plan/pending')
 
   const prices = await stripe.prices.list({
-    lookup_keys: [PLANS.premium.lookupKey],
+    lookup_keys: [PLANS.allInOne.lookupKey],
     expand: ['data.product'],
   })
 
@@ -51,7 +51,7 @@ export default eventHandler(async (event) => {
 
   if (!hasTrialBeenUsed) {
     checkoutCreateParams.subscription_data = {
-      trial_period_days: 7,
+      trial_period_days: PLANS.allInOne.trialPeriodDays,
       trial_settings: {
         end_behavior: {
           missing_payment_method: 'cancel',

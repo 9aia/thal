@@ -1,7 +1,6 @@
 import type { H3Event } from 'h3'
 import type Stripe from 'stripe'
 import { activePlan, cancelSubscription, updateSubscription } from '../services/plan'
-import { getPlan } from '../../utils/stripe'
 import { notFound } from '~/utils/nuxt'
 import { PLANS } from '~/constants/payment'
 import { fromSToMillis } from '~/utils/date'
@@ -24,7 +23,7 @@ export async function handleCheckoutCompleted(
   if (isPaymentAsync)
     return
 
-  await activePlan(orm, userId, stripeCustomerId, PLANS.premium)
+  await activePlan(orm, userId, stripeCustomerId, PLANS.allInOne)
 }
 
 export async function handleAsyncPaymentSucceeded(
@@ -35,20 +34,16 @@ export async function handleAsyncPaymentSucceeded(
   const session = e.data.object
   const stripeCustomerId = session.customer as string
   const userId = session.client_reference_id
-  const plan = getPlan(session)
 
   if (!userId)
     throw notFound('Client reference not found')
-
-  if (!plan)
-    throw notFound('Plan not found')
 
   const isPaid = session.payment_status === 'paid'
 
   if (!isPaid)
     return
 
-  await activePlan(orm, userId, stripeCustomerId, plan)
+  await activePlan(orm, userId, stripeCustomerId, PLANS.allInOne)
 }
 
 export async function handleCustomerSubscriptionDeleted(

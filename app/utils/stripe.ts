@@ -1,5 +1,4 @@
 import Stripe from 'stripe'
-import { PLANS } from '~/constants/payment'
 
 export function getStripe({ stripeKey }: { stripeKey: string }) {
   if (!stripeKey)
@@ -9,10 +8,4 @@ export function getStripe({ stripeKey }: { stripeKey: string }) {
     httpClient: Stripe.createFetchHttpClient(),
   })
   return client
-}
-
-export function getPlan(session: Stripe.Checkout.Session) {
-  return Object.values(PLANS).find(
-    plan => plan.amount === session.amount_subtotal,
-  )
 }

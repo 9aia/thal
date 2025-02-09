@@ -1,7 +1,6 @@
 export const PLANS = {
-  premium: {
-    amount: 3999,
-    name: 'PREMIUM',
-    lookupKey: 'premium',
+  allInOne: {
+    lookupKey: 'thal_all_in_one',
+    trialPeriodDays: 1,
   },
 }

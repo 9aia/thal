@@ -8,4 +8,5 @@ export default {
   myPersonas: ['my-personas'],
   discoverPersonas: (search?: MaybeRef<string | undefined>, categoryId?: MaybeRef<number | undefined>) => ['discover-personas', search, categoryId],
   profile: (username: MaybeRef<string>) => ['profile', username],
+  price: ['price'],
 }

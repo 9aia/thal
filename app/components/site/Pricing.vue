@@ -1,15 +1,29 @@
 <script setup lang="ts">
 import { t, useLocale } from '@psitta/vue'
+import Button from '../ui/action/Button.vue'
+import { PLANS } from '~/constants/payment'
+import queryKeys from '~/queryKeys'
 
 const locale = useLocale()
-const price = computed(() => new Intl.NumberFormat(locale.value, {
-  style: 'currency',
-  currency: 'BRL',
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2,
+
+const {
+  data: priceAmount,
+  isLoading,
+  isError,
+  refetch,
+} = await useServerQuery(() => `/api/payment/stripe/price`, {
+  queryKey: queryKeys.price,
 })
-  .format(39.99),
-)
+
+const price = computed(() => {
+  return new Intl.NumberFormat(locale.value, {
+    style: 'currency',
+    currency: 'BRL',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(Number(priceAmount.value.amount))
+})
+
 const discountPrice = computed(() => new Intl.NumberFormat(locale.value, {
   style: 'currency',
   currency: 'BRL',
@@ -19,7 +33,7 @@ const discountPrice = computed(() => new Intl.NumberFormat(locale.value, {
   .format(0),
 )
 
-const x = 4
+const trialPeriodDays = PLANS.allInOne.trialPeriodDays
 </script>
 
 <template>
@@ -66,26 +80,46 @@ const x = 4
           </li>
         </ul>
 
-        <div class="flex flex-col items-center justify-center py-2 gap-1 text-2xl">
-          <div class="flex justify-center items-center gap-1">
-            <div class="flex items-center gap-1">
-              <div class="line-through">
-                {{ price }}
-              </div>
-              <span class="text-gradient-7">
-                {{ discountPrice }}
-              </span>
+        <Resource :loading="isLoading" :error="isError">
+          <template #loading>
+            <div class="w-full h-full flex items-center justify-center mb-4">
+              <Spinner class="text-gray-800" />
             </div>
-          </div>
+          </template>
 
-          <span class="text-gray-800 ml-1">
-            <div>{{ t('for the first {x} (day|days)', { x }) }}</div>
-          </span>
+          <template #error>
+            <ErrorFallback
+              :loading="isLoading"
+              centered
+              class="mb-4"
+              @retry="refetch"
+            />
+          </template>
 
-          <div class="text-gray-500 text-base text-center">
-            {{ t('{price}/month after', { price }) }}
-          </div>
-        </div>
+          <template #default>
+            <div class="flex flex-col items-center justify-center py-2 gap-1 text-2xl">
+              <div class="flex justify-center items-center gap-1">
+                <div class="flex items-center gap-1">
+                  <div class="line-through">
+                    {{ price }}
+                  </div>
+
+                  <span class="text-gradient-7">
+                    {{ discountPrice }}
+                  </span>
+                </div>
+              </div>
+
+              <span class="text-gray-800 ml-1">
+                <div>{{ t('for the first {x} (day|days)', { x: trialPeriodDays }) }}</div>
+              </span>
+
+              <div class="text-gray-500 text-base text-center">
+                {{ t('{price}/month after', { price }) }}
+              </div>
+            </div>
+          </template>
+        </Resource>
 
         <div class="text-gray-500 text-xs text-center">
           {{ t('No hidden fees. Cancel anytime.') }}

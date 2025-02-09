@@ -4,6 +4,7 @@ import { T, useI18n } from '@psitta/vue'
 defineProps<{
   loading?: boolean
   disabled?: boolean
+  centered?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -14,7 +15,10 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <div class="w-full sm:w-auto sm:h-auto p-4">
+  <div
+    class="w-full sm:w-auto sm:h-auto p-4"
+    :class="centered ? 'flex flex-col items-center justify-center text-center' : ''"
+  >
     <h1 class="text-error text-sm font-bold mb-2">
       {{ t('Oops! Something Went Wrong') }}
     </h1>
