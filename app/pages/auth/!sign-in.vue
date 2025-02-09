@@ -4,7 +4,7 @@ import { T, t } from '@psitta/vue'
 
 <template>
   <div class="w-full relative" style="height: calc(100vh - 64px)">
-    <div class="absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2">
+    <div class="absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 w-full text-center p-4">
       <h1 class="text-3xl text-black text-center mb-4">
         {{ t('Sign in to Your Account') }}
       </h1>

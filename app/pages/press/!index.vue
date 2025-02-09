@@ -74,8 +74,8 @@ import { T, t } from '@psitta/vue'
         class="mx-auto px-4 py-12 max-w-[800px] max-h-[755px] md:max-h-[423px] text-center md:text-left"
       >
         <div class="flex gap-12 flex-col md:flex-row">
-          <div class="mx-auto">
-            <h2 class="text-4xl text-gray-800 mb-6 flex flex-wrap items-center gap-1">
+          <div class="mx-auto flex flex-col items-center md:items-start">
+            <h2 class="text-4xl text-gray-800 mb-6 flex flex-wrap justify-center sm:justify-start items-center gap-1">
               <Icon name="translate" class="text-6xl" />
               {{ t("Interactive Language Assistance") }}
             </h2>
@@ -128,22 +128,18 @@ import { T, t } from '@psitta/vue'
       </div>
     </section>
 
-    <section
-      class="hero relative"
-      style="background: url(''); background-size: cover"
-    >
-      <div class="hero-overlay bg-opacity-60" />
+    <section class="bg-white overflow-y-hidden">
       <div
-        class="flex items-center justify-center w-full h-full max-w-[800px] mx-auto p-4"
+        class="mx-auto px-4 py-12 max-w-[800px] max-h-[755px] md:max-h-[423px] text-center md:text-left"
       >
-        <div class="mx-auto w-full flex flex-col md:flex-row">
-          <div class="w-full md:w-1/2 text-center md:text-left">
-            <h2 class="text-4xl text-gray-800 mb-6 max-w-lg flex flex-wrap items-center gap-1">
+        <div class="flex gap-12 flex-col md:flex-row">
+          <div class="mx-auto flex flex-col items-center md:items-start">
+            <h2 class="text-4xl text-gray-800 mb-6 flex flex-wrap justify-center sm:justify-start items-center gap-1">
               <Icon name="engineering" class="text-6xl" />
               {{ t("Create Your Own Character") }}
             </h2>
 
-            <p class="text-gray-800 max-w-lg mx-auto">
+            <p class="text-gray-800 max-w-sm">
               {{
                 t(
                   "Unleash your creativity by designing characters tailored to your learning needs. Customize their personality, background, and conversation style to create a unique and engaging practice partner.",
@@ -151,7 +147,8 @@ import { T, t } from '@psitta/vue'
               }}
             </p>
           </div>
-          <div class="w-full md:w-1/2" />
+
+          <div class="drop-shadow-2xl relative z-[10] mx-auto w-1/2" />
         </div>
       </div>
     </section>
