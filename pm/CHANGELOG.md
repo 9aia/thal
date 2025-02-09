@@ -12,6 +12,7 @@ description: A detailed, chronological record of all changes made to a project, 
 - Improved pages layout
 - Improved page titles
 - Improved translations
+- Improved chat prompt
 
 ### Fixed
 
