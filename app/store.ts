@@ -4,7 +4,7 @@ export const contentEditableRef = ref()
 
 /* Core */
 
-export const isRootDrawerOpen = ref(true)
+export const isRootDrawerOpen = ref(false)
 
 export const drawers = reactive({
   manageContact: false,

@@ -1,10 +1,15 @@
 <script setup lang="ts">
+import { isRootDrawerOpen } from '~/store'
 import './style.css'
 
 const { state: localeModalState } = useLocaleModal()
 const { state: whatsNewModalState } = useWhatsNewModal()
 
 useInternetConnectionIndicator()
+
+const route = useRoute()
+
+isRootDrawerOpen.value = !!route.meta.showChatList
 </script>
 
 <template>
