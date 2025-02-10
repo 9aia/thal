@@ -13,7 +13,7 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
-const copyUsername = useCopyUsername(toRef(() => props.username))
+const copyUrl = useCopyUrl()
 const clearChat = useClearChat(toRef(() => props.username))
 
 const contactDeleteModalState = ref()
@@ -29,7 +29,7 @@ const items = computed<MenuItem[]>(() => [
     id: 'share-character',
     name: t('Share character'),
     icon: 'ios_share',
-    onClick: () => copyUsername(),
+    onClick: () => copyUrl(),
   },
   props.hasContact
     ? {
