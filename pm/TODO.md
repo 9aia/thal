@@ -6,7 +6,6 @@ description: Tasks and items for the release.
 
 ## Current Tasks
 
-- Improve html page description
 - Fix character sharing option in character header
 - Add button to create character in the discover characters page
 - mobile: Fix Shared character URL opening
