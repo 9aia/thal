@@ -438,7 +438,7 @@
     "pt": "Crie, descubra e salve personagens para aprendizagem personalizada."
   },
   "for the first {x} (day|days)": {
-    "pt": "pelos primeiros {x} (dia|dias)"
+    "pt": "por {x} (dia|dias)"
   },
   "{price}/month after": {
     "pt": "{price}/mês depois"

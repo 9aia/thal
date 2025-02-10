@@ -6,14 +6,12 @@ description: Tasks and items for the release.
 
 ## Current Tasks
 
-- Add button to create character in the discover characters page
-- mobile: Fix Shared character URL opening
 - mobile: Fix chat opening after character created via "message" button
 - Add character library results in Chats search
 - Mask lower username
 - Add preview info alert
-- Fix pricing page pt translation
 - Shortcut for Discover characters
+- Add button to create character in the discover characters page
 
 - Fix space encoding
 - Add expired Plan modal
