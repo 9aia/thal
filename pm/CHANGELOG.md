@@ -6,6 +6,8 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+## [0.1.0-3] - 2025-02-10
+
 ### Changed
 
 - Improved SEO
