@@ -1,4 +1,8 @@
 <template>
+  <div>
+    <slot name="navbar-top" />
+  </div>
+
   <header class="sticky top-0 w-full z-[1000] bg-white text-cyan-500">
     <nav class="px-4 navbar max-w-[800px] mx-auto">
       <div class="navbar-start">

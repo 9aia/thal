@@ -8,7 +8,6 @@ description: Tasks and items for the release.
 
 - Add character library results in Chats search
 - Mask lower username
-- Add preview info alert
 - Shortcut for Discover characters
 - Add button to create character in the discover characters page
 

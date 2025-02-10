@@ -129,7 +129,7 @@ const trialPeriodDays = PLANS.allInOne.trialPeriodDays
           {{ t('Curious to see how chatting can boost your English?') }}
         </p>
 
-        <div class="flex items-center justify-center h-fit mt-4 gap-2">
+        <div class="flex flex-col items-center justify-center h-fit mt-4 gap-2">
           <form action="/api/payment/stripe/create-checkout-session" method="post">
             <button
               id="checkout-and-portal-button" type="submit"
@@ -138,6 +138,10 @@ const trialPeriodDays = PLANS.allInOne.trialPeriodDays
               {{ t('Start Your Free Trial Now') }}
             </button>
           </form>
+
+          <div class="text-blue-500 text-xs flex mt-2 justify-center text-center">
+            <div>{{ t("Thal is in preview. We're not charging for access.") }}</div>
+          </div>
         </div>
       </div>
     </div>

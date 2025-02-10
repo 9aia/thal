@@ -51,6 +51,12 @@ function updateRedirectUrlToApp() {
     </footer> -->
 
     <Header>
+      <template #navbar-top>
+        <div class="bg-gradient-2 text-xs flex text-center justify-center py-2 px-4 text-blue-500">
+          {{ t("Thal is in preview! We are not charging for access. Expect bugs and unfinished features.") }}
+        </div>
+      </template>
+
       <template #navbar-end>
         <div class="flex items-center gap-2 text-gray-900">
           <div>
@@ -87,3 +93,9 @@ function updateRedirectUrlToApp() {
     <Footer />
   </div>
 </template>
+
+<style scoped>
+.bg-gradient-2 {
+  background: radial-gradient(at bottom, theme('colors.blue.50'), theme('colors.gray.50'));
+}
+</style>

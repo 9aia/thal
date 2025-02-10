@@ -452,8 +452,14 @@
   "Curious to see how chatting can boost your English?": {
     "pt": "Curioso para ver como conversar pode melhorar seu inglês?"
   },
+  "Thal is in preview. We're not charging for access.": {
+    "pt": "Thal está em preview. Não estamos cobrando pelo acesso."
+  },
+  "Thal is in preview! We are not charging for access. Expect bugs and unfinished features.": {
+    "pt": "Thal está em preview! Não estamos cobrando pelo acesso. Espere bugs e funcionalidades inacabadas."
+  },
   "Start Your Free Trial Now": {
-    "pt": "Comece seu teste gratuito agora"
+    "pt": "Comece seu Free Trial agora"
   },
   "Home": {
     "pt": "Casa"
