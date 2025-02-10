@@ -43,6 +43,7 @@ export default defineNuxtConfig({
         { name: 'description', content: 'Welcome to an AI-powered English learning app, providing personalized learning experiences.' },
         { name: 'keywords', content: 'English learning, AI-powered, personalized learning, language learning' },
         { name: 'author', content: 'Luis Emidio' },
+        { name: 'viewport', content: 'width=device-width,initial-scale=1,shrink-to-fit=no,user-scalable=0' },
       ],
       link: [
         { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined' },
