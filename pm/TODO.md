@@ -6,7 +6,6 @@ description: Tasks and items for the release.
 
 ## Current Tasks
 
-- mobile: Fix chat opening after character created via "message" button
 - Add character library results in Chats search
 - Mask lower username
 - Add preview info alert

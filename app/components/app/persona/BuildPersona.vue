@@ -4,7 +4,7 @@ import { useQueryClient } from '@tanstack/vue-query'
 import { useDebounceFn } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import { descriptionSchema, instructionsSchema, nameSchema, usernameSchema } from '~~/db/schema'
-import { contactViewUsername, personaBuilderData } from '~/store'
+import { contactViewUsername, isRootDrawerOpen, personaBuilderData } from '~/store'
 import type { Persona } from '~/types'
 import queryKeys from '~/queryKeys'
 
@@ -112,7 +112,10 @@ const submit = form.handleSubmit(async (data) => {
         actions: [
           {
             title: t('Message'),
-            onClick: () => navigateTo(`/app/chat/${data.username}`),
+            onClick: () => {
+              isRootDrawerOpen.value = false
+              navigateTo(`/app/chat/${data.username}`)
+            },
           },
         ],
       })
