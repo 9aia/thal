@@ -164,8 +164,13 @@ const submit = form.handleSubmit(() => isEditing.value
             ))"
           />
           <TextField
-            v-if="!isEditing" path="username" :label="t('Username')"
-            :rules="yupify(usernameSchema, t('Username is invalid.'))" icon-position="right"
+            v-if="!isEditing"
+            path="username"
+            :label="t('Username')"
+            autocapitalize="none"
+            autocomplete="off"
+            :rules="yupify(usernameSchema, t('Username is invalid.'))"
+            icon-position="right"
           >
             <template #icon="{ errorMessage }">
               <Icon

@@ -43,7 +43,7 @@ export default defineNuxtConfig({
         { name: 'description', content: 'Improve your English through conversations with personalized AI characters and real-time UI assistance!' },
         { name: 'keywords', content: 'English learning, AI tutor, Language practice, Conversation practice, Real-time assistance, Personalized learning, AI chatbot, Interactive English, Speaking practice, Fluency improvement' },
         { name: 'author', content: 'Gaia Team' },
-        { name: 'viewport', content: 'width=device-width,initial-scale=1,shrink-to-fit=no,user-scalable=0' },
+        { name: 'viewport', content: 'width=device-width,initial-scale=1,shrink-to-fit=yes,user-scalable=0' },
       ],
       link: [
         { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined' },

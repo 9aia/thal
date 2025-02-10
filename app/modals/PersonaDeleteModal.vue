@@ -98,7 +98,13 @@ const isUsernameInvalid = computed(() => {
         </T>
       </p>
 
-      <TextField label="Username" path="username" :rules="checkUsernameRule" />
+      <TextField
+        label="Username"
+        path="username"
+        autocapitalize="none"
+        autocomplete="off"
+        :rules="checkUsernameRule"
+      />
     </template>
 
     <template #actions>

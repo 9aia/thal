@@ -167,7 +167,11 @@ const { mainField } = useBuildPersonaFocus()
             ))"
           />
           <TextField
-            path="username" :label="t('Username')" :rules="yupify(usernameSchema, t('Username is invalid.'))"
+            path="username"
+            autocapitalize="none"
+            autocomplete="off"
+            :label="t('Username')"
+            :rules="yupify(usernameSchema, t('Username is invalid.'))"
             icon-position="right"
           >
             <template #icon="{ errorMessage }">
