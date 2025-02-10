@@ -6,6 +6,23 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Changed
+
+- Improved SEO
+
+### Fixed
+
+- Avoided to open chat list as default on mobile
+- Prevented zoom on mobile
+- Changed character sharing to use URL on chat header options
+- Improved Pricing translation
+- Implemented chat drawer closing on character message toast action
+- Fixed auto capitalize on username inputs on mobile
+
+### Added
+
+- Added preview alert
+
 ## [0.1.0-2] - 2025-02-09
 
 ### Changed
