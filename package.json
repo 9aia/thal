@@ -75,6 +75,6 @@
     "nuxt": "^3.15.4",
     "release-it": "^18.1.2",
     "typescript": "^5.3.3",
-    "wrangler": "^3.106.0"
+    "wrangler": "^3.108.1"
   }
 }

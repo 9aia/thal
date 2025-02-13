@@ -5,7 +5,7 @@ compatibility_flags = [ "nodejs_compat" ]
 [[d1_databases]]
 binding = "DB"
 database_name = "thal"
-database_id = "01b68bff-27b3-405b-8713-29560c584895"
+database_id = "544366bf-fdc9-4627-aee8-dfd1295aeabd"
 migrations_dir = "./db/migrations"
 
 [[unsafe.bindings]]
