@@ -46,8 +46,12 @@ export async function getValidated<O>(
 }
 
 export function getAppUrl(event: H3Event) {
+  const isCloudflareReq = !!event.context.cloudflare?.request
+
   const protocol = import.meta.dev ? 'http:' : 'https:'
-  const host = event.headers.get('host')!
+  const host = isCloudflareReq
+    ? new URL(event.context.cloudflare.request.url).host
+    : event.headers.get('host')!
 
   return new URL(`${protocol}${host}`)
 }
