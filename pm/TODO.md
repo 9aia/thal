@@ -6,7 +6,8 @@ description: Tasks and items for the release.
 
 ## Current Tasks
 
-- Add button to create character in the discover characters page
+- Add button to create character in the discover characters page (bottom of the page)
+- Add button to create character in the discover characters page (aside of search field)
 - Fix space encoding
 - Add expired Plan modal
 - Add Plan middleware to api routes
