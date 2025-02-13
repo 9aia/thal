@@ -4,6 +4,7 @@ import { refDebounced } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import { categories } from '~/constants/discover'
 import queryKeys from '~/queryKeys'
+import { buildPersona } from '~/store'
 
 const { t } = useI18n()
 const form = useForm({
@@ -138,14 +139,29 @@ onMounted(() => {
               <Observable class="w-full h-px" :is-connected="hasNextPage" @intersect="fetchNextPage()" />
             </template>
 
-            <template v-else>
+            <div v-else class="flex flex-col items-center gap-y-4">
               <p class="text-gray-500 text-sm py-2 px-6 text-center">
                 {{ search ? t(`No results found for "{query}"`, { query: search }) : t('No results found.') }}
               </p>
-            </template>
+              <div v-if="search">
+                <Button class="border-gradient-2 rounded-full" @click="buildPersona({ username: generateUsername(search), name: generateName(search) })">
+                  <span class="px-4 py-1 flex items-center justify-center gap-1">
+                    <Icon name="person_edit" />
+                    {{ t("Create character") }}
+                  </span>
+                </Button>
+              </div>
+            </div>
           </StyledResource>
         </div>
       </div>
     </div>
   </main>
 </template>
+
+<style scoped>
+.border-gradient-2 {
+  @apply border-none px-1 py-1 bg-blue-50 text-blue-500;
+  @apply bg-gray-50;
+}
+</style>

@@ -6,14 +6,18 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Added
+
+- Added create character button in Discover characters when not found
+- Added shortcut for Discover characters
+- Added URL shortcuts for drawers
+
 ### Changed
 
 - Moved worker to Gaia account
 - Moved database to Gaia account
 - Moved domain to Gaia domain
 - Read URL from cloudflare request
-- Added shortcut for Discover characters
-- Added URL shortcuts for drawers
 
 ## [0.1.0-3] - 2025-02-10
 

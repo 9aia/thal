@@ -11,6 +11,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## Features
 
+- Set meta tags for each page
 - Message/AI rate in trial instead of time
 - Message/AI rate in price
 - Add English locale preference (eg. US or UK)
