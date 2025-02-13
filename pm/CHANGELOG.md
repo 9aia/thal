@@ -8,7 +8,10 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ### Changed
 
+- Moved worker to Gaia account
 - Moved database to Gaia account
+- Moved domain to Gaia domain
+- Read URL from cloudflare request
 
 ## [0.1.0-3] - 2025-02-10
 
