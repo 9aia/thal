@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/vue-query'
 import { watchDebounced } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import queryKeys from '~/queryKeys'
-import { chatItemSearch, drawers } from '~/store'
+import { chatItemSearch, drawers, isRootDrawerOpen } from '~/store'
 
 const emit = defineEmits<{
   (e: 'close'): void
@@ -69,6 +69,14 @@ async function openWhatsNewModal() {
     lastSavedContentCount.value = contentAmount
   }
 }
+
+const { focusMainField: focusSearch } = useDiscoverFocus()
+
+function goToDiscover() {
+  isRootDrawerOpen.value = false
+  navigateTo('/app/discover')
+  focusSearch({ immediate: true })
+}
 </script>
 
 <template>
@@ -92,6 +100,18 @@ async function openWhatsNewModal() {
           @click="openWhatsNewModal"
         >
           <Icon v-show="!countQuery.isLoading.value" name="campaign" />
+        </Button>
+
+        <Button
+          class="btn-ghost"
+          size="md"
+          shape="circle"
+          no-disable-on-loading
+          @click="goToDiscover"
+        >
+          <span class="px-4 py-1 flex items-center justify-center gap-1">
+            <Icon name="person_search" />
+          </span>
         </Button>
 
         <ChatListOptionsButton />

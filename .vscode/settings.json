@@ -27,8 +27,8 @@
     {
       "previewLimit": 50,
       "driver": "SQLite",
-      "database": "${workspaceFolder:thal}/.wrangler/state/v3/d1/miniflare-D1DatabaseObject/944d70aef6abeb89a6953210f60afab7108a7d0b0e9acaabb0a956cd165bbe44.sqlite",
-      "name": "thal"
+      "name": "Thal",
+      "database": "${workspaceFolder:thal}/.wrangler/state/v3/d1/miniflare-D1DatabaseObject/a350649cc7205b513479a99032b7dbd3f942fc734fcac8d418cf22b98ce570a4.sqlite"
     }
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
