@@ -12,7 +12,8 @@ description: A detailed, chronological record of all changes made to a project, 
 - Moved database to Gaia account
 - Moved domain to Gaia domain
 - Read URL from cloudflare request
-- Added Shortcut for Discover characters
+- Added shortcut for Discover characters
+- Added URL shortcuts for drawers
 
 ## [0.1.0-3] - 2025-02-10
 

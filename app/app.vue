@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { isRootDrawerOpen } from '~/store'
+import { drawers, isRootDrawerOpen } from '~/store'
 import './style.css'
 
 const { state: localeModalState } = useLocaleModal()
@@ -10,6 +10,35 @@ useInternetConnectionIndicator()
 const route = useRoute()
 
 isRootDrawerOpen.value = !!route.meta.showChatList
+
+type DrawersKey = keyof typeof drawers
+
+type Drawers = DrawersKey[]
+
+onMounted(() => {
+  const drawer = route.query.drawer as DrawersKey
+
+  if (!drawer) {
+    return
+  }
+
+  const mapping: Record<string, DrawersKey> = {
+    create: 'personaBuilder',
+    save: 'manageContact',
+    add: 'newChat',
+    list: 'myPersonas',
+  }
+
+  const mappedDrawer = mapping[drawer] || drawer
+
+  const availableDrawers = Object.keys(drawers) as Drawers
+
+  if (!availableDrawers.includes(mappedDrawer)) {
+    return
+  }
+
+  drawers[mappedDrawer] = true
+})
 </script>
 
 <template>

@@ -6,7 +6,6 @@ description: Tasks and items for the release.
 
 ## Current Tasks
 
-- Add option to open drawer on url
 - Add button to create character in the discover characters page
 - Fix space encoding
 - Add expired Plan modal
