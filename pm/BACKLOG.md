@@ -26,7 +26,6 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Add calls
 - Add character unique voices
 - Add character knowledge
-- Add profile photos (generate or upload)
 - Add chat action for deleting it
 - Add media messages support
 

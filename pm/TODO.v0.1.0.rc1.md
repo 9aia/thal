@@ -8,6 +8,7 @@ description: Tasks and items for the release.
 
 ## Features
 
+- Add profile photos (generate or upload)
 - Add language drawer containing UI language and translation settings
 - Add config for time
 - Add moderation

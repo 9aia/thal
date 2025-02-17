@@ -8,8 +8,8 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ### Added
 
-- Added create character button in Discover characters when not found
-- Added shortcut for Discover characters
+- Added character creation button to the bottom of the Discover Characters page
+- Added Discover Characters link to the chat list header
 - Added URL shortcuts for drawers
 - Added spacing and breakline encoding
 

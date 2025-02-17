@@ -416,9 +416,6 @@
   "Practice real-world {EnglishSkillsWithAICharacters}  tailored to your learning goals. Simple, intuitive, and fun!": {
     "pt": "Pratique {EnglishSkillsWithAICharacters} do mundo real adaptado aos seus objetivos de aprendizado. Simples, intuitivo e divertido!"
   },
-  "{year} - Developed by {teamName}": {
-    "pt": "{year} - Desenvolvido por {teamName}"
-  },
   "Engaging Conversations:": {
     "pt": "Conversas envolventes:"
   },
@@ -745,5 +742,8 @@
   },
   "Interactive Assistance:": {
     "pt": "Assistência Interativa:"
+  },
+  "Easily build a character that fits your learning style! Choose a name and personality, and let the AI bring them to life through dynamic conversations.": {
+    "pt": "Crie facilmente um personagem que se adapta ao seu estilo de aprendizagem! Escolha um nome e uma personalidade, e deixe a IA dar vida a ele através de conversas dinâmicas!"
   }
 }

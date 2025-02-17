@@ -117,7 +117,7 @@ onMounted(() => {
           {{ t("Characters") }}
         </h2>
 
-        <div class="px-4 pb-2 space-y-1 overflow-y-auto mt-4 flex flex-col items-center w-screen sm:w-[500px] lg:w-[600px]">
+        <div class="px-4 pb-2 overflow-y-auto mt-4 flex flex-col items-center w-screen sm:w-[500px] lg:w-[600px]">
           <StyledResource
             :error="isError"
             :loading="isPending"
@@ -143,14 +143,23 @@ onMounted(() => {
               <p class="text-gray-500 text-sm py-2 px-6 text-center">
                 {{ search ? t(`No results found for "{query}"`, { query: search }) : t('No results found.') }}
               </p>
-              <div v-if="search">
-                <Button class="border-gradient-2 rounded-full" @click="buildPersona({ username: generateUsername(search), name: generateName(search) })">
-                  <span class="px-4 py-1 flex items-center justify-center gap-1">
-                    <Icon name="person_edit" />
-                    {{ t("Create character") }}
-                  </span>
-                </Button>
-              </div>
+            </div>
+
+            <div class="text-center mt-24 mb-24">
+              <h3 class="text-lg mb-2">
+                {{ t('Create Your Own Character') }}
+              </h3>
+
+              <p class="text-sm text-gray-400 mb-6">
+                {{ t('Easily build a character that fits your learning style! Choose a name and personality, and let the AI bring them to life through dynamic conversations.') }}
+              </p>
+
+              <Button class="border-gradient-2 rounded-full" @click="buildPersona({ username: search && generateUsername(search), name: search && generateName(search) })">
+                <span class="px-4 py-1 flex items-center justify-center gap-1">
+                  <Icon name="person_edit" />
+                  {{ t("Create character") }}
+                </span>
+              </Button>
             </div>
           </StyledResource>
         </div>

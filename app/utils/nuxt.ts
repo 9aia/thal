@@ -1,3 +1,4 @@
+import { useRoute } from 'vue-router'
 import type { NuxtError } from '#app'
 
 export function error(
@@ -5,14 +6,16 @@ export function error(
   message?: string,
   options: Partial<NuxtError<unknown>> = {},
 ) {
-  if (import.meta.dev)
-    console.error(`Error ${statusCode} - ${message}`)
-
-  return createError({
+  const err = createError({
     statusCode,
     statusMessage: message,
     ...options,
   })
+
+  if (import.meta.dev)
+    console.error(message ? `${statusCode} - ${message}` : `${statusCode}`)
+
+  return err
 }
 
 export function notFound(

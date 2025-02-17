@@ -37,15 +37,12 @@ description: A timeline of key milestones and upcoming features or releases.
 
 ### 0.2* - Language Assistance
 
+- Implement message corrector
 - Add suggestions in chat
-- Add tips
-- Add modal "Dictionary"
-  - Add conjugation table
-  - Add grammar reference tables
+- Add modal "Dictionary"/reference (plural forms, conjugation, participles)
 - Add assistant
   - Add a help request item in the header menu (AI-driven).
   - Add settings to adjust AI helper responses.
-- Real-time assistance features
 - Stream translation
 
 ### 0.3* - Generative Character Building
