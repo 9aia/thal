@@ -222,6 +222,10 @@ const messageError = computed(() => {
     return false
   }
 
+  if (data.value.history.length === 0) {
+    return false
+  }
+
   if (data.value.history[data.value.history.length - 1].status === 'error') {
     return true
   }
