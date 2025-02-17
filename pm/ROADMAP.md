@@ -79,7 +79,7 @@ description: A timeline of key milestones and upcoming features or releases.
 - List private character from contact list in a different section
 - Share character card (WhatsApp, X, Facebook, etc)
 - Send message via URL query
-- Display character author in the contact view
+- Display character author in the contact view and item in discover character route
 - Add a top absolute toast "Share your invite code with friends" and menu option "Invite"
 
 ### 1.0* - Multiplayer
