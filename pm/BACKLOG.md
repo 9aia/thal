@@ -24,7 +24,6 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Add dark theme
 - Add character rating (unrated, teen, mature, everyone)
 - Add calls
-- Add character unique voices
 - Add character knowledge
 - Add chat action for deleting it
 - Add media messages support
@@ -51,7 +50,8 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Translate character data
 - Improve chat loading by rendering the skeleton on the backend and the message on the client
   - Improve chat loading and error state fallbacks
-- Save drawer/view state in URL
+- Save in-progress state
+- Turn sign-in page into a modal
 - ---
 - Change forms to another platform that supports localization
 - ---
@@ -88,8 +88,8 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Change `Message.isBot` to boolean mode
 - Unused files/functions
 - Use inferred schemas as DTOs
-- Move schemas to their own files
 - Add nuxt devserver to codeshare container
-- Improve dev contributing guide (wip and atomic commits)
+- Improve dev contributing guide (commit guide)
 - Fix codeshare perms
 - Add docs about the software architecture
+- Move schemas to their own files

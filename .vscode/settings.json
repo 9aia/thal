@@ -19,7 +19,6 @@
     "nuxt.config.ts": "vite.config.*, postcss.config.js, tailwind.config.js, i18n.*",
     "docker-compose.yml": "wrangler.*, .env*, .dev.vars, public_keys.*, drizzle.config.*",
     "app.vue": "error.vue",
-    "TODO.md": "TODO.*.md",
     "README.md": "CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, LICENSE.md",
   },
   "editor.tabSize": 2,
