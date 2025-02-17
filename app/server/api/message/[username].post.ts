@@ -4,7 +4,8 @@ import { getHistory } from '~/server/services/messages'
 import { now } from '~/utils/date'
 import { chatHistoryToGemini, getGemini } from '~/utils/gemini'
 import { getValidated } from '~/utils/h3'
-import { internal, notFound, rateLimit, unauthorized } from '~/utils/nuxt'
+import { internal, notFound, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
+import { hasPlanExpired } from '~/utils/plan'
 import type { MessageInsert } from '~~/db/schema'
 import { chats, contacts, lastMessages, messageSendSchema, messages, personaUsernames, usernameSchema } from '~~/db/schema'
 
@@ -18,6 +19,10 @@ export default eventHandler(async (event) => {
 
   if (!user)
     throw unauthorized()
+
+  if (hasPlanExpired(user)) {
+    throw paymentRequired('Plan expired')
+  }
 
   const { success } = await event.context.cloudflare.env.MESSAGE_RATE_LIMIT.limit({ key: `send-message-${user.id}` })
 

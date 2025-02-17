@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { drawers, isRootDrawerOpen } from '~/store'
+import { drawers, isExpiredModalOpen, isRootDrawerOpen } from '~/store'
 import './style.css'
 
 const { state: localeModalState } = useLocaleModal()
@@ -10,6 +10,7 @@ useInternetConnectionIndicator()
 const route = useRoute()
 
 isRootDrawerOpen.value = !!route.meta.showChatList
+isExpiredModalOpen.value = route.query.expired === 'true'
 
 type DrawersKey = keyof typeof drawers
 
@@ -55,5 +56,6 @@ onMounted(() => {
 
   <WhatsNewModal v-model="whatsNewModalState" />
   <LocaleModal v-model="localeModalState" />
+  <ExpiredPlanModal v-model="isExpiredModalOpen" />
   <AccountReactivatedModal />
 </template>

@@ -12,6 +12,10 @@ export default defineNuxtRouteMiddleware((event) => {
       : sendBackRedirect(event, '/pricing')
   }
 
-  if (user.value.plan && hasPlanExpired(user.value))
-    return sendBackRedirect(event, '/plan/expired')
+  if (user.value.plan && hasPlanExpired(user.value) && !event.query.expired) {
+    return navigateTo({
+      path: event.path,
+      query: { ...event.query, expired: 'true' },
+    })
+  }
 })

@@ -53,6 +53,13 @@ export function badRequest(
   return error(400, message, options)
 }
 
+export function paymentRequired(
+  message?: string,
+  options: Partial<NuxtError<unknown>> = {},
+) {
+  return error(402, message, options)
+}
+
 export function updateRedirectUrl() {
   const route = useRoute()
   const redirectUrl = useRedirectUrl()

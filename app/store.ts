@@ -4,6 +4,8 @@ export const contentEditableRef = ref()
 
 /* Core */
 
+export const isExpiredModalOpen = ref(false)
+
 export const isRootDrawerOpen = ref(false)
 
 export const drawers = reactive({

@@ -5,7 +5,7 @@ import { useEventListener, useOnline, useScroll } from '@vueuse/core'
 import { useI18n } from '@psitta/vue'
 import AppLayout from '~/layouts/app.vue'
 import queryKeys from '~/queryKeys'
-import { chatItemSearch, replies, sendingChatIds, sentErrorChatIds } from '~/store'
+import { chatItemSearch, isExpiredModalOpen, replies, sendingChatIds, sentErrorChatIds } from '~/store'
 import type { ChatItem } from '~/types'
 
 const route = useRoute()
@@ -137,6 +137,7 @@ function emptyInput() {
 const newMessageTmp = ref()
 
 const RATE_LIMIT_STATUS_CODE = 429
+const PAYMENT_REQUIRED_STATUS_CODE = 402
 
 const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending } = useMutation({
   mutationFn: (data: SendMessageData) => $fetch(`/api/message/${route.params.username}`, {
@@ -162,6 +163,10 @@ const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending
 
     if (errorStatus === RATE_LIMIT_STATUS_CODE) {
       toast.error(t('You are sending messages too fast. Please wait a moment.'))
+    }
+
+    if (errorStatus === PAYMENT_REQUIRED_STATUS_CODE) {
+      isExpiredModalOpen.value = true
     }
 
     const newHistory = [...data.value.history || []]
@@ -206,6 +211,22 @@ const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending
 
     goToBottom()
   },
+})
+
+const messageError = computed(() => {
+  if (mutationError.value) {
+    return true
+  }
+
+  if (!data.value) {
+    return false
+  }
+
+  if (data.value.history[data.value.history.length - 1].status === 'error') {
+    return true
+  }
+
+  return false
 })
 
 function handleSend() {
@@ -300,7 +321,7 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
 
               <ChatConversation
                 :history="data.history"
-                :is-error="mutationError"
+                :is-error="messageError"
                 @fix-scroll="goToBottom"
                 @resend="handleResend()"
               />
