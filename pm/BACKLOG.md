@@ -28,6 +28,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Add character knowledge
 - Add profile photos (generate or upload)
 - Add chat action for deleting it
+- Add media messages support
 
 ## Bugs
 
