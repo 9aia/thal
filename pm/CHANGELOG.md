@@ -11,6 +11,7 @@ description: A detailed, chronological record of all changes made to a project, 
 - Added create character button in Discover characters when not found
 - Added shortcut for Discover characters
 - Added URL shortcuts for drawers
+- Added spacing and breakline encoding
 
 ### Changed
 
