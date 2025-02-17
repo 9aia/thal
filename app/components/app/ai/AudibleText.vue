@@ -24,7 +24,8 @@ const playMutation = useMutation({
 const currentWord = computed(() => speech.currentWord.value)
 
 const textParts = computed(() => {
-  const text = props.text.trim()
+  const text = props.text.trim().replaceAll('<br>', ' ___breakline___ ')
+
   return text.split(/\s+/)
 })
 
@@ -36,8 +37,14 @@ defineExpose({
 <template>
   <article class="text-sm text-gray-700 text-left">
     <span v-for="part, j in textParts" :key="j" :class="{ 'text-gradient-4': j === currentWord }">
-      {{ ' ' }}
-      {{ part }}
+      <template v-if="part === '___breakline___'">
+        <br>
+      </template>
+
+      <template v-else>
+        {{ ' ' }}
+        {{ part }}
+      </template>
     </span>
   </article>
 </template>

@@ -50,14 +50,25 @@ const icon = computed(() => {
   return isEmpty.value ? 'mic' : 'send'
 })
 
+function decodeHTML(html: string) {
+  const txt = document.createElement('textarea')
+  txt.innerHTML = html
+  return txt.value
+}
+
 function handleSend(e: Event) {
-  if (!text.value.trim() || isChatSending.value || isChatError.value) {
+  const message = decodeHTML(text.value)
+
+  if (!message.trim() || isChatSending.value || isChatError.value) {
     e.preventDefault()
     return
   }
 
   if (!shift.value) {
     e.preventDefault()
+
+    text.value = message
+
     emit('send')
   }
 }
