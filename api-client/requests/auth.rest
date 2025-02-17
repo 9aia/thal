@@ -5,3 +5,5 @@ GET {{baseUrl}}/user HTTP/1.1
 ### Validate the username remotely
 
 GET {{baseUrl}}/user/validate-username/luisfuturist
+Content-Type: application/json
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
