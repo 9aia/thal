@@ -87,6 +87,7 @@ function goToDiscover() {
           {{ t("Thal") }}
         </A>
       </h1>
+
       <div>
         <Button
           class="btn-ghost"

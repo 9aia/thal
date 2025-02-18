@@ -9,6 +9,7 @@ description: A detailed, chronological record of all changes made to a project, 
 ### Fixed
 
 - Fixed drawer scroll
+- Fixed welcome route layout
 
 ## [0.1.0-4] - 2025-02-17
 

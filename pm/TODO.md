@@ -4,9 +4,9 @@ description: Tasks and items for the release.
 
 # TODO
 
-- Fix welcome route layout
 - Add button to create character in the discover characters page (aside of search field)
 - Fix last dropdown position
+- Fix what's new indicator
 - Fix add validation to ignore ctrl on message input
 - Infinite scroll not working on big screens in Discover characters
 - Deal with expired plan
@@ -15,6 +15,7 @@ description: Tasks and items for the release.
 - Add markdown support to messages
 - Fix DB on build pre-render
 
+- Open chat list on mobile always
 - Add more characters pre-created
 
 - Update terms and privacy policy

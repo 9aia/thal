@@ -17,10 +17,25 @@ async function goToDiscover() {
   focusSearch()
 }
 
+async function openProfile() {
+  isRootDrawerOpen.value = true
+  drawers.profile = true
+}
+
+async function openMyCharacters() {
+  isRootDrawerOpen.value = true
+  drawers.myPersonas = true
+}
+
+async function openSettings() {
+  isRootDrawerOpen.value = true
+  drawers.settings = true
+}
+
 const items: MenuItem[] = [
-  { id: 'profile', name: t('Profile'), icon: 'face', onClick: () => drawers.profile = true },
+  { id: 'profile', name: t('Profile'), icon: 'face', onClick: () => openProfile() },
   { id: 'discover-characters', name: t('Discover characters'), icon: 'person_search', onClick: () => goToDiscover() },
-  { id: 'my-characters', name: t('My characters'), icon: 'manage_accounts', onClick: () => drawers.myPersonas = true },
+  { id: 'my-characters', name: t('My characters'), icon: 'manage_accounts', onClick: () => openMyCharacters() },
   {
     id: 'plan',
     name: t('Subscription'),
@@ -29,7 +44,7 @@ const items: MenuItem[] = [
     icon: 'subscriptions',
     type: 'external',
   },
-  { id: 'settings', name: t('Settings'), icon: 'settings', onClick: () => drawers.settings = true },
+  { id: 'settings', name: t('Settings'), icon: 'settings', onClick: () => openSettings() },
   {
     id: 'logout',
     name: t('Logout'),
