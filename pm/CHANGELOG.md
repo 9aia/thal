@@ -11,14 +11,19 @@ description: A detailed, chronological record of all changes made to a project, 
 - Added character creation button to the bottom of the Discover Characters page
 - Added Discover Characters link to the chat list header
 - Added URL shortcuts for drawers
-- Added spacing and breakline encoding
+- Added expired plan modal
 
 ### Changed
 
 - Moved worker to Gaia account
 - Moved database to Gaia account
 - Moved domain to Gaia domain
-- Read URL from cloudflare request
+
+### Fixed
+
+- Fixed spacing and breakline encoding
+- Fixed D1 binding on production
+- Read app URL from cloudflare request
 
 ## [0.1.0-3] - 2025-02-10
 
