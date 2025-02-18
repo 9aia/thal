@@ -121,24 +121,48 @@ Don't forget to modify `./codeshare/co-authors`.
 
 - To run commands inside the codeshare container, run `pnpm cs {command}`
 
-## Releasing/Deploying
+Here's an improved version of your release/deployment instructions, with enhanced clarity, formatting, and consistency:
 
-https://github.com/release-it/release-it
-https://www.npmjs.com/package/@release-it/keep-a-changelog
+---
 
-Build the application for production:
+## Releasing and Deploying
+
+### Releasing
+
+1. **Update the Changelog**
+   - Manually update the changelog sections following the standard described here: [Keep a Changelog](https://www.npmjs.com/package/@release-it/keep-a-changelog).
+   - Do **not** specify the next version in the changelog. Leave it as `## [Unreleased]`, which will be automatically updated with the version and release date.
+   - For more details, refer to the [Conventional Changelog documentation](https://github.com/release-it/conventional-changelog).
+
+2. **Run the Release Command**
+   Once the changelog is updated, run the following command to release the update:
+   ```bash
+   pnpm release
+   ```
+
+### Deploying Preview without Releasing
+
+To deploy a preview version without creating a release, use the following command:
 
 ```bash
-pnpm run build
+pnpm run build && pnpm run deploy
 ```
 
-Locally preview production build:
+### Preview Locally Using Wrangler
+
+To build the application for production and preview it locally with Wrangler, run:
 
 ```bash
-pnpm run preview
+pnpm run build && npx wrangler dev .output/server/index.mjs --assets .output/public/
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+### Preview Locally Using Nuxt
+
+To build the application for production and preview it locally using Nuxt, run:
+
+```bash
+pnpm run build && pnpm run preview
+```
 
 ## Useful Links
 
