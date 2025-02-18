@@ -17,6 +17,8 @@ description: Tasks and items for the release.
 - Add more characters pre-created
 - Add button to create character in the discover characters page (aside of search field)
 
+- Fix DB on build pre-render.
+
 ---
 
 - Update terms and privacy policy
