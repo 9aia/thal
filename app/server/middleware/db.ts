@@ -1,22 +1,18 @@
+import process from 'node:process'
 import { type DrizzleD1Database, drizzle as initializeDrizzle } from 'drizzle-orm/d1'
 import * as schema from '../../../db/schema'
-
-let drizzle: DrizzleD1Database<typeof schema>
+import { internal } from '~/utils/nuxt'
 
 export default defineEventHandler(async (event) => {
-  const cloudflareEnvs = event.context.cloudflare?.env
+  // @ts-expect-error globalThis.env is not defined
+  const db = event.context.cloudflare?.env.DB || process.env.DB || globalThis.__env__?.DB || globalThis.DB
 
-  if (!cloudflareEnvs) {
-    return
-  }
+  if (!db)
+    throw internal('DB is not set in the environment')
 
-  if (!drizzle) {
-    drizzle = initializeDrizzle(cloudflareEnvs.DB, {
-      schema,
-    })
-  }
-
-  event.context.orm = drizzle
+  event.context.orm = initializeDrizzle(db, {
+    schema,
+  })
 })
 
 declare module 'h3' {
