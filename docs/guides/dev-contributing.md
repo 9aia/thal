@@ -134,13 +134,20 @@ Here's an improved version of your release/deployment instructions, with enhance
    - Do **not** specify the next version in the changelog. Leave it as `## [Unreleased]`, which will be automatically updated with the version and release date.
    - For more details, refer to the [Conventional Changelog documentation](https://github.com/release-it/conventional-changelog).
 
-2. **Run the Release Command**
+2. **Login to Wrangler**
+  - Authenticate with Cloudflare’s Wrangler CLI to manage your deployment.
+  - Run the following command to log in:
+   ```bash
+   npx wrangler login
+   ```
+
+1. **Run the Release Command**
    Once the changelog is updated, run the following command to release the update:
    ```bash
    pnpm release
    ```
 
-3. **Select the Next Version**
+2. **Select the Next Version**
    Choose the next version based on [semantic versioning](https://semver.org/). Make sure to determine whether it is a major, minor, or patch release based on the changes since the last release.
 
 ### Deploying Preview without Releasing
