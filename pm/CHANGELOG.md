@@ -6,6 +6,8 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+## [0.1.0-4] - 2025-02-17
+
 ### Added
 
 - Added character creation button to the bottom of the Discover Characters page
