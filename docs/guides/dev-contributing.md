@@ -112,9 +112,14 @@ git push
 
 ## Sharing Code
 
+- To host, run `pnpm run up`
+- To connect, run `pnpm dev:cs`
+
 // TODO
 
 Don't forget to modify `./codeshare/co-authors`.
+
+- To run commands inside the codeshare container, run `pnpm cs {command}`
 
 ## Releasing/Deploying
 
