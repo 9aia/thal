@@ -8,7 +8,7 @@
     "dev": "nuxt dev --host",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "deploy": "wrangler deploy .output/server/index.mjs --assets .output/public",
+    "deploy": "CF_ACCOUNT_ID=cf5a672bcf77fc2318ec7f0a709c1f77 wrangler deploy .output/server/index.mjs --assets .output/public",
     "postinstall": "git config core.hooksPath ./codeshare/.githooks && nuxt prepare",
     "release": "release-it",
     "lint": "eslint .",
