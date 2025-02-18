@@ -31,7 +31,7 @@ const errorMessage = computed(() => {
 
   const message
     = error.value?.message
-    || (Object.prototype.hasOwnProperty.call(options, statusCode!) ? options[statusCode!] : options[500])
+      || (Object.prototype.hasOwnProperty.call(options, statusCode!) ? options[statusCode!] : options[500])
 
   return makeReturn(message, statusCode!)
 })

@@ -140,6 +140,9 @@ Here's an improved version of your release/deployment instructions, with enhance
    pnpm release
    ```
 
+3. **Select the Next Version**
+   Choose the next version based on [semantic versioning](https://semver.org/). Make sure to determine whether it is a major, minor, or patch release based on the changes since the last release.
+
 ### Deploying Preview without Releasing
 
 To deploy a preview version without creating a release, use the following command:
