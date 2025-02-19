@@ -89,7 +89,7 @@ const items = computed<MenuItem[]>(() => [
 
       <div>
         <div class="dropdown dropdown-end">
-          <button class="btn btn-circle btn-ghost text-black" @click="updateRedirectUrl">
+          <button class="btn btn-circle btn-ghost text-black">
             <Icon>more_vert</Icon>
           </button>
 

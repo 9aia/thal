@@ -30,10 +30,6 @@ const menuItems: MenuItem[] = [
 ]
 
 const redirectUrl = useRedirectUrl()
-
-function updateRedirectUrlToApp() {
-  redirectUrl.value = '/app'
-}
 </script>
 
 <template>
@@ -50,7 +46,7 @@ function updateRedirectUrlToApp() {
               </div>
             </div>
 
-            <A v-else class="link link-red-500" href="/sign-in" @click="updateRedirectUrlToApp">
+            <A v-else class="link link-red-500" href="/sign-in" @click="redirectUrl = '/app'">
               {{ t("Sign in") }}
             </A>
           </div>

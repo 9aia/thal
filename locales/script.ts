@@ -93,10 +93,6 @@ async function main() {
   await loadCache()
   await loadTranslations()
 
-  console.log({ messages, cache })
-
-  console.log('loaded in to ram')
-
   const extractedMessages = (await extractMessagesFromFiles(CONFIG.content as any)).filter(msg => !cache.has(msg.message))
 
   const chunks = Array.from(extractedMessages).reduce((acc, msg, index) => {
@@ -172,8 +168,6 @@ async function translate(chunk: Chunk) {
   const text = bestPart?.text
 
   const json = JSON.parse(text)
-
-  console.log(json)
 
   for (const [message, translations] of Object.entries(json)) {
     cache.add(message)

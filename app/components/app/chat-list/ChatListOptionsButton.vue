@@ -5,7 +5,6 @@ import type { MenuItem } from '~/components/ui/navigation/types'
 const logout = useLogout()
 
 const t = (x: string) => x
-
 const { focusMainField: focusSearch } = useDiscoverFocus()
 
 async function goToDiscover() {
@@ -59,7 +58,7 @@ const items: MenuItem[] = [
 
 <template>
   <div class="dropdown dropdown-end">
-    <button class="btn btn-circle btn-ghost text-black" @click="updateRedirectUrl">
+    <button class="btn btn-circle btn-ghost text-black">
       <Icon>more_vert</Icon>
     </button>
 

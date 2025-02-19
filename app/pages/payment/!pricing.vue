@@ -4,6 +4,8 @@ import { t } from '@psitta/vue'
 definePageMeta({
   title: 'Pricing',
 })
+
+useAutoRedirect()
 </script>
 
 <template>

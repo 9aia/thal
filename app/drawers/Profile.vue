@@ -6,6 +6,10 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
+useAutoRedirect({
+  query: { drawer: ['profile'] },
+})
+
 const { t } = useI18n()
 
 const user = useUser()

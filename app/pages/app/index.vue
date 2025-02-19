@@ -6,6 +6,8 @@ definePageMeta({
   middleware: 'premium',
   showChatList: true,
 })
+
+useAutoRedirect()
 </script>
 
 <template>

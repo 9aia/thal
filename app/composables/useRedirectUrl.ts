@@ -1,5 +1,6 @@
 function useRedirectUrl() {
-  return useCookie('redirect_url', { path: '/ ' })
+  const url = useCookie('redirect_url', { path: '/ ' })
+  return url
 }
 
 export default useRedirectUrl

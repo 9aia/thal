@@ -9,6 +9,8 @@ definePageMeta({
 })
 
 const { t } = useI18n()
+
+useAutoRedirect()
 </script>
 
 <template>

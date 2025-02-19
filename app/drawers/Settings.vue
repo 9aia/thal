@@ -13,9 +13,8 @@ const isLocaleModalOpen = ref(false)
 const user = useUser()
 const logout = useLogout()
 
-onMounted(() => {
-  const redirectUrl = useRedirectUrl()
-  redirectUrl.value = '/app'
+useAutoRedirect({
+  query: { drawer: ['settings'] },
 })
 </script>
 

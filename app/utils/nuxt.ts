@@ -1,4 +1,3 @@
-import { useRoute } from 'vue-router'
 import type { NuxtError } from '#app'
 
 export function error(
@@ -57,13 +56,7 @@ export function paymentRequired(
   message?: string,
   options: Partial<NuxtError<unknown>> = {},
 ) {
-  return error(402, message, options)
-}
-
-export function updateRedirectUrl() {
-  const route = useRoute()
-  const redirectUrl = useRedirectUrl()
-  redirectUrl.value = route.path
+  return error(402, message || 'Payment required', options)
 }
 
 export function rateLimit(message?: string) {

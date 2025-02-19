@@ -21,8 +21,6 @@ function highlightBubble(bubble: any) {
 
   // Add animation class
   bubble.classList.add('animate-highlight')
-
-  console.log('a')
 }
 
 function scrollToMessage() {

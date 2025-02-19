@@ -9,6 +9,10 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
+useAutoRedirect({
+  query: { drawer: ['list'] },
+})
+
 const {
   data: personas,
   isPending,

@@ -10,6 +10,10 @@ const emit = defineEmits<({
   (e: 'close'): void
 })>()
 
+useAutoRedirect({
+  query: { drawer: ['new'] },
+})
+
 const generalItems: MenuItem[] = [
   { id: 'new-contact', icon: 'person_add', name: t('New contact'), onClick: () => manageContact(null) },
   { id: 'create-character', icon: 'engineering', name: t('Build character'), onClick: () => buildPersona(null) },

@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { refAutoReset } from '@vueuse/core'
 import { T, useI18n } from '@psitta/vue'
+import Link from '~/components/ui/navigation/Link.vue'
 
 definePageMeta({
   title: 'Your free trial is being processed',
   middleware: 'auth',
 })
+
+useAutoRedirect()
 
 const toast = useToast()
 const { t } = useI18n()
@@ -17,7 +20,7 @@ const user = useUser()
 async function goToApp() {
   disabled.value = true
 
-  const userFetch = await $fetch('/api/user')
+  const userFetch = (await $fetch('/api/user')) as any
 
   user.value = userFetch
 
@@ -59,7 +62,8 @@ async function goToApp() {
       <p class="text-sm text-gray-600 mt-4 w-full flex items-center justify-center">
         <T
           class="flex flex-col items-center justify-center"
-          text="If you have any problem, you can contact us at: {link}" :values="{
+          text="If you have any problem, you can contact us at: {link}"
+          :values="{
             link: 'thal@9aia.com',
           }"
         >

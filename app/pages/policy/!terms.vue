@@ -6,6 +6,8 @@ const locale = useLocale()
 definePageMeta({
   layout: 'site',
 })
+
+useAutoRedirect()
 </script>
 
 <template>

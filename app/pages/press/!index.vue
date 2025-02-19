@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { T, t } from '@psitta/vue'
+
+useAutoRedirect()
 </script>
 
 <template>

@@ -101,7 +101,7 @@ const date = computed(() => {
       <div class="flex-1 flex items-center justify-end gap-4">
         <div>
           <div class="dropdown dropdown-end">
-            <Button size="md" class="btn-ghost btn-circle" @click="updateRedirectUrl">
+            <Button size="md" class="btn-ghost btn-circle">
               <Icon name="more_vert" />
             </Button>
 

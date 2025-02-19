@@ -12,6 +12,10 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
+useAutoRedirect({
+  query: { drawer: ['save'] },
+})
+
 const { t } = useI18n()
 const toast = useToast()
 const queryClient = useQueryClient()

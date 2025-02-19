@@ -72,6 +72,10 @@ export default defineNuxtConfig({
       path: '~/modals',
       pathPrefix: false,
     },
+    {
+      path: '~/drawers',
+      pathPrefix: false,
+    },
   ],
 
   compatibilityDate: '2024-12-25',

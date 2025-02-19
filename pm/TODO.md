@@ -4,7 +4,10 @@ description: Tasks and items for the release.
 
 # TODO
 
+- Fix sign-in back redirect with drawers
 - Fix empty message sending
+- Change pricing button to "Start Chatting" after already started free trial
+- Fix pending middleware
 - Fix go-to-bottom button position after chat clearing
 - Add button to create character in the discover characters page (aside of search field)
 - Fix last dropdown position
@@ -20,8 +23,6 @@ description: Tasks and items for the release.
 - Open chat list on mobile always
 - Add more characters pre-created
 
-- Update terms and privacy policy
-- Update terms to include info about price changing and inform cancel anytime before the trial ends to avoid charges.
 - Require users to re-accept the privacy or terms when changed
 
 ## 0.1.0-6
@@ -42,3 +43,8 @@ description: Tasks and items for the release.
 - Add character unique voices
 - Add language drawer containing UI language and translation settings
 - Add config for time
+
+## 0.1.0-7
+
+- Update terms and privacy policy
+- Update terms to include info about price changing and inform cancel anytime before the trial ends to avoid charges.

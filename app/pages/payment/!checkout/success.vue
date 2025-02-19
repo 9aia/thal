@@ -3,10 +3,9 @@ import { onMounted } from 'vue'
 import { T, t } from '@psitta/vue'
 import Link from '~/components/ui/navigation/Link.vue'
 
-onMounted(() => {
-  const redirectUrl = useRedirectUrl()
-  redirectUrl.value = '/checkout/success'
+useAutoRedirect()
 
+onMounted(() => {
   const cookie = useCookie('free_trial_used', {
     path: '/',
   })

@@ -4,6 +4,10 @@ import { t } from '@psitta/vue'
 const emit = defineEmits<{
   (e: 'close'): void
 }>()
+
+useAutoRedirect({
+  query: { drawer: ['account'] },
+})
 </script>
 
 <template>

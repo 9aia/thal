@@ -154,7 +154,7 @@ onMounted(() => {
                 {{ t('Easily build a character that fits your learning style! Choose a name and personality, and let the AI bring them to life through dynamic conversations.') }}
               </p>
 
-              <Button class="border-gradient-2 rounded-full" @click="buildPersona({ username: search && generateUsername(search), name: search && generateName(search) })">
+              <Button class="border-gradient-2 rounded-full" @click="buildPersona({ username: search && generateCharacterUsername(search), name: search && generateCharacterName(search) })">
                 <span class="px-4 py-1 flex items-center justify-center gap-1">
                   <Icon name="person_edit" />
                   {{ t("Create character") }}

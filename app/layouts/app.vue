@@ -38,7 +38,7 @@ import { drawers, isRootDrawerOpen, rightDrawer } from '~/store'
               </Drawer>
 
               <Drawer v-slot="{ close }" v-model="drawers.myPersonas">
-                <MyPersonas @close="close" />
+                <MyCharacters @close="close" />
               </Drawer>
 
               <Drawer v-slot="{ close }" v-model="drawers.profile">

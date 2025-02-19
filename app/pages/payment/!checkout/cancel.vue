@@ -5,6 +5,8 @@ import Link from '~/components/ui/navigation/Link.vue'
 definePageMeta({
   title: 'Checkout canceled',
 })
+
+useAutoRedirect()
 </script>
 
 <template>

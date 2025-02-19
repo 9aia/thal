@@ -5,6 +5,8 @@ definePageMeta({
   middleware: 'auth',
   layout: 'site',
 })
+
+useAutoRedirect()
 </script>
 
 <template>
@@ -15,7 +17,7 @@ definePageMeta({
 
     <div class="flex-1 bg-white space-y-4 w-full flex">
       <div class="w-full flex flex-col h-full pb-8">
-        <AccountSettingsForm class="w-full" />
+        <AccountSettingsForm />
       </div>
     </div>
   </div>

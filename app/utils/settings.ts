@@ -16,7 +16,7 @@ export function parseInitialValues(selected: string) {
   }, {})
 };
 
-export function generateUsername(text: string): string {
+export function generateCharacterUsername(text: string): string {
   let base = text
     .normalize('NFD')
     .replace(/\p{Diacritic}/gu, '')
@@ -32,7 +32,7 @@ export function generateUsername(text: string): string {
   return `${base}_${randomNumbers}`
 }
 
-export function generateName(text: string): string {
+export function generateCharacterName(text: string): string {
   const capitalized = text
     .replace(/_/g, ' ')
     .trim()

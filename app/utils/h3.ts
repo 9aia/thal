@@ -57,8 +57,8 @@ export function getAppUrl(event: H3Event) {
 }
 
 export function sendBackRedirect(from: H3Event | RouteLocationNormalized, redirectUrl: string | null) {
-  const cookie = useRedirectUrl()
-  cookie.value = from.path
+  const url = useRedirectUrl()
+  url.value = from.path
 
   return navigateTo(redirectUrl)
 }

@@ -14,6 +14,10 @@ const emit = defineEmits<{
 const { t } = useI18n()
 const toast = useToast()
 
+useAutoRedirect({
+  query: { drawer: ['create'] },
+})
+
 const form = useForm<Persona>({
   initialValues: personaBuilderData.value,
 })

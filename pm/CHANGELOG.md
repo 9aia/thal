@@ -10,6 +10,14 @@ description: A detailed, chronological record of all changes made to a project, 
 
 - Fixed drawer scroll
 - Fixed welcome route layout
+- Fixed contact link on plan pending route
+- Prevented unintented input focus on modifier keys
+- Fixed sign-in back redirects
+- Added prefix to new character generator utilities
+
+### Changed
+
+- Removed extraneous non-props attributes on AccountSettingsForm
 
 ## [0.1.0-4] - 2025-02-17
 

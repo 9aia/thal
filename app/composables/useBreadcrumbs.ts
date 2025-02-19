@@ -1,5 +1,5 @@
 import { computed } from 'vue'
-import type { BreadcrumbItem } from '../../../app/components/ui/navigation/types'
+import type { BreadcrumbItem } from '~/components/ui/navigation/types'
 
 interface Options {
   path?: string

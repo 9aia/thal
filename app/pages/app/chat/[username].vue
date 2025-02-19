@@ -18,6 +18,7 @@ definePageMeta({
   middleware: 'premium',
 })
 
+useAutoRedirect()
 const queryClient = useQueryClient()
 
 const {

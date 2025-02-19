@@ -70,8 +70,6 @@ export default defineEventHandler(async (event) => {
   const toLocale = data.toNative ? nativeLocale : learningLocale
   const fromLocale = data.toNative ? learningLocale : nativeLocale
 
-  console.log({ toNative: data.toNative, toLocale, fromLocale })
-
   const replyMessageFormatted = replyMessage
     ? `[Message user are replying to]
     ${replyMessage}`
@@ -122,8 +120,6 @@ export default defineEventHandler(async (event) => {
 
     ${replyMessageFormatted}
     `
-
-  console.log(systemInstruction)
 
   const prompt = hasContext
     ? `[Message to Translate]
