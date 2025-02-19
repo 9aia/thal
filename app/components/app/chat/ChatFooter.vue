@@ -90,7 +90,19 @@ const replyDisplayName = computed(() => replying.value.from === 'user'
 onMounted(() => {
   const chatContainer = document.querySelector('#chat-container')
 
-  useEventListener(chatContainer, 'keydown', () => {
+  useEventListener(chatContainer, 'keydown', (event) => {
+    // Ignore modifier keys
+    if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey)
+      return
+
+    // Explicitly check for 'Meta' key (some browsers may not set event.metaKey reliably)
+    if (event.key === 'Meta')
+      return
+
+    // Ignore function keys (F1-F12) and Escape
+    if (event.key.startsWith('F') || event.key === 'Escape')
+      return
+
     contentEditableRef.value?.focus()
   })
 

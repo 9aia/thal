@@ -4,11 +4,12 @@ description: Tasks and items for the release.
 
 # TODO
 
+- Fix empty message sending
+- Fix go-to-bottom button position after chat clearing
 - Add button to create character in the discover characters page (aside of search field)
 - Fix last dropdown position
 - Fix "[Vue warn]: inject() can only be used inside setup() or functional components." after click on options menu
 - Fix what's new indicator
-- Fix add validation to ignore ctrl on message input
 - Infinite scroll not working on big screens in Discover characters
 - Deal with expired plan
 - Add plan middleware to api routes
@@ -20,6 +21,7 @@ description: Tasks and items for the release.
 - Add more characters pre-created
 
 - Update terms and privacy policy
+- Update terms to include info about price changing and inform cancel anytime before the trial ends to avoid charges.
 - Require users to re-accept the privacy or terms when changed
 
 ## 0.1.0-6

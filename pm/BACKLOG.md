@@ -21,12 +21,12 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Add a deleted/non-existent section in contacts
 - Add character search results to chat and contact search
 - Add delete character action
+- Add chat action for deleting it
 - Add dark theme
 - Add character rating (unrated, teen, mature, everyone)
+- Add media messages support
 - Add calls
 - Add character knowledge
-- Add chat action for deleting it
-- Add media messages support
 
 ## Bugs
 
@@ -52,6 +52,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
   - Improve chat loading and error state fallbacks
 - Save in-progress state
 - Turn sign-in page into a modal
+- Add confirmation modal on chat clear
 - ---
 - Change forms to another platform that supports localization
 - ---
@@ -79,8 +80,6 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Paginate contact and chat search
 
 ## Legal
-
-- Update terms to include info about price changing and inform cancel anytime before the trial ends to avoid charges.
 
 ## DX
 
