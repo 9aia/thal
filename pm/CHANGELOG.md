@@ -10,6 +10,10 @@ description: A detailed, chronological record of all changes made to a project, 
 
 - Fixed empty message checking before sending
 
+### Changed
+
+- Set message time zone to America/Sao_Paulo
+
 ## [0.1.0-5] - 2025-02-20
 
 ### Fixed

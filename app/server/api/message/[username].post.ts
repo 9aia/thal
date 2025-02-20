@@ -108,7 +108,7 @@ export default eventHandler(async (event) => {
   const gemini = getGemini(GEMINI_API_KEY)
 
   const datetime = new Date(userMessageTime).toLocaleString('en-US', {
-    timeZone: 'UTC',
+    timeZone: 'America/Sao_Paulo',
     hour12: false,
   })
 
