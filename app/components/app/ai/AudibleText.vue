@@ -22,11 +22,21 @@ const playMutation = useMutation({
 })
 
 const currentWord = computed(() => speech.currentWord.value)
+const el = ref<HTMLElement | null>(null)
 
-const textParts = computed(() => {
-  const text = props.text.trim().replaceAll('<br>', ' ___breakline___ ')
+watch(currentWord, () => {
+  if (el.value) {
+    const spans = el.value.querySelectorAll('span[data-tts]')
 
-  return text.split(/\s+/)
+    spans.forEach((span, i) => {
+      if (i === currentWord.value) {
+        span.classList.add('text-gradient-4')
+      }
+      else {
+        span.classList.remove('text-gradient-4')
+      }
+    })
+  }
 })
 
 defineExpose({
@@ -35,21 +45,12 @@ defineExpose({
 </script>
 
 <template>
-  <article class="text-sm text-gray-700 text-left">
-    <span v-for="part, j in textParts" :key="j" :class="{ 'text-gradient-4': j === currentWord }">
-      <template v-if="part === '___breakline___'">
-        <br>
-      </template>
-
-      <template v-else>
-        {{ ' ' }}
-        {{ part }}
-      </template>
-    </span>
-  </article>
+  <div ref="el">
+    <MDC :value="text" tag="article" class="prose" />
+  </div>
 </template>
 
-<style scoped>
+<style>
 .text-gradient-4 {
   background: linear-gradient(66deg, theme('colors.red.500'), theme('colors.magenta.500'));
   -webkit-background-clip: text;
