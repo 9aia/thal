@@ -5,8 +5,6 @@ description: Tasks and items for the release.
 # TODO
 
 - Fix sign-in back redirect with drawers
-- Fix markdown
-- Fix empty message sending
 - Change pricing button to "Start Chatting" after already started free trial
 - Fix pending middleware
 - Fix go-to-bottom button position after chat clearing
@@ -14,15 +12,12 @@ description: Tasks and items for the release.
 - Fix last dropdown position
 - Fix what's new indicator
 - Infinite scroll not working on big screens in Discover characters
-- Deal with expired plan
-- Add plan middleware to api routes
 - Refactor Stripe subscription
-- Add markdown support to messages
+  - Deal with expired plan
+  - Add plan middleware to api routes
 - Fix DB on build pre-render
 - Open chat list on mobile always
-- Require users to re-accept the privacy or terms when changed
 - Only allow one text to speech at a time.
-- Improve HTML rendering/TTS
 - Avoid breaking layout in chat item when last message is too long.
 
 ## 0.1.0-6
@@ -35,11 +30,7 @@ description: Tasks and items for the release.
   - Give safety feedback on fields
   - Add safety inflation flags and strikes
     - Assigning each user a unique ID and imposing a limit on the volume of user queries that can be submitted in a given period.
-- Implement basic analytics to track user engagement and app performance
-- Add logger
-- Add tooltip for icon buttons
 - Polish design system
-- Add profile photos (generate or upload)
 - Add character unique voices
 - Add language drawer containing UI language and translation settings
 - Add config for time
@@ -49,3 +40,6 @@ description: Tasks and items for the release.
 - Add more characters pre-created
 - Update terms and privacy policy
 - Update terms to include info about price changing and inform cancel anytime before the trial ends to avoid charges.
+- Require users to re-accept the privacy or terms when changed
+- Implement basic analytics to track user engagement and app performance
+- Improve logging

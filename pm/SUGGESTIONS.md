@@ -6,8 +6,17 @@ description: A collection of ideas and feedback from stakeholders or team member
 
 ## Features
 
-- Add markdown
+- Add multiple-audio player
+- Share chat from message, and continue
+- Add bot difficulty (basic, intermediate, advanced)
+  - Discover with filter by difficulty?
+  - Set difficulty automatically
+  - Global setting?
 - Add official characters
+- Add audio sending
+- Add Archived
+- Add Favorites
+- Add avatars
 - Add onboarding (custom character)
 - Add Spanish and/or other languages
 - Add search in chat
@@ -20,6 +29,8 @@ description: A collection of ideas and feedback from stakeholders or team member
 - Add character trash
 - Add conversation scenarios
 - Add message reactions
+- Allowed users to change wallpaper
+- Add emoji selector
 - Starred messages
 - Disappearing messages
 - Add "read more" to long messages

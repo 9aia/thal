@@ -33,7 +33,16 @@ const isOnline = useOnline()
 const isChatError = computed(() => props.chatId ? sentErrorChatIds.value.has(props.chatId) : false)
 const isChatSending = computed(() => props.chatId ? sendingChatIds.value.has(props.chatId) : false)
 
-const isEmpty = computed(() => !text.value.trim())
+const isEmpty = ref(true)
+
+watch(text, () => {
+  const contentEl = document.querySelector('#input')
+  if (!contentEl) {
+    return
+  }
+  isEmpty.value = contentEl.textContent?.trim() === ''
+})
+
 const icon = computed(() => {
   if (isChatSending.value && !isOnline.value)
     return 'wifi_off'
@@ -148,10 +157,7 @@ watch(translation.isLoading, (value) => {
 
       <div class="flex gap-2 px-3 py-2">
         <div class="flex-1 flex flex-col">
-          <label
-            class="input bg-gray-50 flex gap-1 w-full h-full items-center justify-center p-2 textarea"
-            for="input"
-          >
+          <label class="input bg-gray-50 flex gap-1 w-full h-full items-center justify-center p-2 textarea" for="input">
             <Button
               v-if="!isEmpty" size="sm" shape="circle" :disabled="isChatError || isChatSending || undefined"
               class="btn-ghost" :loading="translation.isLoading.value" @click="translation.onTranslate()"

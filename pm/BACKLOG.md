@@ -32,18 +32,19 @@ description: A prioritized list of tasks, features, and ideas for future develop
 ## Bugs
 
 - Don't consider long context
-- Fix scroll look and feel
 - Use a single table for user and character usernames
 - Fix listening to long messages
 - Lower every username comparison
 - Rewrite left joins using Query API
-- Replace web modal API
 - Check user plan in API routes that are necessary
 - Allow users to use only one session
 - Handle invalid sessions
 - Remove <br> appearing when copying HTML into the ContentEditable
 - Fix locale change routing (remove `/{locale}` from `/app`)
   - Use locale param in site routes
+- Replace web modal API
+- Improve HTML rendering/TTS
+- Handle HTML in input/messages
 
 ## Enhancements
 
@@ -69,6 +70,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Update README and docs
 - ---
 - Add custom payment pages
+- Improve scroll look and feel
 
 ## Performance
 

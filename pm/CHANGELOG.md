@@ -6,6 +6,10 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed empty message checking before sending
+
 ## [0.1.0-5] - 2025-02-20
 
 ### Fixed

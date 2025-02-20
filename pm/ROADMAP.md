@@ -38,6 +38,7 @@ description: A timeline of key milestones and upcoming features or releases.
 ### 0.2* - Language Assistance
 
 - Implement message corrector
+- Add male voice
 - Add suggestions in chat
 - Add modal "Dictionary"/reference (plural forms, conjugation, participles)
 - Add assistant
@@ -57,11 +58,14 @@ description: A timeline of key milestones and upcoming features or releases.
 - Fork characters
 - Add character edit button (if its yours) to chat and contact options
 - Add recently created section in new chat view
+- Add profile photos (generate or upload)
 
 ### 0.4* - Support
 
 - Add report button (open modal) to contact options
 - Add intuitive placeholders to fields
+- Add length indicator to fields
+- Add tooltip to icon buttons
 - Add help center
 - Add a warning for renaming character usernames
 - Add "About Thal" in help section in settings
