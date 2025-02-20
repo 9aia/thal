@@ -27,6 +27,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Add media messages support
 - Add calls
 - Add character knowledge
+- Add multiple message TTS player
 
 ## Bugs
 

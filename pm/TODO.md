@@ -21,6 +21,9 @@ description: Tasks and items for the release.
 - Fix DB on build pre-render
 - Open chat list on mobile always
 - Require users to re-accept the privacy or terms when changed
+- Only allow one text to speech at a time.
+- Improve HTML rendering/TTS
+- Avoid breaking layout in chat item when last message is too long.
 
 ## 0.1.0-6
 

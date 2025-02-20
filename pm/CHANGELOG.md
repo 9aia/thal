@@ -15,6 +15,10 @@ description: A detailed, chronological record of all changes made to a project, 
 - Fixed sign-in back redirects
 - Added prefix to new character generator utilities
 
+### Added
+
+- Added markdown rendering to messages
+
 ### Changed
 
 - Removed extraneous non-props attributes on AccountSettingsForm
