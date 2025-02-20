@@ -1,14 +1,34 @@
 <script setup lang="ts">
 import { useI18n } from '@psitta/vue'
 import { useMutation } from '@tanstack/vue-query'
+import { computedAsync } from '@vueuse/core'
 
-const props = defineProps<{
+defineProps<{
   text: string
 }>()
 const { t } = useI18n()
 const toast = useToast()
 
-const speech = useSpeech(props.text)
+const el = ref<HTMLElement | null>(null)
+
+function getTtsData(element: Element) {
+  const parser = new DOMParser()
+  const doc = parser.parseFromString(element.innerHTML, 'text/html')
+
+  const elements = doc.querySelectorAll('[data-tts]')
+
+  const values = Array.from(elements).map(element => element.textContent?.trim())
+
+  return values.join(' ')
+}
+
+const textToSpeech = computedAsync(async () => {
+  const html = getTtsData(el.value!)
+
+  return html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
+})
+
+const speech = useSpeech(textToSpeech)
 
 const playMutation = useMutation({
   mutationFn: async () => {
@@ -22,7 +42,6 @@ const playMutation = useMutation({
 })
 
 const currentWord = computed(() => speech.currentWord.value)
-const el = ref<HTMLElement | null>(null)
 
 watch(currentWord, () => {
   if (el.value) {
@@ -46,7 +65,11 @@ defineExpose({
 
 <template>
   <div ref="el">
-    <MDC :value="text" tag="article" class="prose" />
+    <MDC
+      :value="text"
+      tag="article"
+      class="prose"
+    />
   </div>
 </template>
 

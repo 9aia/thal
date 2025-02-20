@@ -84,7 +84,6 @@ export default defineEventHandler(async (event) => {
     [Output instructions]
     - Be accurate and context-aware.
     - Keep the original tone.
-    - Keep plain text.
     - Do not add or remove information.
     - The output message should be in ${toLocale}.
     - Fix grammar/orthography errors if necessary.

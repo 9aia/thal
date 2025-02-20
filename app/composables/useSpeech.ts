@@ -5,7 +5,7 @@ interface Synthesis {
 
 const NON_PLAYING = -1
 
-function useSpeech(text: string) {
+function useSpeech(text: MaybeRef<string>) {
   const currentWord = ref(NON_PLAYING)
 
   const audio = ref<HTMLAudioElement | null>(null)
@@ -18,7 +18,7 @@ function useSpeech(text: string) {
     try {
       const res = await $fetch('/api/synthesizeSpeech', {
         method: 'post',
-        body: { text },
+        body: { text: unref(text) },
       })
 
       const audioBase64 = res.audioContent

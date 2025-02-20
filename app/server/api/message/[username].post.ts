@@ -117,7 +117,7 @@ export default eventHandler(async (event) => {
 
     Maintain a **natural, conversational tone** with concise and engaging responses. Avoid long-winded explanations—keep it chat-like.
 
-    **Respond in plain text only. No special formatting.**
+    **Respond in markdown if necessary but prioritize plain text.**
 
     **Current time:** ${datetime}.
 
