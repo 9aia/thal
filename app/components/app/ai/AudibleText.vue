@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from '@psitta/vue'
 import { useMutation } from '@tanstack/vue-query'
-import { computedAsync } from '@vueuse/core'
 
 defineProps<{
   text: string
@@ -22,7 +21,7 @@ function getTtsData(element: Element) {
   return values.join(' ')
 }
 
-const textToSpeech = computedAsync(async () => {
+const textToSpeech = computed(() => {
   const html = getTtsData(el.value!)
 
   return html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()

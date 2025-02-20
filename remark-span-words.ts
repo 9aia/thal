@@ -1,11 +1,9 @@
 // plugins/remark-span-words.ts
+import type { Literal, Node, Parent, Text } from '@nuxtjs/mdc'
 import { visit } from 'unist-util-visit'
-import type { UnistPlugin } from 'unist' // Changed from Plugin to UnistPlugin
-import type { Node, Parent } from 'unist'
-import type { Text } from 'mdast'
 
 // Define the plugin with explicit UnistPlugin typing
-const remarkSpanWords: UnistPlugin<[], Node> = () => {
+function remarkSpanWords() {
   return (tree: Node) => {
     let wordIndex = 0
 
@@ -15,7 +13,7 @@ const remarkSpanWords: UnistPlugin<[], Node> = () => {
 
       // Split the text into words, preserving punctuation
       const words = node.value.split(/(\s+)/)
-      const newNodes: Node[] = []
+      const newNodes: Literal[] = []
 
       words.forEach((word) => {
         // Preserve whitespace
@@ -40,7 +38,7 @@ const remarkSpanWords: UnistPlugin<[], Node> = () => {
       })
 
       // Replace the original text node with our new nodes
-      parent.children.splice(index, 1, ...newNodes)
+      parent.children.splice(index, 1, ...newNodes as any)
     })
   }
 }
