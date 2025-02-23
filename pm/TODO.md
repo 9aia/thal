@@ -4,21 +4,16 @@ description: Tasks and items for the release.
 
 # TODO
 
-- Fix sign-in back redirect with drawers
-- Change pricing button to "Start Chatting" after already started free trial
-- Fix pending middleware
-- Fix go-to-bottom button position after chat clearing
-- Add button to create character in the discover characters page (aside of search field)
-- Fix last dropdown position
-- Fix what's new indicator
-- Infinite scroll not working on big screens in Discover characters
 - Refactor Stripe subscription
-  - Deal with expired plan
-  - Add plan middleware to api routes
-- Fix DB on build pre-render
-- Open chat list on mobile always
+  - Deal with expired plan on client
+  - Add plan middleware to API routes (should have a plan and not expired to be allowed to use)
+- Change pricing button to "Start Chatting" after already started free trial
+- Fix last dropdown position
+- Fix pending middleware
+- Infinite scroll not working on big screens in Discover characters
 - Only allow one text to speech at a time.
 - Avoid breaking layout in chat item when last message is too long.
+- Fix DB on build pre-render
 
 ## 0.1.0-6
 

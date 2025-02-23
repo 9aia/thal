@@ -31,27 +31,30 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## Bugs
 
-- Don't consider long context
-- Use a single table for user and character usernames
-- Fix listening to long messages
 - Lower every username comparison
+- Fix listening to long messages
+- Use a single table for user and character usernames
 - Rewrite left joins using Query API
-- Check user plan in API routes that are necessary
-- Allow users to use only one session
-- Handle invalid sessions
-- Remove <br> appearing when copying HTML into the ContentEditable
-- Fix locale change routing (remove `/{locale}` from `/app`)
-  - Use locale param in site routes
+- Fix what's new indicator
+- Fix go-to-bottom button position after chat clearing
+- Fix sign-in back redirect with drawers after closing them
 - Replace web modal API
 - Improve HTML rendering/TTS
 - Handle HTML in input/messages
+- Don't consider long context
+- Fix locale change routing (remove `/{locale}` from `/app`)
+  - Use locale param in site routes
+- Allow users to use only one session
+- Handle invalid sessions
 
 ## Enhancements
 
 - Update meta-tags
 - Translate character data
+- Open chat list on mobile always
 - Improve chat loading by rendering the skeleton on the backend and the message on the client
   - Improve chat loading and error state fallbacks
+- Add button to create character in the discover characters page (aside of search field)
 - Save in-progress state
 - Turn sign-in page into a modal
 - Add confirmation modal on chat clear
