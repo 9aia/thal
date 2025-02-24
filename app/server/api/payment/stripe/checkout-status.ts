@@ -1,7 +1,6 @@
-import { PLANS } from '~/constants/payment'
-import { getCheckoutStatus, getPrice } from '~/server/services/plan'
+import { getCheckoutStatus } from '~/server/services/plan'
 import type { CheckoutStatus } from '~/types'
-import { internal } from '~/utils/nuxt'
+import { internal, unauthorized } from '~/utils/nuxt'
 import { getStripe } from '~/utils/stripe'
 
 export default eventHandler(async (event) => {
@@ -12,12 +11,15 @@ export default eventHandler(async (event) => {
 
   const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY! })
 
-  const price = await getPrice(stripe, PLANS.allInOne)
   const user = event.context.user
+
+  if (!user) {
+    throw unauthorized()
+  }
+
   const checkoutStatus: CheckoutStatus = await getCheckoutStatus(stripe, user)
 
   return {
     checkoutStatus,
-    price,
   }
 })

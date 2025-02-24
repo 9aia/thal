@@ -25,7 +25,7 @@ const {
   isPending,
   isError,
   refetch,
-} = await useServerQuery(() => '/api/chat', {
+} = await useServerQuery('/api/chat', {
   queryKey: queryKeys.chatsSearch(chatItemSearch),
   params: () => {
     return {

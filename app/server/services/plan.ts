@@ -1,7 +1,9 @@
 import { and, eq } from 'drizzle-orm'
 import type { DrizzleD1Database } from 'drizzle-orm/d1'
 import type Stripe from 'stripe'
+import type { PlanSettings } from '~/types'
 import { internal } from '~/utils/nuxt'
+import type { User } from '~~/db/schema'
 import { PlanType, SubscriptionStatus, users } from '~~/db/schema'
 
 export async function updateSubscription(
@@ -152,3 +154,33 @@ export async function pauseStripeSubscription(stripe: Stripe, subscriptionId: st
 //     throw internal('Error resuming subscription')
 //   }
 // }
+
+export async function getCheckoutStatus(stripe: Stripe, user?: User | null) {
+  if (!user || !user?.checkoutId) {
+    return null
+  }
+
+  const checkout = await stripe.checkout.sessions.retrieve(user.checkoutId)
+
+  if (checkout.status === 'complete') {
+    return 'complete'
+  }
+  else if (checkout.status === 'open' && user.subscriptionStatus === SubscriptionStatus.not_subscribed) {
+    return 'open'
+  }
+
+  return null
+}
+
+export async function getPrice(stripe: Stripe, planSettings: PlanSettings) {
+  const prices = await stripe.prices.list({
+    lookup_keys: [planSettings.lookupKey],
+    expand: ['data.product'],
+  })
+
+  if (prices.data.length) {
+    return (prices.data[0].unit_amount || 0) / 100
+  }
+
+  return null
+}

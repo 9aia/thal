@@ -14,10 +14,12 @@ export interface Item { id: keyof UserSelect, icon: string, label: string }
 
 // #region Payment
 
-export interface PlanType {
+export interface PlanSettings {
   trialPeriodDays: number
   lookupKey: string
 }
+
+export type CheckoutStatus = 'open' | 'complete' | null
 
 // #endregion
 

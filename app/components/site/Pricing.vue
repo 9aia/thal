@@ -5,15 +5,14 @@ import queryKeys from '~/queryKeys'
 import { SubscriptionStatus } from '~~/db/schema'
 
 const locale = useLocale()
-const user = useUser()
 
 const {
   data,
   isLoading,
   isError,
   refetch,
-} = await useServerQuery(() => `/api/payment/stripe/pricing-data`, {
-  queryKey: queryKeys.price,
+} = await useServerQuery(`/api/payment/stripe/pricing-data`, {
+  queryKey: queryKeys.pricingData,
 })
 
 const price = computed(() => {
@@ -35,19 +34,6 @@ const discountPrice = computed(() => new Intl.NumberFormat(locale.value, {
 )
 
 const trialPeriodDays = PLANS.allInOne.trialPeriodDays
-
-function onSubmit(event: Event) {
-  if (!user.value) {
-    return
-  }
-
-  if (user.value.subscriptionStatus === SubscriptionStatus.trialing
-    || user.value.subscriptionStatus === SubscriptionStatus.active
-    || user.value.subscriptionStatus === SubscriptionStatus.past_due) {
-    navigateTo('/app')
-    event.preventDefault()
-  }
-}
 </script>
 
 <template>
@@ -94,7 +80,7 @@ function onSubmit(event: Event) {
           </li>
         </ul>
 
-        <Resource :loading="isLoading" :error="isError || data.price == null">
+        <Resource :loading="isLoading" :error="isError || data?.price == null">
           <template #loading>
             <div class="w-full h-full flex items-center justify-center mb-4">
               <Spinner class="text-gray-800" />
@@ -140,46 +126,7 @@ function onSubmit(event: Event) {
         </p>
 
         <div class="flex flex-col items-center justify-center h-fit mt-4 gap-2">
-          <form action="/api/payment/stripe/create-checkout-session" method="post" @submit="onSubmit">
-            <button
-              id="checkout-and-portal-button" type="submit"
-              class="h-fit btn py-4 rounded-full bg-cyan-500 border-none flex gap-1"
-            >
-              <template v-if="!user || data.checkoutStatus === null">
-                {{ t('Start Your Free Trial Now') }}
-              </template>
-              <template v-else-if="data.checkoutStatus === 'open'">
-                {{ t('Continue Your Checkout') }}
-              </template>
-              <template v-else-if="data.checkoutStatus === 'complete' && user.subscriptionStatus === SubscriptionStatus.not_subscribed">
-                {{ t('Continue Your Access') }}
-              </template>
-              <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.trialing">
-                {{ t('Continue Your Free Trial Now') }}
-              </template>
-              <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.active">
-                {{ t('Continue Chatting') }}
-              </template>
-              <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.canceled">
-                {{ t('Restart Your Subscription Now') }}
-              </template>
-              <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.incomplete">
-                {{ t('Check Your Subscription Now') }}
-              </template>
-              <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.incomplete_expired">
-                {{ t('Check Your Subscription Now') }}
-              </template>
-              <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.past_due">
-                {{ t('Go To App') }}
-              </template>
-              <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.paused">
-                {{ t('Resume Your Subscription Now') }}
-              </template>
-              <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.unpaid">
-                {{ t('Check Your Subscription Now') }}
-              </template>
-            </button>
-          </form>
+          <StripeCreateSessionForm :checkout-status="data?.checkoutStatus || null" />
 
           <div class="text-blue-500 text-xs flex mt-2 justify-center text-center">
             <div>{{ t("Thal is in preview. We're not actually charging for access.") }}</div>

@@ -1,14 +1,24 @@
 <script setup lang="ts">
 import { T, t } from '@psitta/vue'
+import queryKeys from '~/queryKeys'
 
 useAutoRedirect()
+
+const {
+  data,
+  isLoading,
+  isError,
+  refetch,
+} = await useServerQuery(`/api/payment/stripe/checkout-status`, {
+  queryKey: queryKeys.checkoutStatus,
+})
 </script>
 
 <template>
   <div class="w-full">
     <div
       class="hero relative"
-      style="height: calc(100dvh - 64px);"
+      style="height: calc(100dvh - 64px - 32px);"
     >
       <div class="hero-content z-30">
         <div class="max-w-2xl flex flex-col justify-center text-center text-black">
@@ -31,9 +41,25 @@ useAutoRedirect()
             </T>
           </p>
 
-          <A class="bg-cyan-500 text-black flex justify-center items-center px-6 py-3 w-fit rounded-full mx-auto" href="/app">{{
+          <Resource :loading="isLoading" :error="isError">
+            <template #loading>
+              <div class="w-full h-full flex items-center justify-center mb-4">
+                <Spinner class="text-gray-800" />
+              </div>
+            </template>
+
+            <template #error>
+              <ErrorFallback :loading="isLoading" centered class="mb-4" @retry="refetch" />
+            </template>
+
+            <template #default>
+              <StripeCreateSessionForm :checkout-status="data?.checkoutStatus || null" class="flex items-center justify-center" />
+            </template>
+          </Resource>
+
+          <!-- <A class="bg-cyan-500 text-black flex justify-center items-center px-6 py-3 w-fit rounded-full mx-auto" href="/app">{{
             t("Start chatting")
-          }}</A>
+          }}</A> -->
         </div>
       </div>
 

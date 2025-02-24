@@ -9,8 +9,6 @@ export async function handleSubscriptionCreated(
   const orm = event.context.orm
   const subscription = subscriptionCreated.data.object
 
-  console.log(subscription)
-
   await createSubscription(orm, subscription)
 }
 

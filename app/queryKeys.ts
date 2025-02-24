@@ -9,5 +9,6 @@ export default {
   discoverPersonasSearch: (search?: MaybeRef<string | undefined>, categoryId?: MaybeRef<number | undefined>) => ['discover-personas', search, categoryId],
   discoverPersonas: ['discover-personas'],
   profile: (username: MaybeRef<string>) => ['profile', username],
-  price: ['price'],
+  pricingData: ['pricing-data'],
+  checkoutStatus: ['checkout-status'],
 }

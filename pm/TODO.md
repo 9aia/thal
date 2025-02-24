@@ -5,11 +5,11 @@ description: Tasks and items for the release.
 # TODO
 
 - Refactor Stripe subscription
+  - Handle errors on <StripeCreateSessionForm>, <Pricing> and homepage hero
   - Use freeTrialUsed flag to solve dup free trial
   - Handle "Manage your billing information" when plan is null
   - Deal with expired plan on client
   - Add plan middleware to API routes (should have a plan and not expired to be allowed to use)
-  - Display homepage CTA based on checkout/plan status
   - Update CHANGELOG
 - Fix last dropdown position
 - Infinite scroll not working on big screens in Discover characters

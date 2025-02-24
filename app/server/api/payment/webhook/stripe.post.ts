@@ -48,8 +48,6 @@ export default eventHandler(async (event) => {
     },
   }
 
-  console.log(`Received event: ${stripeEvent.type}`)
-
   const handler = eventsOptions[stripeEvent.type]
 
   if (handler)
