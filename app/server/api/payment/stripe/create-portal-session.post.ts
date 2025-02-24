@@ -13,17 +13,16 @@ export default eventHandler(async (event) => {
   if (!user)
     return sendRedirect(event, '/sign-in')
 
-  if (!user.payment_gateway_session_id)
-    throw notFound(`Payment gateway session not found`)
+  if (!user.stripeCustomerId)
+    throw internal('Stripe customer not found for user')
 
   const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY! })
 
-  const checkout = await stripe.checkout.sessions.retrieve(user.payment_gateway_session_id as string)
   const redirectUrl = getCookie(event, 'redirect_url') || '/'
   const returnUrl = new URL(redirectUrl, getAppUrl(event))
 
   const portal = await stripe.billingPortal.sessions.create({
-    customer: checkout.customer as string,
+    customer: user.stripeCustomerId,
     return_url: returnUrl.toString(),
   })
 

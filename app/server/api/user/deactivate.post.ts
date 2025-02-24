@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm'
 import { invalidateSession } from '~/server/services/auth'
-import { getSubscriptionId, pauseSubscription } from '~/server/services/plan'
+import { pauseStripeSubscription } from '~/server/services/plan'
 import { now } from '~/utils/date'
 import { internal, unauthorized } from '~/utils/nuxt'
 import { getStripe } from '~/utils/stripe'
@@ -20,9 +20,12 @@ export default defineEventHandler(async (event) => {
     throw unauthorized()
 
   const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY! })
-  const subscriptionId = await getSubscriptionId(stripe, user)
+  const subscriptionId = user.subscriptionId
 
-  await pauseSubscription(stripe, subscriptionId)
+  if (!subscriptionId)
+    throw internal('User does not have a subscription')
+
+  await pauseStripeSubscription(stripe, subscriptionId)
 
   await orm.update(users).set({
     deactivatedAt: now(),

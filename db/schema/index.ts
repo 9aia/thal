@@ -7,6 +7,22 @@ import type { MessageData } from '~/types'
 
 // #region Users
 
+export enum SubscriptionStatus {
+  not_subscribed = 0,
+  trialing = 1,
+  active = 2,
+  incomplete = 3,
+  incomplete_expired = 4,
+  paused = 5,
+  canceled = 6,
+  unpaid = 7,
+  past_due = 8,
+}
+
+export enum PlanType {
+  ALL_IN_ONE = 0,
+}
+
 export const users = sqliteTable('User', {
   id: text('id').primaryKey(),
   username: text('username').unique().notNull(),
@@ -16,11 +32,11 @@ export const users = sqliteTable('User', {
   picture: text('picture'),
   createdAt: text('created_at').notNull(),
   email: text('email'),
-  plan: text('plan'),
-  payment_gateway_customer_id: text('payment_gateway_customer_id'),
-  payment_gateway_session_id: text('payment_gateway_session_id'),
-  plan_expires: text('plan_expires'),
-  free_trial_used: int('free_trial_used').default(0),
+  plan: int('plan'),
+  subscriptionStatus: int('subscription_status').default(SubscriptionStatus.not_subscribed),
+  subscriptionId: text('subscription_id'),
+  stripeCustomerId: text('stripe_customer_id'),
+  checkoutId: text('checkout_id'),
   deactivatedAt: int('deactivated_at', { mode: 'timestamp_ms' }),
 })
 

@@ -4,7 +4,9 @@ export default defineNuxtRouteMiddleware((event) => {
   if (!user.value)
     return sendBackRedirect(event, '/sign-in')
 
-  if (!user.value.plan) {
+  const hasPlan = user.value.plan != null
+
+  if (!hasPlan) {
     const hasTrialBeenUsed = useHasTrialBeenUsed()
 
     return hasTrialBeenUsed.value
@@ -12,10 +14,10 @@ export default defineNuxtRouteMiddleware((event) => {
       : sendBackRedirect(event, '/pricing')
   }
 
-  if (user.value.plan && hasPlanExpired(user.value) && !event.query.expired) {
+  if (hasPlan && isSubscriptionUnpaid(user.value) && !event.query.unpaid) {
     return navigateTo({
       path: event.path,
-      query: { ...event.query, expired: 'true' },
+      query: { ...event.query, unpaid: 'true' },
     })
   }
 })

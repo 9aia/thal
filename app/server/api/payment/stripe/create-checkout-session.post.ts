@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm'
 import type Stripe from 'stripe'
-import { users } from '~~/db/schema'
+import { SubscriptionStatus, users } from '~~/db/schema'
 import { getAppUrl } from '~/utils/h3'
 import { PLANS } from '~/constants/payment'
 import { getStripe } from '~/utils/stripe'
@@ -12,7 +12,6 @@ export default eventHandler(async (event) => {
   if (!STRIPE_SECRET_KEY)
     throw internal('STRIPE_SECRET_KEY is not set in the environment')
 
-  const orm = event.context.orm
   const user = event.context.user
 
   if (!user)
@@ -20,8 +19,17 @@ export default eventHandler(async (event) => {
 
   const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY! })
 
-  if (getCookie(event, 'free_trial_used') === '1')
-    return sendRedirect(event, '/plan/pending')
+  if (user.checkoutId) {
+    const checkout = await stripe.checkout.sessions.retrieve(user.checkoutId)
+
+    if (checkout.status === 'complete') {
+      return sendRedirect(event, '/checkout/success')
+    }
+
+    if (checkout.status === 'open' && user.subscriptionStatus === SubscriptionStatus.not_subscribed) {
+      return sendRedirect(event, checkout.url!)
+    }
+  }
 
   const prices = await stripe.prices.list({
     lookup_keys: [PLANS.allInOne.lookupKey],
@@ -32,6 +40,12 @@ export default eventHandler(async (event) => {
   const successUrl = new URL('/checkout/success', appUrl)
   const cancelUrl = new URL('/checkout/cancel', appUrl)
 
+  const subscription_data: Stripe.Checkout.SessionCreateParams.SubscriptionData = {
+    metadata: {
+      userId: user.id,
+    },
+  }
+
   const checkoutCreateParams: Stripe.Checkout.SessionCreateParams = {
     billing_address_collection: 'auto',
     line_items: [
@@ -40,32 +54,36 @@ export default eventHandler(async (event) => {
         quantity: 1,
       },
     ],
-    client_reference_id: user.id,
     mode: 'subscription',
     success_url: successUrl.toString(),
     cancel_url: cancelUrl.toString(),
     customer_email: user.email || undefined,
+    subscription_data,
   }
 
-  const hasTrialBeenUsed = user.free_trial_used === 1
+  // const hasTrialBeenUsed = user.freeTrialUsed
 
-  if (!hasTrialBeenUsed) {
-    checkoutCreateParams.subscription_data = {
-      trial_period_days: PLANS.allInOne.trialPeriodDays,
-      trial_settings: {
-        end_behavior: {
-          missing_payment_method: 'cancel',
-        },
+  // TODO: use freeTrialUsed flag
+
+  // if (!hasTrialBeenUsed) {
+  checkoutCreateParams.subscription_data = {
+    trial_period_days: PLANS.allInOne.trialPeriodDays,
+    trial_settings: {
+      end_behavior: {
+        missing_payment_method: 'cancel',
       },
-    }
-
-    checkoutCreateParams.payment_method_collection = 'if_required'
+    },
+    ...subscription_data,
   }
+
+  checkoutCreateParams.payment_method_collection = 'if_required'
+  // }
 
   const checkout = await stripe.checkout.sessions.create(checkoutCreateParams)
 
+  const orm = event.context.orm
   await orm.update(users).set({
-    payment_gateway_session_id: checkout.id,
+    checkoutId: checkout.id,
   }).where(eq(users.id, user.id))
 
   return sendRedirect(event, checkout.url!)

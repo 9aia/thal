@@ -1,81 +1,45 @@
 import type { H3Event } from 'h3'
 import type Stripe from 'stripe'
-import { activePlan, cancelSubscription, updateSubscription } from '../services/plan'
-import { notFound } from '~/utils/nuxt'
-import { PLANS } from '~/constants/payment'
-import { fromSToMillis } from '~/utils/date'
+import { createSubscription, deletedSubscription, updateSubscription } from '../services/plan'
 
-export async function handleCheckoutCompleted(
-  e: Stripe.CheckoutSessionCompletedEvent,
+export async function handleSubscriptionCreated(
   event: H3Event,
+  subscriptionCreated: Stripe.CustomerSubscriptionCreatedEvent,
 ) {
   const orm = event.context.orm
+  const subscription = subscriptionCreated.data.object
 
-  const session = e.data.object
-  const stripeCustomerId = session.customer as string
-  const userId = session.client_reference_id
+  console.log(subscription)
 
-  if (!userId)
-    throw notFound('Client reference not found')
-
-  const isPaymentAsync = session.payment_status !== 'paid'
-
-  if (isPaymentAsync)
-    return
-
-  await activePlan(orm, userId, stripeCustomerId, PLANS.allInOne)
+  await createSubscription(orm, subscription)
 }
 
-export async function handleAsyncPaymentSucceeded(
-  e: Stripe.CheckoutSessionAsyncPaymentSucceededEvent,
+export async function handleSubscriptionUpdated(
   event: H3Event,
+  subscriptionUpdated: Stripe.CustomerSubscriptionUpdatedEvent,
 ) {
   const orm = event.context.orm
-  const session = e.data.object
-  const stripeCustomerId = session.customer as string
-  const userId = session.client_reference_id
+  const subscription = subscriptionUpdated.data.object
 
-  if (!userId)
-    throw notFound('Client reference not found')
-
-  const isPaid = session.payment_status === 'paid'
-
-  if (!isPaid)
-    return
-
-  await activePlan(orm, userId, stripeCustomerId, PLANS.allInOne)
+  await updateSubscription(orm, subscription)
 }
 
-export async function handleCustomerSubscriptionDeleted(
-  e: Stripe.CustomerSubscriptionDeletedEvent,
+export async function handleSubscriptionTrialWillEnd(
   event: H3Event,
+  subscriptionTrialWillEnd: Stripe.CustomerSubscriptionTrialWillEndEvent,
 ) {
   const orm = event.context.orm
-  const session = e.data.object
-  const stripeCustomerId = session.customer as string
+  const subscription = subscriptionTrialWillEnd.data.object
 
-  if (!stripeCustomerId)
-    throw notFound(`Session customer not found: ${stripeCustomerId}`)
-
-  await cancelSubscription(orm, stripeCustomerId)
+  await updateSubscription(orm, subscription)
 }
 
-export async function handleCustomerSubscriptionUpdated(
-  e: Stripe.CustomerSubscriptionUpdatedEvent,
+export async function handleSubscriptionDeleted(
   event: H3Event,
+  subscriptionDeleted: Stripe.CustomerSubscriptionDeletedEvent,
 ) {
   const orm = event.context.orm
-  const session = e.data.object
-  const stripeCustomerId = session.customer as string
+  const subscription = subscriptionDeleted.data.object
 
-  if (!stripeCustomerId)
-    throw notFound(`Session customer not found: ${stripeCustomerId}`)
-
-  const cancelAt = session.cancel_at
-
-  const cancelAtDate = cancelAt
-    ? new Date(fromSToMillis(cancelAt)).toISOString()
-    : undefined
-
-  await updateSubscription(orm, stripeCustomerId, cancelAtDate)
+  await deletedSubscription(orm, subscription)
 }

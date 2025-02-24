@@ -26,13 +26,13 @@ definePageMeta({
       </h1>
 
       <p class="text-black text-sm">
-        {{ t('Thank you for using our app! You will receive an email with your invoice.') }}
+        {{ t('Thank you for chosing our app! You\'ll receive access to the app and you can start chatting! You will receive an email with your invoice') }}
       </p>
 
       <div class="flex items-center justify-center h-fit mt-4">
         <form action="/api/payment/stripe/create-portal-session" method="post" class="flex gap-2">
           <A href="/app" class="h-fit btn py-4 rounded-full bg-cyan-500 border-none flex gap-1">
-            {{ t('Go to app') }}
+            {{ t('Try access') }}
           </A>
 
           <Button type="submit" class="py-4 bg-cyan-500 border-none flex gap-1">

@@ -14,6 +14,15 @@ description: A detailed, chronological record of all changes made to a project, 
 
 - Set message time zone to America/Sao_Paulo
 
+### Performance
+
+- Changed DB plan type to int
+
+### DX
+
+- Changed DB freeTrialUsed to boolean mode
+- Normalized schema payment field names to lower camel case
+
 ## [0.1.0-5] - 2025-02-20
 
 ### Fixed

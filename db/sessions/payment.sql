@@ -14,7 +14,7 @@ UPDATE User SET plan = 'thal_all_in_one', plan_expires = '2025-03-08T14:11:00', 
 
 -- @block Remove plan from all users
 
-UPDATE User SET plan = null, plan_expires = null, free_trial_used = 0;
+UPDATE User SET plan = null, stripe_customer_id = null, subscription_id = null, subscription_status = 0, checkout_id = null;
 
 -- @block Remove plan from User with a username
 

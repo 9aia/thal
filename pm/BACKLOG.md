@@ -89,7 +89,6 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## DX
 
-- Normalize schema payment field names to lower camel case
 - Change `Message.isBot` to boolean mode
 - Unused files/functions
 - Use inferred schemas as DTOs

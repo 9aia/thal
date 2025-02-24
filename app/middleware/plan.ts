@@ -4,6 +4,6 @@ export default defineNuxtRouteMiddleware(() => {
   if (!user.value)
     return navigateTo('/sign-in')
 
-  if (user.value.plan)
+  if (user.value.plan != null)
     return navigateTo('/')
 })

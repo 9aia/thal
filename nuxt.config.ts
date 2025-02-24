@@ -81,5 +81,11 @@ export default defineNuxtConfig({
     },
   ],
 
+  vite: {
+    server: {
+      allowedHosts: ['9aia-dev.com'],
+    },
+  },
+
   compatibilityDate: '2024-12-25',
 })

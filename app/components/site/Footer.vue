@@ -17,7 +17,7 @@ const logout = useLogout()
             {{ t('Home') }}
           </A>
 
-          <A v-if="!user?.plan" href="/pricing" active-class="text-gray-200" class="flex items-center gap-1 text-black hover:underline">
+          <A v-if="!user?.plan == null" href="/pricing" active-class="text-gray-200" class="flex items-center gap-1 text-black hover:underline">
             {{ t('Pricing') }}
           </A>
 

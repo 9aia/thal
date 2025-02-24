@@ -16,7 +16,6 @@ export async function createUser(
   await orm.batch([
     orm.insert(users).values({
       id: userId,
-      free_trial_used: 0,
       createdAt: now().toString(),
       ...userInsert,
     }),

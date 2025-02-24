@@ -5,11 +5,13 @@ description: Tasks and items for the release.
 # TODO
 
 - Refactor Stripe subscription
+  - Use freeTrialUsed flag to solve dup free trial
+  - Handle "Manage your billing information" when plan is null
   - Deal with expired plan on client
   - Add plan middleware to API routes (should have a plan and not expired to be allowed to use)
-- Change pricing button to "Start Chatting" after already started free trial
+  - Display homepage CTA based on checkout/plan status
+  - Update CHANGELOG
 - Fix last dropdown position
-- Fix pending middleware
 - Infinite scroll not working on big screens in Discover characters
 - Only allow one text to speech at a time.
 - Avoid breaking layout in chat item when last message is too long.

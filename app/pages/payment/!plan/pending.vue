@@ -24,7 +24,7 @@ async function goToApp() {
 
   user.value = userFetch
 
-  if (!userFetch?.plan) {
+  if (userFetch?.plan === null) {
     toast.warn(t('Your subscription is being processed yet.'))
 
     return

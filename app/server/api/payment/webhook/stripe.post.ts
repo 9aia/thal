@@ -34,20 +34,21 @@ export default eventHandler(async (event) => {
   }
 
   const eventsOptions: Partial<Record<typeof stripeEvent.type, () => Promise<void>>> = {
-    'checkout.session.completed': async () => {
-      await stripeHandlers.handleCheckoutCompleted(stripeEvent as any, event)
-    },
-    'checkout.session.async_payment_succeeded': async () => {
-      await stripeHandlers.handleAsyncPaymentSucceeded(stripeEvent as any, event)
-    },
-    'customer.subscription.trial_will_end': async () => {},
-    'customer.subscription.deleted': async () => {
-      await stripeHandlers.handleCustomerSubscriptionDeleted(stripeEvent as any, event)
+    'customer.subscription.created': async () => {
+      await stripeHandlers.handleSubscriptionCreated(event, stripeEvent as Stripe.CustomerSubscriptionCreatedEvent)
     },
     'customer.subscription.updated': async () => {
-      await stripeHandlers.handleCustomerSubscriptionUpdated(stripeEvent as any, event)
+      await stripeHandlers.handleSubscriptionUpdated(event, stripeEvent as Stripe.CustomerSubscriptionUpdatedEvent)
+    },
+    'customer.subscription.trial_will_end': async () => {
+      await stripeHandlers.handleSubscriptionTrialWillEnd(event, stripeEvent as Stripe.CustomerSubscriptionTrialWillEndEvent)
+    },
+    'customer.subscription.deleted': async () => {
+      await stripeHandlers.handleSubscriptionDeleted(event, stripeEvent as Stripe.CustomerSubscriptionDeletedEvent)
     },
   }
+
+  console.log(`Received event: ${stripeEvent.type}`)
 
   const handler = eventsOptions[stripeEvent.type]
 
