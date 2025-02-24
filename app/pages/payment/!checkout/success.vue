@@ -14,7 +14,7 @@ onMounted(() => {
 
 definePageMeta({
   title: 'Checkout success',
-  middleware: 'auth',
+  middleware: 'checkout-success',
 })
 </script>
 
@@ -22,17 +22,17 @@ definePageMeta({
   <div class="w-full relative" style="height: calc(100vh - 64px)">
     <div class="text-center w-full max-w-2xl absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2">
       <h1 class="text-3xl text-black text-center mb-4">
-        {{ t('Checkout with success!') }}
+        {{ t('Checkout with Success!') }}
       </h1>
 
       <p class="text-black text-sm">
-        {{ t('Thank you for chosing our app! You\'ll receive access to the app and you can start chatting! You will receive an email with your invoice') }}
+        {{ t('You will receive an email with your invoice. Thank you for chosing our app!') }}
       </p>
 
       <div class="flex items-center justify-center h-fit mt-4">
         <form action="/api/payment/stripe/create-portal-session" method="post" class="flex gap-2">
           <A href="/app" class="h-fit btn py-4 rounded-full bg-cyan-500 border-none flex gap-1">
-            {{ t('Try access') }}
+            {{ t('Go to app') }}
           </A>
 
           <Button type="submit" class="py-4 bg-cyan-500 border-none flex gap-1">
@@ -40,6 +40,10 @@ definePageMeta({
           </Button>
         </form>
       </div>
+
+      <p class="text-black text-sm mt-4">
+        {{ t('You will be able to access the app as soon as possible.') }}
+      </p>
 
       <p class="text-sm text-gray-600 mt-4 w-full flex items-center justify-center">
         <T

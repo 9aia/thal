@@ -1,9 +1,9 @@
-export default defineNuxtRouteMiddleware(() => {
+export default defineNuxtRouteMiddleware((event) => {
   const user = useUser()
 
   if (!user.value)
-    return navigateTo('/sign-in')
+    return sendBackRedirect(event, '/sign-in')
 
-  if (user.value.plan != null)
-    return navigateTo('/')
+  if (user.value.plan == null)
+    return navigateTo('/pricing')
 })

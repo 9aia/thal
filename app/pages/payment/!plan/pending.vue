@@ -5,7 +5,7 @@ import Link from '~/components/ui/navigation/Link.vue'
 
 definePageMeta({
   title: 'Your free trial is being processed',
-  middleware: 'auth',
+  middleware: 'plan',
 })
 
 useAutoRedirect()

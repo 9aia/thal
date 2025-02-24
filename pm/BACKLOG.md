@@ -11,11 +11,14 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## Features
 
+- Add language drawer containing UI language and translation settings
 - Set meta tags for each page
 - Message/AI rate in trial instead of time
 - Message/AI rate in price
+- Add character unique voices
 - Add English locale preference (eg. US or UK)
 - Add native language preference (eg. BR or PT)
+- Add config for time
 - Add date stamps in chat
 - Add unread badge
 - Add a deleted/non-existent section in contacts
@@ -38,6 +41,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Fix what's new indicator
 - Fix go-to-bottom button position after chat clearing
 - Fix sign-in back redirect with drawers after closing them
+- Avoid breaking layout in chat item when last message is too long
 - Replace web modal API
 - Improve HTML rendering/TTS
 - Handle HTML in input/messages
