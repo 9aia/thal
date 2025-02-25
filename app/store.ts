@@ -79,6 +79,8 @@ export const chatItemSearch = ref('')
 export const sendingChatIds = ref<Set<number>>(new Set())
 export const sentErrorChatIds = ref<Set<number>>(new Set())
 
+export const currentPlayingMessage = ref<string | null>(null)
+
 /* Character */
 
 export const personaBuilderData = ref<Persona | null>(null)

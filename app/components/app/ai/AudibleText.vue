@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { useI18n } from '@psitta/vue'
 import { useMutation } from '@tanstack/vue-query'
+import { currentPlayingMessage } from '~/store'
 
-defineProps<{
+const props = defineProps<{
   text: string
 }>()
 const { t } = useI18n()
@@ -36,8 +37,15 @@ const playMutation = useMutation({
     }
 
     speech.play()
+    currentPlayingMessage.value = props.text
   },
   onError: () => toast.error(t('Error synthesizing voice.')),
+})
+
+watch(currentPlayingMessage, (value) => {
+  if (value !== props.text) {
+    speech.stop()
+  }
 })
 
 const currentWord = computed(() => speech.currentWord.value)
@@ -64,6 +72,7 @@ defineExpose({
 
 <template>
   <div ref="el">
+    {{ currentPlayingMessage }}
     <MDC
       :value="text"
       tag="article"
