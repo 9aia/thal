@@ -27,10 +27,10 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Add chat action for deleting it
 - Add dark theme
 - Add character rating (unrated, teen, mature, everyone)
-- Add media messages support
-- Add calls
-- Add character knowledge
+- Add media messages support, such as audio and picture
 - Add multiple message TTS player
+- Add character knowledge
+- Add calls
 
 ## Bugs
 
@@ -50,6 +50,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
   - Use locale param in site routes
 - Allow users to use only one session
 - Handle invalid sessions
+- Warn Clipboard API not allowed
 
 ## Enhancements
 
@@ -67,7 +68,6 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - ---
 - Add loading splashscreen for hydration, data loading, etc
 - Improve a11y
-- Warn Clipboard API not allowed
 - ---
 - Add character search to new-chat view search
 - ---
@@ -81,6 +81,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## Performance
 
+- Clean up current playing message on message stop
 - Pregenerate site pages
 - Improve icon loading on slow networks
 - Skip categorization on discoverability change
@@ -97,7 +98,8 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Unused files/functions
 - Use inferred schemas as DTOs
 - Add nuxt devserver to codeshare container
-- Improve dev contributing guide (commit guide)
 - Fix codeshare perms
+- Improve dev contributing guide (commit guide)
 - Add docs about the software architecture
 - Move schemas to their own files
+- Add docs for the difference between roadmap, changelog and "What's New"

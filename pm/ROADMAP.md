@@ -6,25 +6,23 @@ description: A timeline of key milestones and upcoming features or releases.
 
 ## Contract
 
-- **Pre-`v1.0.0`**:
+- **`vx.x.x-x`**:
+
+- **Pre-releases (`vx.x.x-x`)**:
+  - Examples: `v0.1.0-0`.
+  - Used for private testing and gathering feedback.
   - Data may be deleted without warning.
+  - Deployed on temporary environments.
   - Free to try.
 
-- **Release Candidate Versions (`vx.x.x-rc.x`)**:
-  - Examples: `v0.1.0-rc.0`.
-  - Used for private testing and gathering feedback.
-  - Deployed on temporary environments.
-
-- **Public Deploy Versions (`v0.x.x`)**:
+- **Public Releases (`vx.x.x`)**:
   - Examples: `v0.1.0`.
   - Released on the main domain for broader public access.
-
-- **Post-`v1.0.0`**:
   - Payment systems will be fully operational (no sandbox mode).
 
 ## Milestones
 
-### 0.1* - Fundamentals (25-01-31)
+### Fundamentals
 
 - User Accounts (Sign in, Manage Account, Subscribe)
 - Character Management (Discover, Manage)
@@ -35,7 +33,7 @@ description: A timeline of key milestones and upcoming features or releases.
 - Basic Support & Legal (Issue Report, Terms & Privacy)
 - Site (Landing Page)
 
-### 0.2* - Language Assistance
+### Language Assistance
 
 - Implement message corrector
 - Add male voice
@@ -46,7 +44,7 @@ description: A timeline of key milestones and upcoming features or releases.
   - Add settings to adjust AI helper responses.
 - Stream translation
 
-### 0.3* - Generative Character Building
+### Generative Character Building
 
 - Generate a character using a prompt
 - Generate a character from a framework (asking the learning goals, interests, occupation and observations)
@@ -60,7 +58,7 @@ description: A timeline of key milestones and upcoming features or releases.
 - Add recently created section in new chat view
 - Add profile photos (generate or upload)
 
-### 0.4* - Support
+### Support
 
 - Add report button (open modal) to contact options
 - Add intuitive placeholders to fields
@@ -74,7 +72,7 @@ description: A timeline of key milestones and upcoming features or releases.
 - Add "Export account data"
 - Delete account data
 
-### 0.5* - Sharing
+### Sharing
 
 - Add contact QR code
 - Add character visibility option instead of just discoverability
@@ -86,17 +84,17 @@ description: A timeline of key milestones and upcoming features or releases.
 - Display character author in the contact view and item in discover character route
 - Add a top absolute toast "Share your invite code with friends" and menu option "Invite"
 
-### 1.0* - Multiplayer
+### Multiplayer
 
 - Public profile
 - Person-person chats
 - Blocks
 
-### 1.1* - Groups
+### Groups
 
 - Groups of 1 character and max of 5 people
 - Groups
 
-### 1.2* - Communities
+### Communities
 
 - Add communities

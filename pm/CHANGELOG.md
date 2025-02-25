@@ -9,10 +9,15 @@ description: A detailed, chronological record of all changes made to a project, 
 ### Fixed
 
 - Fixed empty message checking before sending
+- Added custom CTAs based on payment status
+- Fixed homepage hero padding bottom
+- Fixed multiple message listening by interrupting the previous message
 
 ### Changed
 
 - Set message time zone to America/Sao_Paulo
+- Improved content
+- Improved payment pages
 
 ### Performance
 
@@ -20,8 +25,9 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ### DX
 
-- Changed DB freeTrialUsed to boolean mode
+- Changed DB `freeTrialUsed` to boolean mode
 - Normalized schema payment field names to lower camel case
+- Refactored to use subscription events only
 
 ## [0.1.0-5] - 2025-02-20
 
