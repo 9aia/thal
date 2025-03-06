@@ -101,39 +101,30 @@ export async function getStatus(stripe: Stripe, user?: User | null) {
   if (!user) {
     return {
       checkoutStatus: null as CheckoutStatus,
-      subscriptionStatus: SubscriptionStatus.not_subscribed,
     }
   }
 
   if (!user.checkoutId) {
     return {
       checkoutStatus: null as CheckoutStatus,
-      subscriptionStatus: user.subscriptionStatus || 0,
     }
   }
 
-  const checkout = await stripe.checkout.sessions.retrieve(user.checkoutId, {
-    expand: ['subscription'],
-  })
-  const subscription = checkout.subscription as Stripe.Subscription
-  const subscriptionStatus = SubscriptionStatus[subscription?.status || '']
+  const checkout = await stripe.checkout.sessions.retrieve(user.checkoutId)
 
   if (checkout.status === 'complete') {
     return {
       checkoutStatus: 'complete' as CheckoutStatus,
-      subscriptionStatus,
     }
   }
   else if (checkout.status === 'open' && !user.subscriptionId) {
     return {
       checkoutStatus: 'open' as CheckoutStatus,
-      subscriptionStatus: SubscriptionStatus.not_subscribed,
     }
   }
 
   return {
     checkoutStatus: null as CheckoutStatus,
-    subscriptionStatus,
   }
 }
 

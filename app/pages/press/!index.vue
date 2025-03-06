@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { T, t } from '@psitta/vue'
 import queryKeys from '~/queryKeys'
+import { SubscriptionStatus } from '~~/db/schema'
 
 useAutoRedirect()
+
+const user = useUser()
 
 const {
   data,
@@ -53,13 +56,9 @@ const {
             </template>
 
             <template #default>
-              <StripeCreateSessionForm :checkout-status="data?.checkoutStatus || null" :subscription-status="data?.subscriptionStatus" class="flex items-center justify-center" />
+              <StripeCreateSessionForm :checkout-status="data?.checkoutStatus || null" :subscription-status="user?.subscriptionStatus || SubscriptionStatus.not_subscribed" class="flex items-center justify-center" />
             </template>
           </Resource>
-
-          <!-- <A class="bg-cyan-500 text-black flex justify-center items-center px-6 py-3 w-fit rounded-full mx-auto" href="/app">{{
-            t("Start chatting")
-          }}</A> -->
         </div>
       </div>
 

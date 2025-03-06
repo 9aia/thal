@@ -55,7 +55,6 @@ description: A prioritized list of tasks, features, and ideas for future develop
 ## Enhancements
 
 - Update meta-tags
-- Translate character data
 - Open chat list on mobile always
 - Improve chat loading by rendering the skeleton on the backend and the message on the client
   - Improve chat loading and error state fallbacks

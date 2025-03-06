@@ -2,8 +2,8 @@ import { eq } from 'drizzle-orm'
 import { categorizePersona } from '~/server/services/persona'
 import { now } from '~/utils/date'
 import { getValidated } from '~/utils/h3'
-import { badRequest, unauthorized } from '~/utils/nuxt'
-import { personaInsertSchema, personaUsernames, personas } from '~~/db/schema'
+import { badRequest, paymentRequired, unauthorized } from '~/utils/nuxt'
+import { SubscriptionStatus, personaInsertSchema, personaUsernames, personas } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const data = await getValidated(event, 'body', personaInsertSchema)
@@ -13,6 +13,10 @@ export default eventHandler(async (event) => {
 
   if (!user)
     throw unauthorized()
+
+  if (user.subscriptionStatus === SubscriptionStatus.past_due) {
+    throw paymentRequired()
+  }
 
   const {
     username,

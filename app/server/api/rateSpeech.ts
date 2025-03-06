@@ -2,7 +2,8 @@ import { z } from 'zod'
 
 import { getGemini } from '~/utils/gemini'
 import { getValidated } from '~/utils/h3'
-import { internal, unauthorized } from '~/utils/nuxt'
+import { internal, paymentRequired, unauthorized } from '~/utils/nuxt'
+import { SubscriptionStatus } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const { GEMINI_API_KEY } = useRuntimeConfig(event)
@@ -14,6 +15,10 @@ export default eventHandler(async (event) => {
 
   if (!user)
     throw unauthorized()
+
+  if (user.subscriptionStatus === SubscriptionStatus.past_due) {
+    throw paymentRequired()
+  }
 
   const data = await getValidated(event, 'body', z.object({
     transcript: z.string().min(1).max(300),

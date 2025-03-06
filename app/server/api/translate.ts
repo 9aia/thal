@@ -3,9 +3,9 @@ import { eq } from 'drizzle-orm'
 import { getHistory } from '../services/messages'
 import { getGemini } from '~/utils/gemini'
 import { getValidated } from '~/utils/h3'
-import { internal, unauthorized } from '~/utils/nuxt'
+import { internal, paymentRequired, unauthorized } from '~/utils/nuxt'
 import type { Persona } from '~/types'
-import { messages, personaUsernames } from '~~/db/schema'
+import { SubscriptionStatus, messages, personaUsernames } from '~~/db/schema'
 
 export default defineEventHandler(async (event) => {
   const { GEMINI_API_KEY } = useRuntimeConfig(event)
@@ -18,6 +18,10 @@ export default defineEventHandler(async (event) => {
 
   if (!user)
     throw unauthorized()
+
+  if (user.subscriptionStatus === SubscriptionStatus.past_due) {
+    throw paymentRequired()
+  }
 
   const data = await getValidated(event, 'body', z.object({
     text: z.string(),

@@ -18,7 +18,7 @@ const modelValue = defineModel<boolean>()
 
       <p class="text-sm text-gray-600 w-full flex items-start justify-start">
         <T
-          class="flex items-start justify-start gap-1"
+          class="flex items-start justify-start flex-col gap-1"
           text="If you have any problem, you can contact us at: {link}"
           :values="{
             link: 'thal@9aia.com',

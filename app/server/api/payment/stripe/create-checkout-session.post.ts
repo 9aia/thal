@@ -59,6 +59,7 @@ export default eventHandler(async (event) => {
     cancel_url: cancelUrl.toString(),
     customer_email: user.email || undefined,
     subscription_data,
+
   }
 
   const hasTrialBeenUsed = user.freeTrialUsed

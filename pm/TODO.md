@@ -10,6 +10,8 @@ description: Tasks and items for the release.
 
 ## 0.1.0-6
 
+- Translate character data to english
+  - Action to translate character data
 - Add moderation
   - Create community guidelines
     - Add community guidelines link to the "Character Builder", chats and settings

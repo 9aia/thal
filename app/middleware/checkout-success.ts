@@ -6,7 +6,7 @@ export default defineNuxtRouteMiddleware((event) => {
   if (!user.value)
     return sendBackRedirect(event, '/sign-in')
 
-  if (user.value.subscriptionStatus === SubscriptionStatus.unpaid)
+  if (user.value.subscriptionStatus === SubscriptionStatus.canceled)
     return sendBackRedirect(event, '/pricing')
 
   if (user.value.subscriptionStatus === SubscriptionStatus.active || user.value.subscriptionStatus === SubscriptionStatus.trialing || user.value.subscriptionStatus === SubscriptionStatus.past_due)

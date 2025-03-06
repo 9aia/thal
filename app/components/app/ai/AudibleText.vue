@@ -72,7 +72,6 @@ defineExpose({
 
 <template>
   <div ref="el">
-    {{ currentPlayingMessage }}
     <MDC
       :value="text"
       tag="article"

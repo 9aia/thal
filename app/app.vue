@@ -10,7 +10,7 @@ useInternetConnectionIndicator()
 const route = useRoute()
 
 isRootDrawerOpen.value = !!route.meta.showChatList
-isExpiredModalOpen.value = route.query.expired === 'true'
+isExpiredModalOpen.value = route.query.past_due === 'true'
 
 type DrawersKey = keyof typeof drawers
 

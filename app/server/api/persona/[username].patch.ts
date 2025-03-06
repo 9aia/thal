@@ -1,8 +1,8 @@
 import { eq } from 'drizzle-orm'
 import { z } from 'zod'
 import { getValidated } from '~/utils/h3'
-import { forbidden, notFound, unauthorized } from '~/utils/nuxt'
-import { personaUpdateSchema, personaUsernames, personas, usernameSchema } from '~~/db/schema'
+import { forbidden, notFound, paymentRequired, unauthorized } from '~/utils/nuxt'
+import { SubscriptionStatus, personaUpdateSchema, personaUsernames, personas, usernameSchema } from '~~/db/schema'
 import { categorizePersona } from '~/server/services/persona'
 
 export default eventHandler(async (event) => {
@@ -13,6 +13,10 @@ export default eventHandler(async (event) => {
 
   if (!user)
     throw unauthorized()
+
+  if (user.subscriptionStatus === SubscriptionStatus.past_due) {
+    throw paymentRequired()
+  }
 
   const data = await getValidated(event, 'body', personaUpdateSchema)
 
