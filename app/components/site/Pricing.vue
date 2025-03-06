@@ -2,7 +2,6 @@
 import { t, useLocale } from '@psitta/vue'
 import { PLANS } from '~/constants/payment'
 import queryKeys from '~/queryKeys'
-import { SubscriptionStatus } from '~~/db/schema'
 
 const locale = useLocale()
 
@@ -113,25 +112,25 @@ const trialPeriodDays = PLANS.allInOne.trialPeriodDays
                 {{ t('{price}/month after', { price }) }}
               </div>
             </div>
+
+            <div class="text-gray-500 text-xs text-center">
+              {{ t('No hidden fees. Cancel anytime.') }}
+              <A class="underline text-brown-500" href="/terms">{{ t('Terms apply') }}</A>
+            </div>
+
+            <p class="text-black text-sm mb-4 text-center mt-6">
+              {{ t('Curious to see how chatting can boost your English?') }}
+            </p>
+
+            <div class="flex flex-col items-center justify-center h-fit mt-4 gap-2">
+              <StripeCreateSessionForm :checkout-status="data?.checkoutStatus || null" />
+
+              <div class="text-blue-500 text-xs flex mt-2 justify-center text-center">
+                <div>{{ t("Thal is in preview. We're not actually charging for access.") }}</div>
+              </div>
+            </div>
           </template>
         </Resource>
-
-        <div class="text-gray-500 text-xs text-center">
-          {{ t('No hidden fees. Cancel anytime.') }}
-          <A class="underline text-brown-500" href="/terms">{{ t('Terms apply') }}</A>
-        </div>
-
-        <p class="text-black text-sm mb-4 text-center mt-6">
-          {{ t('Curious to see how chatting can boost your English?') }}
-        </p>
-
-        <div class="flex flex-col items-center justify-center h-fit mt-4 gap-2">
-          <StripeCreateSessionForm :checkout-status="data?.checkoutStatus || null" />
-
-          <div class="text-blue-500 text-xs flex mt-2 justify-center text-center">
-            <div>{{ t("Thal is in preview. We're not actually charging for access.") }}</div>
-          </div>
-        </div>
       </div>
     </div>
   </div>

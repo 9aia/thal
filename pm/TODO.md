@@ -4,13 +4,9 @@ description: Tasks and items for the release.
 
 # TODO
 
-- Handle errors on <StripeCreateSessionForm>, <Pricing> and homepage hero
 - Use `freeTrialUsed` flag to solve dup free trial
 - Deal with expired plan on client
 - Deal with expired plan on the server (should have a plan and not expired to be allowed to use)
-- Fix last dropdown position
-- Infinite scroll not working on big screens in Discover characters
-- Fix DB on build pre-render
 
 ## 0.1.0-6
 
@@ -22,6 +18,10 @@ description: Tasks and items for the release.
   - Give safety feedback on fields
   - Add safety inflation flags and strikes
     - Assigning each user a unique ID and imposing a limit on the volume of user queries that can be submitted in a given period
+- Fix last dropdown position
+- Fix DB on build pre-render
+- Check LocaleModal toast translation
+- Infinite scroll not working on big screens in Discover characters
 - Polish design system
 
 ## 0.1.0-7

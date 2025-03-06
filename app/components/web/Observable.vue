@@ -16,8 +16,11 @@ const observer = ref<IntersectionObserver>()
 onMounted(() => {
   observer.value = new IntersectionObserver(
     ([entry]) => {
-      if (entry.isIntersecting)
+      if (entry.isIntersecting) {
         emit('intersect')
+        // [timestamp] intersecting...
+        console.log(Date.now(), 'intersecting...')
+      }
     },
     { threshold: 1.00 },
   )
