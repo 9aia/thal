@@ -24,7 +24,7 @@ export async function updateSubscription(
   }
 
   if (subscription.status === 'trialing') {
-    subscriptionData.freeTrialUsed = 1
+    subscriptionData.freeTrialUsed = true
   }
 
   await orm
@@ -51,7 +51,7 @@ export async function createSubscription(
   }
 
   if (subscription.status === 'trialing') {
-    subscriptionData.freeTrialUsed = 1
+    subscriptionData.freeTrialUsed = true
   }
 
   await orm

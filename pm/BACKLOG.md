@@ -11,6 +11,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## Features
 
+- Implement basic analytics to track user engagement and app performance
 - Add language drawer containing UI language and translation settings
 - Set meta tags for each page
 - Message/AI rate in trial instead of time
@@ -93,6 +94,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## DX
 
+- Improve logging
 - Change `Message.isBot` to boolean mode
 - Unused files/functions
 - Use inferred schemas as DTOs
