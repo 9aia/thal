@@ -33,6 +33,7 @@ export const users = sqliteTable('User', {
   createdAt: text('created_at').notNull(),
   email: text('email'),
   plan: int('plan'),
+  freeTrialUsed: int('free_trial_used').default(0),
   subscriptionStatus: int('subscription_status').default(SubscriptionStatus.not_subscribed),
   subscriptionId: text('subscription_id'),
   stripeCustomerId: text('stripe_customer_id'),

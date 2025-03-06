@@ -3,7 +3,7 @@ import type { DrizzleD1Database } from 'drizzle-orm/d1'
 import type Stripe from 'stripe'
 import type { CheckoutStatus, PlanSettings } from '~/types'
 import { internal } from '~/utils/nuxt'
-import type { User } from '~~/db/schema'
+import type { User, UserSelect } from '~~/db/schema'
 import { PlanType, SubscriptionStatus, users } from '~~/db/schema'
 
 export async function updateSubscription(
@@ -16,14 +16,20 @@ export async function updateSubscription(
     throw internal('User not found')
   }
 
+  const subscriptionData: Partial<UserSelect> = {
+    subscriptionStatus: SubscriptionStatus[subscription.status],
+    stripeCustomerId: subscription.customer as string,
+    subscriptionId: subscription.id,
+    plan: PlanType.ALL_IN_ONE,
+  }
+
+  if (subscription.status === 'trialing') {
+    subscriptionData.freeTrialUsed = 1
+  }
+
   await orm
     .update(users)
-    .set({
-      subscriptionStatus: SubscriptionStatus[subscription.status],
-      stripeCustomerId: subscription.customer as string,
-      subscriptionId: subscription.id,
-      plan: PlanType.ALL_IN_ONE,
-    })
+    .set(subscriptionData)
     .where(and(eq(users.id, userId), eq(users.subscriptionId, subscription.id)))
 }
 
@@ -37,14 +43,20 @@ export async function createSubscription(
     throw internal('User not found')
   }
 
+  const subscriptionData: Partial<UserSelect> = {
+    subscriptionStatus: SubscriptionStatus[subscription.status],
+    stripeCustomerId: subscription.customer as string,
+    subscriptionId: subscription.id,
+    plan: PlanType.ALL_IN_ONE,
+  }
+
+  if (subscription.status === 'trialing') {
+    subscriptionData.freeTrialUsed = 1
+  }
+
   await orm
     .update(users)
-    .set({
-      subscriptionStatus: SubscriptionStatus[subscription.status],
-      stripeCustomerId: subscription.customer as string,
-      subscriptionId: subscription.id,
-      plan: PlanType.ALL_IN_ONE,
-    })
+    .set(subscriptionData)
     .where(eq(users.id, userId))
 }
 
@@ -64,6 +76,7 @@ export async function deletedSubscription(
       subscriptionStatus: SubscriptionStatus[subscription.status],
       stripeCustomerId: subscription.customer as string,
       subscriptionId: subscription.id,
+      checkoutId: null,
       plan: null,
     })
     .where(and(eq(users.id, userId), eq(users.subscriptionId, subscription.id)))

@@ -61,23 +61,21 @@ export default eventHandler(async (event) => {
     subscription_data,
   }
 
-  // const hasTrialBeenUsed = user.freeTrialUsed
+  const hasTrialBeenUsed = user.freeTrialUsed
 
-  // TODO: use freeTrialUsed flag
-
-  // if (!hasTrialBeenUsed) {
-  checkoutCreateParams.subscription_data = {
-    trial_period_days: PLANS.allInOne.trialPeriodDays,
-    trial_settings: {
-      end_behavior: {
-        missing_payment_method: 'cancel',
+  if (!hasTrialBeenUsed) {
+    checkoutCreateParams.subscription_data = {
+      trial_period_days: PLANS.allInOne.trialPeriodDays,
+      trial_settings: {
+        end_behavior: {
+          missing_payment_method: 'cancel',
+        },
       },
-    },
-    ...subscription_data,
-  }
+      ...subscription_data,
+    }
 
-  checkoutCreateParams.payment_method_collection = 'if_required'
-  // }
+    checkoutCreateParams.payment_method_collection = 'if_required'
+  }
 
   const checkout = await stripe.checkout.sessions.create(checkoutCreateParams)
 
