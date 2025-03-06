@@ -43,6 +43,20 @@ const { focusMainField: focusSearch, mainField: searchEl } = useDiscoverFocus()
 onMounted(() => {
   focusSearch({ immediate: true })
 })
+
+watch(categoryId, () => {
+  const el = document.querySelector(`#category-${categoryId.value}`)
+  console.log(el)
+
+  if (!el)
+    return
+
+  el?.scrollIntoView({
+    behavior: 'smooth',
+    block: 'center',
+    inline: 'center',
+  })
+})
 </script>
 
 <template>
@@ -100,6 +114,7 @@ onMounted(() => {
           <CategoryCard
             v-for="category, index in categories"
             v-bind="bindData"
+            :id="`category-${category.id}`"
             :key="`category-${index}`"
             :name="t(category.name)"
             :description="t(category.description)"

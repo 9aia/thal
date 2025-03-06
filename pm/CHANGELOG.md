@@ -19,6 +19,7 @@ description: A detailed, chronological record of all changes made to a project, 
 - Set message time zone to America/Sao_Paulo
 - Improved content
 - Improved payment pages
+- Animated category selection in CharacterList
 
 ### Performance
 
