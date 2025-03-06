@@ -5,7 +5,7 @@ import { SubscriptionStatus } from '~~/db/schema'
 
 const props = defineProps<{
   checkoutStatus: CheckoutStatus
-  subscriptionStatus?: SubscriptionStatus
+  subscriptionStatus: SubscriptionStatus
 }>()
 
 const user = useUser()
@@ -34,7 +34,7 @@ function onSubmit(event: Event) {
       id="checkout-and-portal-button" type="submit"
       class="h-fit btn py-4 rounded-full bg-cyan-500 border-none flex gap-1"
     >
-      <template v-if="!user || checkoutStatus === null">
+      <template v-if="!user || (checkoutStatus === null && subscriptionStatus === SubscriptionStatus.not_subscribed)">
         {{ t('Start Your Free Trial Now') }}
       </template>
       <template v-else-if="checkoutStatus === 'open'">

@@ -4,7 +4,6 @@ description: Tasks and items for the release.
 
 # TODO
 
-- Use `freeTrialUsed` flag to solve dup free trial
 - Deal with expired plan on client
 - Deal with expired plan on the server (should have a plan and not expired to be allowed to use)
 - Translate

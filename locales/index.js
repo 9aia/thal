@@ -745,5 +745,62 @@
   },
   "Easily build a character that fits your learning style! Choose a name and personality, and let the AI bring them to life through dynamic conversations.": {
     "pt": "Crie facilmente um personagem que se adapta ao seu estilo de aprendizagem! Escolha um nome e uma personalidade, e deixe a IA dar vida a ele através de conversas dinâmicas!"
+  },
+  "Thal is in preview. We're not actually charging for access.": {
+    "pt": "Thal está em pré-visualização. Não estamos cobrando pelo acesso."
+  },
+  "Continue Your Checkout": {
+    "pt": "Continuar seu checkout"
+  },
+  "Continue Your Access": {
+    "pt": "Continuar seu acesso"
+  },
+  "Continue Your Free Trial Now": {
+    "pt": "Continue seu teste grátis agora"
+  },
+  "Continue Chatting": {
+    "pt": "Continuar conversando"
+  },
+  "Restart Your Subscription Now": {
+    "pt": "Reinicie sua assinatura agora"
+  },
+  "Check Your Subscription Now": {
+    "pt": "Verifique sua assinatura agora"
+  },
+  "Go To App": {
+    "pt": "Ir para o aplicativo"
+  },
+  "Resume Your Subscription Now": {
+    "pt": "Retome sua assinatura agora"
+  },
+  "Checkout with Success!": {
+    "pt": "Finalização da compra com sucesso!"
+  },
+  "You will receive an email with your invoice. Thank you for chosing our app!": {
+    "pt": "Você receberá um email com sua fatura. Obrigado por escolher nosso aplicativo!"
+  },
+  "You will be able to access the app as soon as possible.": {
+    "pt": "Você poderá acessar o aplicativo o mais breve possível."
+  },
+  "Checkout Canceled": {
+    "pt": "Finalização da compra cancelada"
+  },
+  "You canceled your subscription. We hope to see you soon!": {
+    "pt": "Você cancelou sua assinatura. Esperamos vê-lo em breve!"
+  },
+  "https://forms.gle/yHaiExzsQvv1mTdM8": {
+    "pt": "https://forms.gle/yHaiExzsQvv1mTdM8"
+  },
+  "Give feedback": {
+    "pt": "Deixe seu feedback"
+  },
+  "We’d love to know why you decided not to cancel. Please share your feedback with us. Your input helps us improve!": {
+    "pt": "Gostaríamos de saber por que você decidiu não cancelar. Por favor, compartilhe seu feedback conosco. Sua contribuição nos ajuda a melhorar!"
+  },
+  "Open chats": {
+    "pt": "Conversas abertas"
+  },
+  "You can manage your billing information to renew your subscription. Thank you for using our app!": {
+    "pt": "Você pode gerenciar suas informações de cobrança para renovar sua assinatura. Obrigado por usar nosso aplicativo!"
   }
 }

@@ -19,7 +19,7 @@ onMounted(() => {
       if (entry.isIntersecting) {
         emit('intersect')
         // [timestamp] intersecting...
-        console.log(Date.now(), 'intersecting...')
+        // console.log(Date.now(), 'intersecting...')
       }
     },
     { threshold: 1.00 },

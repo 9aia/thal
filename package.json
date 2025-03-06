@@ -24,7 +24,8 @@
     "cs": "docker exec codeshare",
     "type:check": "tsc --noEmit",
     "dev:cs": "code --reuse-window --remote ssh-remote+codeshare@9aia-dev.com:2222 ./codeshare/",
-    "dev:cs:n": "code --remote ssh-remote+codeshare@9aia-dev.com:2222 ./codeshare/"
+    "dev:cs:n": "code --remote ssh-remote+codeshare@9aia-dev.com:2222 ./codeshare/",
+    "psitta": "bun ./locales/script"
   },
   "dependencies": {
     "@ark-ui/vue": "^0.11.0",

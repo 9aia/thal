@@ -98,8 +98,18 @@ export async function pauseStripeSubscription(stripe: Stripe, subscriptionId: st
 }
 
 export async function getStatus(stripe: Stripe, user?: User | null) {
-  if (!user || !user?.checkoutId) {
-    return null
+  if (!user) {
+    return {
+      checkoutStatus: null as CheckoutStatus,
+      subscriptionStatus: SubscriptionStatus.not_subscribed,
+    }
+  }
+
+  if (!user.checkoutId) {
+    return {
+      checkoutStatus: null as CheckoutStatus,
+      subscriptionStatus: user.subscriptionStatus || 0,
+    }
   }
 
   const checkout = await stripe.checkout.sessions.retrieve(user.checkoutId, {
