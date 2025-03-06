@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useIntervalFn } from '@vueuse/core'
+
 const props = withDefaults(defineProps<{
   isConnected: boolean
 }>(), {
@@ -10,30 +12,49 @@ const emit = defineEmits<{
 }>()
 
 const endMarkerRef = ref<HTMLDivElement>()
-
 const observer = ref<IntersectionObserver>()
+const visible = ref(false)
 
-onMounted(() => {
-  observer.value = new IntersectionObserver(
-    ([entry]) => {
-      if (entry.isIntersecting) {
-        emit('intersect')
-        // [timestamp] intersecting...
-        // console.log(Date.now(), 'intersecting...')
-      }
-    },
-    { threshold: 1.00 },
-  )
+const timer = useIntervalFn(() => {
+  if (visible.value)
+    emit('intersect')
+}, 1000, { immediate: false })
 
-  if (!endMarkerRef.value)
+function setupObserver() {
+  observer.value = new IntersectionObserver(([entry]) => {
+    visible.value = entry.isIntersecting
+  }, { threshold: 1.0 })
+}
+
+function observeEl() {
+  if (!endMarkerRef.value || !observer.value)
     return
 
   observer.value.observe(endMarkerRef.value)
+  timer.resume()
+}
+
+function unobserveEl() {
+  if (!endMarkerRef.value || !observer.value)
+    return
+
+  observer.value?.disconnect()
+  timer.pause()
+}
+
+onMounted(() => {
+  setupObserver()
+  observeEl()
 })
 
 onUnmounted(() => {
-  if (observer.value && endMarkerRef.value)
-    observer.value.unobserve(endMarkerRef.value)
+  unobserveEl()
+})
+
+watch(visible, (value) => {
+  if (value)
+    timer.resume()
+  else timer.pause()
 })
 
 watch(() => props.isConnected, (isConnected) => {
@@ -41,12 +62,14 @@ watch(() => props.isConnected, (isConnected) => {
     return
 
   if (isConnected)
-    observer.value?.observe(endMarkerRef.value)
+    observeEl()
   else
-    observer.value?.unobserve(endMarkerRef.value)
+    unobserveEl()
 }, { immediate: true })
 </script>
 
 <template>
-  <div ref="endMarkerRef" />
+  <div ref="endMarkerRef">
+    <slot :visible="visible" />
+  </div>
 </template>

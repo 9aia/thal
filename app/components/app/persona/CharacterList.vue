@@ -33,7 +33,7 @@ const {
       categoryId: categoryId.value,
     },
   }),
-  perPage: 3,
+  perPage: 10,
 })
 
 const isCategoryModalOpen = ref(false)
@@ -135,7 +135,11 @@ onMounted(() => {
                 class="w-full"
               />
 
-              <Observable class="w-full h-px" :is-connected="hasNextPage" @intersect="fetchNextPage()" />
+              <Observable class="w-full min-h-px flex items-center justify-center" :is-connected="hasNextPage" @intersect="fetchNextPage()">
+                <template #default="{ visible }">
+                  <Spinner v-if="visible && hasNextPage" class="mt-6 text-gray-800" />
+                </template>
+              </Observable>
             </template>
 
             <div v-else class="flex flex-col items-center gap-y-4">

@@ -12,6 +12,7 @@ description: A detailed, chronological record of all changes made to a project, 
 - Added custom CTAs based on payment status
 - Fixed homepage hero padding bottom
 - Fixed multiple message listening by interrupting the previous message
+- Fixed infinite scroll issue on the "Discover Characters" page
 
 ### Changed
 

@@ -2,8 +2,9 @@
 
 SELECT * FROM Persona
 
--- @block Delete all personas
+-- @block Delete all personas and usernames
 
+DELETE FROM PersonaUsername;
 DELETE FROM Persona
 
 -- @block List all PersonaUsernames
