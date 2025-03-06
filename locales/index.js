@@ -802,5 +802,119 @@
   },
   "You can manage your billing information to renew your subscription. Thank you for using our app!": {
     "pt": "Você pode gerenciar suas informações de cobrança para renovar sua assinatura. Obrigado por usar nosso aplicativo!"
+  },
+  "Copied character username to clipboard": {
+    "pt": "Nome de usuário do personagem copiado para a área de transferência"
+  },
+  "Failed to copy character username to clipboard": {
+    "pt": "Falha ao copiar o nome de usuário do personagem para a área de transferência"
+  },
+  "Copied character link to clipboard": {
+    "pt": "Link do personagem copiado para a área de transferência"
+  },
+  "Failed to copy character link to clipboard": {
+    "pt": "Falha ao copiar o link do personagem para a área de transferência"
+  },
+  "Clipboard API is not available": {
+    "pt": "API da área de transferência não disponível"
+  },
+  "An error occurred while copying to clipboard": {
+    "pt": "Ocorreu um erro ao copiar para a área de transferência"
+  },
+  "Copied to clipboard": {
+    "pt": "Copiado para a área de transferência"
+  },
+  "Failed to copy to clipboard": {
+    "pt": "Falha ao copiar para a área de transferência"
+  },
+  "Internet is back": {
+    "pt": "Internet reconectada"
+  },
+  "No internet": {
+    "pt": "Sem internet"
+  },
+  "Permission not allowed": {
+    "pt": "Permissão não permitida"
+  },
+  "Microphone not found": {
+    "pt": "Microfone não encontrado"
+  },
+  "Permission error": {
+    "pt": "Erro de permissão"
+  },
+  "An error occurred while logging out.": {
+    "pt": "Ocorreu um erro durante o logout."
+  },
+  "Failed to clear chat": {
+    "pt": "Falha ao limpar o bate-papo"
+  },
+  "Chat has been cleared": {
+    "pt": "Bate-papo limpo"
+  },
+  "Failed to translate message": {
+    "pt": "Falha ao traduzir a mensagem"
+  },
+  "Travel, Tourism & Transportation": {
+    "pt": "Viagens, Turismo & Transporte"
+  },
+  "Shopping & Retail": {
+    "pt": "Compras & Varejo"
+  },
+  "Food & Beverage": {
+    "pt": "Comida & Bebida"
+  },
+  "Science & Nature": {
+    "pt": "Ciência & Natureza"
+  },
+  "Dating & Relationships": {
+    "pt": "Namoro & Relacionamentos"
+  },
+  "Education & Learning": {
+    "pt": "Educação & Aprendizado"
+  },
+  "Health & Wellness": {
+    "pt": "Saúde & Bem-estar"
+  },
+  "Technology & Engineering": {
+    "pt": "Tecnologia & Engenharia"
+  },
+  "Historical Figures": {
+    "pt": "Figuras Históricas"
+  },
+  "Business & Career": {
+    "pt": "Negócios & Carreira"
+  },
+  "Family & Relatives": {
+    "pt": "Família e Parentes"
+  },
+  "Law & Justice": {
+    "pt": "Lei e Justiça"
+  },
+  "Religion & Spirituality": {
+    "pt": "Religião e Espiritualidade"
+  },
+  "Sports & recreation": {
+    "pt": "Esportes e Recreação"
+  },
+  "Hotel & Lodging": {
+    "pt": "Hotel e Hospedagem"
+  },
+  "Comedy & Entertainment": {
+    "pt": "Comédia e Entretenimento"
+  },
+  "Real Estate": {
+    "pt": "Imobiliária"
+  },
+  "Art & Design": {
+    "pt": "Arte e Design"
+  },
+  "Casual & Everyday": {
+    "pt": "Casual e Cotidiano"
+  },
+  "News & Media": {
+    "pt": "Notícias e Mídia"
+  },
+  "Miscellaneous & Others": {
+    "pt": "Diversos e Outros"
   }
 }

@@ -6,7 +6,7 @@ import { getGemini } from '~/utils/gemini'
 
 const CONFIG = {
   // content: ['./app/**/*.vue'],
-  content: ['./app/**/*.vue'],
+  content: ['./app/**/*.vue', './app/composables/*.ts', './app/constants/*.ts'],
   messageRegex: /\bt\s*\(\s*(["'`])(.*?)\1\s*[,)]/g,
   // messageRegex: /(?<=[a-zA-Z0-9])t\(['"]([^'"]+)['"]\)/g,
   messagePerChunk: 10,
