@@ -1,4 +1,4 @@
-import { getCheckoutStatus } from '~/server/services/plan'
+import { getStatus } from '~/server/services/plan'
 import type { CheckoutStatus } from '~/types'
 import { internal, unauthorized } from '~/utils/nuxt'
 import { getStripe } from '~/utils/stripe'
@@ -17,9 +17,6 @@ export default eventHandler(async (event) => {
     throw unauthorized()
   }
 
-  const checkoutStatus: CheckoutStatus = await getCheckoutStatus(stripe, user)
-
-  return {
-    checkoutStatus,
-  }
+  const status = await getStatus(stripe, user)
+  return status
 })

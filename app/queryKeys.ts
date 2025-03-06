@@ -10,5 +10,5 @@ export default {
   discoverPersonas: ['discover-personas'],
   profile: (username: MaybeRef<string>) => ['profile', username],
   pricingData: ['pricing-data'],
-  checkoutStatus: ['checkout-status'],
+  stripeStatus: ['stripe-status'],
 }

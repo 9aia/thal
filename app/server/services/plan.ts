@@ -1,7 +1,7 @@
 import { and, eq } from 'drizzle-orm'
 import type { DrizzleD1Database } from 'drizzle-orm/d1'
 import type Stripe from 'stripe'
-import type { PlanSettings } from '~/types'
+import type { CheckoutStatus, PlanSettings } from '~/types'
 import { internal } from '~/utils/nuxt'
 import type { User } from '~~/db/schema'
 import { PlanType, SubscriptionStatus, users } from '~~/db/schema'
@@ -69,65 +69,6 @@ export async function deletedSubscription(
     .where(and(eq(users.id, userId), eq(users.subscriptionId, subscription.id)))
 }
 
-// export async function activePlan(
-//   orm: DrizzleD1Database<any>,
-//   userId: string,
-//   paymentGatewayCustomerId: string,
-//   plan: PlanType,
-// ) {
-//   const user = (await orm.select().from(users).where(eq(users.id, userId))).at(0)
-
-//   if (!user)
-//     throw notFound(`User not found: ${userId}`)
-
-//   const expirationDate = now()
-
-//   if (user.free_trial_used === 0)
-//     expirationDate.setDate(expirationDate.getDate() + 7)
-//   else
-//     expirationDate.setMonth(expirationDate.getMonth() + 1)
-
-//   await orm
-//     .update(users)
-//     .set({
-//       plan: plan.lookupKey,
-//       payment_gateway_customer_id: paymentGatewayCustomerId,
-//       plan_expires: expirationDate.toISOString(),
-//       free_trial_used: 1,
-//     })
-//     .where(eq(users.id, userId))
-// }
-
-// export async function cancelSubscription(
-//   orm: DrizzleD1Database<any>,
-//   paymentGatewayCustomerId: string,
-// ) {
-//   await orm
-//     .update(users)
-//     .set({
-//       plan: null,
-//       payment_gateway_customer_id: null,
-//       plan_expires: null,
-//     })
-//     .where(eq(users.payment_gateway_customer_id, paymentGatewayCustomerId))
-// }
-
-// export async function updateSubscription(
-//   orm: DrizzleD1Database<any>,
-//   paymentGatewayCustomerId: string,
-//   planExpiresAt?: string,
-// ) {
-//   const values: SQLiteUpdateSetSource<typeof users> = {}
-
-//   if (planExpiresAt)
-//     values.plan_expires = planExpiresAt
-
-//   await orm
-//     .update(users)
-//     .set(values)
-//     .where(eq(users.payment_gateway_customer_id, paymentGatewayCustomerId))
-// }
-
 export async function pauseStripeSubscription(stripe: Stripe, subscriptionId: string) {
   try {
     await stripe.subscriptions.update(subscriptionId, {
@@ -143,33 +84,34 @@ export async function pauseStripeSubscription(stripe: Stripe, subscriptionId: st
   }
 }
 
-// export async function resumeSubscription(stripe: Stripe, subscriptionId: string) {
-//   try {
-//     await stripe.subscriptions.update(subscriptionId, {
-//       pause_collection: null,
-//     })
-//   }
-//   catch (_e) {
-//     const _ = _e
-//     throw internal('Error resuming subscription')
-//   }
-// }
-
-export async function getCheckoutStatus(stripe: Stripe, user?: User | null) {
+export async function getStatus(stripe: Stripe, user?: User | null) {
   if (!user || !user?.checkoutId) {
     return null
   }
 
-  const checkout = await stripe.checkout.sessions.retrieve(user.checkoutId)
+  const checkout = await stripe.checkout.sessions.retrieve(user.checkoutId, {
+    expand: ['subscription'],
+  })
+  const subscription = checkout.subscription as Stripe.Subscription
+  const subscriptionStatus = SubscriptionStatus[subscription?.status || '']
 
   if (checkout.status === 'complete') {
-    return 'complete'
+    return {
+      checkoutStatus: 'complete' as CheckoutStatus,
+      subscriptionStatus,
+    }
   }
-  else if (checkout.status === 'open' && user.subscriptionStatus === SubscriptionStatus.not_subscribed) {
-    return 'open'
+  else if (checkout.status === 'open' && !user.subscriptionId) {
+    return {
+      checkoutStatus: 'open' as CheckoutStatus,
+      subscriptionStatus: SubscriptionStatus.not_subscribed,
+    }
   }
 
-  return null
+  return {
+    checkoutStatus: null as CheckoutStatus,
+    subscriptionStatus,
+  }
 }
 
 export async function getPrice(stripe: Stripe, planSettings: PlanSettings) {

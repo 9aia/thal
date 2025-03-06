@@ -7,6 +7,7 @@ description: Tasks and items for the release.
 - Use `freeTrialUsed` flag to solve dup free trial
 - Deal with expired plan on client
 - Deal with expired plan on the server (should have a plan and not expired to be allowed to use)
+- Translate
 
 ## 0.1.0-6
 

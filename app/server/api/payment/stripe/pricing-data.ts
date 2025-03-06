@@ -1,6 +1,5 @@
 import { PLANS } from '~/constants/payment'
-import { getCheckoutStatus, getPrice } from '~/server/services/plan'
-import type { CheckoutStatus } from '~/types'
+import { getPrice, getStatus } from '~/server/services/plan'
 import { internal } from '~/utils/nuxt'
 import { getStripe } from '~/utils/stripe'
 
@@ -14,10 +13,11 @@ export default eventHandler(async (event) => {
 
   const price = await getPrice(stripe, PLANS.allInOne)
   const user = event.context.user
-  const checkoutStatus: CheckoutStatus = await getCheckoutStatus(stripe, user)
+  const status = await getStatus(stripe, user)
 
   return {
-    checkoutStatus,
+    checkoutStatus: status?.checkoutStatus,
+    subscriptionStatus: status?.subscriptionStatus,
     price,
   }
 })

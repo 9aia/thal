@@ -123,7 +123,7 @@ const trialPeriodDays = PLANS.allInOne.trialPeriodDays
             </p>
 
             <div class="flex flex-col items-center justify-center h-fit mt-4 gap-2">
-              <StripeCreateSessionForm :checkout-status="data?.checkoutStatus || null" />
+              <StripeCreateSessionForm :checkout-status="data?.checkoutStatus || null" :subscription-status="data?.subscriptionStatus" />
 
               <div class="text-blue-500 text-xs flex mt-2 justify-center text-center">
                 <div>{{ t("Thal is in preview. We're not actually charging for access.") }}</div>

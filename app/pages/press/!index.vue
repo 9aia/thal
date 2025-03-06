@@ -9,8 +9,8 @@ const {
   isLoading,
   isError,
   refetch,
-} = await useServerQuery(`/api/payment/stripe/checkout-status`, {
-  queryKey: queryKeys.checkoutStatus,
+} = await useServerQuery(`/api/payment/stripe/status`, {
+  queryKey: queryKeys.stripeStatus,
 })
 </script>
 
@@ -53,7 +53,7 @@ const {
             </template>
 
             <template #default>
-              <StripeCreateSessionForm :checkout-status="data?.checkoutStatus || null" class="flex items-center justify-center" />
+              <StripeCreateSessionForm :checkout-status="data?.checkoutStatus || null" :subscription-status="data?.subscriptionStatus" class="flex items-center justify-center" />
             </template>
           </Resource>
 
