@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useFieldError, useFieldValue, useForm } from 'vee-validate'
-import { T, useI18n } from '@psitta/vue'
+import { T } from '@psitta/vue'
 
-const { t } = useI18n()
+const { t } = useI18nExperimental()
 
 const formDeleteUserRef = ref<HTMLFormElement>()
 

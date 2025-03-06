@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useI18n } from '@psitta/vue'
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { useDebounceFn } from '@vueuse/core'
 import { useForm } from 'vee-validate'
@@ -16,7 +15,7 @@ useAutoRedirect({
   query: { drawer: ['save'] },
 })
 
-const { t } = useI18n()
+const { t } = useI18nExperimental()
 const toast = useToast()
 const queryClient = useQueryClient()
 

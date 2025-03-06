@@ -1,10 +1,9 @@
-import { useI18n } from '@psitta/vue'
 import { useAsyncState, useDevicesList, useUserMedia } from '@vueuse/core'
 
 const toast = useToast()
 
 function useTranscription(text: MaybeRef) {
-  const { t } = useI18n()
+  const { t } = useI18nExperimental()
 
   const { audioInputs } = useDevicesList({
     requestPermissions: true,

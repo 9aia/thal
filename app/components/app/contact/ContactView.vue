@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useQuery } from '@tanstack/vue-query'
-import { useI18n } from '@psitta/vue'
 import { contactViewUsername, manageContact, rightDrawer, rightDrawers } from '~/store'
 import { categories } from '~/constants/discover'
 import queryKeys from '~/queryKeys'
@@ -20,7 +19,7 @@ const {
   enabled: computed(() => !!username.value),
 })
 
-const { t } = useI18n()
+const { t } = useI18nExperimental()
 
 const { displayName, hasContact, avatarName, addContact } = useContactInfo(data)
 const clearChat = useClearChat(username)

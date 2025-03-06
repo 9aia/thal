@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useI18n } from '@psitta/vue'
 import { useQueryClient } from '@tanstack/vue-query'
 import { useDebounceFn } from '@vueuse/core'
 import { useForm } from 'vee-validate'
@@ -11,7 +10,7 @@ import queryKeys from '~/queryKeys'
 const emit = defineEmits<{
   (e: 'close'): void
 }>()
-const { t } = useI18n()
+const { t } = useI18nExperimental()
 const toast = useToast()
 
 useAutoRedirect({

@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { useI18n } from '@psitta/vue'
 import { drawers } from '~/store'
 
 const emit = defineEmits<{
@@ -10,7 +9,7 @@ useAutoRedirect({
   query: { drawer: ['profile'] },
 })
 
-const { t } = useI18n()
+const { t } = useI18nExperimental()
 
 const user = useUser()
 </script>

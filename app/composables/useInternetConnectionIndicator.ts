@@ -1,9 +1,8 @@
 import { useOnline } from '@vueuse/core'
-import { useI18n } from '@psitta/vue'
 import { watch } from 'vue'
 
 export default function useInternetConnectionIndicator() {
-  const { t } = useI18n()
+  const { t } = useI18nExperimental()
 
   const isOnline = useOnline()
   const toast = useToast()

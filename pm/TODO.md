@@ -14,22 +14,17 @@ description: Tasks and items for the release.
 - Translate character data to english
   - Action to translate character data
 - Add moderation
-  - Add community guidelines link to the "Character Builder", chats and settings
-  - Give safety feedback on character create/edit
   - Give safety feedback on message send/receive
-  - Give safety feedback on fields
-  - Add safety inflation flags and strikes
-    - Assigning each user a unique ID and imposing a limit on the volume of user queries that can be submitted in a given period
+  - Give safety feedback on character create/edit
+  - Add community guidelines link to the "Character Builder", chats and settings
 - Fix last dropdown position
-- Fix DB on build pre-render
-- Check LocaleModal toast translation
 - Infinite scroll not working on big screens in Discover characters
-- Polish design system
 
 ## 0.1.0-7
 
-- Update terms adding community guidelines (character management and messaging)
 - Update terms and privacy policy
+  - Update terms adding community guidelines (character management and messaging)
   - Update terms to include info about price changing and inform cancel anytime before the trial ends to avoid charges
-- Require users to re-accept the privacy or terms when changed
+  - Require users to re-accept the privacy or terms when changed
 - Add more characters pre-created
+- Polish design system

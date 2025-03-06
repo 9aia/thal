@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useI18n } from '@psitta/vue'
 import { tv } from 'tailwind-variants'
 
 const props = defineProps<{
@@ -13,7 +12,7 @@ const emit = defineEmits<{
   ): void
 }>()
 
-const { t } = useI18n()
+const { t } = useI18nExperimental()
 
 const pronounce = useTranscription(props.text)
 

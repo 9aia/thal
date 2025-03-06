@@ -2,7 +2,6 @@
 import type { FetchError } from 'ofetch'
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { useEventListener, useOnline, useScroll } from '@vueuse/core'
-import { useI18n } from '@psitta/vue'
 import AppLayout from '~/layouts/app.vue'
 import queryKeys from '~/queryKeys'
 import { chatItemSearch, isExpiredModalOpen, replies, sendingChatIds, sentErrorChatIds } from '~/store'
@@ -11,7 +10,7 @@ import type { ChatItem } from '~/types'
 const route = useRoute()
 const toast = useToast()
 
-const { t } = useI18n()
+const { t } = useI18nExperimental()
 
 definePageMeta({
   layout: false,

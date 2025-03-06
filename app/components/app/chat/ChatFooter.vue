@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { useMagicKeys, useOnline } from '@vueuse/core'
 import { useQueryClient } from '@tanstack/vue-query'
-import { useI18n } from '@psitta/vue'
 import { useEventListener } from '@vueuse/core/index.cjs'
 import { contentEditableRef, replies, sendingChatIds, sentErrorChatIds } from '~/store'
 import queryKeys from '~/queryKeys'
@@ -20,7 +19,7 @@ const text = defineModel<string>({
 
 const queryClient = useQueryClient()
 
-const { t } = useI18n()
+const { t } = useI18nExperimental()
 const route = useRoute()
 
 const username = computed(() => route.params.username as string)

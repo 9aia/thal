@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { T, t } from '@psitta/vue'
+import { t } from '@psitta/vue'
 
 definePageMeta({
   title: 'Checkout canceled',

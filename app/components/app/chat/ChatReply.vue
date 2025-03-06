@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useQueryClient } from '@tanstack/vue-query'
-import { useI18n } from '@psitta/vue'
 import queryKeys from '~/queryKeys'
 
 const props = defineProps<{
@@ -10,7 +9,7 @@ const props = defineProps<{
   username: string
 }>()
 
-const { t } = useI18n()
+const { t } = useI18nExperimental()
 
 function highlightBubble(bubble: any) {
   // Reset animation

@@ -1,11 +1,10 @@
-import { useI18n } from '@psitta/vue'
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
 
 export default function useClearChat(username: MaybeRef<string | undefined>) {
   const queryClient = useQueryClient()
   const toast = useToast()
-  const { t } = useI18n()
+  const { t } = useI18nExperimental()
 
   const {
     mutate,

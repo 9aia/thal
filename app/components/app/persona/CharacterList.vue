@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { useI18n } from '@psitta/vue'
 import { refDebounced } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import { categories } from '~/constants/discover'
 import queryKeys from '~/queryKeys'
 import { buildPersona } from '~/store'
 
-const { t } = useI18n()
+const { t } = useI18nExperimental()
 const form = useForm({
   initialValues: { search: '' },
 })

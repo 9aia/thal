@@ -35,6 +35,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## Bugs
 
+- Fix DB on build pre-render
 - Lower every username comparison
 - Fix listening to long messages
 - Use a single table for user and character usernames
@@ -91,6 +92,10 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Paginate contact and chat search
 
 ## Legal
+
+- Give safety feedback on fields
+- Add safety inflation flags and strikes
+  - Assigning each user a unique ID and imposing a limit on the volume of user queries that can be submitted in a given period
 
 ## DX
 

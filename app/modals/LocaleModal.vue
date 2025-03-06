@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
 import { detectLocaleFromPathname, getConfig } from '@psitta/core'
-import { useI18n } from '@psitta/vue'
 import { LOCALES } from '~/constants/base'
 
 const { defaultLocale } = getConfig()
 
-const { t } = useI18n()
+const { t } = useI18nExperimental()
 const toast = useToast()
 
 const form = useForm<Record<string, string>>()

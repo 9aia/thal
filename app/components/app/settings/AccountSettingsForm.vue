@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { useDebounceFn } from '@vueuse/core'
 import { useForm } from 'vee-validate'
-import { useI18n } from '@psitta/vue'
 import { useQueryClient } from '@tanstack/vue-query'
 import type { User } from '~~/db/schema'
 import { nameSchema, pronounsSchema, usernameSchema } from '~~/db/schema'
 import type { MenuItem } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
 
-const { t } = useI18n()
+const { t } = useI18nExperimental()
 const toast = useToast()
 
 const user = useUser()

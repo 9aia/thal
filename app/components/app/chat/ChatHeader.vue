@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { useI18n } from '@psitta/vue'
 import { manageContact, openContactView } from '~/store'
 import type { MenuItem } from '~/components/ui/navigation/types'
 
@@ -12,7 +11,7 @@ const props = defineProps<{
   addContact: () => void
 }>()
 
-const { t } = useI18n()
+const { t } = useI18nExperimental()
 const copyUrl = useCopyUrl()
 const clearChat = useClearChat(toRef(() => props.username))
 

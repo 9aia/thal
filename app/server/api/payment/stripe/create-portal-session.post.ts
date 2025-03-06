@@ -1,5 +1,5 @@
 import { getAppUrl } from '~/utils/h3'
-import { internal, notFound } from '~/utils/nuxt'
+import { internal } from '~/utils/nuxt'
 import { getStripe } from '~/utils/stripe'
 
 export default eventHandler(async (event) => {

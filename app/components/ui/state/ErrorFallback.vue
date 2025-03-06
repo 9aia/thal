@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { T, useI18n } from '@psitta/vue'
+import { T } from '@psitta/vue'
 
 defineProps<{
   loading?: boolean
@@ -11,7 +11,7 @@ const emit = defineEmits<{
   (e: 'retry'): void
 }>()
 
-const { t } = useI18n()
+const { t } = useI18nExperimental()
 </script>
 
 <template>

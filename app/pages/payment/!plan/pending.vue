@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { refAutoReset } from '@vueuse/core'
-import { T, useI18n } from '@psitta/vue'
+import { T } from '@psitta/vue'
 import Link from '~/components/ui/navigation/Link.vue'
 
 definePageMeta({
@@ -11,7 +11,7 @@ definePageMeta({
 useAutoRedirect()
 
 const toast = useToast()
-const { t } = useI18n()
+const { t } = useI18nExperimental()
 
 const disabled = refAutoReset(false, 3000)
 

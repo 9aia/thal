@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { useI18n } from '@psitta/vue'
 import { useMutation } from '@tanstack/vue-query'
 import { currentPlayingMessage } from '~/store'
 
 const props = defineProps<{
   text: string
 }>()
-const { t } = useI18n()
+const { t } = useI18nExperimental()
 const toast = useToast()
 
 const el = ref<HTMLElement | null>(null)

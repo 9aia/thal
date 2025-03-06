@@ -1,8 +1,6 @@
-import { useI18n } from '@psitta/vue'
-
 function useLogout() {
   const toast = useToast()
-  const { t } = useI18n()
+  const { t } = useI18nExperimental()
   const user = useUser()
 
   const logout = async () => {

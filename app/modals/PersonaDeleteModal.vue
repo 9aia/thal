@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useFieldError, useFieldValue, useForm } from 'vee-validate'
-import { T, useI18n } from '@psitta/vue'
+import { T } from '@psitta/vue'
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import type { Persona } from '~/types'
 import queryKeys from '~/queryKeys'
@@ -9,7 +9,7 @@ const props = defineProps<{
   persona?: Persona
 }>()
 
-const { t } = useI18n()
+const { t } = useI18nExperimental()
 const queryClient = useQueryClient()
 
 const isOpen = defineModel({ default: false })

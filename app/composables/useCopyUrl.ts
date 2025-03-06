@@ -1,8 +1,6 @@
-import { useI18n } from '@psitta/vue'
-
 function useCopyUsername() {
   const toast = useToast()
-  const { t } = useI18n()
+  const { t } = useI18nExperimental()
 
   return async () => {
     try {

@@ -1,8 +1,6 @@
-import { useI18n } from '@psitta/vue'
-
 function useClipboard(text: MaybeRef<string | undefined>) {
   const toast = useToast()
-  const { t } = useI18n()
+  const { t } = useI18nExperimental()
 
   return async () => {
     if (!navigator.clipboard)

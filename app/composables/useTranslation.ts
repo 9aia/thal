@@ -1,4 +1,3 @@
-import { useI18n } from '@psitta/vue'
 import { useQuery } from '@tanstack/vue-query'
 
 export type Translation = ReturnType<typeof useTranslation>
@@ -30,7 +29,7 @@ function useTranslation({ message, replyMessageId, chatUsername, toNative = true
   })
 
   const toast = useToast()
-  const { t } = useI18n()
+  const { t } = useI18nExperimental()
 
   watch(translationQuery.error, (value) => {
     if (!value) {
