@@ -10,8 +10,6 @@ description: Tasks and items for the release.
 
 ## 0.1.0-6
 
-- Translate character data to English
-  - Action to translate character data
 - Fix last dropdown position
 - Add moderation
   - Give safety feedback on message send/receive
@@ -27,3 +25,8 @@ description: Tasks and items for the release.
 
 - Set GCP OAuth screen to be prod instead of testing (needs to verify app)
 - Set Stripe to be prod instead of testing
+
+## 0.1.0-7
+
+- Translate character data to English
+  - Action to translate character data
