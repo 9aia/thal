@@ -7,6 +7,7 @@ description: A collection of ideas and feedback from stakeholders or team member
 ## Features
 
 - Share chat from message, and continue
+- Get a custom domain
 - Add bot difficulty (basic, intermediate, advanced)
   - Discover with filter by difficulty?
   - Set difficulty automatically

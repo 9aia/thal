@@ -13,70 +13,64 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 - Implement basic analytics to track user engagement and app performance
 - Add language drawer containing UI language and translation settings
-- Set meta tags for each page
 - Message/AI rate in trial instead of time
 - Message/AI rate in price
 - Add character unique voices
 - Add English locale preference (eg. US or UK)
 - Add native language preference (eg. BR or PT)
 - Add config for time
-- Add date stamps in chat
-- Add unread badge
 - Add a deleted/non-existent section in contacts
 - Add character search results to chat and contact search
 - Add delete character action
-- Add chat action for deleting it
+- Add chat item option "Mark as unread", "Delete chat"
+- Add date stamps in chat
 - Add dark theme
-- Add character rating (unrated, teen, mature, everyone)
-- Add media messages support, such as audio and picture
+- Add unread badge
 - Add multiple message TTS player
 - Add character knowledge
+- Add media messages support, such as audio and picture
 - Add calls
 
 ## Bugs
 
 - Fix DB on build pre-render
 - Lower every username comparison
-- Fix listening to long messages
 - Use a single table for user and character usernames
+- Fix listening to long messages
 - Rewrite left joins using Query API
 - Fix what's new indicator
 - Fix go-to-bottom button position after chat clearing
 - Fix sign-in back redirect with drawers after closing them
 - Avoid breaking layout in chat item when last message is too long
-- Replace web modal API
-- Improve HTML rendering/TTS
-- Handle HTML in input/messages
-- Don't consider long context
-- Fix locale change routing (remove `/{locale}` from `/app`)
-  - Use locale param in site routes
+- Handle longer contexts
+- Fix locale change routing (remove `/{locale}` from `/app`), but keep locale param in site routes
 - Allow users to use only one session
 - Handle invalid sessions
 - Warn Clipboard API not allowed
+- Replace web modal API
+- Improve HTML rendering/TTS
+- Handle HTML in input/messages
 
 ## Enhancements
 
-- Update meta-tags
+- Set meta tags for each page
 - Open chat list on mobile always
-- Improve chat loading by rendering the skeleton on the backend and the message on the client
-  - Improve chat loading and error state fallbacks
 - Add button to create character in the discover characters page (aside of search field)
 - Save in-progress state
 - Turn sign-in page into a modal
 - Add confirmation modal on chat clear
-- ---
-- Change forms to another platform that supports localization
-- ---
-- Add loading splashscreen for hydration, data loading, etc
-- Improve a11y
-- ---
 - Add character search to new-chat view search
 - ---
-- Improve stability by handling API errors gracefully
+- Add loading splashscreen for hydration, data loading, etc
+- ---
+- Improve a11y
 - Improve error handling
 - Improve loading handling
-- Update README and docs
+  - Improve chat loading by rendering the skeleton on the backend and the message on the client
+  - Improve chat loading and error state fallbacks
+- Update docs
 - ---
+- Change forms to another platform that supports localization
 - Add custom payment pages
 - Improve scroll look and feel
 
@@ -93,6 +87,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## Legal
 
+- Add character rating (unrated, teen, mature, everyone)
 - Give safety feedback on fields
 - Add safety inflation flags and strikes
   - Assigning each user a unique ID and imposing a limit on the volume of user queries that can be submitted in a given period

@@ -4,29 +4,35 @@ description: Tasks and items for the release.
 
 # TODO
 
-- Fix custom CTAs based on checkout and subscription status
-- Deal with expired plan on client
-- Deal with expired plan on the server (should have a plan and not expired to be allowed to use)
+## 0.1.0-6 (Next Pre-Minor)
 
-## 0.1.0-6
-
-- Fix last dropdown position
-- Add moderation
-  - Give safety feedback on message send/receive
-  - Give safety feedback on character create/edit
-  - Add community guidelines link to the "Character Builder", chats and settings
-- Update terms and privacy policy
-  - Update terms adding community guidelines (character management and messaging)
-  - Update terms to include info about price changing and inform cancel anytime before the trial ends to avoid charges
-  - Require users to re-accept the privacy or terms when changed
-- Pre-create and set better characters
-- Polish design system
-- Translate
-
-- Set GCP OAuth screen to be prod instead of testing (needs to verify app)
-- Set Stripe to be prod instead of testing
+- Fix custom CTAs based on checkout and subscription status.
+- Handle expired plans on the client side.
+- Handle expired plans on the server (users must have an active, non-expired plan to access the app).
+- Refine the payment integration.
 
 ## 0.1.0-7
 
-- Translate character data to English
-  - Action to translate character data
+- Fix the positioning of the last dropdown on the "My Characters".
+- Block unsafe sending messages. Provide feedback indicating that the message is not allowed, and allow users to edit or remove the unsafe message before sending a new one.
+- Block unsafe receiving messages. Provide feedback indicating that the message is not allowed, and allow users to request a safer regeneration from the model.
+- Restrict character creation and editing based on Gemini safety. Provide feedback and allow users to revise their content.
+  - Add a link to the community guidelines (in the Terms) in the "Character Builder," chats, and settings.
+- Translate all content using Psitta, with manual improvements to translations.
+
+**Optional:**
+
+- Store character data in English in the database while keeping the user's normal content visible in the drawer.
+- Add an option to translate character data on the Discover page or in the character details drawer.
+
+## 0.1.0-8
+
+- Update the Terms and Privacy Policy:
+  - Include community guidelines (covering character management and messaging).
+  - Clarify pricing changes and inform users that they can cancel anytime before the trial ends to avoid charges.
+  - Require users to re-accept the Privacy Policy or Terms when updated.
+- Pre-create and refine default characters.
+- Improve the design system.
+- Update the README.
+- Set the GCP OAuth screen to production instead of testing (requires app verification).
+- Set Stripe to production instead of testing.
