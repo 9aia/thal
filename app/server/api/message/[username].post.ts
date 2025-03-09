@@ -7,7 +7,7 @@ import { getValidated } from '~/utils/h3'
 import { internal, notFound, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
 import { isPlanActive, isPlanPastDue } from '~/utils/plan'
 import type { MessageInsert } from '~~/db/schema'
-import { SubscriptionStatus, chats, contacts, lastMessages, messageSendSchema, messages, personaUsernames, usernameSchema } from '~~/db/schema'
+import { chats, contacts, lastMessages, messageSendSchema, messages, personaUsernames, usernameSchema } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const { GEMINI_API_KEY } = useRuntimeConfig(event)

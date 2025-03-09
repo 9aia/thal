@@ -3,7 +3,6 @@ import { drawers, isPastDueModalAlreadyShown, isPastDueModalOpen, isRootDrawerOp
 import { SubscriptionStatus } from '~~/db/schema'
 
 const user = useUser()
-const route = useRoute()
 
 onMounted(() => {
   const isPastDue = user.value?.subscriptionStatus === SubscriptionStatus.past_due

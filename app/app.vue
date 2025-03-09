@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { drawers, isPastDueModalOpen, isRootDrawerOpen } from '~/store'
 import './style.css'
-import { SubscriptionStatus } from '~~/db/schema'
 
 const { state: localeModalState } = useLocaleModal()
 const { state: whatsNewModalState } = useWhatsNewModal()

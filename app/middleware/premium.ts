@@ -1,5 +1,3 @@
-import { SubscriptionStatus } from '~~/db/schema'
-
 export default defineNuxtRouteMiddleware((event) => {
   const user = useUser()
 

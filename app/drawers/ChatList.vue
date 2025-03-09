@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/vue-query'
 import { watchDebounced } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import queryKeys from '~/queryKeys'
-import { chatItemSearch, drawers, isPastDueModalOpen, isRootDrawerOpen } from '~/store'
+import { chatItemSearch, drawers, isRootDrawerOpen } from '~/store'
 
 const emit = defineEmits<{
   (e: 'close'): void

@@ -4,7 +4,7 @@ import { now } from '~/utils/date'
 import { getValidated } from '~/utils/h3'
 import { badRequest, paymentRequired, unauthorized } from '~/utils/nuxt'
 import { isPlanPastDue } from '~/utils/plan'
-import { SubscriptionStatus, personaInsertSchema, personaUsernames, personas } from '~~/db/schema'
+import { personaInsertSchema, personaUsernames, personas } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const data = await getValidated(event, 'body', personaInsertSchema)
