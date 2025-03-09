@@ -6,6 +6,8 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+## [0.1.0-6] - 2025-03-09
+
 ### Features
 
 - Added overdue subscription app notes
