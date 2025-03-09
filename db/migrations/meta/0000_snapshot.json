@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "a991a573-1726-4a33-9248-32153d7c0e2b",
+  "id": "c732220e-50da-44a4-af5f-1a41e11f7e7f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "Chat": {
@@ -95,7 +95,8 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     },
     "Contact": {
       "name": "Contact",
@@ -175,7 +176,8 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     },
     "LastMessage": {
       "name": "LastMessage",
@@ -246,7 +248,8 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     },
     "Message": {
       "name": "Message",
@@ -325,7 +328,8 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     },
     "OAuthAccount": {
       "name": "OAuthAccount",
@@ -369,7 +373,8 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     },
     "PersonaUsername": {
       "name": "PersonaUsername",
@@ -421,7 +426,8 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     },
     "Persona": {
       "name": "Persona",
@@ -468,6 +474,21 @@
           "notNull": true,
           "autoincrement": false
         },
+        "category_id": {
+          "name": "category_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "discoverable": {
+          "name": "discoverable",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": true
+        },
         "creator_id": {
           "name": "creator_id",
           "type": "text",
@@ -493,7 +514,8 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     },
     "Session": {
       "name": "Session",
@@ -537,7 +559,8 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     },
     "User": {
       "name": "User",
@@ -600,28 +623,7 @@
         },
         "plan": {
           "name": "plan",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "payment_gateway_customer_id": {
-          "name": "payment_gateway_customer_id",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "payment_gateway_session_id": {
-          "name": "payment_gateway_session_id",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "plan_expires": {
-          "name": "plan_expires",
-          "type": "text",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
@@ -632,39 +634,40 @@
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false,
+          "default": false
+        },
+        "subscription_status": {
+          "name": "subscription_status",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
           "default": 0
         },
-        "location": {
-          "name": "location",
+        "subscription_id": {
+          "name": "subscription_id",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "goals": {
-          "name": "goals",
+        "stripe_customer_id": {
+          "name": "stripe_customer_id",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "profession": {
-          "name": "profession",
+        "checkout_id": {
+          "name": "checkout_id",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "hobbies": {
-          "name": "hobbies",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "observation": {
-          "name": "observation",
-          "type": "text",
+        "deactivated_at": {
+          "name": "deactivated_at",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
@@ -681,9 +684,11 @@
       },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     }
   },
+  "views": {},
   "enums": {},
   "_meta": {
     "schemas": {},

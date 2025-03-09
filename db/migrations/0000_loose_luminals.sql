@@ -9,6 +9,7 @@ CREATE TABLE `Chat` (
 	FOREIGN KEY (`contact_id`) REFERENCES `Contact`(`id`) ON UPDATE no action ON DELETE set null
 );
 --> statement-breakpoint
+CREATE UNIQUE INDEX `Chat_user_id_persona_username_id_unique` ON `Chat` (`user_id`,`persona_username_id`);--> statement-breakpoint
 CREATE TABLE `Contact` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`name` text NOT NULL,
@@ -19,6 +20,7 @@ CREATE TABLE `Contact` (
 	FOREIGN KEY (`user_id`) REFERENCES `User`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
+CREATE UNIQUE INDEX `Contact_user_id_persona_username_id_unique` ON `Contact` (`user_id`,`persona_username_id`);--> statement-breakpoint
 CREATE TABLE `LastMessage` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`chat_id` integer NOT NULL,
@@ -54,6 +56,7 @@ CREATE TABLE `PersonaUsername` (
 	FOREIGN KEY (`persona_id`) REFERENCES `Persona`(`id`) ON UPDATE no action ON DELETE set null
 );
 --> statement-breakpoint
+CREATE UNIQUE INDEX `PersonaUsername_username_unique` ON `PersonaUsername` (`username`);--> statement-breakpoint
 CREATE TABLE `Persona` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`name` text NOT NULL,
@@ -61,6 +64,8 @@ CREATE TABLE `Persona` (
 	`instructions` text NOT NULL,
 	`conversation_starters` text NOT NULL,
 	`created_at` text NOT NULL,
+	`category_id` integer NOT NULL,
+	`discoverable` integer DEFAULT true NOT NULL,
 	`creator_id` text,
 	FOREIGN KEY (`creator_id`) REFERENCES `User`(`id`) ON UPDATE no action ON DELETE no action
 );
@@ -81,19 +86,13 @@ CREATE TABLE `User` (
 	`picture` text,
 	`created_at` text NOT NULL,
 	`email` text,
-	`plan` text,
-	`payment_gateway_customer_id` text,
-	`payment_gateway_session_id` text,
-	`plan_expires` text,
-	`free_trial_used` integer DEFAULT 0,
-	`location` text,
-	`goals` text,
-	`profession` text,
-	`hobbies` text,
-	`observation` text
+	`plan` integer,
+	`free_trial_used` integer DEFAULT false,
+	`subscription_status` integer DEFAULT 0,
+	`subscription_id` text,
+	`stripe_customer_id` text,
+	`checkout_id` text,
+	`deactivated_at` integer
 );
 --> statement-breakpoint
-CREATE UNIQUE INDEX `Chat_user_id_persona_username_id_unique` ON `Chat` (`user_id`,`persona_username_id`);--> statement-breakpoint
-CREATE UNIQUE INDEX `Contact_user_id_persona_username_id_unique` ON `Contact` (`user_id`,`persona_username_id`);--> statement-breakpoint
-CREATE UNIQUE INDEX `PersonaUsername_username_unique` ON `PersonaUsername` (`username`);--> statement-breakpoint
 CREATE UNIQUE INDEX `User_username_unique` ON `User` (`username`);

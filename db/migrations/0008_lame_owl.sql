@@ -1,1 +1,0 @@
-ALTER TABLE `User` ADD `free_trial_used` integer DEFAULT 0;

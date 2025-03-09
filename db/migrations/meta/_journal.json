@@ -5,64 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1731720773980,
-      "tag": "0000_charming_goliath",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1733972589464,
-      "tag": "0001_dapper_wild_pack",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "6",
-      "when": 1734054029668,
-      "tag": "0002_fixed_jack_flag",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "6",
-      "when": 1734726911039,
-      "tag": "0003_shiny_sabra",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "6",
-      "when": 1735965099432,
-      "tag": "0004_chief_triton",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "6",
-      "when": 1736226922213,
-      "tag": "0005_majestic_bloodstorm",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "6",
-      "when": 1740361533250,
-      "tag": "0006_rainy_gargoyle",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "6",
-      "when": 1740367692289,
-      "tag": "0007_purple_changeling",
-      "breakpoints": true
-    },
-    {
-      "idx": 8,
-      "version": "6",
-      "when": 1741221438835,
-      "tag": "0008_lame_owl",
+      "when": 1741492615355,
+      "tag": "0000_loose_luminals",
       "breakpoints": true
     }
   ]
