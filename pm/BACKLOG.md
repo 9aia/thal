@@ -54,6 +54,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 ## Enhancements
 
 - Set meta tags for each page
+- Pass user name to Stripe from Google account
 - Open chat list on mobile always
 - Add button to create character in the discover characters page (aside of search field)
 - Save in-progress state

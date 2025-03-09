@@ -34,6 +34,7 @@ description: A detailed, chronological record of all changes made to a project, 
 ### Performance
 
 - Changed DB plan type to int
+- Merged pricing query with checkout status query
 
 ### DX
 

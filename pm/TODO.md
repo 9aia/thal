@@ -4,12 +4,6 @@ description: Tasks and items for the release.
 
 # TODO
 
-## 0.1.0-6 (Next Pre-Minor)
-
-- Fix custom CTAs based on checkout and subscription status.
-- Fix restart subscription action
-- Test payment integration
-
 ## 0.1.0-7
 
 - Fix "My Characters" item dropdown

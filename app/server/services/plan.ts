@@ -97,35 +97,25 @@ export async function pauseStripeSubscription(stripe: Stripe, subscriptionId: st
   }
 }
 
-export async function getStatus(stripe: Stripe, user?: User | null) {
+export async function getCheckoutStatus(stripe: Stripe, user?: User | null) {
   if (!user) {
-    return {
-      checkoutStatus: null as CheckoutStatus,
-    }
+    return null as CheckoutStatus
   }
 
   if (!user.checkoutId) {
-    return {
-      checkoutStatus: null as CheckoutStatus,
-    }
+    return null as CheckoutStatus
   }
 
   const checkout = await stripe.checkout.sessions.retrieve(user.checkoutId)
 
   if (checkout.status === 'complete') {
-    return {
-      checkoutStatus: 'complete' as CheckoutStatus,
-    }
+    return 'complete' as CheckoutStatus
   }
   else if (checkout.status === 'open' && !user.subscriptionId) {
-    return {
-      checkoutStatus: 'open' as CheckoutStatus,
-    }
+    return 'open' as CheckoutStatus
   }
 
-  return {
-    checkoutStatus: null as CheckoutStatus,
-  }
+  return null as CheckoutStatus
 }
 
 export async function getPrice(stripe: Stripe, planSettings: PlanSettings) {

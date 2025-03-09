@@ -5,7 +5,6 @@ import queryKeys from '~/queryKeys'
 import { SubscriptionStatus } from '~~/db/schema'
 
 const locale = useLocale()
-const user = useUser()
 
 const {
   data,
@@ -14,6 +13,7 @@ const {
   refetch,
 } = await useServerQuery(`/api/payment/stripe/pricing-data`, {
   queryKey: queryKeys.pricingData,
+  staleTime: 0,
 })
 
 const price = computed(() => {
@@ -125,7 +125,7 @@ const trialPeriodDays = PLANS.allInOne.trialPeriodDays
             </p>
 
             <div class="flex flex-col items-center justify-center h-fit mt-4 gap-2">
-              <StripeCreateSessionForm :checkout-status="data?.checkoutStatus || null" :subscription-status="user?.subscriptionStatus || SubscriptionStatus.not_subscribed" />
+              <StripeCreateSessionForm :checkout-status="data?.checkoutStatus || null" :subscription-status="data?.subscriptionStatus || SubscriptionStatus.not_subscribed" />
 
               <div class="text-blue-500 text-xs flex mt-2 justify-center text-center">
                 <div>{{ t("Thal is in preview. We're not actually charging for access.") }}</div>

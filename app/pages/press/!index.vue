@@ -5,15 +5,14 @@ import { SubscriptionStatus } from '~~/db/schema'
 
 useAutoRedirect()
 
-const user = useUser()
-
 const {
   data,
   isLoading,
   isError,
   refetch,
-} = await useServerQuery(`/api/payment/stripe/status`, {
-  queryKey: queryKeys.stripeStatus,
+} = await useServerQuery(`/api/payment/stripe/pricing-data`, {
+  queryKey: queryKeys.pricingData,
+  staleTime: 0,
 })
 </script>
 
@@ -56,7 +55,7 @@ const {
             </template>
 
             <template #default>
-              <StripeCreateSessionForm :checkout-status="data?.checkoutStatus || null" :subscription-status="user?.subscriptionStatus || SubscriptionStatus.not_subscribed" class="flex items-center justify-center" />
+              <StripeCreateSessionForm :checkout-status="data?.checkoutStatus || null" :subscription-status="data?.subscriptionStatus || SubscriptionStatus.not_subscribed" class="flex items-center justify-center" />
             </template>
           </Resource>
         </div>

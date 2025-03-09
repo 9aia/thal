@@ -50,7 +50,7 @@ function onSubmit(event: Event) {
         {{ t('Continue Chatting') }}
       </template>
       <template v-else-if="subscriptionStatus === SubscriptionStatus.canceled">
-        {{ t('Restart Your Subscription Now') }}
+        {{ t('Renew Your Subscription Now') }}
       </template>
       <template v-else-if="subscriptionStatus === SubscriptionStatus.incomplete">
         {{ t('Check Your Subscription Now') }}
