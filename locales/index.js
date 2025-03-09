@@ -916,5 +916,29 @@
   },
   "Miscellaneous & Others": {
     "pt": "Diversos e Outros"
+  },
+  "Renew your overdue subscription to keep talking to thals.": {
+    "pt": "Renova sua assinatura vencida para continuar conversando com thals."
+  },
+  "Renew Thal": {
+    "pt": "Renovar Thal"
+  },
+  "Renew your overdue subscription to edit characters.": {
+    "pt": "Renova sua assinatura vencida para editar personagens."
+  },
+  "Renew your overdue subscription to create new characters.": {
+    "pt": "Renova sua assinatura vencida para criar novos personagens."
+  },
+  "Renew Your Subscription Now": {
+    "pt": "Renovar sua assinatura agora"
+  },
+  "Your Subscription is Overdue": {
+    "pt": "Sua assinatura está vencida"
+  },
+  "Your subscription has expired, and access to main features is currently paused. To continue enjoying uninterrupted learning, please renew your subscription.": {
+    "pt": "Sua assinatura expirou e o acesso aos recursos principais está atualmente pausado. Para continuar desfrutando de aprendizado ininterrupto, renove sua assinatura."
+  },
+  "Renew Now": {
+    "pt": "Renovar agora"
   }
 }
