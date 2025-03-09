@@ -6,6 +6,7 @@ description: Tasks and items for the release.
 
 ## 0.1.0-7
 
+- Save cookie for "Continue Your Access" after once logged
 - Fix "My Characters" item dropdown
 - Fix the positioning of the last dropdown on the "My Characters".
 - Block unsafe sending messages. Provide feedback indicating that the message is not allowed, and allow users to edit or remove the unsafe message before sending a new one.

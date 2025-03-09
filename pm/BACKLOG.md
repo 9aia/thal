@@ -55,6 +55,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 - Set meta tags for each page
 - Pass user name to Stripe from Google account
+- Create a custom 500 page for DB or critical errors instead of Nuxt default 500 page
 - Open chat list on mobile always
 - Add button to create character in the discover characters page (aside of search field)
 - Save in-progress state
