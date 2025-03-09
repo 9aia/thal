@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/vue-query'
 import { watchDebounced } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import queryKeys from '~/queryKeys'
-import { chatItemSearch, drawers, isRootDrawerOpen } from '~/store'
+import { chatItemSearch, drawers, isPastDueModalOpen, isRootDrawerOpen } from '~/store'
 
 const emit = defineEmits<{
   (e: 'close'): void
@@ -15,6 +15,8 @@ const form = useForm({
     search: '',
   },
 })
+
+const user = useUser()
 
 watchDebounced(toRef(form.values, 'search'), () => {
   chatItemSearch.value = form.values.search
@@ -34,9 +36,10 @@ const {
   },
 })
 
-const isNoteVisible = useCookie('isNoteVisible', {
+const isNoteVisibleCookie = useCookie('isNoteVisible', {
   default: () => true,
 })
+const isNoteVisible = ref(isNoteVisibleCookie.value)
 
 const lastSavedContentCount = useCookie('lastSavedContentCount', {
   default: () => 0,
@@ -77,6 +80,18 @@ function goToDiscover() {
   navigateTo('/app/discover')
   focusSearch({ immediate: true })
 }
+
+const isPastDueVisible = computed(() => {
+  if (!user.value) {
+    return false
+  }
+
+  return isPlanPastDue(user.value)
+})
+
+onMounted(() => {
+  isNoteVisibleCookie.value = false
+})
 </script>
 
 <template>
@@ -121,27 +136,34 @@ function goToDiscover() {
     </Navbar>
 
     <div class="flex-1 overflow-y-auto bg-white">
-      <div v-show="isNoteVisible" class="bg-gradient-1 px-3 py-2 flex items-center justify-between w-min-full">
-        <div class="flex items-center gap-2 w-full">
-          <div>
-            <div class="p-2 flex items-center justify-center">
-              <Icon name="waving_hand" class="text-gray-800" />
-            </div>
-          </div>
+      <AppNote
+        v-model="isNoteVisible"
+        icon-name="waving_hand"
+      >
+        <h2 class="text-lg text-gradient-2 w-fit">
+          {{ t('Welcome!') }}
+        </h2>
+      </AppNote>
 
-          <div class="flex flex-col w-full">
-            <h2 class="text-lg text-gradient-1 w-fit">
-              {{ t('Welcome!') }}
-            </h2>
-          </div>
+      <AppNote
+        :model-value="isPastDueVisible"
+        hide-close
+      >
+        <div class="flex justify-between items-center gap-2 w-full">
+          <h2 class="text-sm text-black">
+            <div>{{ t("Renew your overdue subscription to keep talking to thals.") }}</div>
+          </h2>
 
-          <div>
-            <button class="btn btn-md btn-ghost btn-circle" @click="isNoteVisible = false">
-              <Icon name="close" class="text-gray-800" />
-            </button>
-          </div>
+          <form action="/api/payment/stripe/create-portal-session" method="POST">
+            <Button size="xs" class="bg-yellow-500 rounded-full">
+              <span class="flex text-black items-center justify-center gap-1">
+                <Icon name="subscriptions" />
+                <span class="whitespace-nowrap">{{ t("Renew Thal") }}</span>
+              </span>
+            </Button>
+          </form>
         </div>
-      </div>
+      </AppNote>
 
       <div v-if="chats?.length" class="px-4 py-2">
         <SearchField
@@ -190,5 +212,17 @@ function goToDiscover() {
   -webkit-background-clip: text !important;
   background-clip: text !important;
   color: transparent !important;
+}
+
+.text-gradient-2 {
+  background: linear-gradient(50deg, theme('colors.red.500'), theme('colors.orange.500')) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+
+.border-gradient-1 {
+  @apply border-none bg-red-500 text-orange-500;
+  @apply bg-gray-50;
 }
 </style>

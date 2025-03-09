@@ -9,11 +9,11 @@ const modelValue = defineModel<boolean>()
   <Modal v-model="modelValue">
     <template #default>
       <h1 class="font-bold text-2xl mb-2 mt-4 text-gray-900">
-        {{ t("Your subscription expired!") }}
+        {{ t("Your Subscription is Overdue") }}
       </h1>
 
       <p class="font-gray-600 mb-4">
-        {{ t("You can manage your billing information to renew your subscription. Thank you for using our app!") }}
+        {{ t("Your subscription has expired, and access to main features is currently paused. To continue enjoying uninterrupted learning, please renew your subscription.") }}
       </p>
 
       <p class="text-sm text-gray-600 w-full flex items-start justify-start">
@@ -35,20 +35,12 @@ const modelValue = defineModel<boolean>()
 
     <template #actions>
       <div class="flex gap-4">
-        <A
-          href="/"
-          class="btn btn-sm rounded-full px-4 py-2"
-          @click="modelValue = false"
-        >
-          {{ t('Go to home') }}
-        </A>
-
         <form action="/api/payment/stripe/create-portal-session" method="post" class="flex gap-2">
           <Button
             type="submit"
             class="btn-primary"
           >
-            {{ t('Manage your billing information') }}
+            {{ t('Renew Now') }}
           </Button>
         </form>
       </div>

@@ -5,6 +5,7 @@ import type { MaybeRef, TextareaHTMLAttributes } from 'vue'
 import type { SafeProps } from '~/types'
 
 type Props = SafeProps<TextareaHTMLAttributes> & {
+  disabled?: boolean
   label?: string
   placeholder?: string
   error?: string
@@ -36,6 +37,7 @@ const { value, errorMessage, handleBlur } = useField(props.path, props.rules)
       v-model="value"
       class="textarea textarea-sm bg-gray-50 textarea-ghost h-40 leading-[1.6em] w-full resize-none"
       :placeholder="placeholder"
+      :disabled="disabled"
       @blur="handleBlur"
     />
 

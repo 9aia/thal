@@ -17,7 +17,7 @@ export default eventHandler(async (event) => {
 
   return {
     checkoutStatus: status?.checkoutStatus,
-    subscriptionStatus: status?.subscriptionStatus,
+    subscriptionStatus: user?.subscriptionStatus,
     price,
   }
 })

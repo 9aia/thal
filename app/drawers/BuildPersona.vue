@@ -28,6 +28,8 @@ watch(personaBuilderData, () => {
     form.resetForm()
 })
 
+const user = useUser()
+
 const hasErrors = useHasFormErrors(form)
 const loading = ref(false)
 const queryClient = useQueryClient()
@@ -144,6 +146,14 @@ const submit = form.handleSubmit(async (data) => {
   loading.value = false
 })
 
+const isPastDueVisible = computed(() => {
+  if (!user.value) {
+    return false
+  }
+
+  return isPlanPastDue(user.value)
+})
+
 const { mainField } = useBuildPersonaFocus()
 </script>
 
@@ -158,6 +168,32 @@ const { mainField } = useBuildPersonaFocus()
       </h1>
     </Navbar>
 
+    <AppNote
+      :model-value="isPastDueVisible"
+      hide-close
+    >
+      <div class="flex justify-between items-center gap-2 w-full">
+        <h2 class="text-sm text-black">
+          <div v-if="isEditing">
+            {{ t("Renew your overdue subscription to edit characters.") }}
+          </div>
+
+          <div v-else>
+            {{ t("Renew your overdue subscription to create new characters.") }}
+          </div>
+        </h2>
+
+        <form action="/api/payment/stripe/create-portal-session" method="POST">
+          <Button size="xs" class="bg-yellow-500 rounded-full">
+            <span class="flex text-black items-center justify-center gap-1">
+              <Icon name="subscriptions" />
+              <span class="whitespace-nowrap">{{ t("Renew Thal") }}</span>
+            </span>
+          </Button>
+        </form>
+      </div>
+    </AppNote>
+
     <div class="px-4 py-4 flex-1 overflow-y-auto bg-white space-y-4">
       <SettingSection :title="t('General Information')">
         <form class="block space-y-2" @submit="submit">
@@ -168,6 +204,7 @@ const { mainField } = useBuildPersonaFocus()
             :rules="yupify(nameSchema, t(
               'Name must contain between 1 and 20 characters.',
             ))"
+            :disabled="isPastDueVisible"
           />
           <TextField
             path="username"
@@ -176,10 +213,11 @@ const { mainField } = useBuildPersonaFocus()
             :label="t('Username')"
             :rules="yupify(usernameSchema, t('Username is invalid.'))"
             icon-position="right"
+            :disabled="isPastDueVisible"
           >
             <template #icon="{ errorMessage }">
               <Icon
-                :class="{ 'text-error': errorMessage, 'text-success': !errorMessage }"
+                :class="{ 'text-red-500': errorMessage, 'text-green-500': !errorMessage }"
                 :name="errorMessage ? 'close' : 'check'"
               />
             </template>
@@ -189,15 +227,17 @@ const { mainField } = useBuildPersonaFocus()
             path="description" :label="t('Description')" :rules="yupify(descriptionSchema, t(
               'Description must contain between 1 and 100 characters.',
             ))"
+            :disabled="isPastDueVisible"
           />
 
           <Textarea
             path="instructions" :label="t('Instructions')" :rules="yupify(instructionsSchema, t(
               'Instructions must contain between 1 and 500 characters.',
             ))"
+            :disabled="isPastDueVisible"
           />
 
-          <Checkbox path="discoverable" input-class="checkbox-primary">
+          <Checkbox path="discoverable" input-class="checkbox-primary" :disabled="isPastDueVisible">
             {{
               t('Discoverable')
             }}
@@ -205,7 +245,7 @@ const { mainField } = useBuildPersonaFocus()
 
           <div class="h-2" />
 
-          <Button :loading="loading" class="btn-primary" :disabled="hasErrors">
+          <Button :loading="loading" class="btn-primary" :disabled="hasErrors || isPastDueVisible">
             {{
               t("Save")
             }}

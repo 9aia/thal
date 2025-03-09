@@ -4,7 +4,8 @@ export const contentEditableRef = ref()
 
 /* Core */
 
-export const isExpiredModalOpen = ref(false)
+export const isPastDueModalOpen = ref(false)
+export const isPastDueModalAlreadyShown = ref(false)
 
 export const isRootDrawerOpen = ref(false)
 

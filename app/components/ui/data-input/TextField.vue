@@ -5,6 +5,7 @@ import type { InputHTMLAttributes, MaybeRef } from 'vue'
 import type { SafeProps } from '~/types'
 
 type Props = SafeProps<InputHTMLAttributes> & {
+  disabled?: boolean
   autocomplete?: string
   autocapitalize?: string
   label?: string
@@ -63,6 +64,7 @@ defineExpose({
         :autocomplete="autocomplete"
         :autocapitalize="autocapitalize"
         :placeholder="placeholder"
+        :disabled="disabled"
         :class="{
           'pr-12': iconPosition === 'right',
           'pl-12': iconPosition === 'left',

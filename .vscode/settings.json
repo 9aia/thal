@@ -22,6 +22,7 @@
     "README.md": "CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, LICENSE.md",
   },
   "editor.tabSize": 2,
+  "sqltools.sessionFilesFolder": "./db/sessions/",
   "sqltools.connections": [
     {
       "previewLimit": 50,

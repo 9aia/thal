@@ -4,6 +4,7 @@ import { getValidated } from '~/utils/h3'
 import { forbidden, notFound, paymentRequired, unauthorized } from '~/utils/nuxt'
 import { SubscriptionStatus, personaUpdateSchema, personaUsernames, personas, usernameSchema } from '~~/db/schema'
 import { categorizePersona } from '~/server/services/persona'
+import { isPlanPastDue } from '~/utils/plan'
 
 export default eventHandler(async (event) => {
   const { username } = await getValidated(event, 'params', z.object({ username: usernameSchema }))
@@ -14,7 +15,7 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  if (user.subscriptionStatus === SubscriptionStatus.past_due) {
+  if (isPlanPastDue(user)) {
     throw paymentRequired()
   }
 

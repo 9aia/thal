@@ -65,7 +65,7 @@ const items: MenuItem[] = [
         class="flex right-0 absolute gap-1 py-1 bg-gradient-to-r from-transparent via-white to-white"
       >
         <div class="dropdown dropdown-end">
-          <button class="btn btn-circle btn-ghost text-gray-800">
+          <button class="btn btn-circle btn-ghost text-gray-800" @click.stop.prevent>
             <Icon>
               more_vert
             </Icon>

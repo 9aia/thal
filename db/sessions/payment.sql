@@ -1,10 +1,6 @@
--- @block Update plan expiration for all users
-
--- TODO
-
 -- @block Add fake plan for all users
 
--- TODO
+UPDATE User SET plan = "all_in_one", stripe_customer_id = "cus_RtFZSxcp1rinbu", subscription_id = "sub_1QzT9UD5fsebajlPH7TrOjKM", subscription_status = 1, checkout_id = "cs_test_a1Rbv8unArqKBlJ6lf7YJzpbPR1b2dV6FeRraTdPqOazVTjHpVX1uoO4cZ"
 
 -- @block Remove plan from all users
 

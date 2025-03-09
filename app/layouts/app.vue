@@ -1,5 +1,19 @@
 <script setup lang="ts">
-import { drawers, isRootDrawerOpen, rightDrawer } from '~/store'
+import { drawers, isPastDueModalAlreadyShown, isPastDueModalOpen, isRootDrawerOpen, rightDrawer } from '~/store'
+import { SubscriptionStatus } from '~~/db/schema'
+
+const user = useUser()
+const route = useRoute()
+
+onMounted(() => {
+  const isPastDue = user.value?.subscriptionStatus === SubscriptionStatus.past_due
+
+  if (isPastDue && !isPastDueModalAlreadyShown.value) {
+    isPastDueModalOpen.value = true
+  }
+
+  isPastDueModalAlreadyShown.value = isPastDue
+})
 </script>
 
 <template>

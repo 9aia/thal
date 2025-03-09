@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { useEventListener, useOnline, useScroll } from '@vueuse/core'
 import AppLayout from '~/layouts/app.vue'
 import queryKeys from '~/queryKeys'
-import { chatItemSearch, isExpiredModalOpen, replies, sendingChatIds, sentErrorChatIds } from '~/store'
+import { chatItemSearch, isPastDueModalOpen, replies, sendingChatIds, sentErrorChatIds } from '~/store'
 import type { ChatItem } from '~/types'
 
 const route = useRoute()
@@ -160,13 +160,19 @@ const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending
     const error = e as FetchError
 
     const errorStatus = error.response?.status
+    const errorMessage = await error.data?.message
 
     if (errorStatus === RATE_LIMIT_STATUS_CODE) {
       toast.error(t('You are sending messages too fast. Please wait a moment.'))
     }
 
     if (errorStatus === PAYMENT_REQUIRED_STATUS_CODE) {
-      isExpiredModalOpen.value = true
+      if (errorMessage === 'PAST_DUE') {
+        isPastDueModalOpen.value = true
+      }
+      else {
+        navigateTo('/pricing')
+      }
     }
 
     const newHistory = [...data.value.history || []]

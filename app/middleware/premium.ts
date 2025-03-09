@@ -6,18 +6,7 @@ export default defineNuxtRouteMiddleware((event) => {
   if (!user.value)
     return sendBackRedirect(event, '/sign-in')
 
-  if (user.value.subscriptionStatus === SubscriptionStatus.canceled) {
+  if (!isPlanActive(user.value)) {
     return sendBackRedirect(event, '/pricing')
-  }
-
-  const hasPlan = user.value.plan != null
-
-  if (hasPlan) {
-    if (user.value.subscriptionStatus === SubscriptionStatus.past_due && !event.query.past_due) {
-      return navigateTo({
-        path: event.path,
-        query: { ...event.query, past_due: 'true' },
-      })
-    }
   }
 })

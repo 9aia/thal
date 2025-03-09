@@ -7,12 +7,12 @@ description: Tasks and items for the release.
 ## 0.1.0-6 (Next Pre-Minor)
 
 - Fix custom CTAs based on checkout and subscription status.
-- Handle expired plans on the client side.
-- Handle expired plans on the server (users must have an active, non-expired plan to access the app).
-- Refine the payment integration.
+- Fix restart subscription action
+- Test payment integration
 
 ## 0.1.0-7
 
+- Fix "My Characters" item dropdown
 - Fix the positioning of the last dropdown on the "My Characters".
 - Block unsafe sending messages. Provide feedback indicating that the message is not allowed, and allow users to edit or remove the unsafe message before sending a new one.
 - Block unsafe receiving messages. Provide feedback indicating that the message is not allowed, and allow users to request a safer regeneration from the model.

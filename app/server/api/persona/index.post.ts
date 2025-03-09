@@ -3,6 +3,7 @@ import { categorizePersona } from '~/server/services/persona'
 import { now } from '~/utils/date'
 import { getValidated } from '~/utils/h3'
 import { badRequest, paymentRequired, unauthorized } from '~/utils/nuxt'
+import { isPlanPastDue } from '~/utils/plan'
 import { SubscriptionStatus, personaInsertSchema, personaUsernames, personas } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
@@ -14,7 +15,7 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  if (user.subscriptionStatus === SubscriptionStatus.past_due) {
+  if (isPlanPastDue(user)) {
     throw paymentRequired()
   }
 

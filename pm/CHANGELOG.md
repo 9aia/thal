@@ -6,6 +6,10 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Features
+
+- Added overdue subscription app notes
+
 ### Fixed
 
 - Fixed empty message checking before sending
@@ -13,6 +17,11 @@ description: A detailed, chronological record of all changes made to a project, 
 - Fixed homepage hero padding bottom
 - Fixed multiple message listening by interrupting the previous message
 - Fixed infinite scroll issue on the "Discover Characters" page
+- Fixed welcome app note behavior to remove cookie once seen
+- Disabled "Build Character" form when subscription has overdue
+- Deactivated character management and message sending when subscription has overdue
+- Redirected to pricing page when subscription has canceled
+- Fixed "My Characters" item click propagation
 
 ### Changed
 
@@ -20,6 +29,7 @@ description: A detailed, chronological record of all changes made to a project, 
 - Improved content
 - Improved payment pages
 - Animated category selection in CharacterList
+- Improved content of the overdue subscription modal
 
 ### Performance
 
@@ -57,7 +67,7 @@ description: A detailed, chronological record of all changes made to a project, 
 - Added character creation button to the bottom of the Discover Characters page
 - Added Discover Characters link to the chat list header
 - Added URL shortcuts for drawers
-- Added expired plan modal
+- Added overdue plan modal
 
 ### Changed
 
