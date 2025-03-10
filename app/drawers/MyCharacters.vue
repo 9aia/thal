@@ -64,7 +64,7 @@ function handleGoToChat(username: string) {
         </p>
       </div>
 
-      <div class="py-4 overflow-y-hidden">
+      <div class="py-4">
         <SettingSection :title="t('Characters')" title-class="px-4">
           <Teleport to="body">
             <PersonaDeleteModal

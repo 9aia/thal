@@ -6,6 +6,10 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed "My Characters" item dropdown positioning
+
 ## [0.1.0-6] - 2025-03-09
 
 ### Features

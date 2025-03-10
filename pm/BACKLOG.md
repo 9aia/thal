@@ -54,6 +54,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 ## Enhancements
 
 - Set meta tags for each page
+- Save cookie for "Continue Your Access" after once logged
 - Pass user name to Stripe from Google account
 - Create a custom 500 page for DB or critical errors instead of Nuxt default 500 page
 - Open chat list on mobile always

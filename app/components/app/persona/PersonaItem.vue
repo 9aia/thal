@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Menu } from '@ark-ui/vue/menu'
 import type { MenuItem } from '~/components/ui/navigation/types'
 import { categories } from '~/constants/discover'
 
@@ -64,15 +65,20 @@ const items: MenuItem[] = [
       <div
         class="flex right-0 absolute gap-1 py-1 bg-gradient-to-r from-transparent via-white to-white"
       >
-        <div class="dropdown dropdown-end">
-          <button class="btn btn-circle btn-ghost text-gray-800" @click.stop.prevent>
+        <Menu.Root>
+          <Menu.Trigger class="btn btn-circle btn-ghost text-gray-800" @click.stop.prevent>
             <Icon>
               more_vert
             </Icon>
-          </button>
-
-          <Menu :items="items" item-class="py-2" @click.stop.prevent />
-        </div>
+          </Menu.Trigger>
+          <Menu.Positioner>
+            <Menu.Content class="shadow-sm bg-base-100 rounded-box w-52 z-40 p-2">
+              <Menu.Item v-for="item in items" :key="item.id" :value="item.id" class="py-2 px-3 hover:bg-base-200 rounded-lg" @click.stop.prevent="item.onClick">
+                <MenuItem :is="item" />
+              </Menu.Item>
+            </Menu.Content>
+          </Menu.Positioner>
+        </Menu.Root>
       </div>
     </div>
   </div>
