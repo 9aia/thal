@@ -1,26 +1,47 @@
+CREATE TABLE `CharacterUsername` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`character_id` integer,
+	`username` text NOT NULL,
+	FOREIGN KEY (`character_id`) REFERENCES `Character`(`id`) ON UPDATE no action ON DELETE set null
+);
+--> statement-breakpoint
+CREATE UNIQUE INDEX `CharacterUsername_username_unique` ON `CharacterUsername` (`username`);--> statement-breakpoint
+CREATE TABLE `Character` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`name` text NOT NULL,
+	`description` text NOT NULL,
+	`instructions` text NOT NULL,
+	`conversation_starters` text NOT NULL,
+	`created_at` text NOT NULL,
+	`category_id` integer NOT NULL,
+	`discoverable` integer DEFAULT true NOT NULL,
+	`creator_id` text,
+	FOREIGN KEY (`creator_id`) REFERENCES `User`(`id`) ON UPDATE no action ON DELETE no action
+);
+--> statement-breakpoint
 CREATE TABLE `Chat` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`persona_username_id` integer NOT NULL,
+	`character_username_id` integer NOT NULL,
 	`user_id` text NOT NULL,
 	`contact_id` integer,
 	`created_at` text NOT NULL,
-	FOREIGN KEY (`persona_username_id`) REFERENCES `PersonaUsername`(`id`) ON UPDATE no action ON DELETE no action,
+	FOREIGN KEY (`character_username_id`) REFERENCES `CharacterUsername`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`user_id`) REFERENCES `User`(`id`) ON UPDATE no action ON DELETE cascade,
 	FOREIGN KEY (`contact_id`) REFERENCES `Contact`(`id`) ON UPDATE no action ON DELETE set null
 );
 --> statement-breakpoint
-CREATE UNIQUE INDEX `Chat_user_id_persona_username_id_unique` ON `Chat` (`user_id`,`persona_username_id`);--> statement-breakpoint
+CREATE UNIQUE INDEX `Chat_user_id_character_username_id_unique` ON `Chat` (`user_id`,`character_username_id`);--> statement-breakpoint
 CREATE TABLE `Contact` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`name` text NOT NULL,
-	`persona_username_id` integer NOT NULL,
+	`character_username_id` integer NOT NULL,
 	`user_id` text NOT NULL,
 	`created_at` text NOT NULL,
-	FOREIGN KEY (`persona_username_id`) REFERENCES `PersonaUsername`(`id`) ON UPDATE no action ON DELETE no action,
+	FOREIGN KEY (`character_username_id`) REFERENCES `CharacterUsername`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`user_id`) REFERENCES `User`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
-CREATE UNIQUE INDEX `Contact_user_id_persona_username_id_unique` ON `Contact` (`user_id`,`persona_username_id`);--> statement-breakpoint
+CREATE UNIQUE INDEX `Contact_user_id_character_username_id_unique` ON `Contact` (`user_id`,`character_username_id`);--> statement-breakpoint
 CREATE TABLE `LastMessage` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`chat_id` integer NOT NULL,
@@ -47,27 +68,6 @@ CREATE TABLE `OAuthAccount` (
 	`provider_user_id` text NOT NULL,
 	`user_id` text NOT NULL,
 	FOREIGN KEY (`user_id`) REFERENCES `User`(`id`) ON UPDATE no action ON DELETE cascade
-);
---> statement-breakpoint
-CREATE TABLE `PersonaUsername` (
-	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`persona_id` integer,
-	`username` text NOT NULL,
-	FOREIGN KEY (`persona_id`) REFERENCES `Persona`(`id`) ON UPDATE no action ON DELETE set null
-);
---> statement-breakpoint
-CREATE UNIQUE INDEX `PersonaUsername_username_unique` ON `PersonaUsername` (`username`);--> statement-breakpoint
-CREATE TABLE `Persona` (
-	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`name` text NOT NULL,
-	`description` text NOT NULL,
-	`instructions` text NOT NULL,
-	`conversation_starters` text NOT NULL,
-	`created_at` text NOT NULL,
-	`category_id` integer NOT NULL,
-	`discoverable` integer DEFAULT true NOT NULL,
-	`creator_id` text,
-	FOREIGN KEY (`creator_id`) REFERENCES `User`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
 CREATE TABLE `Session` (

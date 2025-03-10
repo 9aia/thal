@@ -46,13 +46,13 @@ async function validateUsername(username: string) {
     const {
       alreadyAdded,
       isUsernameValid,
-      personaNotFound,
+      characterNotFound,
     } = await $fetch(`/api/contact/validate-username/${username}`)
 
     if (!isUsernameValid) {
       form.setErrors({ username: t('Username is invalid.') })
     }
-    else if (personaNotFound) {
+    else if (characterNotFound) {
       form.setErrors({ username: t('Character not found.') })
     }
     else if (alreadyAdded) {

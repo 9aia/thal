@@ -2,7 +2,7 @@ import type { Component } from 'vue'
 
 const mainField = ref<Component>()
 
-export default function useBuildPersonaFocus() {
+export default function useBuildCharacterFocus() {
   const focusMainField = () => {
     if (mainField.value) {
       if (mainField.value) {

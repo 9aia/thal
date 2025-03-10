@@ -1,6 +1,6 @@
 import { and, eq } from 'drizzle-orm'
 import { mapContactToDto } from '~/server/services/contact'
-import { getPersonaByUsername } from '~/server/services/persona'
+import { getCharacterByUsername } from '~/server/services/character'
 import { now } from '~/utils/date'
 import { getValidated } from '~/utils/h3'
 import { badRequest, internal, unauthorized } from '~/utils/nuxt'
@@ -15,7 +15,7 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  const result = await getPersonaByUsername(orm, data.username)
+  const result = await getCharacterByUsername(orm, data.username)
 
   try {
     const [newContact] = await orm
@@ -23,7 +23,7 @@ export default eventHandler(async (event) => {
       .values({
         name: data.name,
         userId: user.id,
-        personaUsernameId: result.personaUsernameId,
+        characterUsernameId: result.characterUsernameId,
         createdAt: now().toString(),
       })
       .returning()
@@ -34,7 +34,7 @@ export default eventHandler(async (event) => {
       .where(
         and(
           eq(chats.userId, user.id),
-          eq(chats.personaUsernameId, newContact.personaUsernameId),
+          eq(chats.characterUsernameId, newContact.characterUsernameId),
         ),
       )
       .run()

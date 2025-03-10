@@ -5,42 +5,42 @@ import type { H3Event, H3EventContext } from 'h3'
 import { categories } from '~/constants/discover'
 import { getGemini } from '~/utils/gemini'
 import { internal, notFound } from '~/utils/nuxt'
-import type { PersonaUpdate, User } from '~~/db/schema'
-import { contacts, personaUsernames } from '~~/db/schema'
+import type { CharacterUpdate, User } from '~~/db/schema'
+import { characterUsernames, contacts } from '~~/db/schema'
 
-export async function getPersonaByUsername(
+export async function getCharacterByUsername(
   orm: H3EventContext['orm'],
   username: string,
 ) {
-  const result = await orm.query.personaUsernames.findFirst({
-    where: eq(personaUsernames.username, username),
+  const result = await orm.query.characterUsernames.findFirst({
+    where: eq(characterUsernames.username, username),
     with: {
-      persona: true,
+      character: true,
     },
   })
 
-  const persona = result?.persona
+  const character = result?.character
 
-  if (!persona)
-    throw notFound('Persona not found')
+  if (!character)
+    throw notFound('Character not found')
 
   return {
-    ...persona,
-    conversationStarters: JSON.parse(persona.conversationStarters),
+    ...character,
+    conversationStarters: JSON.parse(character.conversationStarters),
     username,
-    personaUsernameId: result.id,
+    characterUsernameId: result.id,
   }
 }
 
-export async function getPersonaWithContactByUser(
+export async function getCharacterWithContactByUser(
   orm: H3EventContext['orm'],
   user: User,
   username: string,
 ) {
-  const result = await orm.query.personaUsernames.findFirst({
-    where: eq(personaUsernames.username, username),
+  const result = await orm.query.characterUsernames.findFirst({
+    where: eq(characterUsernames.username, username),
     with: {
-      persona: {
+      character: {
         columns: {
           id: true,
           description: true,
@@ -58,27 +58,27 @@ export async function getPersonaWithContactByUser(
   })
 
   if (!result)
-    throw notFound('Persona Username not found')
+    throw notFound('Character Username not found')
 
-  const persona = result.persona
+  const character = result.character
 
-  if (!persona)
-    throw notFound('Persona not found')
+  if (!character)
+    throw notFound('Character not found')
 
   const contact = {
     name: result.contacts[0]?.name,
   }
 
   return {
-    id: persona.id,
+    id: character.id,
     username: result.username,
-    description: persona.description,
-    name: persona.name,
+    description: character.description,
+    name: character.name,
     contact: result.contacts[0] ? contact : null,
   }
 }
 
-export async function categorizePersona(event: H3Event, data: PersonaUpdate) {
+export async function categorizeCharacter(event: H3Event, data: CharacterUpdate) {
   const { GEMINI_API_KEY } = useRuntimeConfig(event)
 
   if (!GEMINI_API_KEY)

@@ -2,7 +2,7 @@ import { and, eq } from 'drizzle-orm'
 import { z } from 'zod'
 import { getValidated } from '~/utils/h3'
 import { unauthorized } from '~/utils/nuxt'
-import { personaUsernames, usernameSchema } from '~~/db/schema'
+import { characterUsernames, usernameSchema } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const orm = event.context.orm
@@ -15,41 +15,41 @@ export default eventHandler(async (event) => {
 
   if (!usernameSchema.safeParse(username).success) {
     return {
-      personaNotFound: true,
+      characterNotFound: true,
       alreadyAdded: false,
       discoverable: null,
       isUsernameValid: false,
     }
   }
 
-  const [existingPersonaUsername] = await orm
+  const [existingCharacterUsername] = await orm
     .select()
-    .from(personaUsernames)
-    .where(eq(personaUsernames.username, username))
+    .from(characterUsernames)
+    .where(eq(characterUsernames.username, username))
 
-  if (!existingPersonaUsername || existingPersonaUsername.personaId == null) {
+  if (!existingCharacterUsername || existingCharacterUsername.characterId == null) {
     return {
-      personaNotFound: true,
+      characterNotFound: true,
       alreadyAdded: false,
       discoverable: null,
       isUsernameValid: true,
     }
   }
 
-  const persona = await orm.query.personas.findFirst({
-    where: (personas, { eq }) => eq(personas.id, Number(existingPersonaUsername.personaId)),
+  const character = await orm.query.characters.findFirst({
+    where: (characters, { eq }) => eq(characters.id, Number(existingCharacterUsername.characterId)),
     columns: {
       discoverable: true,
       creatorId: true,
     },
     with: {
-      personaUsernames: {
+      characterUsernames: {
         columns: {
           id: true,
         },
         with: {
           contacts: {
-            where: (contacts, { eq }) => and(eq(contacts.userId, user.id), eq(contacts.personaUsernameId, existingPersonaUsername.id)),
+            where: (contacts, { eq }) => and(eq(contacts.userId, user.id), eq(contacts.characterUsernameId, existingCharacterUsername.id)),
             columns: {
               id: true,
             },
@@ -60,9 +60,9 @@ export default eventHandler(async (event) => {
   })
 
   return {
-    personaNotFound: false,
-    alreadyAdded: !!persona?.personaUsernames?.contacts?.length,
-    discoverable: persona?.discoverable || persona?.creatorId === user.id,
+    characterNotFound: false,
+    alreadyAdded: !!character?.characterUsernames?.contacts?.length,
+    discoverable: character?.discoverable || character?.creatorId === user.id,
     isUsernameValid: true,
   }
 })

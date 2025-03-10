@@ -71,13 +71,13 @@ function closeDrawer() {
 }
 
 const category = computed(() => {
-  return categories.find(cat => cat.id === data.value?.persona?.categoryId)
+  return categories.find(cat => cat.id === data.value?.character?.categoryId)
 })
 
 const date = computed(() => {
-  return data.value?.persona?.createdAt
+  return data.value?.character?.createdAt
     ? [
-        new Date(data.value?.persona?.createdAt),
+        new Date(data.value?.character?.createdAt),
         {
           month: 'long',
           year: 'numeric',
@@ -153,7 +153,7 @@ const date = computed(() => {
             <MenuItem
               :is="{
                 id: 'description',
-                name: data?.persona?.description!,
+                name: data?.character?.description!,
                 icon: 'person',
               }"
               class="py-2"

@@ -3,7 +3,7 @@ import { refDebounced } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import { categories } from '~/constants/discover'
 import queryKeys from '~/queryKeys'
-import { buildPersona } from '~/store'
+import { buildCharacter } from '~/store'
 
 const { t } = useI18nExperimental()
 const form = useForm({
@@ -25,8 +25,8 @@ const {
   refetch,
   hasNextPage,
 } = usePaginationQuery({
-  queryKey: queryKeys.discoverPersonasSearch(search, categoryId),
-  queryFn: ({ params }) => $fetch('/api/persona/discover', {
+  queryKey: queryKeys.discoverCharactersSearch(search, categoryId),
+  queryFn: ({ params }) => $fetch('/api/character/discover', {
     params: {
       ...params,
       search: search.value,
@@ -46,7 +46,6 @@ onMounted(() => {
 
 watch(categoryId, () => {
   const el = document.querySelector(`#category-${categoryId.value}`)
-  console.log(el)
 
   if (!el)
     return
@@ -140,11 +139,11 @@ watch(categoryId, () => {
             <template v-if="data?.pages?.length">
               <DiscoverCharacterItem
                 v-for="character in data?.pages"
-                :key="`persona-${character.id}`"
+                :key="`character-${character.id}`"
                 :name="character.name"
                 :description="character.description"
                 :category-id="character.categoryId"
-                :username="character.personaUsernames?.username"
+                :username="character.characterUsernames?.username"
                 show-copy
                 show-send-message
                 class="w-full"
@@ -172,7 +171,7 @@ watch(categoryId, () => {
                 {{ t('Easily build a character that fits your learning style! Choose a name and personality, and let the AI bring them to life through dynamic conversations.') }}
               </p>
 
-              <Button class="border-gradient-2 rounded-full" @click="buildPersona({ username: search && generateCharacterUsername(search), name: search && generateCharacterName(search) })">
+              <Button class="border-gradient-2 rounded-full" @click="buildCharacter({ username: search && generateCharacterUsername(search), name: search && generateCharacterName(search) })">
                 <span class="px-4 py-1 flex items-center justify-center gap-1">
                   <Icon name="person_edit" />
                   {{ t("Create character") }}

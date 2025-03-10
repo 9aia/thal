@@ -2,11 +2,11 @@
 import { useFieldError, useFieldValue, useForm } from 'vee-validate'
 import { T } from '@psitta/vue'
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
-import type { Persona } from '~/types'
+import type { Character } from '~/types'
 import queryKeys from '~/queryKeys'
 
 const props = defineProps<{
-  persona?: Persona
+  character?: Character
 }>()
 
 const { t } = useI18nExperimental()
@@ -20,16 +20,16 @@ const {
   mutate,
 } = useMutation({
   mutationFn: async () => {
-    return $fetch(`/api/persona/${props.persona?.username}` as '/api/persona/:username', {
+    return $fetch(`/api/character/${props.character?.username}` as '/api/character/:username', {
       method: 'DELETE',
     })
   },
   onSuccess: () => {
     queryClient.invalidateQueries({
-      queryKey: queryKeys.myPersonas,
+      queryKey: queryKeys.myCharacters,
     })
     queryClient.invalidateQueries({
-      queryKey: ['discover-personas'],
+      queryKey: queryKeys.discoverCharacters,
     })
 
     isOpen.value = false
@@ -51,7 +51,7 @@ function checkUsernameRule(inputValue: string) {
   if (!inputValue)
     return t('Username is required')
 
-  return inputValue === props.persona?.username || t('Username does not match')
+  return inputValue === props.character?.username || t('Username does not match')
 }
 
 const isFieldError = useFieldError('username')
@@ -92,7 +92,7 @@ const isUsernameInvalid = computed(() => {
         <T text="To confirm, please insert {username} below:" :values="{ username: true }">
           <template #username>
             <span class="text-warning font-bold">
-              {{ persona?.username }} {{ ' ' }}
+              {{ character?.username }} {{ ' ' }}
             </span>
           </template>
         </T>

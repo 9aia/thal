@@ -1,22 +1,22 @@
 import { and, eq, sql } from 'drizzle-orm'
 import type { H3EventContext } from 'h3'
 import { notFound } from '~/utils/nuxt'
-import type { ContactEntity, ContactGetDto, PersonaGet, User } from '~~/db/schema'
-import { contacts, personaUsernames, personas } from '~~/db/schema'
+import type { CharacterGet, ContactEntity, ContactGetDto, User } from '~~/db/schema'
+import { characterUsernames, characters, contacts } from '~~/db/schema'
 
 export async function getContactByUser(
   orm: H3EventContext['orm'],
   user: User,
   username: string,
 ) {
-  const result = await orm.query.personaUsernames.findFirst({
-    where: eq(personaUsernames.username, username),
+  const result = await orm.query.characterUsernames.findFirst({
+    where: eq(characterUsernames.username, username),
     columns: {
       id: true,
       username: true,
     },
     with: {
-      persona: {
+      character: {
         columns: {
           description: true,
         },
@@ -32,12 +32,12 @@ export async function getContactByUser(
   })
 
   if (!result)
-    throw notFound('Persona Username not found')
+    throw notFound('Character Username not found')
 
-  const persona = result.persona
+  const character = result.character
 
-  if (!persona)
-    throw notFound('Persona not found')
+  if (!character)
+    throw notFound('Character not found')
 
   if (!result.contacts.length)
     throw notFound('Contact not found')
@@ -46,21 +46,21 @@ export async function getContactByUser(
     id: result.contacts[0].id,
     name: result.contacts[0].name,
     username: result.username,
-    description: result.persona?.description,
+    description: result.character?.description,
   }
 }
 
-export function mapContactToDto(contact: ContactEntity, persona: PersonaGet): ContactGetDto {
+export function mapContactToDto(contact: ContactEntity, character: CharacterGet): ContactGetDto {
   return {
     id: contact.id,
     name: contact.name,
     createdAt: contact.createdAt,
-    username: persona.username,
+    username: character.username,
 
   }
 }
 
-export async function getContactWithPersonaByUser(
+export async function getContactWithCharacterByUser(
   orm: H3EventContext['orm'],
   user: User,
   username: string,
@@ -70,13 +70,13 @@ export async function getContactWithPersonaByUser(
       id: contacts.id,
       name: contacts.name,
       createdAt: contacts.createdAt,
-      username: personaUsernames.username,
-      personaUsernameId: personaUsernames.id,
+      username: characterUsernames.username,
+      characterUsernameId: characterUsernames.id,
     })
     .from(contacts)
-    .leftJoin(personaUsernames, eq(personaUsernames.id, contacts.personaUsernameId))
-    .leftJoin(personas, eq(personas.id, personaUsernames.personaId))
-    .where(and(eq(contacts.userId, user.id!), eq(personaUsernames.username, username)))
+    .leftJoin(characterUsernames, eq(characterUsernames.id, contacts.characterUsernameId))
+    .leftJoin(characters, eq(characters.id, characterUsernames.characterId))
+    .where(and(eq(contacts.userId, user.id!), eq(characterUsernames.username, username)))
 
   if (!contact)
     throw notFound('Contact not found')
@@ -84,7 +84,7 @@ export async function getContactWithPersonaByUser(
   return contact
 }
 
-export async function getContactsWithPersonaByUser(
+export async function getContactsWithCharacterByUser(
   orm: H3EventContext['orm'],
   user: User,
   search?: string,
@@ -94,18 +94,18 @@ export async function getContactsWithPersonaByUser(
       SELECT 
         ${contacts.id} AS contactId,
         ${contacts.name} AS contactName,
-        ${personaUsernames.username} AS personaUsername,
-        ${personas.description} AS personaDescription
+        ${characterUsernames.username} AS characterUsername,
+        ${characters.description} AS characterDescription
       FROM 
         ${contacts}
       LEFT JOIN 
-        ${personaUsernames} ON ${contacts.personaUsernameId} = ${personaUsernames.id}
+        ${characterUsernames} ON ${contacts.characterUsernameId} = ${characterUsernames.id}
       LEFT JOIN 
-        ${personas} ON ${personaUsernames.personaId} = ${personas.id}
+        ${characters} ON ${characterUsernames.characterId} = ${characters.id}
       WHERE
         ${contacts.userId} = ${user.id}
         ${search
-            ? sql`AND (lower(${contacts.name}) LIKE ${searchLike} OR lower(${personaUsernames.username}) LIKE ${searchLike} OR lower(${personas.name}) LIKE ${searchLike})`
+            ? sql`AND (lower(${contacts.name}) LIKE ${searchLike} OR lower(${characterUsernames.username}) LIKE ${searchLike} OR lower(${characters.name}) LIKE ${searchLike})`
             : sql``
         }
     `)
@@ -113,7 +113,7 @@ export async function getContactsWithPersonaByUser(
   return results as {
     contactId: number
     contactName: string
-    personaUsername: string
-    personaDescription: string
+    characterUsername: string
+    characterDescription: string
   }[]
 }

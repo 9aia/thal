@@ -23,10 +23,10 @@ onMounted(() => {
   }
 
   const mapping: Record<string, DrawersKey> = {
-    create: 'personaBuilder',
+    create: 'characterBuilder',
     save: 'manageContact',
     add: 'newChat',
-    list: 'myPersonas',
+    list: 'myCharacters',
   }
 
   const mappedDrawer = mapping[drawer] || drawer

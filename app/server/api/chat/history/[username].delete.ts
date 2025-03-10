@@ -2,7 +2,7 @@ import { eq } from 'drizzle-orm'
 import { z } from 'zod'
 import { getValidated } from '~/utils/h3'
 import { badRequest, unauthorized } from '~/utils/nuxt'
-import { chats, lastMessages, messages, personaUsernames, usernameSchema } from '~~/db/schema'
+import { characterUsernames, chats, lastMessages, messages, usernameSchema } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const { username } = await getValidated(event, 'params', z.object({ username: usernameSchema }))
@@ -13,8 +13,8 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  const result = await orm.query.personaUsernames.findFirst({
-    where: eq(personaUsernames.username, username),
+  const result = await orm.query.characterUsernames.findFirst({
+    where: eq(characterUsernames.username, username),
     with: {
       chats: {
         where: eq(chats.userId, user.id),
@@ -23,7 +23,7 @@ export default eventHandler(async (event) => {
   })
 
   if (!result)
-    throw badRequest('Persona Username not found')
+    throw badRequest('Character Username not found')
 
   const chatId = result?.chats?.[0]?.id
 

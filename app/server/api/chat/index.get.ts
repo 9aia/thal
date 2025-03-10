@@ -2,7 +2,7 @@ import { sql } from 'drizzle-orm'
 import { z } from 'zod'
 import { getValidated } from '~/utils/h3'
 import { unauthorized } from '~/utils/nuxt'
-import { chats, contacts, lastMessages, personaUsernames, personas } from '~~/db/schema'
+import { characterUsernames, characters, chats, contacts, lastMessages } from '~~/db/schema'
 
 export default defineEventHandler(async (event) => {
   const orm = event.context.orm
@@ -19,17 +19,17 @@ export default defineEventHandler(async (event) => {
   const { results } = await orm.run(sql`
     SELECT 
       ${chats.id} AS chatId,
-      ${personaUsernames.username} AS personaUsername,
-      ${personas.name} AS personaName,
+      ${characterUsernames.username} AS characterUsername,
+      ${characters.name} AS characterName,
       ${contacts.name} AS contactName,
       ${lastMessages.content} AS lastMessageContent,
       ${lastMessages.datetime} AS lastMessageDatetime
     FROM 
       ${chats}
     LEFT JOIN 
-      ${personaUsernames} ON ${chats.personaUsernameId} = ${personaUsernames.id}
+      ${characterUsernames} ON ${chats.characterUsernameId} = ${characterUsernames.id}
     LEFT JOIN 
-      ${personas} ON ${personaUsernames.personaId} = ${personas.id}
+      ${characters} ON ${characterUsernames.characterId} = ${characters.id}
     LEFT JOIN 
       ${contacts} ON ${chats.contactId} = ${contacts.id}
     LEFT JOIN 
@@ -37,7 +37,7 @@ export default defineEventHandler(async (event) => {
     WHERE
       ${chats.userId} = ${user.id}
       ${search
-          ? sql`AND (lower(${contacts.name}) LIKE ${searchLike} OR lower(${personaUsernames.username}) LIKE ${searchLike} OR lower(${personas.name}) LIKE ${searchLike})`
+          ? sql`AND (lower(${contacts.name}) LIKE ${searchLike} OR lower(${characterUsernames.username}) LIKE ${searchLike} OR lower(${characters.name}) LIKE ${searchLike})`
           : sql``
       }
     ORDER BY 
@@ -46,8 +46,8 @@ export default defineEventHandler(async (event) => {
 
   return results as {
     chatId: number
-    personaUsername: string
-    personaName: string
+    characterUsername: string
+    characterName: string
     contactName?: string
     lastMessageContent?: string
     lastMessageDatetime?: number

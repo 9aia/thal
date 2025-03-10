@@ -4,7 +4,7 @@ import { refDebounced } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import type { MenuItem } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
-import { buildPersona, drawers, isRootDrawerOpen, manageContact } from '~/store'
+import { buildCharacter, drawers, isRootDrawerOpen, manageContact } from '~/store'
 
 const emit = defineEmits<({
   (e: 'close'): void
@@ -16,7 +16,7 @@ useAutoRedirect({
 
 const generalItems: MenuItem[] = [
   { id: 'new-contact', icon: 'person_add', name: t('New contact'), onClick: () => manageContact(null) },
-  { id: 'create-character', icon: 'engineering', name: t('Build character'), onClick: () => buildPersona(null) },
+  { id: 'create-character', icon: 'engineering', name: t('Build character'), onClick: () => buildCharacter(null) },
 ]
 
 const { focusMainField: focusSearch } = useDiscoverFocus()
@@ -113,8 +113,8 @@ function handleGoToChat(username: string) {
           v-else
           :key="`contact-${contact.contactId}`"
           :name="contact.contactName"
-          :description="contact.personaDescription"
-          @click="handleGoToChat(contact.personaUsername)"
+          :description="contact.characterDescription"
+          @click="handleGoToChat(contact.characterUsername)"
         />
       </Resource>
     </SettingSection>

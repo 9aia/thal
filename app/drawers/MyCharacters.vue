@@ -2,8 +2,8 @@
 import { t } from '@psitta/vue'
 import { useQuery } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
-import { buildPersona, drawers, isRootDrawerOpen } from '~/store'
-import type { Persona } from '~/types'
+import { buildCharacter, drawers, isRootDrawerOpen } from '~/store'
+import type { Character } from '~/types'
 
 const emit = defineEmits<{
   (e: 'close'): void
@@ -14,21 +14,21 @@ useAutoRedirect({
 })
 
 const {
-  data: personas,
+  data: characters,
   isPending,
   isError,
   refetch,
 } = useQuery({
-  queryKey: queryKeys.myPersonas,
-  queryFn: () => $fetch('/api/persona'),
+  queryKey: queryKeys.myCharacters,
+  queryFn: () => $fetch('/api/character'),
 })
 
-const deletePersona = ref(false)
-const personaToDelete = ref<Persona>()
+const deleteCharacter = ref(false)
+const characterToDelete = ref<Character>()
 
-function handleDeletePersona(persona: Persona) {
-  deletePersona.value = true
-  personaToDelete.value = persona
+function handleDeleteCharacter(character: Character) {
+  deleteCharacter.value = true
+  characterToDelete.value = character
 }
 
 function handleGoToChat(username: string) {
@@ -39,7 +39,7 @@ function handleGoToChat(username: string) {
 </script>
 
 <template>
-  <div v-if="drawers.myPersonas" class="flex flex-col h-dvh justify-between">
+  <div v-if="drawers.myCharacters" class="flex flex-col h-dvh justify-between">
     <Navbar>
       <h1 class="text-lg py-2 text-gradient-1 flex items-center gap-1">
         <Button size="sm" class="btn-ghost" shape="circle" @click="emit('close')">
@@ -67,9 +67,9 @@ function handleGoToChat(username: string) {
       <div class="py-4">
         <SettingSection :title="t('Characters')" title-class="px-4">
           <Teleport to="body">
-            <PersonaDeleteModal
-              v-model="deletePersona"
-              :persona="personaToDelete!"
+            <CharacterDeleteModal
+              v-model="deleteCharacter"
+              :character="characterToDelete!"
             />
           </Teleport>
 
@@ -81,18 +81,18 @@ function handleGoToChat(username: string) {
             <div class="h-full">
               <ul>
                 <li
-                  v-for="persona in personas"
-                  :key="`persona-${persona.id}`"
+                  v-for="character in characters"
+                  :key="`character-${character.id}`"
                   class="group"
                 >
-                  <PersonaItem
-                    :name="persona.name"
-                    :username="persona.username || undefined"
-                    :category-id="persona.categoryId"
-                    @delete="handleDeletePersona(persona as unknown as Persona)"
-                    @edit="buildPersona(persona as unknown as Persona)"
-                    @chat="handleGoToChat(persona.username as string)"
-                    @click="buildPersona(persona as unknown as Persona)"
+                  <CharacterItem
+                    :name="character.name"
+                    :username="character.username || undefined"
+                    :category-id="character.categoryId"
+                    @delete="handleDeleteCharacter(character as unknown as Character)"
+                    @edit="buildCharacter(character as unknown as Character)"
+                    @chat="handleGoToChat(character.username as string)"
+                    @click="buildCharacter(character as unknown as Character)"
                   />
                 </li>
               </ul>
@@ -101,10 +101,10 @@ function handleGoToChat(username: string) {
 
           <div>
             <ul>
-              <li class="group px-4 mt-2" @click="buildPersona(null)">
+              <li class="group px-4 mt-2" @click="buildCharacter(null)">
                 <div class="cursor-pointer flex w-full gap-2 justify-between items-center">
                   <MenuItem
-                    :is="{ id: 'add-persona', name: 'Create character', icon: 'add' }"
+                    :is="{ id: 'add-character', name: 'Create character', icon: 'add' }"
                     class="py-2"
                   />
                 </div>

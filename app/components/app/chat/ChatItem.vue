@@ -8,7 +8,7 @@ const props = defineProps<{
 }>()
 
 const name = computed(() => {
-  return props.chat.contactName || props.chat.personaName
+  return props.chat.contactName || props.chat.characterName
 })
 const content = computed(() => {
   return props.chat.lastMessageContent || ''
@@ -21,8 +21,8 @@ function handleGoToChat(username: string) {
 </script>
 
 <template>
-  <div role="button" class="px-3 py-1 hover:bg-gradient-1 flex gap-2" @click="handleGoToChat(chat.personaUsername)">
-    <Avatar :name="chat.personaName" class="w-10 text-sm bg-gray-300 text-gray-800" type="button" />
+  <div role="button" class="px-3 py-1 hover:bg-gradient-1 flex gap-2" @click="handleGoToChat(chat.characterUsername)">
+    <Avatar :name="chat.characterName" class="w-10 text-sm bg-gray-300 text-gray-800" type="button" />
 
     <div class="flex-1 flex flex-col justify-center w-10px">
       <div class="flex justify-between items-center">

@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { getHistory } from '~/server/services/messages'
-import { getPersonaWithContactByUser } from '~/server/services/persona'
+import { getCharacterWithContactByUser } from '~/server/services/character'
 import { getValidated } from '~/utils/h3'
 import { unauthorized } from '~/utils/nuxt'
 import { usernameSchema } from '~~/db/schema'
@@ -14,9 +14,9 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  const personaWithContact = await getPersonaWithContactByUser(orm, user, username)
+  const characterWithContact = await getCharacterWithContactByUser(orm, user, username)
 
   const { history, chatId } = await getHistory(orm, user, username)
 
-  return { ...personaWithContact, history, chatId }
+  return { ...characterWithContact, history, chatId }
 })

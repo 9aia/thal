@@ -1,9 +1,150 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "c732220e-50da-44a4-af5f-1a41e11f7e7f",
+  "id": "24fd4d40-b95e-4f5d-aa5a-f98d3f91dde1",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
+    "CharacterUsername": {
+      "name": "CharacterUsername",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "character_id": {
+          "name": "character_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "username": {
+          "name": "username",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "CharacterUsername_username_unique": {
+          "name": "CharacterUsername_username_unique",
+          "columns": [
+            "username"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "CharacterUsername_character_id_Character_id_fk": {
+          "name": "CharacterUsername_character_id_Character_id_fk",
+          "tableFrom": "CharacterUsername",
+          "tableTo": "Character",
+          "columnsFrom": [
+            "character_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "Character": {
+      "name": "Character",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "instructions": {
+          "name": "instructions",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "conversation_starters": {
+          "name": "conversation_starters",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "category_id": {
+          "name": "category_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "discoverable": {
+          "name": "discoverable",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": true
+        },
+        "creator_id": {
+          "name": "creator_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Character_creator_id_User_id_fk": {
+          "name": "Character_creator_id_User_id_fk",
+          "tableFrom": "Character",
+          "tableTo": "User",
+          "columnsFrom": [
+            "creator_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
     "Chat": {
       "name": "Chat",
       "columns": {
@@ -14,8 +155,8 @@
           "notNull": true,
           "autoincrement": true
         },
-        "persona_username_id": {
-          "name": "persona_username_id",
+        "character_username_id": {
+          "name": "character_username_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
@@ -44,22 +185,22 @@
         }
       },
       "indexes": {
-        "Chat_user_id_persona_username_id_unique": {
-          "name": "Chat_user_id_persona_username_id_unique",
+        "Chat_user_id_character_username_id_unique": {
+          "name": "Chat_user_id_character_username_id_unique",
           "columns": [
             "user_id",
-            "persona_username_id"
+            "character_username_id"
           ],
           "isUnique": true
         }
       },
       "foreignKeys": {
-        "Chat_persona_username_id_PersonaUsername_id_fk": {
-          "name": "Chat_persona_username_id_PersonaUsername_id_fk",
+        "Chat_character_username_id_CharacterUsername_id_fk": {
+          "name": "Chat_character_username_id_CharacterUsername_id_fk",
           "tableFrom": "Chat",
-          "tableTo": "PersonaUsername",
+          "tableTo": "CharacterUsername",
           "columnsFrom": [
-            "persona_username_id"
+            "character_username_id"
           ],
           "columnsTo": [
             "id"
@@ -115,8 +256,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "persona_username_id": {
-          "name": "persona_username_id",
+        "character_username_id": {
+          "name": "character_username_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
@@ -138,22 +279,22 @@
         }
       },
       "indexes": {
-        "Contact_user_id_persona_username_id_unique": {
-          "name": "Contact_user_id_persona_username_id_unique",
+        "Contact_user_id_character_username_id_unique": {
+          "name": "Contact_user_id_character_username_id_unique",
           "columns": [
             "user_id",
-            "persona_username_id"
+            "character_username_id"
           ],
           "isUnique": true
         }
       },
       "foreignKeys": {
-        "Contact_persona_username_id_PersonaUsername_id_fk": {
-          "name": "Contact_persona_username_id_PersonaUsername_id_fk",
+        "Contact_character_username_id_CharacterUsername_id_fk": {
+          "name": "Contact_character_username_id_CharacterUsername_id_fk",
           "tableFrom": "Contact",
-          "tableTo": "PersonaUsername",
+          "tableTo": "CharacterUsername",
           "columnsFrom": [
-            "persona_username_id"
+            "character_username_id"
           ],
           "columnsTo": [
             "id"
@@ -369,147 +510,6 @@
             "id"
           ],
           "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
-    },
-    "PersonaUsername": {
-      "name": "PersonaUsername",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "integer",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": true
-        },
-        "persona_id": {
-          "name": "persona_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "username": {
-          "name": "username",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        }
-      },
-      "indexes": {
-        "PersonaUsername_username_unique": {
-          "name": "PersonaUsername_username_unique",
-          "columns": [
-            "username"
-          ],
-          "isUnique": true
-        }
-      },
-      "foreignKeys": {
-        "PersonaUsername_persona_id_Persona_id_fk": {
-          "name": "PersonaUsername_persona_id_Persona_id_fk",
-          "tableFrom": "PersonaUsername",
-          "tableTo": "Persona",
-          "columnsFrom": [
-            "persona_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
-    },
-    "Persona": {
-      "name": "Persona",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "integer",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": true
-        },
-        "name": {
-          "name": "name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "description": {
-          "name": "description",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "instructions": {
-          "name": "instructions",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "conversation_starters": {
-          "name": "conversation_starters",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "category_id": {
-          "name": "category_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "discoverable": {
-          "name": "discoverable",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": true
-        },
-        "creator_id": {
-          "name": "creator_id",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "Persona_creator_id_User_id_fk": {
-          "name": "Persona_creator_id_User_id_fk",
-          "tableFrom": "Persona",
-          "tableTo": "User",
-          "columnsFrom": [
-            "creator_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
           "onUpdate": "no action"
         }
       },

@@ -1,4 +1,4 @@
-import type { Contact, Persona, Replies } from '~/types'
+import type { Character, Contact, Replies } from '~/types'
 
 export const contentEditableRef = ref()
 
@@ -14,8 +14,8 @@ export const drawers = reactive({
   account: false,
   settings: false,
   newChat: false,
-  personaBuilder: false,
-  myPersonas: false,
+  characterBuilder: false,
+  myCharacters: false,
   profile: false,
 })
 
@@ -84,22 +84,22 @@ export const currentPlayingMessage = ref<string | null>(null)
 
 /* Character */
 
-export const personaBuilderData = ref<Persona | null>(null)
+export const characterBuilderData = ref<Character | null>(null)
 
-export const { focusMainField: focusPersonaMainField } = useBuildPersonaFocus()
+export const { focusMainField: focusCharacterMainField } = useBuildCharacterFocus()
 
-export async function buildPersona(data?: Persona | null) {
+export async function buildCharacter(data?: Character | null) {
   if (data) {
-    personaBuilderData.value = data
+    characterBuilderData.value = data
   }
   else {
-    personaBuilderData.value = null
+    characterBuilderData.value = null
   }
 
   isRootDrawerOpen.value = true
-  drawers.personaBuilder = true
+  drawers.characterBuilder = true
 
   await nextTick()
 
-  focusPersonaMainField()
+  focusCharacterMainField()
 }

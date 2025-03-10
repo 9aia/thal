@@ -1,20 +1,20 @@
 @username = motoko
 
-### Find all personas
+### Find all characters
 
-GET {{baseUrl}}/persona
+GET {{baseUrl}}/character
 Content-Type: application/json
 Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
 
-### Get persona
+### Get character
 
-GET {{baseUrl}}/persona/{{username}}
+GET {{baseUrl}}/character/{{username}}
 Content-Type: application/json
 Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
 
-### Create persona
+### Create character
 
-POST {{baseUrl}}/persona
+POST {{baseUrl}}/character
 Content-Type: application/json
 Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
 
@@ -26,9 +26,9 @@ Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
   "conversationStarters": ["Hey, Ishikawa!", "Hi, veteran."]
 }
 
-### Update persona
+### Update character
 
-PATCH {{baseUrl}}/persona/ishikawa
+PATCH {{baseUrl}}/character/ishikawa
 Content-Type: application/json
 Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
 
@@ -36,8 +36,8 @@ Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
   "name": "Ishikawa"
 }
 
-### Delete persona
+### Delete character
 
-DELETE {{baseUrl}}/persona/{{username}}
+DELETE {{baseUrl}}/character/{{username}}
 Content-Type: application/json
 Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};

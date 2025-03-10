@@ -50,7 +50,7 @@ onMounted(() => {
                 <NewChat @close="close" />
               </Drawer>
 
-              <Drawer v-slot="{ close }" v-model="drawers.myPersonas">
+              <Drawer v-slot="{ close }" v-model="drawers.myCharacters">
                 <MyCharacters @close="close" />
               </Drawer>
 
@@ -62,8 +62,8 @@ onMounted(() => {
                 <AccountSettings @close="close" />
               </Drawer>
 
-              <Drawer v-slot="{ close }" v-model="drawers.personaBuilder">
-                <BuildPersona @close="close" />
+              <Drawer v-slot="{ close }" v-model="drawers.characterBuilder">
+                <BuildCharacter @close="close" />
               </Drawer>
 
               <Drawer v-slot="{ close }" v-model="drawers.manageContact">

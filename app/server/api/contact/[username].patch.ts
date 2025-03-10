@@ -1,6 +1,6 @@
 import { and, eq } from 'drizzle-orm'
 import { z } from 'zod'
-import { getContactWithPersonaByUser } from '~/server/services/contact'
+import { getContactWithCharacterByUser } from '~/server/services/contact'
 import { getValidated } from '~/utils/h3'
 import { unauthorized } from '~/utils/nuxt'
 import { contactUpdateSchema, contacts, usernameSchema } from '~~/db/schema'
@@ -15,12 +15,12 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  const contact = await getContactWithPersonaByUser(orm, user, username)
+  const contact = await getContactWithCharacterByUser(orm, user, username)
 
   const [updatedContact] = await orm
     .update(contacts)
     .set(data)
-    .where(and(eq(contacts.userId, user.id), eq(contacts.personaUsernameId, contact.personaUsernameId!)))
+    .where(and(eq(contacts.userId, user.id), eq(contacts.characterUsernameId, contact.characterUsernameId!)))
     .returning()
 
   const contactUpdateDto = {

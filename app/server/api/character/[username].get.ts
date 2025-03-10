@@ -2,7 +2,7 @@ import { eq } from 'drizzle-orm'
 import { z } from 'zod'
 import { getValidated } from '~/utils/h3'
 import { notFound, unauthorized } from '~/utils/nuxt'
-import { personaUsernames, usernameSchema } from '~~/db/schema'
+import { characterUsernames, usernameSchema } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const { username } = await getValidated(event, 'params', z.object({ username: usernameSchema }))
@@ -13,18 +13,18 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  const result = await orm.query.personaUsernames.findFirst({
-    where: eq(personaUsernames.username, username),
+  const result = await orm.query.characterUsernames.findFirst({
+    where: eq(characterUsernames.username, username),
     with: {
-      persona: true,
+      character: true,
     },
   })
 
-  if (!result?.persona)
+  if (!result?.character)
     throw notFound()
 
   return {
-    ...result.persona,
+    ...result.character,
     username,
   }
 })

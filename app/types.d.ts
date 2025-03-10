@@ -40,7 +40,7 @@ export interface MessageContent {
   status: MessageStatus
 }
 
-export interface Persona {
+export interface Character {
   id?: string
   name: string
   username: string

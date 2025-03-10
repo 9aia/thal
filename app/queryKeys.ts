@@ -5,9 +5,9 @@ export default {
   chat: (username: MaybeRef<string>) => ['chat', username],
   chats: ['chats'],
   chatsSearch: (search: MaybeRef<string>) => ['chats', search],
-  myPersonas: ['my-personas'],
-  discoverPersonasSearch: (search?: MaybeRef<string | undefined>, categoryId?: MaybeRef<number | undefined>) => ['discover-personas', search, categoryId],
-  discoverPersonas: ['discover-personas'],
+  myCharacters: ['my-characters'],
+  discoverCharactersSearch: (search?: MaybeRef<string | undefined>, categoryId?: MaybeRef<number | undefined>) => ['discover-characters', search, categoryId],
+  discoverCharacters: ['discover-characters'],
   profile: (username: MaybeRef<string>) => ['profile', username],
   pricingData: ['pricing-data'],
 }

@@ -99,11 +99,11 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 - Improve logging
 - Change `Message.isBot` to boolean mode
-- Unused files/functions
+- Remove unused files/code
 - Use inferred schemas as DTOs
 - Add nuxt devserver to codeshare container
 - Fix codeshare perms
-- Improve dev contributing guide (commit guide)
-- Add docs about the software architecture
+- Improve docs
+  - Improve dev contributing guide (commit guide)
+  - Add docs for the difference between roadmap, changelog and "What's New"
 - Move schemas to their own files
-- Add docs for the difference between roadmap, changelog and "What's New"

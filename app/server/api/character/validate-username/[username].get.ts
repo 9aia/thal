@@ -2,7 +2,7 @@ import { eq } from 'drizzle-orm'
 import { z } from 'zod'
 import { getValidated } from '~/utils/h3'
 import { unauthorized } from '~/utils/nuxt'
-import { personaUsernames, usernameSchema } from '~~/db/schema'
+import { characterUsernames, usernameSchema } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const orm = event.context.orm
@@ -17,12 +17,12 @@ export default eventHandler(async (event) => {
   if (!usernameSchema.safeParse(username).success)
     return { valid: false }
 
-  const [existingPersonaUsername] = await orm
+  const [existingCharacterUsername] = await orm
     .select()
-    .from(personaUsernames)
-    .where(eq(personaUsernames.username, username))
+    .from(characterUsernames)
+    .where(eq(characterUsernames.username, username))
 
-  const isUsernameTaken = existingPersonaUsername && existingPersonaUsername.personaId !== null
+  const isUsernameTaken = existingCharacterUsername && existingCharacterUsername.characterId !== null
 
   return {
     valid: username === allowedUsername || !isUsernameTaken,

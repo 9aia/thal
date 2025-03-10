@@ -7,7 +7,7 @@ import { getValidated } from '~/utils/h3'
 import { internal, notFound, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
 import { isPlanActive, isPlanPastDue } from '~/utils/plan'
 import type { MessageInsert } from '~~/db/schema'
-import { chats, contacts, lastMessages, messageSendSchema, messages, personaUsernames, usernameSchema } from '~~/db/schema'
+import { characterUsernames, chats, contacts, lastMessages, messageSendSchema, messages, usernameSchema } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const { GEMINI_API_KEY } = useRuntimeConfig(event)
@@ -40,10 +40,10 @@ export default eventHandler(async (event) => {
 
   const orm = event.context.orm
 
-  const result = await orm.query.personaUsernames.findFirst({
-    where: eq(personaUsernames.username, username),
+  const result = await orm.query.characterUsernames.findFirst({
+    where: eq(characterUsernames.username, username),
     with: {
-      persona: {
+      character: {
         columns: {
           name: true,
           description: true,
@@ -60,12 +60,12 @@ export default eventHandler(async (event) => {
   })
 
   if (!result)
-    throw notFound('Persona Username not found')
+    throw notFound('Character Username not found')
 
-  const persona = result.persona
+  const character = result.character
 
-  if (!persona)
-    throw internal('Persona not found')
+  if (!character)
+    throw internal('Character not found')
 
   const contact = result.contacts[0]
   let chat = result.chats[0]
@@ -76,7 +76,7 @@ export default eventHandler(async (event) => {
       .values({
         userId: user.id!,
         contactId: contact?.id,
-        personaUsernameId: result.id,
+        characterUsernameId: result.id,
         createdAt: now().toString(),
       })
       .returning()
@@ -117,7 +117,7 @@ export default eventHandler(async (event) => {
   })
 
   const SYSTEM_INSTRUCTIONS = `
-    You are ${persona.name} (username: ${result.username}). **You do not engage in any language other than English.** If the user sends a message in another language, **do not translate, interpret, or respond in that language.** Instead, inform them that you only are going to chat in English.
+    You are ${character.name} (username: ${result.username}). **You do not engage in any language other than English.** If the user sends a message in another language, **do not translate, interpret, or respond in that language.** Instead, inform them that you only are going to chat in English.
 
     Maintain a **natural, conversational tone** with concise and engaging responses. Avoid long-winded explanations—keep it chat-like.
 
@@ -125,11 +125,11 @@ export default eventHandler(async (event) => {
 
     **Current time:** ${datetime}.
 
-    **Your description:** ${persona.description}.
+    **Your description:** ${character.description}.
 
     ## Instructions
 
-    ${persona.instructions}
+    ${character.instructions}
   `
 
   const geminiHistory = chatHistoryToGemini(history)

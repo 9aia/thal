@@ -19,20 +19,20 @@ export default eventHandler(async (event) => {
 
   const { limit, offset } = calculatePagination(query)
 
-  const ormQuery = orm.query.personas.findMany({
+  const ormQuery = orm.query.characters.findMany({
     limit,
     offset,
     with: {
-      personaUsernames: true,
+      characterUsernames: true,
     },
-    where: (personas, { sql, and, eq, or }) => and(
+    where: (characters, { sql, and, eq, or }) => and(
       query.search
-        ? sql`lower(${personas.name}) like ${sql.placeholder('name')}`
+        ? sql`lower(${characters.name}) like ${sql.placeholder('name')}`
         : undefined,
       query.categoryId
         ? sql`category_id = ${query.categoryId}`
         : undefined,
-      or(eq(personas.discoverable, true), eq(personas.creatorId, user.id!)),
+      or(eq(characters.discoverable, true), eq(characters.creatorId, user.id!)),
     ),
   }).prepare()
 

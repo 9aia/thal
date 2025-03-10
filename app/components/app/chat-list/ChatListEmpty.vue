@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
-import { buildPersona, isRootDrawerOpen, manageContact } from '~/store'
+import { buildCharacter, isRootDrawerOpen, manageContact } from '~/store'
 
 const { open: openWhatsNewModal } = useWhatsNewModal()
 
@@ -31,7 +31,7 @@ function goToDiscover() {
         </span>
       </Button>
 
-      <Button class="border-gradient-2 rounded-full" @click="buildPersona(null)">
+      <Button class="border-gradient-2 rounded-full" @click="buildCharacter(null)">
         <span class="px-4 py-1 flex items-center justify-center gap-1">
           <Icon name="person_edit" />
           {{ t("Create character") }}

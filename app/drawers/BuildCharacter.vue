@@ -3,8 +3,8 @@ import { useQueryClient } from '@tanstack/vue-query'
 import { useDebounceFn } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import { descriptionSchema, instructionsSchema, nameSchema, usernameSchema } from '~~/db/schema'
-import { contactViewUsername, isRootDrawerOpen, personaBuilderData } from '~/store'
-import type { Persona } from '~/types'
+import { characterBuilderData, contactViewUsername, isRootDrawerOpen } from '~/store'
+import type { Character } from '~/types'
 import queryKeys from '~/queryKeys'
 
 const emit = defineEmits<{
@@ -17,13 +17,13 @@ useAutoRedirect({
   query: { drawer: ['create'] },
 })
 
-const form = useForm<Persona>({
-  initialValues: personaBuilderData.value,
+const form = useForm<Character>({
+  initialValues: characterBuilderData.value,
 })
 
-watch(personaBuilderData, () => {
-  if (personaBuilderData.value)
-    form.setValues(personaBuilderData.value)
+watch(characterBuilderData, () => {
+  if (characterBuilderData.value)
+    form.setValues(characterBuilderData.value)
   else
     form.resetForm()
 })
@@ -42,9 +42,9 @@ async function validateUsername(username: string) {
   let invalid = false
 
   try {
-    const { valid } = await $fetch(`/api/persona/validate-username/${username}`, {
+    const { valid } = await $fetch(`/api/character/validate-username/${username}`, {
       params: {
-        allowedUsername: personaBuilderData.value?.username,
+        allowedUsername: characterBuilderData.value?.username,
       },
     })
 
@@ -68,14 +68,14 @@ async function validateUsername(username: string) {
 const debouncedValidateUsername = useDebounceFn(validateUsername, 500)
 watch(() => form.values.username, debouncedValidateUsername)
 
-const isEditing = computed(() => personaBuilderData.value?.id)
+const isEditing = computed(() => characterBuilderData.value?.id)
 
 const submit = form.handleSubmit(async (data) => {
   loading.value = true
 
   try {
     if (isEditing.value) {
-      await $fetch(`/api/persona/${personaBuilderData.value?.username}` as '/api/persona/:username', {
+      await $fetch(`/api/character/${characterBuilderData.value?.username}` as '/api/character/:username', {
         method: 'PATCH',
         body: {
           ...data,
@@ -94,18 +94,18 @@ const submit = form.handleSubmit(async (data) => {
 
       const usernameQuery = params.username
 
-      if (personaBuilderData.value?.username === usernameQuery)
+      if (characterBuilderData.value?.username === usernameQuery)
         navigateTo(`/app/chat/${data.username}`)
 
-      if (personaBuilderData.value?.username === contactViewUsername.value)
+      if (characterBuilderData.value?.username === contactViewUsername.value)
         contactViewUsername.value = data.username
 
       queryClient.invalidateQueries({
-        queryKey: queryKeys.contactInfo(personaBuilderData.value!.username),
+        queryKey: queryKeys.contactInfo(characterBuilderData.value!.username),
       })
     }
     else {
-      await $fetch(`/api/persona`, {
+      await $fetch(`/api/character`, {
         method: 'post',
         body: {
           ...data,
@@ -127,11 +127,11 @@ const submit = form.handleSubmit(async (data) => {
     }
 
     queryClient.invalidateQueries({
-      queryKey: queryKeys.myPersonas,
+      queryKey: queryKeys.myCharacters,
     })
 
     queryClient.invalidateQueries({
-      queryKey: queryKeys.discoverPersonas,
+      queryKey: queryKeys.discoverCharacters,
     })
 
     emit('close')
@@ -154,7 +154,7 @@ const isPastDueVisible = computed(() => {
   return isPlanPastDue(user.value)
 })
 
-const { mainField } = useBuildPersonaFocus()
+const { mainField } = useBuildCharacterFocus()
 </script>
 
 <template>

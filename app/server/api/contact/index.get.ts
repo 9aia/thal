@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { getContactsWithPersonaByUser } from '~/server/services/contact'
+import { getContactsWithCharacterByUser } from '~/server/services/contact'
 import { getValidated } from '~/utils/h3'
 import { unauthorized } from '~/utils/nuxt'
 
@@ -14,6 +14,6 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  const foundContacts = getContactsWithPersonaByUser(orm, user, search)
+  const foundContacts = getContactsWithCharacterByUser(orm, user, search)
   return foundContacts
 })

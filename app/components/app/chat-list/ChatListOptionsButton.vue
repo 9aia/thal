@@ -23,7 +23,7 @@ async function openProfile() {
 
 async function openMyCharacters() {
   isRootDrawerOpen.value = true
-  drawers.myPersonas = true
+  drawers.myCharacters = true
 }
 
 async function openSettings() {

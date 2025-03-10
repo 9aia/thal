@@ -34,7 +34,7 @@ const general: MenuItem[] = [
     id: 'my-characters',
     icon: 'manage_accounts',
     name: t('My characters'),
-    onClick: () => drawers.myPersonas = true,
+    onClick: () => drawers.myCharacters = true,
   },
   {
     id: 'discover-characters',
