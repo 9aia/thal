@@ -20,7 +20,7 @@ description: A timeline of key milestones and upcoming features or releases.
   - Released on the main domain for broader public access.
   - Payment systems will be fully operational (no sandbox mode).
 
-## Milestones
+## Phases
 
 ### Fundamentals
 
@@ -33,7 +33,9 @@ description: A timeline of key milestones and upcoming features or releases.
 - Basic Support & Legal (Issue Report, Terms & Privacy)
 - Site (Landing Page)
 
-### Language Assistance
+### Expansion
+
+#### Language Assistance
 
 - Implement message corrector
 - Add male voice
@@ -44,7 +46,7 @@ description: A timeline of key milestones and upcoming features or releases.
   - Add settings to adjust AI helper responses.
 - Stream translation
 
-### Generative Character Building
+#### Generative Character Building
 
 - Generate a character using a prompt
 - Generate a character from a framework (asking the learning goals, interests, occupation and observations)
@@ -58,7 +60,7 @@ description: A timeline of key milestones and upcoming features or releases.
 - Add recently created section in new chat view
 - Add profile photos (generate or upload)
 
-### Support
+#### Support
 
 - Add report button (open modal) to contact options
 - Add intuitive placeholders to fields
@@ -72,7 +74,7 @@ description: A timeline of key milestones and upcoming features or releases.
 - Add "Export account data"
 - Delete account data
 
-### Sharing
+#### Sharing
 
 - Add contact QR code
 - Add character visibility option instead of just discoverability
@@ -84,17 +86,17 @@ description: A timeline of key milestones and upcoming features or releases.
 - Display character author in the contact view and item in discover character route
 - Add a top absolute toast "Share your invite code with friends" and menu option "Invite"
 
-### Multiplayer
+#### Multiplayer
 
 - Public profile
 - Person-person chats
 - Blocks
 
-### Groups
+#### Groups
 
 - Groups of 1 character and max of 5 people
 - Groups
 
-### Communities
+#### Communities
 
 - Add communities
