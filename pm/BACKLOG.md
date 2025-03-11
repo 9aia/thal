@@ -94,6 +94,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Give safety feedback on fields
 - Add safety inflation flags and strikes
   - Assigning each user a unique ID and imposing a limit on the volume of user queries that can be submitted in a given period
+- Inform Thal changed (specially terms or privacy)
 
 ## DX
 

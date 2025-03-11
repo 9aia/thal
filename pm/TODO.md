@@ -14,14 +14,13 @@ description: Tasks and items for the release.
 - Store character data in English in the database while keeping the user's normal content visible in the drawer.
 - Add an option to translate character data on the Discover page or in the character details drawer.
 
-- Update the Terms and Privacy Policy:
-  - Include community guidelines (covering character management and messaging).
-  - Clarify pricing changes and inform users that they can cancel anytime before the trial ends to avoid charges.
-  - Require users to re-accept the Privacy Policy or Terms when updated.
 - Pre-create and refine default characters.
+  - Revise data if characters
 - Improve the design system.
-- Update What's New
+- Revise What's New
+- Revise content of policy pages
 - Update the README.
 - Translate all content using Psitta, with manual improvements to translations.
+  - Revise translations
 - Set the GCP OAuth screen to production instead of testing (requires app verification).
 - Set Stripe to production instead of testing.
