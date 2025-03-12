@@ -6,8 +6,8 @@ description: Tasks and items for the release.
 
 ## 0.1.0-7
 
-- Block unsafe sending messages. Provide feedback indicating that the message is not allowed, and allow users to edit or remove the unsafe message before sending a new one.
-- Block unsafe receiving messages. Provide feedback indicating that the message is not allowed, and allow users to request a safer regeneration from the model.
+- Provide feedback indicating that the sending message is not allowed.
+- Provide feedback indicating that the receiving message is not allowed, and allow users to request a safer regeneration from the model.
 - Restrict character creation and editing based on Gemini safety. Provide feedback and allow users to revise their content.
   - Add a link to the community guidelines (in the Terms) in the "Character Builder," chats, and settings.
 
@@ -15,7 +15,7 @@ description: Tasks and items for the release.
 - Add an option to translate character data on the Discover page or in the character details drawer.
 
 - Pre-create and refine default characters.
-  - Revise data if characters
+  - Revise data of characters
 - Improve the design system.
 - Revise What's New
 - Revise content of policy pages

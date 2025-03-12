@@ -64,12 +64,16 @@ function restoreCursorPosition() {
 }
 
 defineExpose({
-  focus: () => {
+  focus: (startFromEnd?: boolean) => {
     if (!inputRef.value)
       return
 
     setCursorEnd(inputRef.value)
-    restoreCursorPosition()
+
+    if (!startFromEnd) {
+      restoreCursorPosition()
+    }
+
     inputRef.value.focus()
   },
 })

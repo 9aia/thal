@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { useEventListener, useOnline, useScroll } from '@vueuse/core'
 import AppLayout from '~/layouts/app.vue'
 import queryKeys from '~/queryKeys'
-import { chatItemSearch, isPastDueModalOpen, replies, sendingChatIds, sentErrorChatIds } from '~/store'
+import { chatItemSearch, contentEditableRef, isPastDueModalOpen, replies, sendingChatIds, sentErrorChatIds } from '~/store'
 import type { ChatItem } from '~/types'
 
 const route = useRoute()
@@ -197,12 +197,6 @@ const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending
     goToBottom()
   },
   onSuccess: async (newHistory) => {
-    if (data.value.history.length === 1) {
-      queryClient.invalidateQueries({
-        queryKey: queryKeys.chats,
-      })
-    }
-
     queryClient.invalidateQueries({
       queryKey: queryKeys.chats,
     })
@@ -263,6 +257,34 @@ function handleResend() {
       replyFrom: replying.value?.from,
     })
   }
+}
+
+function handleDelete(chatId: number) {
+  queryClient.setQueryData(queryKeys.chat(route.params.username as string), {
+    ...data.value,
+    history: data.value.history.filter(message => message.id !== chatId),
+  })
+
+  sentErrorChatIds.value.delete(data.value!.chatId!)
+  sendingChatIds.value.delete(data.value!.chatId!)
+
+  queryClient.invalidateQueries({
+    queryKey: queryKeys.chats,
+  })
+}
+async function handleEdit(chatId: number) {
+  const message = data.value.history.find(message => message.id === chatId)?.message
+
+  if (!message) {
+    return
+  }
+
+  text.value = message
+  handleDelete(chatId)
+
+  await nextTick()
+
+  contentEditableRef.value?.focus(true)
 }
 
 const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
@@ -334,6 +356,8 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
                 :is-error="messageError"
                 @fix-scroll="goToBottom"
                 @resend="handleResend()"
+                @delete="handleDelete($event)"
+                @edit="handleEdit($event)"
               />
 
               <ChatBubbleLoading v-if="isMessagePending && isOnline" />

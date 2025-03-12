@@ -16,11 +16,15 @@ const props = defineProps<{
   status: MessageStatus
   img: string
   showResend: boolean
+  showEdit: boolean
+  showDelete: boolean
 }>()
 const emit = defineEmits<{
   (e: 'resend'): void
   (e: 'listen'): void
   (e: 'translate'): void
+  (e: 'edit'): void
+  (e: 'delete'): void
 }>()
 
 const right = computed(() => props.from === 'user')
@@ -105,6 +109,16 @@ const audiableTextMutation = computed(() => {
     <div class="chat-footer opacity-90 flex items-center mt-1 gap-1" :class="{ 'flex-row-reverse': !right }">
       <div class="flex gap-1 items-center min-h-8" :class="{ 'flex-row-reverse': !right }">
         <Button
+          v-if="(from === 'user') && showEdit"
+          class="btn btn-sm btn-circle btn-ghost btn-gray text-blue-500 sm:hidden group-hover:block" shape="circle"
+          @click="emit('edit')"
+        >
+          <Icon class="text-base">
+            edit
+          </Icon>
+        </Button>
+
+        <Button
           v-if="(from === 'user') && showResend"
           class="btn btn-sm btn-circle btn-ghost btn-gray text-magenta-500 sm:hidden group-hover:block" shape="circle"
           @click="emit('resend')"
@@ -138,6 +152,16 @@ const audiableTextMutation = computed(() => {
         >
           <Icon class="text-base">
             translate
+          </Icon>
+        </Button>
+
+        <Button
+          v-if="(from === 'user') && showDelete"
+          class="btn btn-sm btn-circle btn-ghost btn-gray text-red-500 sm:hidden group-hover:block" shape="circle"
+          @click="emit('delete')"
+        >
+          <Icon class="text-base">
+            delete
           </Icon>
         </Button>
       </div>

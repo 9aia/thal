@@ -2,7 +2,7 @@
 import { useMagicKeys, useOnline } from '@vueuse/core'
 import { useQueryClient } from '@tanstack/vue-query'
 import { useEventListener } from '@vueuse/core/index.cjs'
-import { contentEditableRef, replies, sendingChatIds, sentErrorChatIds } from '~/store'
+import { contentEditableRef, editingBubbleData, replies, sendingChatIds, sentErrorChatIds } from '~/store'
 import queryKeys from '~/queryKeys'
 
 const props = defineProps<{
@@ -32,14 +32,16 @@ const isOnline = useOnline()
 const isChatError = computed(() => props.chatId ? sentErrorChatIds.value.has(props.chatId) : false)
 const isChatSending = computed(() => props.chatId ? sendingChatIds.value.has(props.chatId) : false)
 
+function removeHtmlTags(str: string) {
+  return str.replace(/<[^>]*>/g, '')
+}
+
 const isEmpty = ref(true)
 
 watch(text, () => {
-  const contentEl = document.querySelector('#input')
-  if (!contentEl) {
-    return
-  }
-  isEmpty.value = contentEl.textContent?.trim() === ''
+  const plainText = removeHtmlTags(text.value)
+
+  isEmpty.value = !plainText
 })
 
 const icon = computed(() => {
@@ -98,7 +100,7 @@ const replyDisplayName = computed(() => replying.value.from === 'user'
 onMounted(() => {
   const chatContainer = document.querySelector('#chat-container')
 
-  useEventListener(chatContainer, 'keydown', (event) => {
+  useEventListener(chatContainer, 'keydown', (event: KeyboardEvent) => {
     // Ignore modifier keys
     if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey)
       return
