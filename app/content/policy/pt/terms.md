@@ -1,6 +1,6 @@
 # Termos de Serviço do Thal
 
-**Data de Vigência:** :policy-effective-date
+**Data de Vigência**: :policy-effective-date{:id="_file"}
 
 Estes Termos de Serviço ("Termos") regem o uso do aplicativo Thal (o "Serviço"), que é de propriedade e operado pela Gaia ("nós", "nos", ou "nosso"). Ao acessar ou utilizar o Thal, você concorda em cumprir e estar vinculado a estes Termos. Se você não concordar com estes Termos, por favor, não use o Serviço.
 

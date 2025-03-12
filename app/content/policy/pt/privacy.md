@@ -1,6 +1,6 @@
 # Política de Privacidade do Thal
 
-Data de Vigência: :policy-effective-date
+**Data de Vigência**: :policy-effective-date{:id="_file"}
 
 No **Thal**, sua privacidade é nossa principal prioridade. Esta Política de Privacidade explica como coletamos, usamos, divulgamos e protegemos suas informações pessoais quando você utiliza nosso aplicativo de aprendizado de inglês. Ao utilizar o **Thal**, você concorda com a coleta e o uso das informações de acordo com esta política.
 

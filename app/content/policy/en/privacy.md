@@ -1,6 +1,6 @@
 # Privacy Policy for Thal
 
-Effective Date: :policy-effective-date
+**Effective Date**: :policy-effective-date{:id="_file"}
 
 At **Thal**, your privacy is a top priority. This Privacy Policy explains how we collect, use, disclose, and protect your personal information when you use our English learning app. By using **Thal**, you agree to the collection and use of information in accordance with this policy.
 

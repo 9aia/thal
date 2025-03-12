@@ -6,9 +6,15 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Added
+
+- Add effective date to policy pages
+
 ### Fixed
 
 - Fixed "My Characters" item dropdown positioning
+- Added delete action to messages when there is a error
+- Added edit action to messages when there is a error
 
 ## [0.1.0-6] - 2025-03-09
 

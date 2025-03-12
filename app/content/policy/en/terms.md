@@ -1,6 +1,6 @@
 # Terms of Service for Thal
 
-**Effective Date:** :policy-effective-date
+**Effective Date**: :policy-effective-date{:id="_file"}
 
 These Terms of Service ("Terms") govern your use of the Thal app (the "Service"), which is owned and operated by Gaia ("we," "us," or "our"). By accessing or using Thal, you agree to comply with and be bound by these Terms. If you do not agree to these Terms, please do not use the Service.
 

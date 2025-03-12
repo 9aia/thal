@@ -1,11 +1,27 @@
-<script setup>
-import { v } from '@psitta/vue'
+<script setup lang="ts">
+import { t, v } from '@psitta/vue'
+import timestampJson from '~/modules/policy/.timestamp.json'
 
-const config = useRuntimeConfig()
+defineProps<{
+  id: string
+}>()
 
-const date = v(new Date(config.public.POLICY_EFFECTIVE_DATE_TIMESTAMP))
+const timestampData = timestampJson as Record<string, number>
 </script>
 
 <template>
-  <slot />{{ date }}
+  <template v-if="timestampData[id]">
+    <time>
+      {{ v([new Date((timestampData as any)[id]), {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+      }]) }}
+    </time>
+  </template>
+  <template v-else>
+    <Icon name="error" class="align-middle text-red-500" />
+  </template>
 </template>

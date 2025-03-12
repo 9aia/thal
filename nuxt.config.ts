@@ -64,9 +64,6 @@ export default defineNuxtConfig({
     GEMINI_API_KEY: process.env.GEMINI_API_KEY,
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
     STRIPE_ENDPOINT_SECRET: process.env.STRIPE_ENDPOINT_SECRET,
-    public: {
-      POLICY_EFFECTIVE_DATE_TIMESTAMP: new Date().getTime(),
-    },
   },
 
   components: [
