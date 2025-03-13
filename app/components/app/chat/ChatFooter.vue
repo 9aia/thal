@@ -2,7 +2,7 @@
 import { useMagicKeys, useOnline } from '@vueuse/core'
 import { useQueryClient } from '@tanstack/vue-query'
 import { useEventListener } from '@vueuse/core/index.cjs'
-import { contentEditableRef, editingBubbleData, replies, sendingChatIds, sentErrorChatIds } from '~/store'
+import { contentEditableRef, edition, replies, sendingChatIds, sentErrorChatIds } from '~/store'
 import queryKeys from '~/queryKeys'
 
 const props = defineProps<{
@@ -32,17 +32,7 @@ const isOnline = useOnline()
 const isChatError = computed(() => props.chatId ? sentErrorChatIds.value.has(props.chatId) : false)
 const isChatSending = computed(() => props.chatId ? sendingChatIds.value.has(props.chatId) : false)
 
-function removeHtmlTags(str: string) {
-  return str.replace(/<[^>]*>/g, '')
-}
-
-const isEmpty = ref(true)
-
-watch(text, () => {
-  const plainText = removeHtmlTags(text.value)
-
-  isEmpty.value = !plainText
-})
+const isEmpty = useIsTextEmpty(text)
 
 const icon = computed(() => {
   if (isChatSending.value && !isOnline.value)
@@ -101,6 +91,10 @@ onMounted(() => {
   const chatContainer = document.querySelector('#chat-container')
 
   useEventListener(chatContainer, 'keydown', (event: KeyboardEvent) => {
+    if (edition.editing) {
+      return
+    }
+
     // Ignore modifier keys
     if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey)
       return
@@ -168,7 +162,8 @@ watch(translation.isLoading, (value) => {
 
             <ContentEditable
               is="span" id="input" ref="contentEditableRef" v-model="text"
-              class="flex w-full items-center text-sm outline-none" placeholder="Type a message"
+              class="flex w-full items-center text-sm outline-none"
+              :placeholder="t('Type a message...')"
               @keydown.enter="handleSend"
             />
           </label>

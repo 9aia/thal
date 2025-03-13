@@ -3,7 +3,7 @@ import { useLocale } from '@psitta/vue'
 import type { UseMutationReturnType } from '@tanstack/vue-query'
 import MessageIcon from './MessageIcon.vue'
 import type { MessageStatus } from '~/types'
-import { contentEditableRef, replies } from '~/store'
+import { contentEditableRef, edition, replies } from '~/store'
 
 const props = defineProps<{
   id: number
@@ -29,9 +29,11 @@ const emit = defineEmits<{
 
 const right = computed(() => props.from === 'user')
 
+const { t } = useI18nExperimental()
 const locale = useLocale()
 const route = useRoute()
 
+const isEditing = computed(() => edition.editing && edition.editingMessageId === props.id)
 const username = computed(() => route.params.username as string)
 
 const time = computed(() => new Intl.DateTimeFormat(locale.value, {
@@ -42,7 +44,7 @@ const time = computed(() => new Intl.DateTimeFormat(locale.value, {
 const copyToClipboard = useClipboard(toRef(props, 'message'))
 const translation = useTranslation({
   chatUsername: username.value,
-  message: toRef(props, 'message'),
+  message: computed(() => isEditing.value ? edition.message : props.message),
   replyMessageId: computed(() => props.replyingId ? props.replyingId : undefined),
   refetchOnTranslate: false,
 })
@@ -66,11 +68,24 @@ const audiableTextMutation = computed(() => {
 
   return audiableTextRef.value.playMutation as UseMutationReturnType<unknown, Error, void, unknown>
 })
+
+async function edit() {
+  edition.message = ''
+  edition.editingMessageId = props.id
+
+  edition.editing = true
+  await nextTick()
+  edition.message = props.message
+}
+
+function cancelEdit() {
+  edition.editing = false
+}
 </script>
 
 <template>
   <div
-    :id="`bubble-container-${id}`" class="group bubble-scrollable" :class="{
+    :id="`bubble-container-${id}`" class="w-full group bubble-scrollable" :class="{
       'chat-start': !right,
       'chat-end': right,
     }"
@@ -82,36 +97,64 @@ const audiableTextMutation = computed(() => {
       />
     </div>
 
-    <div class="chat-bubble flex items-center gap-2 bg-transparent p-0">
-      <ChatAside v-if="right" :right="!!right" :translation="translation" @set-reply="setReply" />
+    <div class="flex items-center gap-2 bg-transparent p-0" :class="[isEditing ? 'w-full' : '']">
+      <ChatAside v-if="right && !isEditing" :right="!!right" :translation="translation" @set-reply="setReply" />
 
       <div
-        class="chat-bubble-bg bg-gray-50 flex flex-col rounded-3xl px-2 py-2 min-w-32 max-w-[300px] sm:max-w-[400px] lg:max-w-[500px]"
-        :class="[right ? 'rounded-br-md' : 'rounded-bl-md']"
+        class="chat-bubble-bg flex flex-col rounded-3xl px-2 py-2 min-w-32 bg-gray-50"
+        :class="[right ? 'rounded-br-md' : 'rounded-bl-md', !isEditing ? 'max-w-[300px] sm:max-w-[400px] lg:max-w-[500px]' : 'w-full']"
       >
         <div class="px-2">
-          <AudibleText ref="audiableTextRef" :text="message" />
+          <AudibleText v-if="!isEditing" ref="audiableTextRef" :text="message" />
+
+          <EditBubble v-else />
         </div>
 
         <div v-if="translation.isOpen.value" class="px-1 my-1">
           <ChatBubbleTranslation :translation="translation" />
         </div>
 
-        <div class="flex items-center px-2 gap-1" :class="{ 'justify-end': right }">
-          <time class="text-gray-300 text-xs opacity-90">{{ time }}</time>
-          <MessageIcon v-if="right" :status="status" />
-        </div>
+        <template v-if="isEditing">
+          <div class="flex justify-end gap-1">
+            <Button
+              size="xs"
+              @click="cancelEdit"
+            >
+              <Icon class="text-base">
+                close
+              </Icon>
+              {{ t('Cancel') }}
+            </Button>
+
+            <Button
+              size="xs"
+              @click="emit('edit')"
+            >
+              <Icon class="text-base">
+                send
+              </Icon>
+              {{ t('Send') }}
+            </Button>
+          </div>
+        </template>
+
+        <template v-else>
+          <div class="flex items-center px-2 gap-1" :class="{ 'justify-end': right }">
+            <time class="text-gray-300 text-xs opacity-90">{{ time }}</time>
+            <MessageIcon v-if="right" :status="status" />
+          </div>
+        </template>
       </div>
 
-      <ChatAside v-if="!right" :right="!!right" :translation="translation" @set-reply="setReply" />
+      <ChatAside v-if="!right && !isEditing" :right="!!right" :translation="translation" @set-reply="setReply" />
     </div>
 
-    <div class="chat-footer opacity-90 flex items-center mt-1 gap-1" :class="{ 'flex-row-reverse': !right }">
-      <div class="flex gap-1 items-center min-h-8" :class="{ 'flex-row-reverse': !right }">
+    <div class="chat-footer opacity-90 flex items-center mt-1" :class="{ 'flex-row-reverse': !right }">
+      <div class="flex items-center min-h-8" :class="{ 'flex-row-reverse': !right }">
         <Button
-          v-if="(from === 'user') && showEdit"
+          v-if="(from === 'user') && showEdit && !isEditing"
           class="btn btn-sm btn-circle btn-ghost btn-gray text-blue-500 sm:hidden group-hover:block" shape="circle"
-          @click="emit('edit')"
+          @click="edit"
         >
           <Icon class="text-base">
             edit
@@ -119,7 +162,7 @@ const audiableTextMutation = computed(() => {
         </Button>
 
         <Button
-          v-if="(from === 'user') && showResend"
+          v-if="(from === 'user') && showResend && !isEditing"
           class="btn btn-sm btn-circle btn-ghost btn-gray text-magenta-500 sm:hidden group-hover:block" shape="circle"
           @click="emit('resend')"
         >
@@ -129,6 +172,7 @@ const audiableTextMutation = computed(() => {
         </Button>
 
         <Button
+          v-if="!isEditing"
           class="text-gray-800 btn-ghost sm:hidden group-hover:block" shape="circle"
           @click="copyToClipboard"
         >
@@ -138,6 +182,7 @@ const audiableTextMutation = computed(() => {
         </Button>
 
         <Button
+          v-if="!isEditing && status !== 'error'"
           class="text-gray-800 btn-ghost sm:hidden group-hover:block" shape="circle" no-disable-on-loading
           :loading="audiableTextMutation?.isPending.value" @click="audiableTextMutation?.mutate()"
         >
@@ -147,6 +192,7 @@ const audiableTextMutation = computed(() => {
         </Button>
 
         <Button
+          v-if="!isEditing && status !== 'error'"
           class="text-gray-800 btn-ghost sm:hidden group-hover:block" shape="circle"
           :loading="translation.isLoading.value" @click="translation.onTranslate()"
         >

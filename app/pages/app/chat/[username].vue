@@ -4,13 +4,8 @@ import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { useEventListener, useOnline, useScroll } from '@vueuse/core'
 import AppLayout from '~/layouts/app.vue'
 import queryKeys from '~/queryKeys'
-import { chatItemSearch, contentEditableRef, isPastDueModalOpen, replies, sendingChatIds, sentErrorChatIds } from '~/store'
+import { chatItemSearch, contentEditableRef, edition, isPastDueModalOpen, replies, sendingChatIds, sentErrorChatIds } from '~/store'
 import type { ChatItem } from '~/types'
-
-const route = useRoute()
-const toast = useToast()
-
-const { t } = useI18nExperimental()
 
 definePageMeta({
   layout: false,
@@ -18,6 +13,10 @@ definePageMeta({
 })
 
 useAutoRedirect()
+
+const route = useRoute()
+const toast = useToast()
+const { t } = useI18nExperimental()
 const queryClient = useQueryClient()
 
 const {
@@ -65,7 +64,9 @@ const text = ref('')
 interface SendMessageData {
   type: 'text'
   value: string
-  refresh: boolean
+  refresh?: boolean
+  editing?: boolean
+  editingId?: number
   replyingId?: number
   replyMessage?: string
   replyFrom?: 'user' | 'bot'
@@ -91,6 +92,27 @@ function updateHistory(newMessage: SendMessageData) {
     replyFrom: newMessage.replyFrom,
     time: new Date().getTime(),
   })
+
+  queryClient.setQueryData(queryKeys.chat(route.params.username as string), {
+    ...data.value,
+    history: newHistory,
+  })
+}
+
+function editHistory(editedMessage: SendMessageData) {
+  // update the message in the history based on the editedMessage.editingId
+  const newHistory = [...data.value.history || []]
+
+  const messageIndex = newHistory.findIndex(message => message.id === editedMessage.editingId)
+
+  console.log('editing:', editedMessage.editingId, 'index', messageIndex, JSON.stringify(newHistory))
+
+  if (messageIndex !== -1) {
+    newHistory[messageIndex] = {
+      ...newHistory[messageIndex],
+      message: editedMessage.value,
+    }
+  }
 
   queryClient.setQueryData(queryKeys.chat(route.params.username as string), {
     ...data.value,
@@ -146,6 +168,14 @@ const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending
   }),
   async onMutate(newMessage) {
     sendingChatIds.value.add(data.value!.chatId!)
+
+    if (newMessage.editing) {
+      console.log('editing history')
+      editHistory(newMessage)
+      // TODO update LastMessage (chatlist) if necessary
+      return
+    }
+
     if (newMessage.refresh)
       return
 
@@ -259,10 +289,10 @@ function handleResend() {
   }
 }
 
-function handleDelete(chatId: number) {
+function handleDelete(messageId: number) {
   queryClient.setQueryData(queryKeys.chat(route.params.username as string), {
     ...data.value,
-    history: data.value.history.filter(message => message.id !== chatId),
+    history: data.value.history.filter(message => message.id !== messageId),
   })
 
   sentErrorChatIds.value.delete(data.value!.chatId!)
@@ -272,19 +302,24 @@ function handleDelete(chatId: number) {
     queryKey: queryKeys.chats,
   })
 }
-async function handleEdit(chatId: number) {
-  const message = data.value.history.find(message => message.id === chatId)?.message
 
-  if (!message) {
-    return
-  }
+function handleEdit() {
+  const messageIndex = data.value.history.findIndex(message => message.id === edition.editingMessageId)
+  const editingMessage = data.value.history[messageIndex]
 
-  text.value = message
-  handleDelete(chatId)
+  handleDelete(edition.editingMessageId!)
 
-  await nextTick()
+  sendMessage({
+    type: 'text',
+    value: edition.message!,
+    editingId: edition.editingMessageId!,
+    replyingId: editingMessage.replyingId!,
+    replyMessage: editingMessage.replyMessage,
+    replyFrom: editingMessage.replyFrom,
+  })
 
-  contentEditableRef.value?.focus(true)
+  edition.message = ''
+  edition.editing = false
 }
 
 const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
@@ -357,7 +392,7 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
                 @fix-scroll="goToBottom"
                 @resend="handleResend()"
                 @delete="handleDelete($event)"
-                @edit="handleEdit($event)"
+                @edit="handleEdit()"
               />
 
               <ChatBubbleLoading v-if="isMessagePending && isOnline" />

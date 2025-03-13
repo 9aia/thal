@@ -7,7 +7,7 @@ import type { SafeProps, SafeVariantProps } from '~/types'
 const props = withDefaults(defineProps<Props & {
   size?: keyof typeof variants['size']
   shape?: 'circle' | 'square' | 'normal'
-  class: string
+  class?: string
   noDisableOnLoading?: boolean
 }>(), {
   size: 'sm',

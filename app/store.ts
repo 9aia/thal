@@ -74,6 +74,18 @@ export async function manageContact(data?: Contact | null) {
 
 /* Chat */
 
+export interface Edition {
+  editing: boolean
+  message: string
+  editingMessageId: number | null
+}
+
+export const edition = reactive<Edition>({
+  editing: false,
+  message: '',
+  editingMessageId: null,
+})
+
 export const replies = reactive<Replies>({})
 export const chatItemSearch = ref('')
 

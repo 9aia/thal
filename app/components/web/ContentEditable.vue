@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 const props = withDefaults(defineProps<{
   placeholder: string
-  is: string
+  is?: string
 }>(), {
   is: 'div',
 })
