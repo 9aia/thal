@@ -90,10 +90,14 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## Legal
 
-- Add character rating (unrated, teen, mature, everyone)
-- Give safety feedback on fields
+- Handle Gemini safety errors
+  - Provide feedback indicating that the sending message is not allowed.
+  - Provide feedback indicating that the receiving message is not allowed, and allow users to request a safer regeneration from the model.
+  - Add a link to the community guidelines (in the Terms) in the "Character Builder," chats, and settings.
+  - Give safety feedback on fields
 - Add safety inflation flags and strikes
   - Assigning each user a unique ID and imposing a limit on the volume of user queries that can be submitted in a given period
+- Add character rating (unrated, teen, mature, everyone)
 - Inform Thal changed (specially terms or privacy)
 
 ## DX
