@@ -93,6 +93,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Handle Gemini safety errors
   - Provide feedback indicating that the sending message is not allowed.
   - Provide feedback indicating that the receiving message is not allowed, and allow users to request a safer regeneration from the model.
+  - Provide feedback and allow users to revise their character content.
   - Add a link to the community guidelines (in the Terms) in the "Character Builder," chats, and settings.
   - Give safety feedback on fields
 - Add safety inflation flags and strikes

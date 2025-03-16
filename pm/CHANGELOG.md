@@ -8,7 +8,8 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ### Added
 
-- Add effective date to policy pages
+- Added effective date to policy pages
+- Added character builder prompt input for drafts and approves
 
 ### Fixed
 

@@ -44,6 +44,7 @@ export interface Character {
   id?: string
   name: string
   username: string
+  prompt: string
   avatar?: string
   discoverable?: boolean
   description?: string

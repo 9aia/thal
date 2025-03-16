@@ -6,6 +6,7 @@ SELECT * FROM Character
 
 DELETE FROM CharacterUsername;
 DELETE FROM Character;
+DELETE FROM CharacterDraft;
 
 -- @block List all CharacterUsernames
 

@@ -2,10 +2,8 @@
 import { useQueryClient } from '@tanstack/vue-query'
 import { useDebounceFn } from '@vueuse/core'
 import { useForm } from 'vee-validate'
-import { descriptionSchema, instructionsSchema, nameSchema, usernameSchema } from '~~/db/schema'
-import { characterBuilderData, contactViewUsername, isRootDrawerOpen } from '~/store'
-import type { Character } from '~/types'
 import queryKeys from '~/queryKeys'
+import { characterBuilderData, contactViewUsername, isRootDrawerOpen } from '~/store'
 
 const emit = defineEmits<{
   (e: 'close'): void
@@ -22,15 +20,28 @@ interface FormValues {
   discoverable: boolean
 }
 
+const initialValuesFromData = computed(() => {
+  if (characterBuilderData.value) {
+    return {
+      prompt: characterBuilderData.value.prompt,
+      discoverable: characterBuilderData.value.discoverable,
+    }
+  }
+
+  return {
+    prompt: '',
+    discoverable: false,
+  }
+})
+
 const form = useForm<FormValues>({
-  initialValues: characterBuilderData.value,
+  initialValues: initialValuesFromData.value,
 })
 
 watch(characterBuilderData, () => {
-  if (characterBuilderData.value)
-    form.setValues(characterBuilderData.value)
-  else
-    form.resetForm()
+  characterBuilderData.value
+    ? form.setValues(initialValuesFromData.value)
+    : form.resetForm()
 })
 
 const user = useUser()
@@ -40,38 +51,38 @@ const loading = ref(false)
 const queryClient = useQueryClient()
 const { params } = useRoute()
 
-async function validateUsername(username: string) {
-  if (!username)
-    return
+// async function validateUsername(username: string) {
+//   if (!username)
+//     return
 
-  let invalid = false
+//   let invalid = false
 
-  try {
-    const { valid } = await $fetch(`/api/character/validate-username/${username}`, {
-      params: {
-        allowedUsername: characterBuilderData.value?.username,
-      },
-    })
+//   try {
+//     const { valid } = await $fetch(`/api/character/validate-username/${username}`, {
+//       params: {
+//         allowedUsername: characterBuilderData.value?.username,
+//       },
+//     })
 
-    invalid = !valid
-  }
-  catch (e) {
-    const _ = e
+//     invalid = !valid
+//   }
+//   catch (e) {
+//     const _ = e
 
-    toast.error(t(
-      'An error occurred while validating username.',
-    ))
-    invalid = false
-  }
+//     toast.error(t(
+//       'An error occurred while validating username.',
+//     ))
+//     invalid = false
+//   }
 
-  form.setFieldError(
-    'username',
-    invalid ? t('Username is invalid.') : undefined,
-  )
-}
+//   form.setFieldError(
+//     'username',
+//     invalid ? t('Username is invalid.') : undefined,
+//   )
+// }
 
-const debouncedValidateUsername = useDebounceFn(validateUsername, 500)
-watch(() => form.values.username, debouncedValidateUsername)
+// const debouncedValidateUsername = useDebounceFn(validateUsername, 500)
+// watch(() => form.values.username, debouncedValidateUsername)
 
 const isEditing = computed(() => characterBuilderData.value?.id)
 
@@ -80,19 +91,16 @@ const submit = form.handleSubmit(async (data) => {
 
   try {
     if (isEditing.value) {
-      await $fetch(`/api/character/${characterBuilderData.value?.username}` as '/api/character/:username', {
+      const response = await $fetch(`/api/character/${characterBuilderData.value?.username}` as '/api/character/:username', {
         method: 'PATCH',
-        body: {
-          ...data,
-          conversationStarters: [],
-        },
+        body: data,
       })
 
       toast.success(t('Character has been edited successfully.'), undefined, {
         actions: [
           {
             title: t('Message'),
-            onClick: () => navigateTo(`/app/chat/${data.username}`),
+            onClick: () => navigateTo(`/app/chat/${response.username}`),
           },
         ],
       })
@@ -100,21 +108,20 @@ const submit = form.handleSubmit(async (data) => {
       const usernameQuery = params.username
 
       if (characterBuilderData.value?.username === usernameQuery)
-        navigateTo(`/app/chat/${data.username}`)
+        navigateTo(`/app/chat/${response.username}`)
 
       if (characterBuilderData.value?.username === contactViewUsername.value)
-        contactViewUsername.value = data.username
+        contactViewUsername.value = response.username
 
       queryClient.invalidateQueries({
         queryKey: queryKeys.contactInfo(characterBuilderData.value!.username),
       })
     }
     else {
-      await $fetch(`/api/character`, {
+      const response = await $fetch(`/api/character/index-new`, {
         method: 'post',
         body: {
           ...data,
-          conversationStarters: [],
         },
       })
 
@@ -124,7 +131,7 @@ const submit = form.handleSubmit(async (data) => {
             title: t('Message'),
             onClick: () => {
               isRootDrawerOpen.value = false
-              navigateTo(`/app/chat/${data.username}`)
+              navigateTo(`/app/chat/${response.username}`)
             },
           },
         ],
@@ -200,50 +207,8 @@ const { mainField } = useBuildCharacterFocus()
     </AppNote>
 
     <div class="px-4 py-4 flex-1 overflow-y-auto bg-white space-y-4">
-      <SettingSection :title="t('General Information')">
+      <SettingSection>
         <form class="block space-y-2" @submit="submit">
-          <!-- <TextField
-            ref="mainField"
-            path="name"
-            :label="t('Name')"
-            :rules="yupify(nameSchema, t(
-              'Name must contain between 1 and 20 characters.',
-            ))"
-            :disabled="isPastDueVisible"
-          />
-          <TextField
-            path="username"
-            autocapitalize="none"
-            autocomplete="off"
-            :label="t('Username')"
-            :rules="yupify(usernameSchema, t('Username is invalid.'))"
-            icon-position="right"
-            :disabled="isPastDueVisible"
-          >
-            <template #icon="{ errorMessage }">
-              <Icon
-                :class="{ 'text-red-500': errorMessage, 'text-green-500': !errorMessage }"
-                :name="errorMessage ? 'close' : 'check'"
-              />
-            </template>
-          </TextField>
-
-          <TextField
-            path="description" :label="t('Description')" :rules="yupify(descriptionSchema, t(
-              'Description must contain between 1 and 100 characters.',
-            ))"
-            :disabled="isPastDueVisible"
-          />
-
-          <Textarea
-            path="instructions" :label="t('Instructions')" :rules="yupify(instructionsSchema, t(
-              'Instructions must contain between 1 and 500 characters.',
-            ))"
-            :disabled="isPastDueVisible"
-          />
-
-          <div class="h-2" /> -->
-
           <Textarea
             path="prompt"
             :label="t('Describe your character')"
@@ -260,7 +225,7 @@ const { mainField } = useBuildCharacterFocus()
 
           <Button :loading="loading" class="btn-primary" :disabled="hasErrors || isPastDueVisible">
             {{
-              t("Save")
+              t("Generate")
             }}
           </Button>
         </form>

@@ -44,7 +44,7 @@ Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
 
 ### Create character
 
-POST {{baseUrl}}/character/index-new
+POST {{baseUrl}}/character/draft
 Content-Type: application/json
 Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
 

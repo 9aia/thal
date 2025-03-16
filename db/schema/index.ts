@@ -123,60 +123,58 @@ export const characters = sqliteTable('Character', {
   name: text('name').notNull(),
   description: text('description').notNull(),
   instructions: text('instructions').notNull(),
-  conversationStarters: text('conversation_starters').notNull(),
-  createdAt: text('created_at').notNull(),
   categoryId: int('category_id').notNull(),
   discoverable: int('discoverable', { mode: 'boolean' }).default(true).notNull(),
-  prompt: text('prompt').default('').notNull(),
   creatorId: text('creator_id')
     .references(() => users.id, { onDelete: 'no action' }),
+  createdAt: text('created_at').notNull(),
 })
 
 export const characterRelations = relations(characters, ({ one }) => ({
   characterUsernames: one(characterUsernames),
 }))
 
-export const characterGetSchema = createSelectSchema(characters, {
-  conversationStarters: z.array(z.string()),
-})
+export const characterGetSchema = createSelectSchema(characters)
   .omit({
     creatorId: true,
   })
-  .extend({
-    username: usernameSchema,
-  })
-
-export const characterPromptSchema = z.object({
-  prompt: z.string(),
-  discoverable: z.boolean(),
-})
-
-export const characterInsertSchema = createInsertSchema(characters, {
-  conversationStarters: z.array(z.string()),
-})
-  .extend({
-    username: usernameSchema,
-  })
-  .omit({
-    id: true,
-    creatorId: true,
-    createdAt: true,
-    categoryId: true,
-  })
-
-export const characterUpdateSchema = createInsertSchema(characters, {
-  name: nameSchema,
-  description: descriptionSchema,
-  conversationStarters: z.array(z.string()),
-})
-  .extend({
-    username: usernameSchema,
-  })
-  .partial()
 
 export type CharacterGet = z.infer<typeof characterGetSchema>
-export type CharacterInsert = z.infer<typeof characterInsertSchema>
-export type CharacterUpdate = z.infer<typeof characterUpdateSchema>
+
+export const characterDataSchema = createInsertSchema(characters).omit({
+  id: true,
+  createdAt: true,
+  discoverable: true,
+})
+  .extend({
+    username: usernameSchema,
+  })
+
+// #endregion
+
+// #region CharacterDraft
+
+export const characterDraftSchema = z.object({
+  prompt: z.string(),
+})
+
+export type CharacterDraftData = z.infer<typeof characterDataSchema>
+
+export const characterDraftInsertSchema = z.object({
+  characterId: z.number().optional(),
+  discoverable: z.boolean().default(true),
+})
+
+export const characterDrafts = sqliteTable('CharacterDraft', {
+  id: int('id').primaryKey({ autoIncrement: true }),
+  characterId: int('character_id')
+    .references(() => characters.id, { onDelete: 'cascade' }),
+  creatorId: text('creator_id')
+    .references(() => users.id, { onDelete: 'no action' }),
+  prompt: text('prompt').notNull(),
+  data: text('data', { mode: 'json' }).$type<CharacterDraftData>().notNull(),
+  createdAt: text('created_at').notNull(),
+})
 
 // #endregion
 
