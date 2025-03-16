@@ -99,12 +99,14 @@
     "toml"
   ],
   "rest-client.environmentVariables": {
-    "local": {
+    "dev": {
       "baseUrl": "http://localhost:3000/api"
     },
-    "codeshare": {
-      "baseUrl": "http://9aia-dev.com:3000/api"
-    }
+  },
+  "rest-client.defaultHeaders": {
+    "User-Agent": "vscode-restclient",
+    "Accept-Encoding": "gzip",
+    "Origin": "http://localhost:3000"
   },
   "editor.quickSuggestions": {
     "other": true,

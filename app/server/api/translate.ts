@@ -1,11 +1,11 @@
 import { z } from 'zod'
 import { eq } from 'drizzle-orm'
 import { getHistory } from '../services/messages'
-import { getGemini } from '~/utils/gemini'
 import { getValidated } from '~/utils/h3'
 import { internal, paymentRequired, unauthorized } from '~/utils/nuxt'
 import type { Character } from '~/types'
 import { SubscriptionStatus, characterUsernames, messages } from '~~/db/schema'
+import { promptGeminiText } from '~/utils/gemini'
 
 export default defineEventHandler(async (event) => {
   const { GEMINI_API_KEY, GEMINI_MODEL } = useRuntimeConfig(event)
@@ -133,11 +133,12 @@ export default defineEventHandler(async (event) => {
   `
     : data.text
 
-  const gemini = getGemini(GEMINI_API_KEY)
-  const res = await gemini.generateContent(prompt, GEMINI_MODEL, systemInstruction)
-  const bestCandidate = res.candidates?.[0]
-  const bestPart = bestCandidate?.content?.parts?.[0]
-  const text: string = bestPart?.text
+  const text = await promptGeminiText({
+    model: GEMINI_MODEL,
+    apiKey: GEMINI_API_KEY,
+    prompt,
+    systemInstruction,
+  })
 
   if (!text)
     throw internal('Gemini did not return a valid translation')

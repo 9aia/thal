@@ -1,9 +1,8 @@
 import { readFileSync, writeFileSync } from 'node:fs'
 import process from 'node:process'
-import fg from 'fast-glob'
-import { type Locale, type Message, type Text, type Translations, getConfig } from '@psitta/core'
 import { type ResponseSchema, SchemaType } from '@google/generative-ai'
-import { getGemini } from '~/utils/gemini'
+import { type Locale, type Message, type Text, type Translations, getConfig } from '@psitta/core'
+import fg from 'fast-glob'
 
 const CONFIG = {
   // content: ['./app/**/*.vue'],
@@ -124,9 +123,7 @@ async function translate(chunk: Chunk) {
   if (!GEMINI_MODEL)
     throw new Error('GEMINI_MODEL is not set in the environment')
 
-  const gemini = getGemini(GEMINI_API_KEY as string)
-
-  const systemInstructions = `
+  const systemInstruction = `
     You are a translator. You are expected to translate the following messages from English to Brazilian Portuguese.
 
     If you encounter any variables, please keep them in the translation.
@@ -155,19 +152,17 @@ async function translate(chunk: Chunk) {
     },
   }
 
-  const res = await gemini.generateContent(prompt, GEMINI_MODEL, systemInstructions, {
-    responseMimeType: 'application/json',
+  const geminiTranlations = await promptGeminiJson<GeminiTranslations>({
+    apiKey: GEMINI_API_KEY,
+    model: GEMINI_MODEL,
+    prompt,
+    systemInstruction,
     responseSchema,
   })
-
-  const bestCandidate = res.candidates?.[0]
-  const bestPart = bestCandidate?.content?.parts?.[0]
-  const text = bestPart?.text
 
   type GeminiTranslations = Array<Record<Locale, Text>>
   type PsittaTranslations = Record<Text, Record<Locale, Text>>
 
-  const geminiTranlations: GeminiTranslations = JSON.parse(text)
   const defaultLocale = getConfig().defaultLocale
 
   const normalizedJson = geminiTranlations.reduce((acc, cur) => {

@@ -3,7 +3,7 @@ import { SchemaType } from '@google/generative-ai'
 import { eq } from 'drizzle-orm'
 import type { H3Event, H3EventContext } from 'h3'
 import { categories } from '~/constants/discover'
-import { getGemini } from '~/utils/gemini'
+import { promptGeminiJson } from '~/utils/gemini'
 import { internal, notFound } from '~/utils/nuxt'
 import type { CharacterUpdate, User } from '~~/db/schema'
 import { characterUsernames, contacts } from '~~/db/schema'
@@ -115,28 +115,13 @@ export async function categorizeCharacter(event: H3Event, data: CharacterUpdate)
     enum: categories.map(category => category.name),
   }
 
-  const gemini = getGemini(GEMINI_API_KEY!)
-  const res = await gemini.generateContent(prompt, GEMINI_MODEL, systemInstruction, {
-    responseMimeType: 'application/json',
+  const categoryName = await promptGeminiJson<string>({
+    model: GEMINI_MODEL,
+    apiKey: GEMINI_API_KEY,
+    systemInstruction,
+    prompt,
     responseSchema: schema,
   })
-
-  const bestCandidate = res.candidates?.[0]
-  const bestPart = bestCandidate?.content?.parts?.[0]
-  const text: string = bestPart?.text
-
-  if (!text)
-    throw internal('AI did not return a valid category')
-
-  let categoryName: string
-
-  try {
-    categoryName = JSON.parse(text)
-  }
-  catch (_e) {
-    const e = _e as Error
-    throw internal(`Error while parsing Gemini response: ${e.message}`)
-  }
 
   const categoryId = categories.find(category => category.name === categoryName)?.id
 

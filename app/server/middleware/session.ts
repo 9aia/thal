@@ -10,8 +10,11 @@ export default defineEventHandler(async (event) => {
     const originHeader = getHeader(event, 'Origin') ?? null
     const hostHeader = getHeader(event, 'Host') ?? null
 
-    if (originHeader === null || hostHeader === null)
+    if (originHeader === null || hostHeader === null) {
+      console.log('a', originHeader, hostHeader)
+
       return sendNoContent(event, 403)
+    }
 
     const originUrl = new URL(originHeader.startsWith('http') ? originHeader : `http://${originHeader}`)
     const hostUrl = new URL(hostHeader.startsWith('http') ? hostHeader : `http://${hostHeader}`)

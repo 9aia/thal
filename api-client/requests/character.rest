@@ -41,3 +41,14 @@ Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
 DELETE {{baseUrl}}/character/{{username}}
 Content-Type: application/json
 Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
+
+### Create character
+
+POST {{baseUrl}}/character/index-new
+Content-Type: application/json
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
+
+{
+  "prompt": "Batou from Ghost in the Shell",
+  "discoverable": true
+}

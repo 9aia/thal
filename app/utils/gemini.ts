@@ -1,4 +1,4 @@
-import type { Content, GenerationConfig } from '@google/generative-ai'
+import type { Content, GenerationConfig, ResponseSchema } from '@google/generative-ai'
 import * as _ from 'lodash-es'
 import { internal } from './nuxt'
 import type { Message } from '~/types'
@@ -18,93 +18,115 @@ export function chatHistoryToGemini(history: Message[]): Content[] {
   )
 }
 
-export function getGemini(apiKey: string) {
-  const generateContent = async (
-    prompt: string,
-    model: string,
-    systemInstruction?: string,
-    generationConfig?: GenerationConfig,
-  ) => {
-    const input = _.trimStart(prompt)
+export async function getPrompt(options: {
+  model: string
+  prompt?: string
+  history?: Content[]
+  systemInstruction?: string
+  responseSchema?: ResponseSchema
+  generationConfig?: Omit<GenerationConfig, 'responseSchema'>
+}) {
+  const { model, prompt, systemInstruction, generationConfig, responseSchema } = options
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`
-    const body: any = {
-      contents: [
-        {
-          parts: [
-            {
-              text: input,
-            },
-          ],
-        },
-      ],
-      generationConfig,
-      system_instruction: {
-        parts: { text: systemInstruction },
-      },
-    }
+  const _generationConfig = { ...generationConfig } as GenerationConfig
 
-    if (!systemInstruction)
-      delete body.system_instruction
-
-    try {
-      const response = await fetch(`${url}?key=${apiKey}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      })
-
-      const data: any = await response.json()
-
-      if ('error' in data)
-        throw new Error(`Gemini internal error: ${data.error}`)
-
-      return data
-    }
-    catch (_e) {
-      const e = _e as Error
-      throw internal(`Error while fetching Gemini API: ${e.message}`)
-    }
+  if (responseSchema) {
+    _generationConfig.responseSchema = responseSchema
+    _generationConfig.responseMimeType = 'application/json'
   }
 
-  const respondChat = async (
-    history: Content[],
-    model: string,
-    systemInstruction?: string,
-    generationConfig?: GenerationConfig,
-  ) => {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`
-    const body: any = {
-      contents: history,
-      generationConfig,
-      system_instruction: {
-        parts: { text: systemInstruction },
-      },
-    }
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`
 
-    if (!systemInstruction)
-      delete body.system_instruction
+  const contents = options.history ? options.history : [{ parts: [{ text: prompt }] }]
 
-    try {
-      const response = await fetch(`${url}?key=${apiKey}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      })
-
-      if (!response.ok) {
-        throw internal(`Error fetching Gemini: ${response.status}`)
-      }
-
-      return await response.json() as any
-    }
-    catch (error) {
-      throw new Error(`Error responding content:: ${error}`)
-    }
+  const body: any = {
+    contents,
+    generationConfig: _generationConfig,
+    system_instruction: { parts: { text: systemInstruction } },
   }
+
+  if (!systemInstruction)
+    delete body.system_instruction
 
   return {
-    generateContent,
-    respondChat,
+    body: JSON.stringify(body),
+    url,
   }
+}
+
+export async function getGeminiText(url: string, body: string, apiKey: string) {
+  const response = await fetch(`${url}?key=${apiKey}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body,
+  })
+
+  if (!response.ok)
+    throw internal(`Error fetching Gemini: ${response.status}`)
+
+  const data: any = await response.json()
+
+  if ('error' in data)
+    throw internal(`Error fetching Gemini: ${data.error.message}`)
+
+  const bestCandidate = data.candidates?.[0]
+  const bestPart = bestCandidate?.content?.parts?.[0]
+  const text: string = bestPart?.text
+
+  return text
+}
+
+export async function promptGeminiText(options: {
+  model: string
+  apiKey: string
+  prompt: string
+  systemInstruction?: string
+  generationConfig?: GenerationConfig
+}) {
+  const { model, apiKey, prompt, systemInstruction, generationConfig } = options
+  const { body, url } = await getPrompt({ model, prompt, systemInstruction, generationConfig })
+  const text = await getGeminiText(url, body, apiKey)
+
+  return text
+}
+
+export async function promptGeminiJson<T>(options: {
+  model: string
+  apiKey: string
+  prompt: string
+  systemInstruction?: string
+  responseSchema?: ResponseSchema
+  generationConfig?: GenerationConfig
+}) {
+  const { model, apiKey, prompt, systemInstruction, generationConfig, responseSchema } = options
+  const { body, url } = await getPrompt({ model, prompt, systemInstruction, generationConfig, responseSchema })
+  const text = await getGeminiText(url, body, apiKey)
+
+  try {
+    console.log(text)
+
+    return JSON.parse(text) as T
+  }
+  catch (_e) {
+    const e = _e as Error
+    throw internal(`Error parsing JSON: ${e.message}`)
+  }
+}
+
+export async function sendGeminiTextInTextOut(options: {
+  model: string
+  apiKey: string
+  history: Content[]
+  systemInstruction?: string
+  responseSchema?: ResponseSchema
+  generationConfig?: GenerationConfig
+}) {
+  const { model, apiKey, systemInstruction, generationConfig, history } = options
+  const { body, url } = await getPrompt({ model, history, systemInstruction, generationConfig })
+  const text = await getGeminiText(url, body, apiKey)
+
+  if (!text)
+    throw internal('Gemini did not return a valid response')
+
+  return text
 }

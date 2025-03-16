@@ -127,6 +127,7 @@ export const characters = sqliteTable('Character', {
   createdAt: text('created_at').notNull(),
   categoryId: int('category_id').notNull(),
   discoverable: int('discoverable', { mode: 'boolean' }).default(true).notNull(),
+  prompt: text('prompt').default('').notNull(),
   creatorId: text('creator_id')
     .references(() => users.id, { onDelete: 'no action' }),
 })
@@ -144,6 +145,11 @@ export const characterGetSchema = createSelectSchema(characters, {
   .extend({
     username: usernameSchema,
   })
+
+export const characterPromptSchema = z.object({
+  prompt: z.string(),
+  discoverable: z.boolean(),
+})
 
 export const characterInsertSchema = createInsertSchema(characters, {
   conversationStarters: z.array(z.string()),

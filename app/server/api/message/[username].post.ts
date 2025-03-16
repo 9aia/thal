@@ -2,7 +2,7 @@ import { eq } from 'drizzle-orm'
 import { z } from 'zod'
 import { getHistory } from '~/server/services/messages'
 import { now } from '~/utils/date'
-import { chatHistoryToGemini, getGemini } from '~/utils/gemini'
+import { chatHistoryToGemini, sendGeminiTextInTextOut } from '~/utils/gemini'
 import { getValidated } from '~/utils/h3'
 import { internal, notFound, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
 import { isPlanActive, isPlanPastDue } from '~/utils/plan'
@@ -112,14 +112,12 @@ export default eventHandler(async (event) => {
     replyingId: data.replyingId,
   }
 
-  const gemini = getGemini(GEMINI_API_KEY)
-
   const datetime = new Date(userMessageTime).toLocaleString('en-US', {
     timeZone: 'America/Sao_Paulo',
     hour12: false,
   })
 
-  const SYSTEM_INSTRUCTIONS = `
+  const systemInstruction = `
     You are ${character.name} (username: ${result.username}). **You do not engage in any language other than English.** If the user sends a message in another language, **do not translate, interpret, or respond in that language.** Instead, inform them that you only are going to chat in English.
 
     Maintain a **natural, conversational tone** with concise and engaging responses. Avoid long-winded explanations—keep it chat-like.
@@ -136,16 +134,13 @@ export default eventHandler(async (event) => {
   `
 
   const geminiHistory = chatHistoryToGemini(history)
-  const res = await gemini.respondChat(geminiHistory, GEMINI_MODEL, SYSTEM_INSTRUCTIONS)
-
-  const content = res.candidates[0].content
-  const geminiResText = content?.parts?.[0]?.text
-
-  if (!geminiResText)
-    throw internal('Empty response')
-
+  const botMessageContent = await sendGeminiTextInTextOut({
+    apiKey: GEMINI_API_KEY,
+    model: GEMINI_MODEL,
+    systemInstruction,
+    history: geminiHistory,
+  })
   const botMessageTime = now().getTime()
-  const botMessageContent = geminiResText
 
   const botMessagePayload: MessageInsert = {
     chatId: chat.id,

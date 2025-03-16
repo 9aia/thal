@@ -17,7 +17,12 @@ useAutoRedirect({
   query: { drawer: ['create'] },
 })
 
-const form = useForm<Character>({
+interface FormValues {
+  prompt: string
+  discoverable: boolean
+}
+
+const form = useForm<FormValues>({
   initialValues: characterBuilderData.value,
 })
 
@@ -197,7 +202,7 @@ const { mainField } = useBuildCharacterFocus()
     <div class="px-4 py-4 flex-1 overflow-y-auto bg-white space-y-4">
       <SettingSection :title="t('General Information')">
         <form class="block space-y-2" @submit="submit">
-          <TextField
+          <!-- <TextField
             ref="mainField"
             path="name"
             :label="t('Name')"
@@ -234,6 +239,14 @@ const { mainField } = useBuildCharacterFocus()
             path="instructions" :label="t('Instructions')" :rules="yupify(instructionsSchema, t(
               'Instructions must contain between 1 and 500 characters.',
             ))"
+            :disabled="isPastDueVisible"
+          />
+
+          <div class="h-2" /> -->
+
+          <Textarea
+            path="prompt"
+            :label="t('Describe your character')"
             :disabled="isPastDueVisible"
           />
 
