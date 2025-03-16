@@ -940,5 +940,11 @@
   },
   "Renew Now": {
     "pt": "Renovar agora"
+  },
+  "Type a message...": {
+    "pt": "Escreva uma mensagem..."
+  },
+  "Send": {
+    "pt": "Enviar"
   }
 }

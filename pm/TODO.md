@@ -6,10 +6,10 @@ description: Tasks and items for the release.
 
 ## 0.1.0-7
 
-- Update Gemini to 2.0
 - Restrict character creation and editing based on safety. Provide feedback and allow users to revise their content.
 - Store character data in English in the database while keeping the user's normal content visible in the drawer.
 - Add an option to translate character data on the Discover page or in the character details drawer.
+- Fix icon loading fallback
 
 - Pre-create and refine default characters.
 - Improve the design system.

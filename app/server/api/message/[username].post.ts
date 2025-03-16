@@ -10,10 +10,13 @@ import type { MessageInsert } from '~~/db/schema'
 import { characterUsernames, chats, contacts, lastMessages, messageSendSchema, messages, usernameSchema } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
-  const { GEMINI_API_KEY } = useRuntimeConfig(event)
+  const { GEMINI_API_KEY, GEMINI_MODEL } = useRuntimeConfig(event)
 
   if (!GEMINI_API_KEY)
     throw internal('GEMINI_API_KEY is not set in the environment')
+
+  if (!GEMINI_MODEL)
+    throw internal('GEMINI_MODEL is not set in the environment')
 
   const user = event.context.user
 
@@ -133,7 +136,7 @@ export default eventHandler(async (event) => {
   `
 
   const geminiHistory = chatHistoryToGemini(history)
-  const res = await gemini.respondChat(geminiHistory, SYSTEM_INSTRUCTIONS)
+  const res = await gemini.respondChat(geminiHistory, GEMINI_MODEL, SYSTEM_INSTRUCTIONS)
 
   const content = res.candidates[0].content
   const geminiResText = content?.parts?.[0]?.text

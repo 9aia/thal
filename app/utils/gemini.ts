@@ -18,17 +18,16 @@ export function chatHistoryToGemini(history: Message[]): Content[] {
   )
 }
 
-export const GENERATE_CONTENT_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent'
-
 export function getGemini(apiKey: string) {
   const generateContent = async (
     prompt: string,
+    model: string,
     systemInstruction?: string,
     generationConfig?: GenerationConfig,
   ) => {
     const input = _.trimStart(prompt)
 
-    const url = GENERATE_CONTENT_URL
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`
     const body: any = {
       contents: [
         {
@@ -68,9 +67,13 @@ export function getGemini(apiKey: string) {
     }
   }
 
-  const respondChat = async (history: Content[], systemInstruction?: string, generationConfig?: GenerationConfig) => {
-    const url
-      = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent'
+  const respondChat = async (
+    history: Content[],
+    model: string,
+    systemInstruction?: string,
+    generationConfig?: GenerationConfig,
+  ) => {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`
     const body: any = {
       contents: history,
       generationConfig,
@@ -89,8 +92,9 @@ export function getGemini(apiKey: string) {
         body: JSON.stringify(body),
       })
 
-      if (!response.ok)
+      if (!response.ok) {
         throw internal(`Error fetching Gemini: ${response.status}`)
+      }
 
       return await response.json() as any
     }

@@ -8,10 +8,13 @@ import type { Character } from '~/types'
 import { SubscriptionStatus, characterUsernames, messages } from '~~/db/schema'
 
 export default defineEventHandler(async (event) => {
-  const { GEMINI_API_KEY } = useRuntimeConfig(event)
+  const { GEMINI_API_KEY, GEMINI_MODEL } = useRuntimeConfig(event)
 
   if (!GEMINI_API_KEY)
     throw internal('GEMINI_API_KEY is not set in the environment')
+
+  if (!GEMINI_MODEL)
+    throw internal('GEMINI_MODEL is not set in the environment')
 
   const user = event.context.user
   const orm = event.context.orm
@@ -130,8 +133,8 @@ export default defineEventHandler(async (event) => {
   `
     : data.text
 
-  const gemini = getGemini(GEMINI_API_KEY as string)
-  const res = await gemini.generateContent(prompt, systemInstruction)
+  const gemini = getGemini(GEMINI_API_KEY)
+  const res = await gemini.generateContent(prompt, GEMINI_MODEL, systemInstruction)
   const bestCandidate = res.candidates?.[0]
   const bestPart = bestCandidate?.content?.parts?.[0]
   const text: string = bestPart?.text

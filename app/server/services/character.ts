@@ -79,10 +79,13 @@ export async function getCharacterWithContactByUser(
 }
 
 export async function categorizeCharacter(event: H3Event, data: CharacterUpdate) {
-  const { GEMINI_API_KEY } = useRuntimeConfig(event)
+  const { GEMINI_API_KEY, GEMINI_MODEL } = useRuntimeConfig(event)
 
   if (!GEMINI_API_KEY)
     throw internal('GEMINI_API_KEY is not set in the environment')
+
+  if (!GEMINI_MODEL)
+    throw internal('GEMINI_MODEL is not set in the environment')
 
   const systemInstruction = `You are a character categorizer. You are expected to categorize the character based on the given data.`
   const characterData = {
@@ -112,8 +115,8 @@ export async function categorizeCharacter(event: H3Event, data: CharacterUpdate)
     enum: categories.map(category => category.name),
   }
 
-  const gemini = getGemini(GEMINI_API_KEY as string)
-  const res = await gemini.generateContent(prompt, systemInstruction, {
+  const gemini = getGemini(GEMINI_API_KEY!)
+  const res = await gemini.generateContent(prompt, GEMINI_MODEL, systemInstruction, {
     responseMimeType: 'application/json',
     responseSchema: schema,
   })

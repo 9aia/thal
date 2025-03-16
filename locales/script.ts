@@ -1,7 +1,8 @@
 import { readFileSync, writeFileSync } from 'node:fs'
 import process from 'node:process'
 import fg from 'fast-glob'
-import type { Message, Translations } from '@psitta/core'
+import { type Locale, type Message, type Text, type Translations, getConfig } from '@psitta/core'
+import { type ResponseSchema, SchemaType } from '@google/generative-ai'
 import { getGemini } from '~/utils/gemini'
 
 const CONFIG = {
@@ -115,62 +116,69 @@ async function main() {
 }
 
 async function translate(chunk: Chunk) {
-  const { GEMINI_API_KEY } = process.env
+  const { GEMINI_API_KEY, GEMINI_MODEL } = process.env
 
-  const prompt = `
-    Translate the following Object:
+  if (!GEMINI_API_KEY)
+    throw new Error('GEMINI_API_KEY is not set in the environment')
 
-    ${JSON.stringify(chunk, null, 2)}.
-
-    Use this example as a guide:
-
-    {
-      "About me": {
-        "pt": "Sobre mim"
-      },
-      "Edit interests": {
-        "pt": "Editar interesses"
-      },
-      "Interests": {
-        "pt": "Interesses"
-      },
-      "Pick up to 7 interests or sports you enjoy that you want to AI know about you.": {
-        "pt": "Escolha de 7 a 7 interessses ou esportes que você gosta, que você quer que a AI saiba sobre você"
-      },
-      "Save": {
-        "pt": "Salvar"
-      },
-      "Test": {
-        "pt": "Teste"
-      },
-      "You have {count} (apple|apples)": {
-        "pt": "Você possui {count} (maçã|maçãs)"
-      },
-      "Logout": {
-        "pt": "Sair"
-      },
-      "You have {n} (apple|apples) and {m} (box|boxes)": {
-        "pt": "Você possui {n} (apple|apples) e {m} (box|boxes)"
-      }
-    }
-
-    If you encounter any variables, please keep them in the translation.
-  `
+  if (!GEMINI_MODEL)
+    throw new Error('GEMINI_MODEL is not set in the environment')
 
   const gemini = getGemini(GEMINI_API_KEY as string)
 
-  const res = await gemini.generateContent(prompt, undefined, {
+  const systemInstructions = `
+    You are a translator. You are expected to translate the following messages from English to Brazilian Portuguese.
+
+    If you encounter any variables, please keep them in the translation.
+  `
+  const prompt = Object.keys(chunk).toString()
+
+  const responseSchema: ResponseSchema = {
+    type: SchemaType.ARRAY,
+    description: 'A collection of messages and their translations.',
+    nullable: false,
+    items: {
+      type: SchemaType.OBJECT,
+      description: 'A message and its translations.',
+      properties: {
+        en: {
+          type: SchemaType.STRING,
+          description: 'The original message in English.',
+          nullable: false,
+        },
+        pt: {
+          type: SchemaType.STRING,
+          description: 'The translation of the message in Portuguese.',
+          nullable: false,
+        },
+      },
+    },
+  }
+
+  const res = await gemini.generateContent(prompt, GEMINI_MODEL, systemInstructions, {
     responseMimeType: 'application/json',
+    responseSchema,
   })
 
   const bestCandidate = res.candidates?.[0]
   const bestPart = bestCandidate?.content?.parts?.[0]
   const text = bestPart?.text
 
-  const json = JSON.parse(text)
+  type GeminiTranslations = Array<Record<Locale, Text>>
+  type PsittaTranslations = Record<Text, Record<Locale, Text>>
 
-  for (const [message, translations] of Object.entries(json)) {
+  const geminiTranlations: GeminiTranslations = JSON.parse(text)
+  const defaultLocale = getConfig().defaultLocale
+
+  const normalizedJson = geminiTranlations.reduce((acc, cur) => {
+    const { [defaultLocale]: defaultText, ...translations } = cur
+    acc[defaultText] = translations
+    return acc
+  }, {} as PsittaTranslations)
+
+  for (const [message, translations] of Object.entries(normalizedJson)) {
     cache.add(message)
+
     for (const [lang, _translation] of Object.entries(translations as any)) {
       if (!messages?.[message]) {
         messages[message] = {}
