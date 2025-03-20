@@ -16,6 +16,7 @@ description: A detailed, chronological record of all changes made to a project, 
 - Fixed "My Characters" item dropdown positioning
 - Added delete action to messages when there is a error
 - Added edit action to messages when there is a error
+- Improved button loading spinner size
 
 ## [0.1.0-6] - 2025-03-09
 

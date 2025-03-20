@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { useQueryClient } from '@tanstack/vue-query'
-import { useDebounceFn } from '@vueuse/core'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 import { useForm } from 'vee-validate'
 import queryKeys from '~/queryKeys'
-import { characterBuilderData, contactViewUsername, isRootDrawerOpen } from '~/store'
+import { characterBuilderData } from '~/store'
 
 const emit = defineEmits<{
   (e: 'close'): void
@@ -17,25 +16,35 @@ useAutoRedirect({
 
 interface FormValues {
   prompt: string
-  discoverable: boolean
 }
+
+const draftQuery = useQuery({
+  queryKey: queryKeys.characterDraft,
+  queryFn: () => $fetch('/api/character/draft'),
+})
 
 const initialValuesFromData = computed(() => {
   if (characterBuilderData.value) {
     return {
       prompt: characterBuilderData.value.prompt,
-      discoverable: characterBuilderData.value.discoverable,
     }
   }
 
   return {
-    prompt: '',
-    discoverable: false,
+    prompt: draftQuery.data.value?.prompt || '',
   }
 })
 
 const form = useForm<FormValues>({
   initialValues: initialValuesFromData.value,
+})
+
+watch(draftQuery.data, () => {
+  if (draftQuery.data.value) {
+    form.setValues({
+      prompt: draftQuery.data.value.prompt,
+    })
+  }
 })
 
 watch(characterBuilderData, () => {
@@ -49,106 +58,59 @@ const user = useUser()
 const hasErrors = useHasFormErrors(form)
 const loading = ref(false)
 const queryClient = useQueryClient()
-const { params } = useRoute()
 
-// async function validateUsername(username: string) {
-//   if (!username)
-//     return
+const createCharacterDraft = useMutation({
+  mutationFn: async (data: FormValues) => {
+    return await $fetch('/api/character/draft', {
+      method: 'post',
+      body: data,
+    })
+  },
+})
 
-//   let invalid = false
+const updateCharacterDraft = useMutation({
+  mutationFn: async (data: FormValues) => {
+    return await $fetch('/api/character/draft', {
+      method: 'patch',
+      body: data,
+    })
+  },
+})
 
-//   try {
-//     const { valid } = await $fetch(`/api/character/validate-username/${username}`, {
-//       params: {
-//         allowedUsername: characterBuilderData.value?.username,
-//       },
-//     })
+const editApprovedCharacterDraft = useMutation({
+  mutationFn: async (data: FormValues) => {
+    return await $fetch(`/api/character/draft/${characterBuilderData.value!.username as string}`, {
+      method: 'patch',
+      body: data,
+    })
+  },
+})
 
-//     invalid = !valid
-//   }
-//   catch (e) {
-//     const _ = e
+const isError = computed(() => {
+  return createCharacterDraft.isError || updateCharacterDraft.isError || editApprovedCharacterDraft.isError
+})
 
-//     toast.error(t(
-//       'An error occurred while validating username.',
-//     ))
-//     invalid = false
-//   }
-
-//   form.setFieldError(
-//     'username',
-//     invalid ? t('Username is invalid.') : undefined,
-//   )
-// }
-
-// const debouncedValidateUsername = useDebounceFn(validateUsername, 500)
-// watch(() => form.values.username, debouncedValidateUsername)
-
-const isEditing = computed(() => characterBuilderData.value?.id)
+const isEditing = computed(() => false)
 
 const submit = form.handleSubmit(async (data) => {
   loading.value = true
 
   try {
     if (isEditing.value) {
-      const response = await $fetch(`/api/character/${characterBuilderData.value?.username}` as '/api/character/:username', {
-        method: 'PATCH',
-        body: data,
-      })
-
-      toast.success(t('Character has been edited successfully.'), undefined, {
-        actions: [
-          {
-            title: t('Message'),
-            onClick: () => navigateTo(`/app/chat/${response.username}`),
-          },
-        ],
-      })
-
-      const usernameQuery = params.username
-
-      if (characterBuilderData.value?.username === usernameQuery)
-        navigateTo(`/app/chat/${response.username}`)
-
-      if (characterBuilderData.value?.username === contactViewUsername.value)
-        contactViewUsername.value = response.username
-
-      queryClient.invalidateQueries({
-        queryKey: queryKeys.contactInfo(characterBuilderData.value!.username),
-      })
+      await editApprovedCharacterDraft.mutateAsync(data)
     }
     else {
-      const response = await $fetch(`/api/character/index-new`, {
-        method: 'post',
-        body: {
-          ...data,
-        },
-      })
-
-      toast.success(t('Character has been created successfully.'), undefined, {
-        actions: [
-          {
-            title: t('Message'),
-            onClick: () => {
-              isRootDrawerOpen.value = false
-              navigateTo(`/app/chat/${response.username}`)
-            },
-          },
-        ],
-      })
+      if (draftQuery.data.value) {
+        await updateCharacterDraft.mutateAsync(data)
+      }
+      else {
+        await createCharacterDraft.mutateAsync(data)
+      }
     }
 
     queryClient.invalidateQueries({
-      queryKey: queryKeys.myCharacters,
+      queryKey: queryKeys.characterDraft,
     })
-
-    queryClient.invalidateQueries({
-      queryKey: queryKeys.discoverCharacters,
-    })
-
-    emit('close')
-
-    form.resetForm()
   }
   catch (e) {
     const _ = e
@@ -167,6 +129,17 @@ const isPastDueVisible = computed(() => {
 })
 
 const { mainField } = useBuildCharacterFocus()
+
+const draft = computed(() => draftQuery.data.value)
+
+const trunkedInstructions = computed(() => {
+  if (!draft.value) {
+    return ''
+  }
+
+  return draft.value.instructions.split('\n').slice(0, 3).join('\n')
+})
+const showMore = ref(false)
 </script>
 
 <template>
@@ -208,28 +181,88 @@ const { mainField } = useBuildCharacterFocus()
 
     <div class="px-4 py-4 flex-1 overflow-y-auto bg-white space-y-4">
       <SettingSection>
-        <form class="block space-y-2" @submit="submit">
+        <form class="block space-y-4" @submit="submit">
           <Textarea
+            ref="mainField"
             path="prompt"
             :label="t('Describe your character')"
             :disabled="isPastDueVisible"
           />
 
-          <Checkbox path="discoverable" input-class="checkbox-primary" :disabled="isPastDueVisible">
-            {{
-              t('Discoverable')
-            }}
-          </Checkbox>
-
-          <div class="h-2" />
-
-          <Button :loading="loading" class="btn-primary" :disabled="hasErrors || isPastDueVisible">
+          <Button :loading="loading" class="btn-info" :disabled="hasErrors || isPastDueVisible">
             {{
               t("Generate")
             }}
           </Button>
         </form>
       </SettingSection>
+
+      <Resource
+        :loading="loading"
+        :error="isError.value"
+      >
+        <template #default>
+          <SettingSection v-if="draft">
+            <div
+              class="bg-gradient-2 rounded-2xl p-4 mb-2"
+            >
+              <h1 class="text-sm p-0">
+                {{ t('Preview') }}
+              </h1>
+
+              <div class="space-y-2 flex flex-col items-end">
+                <section class="w-full px-4 pb-2 flex flex-col justify-center">
+                  <Avatar :name="draft.name" class="mx-auto w-16 h-16 text-base bg-gray-300 text-gray-800 mt-2" />
+
+                  <h2 class="text-gray-900 text-center text-base mt-2">
+                    {{ draft.name }}
+                  </h2>
+
+                  <Username :username="draft.username" class="mx-auto text-xs" />
+                </section>
+
+                <section class="w-full flex flex-col gap-2 pb-4">
+                  <MenuItem
+                    :is="{
+                      id: 'description',
+                      name: draft.description,
+                      icon: 'person',
+                    }"
+                  />
+
+                  <MenuItem
+                    :is="{
+                      id: 'category',
+                      name: draft.categoryName,
+                      icon: 'category',
+                    }"
+                  />
+
+                  <div class="h-px bg-gray-100 my-1" />
+
+                  <MenuItem
+                    :is="{
+                      id: 'instructions',
+                      name: t('Instructions'),
+                      icon: 'integration_instructions',
+                    }"
+                  />
+
+                  <div class="flex flex-col gap-1">
+                    <MDC tag="article" class="prose prose-sm" :value="showMore ? draft.instructions : trunkedInstructions" />
+
+                    <div role="button" class="text-blue-500 hover:underline text-sm text-left" @click="showMore = !showMore">
+                      {{ showMore ? t('Show less') : t('Show more') }}
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <ApproveCharacterDraftForm />
+          </SettingSection>
+        </template>
+      </Resource>
     </div>
   </div>
 </template>
@@ -240,5 +273,9 @@ const { mainField } = useBuildCharacterFocus()
   -webkit-background-clip: text !important;
   background-clip: text !important;
   color: transparent !important;
+}
+
+.bg-gradient-2 {
+  background: radial-gradient(at bottom, theme('colors.blue.50'), theme('colors.white'));
 }
 </style>

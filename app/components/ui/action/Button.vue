@@ -48,7 +48,7 @@ type Props = SafeProps<ButtonHTMLAttributes> &
     :disabled="loading && !noDisableOnLoading"
   >
     <slot v-if="!loading" />
-    <span v-if="loading" class="loading loading-spinner" />
+    <span v-if="loading" class="loading loading-xs loading-spinner" />
     <span v-else-if="success" class="material-symbols-outlined">
       check
     </span>

@@ -10,4 +10,5 @@ export default {
   discoverCharacters: ['discover-characters'],
   profile: (username: MaybeRef<string>) => ['profile', username],
   pricingData: ['pricing-data'],
+  characterDraft: ['character-draft'],
 }

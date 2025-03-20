@@ -8,6 +8,16 @@ DELETE FROM CharacterUsername;
 DELETE FROM Character;
 DELETE FROM CharacterDraft;
 
+-- @block Make all characters discoverable
+
+UPDATE Character SET discoverable = 1
+
+-- @block Make a character undiscoverable
+
+UPDATE Character SET discoverable = 0 WHERE id = 7
+
+-- ------------------ CharacterUsername ------------------
+
 -- @block List all CharacterUsernames
 
 SELECT * FROM CharacterUsername
@@ -16,10 +26,10 @@ SELECT * FROM CharacterUsername
 
 UPDATE CharacterUsername SET username = LOWER(username)
 
--- @block Make all characterss discoverable
+-- ------------------ CharacterDraft ------------------
 
-UPDATE Character SET discoverable = 1
+-- @block List all drafts
+SELECT * FROM CharacterDraft
 
--- @block Make a character undiscoverable
-
-UPDATE Character SET discoverable = 0 WHERE id = 7
+-- @block Delete all character drafts
+DELETE FROM CharacterDraft
