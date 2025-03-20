@@ -103,8 +103,6 @@ export async function promptGeminiJson<T>(options: {
   const text = await getGeminiText(url, body, apiKey)
 
   try {
-    console.log(text)
-
     return JSON.parse(text) as T
   }
   catch (_e) {

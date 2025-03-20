@@ -11,8 +11,6 @@ export default defineEventHandler(async (event) => {
     const hostHeader = getHeader(event, 'Host') ?? null
 
     if (originHeader === null || hostHeader === null) {
-      console.log('a', originHeader, hostHeader)
-
       return sendNoContent(event, 403)
     }
 

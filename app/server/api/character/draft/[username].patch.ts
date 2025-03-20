@@ -95,11 +95,6 @@ export default eventHandler(async (event) => {
     responseSchema,
     systemInstruction,
   })
-
-  console.log({
-    prompt,
-    systemInstruction,
-  })
   const categoryId = getCharacterCategoryId(geminiResponseData.category)
 
   const draftData: CharacterDraftData = {

@@ -105,8 +105,6 @@ function editHistory(editedMessage: SendMessageData) {
 
   const messageIndex = newHistory.findIndex(message => message.id === editedMessage.editingId)
 
-  console.log('editing:', editedMessage.editingId, 'index', messageIndex, JSON.stringify(newHistory))
-
   if (messageIndex !== -1) {
     newHistory[messageIndex] = {
       ...newHistory[messageIndex],
@@ -170,7 +168,6 @@ const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending
     sendingChatIds.value.add(data.value!.chatId!)
 
     if (newMessage.editing) {
-      console.log('editing history')
       editHistory(newMessage)
       // TODO update LastMessage (chatlist) if necessary
       return
