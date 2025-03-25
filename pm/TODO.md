@@ -13,6 +13,8 @@ description: Tasks and items for the release.
 - Fix icon loading fallback
 - Improve DB column sizes
 - Don't list my character non-discoverable on the Discover page
+- Fix character builder input focus
+- Update LastMessage (chatlist) if necessary when editing message with error
 
 - Pre-create and refine default characters.
 - Improve the design system.

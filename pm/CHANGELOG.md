@@ -9,14 +9,24 @@ description: A detailed, chronological record of all changes made to a project, 
 ### Added
 
 - Added effective date to policy pages
-- Added character builder prompt input for drafts and approves
+- Added character drafts and approves
+- Added Gemini model environment variable
+
+### Changed
+
+- Changed character building to prompting
 
 ### Fixed
 
+- Fixed message input placeholder translation
+- Updated to Gemini 2.0 Flash Lite
 - Fixed "My Characters" item dropdown positioning
 - Added delete action to messages when there is a error
 - Added edit action to messages when there is a error
+- Fixed message input emptiness check
 - Improved button loading spinner size
+- Improved What's New article titles
+- Improved Gemini error messages and handling
 
 ## [0.1.0-6] - 2025-03-09
 
