@@ -62,6 +62,7 @@ const approveMutation = useMutation({
     method: 'POST',
     body: {
       discoverable: values.discoverable,
+      characterId: characterBuilderData.value?.id,
     },
   }),
   onSuccess: (data) => {

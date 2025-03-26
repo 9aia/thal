@@ -19,8 +19,12 @@ interface FormValues {
 }
 
 const draftQuery = useQuery({
-  queryKey: queryKeys.characterDraft,
-  queryFn: () => $fetch('/api/character/draft'),
+  queryKey: queryKeys.characterDraftEdit(characterBuilderData.value?.username as string),
+  queryFn: () => $fetch('/api/character/draft', {
+    query: {
+      characterId: characterBuilderData.value?.id,
+    },
+  }),
 })
 
 const initialValuesFromData = computed(() => {
@@ -47,10 +51,12 @@ watch(draftQuery.data, () => {
   }
 })
 
-watch(characterBuilderData, () => {
-  characterBuilderData.value
-    ? form.setValues(initialValuesFromData.value)
-    : form.resetForm()
+onMounted(() => {
+  if (draftQuery.data.value) {
+    form.setValues({
+      prompt: draftQuery.data.value.prompt,
+    })
+  }
 })
 
 const user = useUser()
@@ -90,7 +96,7 @@ const isError = computed(() => {
   return createCharacterDraft.isError || updateCharacterDraft.isError || editApprovedCharacterDraft.isError
 })
 
-const isEditing = computed(() => false)
+const isEditing = computed(() => !!characterBuilderData.value?.id)
 
 const submit = form.handleSubmit(async (data) => {
   loading.value = true
