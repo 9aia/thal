@@ -150,14 +150,7 @@ const showMore = ref(false)
 
 <template>
   <div class="flex flex-col h-dvh justify-between">
-    <Navbar>
-      <h1 class="text-lg py-2 text-gradient-1 flex items-center gap-1">
-        <Button size="sm" class="btn-ghost" shape="circle" @click="emit('close')">
-          <Icon name="arrow_back" />
-        </Button>
-        {{ t("Build Character") }}
-      </h1>
-    </Navbar>
+    <Navbar :title="t('Build Character')" @close="emit('close')" />
 
     <AppNote
       :model-value="isPastDueVisible"
@@ -274,13 +267,6 @@ const showMore = ref(false)
 </template>
 
 <style scoped>
-.text-gradient-1 {
-  background: radial-gradient(theme('colors.blue.500'), theme('colors.cyan.500')) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  color: transparent !important;
-}
-
 .bg-gradient-2 {
   background: radial-gradient(at bottom, theme('colors.blue.50'), theme('colors.white'));
 }

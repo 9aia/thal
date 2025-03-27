@@ -398,7 +398,7 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
                 <Button
                   shape="circle"
                   size="sm"
-                  class="transition-opacity duration-500 opacity-0 ease-in-out text-blue-500"
+                  class="transition-opacity duration-500 opacity-0 ease-in-out text-blue-500 border-none"
                   :class="{ 'opacity-100': isScrollDownButtonVisible, 'pointer-events-none': !isScrollDownButtonVisible }"
                   @click="goToBottom"
                 >

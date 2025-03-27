@@ -17,7 +17,7 @@ function openChats() {
 
 <template>
   <div class="flex flex-col w-full h-dvh bg-white">
-    <Navbar class="bg-gray-800 lg:hidden">
+    <Navbar class="bg-gray-800 lg:hidden" hide-back hide-title>
       <h1 class="text-lg text-black flex items-center gap-1">
         {{ t('Thal') }}
       </h1>

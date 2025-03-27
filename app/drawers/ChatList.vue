@@ -96,7 +96,7 @@ onMounted(() => {
 
 <template>
   <div class="bg-white flex flex-col h-dvh justify-between">
-    <Navbar>
+    <Navbar hide-title hide-back>
       <h1 class="text-lg py-2 text-gradient-1 flex items-center gap-1">
         <A href="/app/" class="text-lg text-black flex items-center">
           {{ t("Thal") }}
