@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Menu } from '@ark-ui/vue/menu'
-import type { MenuItem } from '~/components/ui/navigation/types'
+import type { MenuItemType } from '~/components/ui/navigation/types'
 import { categories } from '~/constants/discover'
 
 const props = defineProps<{
@@ -23,7 +23,7 @@ const category = computed(() => {
 
 const copyUsername = useCopyUsername(toRef(() => props.username))
 
-const items: MenuItem[] = [
+const items: MenuItemType[] = [
   { id: 'edit-character', name: 'Edit character', icon: 'person_edit', onClick: () => emit('edit') },
   { id: 'delete-character', name: 'Delete character', icon: 'delete', onClick: () => emit('delete') },
   { id: 'share-character', name: 'Share character', icon: 'ios_share', onClick: () => copyUsername() },
@@ -72,8 +72,8 @@ const items: MenuItem[] = [
             </Icon>
           </Menu.Trigger>
           <Menu.Positioner>
-            <Menu.Content class="shadow-sm bg-base-100 rounded-box w-52 z-40 p-2">
-              <Menu.Item v-for="item in items" :key="item.id" :value="item.id" class="py-2 px-3 hover:bg-base-200 rounded-lg" @click.stop.prevent="item.onClick">
+            <Menu.Content class="shadow-sm bg-base-100 rounded-box w-52 z-40 p-2 focus:outline-none">
+              <Menu.Item v-for="item in items" :id="item.id" :key="item.id" :value="item.id" class="py-2 px-3 hover:bg-base-200 rounded-lg" @click.stop.prevent="item.onClick">
                 <MenuItem :is="item" />
               </Menu.Item>
             </Menu.Content>

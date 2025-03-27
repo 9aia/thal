@@ -3,6 +3,7 @@ import process from 'node:process'
 import { type ResponseSchema, SchemaType } from '@google/generative-ai'
 import { type Locale, type Message, type Text, type Translations, getConfig } from '@psitta/core'
 import fg from 'fast-glob'
+import { promptGeminiJson } from '~/utils/gemini'
 
 const CONFIG = {
   // content: ['./app/**/*.vue'],

@@ -9,7 +9,7 @@ description: A detailed, chronological record of all changes made to a project, 
 ### Added
 
 - Added effective date to policy pages
-- Added character drafts and approves
+- Added drafts and approvals for character generation with safety
 - Added Gemini model environment variable
 
 ### Changed

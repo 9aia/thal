@@ -3,10 +3,10 @@ import { t } from '@psitta/vue'
 import { tv } from 'tailwind-variants'
 import Icon from '../display/Icon.vue'
 import ChevronRight from './ChevronRight.vue'
-import type { MenuItem } from './types'
+import type { MenuItemType } from './types'
 
 defineProps<{
-  is: MenuItem
+  is: MenuItemType
 }>()
 
 const iconStyles = tv({

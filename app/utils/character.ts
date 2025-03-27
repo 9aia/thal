@@ -92,3 +92,12 @@ export function getCharacterDraftPrompt() {
 
   return { responseSchema, guidelines, editOutro, editIntro, createIntro, createOutro }
 }
+
+export function getCategoryById(categoryId: number) {
+  const category = categories.find(category => category.id === categoryId)
+
+  if (!category)
+    return
+
+  return category
+}

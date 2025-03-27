@@ -946,5 +946,38 @@
   },
   "Send": {
     "pt": "Enviar"
+  },
+  "Preview": {
+    "pt": "Preview"
+  },
+  "How it will look after approval": {
+    "pt": "Como vai ficar após a aprovação"
+  },
+  "Original": {
+    "pt": "Original"
+  },
+  "How it looked before editing": {
+    "pt": "Como era antes de editar"
+  },
+  "Describe your character": {
+    "pt": "Descreva seu personagem"
+  },
+  "Regenerate": {
+    "pt": "Regenerar"
+  },
+  "Generate": {
+    "pt": "Gerar"
+  },
+  "Show less": {
+    "pt": "Mostrar menos"
+  },
+  "Show more": {
+    "pt": "Mostrar mais"
+  },
+  "Character has been approved successfully.": {
+    "pt": "Personagem foi aprovado com sucesso."
+  },
+  "Approve character": {
+    "pt": "Aprovar personagem"
   }
 }

@@ -1,4 +1,4 @@
-import type { MenuItem } from '~/components/ui/navigation/types'
+import type { MenuItemType } from '~/components/ui/navigation/types'
 import { drawers, isRootDrawerOpen } from '~/store'
 import { useWhatsNewModal } from '~/composables/useWhatsNewModal'
 
@@ -15,7 +15,7 @@ async function goToDiscover() {
   focusSearch()
 }
 
-const general: MenuItem[] = [
+const general: MenuItemType[] = [
   {
     id: 'account',
     icon: 'person',
@@ -46,7 +46,7 @@ const general: MenuItem[] = [
 
 const { open: openWhatsNewModal } = useWhatsNewModal()
 
-const support: MenuItem[] = [
+const support: MenuItemType[] = [
   {
     id: 'whats-new',
     icon: 'news',
@@ -89,7 +89,7 @@ const support: MenuItem[] = [
   // },
 ]
 
-const legal: MenuItem[] = [
+const legal: MenuItemType[] = [
   // { id: 'guidelines', icon: 'gavel', name: 'Guidelines'/* , href: '/guidelines' */ },
   // { id: 'reports', icon: 'flag', name: 'Reports'/* , href: '/reports' */ },
   { id: 'terms', icon: 'gavel', name: 'Terms of Service', href: '/terms', type: 'external', newTab: true },

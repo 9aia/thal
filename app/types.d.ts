@@ -40,15 +40,7 @@ export interface MessageContent {
   status: MessageStatus
 }
 
-export interface Character {
-  id?: string
-  name: string
-  username: string
-  prompt: string
-  avatar?: string
-  discoverable?: boolean
-  description?: string
-}
+export type Character = InternalApi['/api/character']['default'][number]
 
 export interface Contact {
   id?: string
@@ -80,5 +72,9 @@ export interface Reply {
 export interface Replies {
   [key: string]: Reply // Username: Message
 }
+
+export type CharacterBuilderEditViewMode = 'original' | 'preview'
+
+export type CharacterDraftApiData = InternalApi['/api/character/draft']['get']
 
 // #endregion

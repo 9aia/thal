@@ -1,6 +1,6 @@
-export type BreadcrumbItem = MenuItem
+export type BreadcrumbItem = MenuItemType
 
-export interface MenuItem {
+export interface MenuItemType {
   id: string
   name: string
   description?: string

@@ -36,7 +36,7 @@ export default defineEventHandler(async (event) => {
   const hasContext = !!data.chatUsername
 
   let context = null
-  let character: Character | null = null
+  let character = null
   let replyMessage = ''
 
   if (hasContext) {

@@ -15,9 +15,8 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  if (isPlanPastDue(user)) {
+  if (isPlanPastDue(user))
     throw paymentRequired()
-  }
 
   const isEdition = !!data.characterId
 
@@ -55,12 +54,9 @@ export default eventHandler(async (event) => {
       categoryId: draftData.categoryId,
     }).where(eq(characters.id, data.characterId!)).returning()
 
-    // Update character username if changed
-    if (existingCharacterUsername && draftData.username !== existingCharacterUsername.username) {
-      await orm.update(characterUsernames)
-        .set({ username: draftData.username })
-        .where(eq(characterUsernames.id, existingCharacterUsername.id))
-    }
+    await orm.update(characterUsernames)
+      .set({ username: draftData.username })
+      .where(eq(characterUsernames.characterId, updatedCharacter.id))
 
     character = updatedCharacter
   }

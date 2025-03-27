@@ -1,8 +1,13 @@
 <script setup lang="ts">
+import { Menu } from '@ark-ui/vue'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
+import type { InternalApi } from 'nitropack'
 import { useForm } from 'vee-validate'
+import type { MenuItemType } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
+import { getCharacterCategoryName } from '~/server/services/character'
 import { characterBuilderData } from '~/store'
+import type { CharacterBuilderEditViewMode, CharacterDraftApiData } from '~/types'
 
 const emit = defineEmits<{
   (e: 'close'): void
@@ -19,7 +24,7 @@ interface FormValues {
 }
 
 const draftQuery = useQuery({
-  queryKey: queryKeys.characterDraftEdit(characterBuilderData.value?.username as string),
+  queryKey: queryKeys.characterDraftEdit(characterBuilderData.value?.characterUsernames?.username as string),
   queryFn: () => $fetch('/api/character/draft', {
     query: {
       characterId: characterBuilderData.value?.id,
@@ -28,12 +33,6 @@ const draftQuery = useQuery({
 })
 
 const initialValuesFromData = computed(() => {
-  if (characterBuilderData.value) {
-    return {
-      prompt: characterBuilderData.value.prompt,
-    }
-  }
-
   return {
     prompt: draftQuery.data.value?.prompt || '',
   }
@@ -85,7 +84,7 @@ const updateCharacterDraft = useMutation({
 
 const editApprovedCharacterDraft = useMutation({
   mutationFn: async (data: FormValues) => {
-    return await $fetch(`/api/character/draft/${characterBuilderData.value!.username as string}`, {
+    return await $fetch(`/api/character/draft/${characterBuilderData.value!.characterUsernames!.username as string}`, {
       method: 'patch',
       body: data,
     })
@@ -138,19 +137,50 @@ const { mainField } = useBuildCharacterFocus()
 
 const draft = computed(() => draftQuery.data.value)
 
-const trunkedInstructions = computed(() => {
-  if (!draft.value) {
-    return ''
+const character = computed((): CharacterDraftApiData | null => {
+  if (characterBuilderData.value) {
+    return {
+      prompt: '',
+      username: characterBuilderData.value.characterUsernames?.username || '',
+      description: characterBuilderData.value.description!,
+      instructions: characterBuilderData.value.instructions,
+      name: characterBuilderData.value.name,
+      categoryId: characterBuilderData.value.categoryId,
+      creatorId: characterBuilderData.value.creatorId,
+      categoryName: getCategoryById(characterBuilderData.value.categoryId)!.name,
+    }
   }
 
-  return draft.value.instructions.split('\n').slice(0, 3).join('\n')
+  return null
 })
-const showMore = ref(false)
+
+const viewMode = ref<CharacterBuilderEditViewMode>('preview')
+
+const items: MenuItemType[] = [
+  { id: 'preview', name: t('Preview'), icon: 'preview', description: t('How it will look after approval'), onClick: () => viewMode.value = 'preview' },
+  { id: 'original', name: t('Original'), icon: 'history_edu', description: t('How it looked before editing'), onClick: () => viewMode.value = 'original' },
+]
+
+const hasChanges = computed(() => {
+  const d = draft?.value
+  const c = character?.value
+
+  if (!d || !c) {
+    return false
+  }
+
+  return !(d.username === c.username
+    && d.description === c.description
+    && d.instructions === c.instructions
+    && d.name === c.name
+    && d.categoryId === c.categoryId
+    && d.categoryName === c.categoryName)
+})
 </script>
 
 <template>
   <div class="flex flex-col h-dvh justify-between">
-    <Navbar :title="t('Build Character')" @close="emit('close')" />
+    <Navbar :title="isEditing ? t('Edit Character') : t('Create Character')" @close="emit('close')" />
 
     <AppNote
       :model-value="isPastDueVisible"
@@ -188,10 +218,8 @@ const showMore = ref(false)
             :disabled="isPastDueVisible"
           />
 
-          <Button :loading="loading" class="btn-info" :disabled="hasErrors || isPastDueVisible">
-            {{
-              t("Generate")
-            }}
+          <Button :loading="loading" class="btn-info text-white" :disabled="hasErrors || isPastDueVisible">
+            {{ !!draft ? t("Regenerate") : t("Generate") }}
           </Button>
         </form>
       </SettingSection>
@@ -205,57 +233,29 @@ const showMore = ref(false)
             <div
               class="bg-gradient-2 rounded-2xl p-4 mb-2"
             >
-              <h1 class="text-sm p-0">
-                {{ t('Preview') }}
-              </h1>
+              <div v-if="hasChanges" class="text-sm p-0 flex gap-1 justify-end relative hover:cursor-pointer">
+                <Menu.Root>
+                  <Menu.Trigger class="absolute z-10 -right-2 top-0 btn btn-sm h-fit rounded-full pr-2 pl-3 py-1 bg-transparent border-none shadow-none flex items-center justify-center" @click.stop.prevent>
+                    {{ viewMode === "preview" ? t('Preview') : t('Original') }}
 
-              <div class="space-y-2 flex flex-col items-end">
-                <section class="w-full px-4 pb-2 flex flex-col justify-center">
-                  <Avatar :name="draft.name" class="mx-auto w-16 h-16 text-base bg-gray-300 text-gray-800 mt-2" />
+                    <Icon class="rotate-180 text-base">
+                      keyboard_arrow_up
+                    </Icon>
+                  </Menu.Trigger>
 
-                  <h2 class="text-gray-900 text-center text-base mt-2">
-                    {{ draft.name }}
-                  </h2>
-
-                  <Username :username="draft.username" class="mx-auto text-xs" />
-                </section>
-
-                <section class="w-full flex flex-col gap-2 pb-4">
-                  <MenuItem
-                    :is="{
-                      id: 'description',
-                      name: draft.description,
-                      icon: 'person',
-                    }"
-                  />
-
-                  <MenuItem
-                    :is="{
-                      id: 'category',
-                      name: draft.categoryName,
-                      icon: 'category',
-                    }"
-                  />
-
-                  <div class="h-px bg-gray-100 my-1" />
-
-                  <MenuItem
-                    :is="{
-                      id: 'instructions',
-                      name: t('Instructions'),
-                      icon: 'integration_instructions',
-                    }"
-                  />
-
-                  <div class="flex flex-col gap-1">
-                    <MDC tag="article" class="prose prose-sm" :value="showMore ? draft.instructions : trunkedInstructions" />
-
-                    <div role="button" class="text-blue-500 hover:underline text-sm text-left" @click="showMore = !showMore">
-                      {{ showMore ? t('Show less') : t('Show more') }}
-                    </div>
-                  </div>
-                </section>
+                  <Menu.Positioner>
+                    <Menu.Content class="focus:outline-none shadow-sm bg-base-100 rounded-box w-64 z-40 p-2">
+                      <Menu.Item v-for="item in items" :id="item.id" :key="item.id" :value="item.id" class="py-2 px-3 hover:bg-base-200 rounded-lg" @click.stop.prevent="item.onClick">
+                        <MenuItem :is="item" />
+                      </Menu.Item>
+                    </Menu.Content>
+                  </Menu.Positioner>
+                </Menu.Root>
               </div>
+
+              <CharacterDraftContent v-if="draft && viewMode === 'preview'" :draft="draft" />
+
+              <CharacterDraftContent v-if="character && viewMode === 'original'" :draft="character" />
             </div>
 
             <ApproveCharacterDraftForm />

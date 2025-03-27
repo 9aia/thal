@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm'
 import { unauthorized } from '~/utils/nuxt'
-import { characterUsernames, characters } from '~~/db/schema'
+import { characters } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const orm = event.context.orm
@@ -9,18 +9,25 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  const result = await orm.select({
-    id: characters.id,
-    name: characters.name,
-    description: characters.description,
-    instructions: characters.instructions,
-    username: characterUsernames.username,
-    categoryId: characters.categoryId,
-    discoverable: characters.discoverable,
+  const result = await orm.query.characters.findMany({
+    where: eq(characters.creatorId, user.id),
+    columns: {
+      id: true,
+      name: true,
+      description: true,
+      instructions: true,
+      creatorId: true,
+      categoryId: true,
+      discoverable: true,
+    },
+    with: {
+      characterUsernames: {
+        columns: {
+          username: true,
+        },
+      },
+    },
   })
-    .from(characters)
-    .where(eq(characters.creatorId, user.id!))
-    .leftJoin(characterUsernames, eq(characterUsernames.characterId, characters.id))
 
   return result
 })
