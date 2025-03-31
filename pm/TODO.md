@@ -8,7 +8,6 @@ description: Tasks and items for the release.
 
 - Add an option to translate character data on the Discover page or in the character details drawer.
 - Fix icon loading fallback
-- Improve DB column sizes
 - Don't list my character non-discoverable on the Discover page
 - Fix character builder input focus
 - Update LastMessage (chatlist) if necessary when editing message with error
