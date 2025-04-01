@@ -4,7 +4,8 @@ import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { useEventListener, useOnline, useScroll } from '@vueuse/core'
 import AppLayout from '~/layouts/app.vue'
 import queryKeys from '~/queryKeys'
-import { chatItemSearch, contentEditableRef, edition, isPastDueModalOpen, replies, sendingChatIds, sentErrorChatIds } from '~/store'
+import { chatItemSearch, edition, isPastDueModalOpen, replies, sendingChatIds, sentErrorChatIds } from '~/store'
+import { OPTIMISTIC_CHAT_ID } from '~/constants/chat'
 import type { ChatItem } from '~/types'
 
 definePageMeta({
@@ -26,6 +27,10 @@ const {
   refetch,
 } = await useServerQuery(() => `/api/chat/item/${route.params.username}` as `/api/chat/item/:username`, {
   queryKey: queryKeys.chat(computed(() => route.params.username as string)),
+})
+
+const chatId = computed(() => {
+  return data.value?.chatId || OPTIMISTIC_CHAT_ID
 })
 
 const scrollContainer = ref<HTMLDivElement>()
@@ -120,7 +125,7 @@ function editHistory(editedMessage: SendMessageData) {
 
 function updateLastMessage(newMessage: SendMessageData, isError = false) {
   const newChat: ChatItem = {
-    chatId: Number(data.value.chatId),
+    chatId: chatId.value,
     contactName: data.value.contact?.name,
     characterUsername: data.value.username,
     lastMessageContent: newMessage.value,
@@ -165,7 +170,7 @@ const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending
     body: JSON.stringify(data),
   }),
   async onMutate(newMessage) {
-    sendingChatIds.value.add(data.value!.chatId!)
+    sendingChatIds.value.add(chatId.value)
 
     if (newMessage.editing) {
       editHistory(newMessage)
@@ -219,8 +224,8 @@ const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending
       history: newHistory,
     })
 
-    sentErrorChatIds.value.add(data.value!.chatId!)
-    sendingChatIds.value.delete(data.value!.chatId!)
+    sentErrorChatIds.value.add(chatId.value)
+    sendingChatIds.value.delete(chatId.value)
 
     goToBottom()
   },
@@ -234,8 +239,8 @@ const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending
       history: newHistory,
     })
 
-    sentErrorChatIds.value.delete(data.value!.chatId!)
-    sendingChatIds.value.delete(data.value!.chatId!)
+    sentErrorChatIds.value.delete(chatId.value)
+    sendingChatIds.value.delete(chatId.value)
 
     goToBottom()
   },
@@ -293,8 +298,8 @@ function handleDelete(messageId: number, shouldInvalidateChat = true) {
     history: data.value.history.filter(message => message.id !== messageId),
   })
 
-  sentErrorChatIds.value.delete(data.value!.chatId!)
-  sendingChatIds.value.delete(data.value!.chatId!)
+  sentErrorChatIds.value.delete(chatId.value)
+  sendingChatIds.value.delete(chatId.value)
 
   if (shouldInvalidateChat) {
     queryClient.invalidateQueries({
@@ -416,7 +421,7 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
           <ChatFooter
             v-model="text"
             :username="route.params.username"
-            :chat-id="data!.chatId!"
+            :chat-id="chatId"
             @send="handleSend()"
           />
         </StyledResource>
