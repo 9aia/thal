@@ -8,6 +8,10 @@ description: Tasks and items for the release.
 
 - Add an option to translate character data on the Discover page or in the character details drawer.
 - Fix icon loading fallback
+- Add .env.dev, .env.preview, .env.prod (and remove the info about need of change in docs)
+- Move public keys to env
+
+- Fix sign-in redirect URL host on preview
 
 - Revision and adjust
   - Improve the design system and UI
