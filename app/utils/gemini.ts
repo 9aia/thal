@@ -1,5 +1,4 @@
 import type { Content, GenerationConfig, ResponseSchema } from '@google/generative-ai'
-import * as _ from 'lodash-es'
 import { internal } from './nuxt'
 import type { Message } from '~/types'
 import { getFullMessage } from '~/utils/chat'

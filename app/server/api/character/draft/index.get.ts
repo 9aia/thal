@@ -1,11 +1,10 @@
 import { and, eq, isNull } from 'drizzle-orm'
 import { z } from 'zod'
-import character from '..'
 import { getCharacterCategoryName } from '~/server/services/character'
 import { getValidated } from '~/utils/h3'
-import { badRequest, internal, paymentRequired, unauthorized } from '~/utils/nuxt'
+import { badRequest, paymentRequired, unauthorized } from '~/utils/nuxt'
 import { isPlanPastDue } from '~/utils/plan'
-import { characterDrafts, usernameSchema } from '~~/db/schema'
+import { characterDrafts } from '~~/db/schema'
 import { numericString } from '~/utils/zod'
 
 export default eventHandler(async (event) => {

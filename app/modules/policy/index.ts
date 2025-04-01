@@ -1,6 +1,5 @@
 import fs from 'node:fs'
 import { defineNuxtModule } from 'nuxt/kit'
-import * as _ from 'lodash-es'
 
 export default defineNuxtModule({
   meta: {

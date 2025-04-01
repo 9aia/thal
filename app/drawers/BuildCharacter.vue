@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { Menu } from '@ark-ui/vue'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
-import type { InternalApi } from 'nitropack'
 import { useForm } from 'vee-validate'
 import type { MenuItemType } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
-import { getCharacterCategoryName } from '~/server/services/character'
 import { characterBuilderData } from '~/store'
 import type { CharacterBuilderEditViewMode, CharacterDraftApiData } from '~/types'
 

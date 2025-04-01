@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { t, v } from '@psitta/vue'
+import { v } from '@psitta/vue'
 import timestampJson from '~/modules/policy/.timestamp.json'
 
 defineProps<{

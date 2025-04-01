@@ -3,7 +3,6 @@ import { eq } from 'drizzle-orm'
 import { getHistory } from '../services/messages'
 import { getValidated } from '~/utils/h3'
 import { internal, paymentRequired, unauthorized } from '~/utils/nuxt'
-import type { Character } from '~/types'
 import { SubscriptionStatus, characterUsernames, messages } from '~~/db/schema'
 import { promptGeminiText } from '~/utils/gemini'
 

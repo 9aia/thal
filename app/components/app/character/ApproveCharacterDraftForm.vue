@@ -2,7 +2,7 @@
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { useForm } from 'vee-validate'
 import queryKeys from '~/queryKeys'
-import { buildCharacter, characterBuilderData, contactViewUsername } from '~/store'
+import { characterBuilderData, contactViewUsername } from '~/store'
 
 const emit = defineEmits<{
   (e: 'approved'): void
