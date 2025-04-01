@@ -2,7 +2,7 @@
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { useForm } from 'vee-validate'
 import queryKeys from '~/queryKeys'
-import { characterBuilderData, contactViewUsername } from '~/store'
+import { buildCharacter, characterBuilderData, contactViewUsername } from '~/store'
 
 const emit = defineEmits<{
   (e: 'approved'): void
@@ -12,12 +12,16 @@ interface FormValues {
   discoverable: boolean
 }
 
+const initialValues = ref<FormValues>({
+  discoverable: characterBuilderData.value?.discoverable ?? true,
+})
+
 const { t } = useI18nExperimental()
 const form = useForm<FormValues>({
-  initialValues: {
-    discoverable: true,
-  },
+  initialValues: initialValues.value,
 })
+
+watch(initialValues, () => form.setValues(initialValues.value))
 
 const toast = useToast()
 const user = useUser()
@@ -81,10 +85,10 @@ const approveMutation = useMutation({
 
     const usernameQuery = params.username
 
-    if (characterBuilderData.value?.username === usernameQuery)
+    if (characterBuilderData.value?.characterUsernames?.username === usernameQuery)
       navigateTo(`/app/chat/${data.username}`)
 
-    if (characterBuilderData.value?.username === contactViewUsername.value)
+    if (characterBuilderData.value?.characterUsernames?.username === contactViewUsername.value)
       contactViewUsername.value = data.username
 
     toast.success(t('Character has been approved successfully.'), undefined, {
@@ -95,6 +99,19 @@ const approveMutation = useMutation({
         },
       ],
     })
+
+    characterBuilderData.value = {
+      categoryId: data.categoryId,
+      characterUsernames: {
+        username: data.username,
+      },
+      instructions: data.instructions,
+      discoverable: data.discoverable,
+      id: data.id,
+      creatorId: user.value!.id,
+      description: data.description,
+      name: data.name,
+    }
 
     emit('approved')
   },

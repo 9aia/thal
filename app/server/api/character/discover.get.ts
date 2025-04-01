@@ -25,14 +25,14 @@ export default eventHandler(async (event) => {
     with: {
       characterUsernames: true,
     },
-    where: (characters, { sql, and, eq, or }) => and(
+    where: (characters, { sql, and, eq }) => and(
       query.search
         ? sql`lower(${characters.name}) like ${sql.placeholder('name')}`
         : undefined,
       query.categoryId
         ? sql`category_id = ${query.categoryId}`
         : undefined,
-      or(eq(characters.discoverable, true), eq(characters.creatorId, user.id!)),
+      eq(characters.discoverable, true),
     ),
   }).prepare()
 

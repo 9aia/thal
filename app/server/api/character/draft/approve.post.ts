@@ -39,7 +39,7 @@ export default eventHandler(async (event) => {
     .from(characterUsernames)
     .where(eq(characterUsernames.username, draftData.username))
 
-  if (existingCharacterUsername && existingCharacterUsername.characterId !== null)
+  if (existingCharacterUsername && existingCharacterUsername.characterId !== null && existingCharacterUsername.characterId !== data.characterId)
     throw badRequest('Username already taken')
 
   let character: CharacterGet
