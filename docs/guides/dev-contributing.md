@@ -127,6 +127,8 @@ Here's an improved version of your release/deployment instructions, with enhance
 
 ## Releasing and Deploying
 
+**Note**: Before deploying to production, preview the application remotely. If needed, also test it locally to ensure everything works as expected.
+
 ### Releasing
 
 1. **Update the Changelog**
