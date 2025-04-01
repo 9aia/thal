@@ -18,7 +18,11 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ### Fixed
 
+- Prevented showing non-public characters on the "Discover Characters" page
+- Fixed incorrect handling for chat ID in first local chat
 - Fixed message input placeholder translation
+- Fixed autofocus of the character builder prompt field
+- Fixed missing last message query invalidation on message edit
 - Updated to Gemini 2.0 Flash Lite
 - Fixed "My Characters" item dropdown positioning
 - Added delete action to messages when there is a error
