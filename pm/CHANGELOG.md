@@ -6,6 +6,8 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+## [0.1.0-7] - 2025-04-01
+
 ### Added
 
 - Added effective date to policy pages
