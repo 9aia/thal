@@ -4,20 +4,22 @@ description: Tasks and items for the release.
 
 # TODO
 
-## 0.1.0-7
+## 0.1.0-8
 
 - Add an option to translate character data on the Discover page or in the character details drawer.
 - Fix icon loading fallback
 
-- Pre-create and refine default characters.
-- Improve the design system.
-- Revise data of characters
-- Revise What's New
-- Revise content of policy pages
-- Translate all content using Psitta, with manual improvements to translations.
-- Revise prompt engineering
-- Revise landpage content
-- Update the README.
+- Revision and adjust
+  - Improve the design system and UI
+  - Pre-create and refine default characters
+  - Revise character content
+  - Revise What's New
+  - Revise content of policy pages
+  - Revise prompt engineering
+  - Revise landpage content
+  - Update the README
+  - Translate all content using Psitta
   - Revise translations
-- Set the GCP OAuth screen to production instead of testing (requires app verification).
-- Set Stripe to production instead of testing.
+- Deploy
+  - Set the GCP OAuth screen to production instead of testing (requires app verification).
+  - Set Stripe to production instead of testing.
