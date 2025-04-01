@@ -50,12 +50,16 @@ watch(draftQuery.data, () => {
   }
 })
 
+const { mainField, focusMainField } = useBuildCharacterFocus()
+
 onMounted(() => {
   if (draftQuery.data.value) {
     form.setValues({
       prompt: draftQuery.data.value.prompt,
     })
   }
+
+  focusMainField()
 })
 
 const user = useUser()
@@ -132,8 +136,6 @@ const isPastDueVisible = computed(() => {
 
   return isPlanPastDue(user.value)
 })
-
-const { mainField } = useBuildCharacterFocus()
 
 const draft = computed(() => draftQuery.data.value)
 
