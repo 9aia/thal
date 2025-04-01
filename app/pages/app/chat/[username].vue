@@ -169,7 +169,8 @@ const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending
 
     if (newMessage.editing) {
       editHistory(newMessage)
-      // TODO update LastMessage (chatlist) if necessary
+      updateLastMessage(newMessage)
+
       return
     }
 
@@ -286,7 +287,7 @@ function handleResend() {
   }
 }
 
-function handleDelete(messageId: number) {
+function handleDelete(messageId: number, shouldInvalidateChat = true) {
   queryClient.setQueryData(queryKeys.chat(route.params.username as string), {
     ...data.value,
     history: data.value.history.filter(message => message.id !== messageId),
@@ -295,16 +296,18 @@ function handleDelete(messageId: number) {
   sentErrorChatIds.value.delete(data.value!.chatId!)
   sendingChatIds.value.delete(data.value!.chatId!)
 
-  queryClient.invalidateQueries({
-    queryKey: queryKeys.chats,
-  })
+  if (shouldInvalidateChat) {
+    queryClient.invalidateQueries({
+      queryKey: queryKeys.chats,
+    })
+  }
 }
 
 function handleEdit() {
   const messageIndex = data.value.history.findIndex(message => message.id === edition.editingMessageId)
   const editingMessage = data.value.history[messageIndex]
 
-  handleDelete(edition.editingMessageId!)
+  handleDelete(edition.editingMessageId!, false)
 
   sendMessage({
     type: 'text',
