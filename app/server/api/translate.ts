@@ -2,8 +2,8 @@ import { z } from 'zod'
 import { eq } from 'drizzle-orm'
 import { getHistory } from '../services/messages'
 import { getValidated } from '~/utils/h3'
-import { internal, paymentRequired, unauthorized } from '~/utils/nuxt'
-import { SubscriptionStatus, characterUsernames, messages } from '~~/db/schema'
+import { badRequest, internal, notFound, notImplemented, paymentRequired, unauthorized } from '~/utils/nuxt'
+import { SubscriptionStatus, characterLocalizations, characterUsernames, messages } from '~~/db/schema'
 import { promptGeminiText } from '~/utils/gemini'
 
 export default defineEventHandler(async (event) => {
@@ -27,46 +27,65 @@ export default defineEventHandler(async (event) => {
 
   const data = await getValidated(event, 'body', z.object({
     text: z.string(),
-    chatUsername: z.string().optional().describe('The chatUsername is required for context'),
+    chatUsername: z.string().describe('The chatUsername is required for context'),
     toNative: z.boolean().default(true).describe('Should translate to native language'),
     replyMessageId: z.number().optional().describe('The replyMessageId is the id of the reply message'),
   }))
 
-  const hasContext = !!data.chatUsername
+  const characterUsername = await orm.query.characterUsernames.findFirst({
+    where: eq(characterUsernames.username, data.chatUsername!),
+    with: {
+      character: {
+        columns: {
+          discoverable: true,
+        },
+        with: {
+          characterLocalizations: {
+            columns: {
+              name: true,
+              description: true,
+            },
+            where: eq(characterLocalizations.locale, 'en-US'),
+          },
+        },
+      },
+    },
+  })
 
-  let context = null
-  let character = null
+  if (!characterUsername)
+    throw notFound('Character Username not found')
+
+  if (!characterUsername.character)
+    throw notImplemented('Character not found')
+
+  if (!characterUsername.character.characterLocalizations
+    || !characterUsername.character.characterLocalizations[0]
+  ) {
+    throw internal('Character localization not found')
+  }
+
+  const { history } = await getHistory(orm, user, data.chatUsername!)
+
+  const context = history.map(message => message.message).join(' ').trim()
+
+  const localization = characterUsername.character.characterLocalizations[0]
+
+  const character = {
+    username: characterUsername.username,
+    discoverable: characterUsername.character.discoverable,
+    name: localization.name,
+    description: localization.description,
+  }
+
   let replyMessage = ''
 
-  if (hasContext) {
-    const { history } = await getHistory(orm, user, data.chatUsername!)
-
-    context = history.map(message => message.message).join(' ').trim()
-
-    const characterUsername = await orm.query.characterUsernames.findFirst({
-      where: eq(characterUsernames.username, data.chatUsername!),
-      with: {
-        character: true,
-      },
+  if (data.replyMessageId) {
+    const replyMessageData = await orm.query.messages.findFirst({
+      where: eq(messages.id, data.replyMessageId),
     })
 
-    if (characterUsername?.character) {
-      character = {
-        name: characterUsername.character.name,
-        username: characterUsername.username,
-        description: characterUsername.character.description,
-        discoverable: characterUsername.character.discoverable,
-      }
-    }
-
-    if (data.replyMessageId) {
-      const replyMessageData = await orm.query.messages.findFirst({
-        where: eq(messages.id, data.replyMessageId),
-      })
-
-      if (replyMessageData) {
-        replyMessage = replyMessageData.data.type === 'text' ? replyMessageData.data.value : ''
-      }
+    if (replyMessageData) {
+      replyMessage = replyMessageData.data.type === 'text' ? replyMessageData.data.value : ''
     }
   }
 
@@ -81,8 +100,7 @@ export default defineEventHandler(async (event) => {
     ${replyMessage}`
     : ''
 
-  const systemInstruction = hasContext
-    ? `You are an AI tool specialized in translating messages that the user is about to send.
+  const systemInstruction = `You are an AI tool specialized in translating messages that the user is about to send.
 
     [Input details]
     - The message can include text in ${fromLocale} and ${toLocale}. 
@@ -96,41 +114,19 @@ export default defineEventHandler(async (event) => {
     - No further explanation or comments are needed.
 
     [Character the user is interacting with]
-    ${character?.name} (@${data.chatUsername}) 
+    ${character.name} (@${data.chatUsername}) 
 
-    ${character?.description}
-
-    [Chat history]
-    ${context}
-
-    ${replyMessageFormatted}
-    `
-    : `You are an AI tool specialized in translating messages that the user is about to send.
-    
-    [Output instructions]
-    - Be accurate and context-aware.
-    - Keep the original tone.
-    - Keep plain text.
-    - Do not add or remove information.
-    - The output message should be in ${toLocale}.
-    - No further explanation or comments are needed.
-
-    [Character the user is interacting with]
-    ${character?.name} (@${data.chatUsername}) 
-
-    ${character?.description}
+    ${character.description}
 
     [Chat history]
     ${context}
 
     ${replyMessageFormatted}
-    `
+  `
 
-  const prompt = hasContext
-    ? `[Message to Translate]
+  const prompt = `[Message to Translate]
     ${data.text}
   `
-    : data.text
 
   const text = await promptGeminiText({
     model: GEMINI_MODEL,

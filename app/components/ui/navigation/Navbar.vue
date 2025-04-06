@@ -2,7 +2,7 @@
 import { defineEmits } from 'vue'
 
 defineProps<{
-  title: string
+  title?: string
   hideBack?: boolean
   hideTitle?: boolean
 }>()

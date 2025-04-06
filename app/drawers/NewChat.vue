@@ -41,6 +41,8 @@ const form = useForm({
 })
 const search = refDebounced(toRef(form.values, 'search'), 500)
 
+const localeWithDefaultRegion = useLocaleDefaultRegion()
+
 const {
   data: contacts,
   isError,
@@ -51,6 +53,7 @@ const {
   params: () => {
     return {
       search: search.value,
+      locale: localeWithDefaultRegion.value,
     }
   },
 })

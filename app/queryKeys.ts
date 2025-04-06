@@ -6,10 +6,10 @@ export default {
   chats: ['chats'],
   chatsSearch: (search: MaybeRef<string>) => ['chats', search],
   myCharacters: ['my-characters'],
-  discoverCharactersSearch: (search?: MaybeRef<string | undefined>, categoryId?: MaybeRef<number | undefined>) => ['discover-characters', search, categoryId],
+  discoverCharactersSearch: (locale: MaybeRef<string>, search?: MaybeRef<string | undefined>, categoryId?: MaybeRef<number | undefined>) => ['discover-characters', locale, search, categoryId],
   discoverCharacters: ['discover-characters'],
   profile: (username: MaybeRef<string>) => ['profile', username],
   pricingData: ['pricing-data'],
   characterDraft: ['character-draft'],
-  characterDraftEdit: (username: MaybeRef<string>) => ['character-draft', username],
+  characterDraftEdit: (locale: MaybeRef<string>, username: MaybeRef<string>) => ['character-draft', locale, username],
 }

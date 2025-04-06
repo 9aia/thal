@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Menu } from '@ark-ui/vue/menu'
+import { t } from '@psitta/vue'
 import type { MenuItemType } from '~/components/ui/navigation/types'
 import { categories } from '~/constants/discover'
 
@@ -57,7 +58,7 @@ const items: MenuItemType[] = [
           <Badge no-bg class="bg-transparent border-none flex gap-1 px-0 py-3 text-xs text-gray-500">
             <Icon :name="category?.icon" class="" style="font-size: 1.15rem" />
 
-            {{ category?.name }}
+            {{ t(category?.name) }}
           </Badge>
         </div>
       </div>

@@ -4,11 +4,13 @@ import { getValidated } from '~/utils/h3'
 import { unauthorized } from '~/utils/nuxt'
 import { numericString } from '~/utils/zod'
 import { paginationSchema } from '~/schemas/data'
+import { characterLocalizations } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const query = await getValidated(event, 'query', paginationSchema().extend({
     search: z.string().optional().transform(s => s?.trim()),
     categoryId: numericString(z.number().optional()),
+    locale: z.string(),
   }))
 
   const orm = event.context.orm
@@ -24,11 +26,18 @@ export default eventHandler(async (event) => {
     offset,
     with: {
       characterUsernames: true,
+      characterLocalizations: {
+        columns: {
+          name: true,
+          description: true,
+          instructions: true,
+        },
+        where: (characters, { sql, and, eq }) => and(query.search
+          ? sql`lower(${characters.name}) like ${sql.placeholder('name')}`
+          : undefined, eq(characterLocalizations.locale, query.locale)),
+      },
     },
     where: (characters, { sql, and, eq }) => and(
-      query.search
-        ? sql`lower(${characters.name}) like ${sql.placeholder('name')}`
-        : undefined,
       query.categoryId
         ? sql`category_id = ${query.categoryId}`
         : undefined,

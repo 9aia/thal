@@ -4,7 +4,7 @@ import { getValidated } from '~/utils/h3'
 import { badRequest, paymentRequired, unauthorized } from '~/utils/nuxt'
 import { isPlanPastDue } from '~/utils/plan'
 import type { CharacterGet } from '~~/db/schema'
-import { characterDraftInsertSchema, characterDrafts, characterUsernames, characters } from '~~/db/schema'
+import { characterDraftInsertSchema, characterDrafts, characterLocalizations, characterUsernames, characters } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const orm = event.context.orm
@@ -20,12 +20,23 @@ export default eventHandler(async (event) => {
 
   const isEdition = !!data.characterId
 
-  const [existingDraft] = await orm.select().from(characterDrafts).where(
-    and(
+  const existingDraft = await orm.query.characterDrafts.findFirst({
+    where: and(
       eq(characterDrafts.creatorId, user.id),
       isEdition ? eq(characterDrafts.characterId, data.characterId!) : isNull(characterDrafts.characterId),
     ),
-  )
+    with: {
+      characterDraftLocalizations: {
+        columns: {
+          name: true,
+          description: true,
+          instructions: true,
+          locale: true,
+          id: true,
+        },
+      },
+    },
+  })
 
   if (!existingDraft) {
     throw badRequest(isEdition ? `No editing draft found for characterId ${data.characterId}` : 'No creating character draft found')
@@ -47,9 +58,6 @@ export default eventHandler(async (event) => {
   if (isEdition) {
     // Update character from draft
     const [updatedCharacter] = await orm.update(characters).set({
-      name: draftData.name,
-      description: draftData.description,
-      instructions: draftData.instructions,
       discoverable: data.discoverable,
       categoryId: draftData.categoryId,
     }).where(eq(characters.id, data.characterId!)).returning()
@@ -58,14 +66,21 @@ export default eventHandler(async (event) => {
       .set({ username: draftData.username })
       .where(eq(characterUsernames.characterId, updatedCharacter.id))
 
+    for (const localization of existingDraft.characterDraftLocalizations) {
+      await orm.update(characterLocalizations).set({
+        characterId: updatedCharacter.id,
+        description: localization.description,
+        instructions: localization.instructions,
+        name: localization.name,
+        locale: localization.locale,
+      }).where(and(eq(characterLocalizations.locale, localization.locale), eq(characterLocalizations.characterId, updatedCharacter.id)))
+    }
+
     character = updatedCharacter
   }
   else {
     // Create character from draft
     const [newCharacter] = await orm.insert(characters).values({
-      name: draftData.name,
-      description: draftData.description,
-      instructions: draftData.instructions,
       discoverable: data.discoverable,
       creatorId: user.id,
       createdAt: now().toString(),
@@ -90,6 +105,16 @@ export default eventHandler(async (event) => {
           characterId: character.id,
         })
         .where(eq(characterUsernames.username, draftData.username))
+    }
+
+    for (const localization of existingDraft.characterDraftLocalizations) {
+      await orm.insert(characterLocalizations).values({
+        characterId: character.id,
+        description: localization.description,
+        instructions: localization.instructions,
+        name: localization.name,
+        locale: localization.locale,
+      })
     }
   }
 

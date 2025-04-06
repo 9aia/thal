@@ -1,12 +1,19 @@
 import { type ResponseSchema, SchemaType } from '@google/generative-ai'
 import { categories } from '~/constants/discover'
 
+interface CharacterLocalization {
+  name: string
+  description: string
+  instructions: string
+}
 export interface CharacterDraftResponseSchema {
   name: string
-  instructions: string
   username: string
-  description: string
   category: string
+  localizations: {
+    'pt-BR': CharacterLocalization
+    'en-US': CharacterLocalization
+  }
 }
 
 export function getCharacterDraftPrompt() {
@@ -19,35 +26,75 @@ export function getCharacterDraftPrompt() {
   const responseSchema: ResponseSchema = {
     type: SchemaType.OBJECT,
     properties: {
-      name: {
-        type: SchemaType.STRING,
-        description: 'Character name. Min 1 character, max 20 characters.',
-        example: 'Morty Smith',
-      },
       username: {
         type: SchemaType.STRING,
         description: 'Unique username for the character. Min 1 character, max 20 characters. Username can only contain letters, numbers, and underscores. Only lowercase letters.',
-        example: 'morty',
+        example: 'ironman',
       },
-      description: {
-        type: SchemaType.STRING,
-        description: 'Line description of the character. Min 1 character, max 100 characters.',
-        example: 'Awkward, anxious teen. Travels dimensions with his eccentric grandpa Rick.',
-      },
-      instructions: {
-        type: SchemaType.STRING,
-        description: 'Instructions for the character. Use bullet list. Min 1 character, max 500 characters.',
-        example: `
-          * Nervous, easily flustered, often overwhelmed.
-          * Wants to please Rick but often fails.
-          * Has moments of bravery and stands up for himself.
-          * Deep down, kind and compassionate.
-          * Stutters and rambles when anxious.
-          * Often the voice of reason (even if ignored).
-          * Insecure and unsure of himself.
-          * Prone to existential dread.
-          * Occasionally shows surprising cleverness.
-        `,
+      localizations: {
+        type: SchemaType.OBJECT,
+        properties: {
+          'en-US': {
+            type: SchemaType.OBJECT,
+            properties: {
+              name: {
+                type: SchemaType.STRING,
+                description: 'Character name. Min 1 character, max 20 characters.',
+                example: 'Iron Man',
+              },
+              description: {
+                type: SchemaType.STRING,
+                description: 'Character description. Min 1 character, max 100 characters.',
+                example: 'Superhero who fights for justice and uses his advanced technology to protect the world.',
+              },
+              instructions: {
+                type: SchemaType.STRING,
+                description: 'Instructions for the character. Use bullet list. Min 1 character, max 500 characters.',
+                example: `
+                  * Confident, charismatic, and witty with a sharp sense of humor.
+                  * Brilliant inventor and engineer with a genius-level intellect.
+                  * Struggles with personal relationships and emotional vulnerability.
+                  * Has a strong sense of responsibility and desire to protect others.
+                  * Often uses sarcasm and one-liners to mask deeper feelings.
+                  * Perfectionist who is always striving to improve his technology.
+                  * Carries guilt and trauma from past experiences.
+                  * Has a complex relationship with authority and rules.
+                  * Shows leadership qualities despite his rebellious nature.
+                `,
+              },
+            },
+            required: ['name', 'description', 'instructions'],
+          },
+          'pt-BR': {
+            type: SchemaType.OBJECT,
+            properties: {
+              name: {
+                type: SchemaType.STRING,
+                description: 'Character name. Min 1 character, max 20 characters.',
+                example: 'Homem de Ferro',
+              },
+              description: {
+                type: SchemaType.STRING,
+                description: 'Character description. Min 1 character, max 100 characters.',
+                example: 'Super-herói que luta pela justiça e usa sua tecnologia avançada para proteger o mundo.',
+              },
+              instructions: {
+                type: SchemaType.STRING,
+                description: 'Instructions for the character. Use bullet list. Min 1 character, max 500 characters.',
+                example: `
+                  * Confidente, charismático e sarcástico com um senso de humor aguçado.
+                  * Inventor e engenheiro com um nível de inteligência geniônica.
+                  * Luta com relacionamentos pessoais e vulnerabilidade emocional.
+                  * Tem uma forte sensação de responsabilidade e desejo de proteger outras pessoas.
+                  * Costuma usar sarcasmo e um-linhas para esconder sentimentos mais profundos.
+                  * Perfeccionista que está sempre buscando melhorar sua tecnologia.
+                `,
+              },
+            },
+            required: ['name', 'description', 'instructions'],
+          },
+        },
+        required: ['en-US', 'pt-BR'],
       },
       category: {
         description: `
@@ -62,7 +109,7 @@ export function getCharacterDraftPrompt() {
         enum: categories.map(category => category.name),
       },
     },
-    required: ['name', 'instructions', 'username', 'description'],
+    required: ['username', 'category', 'localizations'],
   }
 
   const guidelines = `
@@ -71,8 +118,8 @@ export function getCharacterDraftPrompt() {
     - Name & Identity: Give the character a natural, culturally appropriate name and a brief background (e.g., country, age, profession, interests).
     - Personality & Speaking Style: Define their personality traits (e.g., friendly, humorous, professional, casual) and how they communicate (e.g., uses slang, formal tone, storytelling).
     - Topics of Interest: List 3-5 topics the character enjoys discussing (e.g., travel, technology, history, daily life).
-    - Unique Traits & Backstory: Provide a small but interesting detail that makes the character memorable (e.g., ‘Emma, a barista from London who loves poetry and explains coffee-making terms’).
-    - Role & Goal: Define the character’s purpose in the conversation (e.g., casual chatting, practicing business English, storytelling, role-playing as a shopkeeper).
+    - Unique Traits & Backstory: Provide a small but interesting detail that makes the character memorable (e.g., 'Emma, a barista from London who loves poetry and explains coffee-making terms').
+    - Role & Goal: Define the character's purpose in the conversation (e.g., casual chatting, practicing business English, storytelling, role-playing as a shopkeeper).
 
     ## Safety Guidelines
 

@@ -6,6 +6,12 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Added
+
+### Fixed
+
+- Fixed category name translation on "My Characters" and "Discover Characters" items
+
 ## [0.1.0-7] - 2025-04-01
 
 ### Added

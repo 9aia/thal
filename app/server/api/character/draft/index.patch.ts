@@ -7,7 +7,7 @@ import { getValidated } from '~/utils/h3'
 import { badRequest, internal, paymentRequired, unauthorized } from '~/utils/nuxt'
 import { isPlanPastDue } from '~/utils/plan'
 import type { CharacterDraftData } from '~~/db/schema'
-import { characterDraftSchema, characterDrafts } from '~~/db/schema'
+import { characterDraftLocalizations, characterDraftSchema, characterDrafts } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const { GEMINI_MODEL, GEMINI_API_KEY } = useRuntimeConfig(event)
@@ -27,7 +27,7 @@ export default eventHandler(async (event) => {
   if (isPlanPastDue(user))
     throw paymentRequired()
 
-  const data = await getValidated(event, 'body', characterDraftSchema)
+  const { locale, ...data } = await getValidated(event, 'body', characterDraftSchema)
 
   const [existingDraft] = await orm.select().from(characterDrafts).where(
     and(eq(characterDrafts.creatorId, user.id), isNull(characterDrafts.characterId)),
@@ -56,27 +56,55 @@ export default eventHandler(async (event) => {
 
   const draftData: CharacterDraftData = {
     username: geminiData.username,
-    description: geminiData.description,
-    instructions: geminiData.instructions,
-    name: geminiData.name,
     categoryId,
     creatorId: user.id,
   }
 
-  const [updatedDraft] = await orm
-    .update(characterDrafts)
-    .set({
-      id: existingDraft.id,
-      data: draftData,
-      prompt: data.prompt,
-      creatorId: user.id,
-      createdAt: now().toString(),
-    })
-    .where(eq(characterDrafts.id, existingDraft.id))
-    .returning()
+  const result = await orm.batch([
+    orm.update(characterDrafts)
+      .set({
+        id: existingDraft.id,
+        data: draftData,
+        prompt: data.prompt,
+        creatorId: user.id,
+        createdAt: now().toString(),
+      })
+      .where(eq(characterDrafts.id, existingDraft.id))
+      .returning(),
+    orm.update(characterDraftLocalizations).set({
+      name: geminiData.localizations['pt-BR'].name,
+      description: geminiData.localizations['pt-BR'].description,
+      instructions: geminiData.localizations['pt-BR'].instructions,
+      locale: 'pt-BR',
+      characterDraftId: existingDraft.id,
+    }).where(and(eq(characterDraftLocalizations.locale, 'pt-BR'), eq(characterDraftLocalizations.characterDraftId, existingDraft.id))),
+    orm.update(characterDraftLocalizations).set({
+      name: geminiData.localizations['en-US'].name,
+      description: geminiData.localizations['en-US'].description,
+      instructions: geminiData.localizations['en-US'].instructions,
+      locale: 'en-US',
+      characterDraftId: existingDraft.id,
+    }).where(and(eq(characterDraftLocalizations.locale, 'en-US'), eq(characterDraftLocalizations.characterDraftId, existingDraft.id))),
+  ])
 
-  return {
-    ...updatedDraft,
-    username: geminiData.username,
-  }
+  const updatedDraft = result[0][0]
+
+  const dto:
+    typeof updatedDraft & {
+      data: typeof updatedDraft.data & {
+        name: string
+        description: string
+        instructions: string
+      }
+    } & {
+      username: string
+    } = { ...updatedDraft } as any
+  const localization = geminiData.localizations[locale]
+
+  dto.data.name = localization.name
+  dto.data.description = localization.description
+  dto.data.instructions = localization.instructions
+  dto.username = geminiData.username
+
+  return dto
 })

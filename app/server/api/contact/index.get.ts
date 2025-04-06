@@ -7,13 +7,14 @@ export default eventHandler(async (event) => {
   const orm = event.context.orm
   const user = event.context.user
 
-  const { search } = await getValidated(event, 'query', z.object({
+  const { search, locale } = await getValidated(event, 'query', z.object({
     search: z.string().optional().transform(s => s?.trim().toLowerCase()),
+    locale: z.enum(['pt-BR', 'en-US']),
   }))
 
   if (!user)
     throw unauthorized()
 
-  const foundContacts = getContactsWithCharacterByUser(orm, user, search)
+  const foundContacts = getContactsWithCharacterByUser(orm, user, locale, search)
   return foundContacts
 })

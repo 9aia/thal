@@ -2,7 +2,7 @@ import { and, eq, sql } from 'drizzle-orm'
 import type { H3EventContext } from 'h3'
 import { notFound } from '~/utils/nuxt'
 import type { CharacterGet, ContactEntity, ContactGetDto, User } from '~~/db/schema'
-import { characterUsernames, characters, contacts } from '~~/db/schema'
+import { characterLocalizations, characterUsernames, characters, contacts } from '~~/db/schema'
 
 export async function getContactByUser(
   orm: H3EventContext['orm'],
@@ -87,6 +87,7 @@ export async function getContactWithCharacterByUser(
 export async function getContactsWithCharacterByUser(
   orm: H3EventContext['orm'],
   user: User,
+  locale: string,
   search?: string,
 ) {
   const searchLike = search ? `%${search}%` : null
@@ -95,7 +96,7 @@ export async function getContactsWithCharacterByUser(
         ${contacts.id} AS contactId,
         ${contacts.name} AS contactName,
         ${characterUsernames.username} AS characterUsername,
-        ${characters.description} AS characterDescription
+        ${characterLocalizations.description} AS characterName
       FROM 
         ${contacts}
       LEFT JOIN 
@@ -108,6 +109,7 @@ export async function getContactsWithCharacterByUser(
             ? sql`AND (lower(${contacts.name}) LIKE ${searchLike} OR lower(${characterUsernames.username}) LIKE ${searchLike} OR lower(${characters.name}) LIKE ${searchLike})`
             : sql``
         }
+        AND ${characterLocalizations.locale} = ${locale}
     `)
 
   return results as {

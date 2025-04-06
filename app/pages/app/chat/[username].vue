@@ -19,6 +19,7 @@ const route = useRoute()
 const toast = useToast()
 const { t } = useI18nExperimental()
 const queryClient = useQueryClient()
+const localeWithDefaultRegion = useLocaleWithDefaultRegion()
 
 const {
   data,
@@ -27,6 +28,9 @@ const {
   refetch,
 } = await useServerQuery(() => `/api/chat/item/${route.params.username}` as `/api/chat/item/:username`, {
   queryKey: queryKeys.chat(computed(() => route.params.username as string)),
+  params: () => ({
+    locale: localeWithDefaultRegion.value,
+  }),
 })
 
 const chatId = computed(() => {

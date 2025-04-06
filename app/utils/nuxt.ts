@@ -24,6 +24,13 @@ export function notFound(
   return error(404, message, options)
 }
 
+export function notImplemented(
+  message?: string,
+  options: Partial<NuxtError<unknown>> = {},
+) {
+  return error(501, message, options)
+}
+
 export function unauthorized(
   message?: string,
   options: Partial<NuxtError<unknown>> = {},

@@ -4,7 +4,7 @@ import { getCharacterCategoryName } from '~/server/services/character'
 import { getValidated } from '~/utils/h3'
 import { badRequest, paymentRequired, unauthorized } from '~/utils/nuxt'
 import { isPlanPastDue } from '~/utils/plan'
-import { characterDrafts } from '~~/db/schema'
+import { characterDraftLocalizations, characterDraftLocalizationsRelations, characterDrafts } from '~~/db/schema'
 import { numericString } from '~/utils/zod'
 
 export default eventHandler(async (event) => {
@@ -17,13 +17,18 @@ export default eventHandler(async (event) => {
   if (isPlanPastDue(user))
     throw paymentRequired()
 
-  const { characterId } = await getValidated(event, 'query', z.object({ characterId: numericString(z.number().optional()) }))
+  const { characterId, locale } = await getValidated(event, 'query', z.object({ characterId: numericString(z.number().optional()), locale: z.string() }))
 
   const draftCharacter = await orm.query.characterDrafts.findFirst({
     where: and(eq(characterDrafts.creatorId, user.id), characterId ? eq(characterDrafts.characterId, characterId) : isNull(characterDrafts.characterId)),
     columns: {
       data: true,
       prompt: true,
+    },
+    with: {
+      characterDraftLocalizations: {
+        where: eq(characterDraftLocalizations.locale, locale),
+      },
     },
   })
 
@@ -34,6 +39,9 @@ export default eventHandler(async (event) => {
 
   return {
     ...existingDraft,
+    name: draftCharacter.characterDraftLocalizations?.[0]?.name,
+    description: draftCharacter.characterDraftLocalizations?.[0]?.description,
+    instructions: draftCharacter.characterDraftLocalizations?.[0]?.instructions,
     prompt: draftCharacter.prompt,
     categoryName: getCharacterCategoryName(existingDraft.categoryId),
   }

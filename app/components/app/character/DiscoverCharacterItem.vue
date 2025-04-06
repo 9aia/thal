@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { t } from '@psitta/vue'
 import { categories } from '~/constants/discover'
 import { isRootDrawerOpen } from '~/store'
 
@@ -50,7 +51,7 @@ const category = computed(() => {
             <Badge no-bg class="bg-transparent border-none flex gap-1 px-0 py-3 text-xs text-black">
               <Icon :name="category?.icon" class="" style="font-size: 1.15rem" />
 
-              {{ category?.name }}
+              {{ t(category?.name) }}
             </Badge>
           </div>
 

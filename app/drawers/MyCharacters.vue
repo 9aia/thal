@@ -13,6 +13,8 @@ useAutoRedirect({
   query: { drawer: ['list'] },
 })
 
+const localWithDefaultRegion = useLocaleDefaultRegion()
+
 const {
   data: characters,
   isPending,
@@ -20,7 +22,11 @@ const {
   refetch,
 } = useQuery({
   queryKey: queryKeys.myCharacters,
-  queryFn: () => $fetch('/api/character'),
+  queryFn: () => $fetch('/api/character', {
+    query: {
+      locale: localWithDefaultRegion.value,
+    },
+  }),
 })
 
 const deleteCharacter = ref(false)
@@ -79,7 +85,7 @@ function handleGoToChat(username: string) {
                   class="group"
                 >
                   <CharacterItem
-                    :name="character.name"
+                    :name="character.characterLocalizations?.[0]?.name"
                     :username="character.characterUsernames?.username || undefined"
                     :category-id="character.categoryId"
                     @delete="handleDeleteCharacter(character as unknown as Character)"

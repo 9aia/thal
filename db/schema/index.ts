@@ -120,9 +120,6 @@ export const instructionsSchema = z.string().min(1).max(500)
 
 export const characters = sqliteTable('Character', {
   id: int('id').primaryKey({ autoIncrement: true }),
-  name: text('name').notNull(),
-  description: text('description').notNull(),
-  instructions: text('instructions').notNull(),
   categoryId: int('category_id').notNull(),
   discoverable: int('discoverable', { mode: 'boolean' }).default(true).notNull(),
   creatorId: text('creator_id')
@@ -130,8 +127,9 @@ export const characters = sqliteTable('Character', {
   createdAt: text('created_at').notNull(),
 })
 
-export const characterRelations = relations(characters, ({ one }) => ({
+export const characterRelations = relations(characters, ({ one, many }) => ({
   characterUsernames: one(characterUsernames),
+  characterLocalizations: many(characterLocalizations),
 }))
 
 export const characterGetSchema = createSelectSchema(characters)
@@ -152,10 +150,36 @@ export const characterDataSchema = createInsertSchema(characters).omit({
 
 // #endregion
 
-// #region CharacterDraft
+// #region CharacterLocalizations
+
+export const characterLocalizations = sqliteTable('CharacterLocalization', {
+  id: int('id').primaryKey({ autoIncrement: true }),
+  characterId: int('character_id')
+    .references(() => characters.id, { onDelete: 'cascade' }),
+  locale: text('locale').notNull(),
+  name: text('name').notNull(),
+  description: text('description').notNull(),
+  instructions: text('instructions').notNull(),
+})
+
+export const characterLocalizationsRelations = relations(characterLocalizations, ({ one }) => ({
+  character: one(characters, {
+    fields: [characterLocalizations.characterId],
+    references: [characters.id],
+  }),
+}))
+
+export const characterLocalizationsSchema = createInsertSchema(characterLocalizations)
+
+export type characterLocalizationsGet = z.infer<typeof characterLocalizationsSchema>
+
+// #endregion
+
+// #region CharacterDrafts
 
 export const characterDraftSchema = z.object({
   prompt: z.string(),
+  locale: z.enum(['pt-BR', 'en-US']),
 })
 
 export type CharacterDraftData = z.infer<typeof characterDataSchema>
@@ -175,6 +199,31 @@ export const characterDrafts = sqliteTable('CharacterDraft', {
   data: text('data', { mode: 'json' }).$type<CharacterDraftData>().notNull(),
   createdAt: text('created_at').notNull(),
 })
+
+export const characterDraftsRelations = relations(characterDrafts, ({ one, many }) => ({
+  character: one(characters, {
+    fields: [characterDrafts.characterId],
+    references: [characters.id],
+  }),
+  characterDraftLocalizations: many(characterDraftLocalizations),
+}))
+
+export const characterDraftLocalizations = sqliteTable('CharacterDraftLocalization', {
+  id: int('id').primaryKey({ autoIncrement: true }),
+  characterDraftId: int('character_draft_id')
+    .references(() => characterDrafts.id, { onDelete: 'cascade' }),
+  locale: text('locale').notNull(),
+  name: text('name').notNull(),
+  description: text('description').notNull(),
+  instructions: text('instructions').notNull(),
+})
+
+export const characterDraftLocalizationsRelations = relations(characterDraftLocalizations, ({ one }) => ({
+  characterDraft: one(characterDrafts, {
+    fields: [characterDraftLocalizations.characterDraftId],
+    references: [characterDrafts.id],
+  }),
+}))
 
 // #endregion
 

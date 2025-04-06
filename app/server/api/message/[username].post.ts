@@ -47,10 +47,16 @@ export default eventHandler(async (event) => {
     where: eq(characterUsernames.username, username),
     with: {
       character: {
-        columns: {
-          name: true,
-          description: true,
-          instructions: true,
+        columns: {},
+        with: {
+          characterLocalizations: {
+            columns: {
+              name: true,
+              description: true,
+              instructions: true,
+            },
+            where: eq(characterLocalizations.locale, 'en-US'),
+          },
         },
       },
       chats: {
@@ -117,8 +123,10 @@ export default eventHandler(async (event) => {
     hour12: false,
   })
 
+  const localization = character.characterLocalizations[0]
+
   const systemInstruction = `
-    You are ${character.name} (username: ${result.username}). **You do not engage in any language other than English.** If the user sends a message in another language, **do not translate, interpret, or respond in that language.** Instead, inform them that you only are going to chat in English.
+    You are ${localization.name} (username: ${result.username}). **You do not engage in any language other than English.** If the user sends a message in another language, **do not translate, interpret, or respond in that language.** Instead, inform them that you only are going to chat in English.
 
     Maintain a **natural, conversational tone** with concise and engaging responses. Avoid long-winded explanations—keep it chat-like.
 
@@ -126,11 +134,11 @@ export default eventHandler(async (event) => {
 
     **Current time:** ${datetime}.
 
-    **Your description:** ${character.description}.
+    **Your description:** ${localization.description}.
 
     ## Instructions
 
-    ${character.instructions}
+    ${localization.instructions}
   `
 
   const geminiHistory = chatHistoryToGemini(history)

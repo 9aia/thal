@@ -60,13 +60,15 @@ export async function getGeminiText(url: string, body: string, apiKey: string) {
     body,
   })
 
-  if (!response.ok)
-    throw internal(`Error fetching Gemini: ${response.status}`)
+  if (!response.ok) {
+    throw internal(`HTTP Error on fetch to Gemini: ${response.status}`)
+  }
 
   const data: any = await response.json()
 
-  if ('error' in data)
-    throw internal(`Error fetching Gemini: ${data.error.message}`)
+  if ('error' in data) {
+    throw internal(`Gemini Error fetching to Gemini: ${data.error.message}`)
+  }
 
   const bestCandidate = data.candidates?.[0]
   const bestPart = bestCandidate?.content?.parts?.[0]

@@ -7,7 +7,7 @@ import { getValidated } from '~/utils/h3'
 import { badRequest, internal, paymentRequired, unauthorized } from '~/utils/nuxt'
 import { isPlanPastDue } from '~/utils/plan'
 import type { CharacterDraftData } from '~~/db/schema'
-import { characterDraftSchema, characterDrafts } from '~~/db/schema'
+import { characterDraftLocalizations, characterDraftSchema, characterDrafts } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const { GEMINI_MODEL, GEMINI_API_KEY } = useRuntimeConfig(event)
@@ -28,7 +28,7 @@ export default eventHandler(async (event) => {
     throw paymentRequired()
 
   const data = await getValidated(event, 'body', characterDraftSchema)
-  const { prompt } = data
+  const { prompt, locale } = data
 
   const [existingDraft] = await orm.select().from(characterDrafts).where(
     and(eq(characterDrafts.creatorId, user.id), isNull(characterDrafts.characterId)),
@@ -56,9 +56,6 @@ export default eventHandler(async (event) => {
 
   const draftData: CharacterDraftData = {
     username: geminiData.username,
-    description: geminiData.description,
-    instructions: geminiData.instructions,
-    name: geminiData.name,
     categoryId,
     creatorId: user.id,
   }
@@ -73,8 +70,39 @@ export default eventHandler(async (event) => {
     })
     .returning()
 
-  return {
-    ...newCharacter,
-    username: geminiData.username,
-  }
+  await orm.batch([
+    orm.insert(characterDraftLocalizations).values({
+      name: geminiData.localizations['pt-BR'].name,
+      description: geminiData.localizations['pt-BR'].description,
+      instructions: geminiData.localizations['pt-BR'].instructions,
+      locale: 'pt-BR',
+      characterDraftId: newCharacter.id,
+    }),
+    orm.insert(characterDraftLocalizations).values({
+      name: geminiData.localizations['en-US'].name,
+      description: geminiData.localizations['en-US'].description,
+      instructions: geminiData.localizations['en-US'].instructions,
+      locale: 'en-US',
+      characterDraftId: newCharacter.id,
+    }),
+  ])
+
+  const dto:
+    typeof newCharacter & {
+      data: typeof newCharacter.data & {
+        name: string
+        description: string
+        instructions: string
+      }
+    } & {
+      username: string
+    } = { ...newCharacter } as any
+  const localization = geminiData.localizations[locale]
+
+  dto.data.name = localization.name
+  dto.data.description = localization.description
+  dto.data.instructions = localization.instructions
+  dto.username = geminiData.username
+
+  return dto
 })

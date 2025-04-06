@@ -1,3 +1,34 @@
+CREATE TABLE `CharacterDraftLocalization` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`character_draft_id` integer,
+	`locale` text NOT NULL,
+	`name` text NOT NULL,
+	`description` text NOT NULL,
+	`instructions` text NOT NULL,
+	FOREIGN KEY (`character_draft_id`) REFERENCES `CharacterDraft`(`id`) ON UPDATE no action ON DELETE cascade
+);
+--> statement-breakpoint
+CREATE TABLE `CharacterDraft` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`character_id` integer,
+	`creator_id` text,
+	`prompt` text NOT NULL,
+	`data` text NOT NULL,
+	`created_at` text NOT NULL,
+	FOREIGN KEY (`character_id`) REFERENCES `Character`(`id`) ON UPDATE no action ON DELETE cascade,
+	FOREIGN KEY (`creator_id`) REFERENCES `User`(`id`) ON UPDATE no action ON DELETE no action
+);
+--> statement-breakpoint
+CREATE TABLE `CharacterLocalization` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`character_id` integer,
+	`locale` text NOT NULL,
+	`name` text NOT NULL,
+	`description` text NOT NULL,
+	`instructions` text NOT NULL,
+	FOREIGN KEY (`character_id`) REFERENCES `Character`(`id`) ON UPDATE no action ON DELETE cascade
+);
+--> statement-breakpoint
 CREATE TABLE `CharacterUsername` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`character_id` integer,
@@ -8,14 +39,10 @@ CREATE TABLE `CharacterUsername` (
 CREATE UNIQUE INDEX `CharacterUsername_username_unique` ON `CharacterUsername` (`username`);--> statement-breakpoint
 CREATE TABLE `Character` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`name` text NOT NULL,
-	`description` text NOT NULL,
-	`instructions` text NOT NULL,
-	`conversation_starters` text NOT NULL,
-	`created_at` text NOT NULL,
 	`category_id` integer NOT NULL,
 	`discoverable` integer DEFAULT true NOT NULL,
 	`creator_id` text,
+	`created_at` text NOT NULL,
 	FOREIGN KEY (`creator_id`) REFERENCES `User`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint

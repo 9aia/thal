@@ -1,10 +1,14 @@
 import { eq } from 'drizzle-orm'
+import { z } from 'zod'
+import { getValidated } from '~/utils/h3'
 import { unauthorized } from '~/utils/nuxt'
-import { characters } from '~~/db/schema'
+import { characterLocalizations, characters } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const orm = event.context.orm
   const user = event.context.user
+
+  const { locale } = await getValidated(event, 'query', z.object({ locale: z.string() }))
 
   if (!user)
     throw unauthorized()
@@ -13,9 +17,6 @@ export default eventHandler(async (event) => {
     where: eq(characters.creatorId, user.id),
     columns: {
       id: true,
-      name: true,
-      description: true,
-      instructions: true,
       creatorId: true,
       categoryId: true,
       discoverable: true,
@@ -25,6 +26,9 @@ export default eventHandler(async (event) => {
         columns: {
           username: true,
         },
+      },
+      characterLocalizations: {
+        where: eq(characterLocalizations.locale, locale),
       },
     },
   })

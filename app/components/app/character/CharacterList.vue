@@ -17,6 +17,8 @@ function toggleCategory(id: number) {
   categoryId.value = categoryId.value !== id ? id : undefined
 }
 
+const localeWithDefaultRegion = useLocaleDefaultRegion()
+
 const {
   data,
   isError,
@@ -25,12 +27,13 @@ const {
   refetch,
   hasNextPage,
 } = usePaginationQuery({
-  queryKey: queryKeys.discoverCharactersSearch(search, categoryId),
+  queryKey: queryKeys.discoverCharactersSearch(localeWithDefaultRegion, search, categoryId),
   queryFn: ({ params }) => $fetch('/api/character/discover', {
     params: {
       ...params,
       search: search.value,
       categoryId: categoryId.value,
+      locale: localeWithDefaultRegion.value,
     },
   }),
   perPage: 10,
@@ -140,8 +143,8 @@ watch(categoryId, () => {
               <DiscoverCharacterItem
                 v-for="character in data?.pages"
                 :key="`character-${character.id}`"
-                :name="character.name"
-                :description="character.description"
+                :name="character.characterLocalizations?.[0]?.name"
+                :description="character.characterLocalizations?.[0]?.description"
                 :category-id="character.categoryId"
                 :username="character.characterUsernames?.username"
                 show-copy

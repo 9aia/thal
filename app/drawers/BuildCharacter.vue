@@ -21,11 +21,14 @@ interface FormValues {
   prompt: string
 }
 
+const localWithDefaultRegion = useLocaleDefaultRegion()
+
 const draftQuery = useQuery({
-  queryKey: queryKeys.characterDraftEdit(characterBuilderData.value?.characterUsernames?.username as string),
+  queryKey: queryKeys.characterDraftEdit(localWithDefaultRegion, characterBuilderData.value?.characterUsernames?.username as string),
   queryFn: () => $fetch('/api/character/draft', {
     query: {
       characterId: characterBuilderData.value?.id,
+      locale: localWithDefaultRegion.value,
     },
   }),
 })
@@ -70,7 +73,10 @@ const createCharacterDraft = useMutation({
   mutationFn: async (data: FormValues) => {
     return await $fetch('/api/character/draft', {
       method: 'post',
-      body: data,
+      body: {
+        ...data,
+        locale: localWithDefaultRegion.value,
+      },
     })
   },
 })
@@ -79,7 +85,10 @@ const updateCharacterDraft = useMutation({
   mutationFn: async (data: FormValues) => {
     return await $fetch('/api/character/draft', {
       method: 'patch',
-      body: data,
+      body: {
+        ...data,
+        locale: localWithDefaultRegion.value,
+      },
     })
   },
 })
@@ -88,7 +97,10 @@ const editApprovedCharacterDraft = useMutation({
   mutationFn: async (data: FormValues) => {
     return await $fetch(`/api/character/draft/${characterBuilderData.value!.characterUsernames!.username as string}`, {
       method: 'patch',
-      body: data,
+      body: {
+        ...data,
+        locale: localWithDefaultRegion.value,
+      },
     })
   },
 })
@@ -139,12 +151,14 @@ const draft = computed(() => draftQuery.data.value)
 
 const character = computed((): CharacterDraftApiData | null => {
   if (characterBuilderData.value) {
+    const localization = characterBuilderData.value.characterLocalizations[0]
+
     return {
       prompt: '',
       username: characterBuilderData.value.characterUsernames?.username || '',
-      description: characterBuilderData.value.description!,
-      instructions: characterBuilderData.value.instructions,
-      name: characterBuilderData.value.name,
+      name: localization.name,
+      description: localization.description,
+      instructions: localization.instructions,
       categoryId: characterBuilderData.value.categoryId,
       creatorId: characterBuilderData.value.creatorId,
       categoryName: getCategoryById(characterBuilderData.value.categoryId)!.name,

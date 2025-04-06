@@ -22,6 +22,8 @@ watchDebounced(toRef(form.values, 'search'), () => {
   chatItemSearch.value = form.values.search
 }, { debounce: 500 })
 
+const localWithDefaultRegion = useLocaleDefaultRegion()
+
 const {
   data: chats,
   isPending,
@@ -32,6 +34,7 @@ const {
   params: () => {
     return {
       search: chatItemSearch.value,
+      locale: localWithDefaultRegion.value,
     }
   },
 })

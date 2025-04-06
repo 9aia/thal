@@ -6,7 +6,8 @@ description: Tasks and items for the release.
 
 ## 0.1.0-8
 
-- Add an option to translate character data on the Discover page or in the character details drawer.
+- Localize character name, description and instructions
+- Check translation with deleted character
 - Fix icon loading fallback
 - Add .env.dev, .env.preview, .env.prod (and remove the info about need of change in docs)
 - Move public keys to env
