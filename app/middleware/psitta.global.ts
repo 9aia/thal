@@ -2,9 +2,9 @@ import { detectLocaleFromAcceptLanguage, detectLocaleFromCookie, detectLocaleFro
 import { useLocale } from '@psitta/vue'
 import type { RouteLocationNormalized } from 'vue-router'
 
-export default defineNuxtRouteMiddleware((event: RouteLocationNormalized) => {
+export default defineNuxtRouteMiddleware((to: RouteLocationNormalized) => {
   const { defaultLocale } = getConfig()
-  const pathname = event.fullPath
+  const pathname = to.fullPath
 
   const { urlWithoutLocale, locale } = detectLocaleFromPathname(pathname)
 
@@ -31,5 +31,5 @@ export default defineNuxtRouteMiddleware((event: RouteLocationNormalized) => {
     }
   }
 
-  useLocale().value = locale || defaultLocale
+  to.meta.locale = locale || defaultLocale
 })

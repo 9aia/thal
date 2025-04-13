@@ -1,5 +1,5 @@
 import { type Locale, getConfig } from '@psitta/core'
-import { createPsitta } from '@psitta/vue'
+import { createPsitta, useLocale } from '@psitta/vue'
 import '~~/i18n'
 
 interface PsittaStore { locale: Locale }
@@ -21,4 +21,14 @@ export default defineNuxtPlugin((nuxtApp) => {
       lang: locale,
     },
   })
+
+  const route = useRoute()
+
+  watch(route, (to) => {
+    const metaLocale = to.meta.locale
+
+    if (metaLocale) {
+      locale.value = metaLocale as string
+    }
+  }, { immediate: true })
 })
