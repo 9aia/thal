@@ -1,13 +1,9 @@
 import { useLocale } from '@psitta/vue'
 
 export default function useLocaleDefaultRegion() {
+  const locale = useLocale()
+
   return computed(() => {
-    if (!window) {
-      return 'en-US'
-    }
-
-    const locale = useLocale()
-
     const localeDefaultRegion: Record<string, string> = {
       pt: 'pt-BR',
       en: 'en-US',

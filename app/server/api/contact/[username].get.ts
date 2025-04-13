@@ -6,6 +6,7 @@ import { usernameSchema } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const { username } = await getValidated(event, 'params', z.object({ username: usernameSchema }))
+  const { locale } = await getValidated(event, 'query', z.object({ locale: z.string() }))
 
   const orm = event.context.orm
   const user = event.context.user
@@ -13,6 +14,6 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  const contactGetDto = await getContactByUser(orm, user, username)
+  const contactGetDto = await getContactByUser(orm, user, username, locale)
   return contactGetDto
 })

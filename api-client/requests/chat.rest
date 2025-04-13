@@ -1,14 +1,14 @@
 ### Find all chats
 
-GET {{baseUrl}}/chat
+GET {{baseUrl}}/chat?locale=pt-BR
 Content-Type: application/json
 Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
 
 ### Search chats
 
-@query = future
+@query = einstein
 
-GET {{baseUrl}}/chat?search={{query}}
+GET {{baseUrl}}/chat?search={{query}}&locale=pt-BR
 Content-Type: application/json
 Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
 

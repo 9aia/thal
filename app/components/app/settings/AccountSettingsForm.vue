@@ -4,7 +4,7 @@ import { useForm } from 'vee-validate'
 import { useQueryClient } from '@tanstack/vue-query'
 import type { User } from '~~/db/schema'
 import { nameSchema, pronounsSchema, usernameSchema } from '~~/db/schema'
-import type { MenuItem } from '~/components/ui/navigation/types'
+import type { MenuItemType } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
 
 const { t } = useI18nExperimental()
@@ -84,7 +84,7 @@ const submit = form.handleSubmit(async (data) => {
   loading.value = false
 })
 
-const dangerItems: MenuItem[] = [
+const dangerItems: MenuItemType[] = [
   {
     id: 'deactivate',
     icon: 'account_circle_off',

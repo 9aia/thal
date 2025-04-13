@@ -8,6 +8,7 @@ export async function getContactByUser(
   orm: H3EventContext['orm'],
   user: User,
   username: string,
+  locale: string,
 ) {
   const result = await orm.query.characterUsernames.findFirst({
     where: eq(characterUsernames.username, username),
@@ -17,8 +18,13 @@ export async function getContactByUser(
     },
     with: {
       character: {
-        columns: {
-          description: true,
+        with: {
+          characterLocalizations: {
+            where: eq(characterLocalizations.locale, locale),
+            columns: {
+              description: true,
+            },
+          },
         },
       },
       contacts: {
@@ -46,17 +52,16 @@ export async function getContactByUser(
     id: result.contacts[0].id,
     name: result.contacts[0].name,
     username: result.username,
-    description: result.character?.description,
+    description: result.character?.characterLocalizations[0]?.description,
   }
 }
 
-export function mapContactToDto(contact: ContactEntity, character: CharacterGet): ContactGetDto {
+export function mapContactToDto(contact: ContactEntity, character: CharacterGet, username: string): ContactGetDto {
   return {
     id: contact.id,
     name: contact.name,
     createdAt: contact.createdAt,
-    username: character.username,
-
+    username,
   }
 }
 
@@ -96,17 +101,19 @@ export async function getContactsWithCharacterByUser(
         ${contacts.id} AS contactId,
         ${contacts.name} AS contactName,
         ${characterUsernames.username} AS characterUsername,
-        ${characterLocalizations.description} AS characterName
+        ${characterLocalizations.description} AS characterDescription
       FROM 
         ${contacts}
       LEFT JOIN 
         ${characterUsernames} ON ${contacts.characterUsernameId} = ${characterUsernames.id}
       LEFT JOIN 
         ${characters} ON ${characterUsernames.characterId} = ${characters.id}
+      LEFT JOIN
+        ${characterLocalizations} ON ${characters.id} = ${characterLocalizations.characterId}
       WHERE
         ${contacts.userId} = ${user.id}
         ${search
-            ? sql`AND (lower(${contacts.name}) LIKE ${searchLike} OR lower(${characterUsernames.username}) LIKE ${searchLike} OR lower(${characters.name}) LIKE ${searchLike})`
+            ? sql`AND (lower(${contacts.name}) LIKE ${searchLike} OR lower(${characterUsernames.username}) LIKE ${searchLike} OR lower(${characterLocalizations.name}) LIKE ${searchLike})`
             : sql``
         }
         AND ${characterLocalizations.locale} = ${locale}

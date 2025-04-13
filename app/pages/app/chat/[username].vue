@@ -19,7 +19,7 @@ const route = useRoute()
 const toast = useToast()
 const { t } = useI18nExperimental()
 const queryClient = useQueryClient()
-const localeWithDefaultRegion = useLocaleWithDefaultRegion()
+const localeWithDefaultRegion = useLocaleDefaultRegion()
 
 const {
   data,
@@ -138,7 +138,7 @@ function updateLastMessage(newMessage: SendMessageData, isError = false) {
     characterName: data.value.name,
   }
 
-  queryClient.setQueryData(queryKeys.chatsSearch(chatItemSearch.value), (oldData: ChatItem[]) => {
+  queryClient.setQueryData(queryKeys.chatsSearch(localeWithDefaultRegion.value, chatItemSearch.value), (oldData: ChatItem[]) => {
     let newChats = [...oldData]
 
     const chatIndex = newChats.findIndex((lastMessage: ChatItem) => lastMessage.characterUsername === data.value.username)
@@ -374,7 +374,7 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
                 v-if="!hasContact"
                 class="bg-gradient-1 mb-8 text-gray-800 text-center sm:max-w-lg mx-auto rounded-3xl"
               >
-                <div class="py-8">
+                <div class="py-8 px-4">
                   <Avatar :name="avatarName" class="mx-auto w-20 h-20 text-lg bg-gray-100 text-gray-800" />
 
                   <h2 class="text-gray-900 text-center mb-1">

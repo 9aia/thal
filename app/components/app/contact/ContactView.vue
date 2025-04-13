@@ -3,10 +3,12 @@ import { useQuery } from '@tanstack/vue-query'
 import { contactViewUsername, manageContact, rightDrawer, rightDrawers } from '~/store'
 import { categories } from '~/constants/discover'
 import queryKeys from '~/queryKeys'
-import type { MenuItem } from '~/components/ui/navigation/types'
+import type { MenuItemType } from '~/components/ui/navigation/types'
 
 const contactDeleteModalState = ref(false)
 const username = computed(() => contactViewUsername!.value!)
+
+const localeDefaultRegion = useLocaleDefaultRegion()
 
 const {
   data,
@@ -14,8 +16,12 @@ const {
   isError,
   refetch,
 } = useQuery({
-  queryKey: queryKeys.contactInfo(username),
-  queryFn: () => $fetch(`/api/contact-info/${username.value!}`),
+  queryKey: queryKeys.contactInfo(localeDefaultRegion, username),
+  queryFn: () => $fetch(`/api/contact-info/${username.value!}`, {
+    params: {
+      locale: localeDefaultRegion.value,
+    },
+  }),
   enabled: computed(() => !!username.value),
 })
 
@@ -26,7 +32,7 @@ const clearChat = useClearChat(username)
 const copyUrl = useCopyUrl()
 const copyUsername = useCopyUsername(username)
 
-const items = computed<MenuItem[]>(() => [
+const items = computed<MenuItemType[]>(() => [
   hasContact.value
     ? {
         id: 'edit-contact',
@@ -153,7 +159,7 @@ const date = computed(() => {
             <MenuItem
               :is="{
                 id: 'description',
-                name: data?.character?.description!,
+                name: data?.character?.characterLocalizations[0].description!,
                 icon: 'person',
               }"
               class="py-2"

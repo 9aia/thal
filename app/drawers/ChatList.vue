@@ -30,7 +30,7 @@ const {
   isError,
   refetch,
 } = await useServerQuery('/api/chat', {
-  queryKey: queryKeys.chatsSearch(chatItemSearch),
+  queryKey: queryKeys.chatsSearch(localWithDefaultRegion.value, chatItemSearch),
   params: () => {
     return {
       search: chatItemSearch.value,

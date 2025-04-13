@@ -1,11 +1,15 @@
 import { z } from 'zod'
-import { eq } from 'drizzle-orm'
+import { and, eq } from 'drizzle-orm'
 import { getValidated } from '~/utils/h3'
 import { badRequest, unauthorized } from '~/utils/nuxt'
-import { characterUsernames, contacts, usernameSchema } from '~~/db/schema'
+import { characterLocalizations, characterUsernames, contacts, usernameSchema } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const { username } = await getValidated(event, 'params', z.object({ username: usernameSchema }))
+
+  const { locale } = await getValidated(event, 'query', z.object({
+    locale: z.enum(['pt-BR', 'en-US']),
+  }))
 
   const orm = event.context.orm
   const user = event.context.user
@@ -21,10 +25,17 @@ export default eventHandler(async (event) => {
     with: {
       character: {
         columns: {
-          name: true,
-          description: true,
           categoryId: true,
           createdAt: true,
+        },
+        with: {
+          characterLocalizations: {
+            where: eq(characterLocalizations.locale, locale),
+            columns: {
+              name: true,
+              description: true,
+            },
+          },
         },
       },
       contacts: {

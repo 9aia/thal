@@ -56,7 +56,7 @@ const descriptionStyles = tv({
 
       <div class="flex flex-col w-full items-start">
         <div class="text-sm flex items-center justify-center gap-1" :class="titleStyles({ color: is.meaning || 'normal' })">
-          {{ t(is.name as any) }}
+          {{ t(is.name) }}
           <slot name="title" />
         </div>
 

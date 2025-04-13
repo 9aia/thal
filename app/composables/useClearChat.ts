@@ -18,7 +18,7 @@ export default function useClearChat(username: MaybeRef<string | undefined>) {
       toast.error(t('Failed to clear chat'))
     },
     onSuccess: () => {
-      const _username = unref(username)
+      const _username = unref(username) as string
 
       toast.success(t('Chat has been cleared'))
 

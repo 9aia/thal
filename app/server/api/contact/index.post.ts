@@ -39,7 +39,7 @@ export default eventHandler(async (event) => {
       )
       .run()
 
-    return mapContactToDto(newContact, result)
+    return mapContactToDto(newContact, result, result.username)
   }
   catch (_e) {
     const e = _e as Error

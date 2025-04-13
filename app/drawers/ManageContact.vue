@@ -23,6 +23,8 @@ const form = useForm<Contact>({})
 const hasErrors = useHasFormErrors(form)
 const { mainField } = useNewContactFocus()
 
+const localeDefaultRegion = useLocaleDefaultRegion()
+
 watch(() => contactData.value, () => {
   if (contactData.value) {
     form.setValues(contactData.value)
@@ -95,7 +97,7 @@ function onSuccess(data: typeof form.values) {
   })
 
   queryClient.invalidateQueries({
-    queryKey: queryKeys.contactInfo(contactData.value?.id || data.username),
+    queryKey: queryKeys.contactInfo(localeDefaultRegion, contactData.value?.id || data.username),
   })
 
   queryClient.invalidateQueries({
@@ -125,6 +127,9 @@ const createMutation = useMutation({
   mutationFn: () => $fetch(`/api/contact`, {
     method: 'post',
     body: form.values,
+    query: {
+      locale: localeDefaultRegion.value,
+    },
   }),
   onSuccess: () => onSuccess(form.values),
   onError,

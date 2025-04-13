@@ -11,12 +11,17 @@ const queryClient = useQueryClient()
 
 const isOpen = defineModel({ default: false })
 
+const localeDefaultRegion = useLocaleDefaultRegion()
+
 const {
   mutate,
 } = useMutation({
   mutationFn: async () => {
     return $fetch(`/api/contact/${props.contactUsername}` as '/api/contact/:username', {
       method: 'DELETE',
+      query: {
+        locale: localeDefaultRegion.value,
+      },
     })
   },
   onSuccess: () => {
@@ -29,7 +34,7 @@ const {
     })
 
     queryClient.invalidateQueries({
-      queryKey: queryKeys.contactInfo(props.contactUsername),
+      queryKey: queryKeys.contactInfo(localeDefaultRegion, props.contactUsername),
     })
 
     queryClient.invalidateQueries({

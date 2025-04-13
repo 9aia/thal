@@ -13,6 +13,7 @@
     "release": "release-it",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "type:check": "tsc --noEmit",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "wrangler d1 migrations apply thal --local",
     "db:migrate:prod": "wrangler d1 migrations apply thal --remote",
@@ -22,7 +23,6 @@
     "down": "docker compose down",
     "stripe": "docker exec stripe-cli stripe",
     "cs": "docker exec codeshare",
-    "type:check": "tsc --noEmit",
     "dev:cs": "code --reuse-window --remote ssh-remote+codeshare@9aia-dev.com:2222 ./codeshare/",
     "dev:cs:n": "code --remote ssh-remote+codeshare@9aia-dev.com:2222 ./codeshare/",
     "psitta": "bun ./locales/script"

@@ -2,7 +2,7 @@
 import { t } from '@psitta/vue'
 import { refDebounced } from '@vueuse/core'
 import { useForm } from 'vee-validate'
-import type { MenuItem } from '~/components/ui/navigation/types'
+import type { MenuItemType } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
 import { buildCharacter, drawers, isRootDrawerOpen, manageContact } from '~/store'
 
@@ -14,7 +14,7 @@ useAutoRedirect({
   query: { drawer: ['new'] },
 })
 
-const generalItems: MenuItem[] = [
+const generalItems: MenuItemType[] = [
   { id: 'new-contact', icon: 'person_add', name: t('New contact'), onClick: () => manageContact(null) },
   { id: 'create-character', icon: 'engineering', name: t('Build character'), onClick: () => buildCharacter(null) },
 ]
@@ -30,7 +30,7 @@ async function goToDiscover() {
   focusSearch()
 }
 
-const discoverItems: MenuItem[] = [
+const discoverItems: MenuItemType[] = [
   { id: 'discover-characters', icon: 'groups_3', name: t('Characters'), onClick: () => goToDiscover() },
 ]
 

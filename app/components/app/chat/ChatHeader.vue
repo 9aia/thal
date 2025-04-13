@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { manageContact, openContactView } from '~/store'
-import type { MenuItem } from '~/components/ui/navigation/types'
+import type { MenuItemType } from '~/components/ui/navigation/types'
 
 const props = defineProps<{
   name: string
@@ -17,7 +17,7 @@ const clearChat = useClearChat(toRef(() => props.username))
 
 const contactDeleteModalState = ref()
 
-const items = computed<MenuItem[]>(() => [
+const items = computed(() => [
   {
     id: 'view-contact',
     name: t('View contact'),
@@ -66,7 +66,7 @@ const items = computed<MenuItem[]>(() => [
         onClick: () => clearChat(),
       }
     : null,
-].filter(item => item !== null))
+].filter(item => item !== null) as MenuItemType[])
 </script>
 
 <template>
