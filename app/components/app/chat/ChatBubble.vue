@@ -47,6 +47,7 @@ const translation = useTranslation({
   message: computed(() => isEditing.value ? edition.message : props.message),
   replyMessageId: computed(() => props.replyingId ? props.replyingId : undefined),
   refetchOnTranslate: false,
+  messageIsBot: computed(() => props.from === 'bot'),
 })
 
 function setReply() {

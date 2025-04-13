@@ -9,7 +9,7 @@ const translation = useAsyncState(async () => {
   return await $fetch('/api/translate', {
     method: 'POST',
     body: {
-      text: props.text,
+      messageText: props.text,
       locale: 'pt-br',
     },
   })

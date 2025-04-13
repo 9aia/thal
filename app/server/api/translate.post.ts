@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { eq } from 'drizzle-orm'
 import { getHistory } from '../services/messages'
 import { getValidated } from '~/utils/h3'
-import { badRequest, internal, notFound, notImplemented, paymentRequired, unauthorized } from '~/utils/nuxt'
+import { internal, notFound, notImplemented, paymentRequired, unauthorized } from '~/utils/nuxt'
 import { SubscriptionStatus, characterLocalizations, characterUsernames, messages } from '~~/db/schema'
 import { promptGeminiText } from '~/utils/gemini'
 
@@ -26,7 +26,8 @@ export default defineEventHandler(async (event) => {
   }
 
   const data = await getValidated(event, 'body', z.object({
-    text: z.string(),
+    messageText: z.string(),
+    messageIsBot: z.boolean().default(false).describe('isBotMessage is used to identify if the message is from the bot'),
     chatUsername: z.string().describe('The chatUsername is required for context'),
     toNative: z.boolean().default(true).describe('Should translate to native language'),
     replyMessageId: z.number().optional().describe('The replyMessageId is the id of the reply message'),
@@ -66,7 +67,12 @@ export default defineEventHandler(async (event) => {
 
   const { history } = await getHistory(orm, user, data.chatUsername!)
 
-  const context = history.map(message => message.message).join(' ').trim()
+  const formattedHistory = history.map((message) => {
+    if (message.from === 'user') {
+      return `Character 1: ${message.message}`
+    }
+    return `Character 2: ${message.message}`
+  }).join('\n')
 
   const localization = characterUsername.character.characterLocalizations[0]
 
@@ -85,7 +91,8 @@ export default defineEventHandler(async (event) => {
     })
 
     if (replyMessageData) {
-      replyMessage = replyMessageData.data.type === 'text' ? replyMessageData.data.value : ''
+      const sender = replyMessageData.isBot ? 'Bot: ' : 'User: '
+      replyMessage = replyMessageData.data.type === 'text' ? sender + replyMessageData.data.value : ''
     }
   }
 
@@ -96,36 +103,59 @@ export default defineEventHandler(async (event) => {
   const fromLocale = data.toNative ? learningLocale : nativeLocale
 
   const replyMessageFormatted = replyMessage
-    ? `[Message user are replying to]
-    ${replyMessage}`
+    ? `<replying>
+      ${replyMessage}
+    </replying>`
     : ''
 
-  const systemInstruction = `You are an AI tool specialized in translating messages that the user is about to send.
+  const historyContext = history.length
+    ? `<conversation-history>
+    ${formattedHistory}
+    </conversation-history>`
+    : ``
 
-    [Input details]
-    - The message can include text in ${fromLocale} and ${toLocale}. 
-    
-    [Output instructions]
-    - Be accurate and context-aware.
-    - Keep the original tone.
-    - Do not add or remove information.
-    - The output message should be in ${toLocale}.
-    - Fix grammar/orthography errors if necessary.
-    - No further explanation or comments are needed.
+  const systemInstruction = `You are a message translation assistant for a language learning app. 
+    Your task is to translate input from ${fromLocale === 'en-US' ? 'English' : 'Portuguese'} to ${toLocale === 'pt-BR' ? 'Portuguese' : 'English'} with high accuracy and context awareness.
 
-    [Character the user is interacting with]
-    ${character.name} (@${data.chatUsername}) 
+    [Translation Instructions]
+    - Translate ONLY the message content.
+    - Use context from <conversation-history> and <replying> (if present).
+    - Maintain tone, intent, and meaning.
+    - The output must be in ${toLocale === 'pt-BR' ? 'Portuguese' : 'English'}.
+    - Do NOT include explanations, summaries, or additional comments.
+    - Do NOT translate the reply message in <replying>.
+    - Fix grammar/spelling only if it clarifies the meaning.
+    - Do NOT add or remove information.
 
-    ${character.description}
+    [Personalization Guidelines]
+    - Use <user-data> and <bot-data> to personalize translation (e.g. pronouns, gender agreement, names).
+    - Reflect user’s communication style where possible.
 
-    [Chat history]
-    ${context}
+    <context>
+      <user-data>
+        ${JSON.stringify({
+          name: user.name,
+          lastName: user.lastName,
+          pronouns: user.pronouns,
+          username: user.username,
+        }, null, 2)}
+        })}
+      </user-data>
 
-    ${replyMessageFormatted}
+      <bot-data>
+        ${character.name} (@${data.chatUsername}) 
+
+        ${character.description}
+      </bot-data>
+
+      ${historyContext}
+    </context>
   `
 
-  const prompt = `[Message to Translate]
-    ${data.text}
+  const prompt = `
+    ${replyMessageFormatted}
+
+    ${data.messageIsBot ? 'Bot: ' : 'User: '} ${data.messageText}
   `
 
   const text = await promptGeminiText({

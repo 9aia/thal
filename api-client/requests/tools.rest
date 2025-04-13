@@ -1,0 +1,10 @@
+## Translate
+
+POST {{baseUrl}}/translate
+Content-Type: application/json
+
+{
+    "text": "Thanks, I was invited.",
+    "chatUsername": "motoko",
+    "toNative": true
+}

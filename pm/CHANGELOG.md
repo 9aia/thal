@@ -11,6 +11,8 @@ description: A detailed, chronological record of all changes made to a project, 
 ### Fixed
 
 - Fixed category name translation on "My Characters" and "Discover Characters" items
+- Fixed useRoute warning when changing language
+- Improved translation context awareness
 
 ## [0.1.0-7] - 2025-04-01
 

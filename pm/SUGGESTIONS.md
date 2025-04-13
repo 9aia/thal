@@ -6,6 +6,8 @@ description: A collection of ideas and feedback from stakeholders or team member
 
 ## Features
 
+- Implement translations on deleted characters
+- Add male voice
 - Share chat from message, and continue
 - Chat with drafts
 - Get a custom domain

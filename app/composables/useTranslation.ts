@@ -4,13 +4,14 @@ export type Translation = ReturnType<typeof useTranslation>
 
 export interface UseTranslation {
   message: MaybeRef<string>
+  messageIsBot: MaybeRef<boolean>
   chatUsername?: MaybeRef<string>
   replyMessageId?: MaybeRef<number | undefined>
   toNative?: MaybeRef<boolean>
   refetchOnTranslate?: MaybeRef<boolean>
 }
 
-function useTranslation({ message, replyMessageId, chatUsername, toNative = true, refetchOnTranslate }: UseTranslation) {
+function useTranslation({ messageIsBot, message, replyMessageId, chatUsername, toNative = true, refetchOnTranslate }: UseTranslation) {
   const open = ref(false)
   const enabled = ref(false)
 
@@ -19,7 +20,8 @@ function useTranslation({ message, replyMessageId, chatUsername, toNative = true
     queryFn: async () => $fetch('/api/translate', {
       method: 'POST',
       body: {
-        text: unref(message),
+        messageText: unref(message),
+        messageIsBot: unref(messageIsBot),
         chatUsername: unref(chatUsername),
         toNative: unref(toNative),
         replyMessageId: unref(replyMessageId),

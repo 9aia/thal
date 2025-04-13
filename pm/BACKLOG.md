@@ -81,6 +81,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## Performance
 
+- Deal with long history on translate
 - Clean up current playing message on message stop
 - Pregenerate site pages
 - Improve icon loading on slow networks

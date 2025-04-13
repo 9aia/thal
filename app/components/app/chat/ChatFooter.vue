@@ -122,6 +122,7 @@ const translation = useTranslation({
   chatUsername: username,
   toNative: false,
   refetchOnTranslate: true,
+  messageIsBot: false,
 })
 
 watch(translation.isLoading, (value) => {
