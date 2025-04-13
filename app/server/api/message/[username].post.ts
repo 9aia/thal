@@ -23,22 +23,18 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  if (isPlanPastDue(user)) {
+  if (isPlanPastDue(user))
     throw paymentRequired('PAST_DUE')
-  }
 
-  if (!isPlanActive(user)) {
+  if (!isPlanActive(user))
     throw paymentRequired('PAYMENT_REQUIRED')
-  }
 
   const { success } = await event.context.cloudflare.env.MESSAGE_RATE_LIMIT.limit({ key: `send-message-${user.id}` })
 
-  if (!success) {
+  if (!success)
     throw rateLimit()
-  }
 
   const { username } = await getValidated(event, 'params', z.object({ username: usernameSchema }))
-
   const data = await getValidated(event, 'body', messageSendSchema)
 
   const orm = event.context.orm
@@ -74,7 +70,7 @@ export default eventHandler(async (event) => {
   const character = result.character
 
   if (!character)
-    throw internal('Character not found')
+    throw notFound('Character not found')
 
   const contact = result.contacts[0]
   let chat = result.chats[0]

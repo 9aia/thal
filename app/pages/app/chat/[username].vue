@@ -135,7 +135,7 @@ function updateLastMessage(newMessage: SendMessageData, isError = false) {
     lastMessageContent: newMessage.value,
     lastMessageStatus: isError ? 'error' : (isOnline.value ? 'seen' : 'sending'),
     lastMessageDatetime: new Date().getTime(),
-    characterName: data.value.name,
+    characterName: data.value.name!,
   }
 
   queryClient.setQueryData(queryKeys.chatsSearch(localeWithDefaultRegion.value, chatItemSearch.value), (oldData: ChatItem[]) => {

@@ -6,7 +6,8 @@ description: Tasks and items for the release.
 
 ## 0.1.0-8
 
-- Localize character name, description and instructions
+- Fix deleted character chat opening
+- On FE, inform character was deleted and disable message sending
 - Check translation with deleted character
 - Fix icon loading fallback
 - Add .env.dev, .env.preview, .env.prod (and remove the info about need of change in docs)

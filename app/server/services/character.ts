@@ -2,7 +2,7 @@ import { eq } from 'drizzle-orm'
 import type { H3EventContext } from 'h3'
 import { categories } from '~/constants/discover'
 import { internal, notFound } from '~/utils/nuxt'
-import type { CharacterDraftData, User, characterLocalizationsGet } from '~~/db/schema'
+import type { User } from '~~/db/schema'
 import { characterLocalizations, characterUsernames, contacts } from '~~/db/schema'
 
 export async function getCharacterByUsername(
@@ -16,10 +16,17 @@ export async function getCharacterByUsername(
     },
   })
 
+  if (!result)
+    throw notFound('Character Username not found')
+
   const character = result?.character
 
-  if (!character)
-    throw notFound('Character not found')
+  if (!character) {
+    return {
+      username,
+      characterUsernameId: result.id,
+    }
+  }
 
   return {
     ...character,
@@ -67,17 +74,15 @@ export async function getCharacterWithContactByUser(
 
   const character = result.character
 
-  if (!character)
-    throw notFound('Character not found')
-
   const contact = {
+    id: result.contacts[0]?.id,
     name: result.contacts[0]?.name,
   }
 
-  const localization = character.characterLocalizations[0]
+  const localization = character?.characterLocalizations?.[0]
 
   return {
-    id: character.id,
+    id: character?.id,
     username: result.username,
     description: localization?.description,
     name: localization?.name,

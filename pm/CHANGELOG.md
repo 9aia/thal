@@ -8,11 +8,18 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ### Added
 
+### Enhancements
+
+- Improved contact info drawer width
+- Improved user request on the "Character deletion" modal
+
 ### Fixed
 
 - Fixed category name translation on "My Characters" and "Discover Characters" items
 - Fixed useRoute warning when changing language
 - Improved translation context awareness
+- Fixed username matching on the "Character deletion" modal
+- Allowed to add contact of deleted characters
 
 ## [0.1.0-7] - 2025-04-01
 
