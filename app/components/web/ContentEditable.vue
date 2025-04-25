@@ -2,8 +2,10 @@
 const props = withDefaults(defineProps<{
   placeholder: string
   is?: string
+  disabled?: boolean
 }>(), {
   is: 'div',
+  disabled: false,
 })
 
 const inputRef = ref<HTMLSpanElement>()
@@ -24,6 +26,9 @@ onMounted(() => {
 })
 
 function edit(e: InputEvent) {
+  if (props.disabled)
+    return
+
   const target = e.target as HTMLElement
   modelValue.value = target.innerHTML
 }
@@ -34,6 +39,9 @@ const cursorLastPosition = ref({
 })
 
 function saveCursorPosition() {
+  if (props.disabled)
+    return
+
   const sel = window.getSelection()
 
   if (!sel || sel.rangeCount <= 0)
@@ -47,7 +55,7 @@ function saveCursorPosition() {
 }
 
 function restoreCursorPosition() {
-  if (!cursorLastPosition.value.container)
+  if (!cursorLastPosition.value.container || props.disabled)
     return
 
   const range = document.createRange()
@@ -65,7 +73,7 @@ function restoreCursorPosition() {
 
 defineExpose({
   focus: (startFromEnd?: boolean) => {
-    if (!inputRef.value)
+    if (!inputRef.value || props.disabled)
       return
 
     setCursorEnd(inputRef.value)
@@ -79,6 +87,11 @@ defineExpose({
 })
 
 function handlePaste(event: ClipboardEvent) {
+  if (props.disabled) {
+    event.preventDefault()
+    return
+  }
+
   event.preventDefault()
   const plainText = event.clipboardData?.getData('text/plain')
 
@@ -90,7 +103,12 @@ function handlePaste(event: ClipboardEvent) {
 
 <template>
   <component
-    :is="props.is" ref="inputRef" role="textbox" contenteditable @input="edit" @blur="saveCursorPosition"
+    :is="props.is"
+    ref="inputRef"
+    role="textbox"
+    :contenteditable="!props.disabled"
+    @input="edit"
+    @blur="saveCursorPosition"
     @paste="handlePaste"
   />
 </template>

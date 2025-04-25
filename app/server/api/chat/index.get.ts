@@ -43,7 +43,7 @@ export default defineEventHandler(async (event) => {
           ? sql`AND (lower(${contacts.name}) LIKE ${searchLike} OR lower(${characterUsernames.username}) LIKE ${searchLike} OR lower(${characterLocalizations.name}) LIKE ${searchLike})`
           : sql``
       }
-      AND ${characterLocalizations.locale} = ${locale}
+      AND (${characterLocalizations.locale} = ${locale} OR ${characterLocalizations.locale} IS NULL)
     ORDER BY 
       ${lastMessages.datetime} DESC;
   `)

@@ -426,6 +426,7 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
             v-model="text"
             :username="route.params.username"
             :chat-id="chatId"
+            :is-character-deleted="data.isCharacterDeleted"
             @send="handleSend()"
           />
         </StyledResource>

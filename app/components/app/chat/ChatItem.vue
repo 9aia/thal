@@ -8,8 +8,15 @@ const props = defineProps<{
 }>()
 
 const name = computed(() => {
-  return props.chat.contactName || props.chat.characterName
+  if (props.chat.contactName || props.chat.characterName) {
+    return props.chat.contactName || props.chat.characterName
+  }
+
+  return props.chat.characterUsername
+    ? `@${props.chat.characterUsername}`
+    : ''
 })
+
 const content = computed(() => {
   return props.chat.lastMessageContent || ''
 })

@@ -7,6 +7,7 @@ import queryKeys from '~/queryKeys'
 
 const props = defineProps<{
   chatId: number | null
+  isCharacterDeleted: boolean
 }>()
 
 const emit = defineEmits<{
@@ -152,7 +153,7 @@ watch(translation.isLoading, (value) => {
       </div>
 
       <div class="flex gap-2 px-3 py-2">
-        <div class="flex-1 flex flex-col">
+        <div class="flex-1 flex flex-col tooltip-center tooltip-info" :class="{ tooltip: isCharacterDeleted }" :data-tip="t('You can\'t send a message to this character. Character is deleted.')">
           <label class="input bg-gray-50 flex gap-1 w-full h-full items-center justify-center p-2 textarea" for="input">
             <Button
               v-if="!isEmpty" size="sm" shape="circle" :disabled="isChatError || isChatSending || undefined"
@@ -163,6 +164,7 @@ watch(translation.isLoading, (value) => {
 
             <ContentEditable
               is="span" id="input" ref="contentEditableRef" v-model="text"
+              :disabled="isCharacterDeleted"
               class="flex w-full items-center text-sm outline-none"
               :placeholder="t('Type a message...')"
               @keydown.enter="handleSend"

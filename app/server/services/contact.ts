@@ -40,11 +40,6 @@ export async function getContactByUser(
   if (!result)
     throw notFound('Character Username not found')
 
-  const character = result.character
-
-  if (!character)
-    throw notFound('Character not found')
-
   if (!result.contacts.length)
     throw notFound('Contact not found')
 

@@ -23,5 +23,5 @@ export default eventHandler(async (event) => {
 
   const { history, chatId } = await getHistory(orm, user, username)
 
-  return { ...characterWithContact, history, chatId }
+  return { ...characterWithContact, history, chatId, isCharacterDeleted: !characterWithContact.id }
 })
