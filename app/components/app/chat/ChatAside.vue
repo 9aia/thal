@@ -23,7 +23,7 @@ const emit = defineEmits<{
       @click="emit('setReply')"
     >
       <Icon
-        name="reply"
+        name="material-symbols:reply"
         style="font-size: 1rem"
       />
     </Button>

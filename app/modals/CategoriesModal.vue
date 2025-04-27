@@ -62,12 +62,12 @@ watch(modelValue, (value) => {
           <template #icon>
             <Icon
               v-if="!values.search"
-              name="search"
+              name="material-symbols:search"
             />
 
             <Icon
               v-else
-              name="close"
+              name="material-symbols:close"
               role="button"
               :title="t('Clear search')"
               @click="setValues({ search: '' })"

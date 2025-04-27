@@ -106,7 +106,7 @@ onMounted(() => {
         </A>
       </h1>
 
-      <div>
+      <div class="flex items-center">
         <Button
           class="btn-ghost"
           size="md"
@@ -119,7 +119,7 @@ onMounted(() => {
           :loading="countQuery.isLoading.value"
           @click="openWhatsNewModal"
         >
-          <Icon v-show="!countQuery.isLoading.value" name="campaign" />
+          <Icon v-show="!countQuery.isLoading.value" name="material-symbols:campaign-outline" />
         </Button>
 
         <Button
@@ -130,7 +130,7 @@ onMounted(() => {
           @click="goToDiscover"
         >
           <span class="px-4 py-1 flex items-center justify-center gap-1">
-            <Icon name="person_search" />
+            <Icon name="material-symbols:person-search-outline" />
           </span>
         </Button>
 
@@ -160,7 +160,7 @@ onMounted(() => {
           <form action="/api/payment/stripe/create-portal-session" method="POST">
             <Button size="xs" class="bg-yellow-500 rounded-full">
               <span class="flex text-black items-center justify-center gap-1">
-                <Icon name="subscriptions" />
+                <Icon name="material-symbols:subscriptions-outline" />
                 <span class="whitespace-nowrap">{{ t("Renew Thal") }}</span>
               </span>
             </Button>
@@ -201,8 +201,8 @@ onMounted(() => {
       </div>
 
       <div class="absolute bottom-4 right-4">
-        <Button size="md" class="btn-circle border-none bg-cyan-500" @click="drawers.newChat = true">
-          <Icon name="add" />
+        <Button size="md" shape="circle" class="border-none bg-cyan-500" @click="drawers.newChat = true">
+          <Icon name="material-symbols:add" />
         </Button>
       </div>
     </div>

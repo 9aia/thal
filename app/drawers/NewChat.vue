@@ -15,8 +15,8 @@ useAutoRedirect({
 })
 
 const generalItems: MenuItemType[] = [
-  { id: 'new-contact', icon: 'person_add', name: t('New contact'), onClick: () => manageContact(null) },
-  { id: 'create-character', icon: 'engineering', name: t('Build character'), onClick: () => buildCharacter(null) },
+  { id: 'new-contact', icon: 'material-symbols:person-add', name: t('New contact'), onClick: () => manageContact(null) },
+  { id: 'create-character', icon: 'material-symbols:engineering-outline', name: t('Build character'), onClick: () => buildCharacter(null) },
 ]
 
 const { focusMainField: focusSearch } = useDiscoverFocus()
@@ -31,7 +31,7 @@ async function goToDiscover() {
 }
 
 const discoverItems: MenuItemType[] = [
-  { id: 'discover-characters', icon: 'groups_3', name: t('Characters'), onClick: () => goToDiscover() },
+  { id: 'discover-characters', icon: 'material-symbols:groups-3-outline', name: t('Characters'), onClick: () => goToDiscover() },
 ]
 
 const form = useForm({

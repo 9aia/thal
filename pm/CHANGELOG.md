@@ -19,11 +19,14 @@ description: A detailed, chronological record of all changes made to a project, 
 - Fixed useRoute warning when changing language
 - Improved translation context awareness
 - Fixed username matching on the "Character deletion" modal
-- Allowed to add contact of deleted characters
-- Allowed view chat history for deleted characters
+- Allowed adding contact of deleted characters
+- Allowed viewing chat history for deleted characters
 - Fixed chat info query invalidation using locale
 - Fixed chat navigation in approval "message" action
-- Fixed characrer display and avatar name on "Contact Info"
+- Fixed character display and avatar name on "Contact Info"
+- Fixed icon loading fallback
+- Fixed landpage pricing icon
+- Fixed username copy action on discover character item
 
 ## [0.1.0-7] - 2025-04-01
 

@@ -21,7 +21,7 @@ defineProps<{
         </div>
 
         <Button v-if="!disableEditButton" class="btn-circle btn-ghost">
-          <Icon name="edit" class="cursor-pointer" />
+          <Icon name="material-symbols:edit-outline" class="cursor-pointer" />
         </Button>
       </div>
 

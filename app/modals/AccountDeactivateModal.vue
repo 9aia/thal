@@ -44,7 +44,7 @@ const isUsernameInvalid = computed(() => {
 
       <div role="alert" class="flex items-center gap-2 bg-transparent">
         <Icon class="text-warning">
-          warning
+          material-symbols:warning-outline
         </Icon>
 
         <T

@@ -18,7 +18,7 @@ async function goToDiscover() {
 const general: MenuItemType[] = [
   {
     id: 'account',
-    icon: 'person',
+    icon: 'material-symbols:person-outline',
     name: t('Account'),
     onClick: () => drawers.account = true,
   },
@@ -27,18 +27,18 @@ const general: MenuItemType[] = [
     name: t('Subscription'),
     action: '/api/payment/stripe/create-portal-session',
     method: 'post',
-    icon: 'subscriptions',
+    icon: 'material-symbols:subscriptions-outline',
     type: 'external',
   },
   {
     id: 'my-characters',
-    icon: 'manage_accounts',
+    icon: 'material-symbols:manage-accounts-outline',
     name: t('My characters'),
     onClick: () => drawers.myCharacters = true,
   },
   {
     id: 'discover-characters',
-    icon: 'person_search',
+    icon: 'material-symbols:person-search-outline',
     name: t('Discover characters'),
     onClick: () => goToDiscover(),
   },
@@ -49,14 +49,14 @@ const { open: openWhatsNewModal } = useWhatsNewModal()
 const support: MenuItemType[] = [
   {
     id: 'whats-new',
-    icon: 'news',
+    icon: 'material-symbols:news-outline',
     name: 'What\'s New',
     onClick: () => openWhatsNewModal(),
     type: 'accordion',
   },
   {
     id: 'feedback',
-    icon: 'feedback',
+    icon: 'material-symbols:feedback-outline',
     name: 'Give us feedback',
     type: 'external',
     href: 'https://forms.gle/5ePvXjrebyWGUrM26',
@@ -65,7 +65,7 @@ const support: MenuItemType[] = [
   },
   {
     id: 'bug_report',
-    icon: 'bug_report',
+    icon: 'material-symbols:bug-report-outline',
     name: 'Report an issue',
     type: 'external',
     href: 'https://forms.gle/ANMv7qnwTHva1k7L8',
@@ -92,8 +92,8 @@ const support: MenuItemType[] = [
 const legal: MenuItemType[] = [
   // { id: 'guidelines', icon: 'gavel', name: 'Guidelines'/* , href: '/guidelines' */ },
   // { id: 'reports', icon: 'flag', name: 'Reports'/* , href: '/reports' */ },
-  { id: 'terms', icon: 'gavel', name: 'Terms of Service', href: '/terms', type: 'external', newTab: true },
-  { id: 'privacy', icon: 'policy', name: 'Privacy Policy', href: '/privacy', type: 'external', newTab: true },
+  { id: 'terms', icon: 'material-symbols:gavel', name: 'Terms of Service', href: '/terms', type: 'external', newTab: true },
+  { id: 'privacy', icon: 'material-symbols:policy-outline', name: 'Privacy Policy', href: '/privacy', type: 'external', newTab: true },
 ]
 
 export const SETTINGS = {

@@ -33,7 +33,7 @@ function copy() {
         class="input input-bordered input-ghost w-full max-w-xs"
       >
       <div class="input flex items-center justify-center">
-        <Icon class="" @click="copy"> content_copy </Icon>
+        <Icon class="" @click="copy">material-symbols:content-copy-outline</Icon>
       </div>
     </div>
     <div class="label">

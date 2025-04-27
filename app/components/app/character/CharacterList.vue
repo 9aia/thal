@@ -83,12 +83,12 @@ watch(categoryId, () => {
           <template #icon>
             <Icon
               v-if="!form.values.search"
-              name="search"
+              name="material-symbols:search"
             />
 
             <Icon
               v-else
-              name="close"
+              name="material-symbols:close"
               role="button"
               @click="form.setValues({ search: '' })"
             />
@@ -176,7 +176,7 @@ watch(categoryId, () => {
 
               <Button class="border-gradient-2 rounded-full" @click="buildCharacter({ username: search && generateCharacterUsername(search), name: search && generateCharacterName(search) })">
                 <span class="px-4 py-1 flex items-center justify-center gap-1">
-                  <Icon name="person_edit" />
+                  <Icon name="material-symbols:person-edit-outline" />
                   {{ t("Create character") }}
                 </span>
               </Button>

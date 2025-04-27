@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { tv } from 'tailwind-variants'
 import type { HTMLAttributes } from 'vue'
 import type { SafeProps } from '~/types'
 
@@ -7,14 +8,26 @@ type Props = SafeProps<HTMLAttributes> & {
 }
 
 const props = defineProps<Props>()
-
+const attrs = useAttrs()
 const name = useSlotContent(() => props.name)
 
-const nameWithoutMdi = computed(() => name.value?.replace('mdi-', ''))
+const nameNormalized = computed(() => {
+  if (!name.value?.includes(':')) {
+    return `material-symbols:${name.value.trim()}`
+  }
+
+  return name.value.trim()
+})
+
+const icon = tv({
+  base: 'text-2xl',
+})
 </script>
 
 <template>
-  <span role="img" class="material-symbols-outlined">
-    {{ nameWithoutMdi }}
-  </span>
+  <NuxtIcon
+    role="img"
+    :name="nameNormalized"
+    :class="icon({ class: attrs.class as string || '' })"
+  />
 </template>

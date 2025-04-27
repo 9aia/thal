@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { drawers, isRootDrawerOpen } from '~/store'
-import type { MenuItem } from '~/components/ui/navigation/types'
+import type { MenuItemType } from '~/components/ui/navigation/types'
 
 const logout = useLogout()
 
@@ -31,25 +31,25 @@ async function openSettings() {
   drawers.settings = true
 }
 
-const items: MenuItem[] = [
-  { id: 'profile', name: t('Profile'), icon: 'face', onClick: () => openProfile() },
-  { id: 'discover-characters', name: t('Discover characters'), icon: 'person_search', onClick: () => goToDiscover() },
-  { id: 'my-characters', name: t('My characters'), icon: 'manage_accounts', onClick: () => openMyCharacters() },
+const items: MenuItemType[] = [
+  { id: 'profile', name: t('Profile'), icon: 'material-symbols:face', onClick: () => openProfile() },
+  { id: 'discover-characters', name: t('Discover characters'), icon: 'material-symbols:person-search-outline', onClick: () => goToDiscover() },
+  { id: 'my-characters', name: t('My characters'), icon: 'material-symbols:manage-accounts-outline', onClick: () => openMyCharacters() },
   {
     id: 'plan',
     name: t('Subscription'),
     action: '/api/payment/stripe/create-portal-session',
     method: 'post',
-    icon: 'subscriptions',
+    icon: 'material-symbols:subscriptions-outline',
     type: 'external',
   },
-  { id: 'settings', name: t('Settings'), icon: 'settings', onClick: () => openSettings() },
+  { id: 'settings', name: t('Settings'), icon: 'material-symbols:settings-outline', onClick: () => openSettings() },
   {
     id: 'logout',
     name: t('Logout'),
     action: '/api/auth/logout',
     method: 'post',
-    icon: 'logout',
+    icon: 'material-symbols:logout',
     meaning: 'warning',
     onSubmit: logout,
   },
@@ -58,9 +58,15 @@ const items: MenuItem[] = [
 
 <template>
   <div class="dropdown dropdown-end">
-    <button class="btn btn-circle btn-ghost text-black">
-      <Icon>more_vert</Icon>
-    </button>
+    <Button
+      class="btn-ghost"
+      size="md"
+      shape="circle"
+    >
+      <Icon>
+        material-symbols:more-vert
+      </Icon>
+    </Button>
 
     <Menu :items="items" item-class="py-2" />
   </div>

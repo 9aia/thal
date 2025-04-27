@@ -26,7 +26,7 @@ const user = useUser()
           <TitleContentItem :label="t('Name')" role="button" @click="drawers.account = true">
             <template #icon>
               <Icon class="text-gray-800">
-                person
+                material-symbols:person-outline
               </Icon>
             </template>
 
@@ -46,7 +46,7 @@ const user = useUser()
           <TitleContentItem :label="t('Username')" role="button" @click="drawers.account = true">
             <template #icon>
               <Icon class="text-gray-800">
-                id_card
+                material-symbols:id-card-outline
               </Icon>
             </template>
 

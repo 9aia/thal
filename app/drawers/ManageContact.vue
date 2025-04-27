@@ -176,7 +176,7 @@ const submit = form.handleSubmit(() => isEditing.value
             <template #icon="{ errorMessage }">
               <Icon
                 :class="{ 'text-error': errorMessage, 'text-success': !errorMessage }"
-                :name="errorMessage ? 'close' : 'check'"
+                :name="errorMessage ? 'material-symbols:close' : 'material-symbols:check'"
               />
             </template>
           </TextField>

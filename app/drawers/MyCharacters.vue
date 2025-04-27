@@ -51,7 +51,7 @@ function handleGoToChat(username: string) {
     <div class="flex-1 overflow-y-auto bg-white">
       <div class="pt-4 text-center">
         <div class="text-gray-800 flex items-center justify-center">
-          <Icon name="manage_accounts" style="font-size: 5rem" />
+          <Icon name="material-symbols:manage-accounts-outline" style="font-size: 5rem" />
         </div>
 
         <h2 class="text-lg px-4 py-2 text-gray-800">
@@ -103,7 +103,7 @@ function handleGoToChat(username: string) {
               <li class="group px-4 mt-2" @click="buildCharacter(null)">
                 <div class="cursor-pointer flex w-full gap-2 justify-between items-center">
                   <MenuItem
-                    :is="{ id: 'add-character', name: 'Create character', icon: 'add' }"
+                    :is="{ id: 'add-character', name: 'Create character', icon: 'material-symbols:add' }"
                     class="py-2"
                   />
                 </div>

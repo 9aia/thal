@@ -47,7 +47,7 @@ const trialPeriodDays = PLANS.allInOne.trialPeriodDays
     <div class="max-w-sm mx-auto">
       <div class="p-4">
         <h2 class="text-4xl text-black flex gap-2 justify-center items-center">
-          <Icon name="book_4_spark" class="text-black text-4xl" />
+          <Icon name="material-symbols:book-4-spark-outline" class="text-black text-4xl" />
           {{ t('All-in-One Plan') }}
         </h2>
 
@@ -57,7 +57,7 @@ const trialPeriodDays = PLANS.allInOne.trialPeriodDays
 
         <ul class="flex flex-col mx-auto text-gray-500 space-y-1 mb-4 text-sm">
           <li class="flex justify-center gap-2">
-            <Icon name="check" class="text-blue-500" />
+            <Icon name="material-symbols:check" class="text-blue-500" />
             <div class="gap-2">
               <span class="text-blue-500">{{ t('Engaging Conversations:') }}</span>
               {{ t('Chat with AI-powered characters anytime, anywhere.') }}
@@ -65,7 +65,7 @@ const trialPeriodDays = PLANS.allInOne.trialPeriodDays
           </li>
 
           <li class="flex justify-center gap-2">
-            <Icon name="check" class="text-blue-500" />
+            <Icon name="material-symbols:check" class="text-blue-500" />
             <div class="gap-2">
               <span class="text-blue-500">{{ t('Interactive Assistance:') }}</span>
               {{ t('Translations, corrections, and listening while chatting.') }}
@@ -73,7 +73,7 @@ const trialPeriodDays = PLANS.allInOne.trialPeriodDays
           </li>
 
           <li class="flex justify-center gap-2">
-            <Icon name="check" class="text-blue-500" />
+            <Icon name="material-symbols:check" class="text-blue-500" />
             <div class="gap-2">
               <span class="text-blue-500">{{ t('Personalized Characters:') }}</span>
               {{ t('Create, discover and save characters for tailored learning.') }}

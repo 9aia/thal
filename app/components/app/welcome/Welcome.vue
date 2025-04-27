@@ -31,7 +31,7 @@ function openChats() {
           @click="openChats"
         >
           <span class="px-4 py-1 flex items-center justify-center gap-1">
-            <Icon name="chat" />
+            <Icon name="material-symbols:chat-outline" />
           </span>
         </Button>
 
@@ -43,7 +43,7 @@ function openChats() {
           @click="goToDiscover"
         >
           <span class="px-4 py-1 flex items-center justify-center gap-1">
-            <Icon name="person_search" />
+            <Icon name="material-symbols:person-search-outline" />
           </span>
         </Button>
 
@@ -65,7 +65,7 @@ function openChats() {
 
         <Button class="border-gradient-2 rounded-full lg:hidden mt-4" @click="openChats()">
           <span class="px-4 py-1 flex items-center justify-center gap-1">
-            <Icon name="chat" />
+            <Icon name="material-symbols:chat-outline" />
             {{ t("Open chats") }}
           </span>
         </Button>
@@ -74,7 +74,7 @@ function openChats() {
 
     <footer class="bg-gradient-1 text-blue-500 flex px-4 py-2">
       <div class="sm:max-w-5xl md:max-w-6xl lg:max-w-9xl mx-auto flex gap-2 items-center justify-center">
-        <Icon name="science" class="text-xl" />
+        <Icon name="material-symbols:science-outline" class="text-xl" />
 
         <p class="text-xs">
           {{ t('Talk to thals to practice, learn, and have fun. Chats are not professional instruction. Use responsibly.') }}

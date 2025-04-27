@@ -39,20 +39,20 @@ const category = computed(() => {
     <Avatar :name="name" class="w-10 text-sm" type="button" />
 
     <div class="flex-1 flex flex-col justify-center">
-      <div class="flex justify-between">
-        <div class="flex flex-col">
+      <div class="flex justify-between gap-1">
+        <div class="flex flex-col w-full">
           <div class="flex gap-2 items-center text-base text-gray-900">
             {{ name }}
-
-            <Username :username="username" :show-copy="true" />
           </div>
 
-          <div v-if="category" class="text-sm text-gray-600 flex gap-1 items-center">
+          <div v-if="category" class="text-sm text-gray-600 flex justify-between gap-1 items-center">
             <Badge no-bg class="bg-transparent border-none flex gap-1 px-0 py-3 text-xs text-black">
               <Icon :name="category?.icon" class="" style="font-size: 1.15rem" />
 
               {{ t(category?.name) }}
             </Badge>
+
+            <Username :username="username" show-copy="left" />
           </div>
 
           <div
@@ -64,12 +64,14 @@ const category = computed(() => {
         </div>
 
         <div class="flex gap-2 items-center">
-          <button
+          <Button
             v-if="showSendMessage && username"
-            class="text-gray-800 hover:text-gray-600"
+            class="text-gray-800 hover:text-gray-600 btn-ghost"
+            shape="circle"
+            size="md"
           >
-            <Icon name="chat" />
-          </button>
+            <Icon name="material-symbols:chat-outline" />
+          </Button>
         </div>
       </div>
     </div>

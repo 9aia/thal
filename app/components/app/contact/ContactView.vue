@@ -39,7 +39,7 @@ const items = computed<MenuItemType[]>(() => [
     ? {
         id: 'edit-contact',
         name: t('Edit contact'),
-        icon: 'edit',
+        icon: 'material-symbols:edit-outline',
         onClick: () => {
           if (!data.value)
             return
@@ -56,19 +56,19 @@ const items = computed<MenuItemType[]>(() => [
     ? {
         id: 'delete-contact',
         name: t('Delete contact'),
-        icon: 'delete',
+        icon: 'material-symbols:delete-outline',
         onClick: () => contactDeleteModalState.value = true,
       }
     : {
         id: 'add-contact',
         name: t('Add to contacts'),
-        icon: 'add',
+        icon: 'material-symbols:add',
         onClick: () => addContact(),
       },
   {
     id: 'share-character',
     name: t('Share character'),
-    icon: 'ios_share',
+    icon: 'material-symbols:ios-share',
     onClick: () => copyUrl(),
   },
 ].filter(item => item !== null))
@@ -99,8 +99,8 @@ const date = computed(() => {
   <div class="flex flex-col h-dvh justify-between">
     <header class="px-3 flex gap-2 bg-white">
       <h1 class="text-md py-2 text-gray-800 flex items-center gap-1">
-        <Button size="md" class="btn-ghost btn-circle" @click="closeDrawer">
-          <Icon name="close" />
+        <Button size="md" shape="circle" class="btn-ghost" @click="closeDrawer">
+          <Icon name="material-symbols:close" />
         </Button>
         {{ t("Character Info") }}
       </h1>
@@ -108,8 +108,8 @@ const date = computed(() => {
       <div class="flex-1 flex items-center justify-end gap-4">
         <div>
           <div class="dropdown dropdown-end">
-            <Button size="md" class="btn-ghost btn-circle">
-              <Icon name="more_vert" />
+            <Button size="md" shape="circle" class="btn-ghost">
+              <Icon name="material-symbols:more-vert" />
             </Button>
 
             <Menu :items="items" item-class="py-2" />
@@ -146,12 +146,12 @@ const date = computed(() => {
 
             <div class="w-full flex justify-center mt-3 gap-2">
               <Button v-if="!hasContact" size="sm" class="border-none bg-cyan-500 rounded-full text-black  hover:bg-cyan-600 py-2 px-4 flex" @click="addContact">
-                <Icon name="person_add" />
+                <Icon name="material-symbols:person-add-outline" />
                 <span class="">{{ t('Save') }}</span>
               </Button>
 
               <Button size="sm" class="border-none bg-cyan-500 rounded-full text-black  hover:bg-cyan-600 py-2 px-4 flex" @click="copyUrl">
-                <Icon name="ios_share" />
+                <Icon name="material-symbols:ios-share" />
                 <span class="">{{ t('Share') }}</span>
               </Button>
             </div>
@@ -162,7 +162,7 @@ const date = computed(() => {
               :is="{
                 id: 'description',
                 name: data?.character?.characterLocalizations[0].description!,
-                icon: 'person',
+                icon: 'material-symbols:person-outline',
               }"
               class="py-2"
             />
@@ -170,18 +170,10 @@ const date = computed(() => {
               :is="{
                 id: 'category',
                 name: category?.name!,
-                icon: 'category',
+                icon: 'material-symbols:category-outline',
               }"
               class="py-2"
             />
-
-            <!-- <div v-if="category" class="text-sm text-gray-600 flex gap-1 items-center">
-              <Badge class="bg-transparent border-none flex gap-1 px-0 py-3 text-xs text-gray-600">
-                <Icon :name="category?.icon" class="" style="font-size: 1.15rem" />
-
-                {{ category?.name }}
-              </Badge>
-            </div> -->
           </section>
 
           <section v-if="date" class="w-full px-4 py-4">
@@ -195,7 +187,7 @@ const date = computed(() => {
               :is="{
                 id: 'ai-character',
                 name: t('AI Character'),
-                icon: 'robot_2',
+                icon: 'material-symbols:robot-2-outline',
                 description: t('This character leverages AI to simulate responses.'),
                 meaning: 'info',
               }"
@@ -214,11 +206,10 @@ const date = computed(() => {
             >
               <template #title>
                 <button
-                  size="sm"
                   class="text-blue-500 hover:text-blue-600 flex items-center"
                   @click.stop.prevent="copyUsername"
                 >
-                  <Icon name="content_copy" style="font-size: 1.15rem" />
+                  <Icon name="material-symbols:content-copy-outline" class="text-xl" />
                 </button>
               </template>
             </Item>
@@ -229,7 +220,7 @@ const date = computed(() => {
               :is="{
                 id: 'clear-chat',
                 name: t('Clear chat'),
-                icon: 'mop',
+                icon: 'material-symbols:mop-outline',
                 meaning: 'danger',
                 onClick: () => clearChat(),
               }"

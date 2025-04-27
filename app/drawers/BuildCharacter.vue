@@ -171,8 +171,8 @@ const character = computed((): CharacterDraftApiData | null => {
 const viewMode = ref<CharacterBuilderEditViewMode>('preview')
 
 const items: MenuItemType[] = [
-  { id: 'preview', name: t('Preview'), icon: 'preview', description: t('How it will look after approval'), onClick: () => viewMode.value = 'preview' },
-  { id: 'original', name: t('Original'), icon: 'history_edu', description: t('How it looked before editing'), onClick: () => viewMode.value = 'original' },
+  { id: 'preview', name: t('Preview'), icon: 'material-symbols:preview-outline', description: t('How it will look after approval'), onClick: () => viewMode.value = 'preview' },
+  { id: 'original', name: t('Original'), icon: 'material-symbols:history-edu-outline', description: t('How it looked before editing'), onClick: () => viewMode.value = 'original' },
 ]
 
 const hasChanges = computed(() => {
@@ -214,7 +214,7 @@ const hasChanges = computed(() => {
         <form action="/api/payment/stripe/create-portal-session" method="POST">
           <Button size="xs" class="bg-yellow-500 rounded-full">
             <span class="flex text-black items-center justify-center gap-1">
-              <Icon name="subscriptions" />
+              <Icon name="material-symbols:subscriptions-outline" />
               <span class="whitespace-nowrap">{{ t("Renew Thal") }}</span>
             </span>
           </Button>
@@ -253,7 +253,7 @@ const hasChanges = computed(() => {
                     {{ viewMode === "preview" ? t('Preview') : t('Original') }}
 
                     <Icon class="rotate-180 text-base">
-                      keyboard_arrow_up
+                      material-symbols:keyboard-arrow-up
                     </Icon>
                   </Menu.Trigger>
 

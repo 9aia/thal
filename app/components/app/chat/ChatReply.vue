@@ -64,7 +64,7 @@ const replyMessage = computed(() => trimReplyMessage(props.replyMessage))
     @click="scrollToMessage"
   >
     <div class="flex items-center gap-1 text-xs text-blue-500">
-      <Icon name="reply" class="text-sm" />
+      <Icon name="material-symbols:reply" class="text-sm" />
       {{ t('Replying to') }}
     </div>
 

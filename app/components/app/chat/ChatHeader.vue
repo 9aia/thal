@@ -21,20 +21,20 @@ const items = computed(() => [
   {
     id: 'view-contact',
     name: t('View contact'),
-    icon: 'contact_page',
+    icon: 'material-symbols:contact-page-outline',
     onClick: () => openContactView({ username: props.username, displayName: props.displayName, avatarName: props.avatarName }),
   },
   {
     id: 'share-character',
     name: t('Share character'),
-    icon: 'ios_share',
+    icon: 'material-symbols:ios-share',
     onClick: () => copyUrl(),
   },
   props.hasContact
     ? {
         id: 'edit-contact',
         name: t('Edit contact'),
-        icon: 'edit',
+        icon: 'material-symbols:edit-outline',
         onClick: () => {
           manageContact({
             id: props.username,
@@ -48,20 +48,20 @@ const items = computed(() => [
     ? {
         id: 'delete-contact',
         name: t('Delete contact'),
-        icon: 'delete',
+        icon: 'material-symbols:delete-outline',
         onClick: () => contactDeleteModalState.value = true,
       }
     : {
         id: 'add-contact',
         name: t('Add to contacts'),
-        icon: 'add',
+        icon: 'material-symbols:add',
         onClick: () => props.addContact(),
       },
   props.hasMessages
     ? {
         id: 'clear-chat',
         name: t('Clear chat'),
-        icon: 'mop',
+        icon: 'material-symbols:mop-outline',
         meaning: 'danger',
         onClick: () => clearChat(),
       }
@@ -74,7 +74,7 @@ const items = computed(() => [
     <ContactDeleteModal v-model="contactDeleteModalState" :contact-username="username" />
 
     <label for="my-drawer" class="lg:hidden btn btn-ghost btn-circle text-black drawer-button">
-      <Icon name="arrow_back" />
+      <Icon name="material-symbols:arrow-back" />
     </label>
 
     <Avatar :name="avatarName" class="w-10 text-sm" type="button" @click="openContactView({ username, displayName, avatarName })" />
@@ -88,9 +88,9 @@ const items = computed(() => [
 
       <div>
         <div class="dropdown dropdown-end">
-          <button class="btn btn-circle btn-ghost text-black">
-            <Icon>more_vert</Icon>
-          </button>
+          <Button size="md" shape="circle" class="btn-ghost">
+            <Icon>material-symbols:more-vert</Icon>
+          </Button>
 
           <Menu :items="items" item-class="py-2" />
         </div>

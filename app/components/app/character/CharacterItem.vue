@@ -25,10 +25,10 @@ const category = computed(() => {
 const copyUsername = useCopyUsername(toRef(() => props.username))
 
 const items: MenuItemType[] = [
-  { id: 'edit-character', name: 'Edit character', icon: 'person_edit', onClick: () => emit('edit') },
-  { id: 'delete-character', name: 'Delete character', icon: 'delete', onClick: () => emit('delete') },
-  { id: 'share-character', name: 'Share character', icon: 'ios_share', onClick: () => copyUsername() },
-  { id: 'chat', name: 'Message character', icon: 'chat', onClick: () => emit('chat') },
+  { id: 'edit-character', name: 'Edit character', icon: 'material-symbols:person-edit-outline', onClick: () => emit('edit') },
+  { id: 'share-character', name: 'Share character', icon: 'material-symbols:ios-share', onClick: () => copyUsername() },
+  { id: 'chat', name: 'Message character', icon: 'material-symbols:chat-outline', onClick: () => emit('chat') },
+  { id: 'delete-character', name: 'Delete character', icon: 'material-symbols:delete-outline', onClick: () => emit('delete'), meaning: 'danger' },
 ]
 </script>
 
@@ -56,7 +56,7 @@ const items: MenuItemType[] = [
 
         <div v-if="category" class="text-sm text-gray-600 flex gap-1 items-center">
           <Badge no-bg class="bg-transparent border-none flex gap-1 px-0 py-3 text-xs text-gray-500">
-            <Icon :name="category?.icon" class="" style="font-size: 1.15rem" />
+            <Icon :name="category?.icon" style="font-size: 1.15rem" />
 
             {{ t(category?.name) }}
           </Badge>
@@ -69,7 +69,7 @@ const items: MenuItemType[] = [
         <Menu.Root>
           <Menu.Trigger class="btn btn-circle btn-ghost text-gray-800" @click.stop.prevent>
             <Icon>
-              more_vert
+              material-symbols:more-vert
             </Icon>
           </Menu.Trigger>
           <Menu.Positioner>

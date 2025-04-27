@@ -36,7 +36,7 @@ watch(translation.isLoading, (value) => {
         :loading="translation.isLoading.value"
         @click="translation.onTranslate()"
       >
-        <Icon name="translate" class="text-base" />
+        <Icon name="material-symbols:translate" class="text-base" />
       </Button>
 
       <ContentEditable

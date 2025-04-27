@@ -1,4 +1,4 @@
 export const LOCALES = [
-  { id: 'en', icon: 'globe', name: 'English' },
-  { id: 'pt', icon: 'globe', name: 'Português' },
+  { id: 'en', icon: 'material-symbols:globe', name: 'English' },
+  { id: 'pt', icon: 'material-symbols:globe', name: 'Português' },
 ]

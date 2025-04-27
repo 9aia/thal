@@ -53,7 +53,7 @@ const isForbidden = computed(() => props.error.statusCode === 403)
             class="btn-primary"
             @click="emit('tryAgain')"
           >
-            <Icon name="mdi-refresh" />
+            <Icon name="material-symbols:refresh" />
             {{ t('Try again') }}
           </Button>
         </slot>

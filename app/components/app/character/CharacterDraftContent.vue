@@ -34,7 +34,7 @@ const trunkedInstructions = computed(() => {
         :is="{
           id: 'description',
           name: draft.description,
-          icon: 'person',
+          icon: 'material-symbols:person-outline',
         }"
       />
 
@@ -42,7 +42,7 @@ const trunkedInstructions = computed(() => {
         :is="{
           id: 'category',
           name: draft.categoryName,
-          icon: 'category',
+          icon: 'material-symbols:category-outline',
         }"
       />
 
@@ -52,7 +52,7 @@ const trunkedInstructions = computed(() => {
         :is="{
           id: 'instructions',
           name: t('Instructions'),
-          icon: 'integration_instructions',
+          icon: 'material-symbols:integration-instructions-outline',
         }"
       />
 

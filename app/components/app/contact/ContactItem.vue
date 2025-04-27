@@ -31,21 +31,21 @@ const emit = defineEmits<{
     </div>
 
     <div class="hidden group-hover:flex">
-      <button
+      <Button
         v-if="showEdit"
-        class="btn btn-md btn-ghost btn-circle"
+        class="btn-md btn-ghost btn-circle"
         @click.prevent="emit('edit')"
       >
-        <Icon name="edit" class="text-gray-700" />
-      </button>
+        <Icon name="material-symbols:edit-outline" class="text-black" />
+      </Button>
 
-      <button
+      <Button
         v-if="showDelete"
-        class="btn btn-ghost btn-circle"
+        class="btn-ghost btn-circle"
         @click.prevent="emit('delete')"
       >
-        <Icon name="delete" class="text-gray-700 text-xs" />
-      </button>
+        <Icon name="material-symbols:delete-outline" class="text-black text-xs" />
+      </Button>
     </div>
   </div>
 </template>

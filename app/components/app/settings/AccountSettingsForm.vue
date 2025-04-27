@@ -87,7 +87,7 @@ const submit = form.handleSubmit(async (data) => {
 const dangerItems: MenuItemType[] = [
   {
     id: 'deactivate',
-    icon: 'account_circle_off',
+    icon: 'material-symbols:account-circle-off-outline',
     name: t('Deactivate account'),
     type: 'accordion',
     onClick: () => {
@@ -125,7 +125,7 @@ const logout = useLogout()
         <template #icon="{ errorMessage }">
           <Icon
             :class="{ 'text-error': errorMessage, 'text-success': !errorMessage }"
-            :name="errorMessage ? 'close' : 'check'"
+            :name="errorMessage ? 'material-symbols:close' : 'material-symbols:check'"
           />
         </template>
       </TextField>
@@ -146,17 +146,13 @@ const logout = useLogout()
 
     <ul class="mt-6">
       <li class="flex gap-2 items-center">
-        <Icon class="text-success">
-          check
-        </Icon>
+        <Icon class="text-success" name="material-symbols:check" />
 
         <span class="text-sm text-gray-800">{{ t('Signed in with Google') }}</span>
       </li>
 
       <li class="flex gap-2 items-center">
-        <Icon class="text-success">
-          check
-        </Icon>
+        <Icon class="text-success" name="material-symbols:check" />
 
         <span class="text-sm text-gray-800">{{ t('Connected with Stripe') }}</span>
       </li>

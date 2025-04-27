@@ -10,6 +10,7 @@ defineProps<{
 }>()
 
 const iconStyles = tv({
+  base: 'text-3xl',
   variants: {
     color: {
       normal: 'text-gray-800',
@@ -68,7 +69,7 @@ const descriptionStyles = tv({
     </div>
 
     <Icon v-if="is.type === 'external'" class="text-gray-800">
-      north_east
+      material-symbols:north-east
     </Icon>
     <ChevronRight v-if="is.type === 'accordion'" />
   </div>

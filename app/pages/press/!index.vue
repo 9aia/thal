@@ -68,7 +68,7 @@ const {
         >
           {{ t("Learn more") }}
           <Icon
-            name="arrow_downward"
+            name="material-symbols:arrow-downward"
             class="flex items-center justify-center text-4xl"
           />
         </a>
@@ -81,7 +81,7 @@ const {
     >
       <div class="max-w-lg mx-auto">
         <h2 class="text-4xl text-gray-800 mb-6 flex flex-col items-center gap-1">
-          <Icon name="chat" class="text-6xl" />
+          <Icon name="material-symbols:chat-outline" class="text-6xl" />
           {{ t("Dynamic Conversations") }}
         </h2>
 
@@ -102,7 +102,7 @@ const {
         <div class="flex gap-12 flex-col md:flex-row">
           <div class="mx-auto flex flex-col items-center md:items-start">
             <h2 class="text-4xl text-gray-800 mb-6 flex flex-wrap justify-center sm:justify-start items-center gap-1">
-              <Icon name="translate" class="text-6xl" />
+              <Icon name="material-symbols:translate" class="text-6xl" />
               {{ t("Interactive Language Assistance") }}
             </h2>
 
@@ -132,7 +132,7 @@ const {
     <section class="mx-auto text-black text-center">
       <div class="px-4 py-12 mx-auto flex flex-col items-center justify-center">
         <h2 class="text-4xl text-gray-800 mb-6 max-w-lg flex flex-wrap justify-center items-center gap-1">
-          <Icon name="person_search" class="text-6xl" />
+          <Icon name="material-symbols:person-search-outline" class="text-6xl" />
           {{ t("Discover Characters") }}
         </h2>
 
@@ -161,7 +161,7 @@ const {
         <div class="flex gap-12 flex-col md:flex-row">
           <div class="mx-auto flex flex-col items-center md:items-start">
             <h2 class="text-4xl text-gray-800 mb-6 flex flex-wrap justify-center sm:justify-start items-center gap-1">
-              <Icon name="engineering" class="text-6xl" />
+              <Icon name="material-symbols:engineering-outline" class="text-6xl" />
               {{ t("Create Your Own Character") }}
             </h2>
 
@@ -182,7 +182,7 @@ const {
     <section class="w-full mx-auto text-center">
       <div class="px-4 py-12 flex flex-col items-center justify-center">
         <h2 class="text-4xl text-gray-800 mb-6 max-w-lg flex flex-wrap justify-center items-center gap-1">
-          <Icon name="person_add" class="text-6xl" />
+          <Icon name="material-symbols:person-add-outline" class="text-6xl" />
           {{ t("Save Your Favorite Characters") }}
         </h2>
 
@@ -198,7 +198,7 @@ const {
 
     <section class="w-full relative p-8">
       <h2 class="mx-auto text-4xl text-gray-800 mb-6 max-w-lg flex flex-wrap justify-center items-center gap-1">
-        <Icon name="subscriptions" class="text-6xl" />
+        <Icon name="material-symbols:subscriptions-outline" class="text-6xl" />
         {{ t('Pricing') }}
       </h2>
 

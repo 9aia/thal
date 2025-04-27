@@ -28,7 +28,7 @@ const modelValue = defineModel<boolean>()
         class="flex items-center gap-2"
       >
         <button class="btn btn-md btn-ghost btn-circle" @click="modelValue = false">
-          <Icon name="close" class="text-gray-800" />
+          <Icon name="material-symbols:close" class="text-gray-800" />
         </button>
       </div>
     </div>

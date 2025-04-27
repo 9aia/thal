@@ -22,7 +22,7 @@ const {
 
     <div class="items-start min-w-[32px] min-h-[32px] flex">
       <Button class="btn-ghost hidden group-hover/translation:block" size="sm" shape="circle" @click="isOpen = false">
-        <Icon name="close" style="font-size: 1.15rem" />
+        <Icon name="material-symbols:close" style="font-size: 1.15rem" />
       </Button>
     </div>
   </div>
@@ -37,11 +37,11 @@ const {
 
     <div class="items-start min-w-[64px] min-h-[32px] flex">
       <Button class="btn-ghost hidden group-hover/translation:block" size="sm" shape="circle" @click="refetch()">
-        <Icon name="refresh" style="font-size: 1.15rem" />
+        <Icon name="material-symbols:refresh" style="font-size: 1.15rem" />
       </Button>
 
       <Button class="btn-ghost hidden group-hover/translation:block" size="sm" shape="circle" @click="isOpen = false">
-        <Icon name="close" style="font-size: 1.15rem" />
+        <Icon name="material-symbols:close" style="font-size: 1.15rem" />
       </Button>
     </div>
   </div>

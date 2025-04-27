@@ -14,7 +14,7 @@ function goToDiscover() {
   <div class="w-full text-center pt-8 pb-8">
     <h2 class="flex items-center justify-center gap-1 text-lg font-medium px-4 py-1">
       <div class="flex items-center justify-center">
-        <Icon name="contextual_token_add" class="text-4xl -scale-x-100" />
+        <Icon name="material-symbols:contextual-token-add-outline" class="text-4xl -scale-x-100" />
       </div>
       {{ t("New Chat") }}
     </h2>
@@ -26,28 +26,28 @@ function goToDiscover() {
     <div class="px-4 flex gap-2 justify-center flex-wrap">
       <Button class="border-gradient-1 rounded-full" @click="goToDiscover">
         <span class="px-4 py-1 flex items-center justify-center gap-1">
-          <Icon name="person_search" />
+          <Icon name="material-symbols:person-search-outline" />
           {{ t("Discover characters") }}
         </span>
       </Button>
 
       <Button class="border-gradient-2 rounded-full" @click="buildCharacter(null)">
         <span class="px-4 py-1 flex items-center justify-center gap-1">
-          <Icon name="person_edit" />
+          <Icon name="material-symbols:person-edit-outline" />
           {{ t("Create character") }}
         </span>
       </Button>
 
       <Button class="border-gradient-3 rounded-full" @click="manageContact(null)">
         <span class="px-4 py-1 flex items-center justify-center gap-1">
-          <Icon name="person_add" />
+          <Icon name="material-symbols:person-add-outline" />
           {{ t("Add contact") }}
         </span>
       </Button>
 
       <Button class="border-gradient-4 rounded-full" @click="openWhatsNewModal">
         <span class="px-4 py-1 flex items-center justify-center gap-1">
-          <Icon name="news" />
+          <Icon name="material-symbols:news-outline" />
           {{ t("What's New") }}
         </span>
       </Button>

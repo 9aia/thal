@@ -7,11 +7,8 @@ description: Tasks and items for the release.
 ## 0.1.0-8
 
 - Notify error (specially username taken) when approving character
-
-- On FE, improve the design for chats when character is deleted (inform user).
-- Check translation with deleted character
-- Fix icon loading fallback
-- Fix landpage pricing icon
+- Inform you can't translate messages in deleted character chats
+- Remove style attr from <Icon> instances
 
 - Fix sign-in redirect URL host on preview
 - Fix auth redirect with query params

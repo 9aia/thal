@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
-import type { MenuItem } from '~/components/ui/navigation/types'
+import type { MenuItemType } from '~/components/ui/navigation/types'
 
 const user = useUser()
 const logout = useLogout()
 
 const localeModal = useLocaleModal()
 
-const menuItems: MenuItem[] = [
-  { id: 'app', name: 'App', icon: 'chat', href: '/app' },
-  { id: 'settings', name: 'Account Settings', icon: 'settings', href: '/settings/account' },
+const menuItems: MenuItemType[] = [
+  { id: 'app', name: 'App', icon: 'material-symbols:chat-outline', href: '/app' },
+  { id: 'settings', name: 'Account Settings', icon: 'material-symbols:settings-outline', href: '/settings/account' },
   {
     id: 'language',
     name: 'Language',
-    icon: 'language',
+    icon: 'material-symbols:language',
     onClick: () => {
       localeModal.open()
     },
@@ -23,7 +23,7 @@ const menuItems: MenuItem[] = [
     name: 'Logout',
     action: '/api/auth/logout',
     method: 'post',
-    icon: 'logout',
+    icon: 'material-symbols:logout',
     meaning: 'warning',
     onSubmit: logout,
   },

@@ -54,7 +54,7 @@ useAutoRedirect({
                 <div>
                   <div class="cursor-pointer flex w-full gap-2 justify-between items-center">
                     <MenuItem
-                      :is="{ id: 'language', name: 'Language', icon: 'globe', type: 'accordion' }"
+                      :is="{ id: 'language', name: 'Language', icon: 'material-symbols:globe', type: 'accordion' }"
                       class="py-2"
                     />
                   </div>

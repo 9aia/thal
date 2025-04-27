@@ -364,7 +364,7 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
           >
             <div class="sm:max-w-5xl md:max-w-6xl lg:max-w-9xl mx-auto">
               <div class="max-w-xs sm:max-w-2xl md:max-w-3xl w-fit mx-auto flex items-center justify-center gap-1 mb-4 text-blue-500 text-xs bg-gradient-2 px-4 py-2 rounded-lg">
-                <Icon name="science" class="text-blue-500" style="font-size: 1.15rem" />
+                <Icon name="material-symbols:science-outline" class="text-blue-500 text-xl" />
                 <p>
                   {{ t('This character uses AI to simulate interactions. Please use responsibly.') }}
                 </p>
@@ -388,7 +388,7 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
 
                   <div class="card-actions justify-center">
                     <Button class="bg-cyan-500 border-none rounded-full px-4 py-2 text-gray-800 hover:bg-cyan-400" @click="addContact()">
-                      <Icon name="person_add" />
+                      <Icon name="material-symbols:person-add-outline" />
                       Add
                     </Button>
                   </div>
@@ -415,7 +415,7 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
                   @click="goToBottom"
                 >
                   <Icon class="text-lg">
-                    keyboard_arrow_down
+                    material-symbols:keyboard-arrow-down
                   </Icon>
                 </Button>
               </div>

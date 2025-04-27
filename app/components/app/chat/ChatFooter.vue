@@ -37,18 +37,18 @@ const isEmpty = useIsTextEmpty(text)
 
 const icon = computed(() => {
   if (isChatSending.value && !isOnline.value)
-    return 'wifi_off'
+    return 'material-symbols:wifi-off'
 
   if (isChatSending.value)
-    return 'pending'
+    return 'material-symbols:pending-outline'
 
   if (isChatError.value && !isOnline.value)
-    return 'wifi_off'
+    return 'material-symbols:wifi-off'
 
   if (isChatError.value)
-    return 'error'
+    return 'material-symbols:error-outline-rounded'
 
-  return isEmpty.value ? 'mic' : 'send'
+  return isEmpty.value ? 'material-symbols:mic-outline' : 'material-symbols:send-outline'
 })
 
 function decodeHTML(html: string) {
@@ -147,19 +147,19 @@ watch(translation.isLoading, (value) => {
           {{ replyMessage.message }}
         </p>
 
-        <div role="button" class="btn btn-xs btn-ghost btn-circle absolute top-1 right-1" @click="removeReply">
-          <Icon name="close" style="font-size: 1rem" />
-        </div>
+        <Button shape="circle" size="xs" class="btn-ghost absolute top-1 right-1" @click="removeReply">
+          <Icon name="material-symbols:close" class="text-sm" />
+        </Button>
       </div>
 
       <div class="flex gap-2 px-3 py-2">
-        <div class="flex-1 flex flex-col tooltip-center tooltip-info" :class="{ tooltip: isCharacterDeleted }" :data-tip="t('You can\'t send a message to this character. Character is deleted.')">
+        <div class="flex-1 flex flex-col tooltip-center bg-gradient-2" :class="{ tooltip: isCharacterDeleted }" :data-tip="t('You can\'t message this character — they have been deleted.')">
           <label class="input bg-gray-50 flex gap-1 w-full h-full items-center justify-center p-2 textarea" for="input">
             <Button
               v-if="!isEmpty" size="sm" shape="circle" :disabled="isChatError || isChatSending || undefined"
               class="btn-ghost" :loading="translation.isLoading.value" @click="translation.onTranslate()"
             >
-              <Icon name="translate" class="text-base" />
+              <Icon name="material-symbols:translate" class="text-base" />
             </Button>
 
             <ContentEditable
@@ -172,12 +172,12 @@ watch(translation.isLoading, (value) => {
           </label>
         </div>
 
-        <div
-          v-if="!isEmpty" role="button" class="btn btn-ghost btn-circle avatar"
+        <Button
+          v-if="!isEmpty" class="btn-ghost btn-circle avatar"
           :disabled="isChatError || isChatSending || undefined" @click="handleSend"
         >
           <Icon :name="icon" />
-        </div>
+        </Button>
       </div>
     </div>
   </footer>
@@ -186,5 +186,10 @@ watch(translation.isLoading, (value) => {
 <style scoped>
 .bg-gradient-6 {
   background: radial-gradient(circle, theme('colors.white'), theme('colors.magenta.50'));
+}
+
+.tooltip::before {
+  @apply px-4 py-2 rounded-lg text-blue-500 max-w-xs sm:max-w-2xl md:max-w-3xl text-sm;
+  background: radial-gradient(at bottom, theme('colors.blue.50'), theme('colors.gray.50'));
 }
 </style>

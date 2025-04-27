@@ -122,7 +122,7 @@ function cancelEdit() {
               @click="cancelEdit"
             >
               <Icon class="text-base">
-                close
+                material-symbols:close
               </Icon>
               {{ t('Cancel') }}
             </Button>
@@ -132,7 +132,7 @@ function cancelEdit() {
               @click="emit('edit')"
             >
               <Icon class="text-base">
-                send
+                material-symbols:send-outline
               </Icon>
               {{ t('Send') }}
             </Button>
@@ -158,7 +158,7 @@ function cancelEdit() {
           @click="edit"
         >
           <Icon class="text-base">
-            edit
+            material-symbols:edit-outline
           </Icon>
         </Button>
 
@@ -168,7 +168,7 @@ function cancelEdit() {
           @click="emit('resend')"
         >
           <Icon class="text-base">
-            refresh
+            material-symbols:refresh
           </Icon>
         </Button>
 
@@ -178,7 +178,7 @@ function cancelEdit() {
           @click="copyToClipboard"
         >
           <Icon class="text-base">
-            content_copy
+            material-symbols:content-copy-outline
           </Icon>
         </Button>
 
@@ -188,7 +188,7 @@ function cancelEdit() {
           :loading="audiableTextMutation?.isPending.value" @click="audiableTextMutation?.mutate()"
         >
           <Icon class="text-base">
-            volume_up
+            material-symbols:volume-up-outline
           </Icon>
         </Button>
 
@@ -198,7 +198,7 @@ function cancelEdit() {
           :loading="translation.isLoading.value" @click="translation.onTranslate()"
         >
           <Icon class="text-base">
-            translate
+            material-symbols:translate
           </Icon>
         </Button>
 
@@ -208,7 +208,7 @@ function cancelEdit() {
           @click="emit('delete')"
         >
           <Icon class="text-base">
-            delete
+            material-symbols:delete-outline
           </Icon>
         </Button>
       </div>

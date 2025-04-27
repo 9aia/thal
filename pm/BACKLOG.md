@@ -12,6 +12,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 ## Features
 
 - Implement basic analytics to track user engagement and app performance
+- Implement translation in deleted character chats
 - Add language drawer containing UI language and translation settings
 - Message/AI rate in trial instead of time
 - Message/AI rate in price

@@ -19,12 +19,12 @@ const { value } = useField(props.path, props.rules)
     <template #icon>
       <Icon
         v-if="!value"
-        name="search"
+        name="material-symbols:search"
       />
 
       <Icon
         v-else
-        name="close"
+        name="material-symbols:close"
         role="button"
         @click="value = ''"
       />

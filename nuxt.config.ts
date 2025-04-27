@@ -6,7 +6,14 @@ import './i18n'
 export default defineNuxtConfig({
   srcDir: './app',
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss', 'nitro-cloudflare-dev', '@nuxt/eslint', '@nuxtjs/mdc', '@nuxt/image', '@nuxt/fonts', '@nuxt/content'],
+  modules: ['@nuxtjs/tailwindcss', 'nitro-cloudflare-dev', '@nuxt/eslint', '@nuxtjs/mdc', '@nuxt/image', '@nuxt/fonts', '@nuxt/content', '@nuxt/icon'],
+
+  icon: {
+    serverBundle: {
+      collections: ['material-symbols'],
+    },
+    componentName: 'NuxtIcon',
+  },
 
   content: {
     watch: {
@@ -47,9 +54,6 @@ export default defineNuxtConfig({
         { name: 'keywords', content: 'English learning, AI tutor, Language practice, Conversation practice, Real-time assistance, Personalized learning, AI chatbot, Interactive English, Speaking practice, Fluency improvement' },
         { name: 'author', content: 'Gaia Team' },
         { name: 'viewport', content: 'width=device-width,initial-scale=1,shrink-to-fit=yes,user-scalable=0' },
-      ],
-      link: [
-        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined' },
       ],
     },
   },

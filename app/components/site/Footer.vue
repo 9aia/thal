@@ -32,16 +32,16 @@ const logout = useLogout()
 
         <div class="flex items-center justify-center gap-2">
           <A class="flex" href="/app">
-            <Icon name="chat" />
+            <Icon name="material-symbols:chat-outline" />
           </A>
           <A v-if="user" class="flex" href="/settings/account">
-            <Icon name="settings" />
+            <Icon name="material-symbols:settings-outline" />
           </A>
           <button class="flex" @click="localeModal.open()">
-            <Icon name="language" />
+            <Icon name="material-symbols:language" />
           </button>
           <button v-if="user" class="flex text-orange-500" @click="logout()">
-            <Icon name="logout" />
+            <Icon name="material-symbols:logout" />
           </button>
         </div>
       </div>
