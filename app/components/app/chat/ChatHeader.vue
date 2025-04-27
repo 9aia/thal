@@ -3,7 +3,7 @@ import { manageContact, openContactView } from '~/store'
 import type { MenuItemType } from '~/components/ui/navigation/types'
 
 const props = defineProps<{
-  name: string
+  displayName: string
   username: string
   avatarName: string
   hasContact: boolean
@@ -22,7 +22,7 @@ const items = computed(() => [
     id: 'view-contact',
     name: t('View contact'),
     icon: 'contact_page',
-    onClick: () => openContactView(props.username),
+    onClick: () => openContactView({ username: props.username, displayName: props.displayName, avatarName: props.avatarName }),
   },
   {
     id: 'share-character',
@@ -39,7 +39,7 @@ const items = computed(() => [
           manageContact({
             id: props.username,
             username: props.username,
-            name: props.name,
+            name: props.displayName,
           })
         },
       }
@@ -77,12 +77,12 @@ const items = computed(() => [
       <Icon name="arrow_back" />
     </label>
 
-    <Avatar :name="avatarName" class="w-10 text-sm" type="button" @click="openContactView(username)" />
+    <Avatar :name="avatarName" class="w-10 text-sm" type="button" @click="openContactView({ username, displayName, avatarName })" />
 
     <div class="flex-1 flex items-center justify-between gap-4">
-      <div tabindex="0" role="button" class="block w-full" @click="openContactView(username)">
+      <div tabindex="0" role="button" class="block w-full" @click="openContactView({ username, displayName, avatarName })">
         <span class="text-gray-800">
-          {{ name }}
+          {{ displayName }}
         </span>
       </div>
 

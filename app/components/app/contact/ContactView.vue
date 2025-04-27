@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { useQuery } from '@tanstack/vue-query'
-import { contactViewUsername, manageContact, rightDrawer, rightDrawers } from '~/store'
+import { contactInfoData, manageContact, rightDrawer, rightDrawers } from '~/store'
 import { categories } from '~/constants/discover'
 import queryKeys from '~/queryKeys'
 import type { MenuItemType } from '~/components/ui/navigation/types'
 
 const contactDeleteModalState = ref(false)
-const username = computed(() => contactViewUsername!.value!)
+const username = computed(() => contactInfoData.value?.username)
+const displayName = computed(() => contactInfoData.value?.displayName)
+const avatarName = computed(() => contactInfoData.value?.avatarName)
 
 const localeDefaultRegion = useLocaleDefaultRegion()
 
@@ -27,7 +29,7 @@ const {
 
 const { t } = useI18nExperimental()
 
-const { displayName, hasContact, avatarName, addContact } = useContactInfo(data)
+const { hasContact, addContact } = useContactInfo(data)
 const clearChat = useClearChat(username)
 const copyUrl = useCopyUrl()
 const copyUsername = useCopyUsername(username)
@@ -118,7 +120,7 @@ const date = computed(() => {
 
     <div class="flex-1 overflow-y-auto bg-white divide-y-2 divide-gray-50">
       <Teleport to="body">
-        <ContactDeleteModal v-model="contactDeleteModalState" :contact-username="username" />
+        <ContactDeleteModal v-model="contactDeleteModalState" :contact-username="username!" />
       </Teleport>
 
       <Resource :loading="isLoading" :error="isError">

@@ -2,7 +2,7 @@
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { useForm } from 'vee-validate'
 import queryKeys from '~/queryKeys'
-import { characterBuilderData, contactViewUsername, isRootDrawerOpen } from '~/store'
+import { characterBuilderData, contactInfoData, isRootDrawerOpen } from '~/store'
 
 const emit = defineEmits<{
   (e: 'approved'): void
@@ -91,13 +91,14 @@ const approveMutation = useMutation({
       queryKey: queryKeys.contactInfo(localWithDefaultRegion.value, data.username),
     })
 
+    // refresh chat route and contact info view if open
     const usernameQuery = params.username
 
     if (characterBuilderData.value?.characterUsernames?.username === usernameQuery)
       navigateTo(`/app/chat/${data.username}`)
 
-    if (characterBuilderData.value?.characterUsernames?.username === contactViewUsername.value)
-      contactViewUsername.value = data.username
+    if (characterBuilderData.value?.characterUsernames?.username === contactInfoData.value?.username)
+      contactInfoData.value = { ...contactInfoData.value || {}, username: data.username }
 
     toast.success(t('Character has been approved successfully.'), undefined, {
       actions: [

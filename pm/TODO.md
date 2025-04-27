@@ -15,7 +15,6 @@ description: Tasks and items for the release.
 
 - Fix sign-in redirect URL host on preview
 - Fix auth redirect with query params
-- Fix avatar display name
 - Add "Create another character" button for faster multiple creation
 
 - Remove preview related stuff on prod

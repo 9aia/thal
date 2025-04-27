@@ -45,10 +45,15 @@ watch(() => drawers.manageContact, (value) => {
   }
 })
 
-export const contactViewUsername = ref<string>()
+export interface ContactInfoData {
+  username?: string
+  displayName?: string
+  avatarName?: string
+}
+export const contactInfoData = ref<ContactInfoData | null>(null)
 
-export function openContactView(username: string) {
-  contactViewUsername.value = username
+export function openContactView(data: ContactInfoData) {
+  contactInfoData.value = data
 
   rightDrawer.value = true
   rightDrawers.contactView = true
