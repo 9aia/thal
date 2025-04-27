@@ -6,13 +6,21 @@ description: Tasks and items for the release.
 
 ## 0.1.0-8
 
+- Notify error (specially username taken) when approving character
+
 - On FE, improve the design for chats when character is deleted (inform user).
 - Check translation with deleted character
 - Fix icon loading fallback
-- Add .env.dev, .env.preview, .env.prod (and remove the info about need of change in docs)
-- Move public keys to env
+- Fix landpage pricing icon
 
 - Fix sign-in redirect URL host on preview
+- Fix auth redirect with query params
+- Fix avatar display name
+- Add "Create another character" button for faster multiple creation
+
+- Remove preview related stuff on prod
+- Add .env.dev, .env.preview, .env.prod (and remove the info about need of change in docs)
+- Move public keys to env
 
 - Revision and adjust
   - Improve the design system and UI

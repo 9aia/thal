@@ -2,7 +2,7 @@
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { useForm } from 'vee-validate'
 import queryKeys from '~/queryKeys'
-import { characterBuilderData, contactViewUsername } from '~/store'
+import { characterBuilderData, contactViewUsername, isRootDrawerOpen } from '~/store'
 
 const emit = defineEmits<{
   (e: 'approved'): void
@@ -27,6 +27,7 @@ const toast = useToast()
 const user = useUser()
 const { params } = useRoute()
 const queryClient = useQueryClient()
+const localWithDefaultRegion = useLocaleDefaultRegion()
 
 // async function validateUsername(username: string) {
 //   if (!username)
@@ -61,6 +62,13 @@ const queryClient = useQueryClient()
 // const debouncedValidateUsername = useDebounceFn(validateUsername, 500)
 // watch(() => form.values.username, debouncedValidateUsername)
 
+function handleGoToChat(username: string) {
+  isRootDrawerOpen.value = false
+
+  navigateTo(`/app/chat/${username}`)
+  toast.close()
+}
+
 const approveMutation = useMutation({
   mutationFn: (values: FormValues) => $fetch('/api/character/draft/approve', {
     method: 'POST',
@@ -80,7 +88,7 @@ const approveMutation = useMutation({
       queryKey: queryKeys.discoverCharacters,
     })
     queryClient.invalidateQueries({
-      queryKey: queryKeys.contactInfo(data.username),
+      queryKey: queryKeys.contactInfo(localWithDefaultRegion.value, data.username),
     })
 
     const usernameQuery = params.username
@@ -95,7 +103,7 @@ const approveMutation = useMutation({
       actions: [
         {
           title: t('Message'),
-          onClick: () => navigateTo(`/app/chat/${data.username}`),
+          onClick: () => handleGoToChat(data.username),
         },
       ],
     })

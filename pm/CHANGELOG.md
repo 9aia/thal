@@ -21,6 +21,8 @@ description: A detailed, chronological record of all changes made to a project, 
 - Fixed username matching on the "Character deletion" modal
 - Allowed to add contact of deleted characters
 - Allowed view chat history for deleted characters
+- Fixed chat info query invalidation using locale
+- Fixed chat navigation in approval "message" action
 
 ## [0.1.0-7] - 2025-04-01
 
