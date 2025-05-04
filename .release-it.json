@@ -23,7 +23,7 @@
     "before:init": [
       "pnpm lint"
     ],
-    "after:bump": "pnpm run build && pnpm run deploy",
+    "after:bump": "bash ./devops/scripts/after-bump.sh ${version}",
     "after:release": "echo Successfully released v${version} to ${repo.repository}."
   }
 }

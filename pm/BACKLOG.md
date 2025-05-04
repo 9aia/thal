@@ -108,6 +108,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## DX
 
+- Upgrade to Tailwind v4
 - Improve logging
 - Change `Message.isBot` to boolean mode
 - Remove unused files/code

@@ -143,7 +143,7 @@ Here's an improved version of your release/deployment instructions, with enhance
    npx wrangler login
    ```
 
-3. **Update Environment Variables**
+3. **Ensure .env.preview and .env.prod**
    - Ensure all necessary `.env` variables are up to date, especially:
      - `STRIPE_ENDPOINT_SECRET` (for Stripe integrations)
 
@@ -161,7 +161,7 @@ Here's an improved version of your release/deployment instructions, with enhance
 To deploy a preview version without creating a release, use the following command:
 
 ```bash
-pnpm run build && pnpm run deploy
+pnpm run build:preview && pnpm run deploy
 ```
 
 ### Preview Locally Using Wrangler

@@ -12,8 +12,7 @@ description: Tasks and items for the release.
 - Fix auth redirect with query params
 - Add "Create another character" button for faster multiple creation
 
-- Remove preview related stuff on prod
-- Add .env.dev, .env.preview, .env.prod (and remove the info about need of change in docs)
+- Render conditionally preview related stuff on preview, and prod
 - Move public keys to env
 
 - Revision and adjust
