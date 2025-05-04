@@ -21,6 +21,7 @@ description: A detailed, chronological record of all changes made to a project, 
 - Improved translation context awareness
 - Fixed username matching on the "Character deletion" modal
 - Allowed adding contact of deleted characters
+- Disabled option to translate messages from deleted characters
 - Allowed viewing chat history for deleted characters
 - Fixed chat info query invalidation using locale
 - Fixed chat navigation in approval "message" action

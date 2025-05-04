@@ -4,10 +4,6 @@ description: Tasks and items for the release.
 
 # TODO
 
-## 0.1.0-8
-
-- Inform you can't translate messages in deleted character chats
-
 ## 0.1.0-9
 
 - Notify error (specially username taken) when approving character

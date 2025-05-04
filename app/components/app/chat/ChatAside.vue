@@ -4,6 +4,7 @@ import type { Translation } from '~/composables/useTranslation'
 defineProps<{
   translation: Translation
   right: boolean
+  isCharacterDeleted: boolean
 }>()
 
 const emit = defineEmits<{
@@ -19,6 +20,7 @@ const emit = defineEmits<{
     <Button
       shape="circle"
       size="sm"
+      :disabled="isCharacterDeleted"
       class="hidden group-hover:block"
       @click="emit('setReply')"
     >

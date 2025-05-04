@@ -18,6 +18,7 @@ const props = defineProps<{
   showResend: boolean
   showEdit: boolean
   showDelete: boolean
+  isCharacterDeleted: boolean
 }>()
 const emit = defineEmits<{
   (e: 'resend'): void
@@ -99,7 +100,13 @@ function cancelEdit() {
     </div>
 
     <div class="flex items-center gap-2 bg-transparent p-0" :class="[isEditing ? 'w-full' : '']">
-      <ChatAside v-if="right && !isEditing" :right="!!right" :translation="translation" @set-reply="setReply" />
+      <ChatAside
+        v-if="right && !isEditing"
+        :right="!!right"
+        :translation="translation"
+        :is-character-deleted="isCharacterDeleted"
+        @set-reply="setReply"
+      />
 
       <div
         class="chat-bubble-bg flex flex-col rounded-3xl px-2 py-2 min-w-32 bg-gray-50"
@@ -147,7 +154,13 @@ function cancelEdit() {
         </template>
       </div>
 
-      <ChatAside v-if="!right && !isEditing" :right="!!right" :translation="translation" @set-reply="setReply" />
+      <ChatAside
+        v-if="!right && !isEditing"
+        :is-character-deleted="isCharacterDeleted"
+        :right="!!right"
+        :translation="translation"
+        @set-reply="setReply"
+      />
     </div>
 
     <div class="chat-footer opacity-90 flex items-center mt-1" :class="{ 'flex-row-reverse': !right }">
@@ -195,7 +208,9 @@ function cancelEdit() {
         <Button
           v-if="!isEditing && status !== 'error'"
           class="text-gray-800 btn-ghost sm:hidden group-hover:block" shape="circle"
-          :loading="translation.isLoading.value" @click="translation.onTranslate()"
+          :loading="translation.isLoading.value"
+          :disabled="isCharacterDeleted"
+          @click="translation.onTranslate()"
         >
           <Icon class="text-base">
             material-symbols:translate

@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import type { Message } from '~/types'
 
-defineProps<{ history: Message[], isError: boolean }>()
+defineProps<{
+  history: Message[]
+  isError: boolean
+  isCharacterDeleted: boolean
+}>()
 
 const emit = defineEmits<{
   (e: 'fixScroll'): void
@@ -28,6 +32,7 @@ onMounted(() => {
       :reply-message="item.replyMessage"
       :replying-id="item.replyingId"
       :reply-from="item.replyFrom"
+      :is-character-deleted="isCharacterDeleted"
       :show-delete="index === (history.length - 1) && isError"
       :show-edit="index === (history.length - 1) && isError"
       :show-resend="index === (history.length - 1) && isError"

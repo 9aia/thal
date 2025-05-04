@@ -398,6 +398,7 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
               <ChatConversation
                 :history="data.history"
                 :is-error="messageError"
+                :is-character-deleted="data.isCharacterDeleted"
                 @fix-scroll="goToBottom"
                 @resend="handleResend()"
                 @delete="handleDelete($event)"
