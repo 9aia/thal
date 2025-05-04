@@ -3,7 +3,6 @@ function useCopyUsername(username: MaybeRef<string | undefined>) {
   const { t } = useI18nExperimental()
 
   return async () => {
-    console.log('a')
     try {
       const _username = unref(username)
       if (!_username)
