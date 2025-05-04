@@ -24,7 +24,7 @@ const emit = defineEmits<{
     >
       <Icon
         name="material-symbols:reply"
-        style="font-size: 1rem"
+        class="text-base"
       />
     </Button>
   </div>

@@ -54,6 +54,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## Enhancements
 
+- Inform deleted character action such as translate, using tooltip
 - Add discover search param
 - Improve DB column sizes
 - Set meta tags for each page

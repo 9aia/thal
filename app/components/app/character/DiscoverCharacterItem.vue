@@ -47,7 +47,7 @@ const category = computed(() => {
 
           <div v-if="category" class="text-sm text-gray-600 flex justify-between gap-1 items-center">
             <Badge no-bg class="bg-transparent border-none flex gap-1 px-0 py-3 text-xs text-black">
-              <Icon :name="category?.icon" class="" style="font-size: 1.15rem" />
+              <Icon :name="category?.icon" class="text-xl" />
 
               {{ t(category?.name) }}
             </Badge>
