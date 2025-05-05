@@ -6,6 +6,8 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+## [0.1.0-8] - 2025-05-05
+
 ### Added
 
 - Added character data localization
