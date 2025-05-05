@@ -1,5 +1,4 @@
 import { and, eq } from 'drizzle-orm'
-import { mapContactToDto } from '~/server/services/contact'
 import { getCharacterByUsername } from '~/server/services/character'
 import { now } from '~/utils/date'
 import { getValidated } from '~/utils/h3'
@@ -39,7 +38,12 @@ export default eventHandler(async (event) => {
       )
       .run()
 
-    return mapContactToDto(newContact, result.username)
+    return {
+      id: newContact.id,
+      name: newContact.name,
+      createdAt: newContact.createdAt,
+      username: result.username,
+    }
   }
   catch (_e) {
     const e = _e as Error

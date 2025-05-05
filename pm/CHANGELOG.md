@@ -8,12 +8,16 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ### Added
 
+- Added character data localization
+
 ### Enhancements
 
-- Improved contact info drawer width
+- Improved contact view drawer width
 - Improved user request on the "Character deletion" modal
 - Improved icons
 - Improved icon buttons
+- Moved to right the copy username action on "Discover Characters" items
+- Improved translation prompting
 
 ### Fixed
 
@@ -21,11 +25,13 @@ description: A detailed, chronological record of all changes made to a project, 
 - Fixed useRoute warning when changing language
 - Improved translation context awareness
 - Fixed username matching on the "Character deletion" modal
+- Fixed "Not a contact" card horizontal padding
 - Allowed adding contact of deleted characters
 - Disabled option to translate messages from deleted characters
 - Allowed viewing chat history for deleted characters
-- Fixed chat info query invalidation using locale
+- Fixed character data query invalidation using locale
 - Fixed chat navigation in approval "message" action
+- Improved character display name on chat item
 - Fixed character display and avatar name on "Contact Info"
 - Fixed icon loading fallback
 - Fixed landpage pricing icon

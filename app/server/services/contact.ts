@@ -51,15 +51,6 @@ export async function getContactByUser(
   }
 }
 
-export function mapContactToDto(contact: ContactEntity, username: string): ContactGetDto {
-  return {
-    id: contact.id,
-    name: contact.name,
-    createdAt: contact.createdAt,
-    username,
-  }
-}
-
 export async function getContactWithCharacterByUser(
   orm: H3EventContext['orm'],
   user: User,
