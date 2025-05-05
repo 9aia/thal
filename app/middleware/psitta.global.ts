@@ -1,5 +1,4 @@
 import { detectLocaleFromAcceptLanguage, detectLocaleFromCookie, detectLocaleFromNavigator, detectLocaleFromPathname, getConfig } from '@psitta/core'
-import { useLocale } from '@psitta/vue'
 import type { RouteLocationNormalized } from 'vue-router'
 
 export default defineNuxtRouteMiddleware((to: RouteLocationNormalized) => {

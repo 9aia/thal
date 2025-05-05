@@ -1,5 +1,5 @@
 import { type Locale, getConfig } from '@psitta/core'
-import { createPsitta, useLocale } from '@psitta/vue'
+import { createPsitta } from '@psitta/vue'
 import '~~/i18n'
 
 interface PsittaStore { locale: Locale }

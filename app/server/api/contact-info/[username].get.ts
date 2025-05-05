@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { and, eq } from 'drizzle-orm'
+import { eq } from 'drizzle-orm'
 import { getValidated } from '~/utils/h3'
 import { badRequest, unauthorized } from '~/utils/nuxt'
 import { characterLocalizations, characterUsernames, contacts, usernameSchema } from '~~/db/schema'

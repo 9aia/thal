@@ -4,7 +4,7 @@ import { getCharacterCategoryName } from '~/server/services/character'
 import { getValidated } from '~/utils/h3'
 import { badRequest, paymentRequired, unauthorized } from '~/utils/nuxt'
 import { isPlanPastDue } from '~/utils/plan'
-import { characterDraftLocalizations, characterDraftLocalizationsRelations, characterDrafts } from '~~/db/schema'
+import { characterDraftLocalizations, characterDrafts } from '~~/db/schema'
 import { numericString } from '~/utils/zod'
 
 export default eventHandler(async (event) => {

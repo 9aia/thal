@@ -1,7 +1,7 @@
 import { and, eq, sql } from 'drizzle-orm'
 import type { H3EventContext } from 'h3'
 import { notFound } from '~/utils/nuxt'
-import type { CharacterGet, ContactEntity, ContactGetDto, User } from '~~/db/schema'
+import type { User } from '~~/db/schema'
 import { characterLocalizations, characterUsernames, characters, contacts } from '~~/db/schema'
 
 export async function getContactByUser(
