@@ -16,6 +16,8 @@ const isOpen = defineModel({ default: false })
 
 const { handleSubmit, resetForm } = useForm()
 
+const { params } = useRoute()
+
 const {
   mutate,
 } = useMutation({
@@ -31,6 +33,19 @@ const {
     queryClient.invalidateQueries({
       queryKey: queryKeys.discoverCharacters,
     })
+
+    const username = props.character!.characterUsernames!.username
+
+    queryClient.invalidateQueries({
+      queryKey: queryKeys.chat(username),
+    })
+
+    queryClient.invalidateQueries({
+      queryKey: queryKeys.chats,
+    })
+
+    if (params?.username === username)
+      navigateTo('/app')
 
     isOpen.value = false
   },
