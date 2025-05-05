@@ -4,7 +4,7 @@ import type { MenuItemType } from '~/components/ui/navigation/types'
 
 const user = useUser()
 const logout = useLogout()
-
+const RUNTIME_ENV = useRuntimeEnv()
 const localeModal = useLocaleModal()
 
 const menuItems: MenuItemType[] = [
@@ -32,21 +32,9 @@ const menuItems: MenuItemType[] = [
 
 <template>
   <div class="bg-white min-h-screen flex flex-col">
-    <!-- <header class="bg-blue-500">
-      header
-    </header>
-    <main class="bg-red-500 flex-1 flex">
-      <div class="bg-yellow-500 flex-1">
-        main
-      </div>
-    </main>
-    <footer class="bg-green-500 sticky top-[100vh]">
-      footer
-    </footer> -->
-
     <Header>
       <template #navbar-top>
-        <div class="bg-gradient-2 text-xs flex text-center justify-center py-2 px-4 text-blue-500">
+        <div v-if="RUNTIME_ENV === 'dev' || RUNTIME_ENV === 'preview'" class="bg-gradient-2 text-xs flex text-center justify-center py-2 px-4 text-blue-500">
           {{ t("Thal is in preview! We are not charging for access. Expect bugs and unfinished features.") }}
         </div>
       </template>

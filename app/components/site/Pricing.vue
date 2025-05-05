@@ -4,6 +4,7 @@ import { PLANS } from '~/constants/payment'
 import queryKeys from '~/queryKeys'
 import { SubscriptionStatus } from '~~/db/schema'
 
+const RUNTIME_ENV = useRuntimeEnv()
 const locale = useLocale()
 
 const {
@@ -127,7 +128,7 @@ const trialPeriodDays = PLANS.allInOne.trialPeriodDays
             <div class="flex flex-col items-center justify-center h-fit mt-4 gap-2">
               <StripeCreateSessionForm :checkout-status="data?.checkoutStatus || null" :subscription-status="data?.subscriptionStatus || SubscriptionStatus.not_subscribed" />
 
-              <div class="text-blue-500 text-xs flex mt-2 justify-center text-center">
+              <div v-if="RUNTIME_ENV === 'dev' || RUNTIME_ENV === 'preview'" class="text-blue-500 text-xs flex mt-2 justify-center text-center">
                 <div>{{ t("Thal is in preview. We're not actually charging for access.") }}</div>
               </div>
             </div>

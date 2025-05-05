@@ -11,8 +11,6 @@ description: Tasks and items for the release.
 - Fix sign-in redirect URL host on preview
 - Fix auth redirect with query params
 - Add "Create another character" button for faster multiple creation
-
-- Render conditionally preview related stuff on preview, and prod
 - Move public keys to env
 
 - Revision and adjust
@@ -20,6 +18,7 @@ description: Tasks and items for the release.
   - Pre-create and refine default characters
   - Revise character content
   - Revise What's New
+  - Revise screenshots
   - Revise content of policy pages
   - Revise prompt engineering
   - Revise landpage content

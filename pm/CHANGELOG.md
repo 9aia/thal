@@ -13,6 +13,7 @@ description: A detailed, chronological record of all changes made to a project, 
 - Improved contact info drawer width
 - Improved user request on the "Character deletion" modal
 - Improved icons
+- Improved icon buttons
 
 ### Fixed
 
