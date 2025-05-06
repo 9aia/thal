@@ -7,8 +7,8 @@ Thal is a chat-based, AI-powered English learning app designed to help users pra
 
 ## Documentation
 
-- [Guide > Developers](/docs/dev-contributing.md)
-- [Guide > Users](/docs/user-contributing.md)
+- [Guide > Developers](/docs/guides/dev-contributing.md)
+- [Guide > Users](/docs/guides/user-contributing.md)
 - [Homepage](https://thal.9aia.com/)
 
 ## Contribute
