@@ -18,7 +18,7 @@ description: A collection of ideas and feedback from stakeholders or team member
 - Add Spanish and/or other languages
 - Add official characters
 - Add onboarding (custom character)
-- Add different plans: family, business and school
+- Add different plans: (individual), family, business and school
 - Saving text for later
 - Support multiple messages when user is offline
 - Add suggested characters in "New chat" drawer

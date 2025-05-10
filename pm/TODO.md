@@ -7,11 +7,12 @@ description: Tasks and items for the release.
 ## 0.1.0-9
 
 - Notify error (specially username taken) when approving character
-
+- Fix missing send button on mobile
+- Fix issue with route including "_" in username
+- Add rate limit to character creation and any AI-required feature
+- Move public keys to `.env`
+- Fix auth redirect with query params (keep them)
 - Fix sign-in redirect URL host on preview
-- Fix auth redirect with query params
-- Add "Create another character" button for faster multiple creation
-- Move public keys to env
 
 - Revision and adjust
   - Improve the design system and UI
