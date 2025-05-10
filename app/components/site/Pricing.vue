@@ -48,7 +48,7 @@ const trialPeriodDays = PLANS.allInOne.trialPeriodDays
     <div class="max-w-sm mx-auto">
       <div class="p-4">
         <h2 class="text-4xl text-black flex gap-2 justify-center items-center">
-          <Icon name="material-symbols:package-2" class="text-black text-4xl" />
+          <Icon name="material-symbols:package-2-outline" class="text-black text-4xl" />
           {{ t('All-in-One Plan') }}
         </h2>
 
