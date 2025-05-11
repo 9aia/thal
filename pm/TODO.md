@@ -11,6 +11,8 @@ description: Tasks and items for the release.
   - Add rate limit error handling to username validation on client
 - Check user changing usernames to taken ones
 
+- Discuss explicit rate limit
+
 - Revision and adjust
   - Improve the design system and UI
   - Pre-create and refine default characters

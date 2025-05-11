@@ -6,6 +6,13 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Fixed
+
+- Added rate limit for various endpoints
+- Fixed waving hand icon
+- Fixed missing send message button
+- Added support for redirecting to URLs containing query parameters
+
 ## [0.1.0-8] - 2025-05-05
 
 ### Added
@@ -23,8 +30,6 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ### Fixed
 
-- Fixed missing send message button
-- Fixed waving hand icon
 - Fixed category name translation on "My Characters" and "Discover Characters" items
 - Fixed useRoute warning when changing language
 - Improved translation context awareness
