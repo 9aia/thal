@@ -37,6 +37,7 @@ onMounted(() => {
     return
   }
 
+  isRootDrawerOpen.value = true
   drawers[mappedDrawer] = true
 })
 </script>

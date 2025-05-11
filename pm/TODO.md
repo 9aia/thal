@@ -10,8 +10,6 @@ description: Tasks and items for the release.
 - Add rate limit
   - Add rate limit error handling to username validation on client
 - Check user changing usernames to taken ones
-- Fix auth redirect with query params (keep them)
-- Fix sign-in redirect URL host on preview
 
 - Revision and adjust
   - Improve the design system and UI
