@@ -70,6 +70,7 @@ export default defineNuxtConfig({
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
     STRIPE_ENDPOINT_SECRET: process.env.STRIPE_ENDPOINT_SECRET,
     public: {
+      GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
       RUNTIME_ENV: process.env.RUNTIME_ENV,
     },
   },

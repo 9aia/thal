@@ -2,16 +2,16 @@ import { Google } from 'arctic'
 import * as _ from 'lodash-es'
 import { encodeBase32LowerCaseNoPadding } from '@oslojs/encoding'
 import { type RandomReader, generateRandomString } from '@oslojs/crypto/random'
-import PUBLIC_KEYS from '~~/public_keys'
 
 export function initializeGoogle(
+  GOOGLE_CLIENT_ID: string,
   GOOGLE_CLIENT_SECRET: string,
   appUrl: URL,
 ) {
   const redirectUri = new URL('/api/auth/google/callback', appUrl).toString()
 
   const google = new Google(
-    PUBLIC_KEYS.GOOGLE_CLIENT_ID!,
+    GOOGLE_CLIENT_ID!,
     GOOGLE_CLIENT_SECRET,
     redirectUri!,
   )
