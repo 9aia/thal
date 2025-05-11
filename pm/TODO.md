@@ -10,7 +10,6 @@ description: Tasks and items for the release.
 - Fix missing send button on mobile
 - Fix issue with route including "_" in username
 - Add rate limit to character creation and any AI-required feature
-- Move public keys to `.env`
 - Fix auth redirect with query params (keep them)
 - Fix sign-in redirect URL host on preview
 
