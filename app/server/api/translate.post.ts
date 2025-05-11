@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { eq } from 'drizzle-orm'
 import { getHistory } from '../services/messages'
 import { getValidated } from '~/utils/h3'
-import { internal, notFound, notImplemented, paymentRequired, unauthorized } from '~/utils/nuxt'
+import { internal, notFound, notImplemented, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
 import { SubscriptionStatus, characterLocalizations, characterUsernames, messages } from '~~/db/schema'
 import { promptGeminiText } from '~/utils/gemini'
 
@@ -24,6 +24,11 @@ export default defineEventHandler(async (event) => {
   if (user.subscriptionStatus === SubscriptionStatus.past_due) {
     throw paymentRequired()
   }
+
+  const translateRateLimit = await event.context.cloudflare.env.TRANSLATE_RATE_LIMIT.limit({ key: `translate-${user.id}` })
+
+  if (!translateRateLimit.success)
+    throw rateLimit()
 
   const data = await getValidated(event, 'body', z.object({
     messageText: z.string(),

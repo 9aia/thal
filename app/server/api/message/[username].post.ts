@@ -29,9 +29,9 @@ export default eventHandler(async (event) => {
   if (!isPlanActive(user))
     throw paymentRequired('PAYMENT_REQUIRED')
 
-  const { success } = await event.context.cloudflare.env.MESSAGE_RATE_LIMIT.limit({ key: `send-message-${user.id}` })
+  const messageRateLimit = await event.context.cloudflare.env.MESSAGE_RATE_LIMIT.limit({ key: `send-message-${user.id}` })
 
-  if (!success)
+  if (!messageRateLimit.success)
     throw rateLimit()
 
   const { username } = await getValidated(event, 'params', z.object({ username: usernameSchema }))

@@ -1,7 +1,7 @@
 import { and, eq } from 'drizzle-orm'
 import { z } from 'zod'
 import { getValidated } from '~/utils/h3'
-import { unauthorized } from '~/utils/nuxt'
+import { rateLimit, unauthorized } from '~/utils/nuxt'
 import { characterUsernames, usernameSchema } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
@@ -21,6 +21,11 @@ export default eventHandler(async (event) => {
       isUsernameValid: false,
     }
   }
+
+  const queryUsernameRateLimit = await event.context.cloudflare.env.QUERY_USERNAME_RATE_LIMIT.limit({ key: `query-username-${user.id}` })
+
+  if (!queryUsernameRateLimit.success)
+    throw rateLimit()
 
   const [existingCharacterUsername] = await orm
     .select()

@@ -6,7 +6,7 @@ import { getCharacterDraftPrompt } from '~/utils/character'
 import { now } from '~/utils/date'
 import { promptGeminiJson } from '~/utils/gemini'
 import { getValidated } from '~/utils/h3'
-import { badRequest, forbidden, internal, notFound, paymentRequired, unauthorized } from '~/utils/nuxt'
+import { badRequest, forbidden, internal, notFound, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
 import { isPlanPastDue } from '~/utils/plan'
 import type { CharacterDraftData } from '~~/db/schema'
 import { characterDraftLocalizations, characterDraftSchema, characterDrafts, characterUsernames, usernameSchema } from '~~/db/schema'
@@ -59,6 +59,11 @@ export default eventHandler(async (event) => {
 
   if (!existingDraft)
     throw badRequest(`No editing draft found for characterId ${characterUsername.characterId}`)
+
+  const generateCharacterRateLimit = await event.context.cloudflare.env.GENERATE_CHARACTER_RATE_LIMIT.limit({ key: `generate-character-${user.id}` })
+
+  if (!generateCharacterRateLimit.success)
+    throw rateLimit()
 
   const { responseSchema, guidelines, editIntro, editOutro } = getCharacterDraftPrompt()
 

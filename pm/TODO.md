@@ -6,9 +6,10 @@ description: Tasks and items for the release.
 
 ## 0.1.0-9
 
-- Notify error (specially username taken) when approving character
-- Fix issue with route including "_" in username
-- Add rate limit to character creation and any AI-required feature
+- Notify error (specially username taken and invalid username) when approving character
+- Add rate limit
+  - Add rate limit error handling to username validation on client
+- Check user changing usernames to taken ones
 - Fix auth redirect with query params (keep them)
 - Fix sign-in redirect URL host on preview
 

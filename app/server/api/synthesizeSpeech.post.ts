@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 import { getTts } from '~/utils/gcp'
 import { getValidated } from '~/utils/h3'
-import { internal, paymentRequired, unauthorized } from '~/utils/nuxt'
+import { internal, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
 import { SubscriptionStatus } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
@@ -19,6 +19,11 @@ export default eventHandler(async (event) => {
   if (user.subscriptionStatus === SubscriptionStatus.past_due) {
     throw paymentRequired()
   }
+
+  const listenRateLimit = await event.context.cloudflare.env.LISTEN_RATE_LIMIT.limit({ key: `listen-${user.id}` })
+
+  if (!listenRateLimit.success)
+    throw rateLimit()
 
   const data = await getValidated(event, 'body', z.object({
     text: z.string(),

@@ -1,7 +1,7 @@
 import { and, eq, isNull } from 'drizzle-orm'
 import { now } from '~/utils/date'
 import { getValidated } from '~/utils/h3'
-import { badRequest, paymentRequired, unauthorized } from '~/utils/nuxt'
+import { badRequest, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
 import { isPlanPastDue } from '~/utils/plan'
 import type { CharacterGet } from '~~/db/schema'
 import { characterDraftInsertSchema, characterDrafts, characterLocalizations, characterUsernames, characters } from '~~/db/schema'
@@ -43,6 +43,11 @@ export default eventHandler(async (event) => {
   }
 
   const draftData = existingDraft.data
+
+  const queryUsernameRateLimit = await event.context.cloudflare.env.QUERY_USERNAME_RATE_LIMIT.limit({ key: `query-username-${user.id}` })
+
+  if (!queryUsernameRateLimit.success)
+    throw rateLimit()
 
   // Check if username is already taken
   const [existingCharacterUsername] = await orm

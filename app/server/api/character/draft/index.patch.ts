@@ -4,7 +4,7 @@ import { type CharacterDraftResponseSchema, getCharacterDraftPrompt } from '~/ut
 import { now } from '~/utils/date'
 import { promptGeminiJson } from '~/utils/gemini'
 import { getValidated } from '~/utils/h3'
-import { badRequest, internal, paymentRequired, unauthorized } from '~/utils/nuxt'
+import { badRequest, internal, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
 import { isPlanPastDue } from '~/utils/plan'
 import type { CharacterDraftData } from '~~/db/schema'
 import { characterDraftLocalizations, characterDraftSchema, characterDrafts } from '~~/db/schema'
@@ -35,6 +35,11 @@ export default eventHandler(async (event) => {
 
   if (!existingDraft)
     throw badRequest('You do not have a pending character draft')
+
+  const generateCharacterRateLimit = await event.context.cloudflare.env.GENERATE_CHARACTER_RATE_LIMIT.limit({ key: `generate-character-${user.id}` })
+
+  if (!generateCharacterRateLimit.success)
+    throw rateLimit()
 
   const { responseSchema, guidelines, editIntro, editOutro } = getCharacterDraftPrompt()
   const systemInstruction = `

@@ -2,7 +2,7 @@ import { and, eq } from 'drizzle-orm'
 import { getCharacterByUsername } from '~/server/services/character'
 import { now } from '~/utils/date'
 import { getValidated } from '~/utils/h3'
-import { badRequest, internal, unauthorized } from '~/utils/nuxt'
+import { badRequest, internal, rateLimit, unauthorized } from '~/utils/nuxt'
 import { chats, contactInsertSchema, contacts } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
@@ -13,6 +13,11 @@ export default eventHandler(async (event) => {
 
   if (!user)
     throw unauthorized()
+
+  const queryUsernameRateLimit = await event.context.cloudflare.env.QUERY_USERNAME_RATE_LIMIT.limit({ key: `query-username-${user.id}` })
+
+  if (!queryUsernameRateLimit.success)
+    throw rateLimit()
 
   const result = await getCharacterByUsername(orm, data.username)
 
