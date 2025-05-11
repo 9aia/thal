@@ -141,7 +141,7 @@ onMounted(() => {
     <div class="flex-1 overflow-y-auto bg-white">
       <AppNote
         v-model="isNoteVisible"
-        icon-name="waving_hand"
+        icon-name="material-symbols:waving-hand-outline"
       >
         <h2 class="text-lg text-gradient-2 w-fit">
           {{ t('Welcome!') }}
