@@ -166,8 +166,7 @@ function cancelEdit() {
     <div class="chat-footer opacity-90 flex items-center mt-1" :class="{ 'flex-row-reverse': !right }">
       <div class="flex items-center min-h-8" :class="{ 'flex-row-reverse': !right }">
         <Button
-
-          class="btn btn-ghost btn-gray text-blue-500 sm:hidden group-hover:block"
+          class="btn-ghost btn-gray text-blue-500 sm:hidden group-hover:block"
           size="sm"
           shape="circle"
           @click="edit"
@@ -179,7 +178,8 @@ function cancelEdit() {
 
         <Button
           v-if="(from === 'user') && showResend && !isEditing"
-          class="btn btn-sm btn-circle btn-ghost btn-gray text-magenta-500 sm:hidden group-hover:block" shape="circle"
+          shape="circle"
+          class="btn-ghost btn-gray text-magenta-500 sm:hidden group-hover:block"
           @click="emit('resend')"
         >
           <Icon class="text-base">
@@ -189,7 +189,8 @@ function cancelEdit() {
 
         <Button
           v-if="!isEditing"
-          class="text-gray-800 btn-ghost sm:hidden group-hover:block" shape="circle"
+          shape="circle"
+          class="text-gray-800 btn-ghost sm:hidden group-hover:block"
           @click="copyToClipboard"
         >
           <Icon class="text-base">
@@ -199,7 +200,9 @@ function cancelEdit() {
 
         <Button
           v-if="!isEditing && status !== 'error'"
-          class="text-gray-800 btn-ghost sm:hidden group-hover:block" shape="circle" no-disable-on-loading
+          shape="circle"
+          class="text-gray-800 btn-ghost sm:hidden group-hover:block"
+          no-disable-on-loading
           :loading="audiableTextMutation?.isPending.value" @click="audiableTextMutation?.mutate()"
         >
           <Icon class="text-base">
@@ -209,7 +212,8 @@ function cancelEdit() {
 
         <Button
           v-if="!isEditing && status !== 'error'"
-          class="text-gray-800 btn-ghost sm:hidden group-hover:block" shape="circle"
+          shape="circle"
+          class="text-gray-800 btn-ghost sm:hidden group-hover:block"
           :loading="translation.isLoading.value"
           :disabled="isCharacterDeleted"
           @click="translation.onTranslate()"
@@ -221,7 +225,8 @@ function cancelEdit() {
 
         <Button
           v-if="(from === 'user') && showDelete"
-          class="btn btn-sm btn-circle btn-ghost btn-gray text-red-500 sm:hidden group-hover:block" shape="circle"
+          shape="circle"
+          class="btn-ghost btn-gray text-red-500 sm:hidden group-hover:block"
           @click="emit('delete')"
         >
           <Icon class="text-base">

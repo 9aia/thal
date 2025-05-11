@@ -109,7 +109,6 @@ onMounted(() => {
       <div class="flex items-center">
         <Button
           class="btn-ghost"
-          size="md"
           shape="circle"
           no-disable-on-loading
           :class="{
@@ -124,7 +123,6 @@ onMounted(() => {
 
         <Button
           class="btn-ghost"
-          size="md"
           shape="circle"
           no-disable-on-loading
           @click="goToDiscover"
@@ -201,7 +199,7 @@ onMounted(() => {
       </div>
 
       <div class="absolute bottom-4 right-4">
-        <Button size="md" shape="circle" class="border-none bg-cyan-500" @click="drawers.newChat = true">
+        <Button shape="circle" class="border-none bg-cyan-500" @click="drawers.newChat = true">
           <Icon name="material-symbols:add" />
         </Button>
       </div>

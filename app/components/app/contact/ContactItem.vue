@@ -33,7 +33,8 @@ const emit = defineEmits<{
     <div class="hidden group-hover:flex">
       <Button
         v-if="showEdit"
-        class="btn-md btn-ghost btn-circle"
+        class="btn-ghost"
+        shape="circle"
         @click.prevent="emit('edit')"
       >
         <Icon name="material-symbols:edit-outline" class="text-black" />
@@ -41,7 +42,8 @@ const emit = defineEmits<{
 
       <Button
         v-if="showDelete"
-        class="btn-ghost btn-circle"
+        shape="circle"
+        class="btn-ghost"
         @click.prevent="emit('delete')"
       >
         <Icon name="material-symbols:delete-outline" class="text-black text-xs" />

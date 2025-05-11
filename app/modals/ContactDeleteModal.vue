@@ -67,7 +67,7 @@ const {
       </Button>
 
       <Button
-        class="btn btn-primary"
+        class="btn-primary"
         @click="isOpen = false"
       >
         {{ t('Cancel') }}

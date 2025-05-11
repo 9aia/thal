@@ -15,7 +15,7 @@ const emit = defineEmits<({
 <template>
   <div class="bg-white border-b border-gray-100 px-3 py-2 h-[64px] flex gap-2 justify-between">
     <h1 v-if="!hideTitle" class="text-lg py-2 text-gradient-1 flex items-center gap-1">
-      <Button v-if="!hideBack" size="md" class="btn-ghost text-black -translate-x-2" shape="circle" @click="emit('close')">
+      <Button v-if="!hideBack" class="btn-ghost text-black -translate-x-2" shape="circle" @click="emit('close')">
         <Icon name="material-symbols:arrow-back" />
       </Button>
 

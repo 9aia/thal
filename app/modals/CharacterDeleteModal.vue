@@ -127,7 +127,7 @@ const isUsernameInvalid = computed(() => {
         {{ t('Delete character') }}
       </Button>
 
-      <Button value="false" class="btn btn-primary" @click="isOpen = false">
+      <Button value="false" class="btn-primary" @click="isOpen = false">
         {{ t('Cancel') }}
       </Button>
     </template>

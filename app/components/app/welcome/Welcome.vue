@@ -25,7 +25,6 @@ function openChats() {
       <div>
         <Button
           class="btn-ghost"
-          size="md"
           shape="circle"
           no-disable-on-loading
           @click="openChats"
@@ -37,7 +36,6 @@ function openChats() {
 
         <Button
           class="btn-ghost"
-          size="md"
           shape="circle"
           no-disable-on-loading
           @click="goToDiscover"
