@@ -23,6 +23,7 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ### Fixed
 
+- Fixed missing send message button
 - Fixed category name translation on "My Characters" and "Discover Characters" items
 - Fixed useRoute warning when changing language
 - Improved translation context awareness

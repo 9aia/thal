@@ -173,8 +173,12 @@ watch(translation.isLoading, (value) => {
         </div>
 
         <Button
-          v-if="!isEmpty" class="btn-ghost btn-circle avatar"
-          :disabled="isChatError || isChatSending || undefined" @click="handleSend"
+          v-if="!isEmpty"
+          class="btn-ghost"
+          size="md"
+          shape="circle"
+          :disabled="isChatError || isChatSending || undefined"
+          @click="handleSend"
         >
           <Icon :name="icon" />
         </Button>

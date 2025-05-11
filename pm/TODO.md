@@ -7,7 +7,6 @@ description: Tasks and items for the release.
 ## 0.1.0-9
 
 - Notify error (specially username taken) when approving character
-- Fix missing send button on mobile
 - Fix issue with route including "_" in username
 - Add rate limit to character creation and any AI-required feature
 - Fix auth redirect with query params (keep them)
