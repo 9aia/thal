@@ -54,33 +54,3 @@ async function goToDiscover() {
     </div>
   </div>
 </template>
-
-<style scoped>
-.text-gradient-1 {
-  @apply text-gray-100;
-}
-
-.border-gradient-1 {
-  @apply border-none px-1 py-1 bg-magenta-50 text-magenta-500;
-  @apply bg-gray-50;
-}
-
-.border-gradient-1:hover {
-  @apply border-2 border-gray-200 px-2 py-1;
-}
-
-.border-gradient-2 {
-  @apply border-none px-1 py-1 bg-blue-50 text-blue-500;
-  @apply bg-gray-50;
-}
-
-.border-gradient-3 {
-  @apply border-none px-1 py-1 bg-orange-50 text-orange-500;
-  @apply bg-gray-50;
-}
-
-.border-gradient-4 {
-  @apply border-none px-1 py-1 bg-red-50 text-red-500;
-  @apply bg-gray-50;
-}
-</style>

@@ -93,6 +93,11 @@ const date = computed(() => {
       ]
     : undefined
 })
+
+function goToChat() {
+  navigateTo(`/app/chat/${username.value}`)
+  closeDrawer()
+}
 </script>
 
 <template>
@@ -145,14 +150,25 @@ const date = computed(() => {
             <Username :username="data?.username!" :show-copy="true" class="mx-auto" />
 
             <div class="w-full flex justify-center mt-3 gap-2">
-              <Button v-if="!hasContact" size="sm" class="border-none bg-cyan-500 rounded-full text-black  hover:bg-cyan-600 py-2 px-4 flex" @click="addContact">
-                <Icon name="material-symbols:person-add-outline" />
-                <span class="">{{ t('Save') }}</span>
+              <Button v-if="!hasContact" size="sm" class="border-none bg-blue-500 text-white px-1 py-1 rounded-full hover:bg-blue-500 shadow-none" @click="goToChat">
+                <span class="px-4 py-1 flex items-center justify-center gap-1">
+                  <Icon name="material-symbols:chat-outline" />
+                  {{ t("Message") }}
+                </span>
               </Button>
 
-              <Button size="sm" class="border-none bg-cyan-500 rounded-full text-black  hover:bg-cyan-600 py-2 px-4 flex" @click="copyUrl">
-                <Icon name="material-symbols:ios-share" />
-                <span class="">{{ t('Share') }}</span>
+              <Button v-if="!hasContact" size="sm" class="border-none bg-transparent text-orange-500 px-1 py-1 rounded-full hover:bg-orange-500/10 hover:text-orange-500 shadow-none" @click="addContact">
+                <span class="px-4 py-1 flex items-center justify-center gap-1">
+                  <Icon name="material-symbols:person-add-outline" />
+                  {{ t("Save") }}
+                </span>
+              </Button>
+
+              <Button size="sm" class="border-none bg-transparent text-brown-500 px-1 py-1 rounded-full hover:bg-brown-500/10 hover:text-brown-500 shadow-none" @click="copyUrl">
+                <span class="px-4 py-1 flex items-center justify-center gap-1">
+                  <Icon name="material-symbols:ios-share" />
+                  {{ t('Share') }}
+                </span>
               </Button>
             </div>
           </section>
@@ -231,3 +247,14 @@ const date = computed(() => {
     </div>
   </div>
 </template>
+
+<style scoped>
+.bg-gradient-badge {
+
+  background: radial-gradient(at bottom, theme('colors.blue.100'), theme('colors.gray.50'));
+}
+
+.bg-gradient-badge-2 {
+  background: radial-gradient(at bottom, theme('colors.blue.100'), theme('colors.gray.100'));
+}
+</style>

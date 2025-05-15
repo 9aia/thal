@@ -23,3 +23,46 @@ html {
 html:has(body.content-overflow-y) {
   scrollbar-gutter: stable !important;
 }
+
+.border-gradient-1 {
+  @apply border-none bg-gray-50 text-magenta-500 px-1 py-1;
+}
+
+.border-gradient-1:hover {
+  @apply border-none bg-gray-100 text-magenta-500;
+}
+
+.border-gradient-2 {
+  @apply border-none bg-gray-50 text-blue-500 px-1 py-1;
+}
+
+.border-gradient-2:hover {
+  @apply border-none bg-gray-100 text-blue-500;
+}
+
+.border-gradient-3 {
+  @apply border-none bg-gray-50 text-orange-500 px-1 py-1;
+}
+
+.border-gradient-3:hover {
+  @apply border-none bg-gray-100 text-orange-500;
+}
+
+.border-gradient-4 {
+  @apply border-none bg-gray-50 text-red-500 px-1 py-1;
+}
+
+.border-gradient-4:hover {
+  @apply border-none bg-gray-100 text-red-500;
+}
+
+.bg-glow-cyan {
+  background: radial-gradient(at bottom, theme('colors.blue.100'), theme('colors.gray.50'));
+  @apply text-blue-500 border-none px-1 py-1;
+}
+
+.bg-glow-cyan:hover {
+  @apply bg-blue-600 border-2 border-blue-600;
+}
+
+

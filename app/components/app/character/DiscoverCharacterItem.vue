@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
 import { categories } from '~/constants/discover'
-import { isRootDrawerOpen } from '~/store'
+import { isRootDrawerOpen, openContactView } from '~/store'
 
 const props = defineProps<{
   name: string
@@ -26,6 +26,14 @@ function onClick() {
 const category = computed(() => {
   return categories.find(category => category.id === props.categoryId)
 })
+
+const avatarName = computed(() => {
+  return props.avatar || props.name
+})
+
+const displayName = computed(() => {
+  return props.name
+})
 </script>
 
 <template>
@@ -35,13 +43,13 @@ const category = computed(() => {
     class="py-1 flex gap-2 rounded items-center group"
     @click.prevent="onClick"
   >
-    <Avatar :name="name" class="w-10 text-sm" type="button" />
+    <Avatar :name="avatarName" class="w-10 text-md" type="button" @click.stop="openContactView({ username, displayName, avatarName })" />
 
     <div class="flex-1 flex flex-col justify-center">
       <div class="flex justify-between gap-1">
         <div class="flex flex-col w-full">
           <div class="flex gap-2 items-center text-base text-gray-900">
-            {{ name }}
+            {{ displayName }}
           </div>
 
           <div v-if="category" class="text-sm text-gray-600 flex justify-between gap-1 items-center">
@@ -50,8 +58,6 @@ const category = computed(() => {
 
               {{ t(category?.name) }}
             </Badge>
-
-            <Username :username="username" show-copy="left" />
           </div>
 
           <div
