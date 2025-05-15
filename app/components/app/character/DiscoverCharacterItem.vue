@@ -13,10 +13,9 @@ const props = defineProps<{
   showSendMessage?: boolean
 }>()
 
-function sendMessage() {
+async function sendMessage() {
   isRootDrawerOpen.value = false
-
-  navigateTo(`/app/chat/${props.username}`)
+  await navigateTo(`/app/chat/${props.username}`)
 }
 
 function onClick() {

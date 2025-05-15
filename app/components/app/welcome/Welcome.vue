@@ -2,12 +2,9 @@
 import { t } from '@psitta/vue'
 import { isRootDrawerOpen } from '~/store'
 
-const { focusMainField: focusSearch } = useDiscoverFocus()
-
-function goToDiscover() {
+async function goToDiscover() {
   isRootDrawerOpen.value = false
-  navigateTo('/app/discover')
-  focusSearch({ immediate: true })
+  await navigateTo('/app/discover')
 }
 
 function openChats() {

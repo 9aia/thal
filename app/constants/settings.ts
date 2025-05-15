@@ -2,17 +2,11 @@ import type { MenuItemType } from '~/components/ui/navigation/types'
 import { drawers, isRootDrawerOpen } from '~/store'
 import { useWhatsNewModal } from '~/composables/useWhatsNewModal'
 
-const { focusMainField: focusSearch } = useDiscoverFocus()
-
 const t = (x: string) => x
 
 async function goToDiscover() {
   isRootDrawerOpen.value = false
   await navigateTo('/app/discover')
-
-  await nextTick()
-
-  focusSearch()
 }
 
 const general: MenuItemType[] = [

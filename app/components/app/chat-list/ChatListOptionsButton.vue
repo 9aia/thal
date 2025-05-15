@@ -5,15 +5,10 @@ import type { MenuItemType } from '~/components/ui/navigation/types'
 const logout = useLogout()
 
 const t = (x: string) => x
-const { focusMainField: focusSearch } = useDiscoverFocus()
 
 async function goToDiscover() {
   isRootDrawerOpen.value = false
   await navigateTo('/app/discover')
-
-  await nextTick()
-
-  focusSearch()
 }
 
 async function openProfile() {

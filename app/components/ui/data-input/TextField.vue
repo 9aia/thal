@@ -10,6 +10,7 @@ type Props = SafeProps<InputHTMLAttributes> & {
   autocapitalize?: string
   label?: string
   placeholder?: string
+  autofocus?: boolean
   error?: string
   path: string
   rules?: MaybeRef<RuleExpression<string>>
@@ -20,6 +21,7 @@ type Props = SafeProps<InputHTMLAttributes> & {
 
 const props = withDefaults(defineProps<Props>(), {
   iconPosition: 'none',
+  autofocus: false,
 })
 const label = useSlotContent(() => props.label)
 
@@ -69,6 +71,7 @@ defineExpose({
           'pr-12': iconPosition === 'right',
           'pl-12': iconPosition === 'left',
         }"
+        :autofocus="autofocus"
       >
       <div
         v-if="iconPosition === 'right'"

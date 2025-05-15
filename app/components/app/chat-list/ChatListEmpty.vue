@@ -4,9 +4,9 @@ import { buildCharacter, isRootDrawerOpen, manageContact } from '~/store'
 
 const { open: openWhatsNewModal } = useWhatsNewModal()
 
-function goToDiscover() {
+async function goToDiscover() {
   isRootDrawerOpen.value = false
-  navigateTo('/app/discover')
+  await navigateTo('/app/discover')
 }
 </script>
 

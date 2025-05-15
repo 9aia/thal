@@ -21,7 +21,6 @@ const queryClient = useQueryClient()
 
 const form = useForm<Contact>({})
 const hasErrors = useHasFormErrors(form)
-const { mainField } = useNewContactFocus()
 
 const localeDefaultRegion = useLocaleDefaultRegion()
 
@@ -160,7 +159,10 @@ const submit = form.handleSubmit(() => isEditing.value
       <SettingSection :title="t('General Information')">
         <form class="block space-y-2" @submit="submit">
           <TextField
-            ref="mainField" path="name" :label="t('Name')" :rules="yupify(nameSchema, t(
+            autofocus
+            path="name"
+            :label="t('Name')"
+            :rules="yupify(nameSchema, t(
               'Name must contain between 1 and 20 characters.',
             ))"
           />

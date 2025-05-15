@@ -8,6 +8,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## Features
 
+- Move Pronouns field into About me textarea
 - Implement basic analytics to track user engagement and app performance
 - Implement soft-deletes for characters to enable translation/listening in chats with deleted characters
 - Add rate limit details to the pricing page
@@ -20,6 +21,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Add chat item option "Mark as unread", "Delete chat"
 - Add dark theme
 - Add date stamps in chat
+- Add query param to add contact from URL (eg. /app/chat/username?add=true and /app?add-contact=username)
 - Add a deleted/non-existent section in contacts
 - Add character search results to chat and contact search
 - Add multiple message TTS player

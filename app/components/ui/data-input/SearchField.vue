@@ -5,6 +5,7 @@ const props = defineProps<{
   path: string
   rules?: MaybeRef<RuleExpression<string>>
   placeholder?: string
+  autofocus?: boolean
 }>()
 
 const { value } = useField(props.path, props.rules)
@@ -15,6 +16,7 @@ const { value } = useField(props.path, props.rules)
     :placeholder="placeholder"
     path="search"
     icon-position="right"
+    :autofocus="autofocus"
   >
     <template #icon>
       <Icon

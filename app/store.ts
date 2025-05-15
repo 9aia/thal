@@ -59,8 +59,6 @@ export function openContactView(data: ContactInfoData) {
   rightDrawers.contactView = true
 }
 
-const { focusMainField: focusContactMainField } = useNewContactFocus()
-
 export async function manageContact(data?: Contact | null) {
   if (data) {
     contactData.value = data
@@ -71,10 +69,6 @@ export async function manageContact(data?: Contact | null) {
 
   isRootDrawerOpen.value = true
   drawers.manageContact = true
-
-  await nextTick()
-
-  focusContactMainField()
 }
 
 /* Chat */
@@ -103,8 +97,6 @@ export const currentPlayingMessage = ref<string | null>(null)
 
 export const characterBuilderData = ref<Character | null>(null)
 
-export const { focusMainField: focusCharacterMainField } = useBuildCharacterFocus()
-
 export async function buildCharacter(data?: Character | null) {
   if (data) {
     characterBuilderData.value = data
@@ -115,8 +107,4 @@ export async function buildCharacter(data?: Character | null) {
 
   isRootDrawerOpen.value = true
   drawers.characterBuilder = true
-
-  await nextTick()
-
-  focusCharacterMainField()
 }

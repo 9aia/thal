@@ -11,9 +11,6 @@ description: Tasks and items for the release.
 - Add rate limit for user username changing
 - Add rate limit error handling to username validation on client
 - Notify error (specially username taken and invalid username) when approving character
-- Use a single table for user and character usernames
-- Rename table `CharacterUsername` to `Username`
-- Check user changing usernames to taken ones
 
 - Revision and adjust
   - Improve the design system and UI

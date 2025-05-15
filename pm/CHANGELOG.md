@@ -12,6 +12,7 @@ description: A detailed, chronological record of all changes made to a project, 
 - Fixed waving hand icon
 - Fixed missing send message button
 - Added support for redirecting to URLs containing query parameters
+- Unified contact and character usernames
 
 ## [0.1.0-8] - 2025-05-05
 

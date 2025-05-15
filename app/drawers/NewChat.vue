@@ -19,15 +19,9 @@ const generalItems: MenuItemType[] = [
   { id: 'create-character', icon: 'material-symbols:engineering-outline', name: t('Build character'), onClick: () => buildCharacter(null) },
 ]
 
-const { focusMainField: focusSearch } = useDiscoverFocus()
-
 async function goToDiscover() {
   isRootDrawerOpen.value = false
   await navigateTo('/app/discover')
-
-  await nextTick()
-
-  focusSearch()
 }
 
 const discoverItems: MenuItemType[] = [
@@ -58,11 +52,11 @@ const {
   },
 })
 
-function handleGoToChat(username: string) {
+async function handleGoToChat(username: string) {
   isRootDrawerOpen.value = false
   drawers.newChat = false
 
-  navigateTo(`/app/chat/${username}`)
+  await navigateTo(`/app/chat/${username}`)
 }
 </script>
 
@@ -74,6 +68,7 @@ function handleGoToChat(username: string) {
       <SearchField
         :placeholder="t('Search name or username...')"
         path="search"
+        autofocus
       />
     </div>
 

@@ -51,16 +51,12 @@ watch(draftQuery.data, () => {
   }
 })
 
-const { mainField, focusMainField } = useBuildCharacterFocus()
-
 onMounted(() => {
   if (draftQuery.data.value) {
     form.setValues({
       prompt: draftQuery.data.value.prompt,
     })
   }
-
-  focusMainField()
 })
 
 const user = useUser()

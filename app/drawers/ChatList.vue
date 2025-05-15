@@ -76,12 +76,9 @@ async function openWhatsNewModal() {
   }
 }
 
-const { focusMainField: focusSearch } = useDiscoverFocus()
-
-function goToDiscover() {
+async function goToDiscover() {
   isRootDrawerOpen.value = false
-  navigateTo('/app/discover')
-  focusSearch({ immediate: true })
+  await navigateTo('/app/discover')
 }
 
 const isPastDueVisible = computed(() => {
@@ -170,6 +167,7 @@ onMounted(() => {
         <SearchField
           :placeholder="t('Search name or username...')"
           path="search"
+          autofocus
         />
       </div>
 

@@ -21,9 +21,9 @@ const content = computed(() => {
   return props.chat.lastMessageContent || ''
 })
 
-function handleGoToChat(username: string) {
+async function handleGoToChat(username: string) {
   isRootDrawerOpen.value = false
-  navigateTo(`/app/chat/${username}`)
+  await navigateTo(`/app/chat/${username}`)
 }
 </script>
 

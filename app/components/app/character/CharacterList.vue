@@ -41,12 +41,6 @@ const {
 
 const isCategoryModalOpen = ref(false)
 
-const { focusMainField: focusSearch, mainField: searchEl } = useDiscoverFocus()
-
-onMounted(() => {
-  focusSearch({ immediate: true })
-})
-
 watch(categoryId, () => {
   const el = document.querySelector(`#category-${categoryId.value}`)
 
@@ -75,10 +69,10 @@ watch(categoryId, () => {
     <div class="mx-auto pb-4">
       <div class="px-4 pt-4 mb-4">
         <TextField
-          ref="searchEl"
           :placeholder="t('Search for characters')"
           path="search"
           icon-position="right"
+          autofocus
         >
           <template #icon>
             <Icon
