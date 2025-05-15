@@ -4,7 +4,7 @@ import { getGoogleUser } from '../../../../utils/google'
 import { createUser, getUser } from '../../../services/user'
 import { createSession, setSessionTokenCookie } from '~/server/services/auth'
 import type { OAuthProviderParams } from '~/server/types'
-import { generateSessionToken, generateUsername } from '~/utils/auth'
+import { generateSessionToken, generateUsernameByEmail } from '~/utils/auth'
 import { badRequest, internal } from '~/utils/nuxt'
 import { type UserInsert, users } from '~~/db/schema'
 
@@ -75,7 +75,7 @@ export default defineEventHandler(async (event) => {
     }
 
     const userInsert: UserInsert = {
-      username: generateUsername(googleUser.email!),
+      username: generateUsernameByEmail(googleUser.email!),
       name: googleUser.givenName,
       lastName: googleUser.familyName,
       email: googleUser.email,

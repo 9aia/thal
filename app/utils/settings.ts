@@ -16,22 +16,6 @@ export function parseInitialValues(selected: string) {
   }, {})
 };
 
-export function generateUsername(text: string): string {
-  let base = text
-    .normalize('NFD')
-    .replace(/\p{Diacritic}/gu, '')
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, '_')
-    .replace(/^-+|-+$/g, '')
-
-  if (base.length > 15) {
-    base = base.substring(0, 15)
-  }
-  const randomNumbers = Math.floor(1000 + Math.random() * 9000).toString()
-  return `${base}_${randomNumbers}`
-}
-
 export function generateCharacterName(text: string): string {
   const capitalized = text
     .replace(/_/g, ' ')
