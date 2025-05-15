@@ -1,6 +1,4 @@
-<script lang="ts" setup>
-import { defineEmits } from 'vue'
-
+<script setup lang="ts">
 defineProps<{
   title?: string
   hideBack?: boolean
