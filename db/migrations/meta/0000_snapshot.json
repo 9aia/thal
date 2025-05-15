@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "dc8d69db-7f7c-48dc-a0d1-199cf18747cf",
+  "id": "9eefc6a1-f6f7-4371-8008-b514f4cae825",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "CharacterDraftLocalization": {
@@ -215,59 +215,6 @@
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
-    "CharacterUsername": {
-      "name": "CharacterUsername",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "integer",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": true
-        },
-        "character_id": {
-          "name": "character_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "username": {
-          "name": "username",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        }
-      },
-      "indexes": {
-        "CharacterUsername_username_unique": {
-          "name": "CharacterUsername_username_unique",
-          "columns": [
-            "username"
-          ],
-          "isUnique": true
-        }
-      },
-      "foreignKeys": {
-        "CharacterUsername_character_id_Character_id_fk": {
-          "name": "CharacterUsername_character_id_Character_id_fk",
-          "tableFrom": "CharacterUsername",
-          "tableTo": "Character",
-          "columnsFrom": [
-            "character_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
-    },
     "Character": {
       "name": "Character",
       "columns": {
@@ -378,10 +325,10 @@
         }
       },
       "foreignKeys": {
-        "Chat_character_username_id_CharacterUsername_id_fk": {
-          "name": "Chat_character_username_id_CharacterUsername_id_fk",
+        "Chat_character_username_id_Username_id_fk": {
+          "name": "Chat_character_username_id_Username_id_fk",
           "tableFrom": "Chat",
-          "tableTo": "CharacterUsername",
+          "tableTo": "Username",
           "columnsFrom": [
             "character_username_id"
           ],
@@ -439,8 +386,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "character_username_id": {
-          "name": "character_username_id",
+        "username_id": {
+          "name": "username_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
@@ -462,22 +409,22 @@
         }
       },
       "indexes": {
-        "Contact_user_id_character_username_id_unique": {
-          "name": "Contact_user_id_character_username_id_unique",
+        "Contact_user_id_username_id_unique": {
+          "name": "Contact_user_id_username_id_unique",
           "columns": [
             "user_id",
-            "character_username_id"
+            "username_id"
           ],
           "isUnique": true
         }
       },
       "foreignKeys": {
-        "Contact_character_username_id_CharacterUsername_id_fk": {
-          "name": "Contact_character_username_id_CharacterUsername_id_fk",
+        "Contact_username_id_Username_id_fk": {
+          "name": "Contact_username_id_Username_id_fk",
           "tableFrom": "Contact",
-          "tableTo": "CharacterUsername",
+          "tableTo": "Username",
           "columnsFrom": [
-            "character_username_id"
+            "username_id"
           ],
           "columnsTo": [
             "id"
@@ -745,6 +692,79 @@
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
+    "Username": {
+      "name": "Username",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "character_id": {
+          "name": "character_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "username": {
+          "name": "username",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "Username_username_unique": {
+          "name": "Username_username_unique",
+          "columns": [
+            "username"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "Username_character_id_Character_id_fk": {
+          "name": "Username_character_id_Character_id_fk",
+          "tableFrom": "Username",
+          "tableTo": "Character",
+          "columnsFrom": [
+            "character_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "Username_user_id_User_id_fk": {
+          "name": "Username_user_id_User_id_fk",
+          "tableFrom": "Username",
+          "tableTo": "User",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
     "User": {
       "name": "User",
       "columns": {
@@ -752,13 +772,6 @@
           "name": "id",
           "type": "text",
           "primaryKey": true,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "username": {
-          "name": "username",
-          "type": "text",
-          "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
@@ -856,15 +869,7 @@
           "autoincrement": false
         }
       },
-      "indexes": {
-        "User_username_unique": {
-          "name": "User_username_unique",
-          "columns": [
-            "username"
-          ],
-          "isUnique": true
-        }
-      },
+      "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},

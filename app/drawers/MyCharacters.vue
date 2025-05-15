@@ -86,11 +86,11 @@ function handleGoToChat(username: string) {
                 >
                   <CharacterItem
                     :name="character.characterLocalizations?.[0]?.name"
-                    :username="character.characterUsernames?.username || undefined"
+                    :username="character.usernames?.username || undefined"
                     :category-id="character.categoryId"
                     @delete="handleDeleteCharacter(character as unknown as Character)"
                     @edit="buildCharacter(character as unknown as Character)"
-                    @chat="handleGoToChat(character.characterUsernames?.username as string)"
+                    @chat="handleGoToChat(character.usernames?.username as string)"
                     @click="buildCharacter(character as unknown as Character)"
                   />
                 </li>

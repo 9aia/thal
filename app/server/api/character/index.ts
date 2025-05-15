@@ -22,7 +22,7 @@ export default eventHandler(async (event) => {
       discoverable: true,
     },
     with: {
-      characterUsernames: {
+      usernames: {
         columns: {
           username: true,
         },

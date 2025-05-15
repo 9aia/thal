@@ -131,7 +131,7 @@ function updateLastMessage(newMessage: SendMessageData, isError = false) {
   const newChat: ChatItem = {
     chatId: chatId.value,
     contactName: data.value.contact?.name,
-    characterUsername: data.value.username,
+    username: data.value.username,
     lastMessageContent: newMessage.value,
     lastMessageStatus: isError ? 'error' : (isOnline.value ? 'seen' : 'sending'),
     lastMessageDatetime: new Date().getTime(),
@@ -141,7 +141,7 @@ function updateLastMessage(newMessage: SendMessageData, isError = false) {
   queryClient.setQueryData(queryKeys.chatsSearch(localeWithDefaultRegion.value, chatItemSearch.value), (oldData: ChatItem[]) => {
     let newChats = [...oldData]
 
-    const chatIndex = newChats.findIndex((lastMessage: ChatItem) => lastMessage.characterUsername === data.value.username)
+    const chatIndex = newChats.findIndex((lastMessage: ChatItem) => lastMessage.username === data.value.username)
 
     if (chatIndex !== -1) {
       newChats[chatIndex] = newChat

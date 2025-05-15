@@ -25,7 +25,7 @@ export default eventHandler(async (event) => {
     limit,
     offset,
     with: {
-      characterUsernames: true,
+      usernames: true,
       characterLocalizations: {
         columns: {
           name: true,

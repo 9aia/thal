@@ -2,7 +2,7 @@ import { and, eq, sql } from 'drizzle-orm'
 import type { H3EventContext } from 'h3'
 import { notFound } from '~/utils/nuxt'
 import type { User } from '~~/db/schema'
-import { characterLocalizations, characterUsernames, characters, contacts } from '~~/db/schema'
+import { characterLocalizations, characters, contacts, usernames } from '~~/db/schema'
 
 export async function getContactByUser(
   orm: H3EventContext['orm'],
@@ -10,8 +10,8 @@ export async function getContactByUser(
   username: string,
   locale: string,
 ) {
-  const result = await orm.query.characterUsernames.findFirst({
-    where: eq(characterUsernames.username, username),
+  const result = await orm.query.usernames.findFirst({
+    where: eq(usernames.username, username),
     columns: {
       id: true,
       username: true,
@@ -61,13 +61,13 @@ export async function getContactWithCharacterByUser(
       id: contacts.id,
       name: contacts.name,
       createdAt: contacts.createdAt,
-      username: characterUsernames.username,
-      characterUsernameId: characterUsernames.id,
+      username: usernames.username,
+      usernameId: usernames.id,
     })
     .from(contacts)
-    .leftJoin(characterUsernames, eq(characterUsernames.id, contacts.characterUsernameId))
-    .leftJoin(characters, eq(characters.id, characterUsernames.characterId))
-    .where(and(eq(contacts.userId, user.id!), eq(characterUsernames.username, username)))
+    .leftJoin(usernames, eq(usernames.id, contacts.usernameId))
+    .leftJoin(characters, eq(characters.id, usernames.characterId))
+    .where(and(eq(contacts.userId, user.id!), eq(usernames.username, username)))
 
   if (!contact)
     throw notFound('Contact not found')
@@ -86,20 +86,20 @@ export async function getContactsWithCharacterByUser(
       SELECT 
         ${contacts.id} AS contactId,
         ${contacts.name} AS contactName,
-        ${characterUsernames.username} AS characterUsername,
+        ${usernames.username} AS username,
         ${characterLocalizations.description} AS characterDescription
       FROM 
         ${contacts}
       LEFT JOIN 
-        ${characterUsernames} ON ${contacts.characterUsernameId} = ${characterUsernames.id}
+        ${usernames} ON ${contacts.usernameId} = ${usernames.id}
       LEFT JOIN 
-        ${characters} ON ${characterUsernames.characterId} = ${characters.id}
+        ${characters} ON ${usernames.characterId} = ${characters.id}
       LEFT JOIN
         ${characterLocalizations} ON ${characters.id} = ${characterLocalizations.characterId}
       WHERE
         ${contacts.userId} = ${user.id}
         ${search
-            ? sql`AND (lower(${contacts.name}) LIKE ${searchLike} OR lower(${characterUsernames.username}) LIKE ${searchLike} OR lower(${characterLocalizations.name}) LIKE ${searchLike})`
+            ? sql`AND (lower(${contacts.name}) LIKE ${searchLike} OR lower(${usernames.username}) LIKE ${searchLike} OR lower(${characterLocalizations.name}) LIKE ${searchLike})`
             : sql``
         }
         AND ${characterLocalizations.locale} = ${locale}
@@ -108,7 +108,7 @@ export async function getContactsWithCharacterByUser(
   return results as {
     contactId: number
     contactName: string
-    characterUsername: string
+    username: string
     characterDescription: string
   }[]
 }

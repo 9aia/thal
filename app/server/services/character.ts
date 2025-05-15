@@ -3,14 +3,14 @@ import type { H3EventContext } from 'h3'
 import { categories } from '~/constants/discover'
 import { internal, notFound } from '~/utils/nuxt'
 import type { User } from '~~/db/schema'
-import { characterLocalizations, characterUsernames, contacts } from '~~/db/schema'
+import { characterLocalizations, contacts, usernames } from '~~/db/schema'
 
 export async function getCharacterByUsername(
   orm: H3EventContext['orm'],
   username: string,
 ) {
-  const result = await orm.query.characterUsernames.findFirst({
-    where: eq(characterUsernames.username, username),
+  const result = await orm.query.usernames.findFirst({
+    where: eq(usernames.username, username),
     with: {
       character: true,
     },
@@ -24,14 +24,14 @@ export async function getCharacterByUsername(
   if (!character) {
     return {
       username,
-      characterUsernameId: result.id,
+      usernameId: result.id,
     }
   }
 
   return {
     ...character,
     username,
-    characterUsernameId: result.id,
+    usernameId: result.id,
   }
 }
 
@@ -41,8 +41,8 @@ export async function getCharacterWithContactByUser(
   username: string,
   locale: string,
 ) {
-  const result = await orm.query.characterUsernames.findFirst({
-    where: eq(characterUsernames.username, username),
+  const result = await orm.query.usernames.findFirst({
+    where: eq(usernames.username, username),
     with: {
       character: {
         columns: {

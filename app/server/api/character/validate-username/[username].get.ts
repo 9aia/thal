@@ -1,8 +1,8 @@
 import { eq } from 'drizzle-orm'
 import { z } from 'zod'
 import { getValidated } from '~/utils/h3'
-import { rateLimit, unauthorized } from '~/utils/nuxt'
-import { characterUsernames, usernameSchema } from '~~/db/schema'
+import { unauthorized } from '~/utils/nuxt'
+import { usernameSchema, usernames } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const orm = event.context.orm
@@ -12,19 +12,19 @@ export default eventHandler(async (event) => {
     throw unauthorized()
 
   const { username } = await getValidated(event, 'params', z.object({ username: z.string() }))
-  const { allowedUsername } = await getValidated(event, 'query', z.object({ allowedUsername: z.string().optional() }))
+  const { editingUsername } = await getValidated(event, 'query', z.object({ editingUsername: z.string().optional() }))
 
   if (!usernameSchema.safeParse(username).success)
     return { valid: false }
 
-  const [existingCharacterUsername] = await orm
+  const [existingUsername] = await orm
     .select()
-    .from(characterUsernames)
-    .where(eq(characterUsernames.username, username))
+    .from(usernames)
+    .where(eq(usernames.username, username))
 
-  const isUsernameTaken = existingCharacterUsername && existingCharacterUsername.characterId !== null
+  const isUsernameTaken = existingUsername && (existingUsername.characterId !== null || existingUsername.userId !== user.id)
 
   return {
-    valid: username === allowedUsername || !isUsernameTaken,
+    valid: username === editingUsername || !isUsernameTaken,
   }
 })

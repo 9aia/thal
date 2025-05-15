@@ -3,7 +3,7 @@ import { eq } from 'drizzle-orm'
 import { getHistory } from '../services/messages'
 import { getValidated } from '~/utils/h3'
 import { internal, notFound, notImplemented, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
-import { SubscriptionStatus, characterLocalizations, characterUsernames, messages } from '~~/db/schema'
+import { SubscriptionStatus, characterLocalizations, messages, usernames } from '~~/db/schema'
 import { promptGeminiText } from '~/utils/gemini'
 
 export default defineEventHandler(async (event) => {
@@ -38,8 +38,8 @@ export default defineEventHandler(async (event) => {
     replyMessageId: z.number().optional().describe('The replyMessageId is the id of the reply message'),
   }))
 
-  const characterUsername = await orm.query.characterUsernames.findFirst({
-    where: eq(characterUsernames.username, data.chatUsername!),
+  const username = await orm.query.usernames.findFirst({
+    where: eq(usernames.username, data.chatUsername!),
     with: {
       character: {
         columns: {
@@ -58,14 +58,14 @@ export default defineEventHandler(async (event) => {
     },
   })
 
-  if (!characterUsername)
+  if (!username)
     throw notFound('Character Username not found')
 
-  if (!characterUsername.character)
+  if (!username.character)
     throw notImplemented('Character not found')
 
-  if (!characterUsername.character.characterLocalizations
-    || !characterUsername.character.characterLocalizations[0]
+  if (!username.character.characterLocalizations
+    || !username.character.characterLocalizations[0]
   ) {
     throw internal('Character localization not found')
   }
@@ -79,11 +79,11 @@ export default defineEventHandler(async (event) => {
     return `Character 2: ${message.message}`
   }).join('\n')
 
-  const localization = characterUsername.character.characterLocalizations[0]
+  const localization = username.character.characterLocalizations[0]
 
   const character = {
-    username: characterUsername.username,
-    discoverable: characterUsername.character.discoverable,
+    username: username.username,
+    discoverable: username.character.discoverable,
     name: localization.name,
     description: localization.description,
   }

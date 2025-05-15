@@ -38,7 +38,7 @@ const localWithDefaultRegion = useLocaleDefaultRegion()
 //   try {
 //     const { valid } = await $fetch(`/api/character/validate-username/${username}`, {
 //       params: {
-//         allowedUsername: characterBuilderData.value?.username,
+//         editingUsername: characterBuilderData.value?.username,
 //       },
 //     })
 
@@ -94,10 +94,10 @@ const approveMutation = useMutation({
     // refresh chat route and contact info view if open
     const usernameQuery = params.username
 
-    if (characterBuilderData.value?.characterUsernames?.username === usernameQuery)
+    if (characterBuilderData.value?.usernames?.username === usernameQuery)
       navigateTo(`/app/chat/${data.username}`)
 
-    if (characterBuilderData.value?.characterUsernames?.username === contactInfoData.value?.username)
+    if (characterBuilderData.value?.usernames?.username === contactInfoData.value?.username)
       contactInfoData.value = { ...contactInfoData.value || {}, username: data.username }
 
     toast.success(t('Character has been approved successfully.'), undefined, {
@@ -111,7 +111,7 @@ const approveMutation = useMutation({
 
     characterBuilderData.value = {
       categoryId: data.categoryId,
-      characterUsernames: {
+      usernames: {
         username: data.username,
       },
       instructions: data.instructions,

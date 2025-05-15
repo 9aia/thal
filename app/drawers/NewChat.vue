@@ -111,7 +111,7 @@ function handleGoToChat(username: string) {
           :key="`contact-${contact.contactId}`"
           :name="contact.contactName"
           :description="contact.characterDescription"
-          @click="handleGoToChat(contact.characterUsername)"
+          @click="handleGoToChat(contact.username)"
         />
       </Resource>
     </SettingSection>

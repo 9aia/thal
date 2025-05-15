@@ -24,7 +24,7 @@ interface FormValues {
 const localWithDefaultRegion = useLocaleDefaultRegion()
 
 const draftQuery = useQuery({
-  queryKey: queryKeys.characterDraftEdit(localWithDefaultRegion, characterBuilderData.value?.characterUsernames?.username as string),
+  queryKey: queryKeys.characterDraftEdit(localWithDefaultRegion, characterBuilderData.value?.usernames?.username as string),
   queryFn: () => $fetch('/api/character/draft', {
     query: {
       characterId: characterBuilderData.value?.id,
@@ -95,7 +95,7 @@ const updateCharacterDraft = useMutation({
 
 const editApprovedCharacterDraft = useMutation({
   mutationFn: async (data: FormValues) => {
-    return await $fetch(`/api/character/draft/${characterBuilderData.value!.characterUsernames!.username as string}`, {
+    return await $fetch(`/api/character/draft/${characterBuilderData.value!.usernames!.username as string}`, {
       method: 'patch',
       body: {
         ...data,
@@ -155,7 +155,7 @@ const character = computed((): CharacterDraftApiData | null => {
 
     return {
       prompt: '',
-      username: characterBuilderData.value.characterUsernames?.username || '',
+      username: characterBuilderData.value.usernames?.username || '',
       name: localization.name,
       description: localization.description,
       instructions: localization.instructions,

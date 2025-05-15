@@ -22,7 +22,11 @@ export async function validateSessionToken(orm: H3EventContext['orm'], token: st
   const result = await orm.query.sessions.findFirst({
     where: eq(sessions.id, sessionId),
     with: {
-      user: true,
+      user: {
+        with: {
+          username: true,
+        },
+      },
     },
   })
 
@@ -46,7 +50,13 @@ export async function validateSessionToken(orm: H3EventContext['orm'], token: st
       .where(eq(sessions.id, session.id))
   }
 
-  return { session, user }
+  return {
+    session,
+    user: {
+      ...user,
+      username: user.username.username,
+    },
+  }
 }
 
 export async function invalidateSession(orm: H3EventContext['orm'], sessionId: string): Promise<void> {

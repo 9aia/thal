@@ -166,6 +166,7 @@ function cancelEdit() {
     <div class="chat-footer opacity-90 flex items-center mt-1" :class="{ 'flex-row-reverse': !right }">
       <div class="flex items-center min-h-8" :class="{ 'flex-row-reverse': !right }">
         <Button
+          v-if="(from === 'user') && showEdit && !isEditing"
           class="btn-ghost btn-gray text-blue-500 sm:hidden group-hover:block"
           size="sm"
           shape="circle"

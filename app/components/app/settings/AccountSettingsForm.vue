@@ -31,7 +31,7 @@ async function validateUsername(username: string) {
   let invalid = false
 
   try {
-    const { valid } = await $fetch(`/api/user/validate-username/${username}`)
+    const { valid } = await $fetch(`/api/character/validate-username/${username}`)
 
     invalid = !valid && currentUsername !== username
   }

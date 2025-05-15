@@ -22,7 +22,7 @@ const {
   mutate,
 } = useMutation({
   mutationFn: async () => {
-    return $fetch(`/api/character/${props.character?.characterUsernames?.username}` as '/api/character/:username', {
+    return $fetch(`/api/character/${props.character?.usernames?.username}` as '/api/character/:username', {
       method: 'DELETE',
     })
   },
@@ -34,7 +34,7 @@ const {
       queryKey: queryKeys.discoverCharacters,
     })
 
-    const username = props.character!.characterUsernames!.username
+    const username = props.character!.usernames!.username
 
     queryClient.invalidateQueries({
       queryKey: queryKeys.chat(username),
@@ -66,7 +66,7 @@ function checkUsernameRule(inputValue: string) {
   if (!inputValue)
     return t('Username is required')
 
-  return inputValue === props.character?.characterUsernames?.username || t('Username does not match')
+  return inputValue === props.character?.usernames?.username || t('Username does not match')
 }
 
 const isFieldError = useFieldError('username')
@@ -107,7 +107,7 @@ const isUsernameInvalid = computed(() => {
         <T text="To confirm, please insert {username} below:" :values="{ username: true }">
           <template #username>
             <span class="text-warning font-bold">
-              {{ character?.characterUsernames?.username }} {{ ' ' }}
+              {{ character?.usernames?.username }} {{ ' ' }}
             </span>
           </template>
         </T>

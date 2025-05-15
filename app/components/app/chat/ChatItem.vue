@@ -12,8 +12,8 @@ const name = computed(() => {
     return props.chat.contactName || props.chat.characterName
   }
 
-  return props.chat.characterUsername
-    ? `@${props.chat.characterUsername}`
+  return props.chat.username
+    ? `@${props.chat.username}`
     : ''
 })
 
@@ -28,7 +28,7 @@ function handleGoToChat(username: string) {
 </script>
 
 <template>
-  <div role="button" class="px-3 py-1 hover:bg-gradient-1 flex gap-2" @click="handleGoToChat(chat.characterUsername)">
+  <div role="button" class="px-3 py-1 hover:bg-gradient-1 flex gap-2" @click="handleGoToChat(chat.username)">
     <Avatar :name="chat.characterName" class="w-10 text-sm bg-gray-300 text-gray-800" type="button" />
 
     <div class="flex-1 flex flex-col justify-center w-10px">

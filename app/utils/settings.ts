@@ -16,7 +16,7 @@ export function parseInitialValues(selected: string) {
   }, {})
 };
 
-export function generateCharacterUsername(text: string): string {
+export function generateUsername(text: string): string {
   let base = text
     .normalize('NFD')
     .replace(/\p{Diacritic}/gu, '')

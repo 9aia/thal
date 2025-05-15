@@ -9,7 +9,7 @@ import { getValidated } from '~/utils/h3'
 import { badRequest, forbidden, internal, notFound, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
 import { isPlanPastDue } from '~/utils/plan'
 import type { CharacterDraftData } from '~~/db/schema'
-import { characterDraftLocalizations, characterDraftSchema, characterDrafts, characterUsernames, usernameSchema } from '~~/db/schema'
+import { characterDraftLocalizations, characterDraftSchema, characterDrafts, usernameSchema, usernames } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const { GEMINI_MODEL, GEMINI_API_KEY } = useRuntimeConfig(event)
@@ -32,23 +32,23 @@ export default eventHandler(async (event) => {
   const { username } = await getValidated(event, 'params', z.object({ username: usernameSchema }))
   const { locale, ...data } = await getValidated(event, 'body', characterDraftSchema)
 
-  const characterUsername = await orm.query.characterUsernames.findFirst({
-    where: eq(characterUsernames.username, username),
+  const usernameQuery = await orm.query.usernames.findFirst({
+    where: eq(usernames.username, username),
     with: {
       character: true,
     },
   })
 
-  if (!characterUsername)
+  if (!usernameQuery)
     throw notFound('Character not found')
 
-  if (characterUsername?.character?.creatorId !== user.id)
+  if (usernameQuery?.character?.creatorId !== user.id)
     throw forbidden()
 
   const existingDraft = await orm.query.characterDrafts.findFirst({
     where: and(
       eq(characterDrafts.creatorId, user.id),
-      eq(characterDrafts.characterId, characterUsername.characterId!),
+      eq(characterDrafts.characterId, usernameQuery.characterId!),
     ),
     with: {
       characterDraftLocalizations: {
@@ -58,7 +58,7 @@ export default eventHandler(async (event) => {
   })
 
   if (!existingDraft)
-    throw badRequest(`No editing draft found for characterId ${characterUsername.characterId}`)
+    throw badRequest(`No editing draft found for characterId ${usernameQuery.characterId}`)
 
   const generateCharacterRateLimit = await event.context.cloudflare.env.GENERATE_CHARACTER_RATE_LIMIT.limit({ key: `generate-character-${user.id}` })
 
@@ -75,7 +75,7 @@ export default eventHandler(async (event) => {
     ${editOutro}
   `
 
-  const category = getCharacterCategoryName(characterUsername.character.categoryId)
+  const category = getCharacterCategoryName(usernameQuery.character.categoryId)
 
   const promptLocalization = existingDraft.characterDraftLocalizations[0]
 

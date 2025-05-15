@@ -3,15 +3,15 @@ import type { H3EventContext } from 'h3'
 import type { User } from '~~/db/schema'
 import type { Message } from '~/types'
 import { notFound } from '~/utils/nuxt'
-import { characterUsernames, chats } from '~~/db/schema'
+import { chats, usernames } from '~~/db/schema'
 
 export async function getHistory(
   orm: H3EventContext['orm'],
   user: User,
   username: string,
 ) {
-  const result = await orm.query.characterUsernames.findFirst({
-    where: eq(characterUsernames.username, username),
+  const result = await orm.query.usernames.findFirst({
+    where: eq(usernames.username, username),
     with: {
       chats: {
         where: eq(chats.userId, user.id!),

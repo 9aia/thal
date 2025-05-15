@@ -20,7 +20,7 @@ export default eventHandler(async (event) => {
   const [updatedContact] = await orm
     .update(contacts)
     .set(data)
-    .where(and(eq(contacts.userId, user.id), eq(contacts.characterUsernameId, contact.characterUsernameId!)))
+    .where(and(eq(contacts.userId, user.id), eq(contacts.usernameId, contact.usernameId!)))
     .returning()
 
   const contactUpdateDto = {

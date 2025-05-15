@@ -4,7 +4,7 @@ SELECT * FROM Character
 
 -- @block Delete all character data
 
-DELETE FROM CharacterUsername;
+DELETE FROM username;
 DELETE FROM Character;
 DELETE FROM CharacterDraft;
 DELETE FROM CharacterDraftLocalization;
@@ -17,15 +17,15 @@ UPDATE Character SET discoverable = 1
 
 UPDATE Character SET discoverable = 0 WHERE id = 7
 
--- ------------------ CharacterUsername ------------------
+-- ------------------ username ------------------
 
--- @block List all CharacterUsernames
+-- @block List all usernames
 
-SELECT * FROM CharacterUsername
+SELECT * FROM username
 
--- @block Update all CharacterUsernames.username to be lowercase
+-- @block Update all usernames.username to be lowercase
 
-UPDATE CharacterUsername SET username = LOWER(username)
+UPDATE username SET username = LOWER(username)
 
 -- ------------------ CharacterDraft ------------------
 

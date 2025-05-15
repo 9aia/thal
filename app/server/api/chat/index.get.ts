@@ -2,7 +2,7 @@ import { sql } from 'drizzle-orm'
 import { z } from 'zod'
 import { getValidated } from '~/utils/h3'
 import { unauthorized } from '~/utils/nuxt'
-import { characterLocalizations, characterUsernames, characters, chats, contacts, lastMessages } from '~~/db/schema'
+import { characterLocalizations, characters, chats, contacts, lastMessages, usernames } from '~~/db/schema'
 
 export default defineEventHandler(async (event) => {
   const orm = event.context.orm
@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
   const { results } = await orm.run(sql`
     SELECT 
       ${chats.id} AS chatId,
-      ${characterUsernames.username} AS characterUsername,
+      ${usernames.username} AS username,
       ${characterLocalizations.name} AS characterName,
       ${contacts.name} AS contactName,
       ${lastMessages.content} AS lastMessageContent,
@@ -28,9 +28,9 @@ export default defineEventHandler(async (event) => {
     FROM 
       ${chats}
     LEFT JOIN 
-      ${characterUsernames} ON ${chats.characterUsernameId} = ${characterUsernames.id}
+      ${usernames} ON ${chats.usernameId} = ${usernames.id}
     LEFT JOIN 
-      ${characters} ON ${characterUsernames.characterId} = ${characters.id}
+      ${characters} ON ${usernames.characterId} = ${characters.id}
     LEFT JOIN 
       ${contacts} ON ${chats.contactId} = ${contacts.id}
     LEFT JOIN 
@@ -40,7 +40,7 @@ export default defineEventHandler(async (event) => {
     WHERE
       ${chats.userId} = ${user.id}
       ${search
-          ? sql`AND (lower(${contacts.name}) LIKE ${searchLike} OR lower(${characterUsernames.username}) LIKE ${searchLike} OR lower(${characterLocalizations.name}) LIKE ${searchLike})`
+          ? sql`AND (lower(${contacts.name}) LIKE ${searchLike} OR lower(${usernames.username}) LIKE ${searchLike} OR lower(${characterLocalizations.name}) LIKE ${searchLike})`
           : sql``
       }
       AND (${characterLocalizations.locale} = ${locale} OR ${characterLocalizations.locale} IS NULL)
@@ -50,7 +50,7 @@ export default defineEventHandler(async (event) => {
 
   return results as {
     chatId: number
-    characterUsername: string
+    username: string
     characterName: string
     contactName?: string
     lastMessageContent?: string

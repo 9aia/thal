@@ -2,7 +2,7 @@ import { and, eq } from 'drizzle-orm'
 import { getCharacterByUsername } from '~/server/services/character'
 import { now } from '~/utils/date'
 import { getValidated } from '~/utils/h3'
-import { badRequest, internal, rateLimit, unauthorized } from '~/utils/nuxt'
+import { badRequest, internal, unauthorized } from '~/utils/nuxt'
 import { chats, contactInsertSchema, contacts } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
@@ -22,7 +22,7 @@ export default eventHandler(async (event) => {
       .values({
         name: data.name,
         userId: user.id,
-        characterUsernameId: result.characterUsernameId,
+        usernameId: result.usernameId,
         createdAt: now().toString(),
       })
       .returning()
@@ -33,7 +33,7 @@ export default eventHandler(async (event) => {
       .where(
         and(
           eq(chats.userId, user.id),
-          eq(chats.characterUsernameId, newContact.characterUsernameId),
+          eq(chats.usernameId, newContact.usernameId),
         ),
       )
       .run()

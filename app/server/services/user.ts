@@ -3,7 +3,7 @@ import type { H3EventContext } from 'h3'
 import type { OAuthProviderParams } from '../types'
 import { now } from '~/utils/date'
 import type { UserInsert } from '~~/db/schema'
-import { oAuthAccounts, users } from '~~/db/schema'
+import { oAuthAccounts, usernames, users } from '~~/db/schema'
 import { generateId } from '~/utils/auth'
 
 export async function createUser(
@@ -21,6 +21,10 @@ export async function createUser(
     }),
     orm.insert(oAuthAccounts).values({
       ...providerParams,
+      userId,
+    }),
+    orm.insert(usernames).values({
+      username: userInsert.username,
       userId,
     }),
   ])

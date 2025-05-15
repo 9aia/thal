@@ -1,10 +1,10 @@
 import { and, eq, isNull } from 'drizzle-orm'
 import { now } from '~/utils/date'
 import { getValidated } from '~/utils/h3'
-import { badRequest, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
+import { badRequest, paymentRequired, unauthorized } from '~/utils/nuxt'
 import { isPlanPastDue } from '~/utils/plan'
 import type { CharacterGet } from '~~/db/schema'
-import { characterDraftInsertSchema, characterDrafts, characterLocalizations, characterUsernames, characters } from '~~/db/schema'
+import { characterDraftInsertSchema, characterDrafts, characterLocalizations, characters, usernames } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const orm = event.context.orm
@@ -45,12 +45,12 @@ export default eventHandler(async (event) => {
   const draftData = existingDraft.data
 
   // Check if username is already taken
-  const [existingCharacterUsername] = await orm
+  const [existingUsername] = await orm
     .select()
-    .from(characterUsernames)
-    .where(eq(characterUsernames.username, draftData.username))
+    .from(usernames)
+    .where(eq(usernames.username, draftData.username))
 
-  if (existingCharacterUsername && existingCharacterUsername.characterId !== null && existingCharacterUsername.characterId !== data.characterId)
+  if (existingUsername && existingUsername.characterId !== null && existingUsername.characterId !== data.characterId)
     throw badRequest('Username already taken')
 
   let character: CharacterGet
@@ -62,9 +62,9 @@ export default eventHandler(async (event) => {
       categoryId: draftData.categoryId,
     }).where(eq(characters.id, data.characterId!)).returning()
 
-    await orm.update(characterUsernames)
+    await orm.update(usernames)
       .set({ username: draftData.username })
-      .where(eq(characterUsernames.characterId, updatedCharacter.id))
+      .where(eq(usernames.characterId, updatedCharacter.id))
 
     for (const localization of existingDraft.characterDraftLocalizations) {
       await orm.update(characterLocalizations).set({
@@ -90,21 +90,21 @@ export default eventHandler(async (event) => {
     character = newCharacter
 
     // Update character username for keeping messages
-    const isNewCharacterUsername = existingCharacterUsername === undefined
+    const isNewUsername = existingUsername === undefined
 
-    if (isNewCharacterUsername) {
-      await orm.insert(characterUsernames).values({
+    if (isNewUsername) {
+      await orm.insert(usernames).values({
         username: draftData.username,
         characterId: character.id,
       })
     }
     else {
       await orm
-        .update(characterUsernames)
+        .update(usernames)
         .set({
           characterId: character.id,
         })
-        .where(eq(characterUsernames.username, draftData.username))
+        .where(eq(usernames.username, draftData.username))
     }
 
     for (const localization of existingDraft.characterDraftLocalizations) {

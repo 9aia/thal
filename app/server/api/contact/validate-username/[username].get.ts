@@ -1,8 +1,8 @@
 import { and, eq } from 'drizzle-orm'
 import { z } from 'zod'
 import { getValidated } from '~/utils/h3'
-import { rateLimit, unauthorized } from '~/utils/nuxt'
-import { characterUsernames, usernameSchema } from '~~/db/schema'
+import { unauthorized } from '~/utils/nuxt'
+import { usernameSchema, usernames } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const orm = event.context.orm
@@ -22,12 +22,12 @@ export default eventHandler(async (event) => {
     }
   }
 
-  const [existingCharacterUsername] = await orm
+  const [existingUsername] = await orm
     .select()
-    .from(characterUsernames)
-    .where(eq(characterUsernames.username, username))
+    .from(usernames)
+    .where(eq(usernames.username, username))
 
-  if (!existingCharacterUsername || existingCharacterUsername.characterId == null) {
+  if (!existingUsername || existingUsername.characterId == null) {
     return {
       characterNotFound: true,
       alreadyAdded: false,
@@ -37,19 +37,19 @@ export default eventHandler(async (event) => {
   }
 
   const character = await orm.query.characters.findFirst({
-    where: (characters, { eq }) => eq(characters.id, Number(existingCharacterUsername.characterId)),
+    where: (characters, { eq }) => eq(characters.id, Number(existingUsername.characterId)),
     columns: {
       discoverable: true,
       creatorId: true,
     },
     with: {
-      characterUsernames: {
+      usernames: {
         columns: {
           id: true,
         },
         with: {
           contacts: {
-            where: (contacts, { eq }) => and(eq(contacts.userId, user.id), eq(contacts.characterUsernameId, existingCharacterUsername.id)),
+            where: (contacts, { eq }) => and(eq(contacts.userId, user.id), eq(contacts.usernameId, existingUsername.id)),
             columns: {
               id: true,
             },
@@ -61,7 +61,7 @@ export default eventHandler(async (event) => {
 
   return {
     characterNotFound: false,
-    alreadyAdded: !!character?.characterUsernames?.contacts?.length,
+    alreadyAdded: !!character?.usernames?.contacts?.length,
     discoverable: character?.discoverable || character?.creatorId === user.id,
     isUsernameValid: true,
   }

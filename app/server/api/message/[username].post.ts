@@ -7,7 +7,7 @@ import { getValidated } from '~/utils/h3'
 import { internal, notFound, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
 import { isPlanActive, isPlanPastDue } from '~/utils/plan'
 import type { MessageInsert } from '~~/db/schema'
-import { characterLocalizations, characterUsernames, chats, contacts, lastMessages, messageSendSchema, messages, usernameSchema } from '~~/db/schema'
+import { characterLocalizations, chats, contacts, lastMessages, messageSendSchema, messages, usernameSchema, usernames } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const { GEMINI_API_KEY, GEMINI_MODEL } = useRuntimeConfig(event)
@@ -39,8 +39,8 @@ export default eventHandler(async (event) => {
 
   const orm = event.context.orm
 
-  const result = await orm.query.characterUsernames.findFirst({
-    where: eq(characterUsernames.username, username),
+  const result = await orm.query.usernames.findFirst({
+    where: eq(usernames.username, username),
     with: {
       character: {
         columns: {},
@@ -81,7 +81,7 @@ export default eventHandler(async (event) => {
       .values({
         userId: user.id!,
         contactId: contact?.id,
-        characterUsernameId: result.id,
+        usernameId: result.id,
         createdAt: now().toString(),
       })
       .returning()
