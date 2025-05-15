@@ -32,7 +32,6 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 - Fix go-to-bottom button position after chat clearing
 - Lower every username comparison
-- Use a single table for user and character usernames
 - Fix listening to long messages
 - Rewrite left joins using Query API
 - Fix DB on build pre-render
@@ -104,6 +103,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## DX
 
+- Rename `characterUsernames` to `usernames`
 - Upgrade to Tailwind v4
 - Improve logging
 - Change `Message.isBot` to boolean mode

@@ -44,11 +44,6 @@ export default eventHandler(async (event) => {
 
   const draftData = existingDraft.data
 
-  const queryUsernameRateLimit = await event.context.cloudflare.env.QUERY_USERNAME_RATE_LIMIT.limit({ key: `query-username-${user.id}` })
-
-  if (!queryUsernameRateLimit.success)
-    throw rateLimit()
-
   // Check if username is already taken
   const [existingCharacterUsername] = await orm
     .select()

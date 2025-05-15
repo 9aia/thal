@@ -14,11 +14,6 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  const queryUsernameRateLimit = await event.context.cloudflare.env.QUERY_USERNAME_RATE_LIMIT.limit({ key: `query-username-${user.id}` })
-
-  if (!queryUsernameRateLimit.success)
-    throw rateLimit()
-
   const result = await getCharacterByUsername(orm, data.username)
 
   try {

@@ -13,11 +13,6 @@ export default eventHandler(async (event) => {
 
   const { username } = await getValidated(event, 'params', z.object({ username: z.string() }))
 
-  const queryUsernameRateLimit = await event.context.cloudflare.env.QUERY_USERNAME_RATE_LIMIT.limit({ key: `query-username-${user.id}` })
-
-  if (!queryUsernameRateLimit.success)
-    throw rateLimit()
-
   if (!usernameSchema.safeParse(username).success)
     return { valid: false }
 
