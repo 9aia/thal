@@ -222,7 +222,7 @@ const hasChanges = computed(() => {
       <SettingSection>
         <form class="block space-y-4" @submit="submit">
           <Textarea
-            ref="mainField"
+            autofocus
             path="prompt"
             :label="t('Describe your character')"
             :disabled="isPastDueVisible"

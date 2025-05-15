@@ -58,6 +58,7 @@ watch(modelValue, (value) => {
           path="search"
           icon-position="right"
           class="mb-1"
+          autofocus
         >
           <template #icon>
             <Icon

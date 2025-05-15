@@ -107,6 +107,7 @@ onMounted(() => {
         <Button
           class="btn-ghost"
           shape="circle"
+          size="md"
           no-disable-on-loading
           :class="{
             'text-orange-500': hasUnreadContent,
@@ -121,6 +122,7 @@ onMounted(() => {
         <Button
           class="btn-ghost"
           shape="circle"
+          size="md"
           no-disable-on-loading
           @click="goToDiscover"
         >
@@ -197,7 +199,7 @@ onMounted(() => {
       </div>
 
       <div class="absolute bottom-4 right-4">
-        <Button shape="circle" class="border-none bg-cyan-500" @click="drawers.newChat = true">
+        <Button shape="circle" size="md" class="border-none bg-cyan-500" @click="drawers.newChat = true">
           <Icon name="material-symbols:add" />
         </Button>
       </div>
