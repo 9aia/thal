@@ -20,6 +20,7 @@
     "db:migrate": "wrangler d1 migrations apply thal --local",
     "db:migrate:prod": "wrangler d1 migrations apply thal --remote",
     "db:studio": "drizzle-kit studio",
+    "db:client": "castor",
     "cf:types": "wrangler types",
     "up": "docker compose up -d",
     "down": "docker compose down",
@@ -43,7 +44,7 @@
     "@vueuse/core": "^10.11.1",
     "@vueuse/integrations": "^12.7.0",
     "arctic": "^2.3.4",
-    "drizzle-orm": "^0.38.4",
+    "drizzle-orm": "^0.43.1",
     "drizzle-zod": "^0.6.1",
     "fast-glob": "^3.3.3",
     "fuse.js": "^7.1.0",
@@ -62,9 +63,10 @@
     "vue-dragscroll": "^4.0.6",
     "vue-router": "^4.5.0",
     "yaml": "^2.7.0",
-    "zod": "^3.24.2"
+    "zod": "^3.24.4"
   },
   "devDependencies": {
+    "@9aia/castor": "^0.2.3",
     "@antfu/eslint-config": "^2.27.3",
     "@cloudflare/workers-types": "^4.20250214.0",
     "@google/generative-ai": "^0.21.0",

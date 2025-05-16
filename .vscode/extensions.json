@@ -1,7 +1,5 @@
 {
   "recommendations": [
-    "mtxr.sqltools",
-    "mtxr.sqltools-driver-sqlite",
     "humao.rest-client",
     "dbaeumer.vscode-eslint",
     "bradlc.vscode-tailwindcss",

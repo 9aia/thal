@@ -17,8 +17,6 @@ To set up the development environment, ensure you have the following tools insta
 For Visual Studio Code, consider installing the following extensions:
 
 - [Vue](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (optional)
-- [SQLTools](https://marketplace.visualstudio.com/items?itemName=mtxr.sqltools) (optional)
-  - [SQLTools SQLite Driver](https://marketplace.visualstudio.com/items?itemName=mtxr.sqltools-driver-sqlite)
 - [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) (optional)
 - [Eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) (optional)

@@ -22,15 +22,6 @@
     "README.md": "CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, LICENSE.md",
   },
   "editor.tabSize": 2,
-  "sqltools.sessionFilesFolder": "./db/sessions/",
-  "sqltools.connections": [
-    {
-      "previewLimit": 50,
-      "driver": "SQLite",
-      "name": "Thal",
-      "database": "${workspaceFolder:thal}/.wrangler/state/v3/d1/miniflare-D1DatabaseObject/a350649cc7205b513479a99032b7dbd3f942fc734fcac8d418cf22b98ce570a4.sqlite"
-    }
-  ],
   "typescript.tsdk": "node_modules/typescript/lib",
   // Enable the ESlint flat config support
   // Disable the default formatter, use eslint instead
