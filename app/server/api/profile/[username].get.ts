@@ -2,7 +2,7 @@ import { eq } from 'drizzle-orm'
 import { z } from 'zod'
 import { getValidated } from '~/utils/h3'
 import { forbidden, notFound, unauthorized } from '~/utils/nuxt'
-import { usernameSchema, users } from '~~/db/schema'
+import { usernameSchema, usernames, users } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const orm = event.context.orm
@@ -18,12 +18,15 @@ export default eventHandler(async (event) => {
   if (user.username !== username)
     throw forbidden(`You are not allowed to view this profile: ${username}`)
 
-  const [profile] = await orm.select()
-    .from(users)
-    .where(eq(users.username, username))
+  const userUsername = await orm.query.usernames.findFirst({
+    with: {
+      user: true,
+    },
+    where: eq(usernames.username, username),
+  })
 
-  if (!profile)
+  if (!userUsername)
     throw notFound(`User not found: ${username}`)
 
-  return profile
+  return userUsername.user
 })

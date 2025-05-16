@@ -16,7 +16,6 @@ export async function createUser(
   await orm.batch([
     orm.insert(users).values({
       id: userId,
-      createdAt: now().toString(),
       ...userInsert,
     }),
     orm.insert(oAuthAccounts).values({

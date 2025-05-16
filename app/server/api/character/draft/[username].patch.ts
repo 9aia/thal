@@ -123,7 +123,7 @@ export default eventHandler(async (event) => {
         data: draftData,
         prompt: data.prompt,
         creatorId: user.id,
-        createdAt: now().toString(),
+        createdAt: now(),
       })
       .where(eq(characterDrafts.id, existingDraft.id))
       .returning(),

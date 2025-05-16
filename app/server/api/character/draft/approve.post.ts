@@ -83,7 +83,6 @@ export default eventHandler(async (event) => {
     const [newCharacter] = await orm.insert(characters).values({
       discoverable: data.discoverable,
       creatorId: user.id,
-      createdAt: now().toString(),
       categoryId: draftData.categoryId,
     }).returning()
 

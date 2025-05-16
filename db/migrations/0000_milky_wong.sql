@@ -14,7 +14,7 @@ CREATE TABLE `CharacterDraft` (
 	`creator_id` text,
 	`prompt` text NOT NULL,
 	`data` text NOT NULL,
-	`created_at` text NOT NULL,
+	`created_at` integer DEFAULT (unixepoch() * 1000) NOT NULL,
 	FOREIGN KEY (`character_id`) REFERENCES `Character`(`id`) ON UPDATE no action ON DELETE cascade,
 	FOREIGN KEY (`creator_id`) REFERENCES `User`(`id`) ON UPDATE no action ON DELETE no action
 );
@@ -34,7 +34,7 @@ CREATE TABLE `Character` (
 	`category_id` integer NOT NULL,
 	`discoverable` integer DEFAULT true NOT NULL,
 	`creator_id` text,
-	`created_at` text NOT NULL,
+	`created_at` integer DEFAULT (unixepoch() * 1000) NOT NULL,
 	FOREIGN KEY (`creator_id`) REFERENCES `User`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
@@ -43,7 +43,7 @@ CREATE TABLE `Chat` (
 	`character_username_id` integer NOT NULL,
 	`user_id` text NOT NULL,
 	`contact_id` integer,
-	`created_at` text NOT NULL,
+	`created_at` integer DEFAULT (unixepoch() * 1000) NOT NULL,
 	FOREIGN KEY (`character_username_id`) REFERENCES `Username`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`user_id`) REFERENCES `User`(`id`) ON UPDATE no action ON DELETE cascade,
 	FOREIGN KEY (`contact_id`) REFERENCES `Contact`(`id`) ON UPDATE no action ON DELETE set null
@@ -55,7 +55,7 @@ CREATE TABLE `Contact` (
 	`name` text NOT NULL,
 	`username_id` integer NOT NULL,
 	`user_id` text NOT NULL,
-	`created_at` text NOT NULL,
+	`created_at` integer DEFAULT (unixepoch() * 1000) NOT NULL,
 	FOREIGN KEY (`username_id`) REFERENCES `Username`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`user_id`) REFERENCES `User`(`id`) ON UPDATE no action ON DELETE cascade
 );
@@ -65,7 +65,7 @@ CREATE TABLE `LastMessage` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`chat_id` integer NOT NULL,
 	`content` text NOT NULL,
-	`datetime` integer NOT NULL,
+	`datetime` integer DEFAULT (unixepoch() * 1000) NOT NULL,
 	`user_id` text NOT NULL,
 	FOREIGN KEY (`chat_id`) REFERENCES `Chat`(`id`) ON UPDATE no action ON DELETE cascade,
 	FOREIGN KEY (`user_id`) REFERENCES `User`(`id`) ON UPDATE no action ON DELETE cascade
@@ -76,8 +76,8 @@ CREATE TABLE `Message` (
 	`chat_id` integer NOT NULL,
 	`data` text NOT NULL,
 	`replying_id` integer,
-	`is_bot` integer DEFAULT 0 NOT NULL,
-	`created_at` integer NOT NULL,
+	`is_bot` integer DEFAULT false NOT NULL,
+	`created_at` integer DEFAULT (unixepoch() * 1000) NOT NULL,
 	FOREIGN KEY (`chat_id`) REFERENCES `Chat`(`id`) ON UPDATE no action ON DELETE cascade,
 	FOREIGN KEY (`replying_id`) REFERENCES `Message`(`id`) ON UPDATE no action ON DELETE no action
 );
@@ -112,7 +112,7 @@ CREATE TABLE `User` (
 	`last_name` text NOT NULL,
 	`pronouns` text,
 	`picture` text,
-	`created_at` text NOT NULL,
+	`created_at` integer DEFAULT (unixepoch() * 1000) NOT NULL,
 	`email` text,
 	`plan` integer,
 	`free_trial_used` integer DEFAULT false,

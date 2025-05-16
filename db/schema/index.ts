@@ -29,11 +29,11 @@ export const users = sqliteTable('User', {
   lastName: text('last_name').notNull(),
   pronouns: text('pronouns'),
   picture: text('picture'),
-  createdAt: text('created_at').notNull(),
+  createdAt: int('created_at', { mode: 'timestamp_ms' }).default(sql`(unixepoch() * 1000)`).notNull(),
   email: text('email'),
-  plan: int('plan'),
+  plan: int('plan').$type<PlanType>(),
   freeTrialUsed: int('free_trial_used', { mode: 'boolean' }).default(false),
-  subscriptionStatus: int('subscription_status').default(SubscriptionStatus.not_subscribed),
+  subscriptionStatus: int('subscription_status').default(SubscriptionStatus.not_subscribed).$type<SubscriptionStatus>(),
   subscriptionId: text('subscription_id'),
   stripeCustomerId: text('stripe_customer_id'),
   checkoutId: text('checkout_id'),
@@ -52,7 +52,7 @@ export const sessions = sqliteTable('Session', {
   userId: text('user_id')
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
-  expiresAt: int('expires_at', { mode: 'timestamp' }).notNull(),
+  expiresAt: int('expires_at', { mode: 'timestamp_ms' }).notNull(),
 })
 
 export const sessionRelations = relations(sessions, ({ one }) => ({
@@ -133,7 +133,7 @@ export const characters = sqliteTable('Character', {
   discoverable: int('discoverable', { mode: 'boolean' }).default(true).notNull(),
   creatorId: text('creator_id')
     .references(() => users.id, { onDelete: 'no action' }),
-  createdAt: text('created_at').notNull(),
+  createdAt: int('created_at', { mode: 'timestamp_ms' }).default(sql`(unixepoch() * 1000)`).notNull(),
 })
 
 export const characterRelations = relations(characters, ({ one, many }) => ({
@@ -206,7 +206,7 @@ export const characterDrafts = sqliteTable('CharacterDraft', {
     .references(() => users.id, { onDelete: 'no action' }),
   prompt: text('prompt').notNull(),
   data: text('data', { mode: 'json' }).$type<CharacterDraftData>().notNull(),
-  createdAt: text('created_at').notNull(),
+  createdAt: int('created_at', { mode: 'timestamp_ms' }).default(sql`(unixepoch() * 1000)`).notNull(),
 })
 
 export const characterDraftsRelations = relations(characterDrafts, ({ one, many }) => ({
@@ -283,7 +283,7 @@ export const contacts = sqliteTable('Contact', {
   userId: text('user_id')
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
-  createdAt: text('created_at').notNull(),
+  createdAt: int('created_at', { mode: 'timestamp_ms' }).default(sql`(unixepoch() * 1000)`).notNull(),
 }, t => ({
   unq: unique().on(t.userId, t.usernameId),
 }))
@@ -350,8 +350,8 @@ export const lastMessages = sqliteTable('LastMessage', {
     .references(() => chats.id, { onDelete: 'cascade' }),
   content: text('content').notNull(),
   datetime: int('datetime', { mode: 'timestamp_ms' })
-    .notNull()
-    .$defaultFn(() => sql`CURRENT_TIMESTAMP`),
+    .default(sql`(unixepoch() * 1000)`)
+    .notNull(),
   userId: text('user_id')
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
@@ -380,7 +380,7 @@ export const chats = sqliteTable('Chat', {
     .references(() => users.id, { onDelete: 'cascade' }),
   contactId: int('contact_id')
     .references(() => contacts.id, { onDelete: 'set null' }),
-  createdAt: text('created_at').notNull(),
+  createdAt: int('created_at', { mode: 'timestamp_ms' }).default(sql`(unixepoch() * 1000)`).notNull(),
 }, t => ({
   unq: unique().on(t.userId, t.usernameId),
 }))
@@ -413,8 +413,8 @@ export const messages = sqliteTable('Message', {
     .references(() => chats.id, { onDelete: 'cascade' }),
   data: text('data', { mode: 'json' }).$type<MessageData>().notNull(),
   replyingId: int('replying_id'),
-  isBot: int('is_bot').default(0).notNull(),
-  createdAt: int('created_at').notNull(),
+  isBot: int('is_bot', { mode: 'boolean' }).default(false).notNull(),
+  createdAt: int('created_at', { mode: 'timestamp_ms' }).default(sql`(unixepoch() * 1000)`).notNull(),
 }, self => ({
   parentReference: foreignKey({
     columns: [self.replyingId],

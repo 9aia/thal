@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "9eefc6a1-f6f7-4371-8008-b514f4cae825",
+  "id": "1273d85d-9660-4adf-afd5-9672e7610af1",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "CharacterDraftLocalization": {
@@ -110,10 +110,11 @@
         },
         "created_at": {
           "name": "created_at",
-          "type": "text",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
         }
       },
       "indexes": {},
@@ -249,10 +250,11 @@
         },
         "created_at": {
           "name": "created_at",
-          "type": "text",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
         }
       },
       "indexes": {},
@@ -308,10 +310,11 @@
         },
         "created_at": {
           "name": "created_at",
-          "type": "text",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
         }
       },
       "indexes": {
@@ -402,10 +405,11 @@
         },
         "created_at": {
           "name": "created_at",
-          "type": "text",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
         }
       },
       "indexes": {
@@ -479,7 +483,8 @@
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
         },
         "user_id": {
           "name": "user_id",
@@ -559,14 +564,15 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": 0
+          "default": false
         },
         "created_at": {
           "name": "created_at",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
         }
       },
       "indexes": {},
@@ -805,10 +811,11 @@
         },
         "created_at": {
           "name": "created_at",
-          "type": "text",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
         },
         "email": {
           "name": "email",

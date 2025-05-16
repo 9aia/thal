@@ -23,7 +23,6 @@ export default eventHandler(async (event) => {
         name: data.name,
         userId: user.id,
         usernameId: result.usernameId,
-        createdAt: now().toString(),
       })
       .returning()
 

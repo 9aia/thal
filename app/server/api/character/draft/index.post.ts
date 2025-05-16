@@ -1,7 +1,6 @@
 import { and, eq, isNull } from 'drizzle-orm'
 import { getCharacterCategoryId } from '~/server/services/character'
 import { type CharacterDraftResponseSchema, getCharacterDraftPrompt } from '~/utils/character'
-import { now } from '~/utils/date'
 import { promptGeminiJson } from '~/utils/gemini'
 import { getValidated } from '~/utils/h3'
 import { badRequest, internal, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
@@ -71,7 +70,6 @@ export default eventHandler(async (event) => {
       data: draftData,
       prompt,
       creatorId: user.id,
-      createdAt: now().toString(),
     })
     .returning()
 

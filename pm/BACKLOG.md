@@ -105,14 +105,11 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## DX
 
-- Rename `characterUsernames` to `usernames`
 - Upgrade to Tailwind v4
 - Improve logging
-- Change `Message.isBot` to boolean mode
 - Remove unused files/code
 - Use inferred schemas as DTOs
 - Add nuxt devserver to codeshare container
 - Fix codeshare perms
 - Improve docs
-  - Improve dev contributing guide (commit guide)
   - Add docs for the difference between roadmap, changelog and "What's New"

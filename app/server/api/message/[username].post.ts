@@ -82,14 +82,13 @@ export default eventHandler(async (event) => {
         userId: user.id!,
         contactId: contact?.id,
         usernameId: result.id,
-        createdAt: now().toString(),
       })
       .returning()
 
     chat = newChat
   }
 
-  const userMessageTime = now().getTime()
+  const userMessageTime = now()
   const { history } = await getHistory(orm, user, username)
 
   history.push({
@@ -109,7 +108,7 @@ export default eventHandler(async (event) => {
       type: data.type,
       value: data.value,
     },
-    isBot: 0,
+    isBot: false,
     createdAt: userMessageTime,
     replyingId: data.replyingId,
   }
@@ -144,12 +143,12 @@ export default eventHandler(async (event) => {
     systemInstruction,
     history: geminiHistory,
   })
-  const botMessageTime = now().getTime()
+  const botMessageTime = now()
 
   const botMessagePayload: MessageInsert = {
     chatId: chat.id,
     data: { type: 'text', value: botMessageContent },
-    isBot: 1,
+    isBot: true,
     createdAt: botMessageTime,
   }
 

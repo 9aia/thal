@@ -31,7 +31,7 @@ export async function getHistory(
     return { chatId: null, history: [] } as { chatId: null, history: Message[] }
 
   const getReplyFrom = (replyingId: number) => {
-    return chat?.messages.find(m => m.id === replyingId)?.isBot === 0 ? 'user' : 'bot'
+    return chat?.messages.find(m => m.id === replyingId)?.isBot ? 'bot' : 'user'
   }
 
   // TODO perf: don't iterate again
@@ -41,10 +41,10 @@ export async function getHistory(
     return {
       id: message.id,
       status: 'seen',
-      from: message.isBot === 0 ? 'user' : 'bot',
+      from: message.isBot ? 'bot' : 'user',
       message: message.data.value,
       replyMessage,
-      time: message.createdAt,
+      time: message.createdAt.getTime(),
       replyingId: message.replyingId,
       replyFrom: message.replyingId
         ? getReplyFrom(message.replyingId)
