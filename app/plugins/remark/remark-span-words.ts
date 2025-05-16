@@ -1,4 +1,4 @@
-// plugins/remark-span-words.ts
+// plugins/remark/remark-span-words.ts
 import type { Literal, Node, Parent, Text } from '@nuxtjs/mdc'
 import { visit } from 'unist-util-visit'
 
