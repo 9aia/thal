@@ -9,6 +9,7 @@ description: A detailed, chronological record of all changes made to a project, 
 ### Fixed
 
 - Added rate limit for various endpoints
+- Fixed discover search
 - Fixed waving hand icon
 - Fixed missing send message button
 - Added support for redirecting to URLs containing query parameters

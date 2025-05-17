@@ -1,10 +1,11 @@
 import z from 'zod'
+import { and, eq, like, sql } from 'drizzle-orm'
 import { calculatePagination, getPaginatedDto } from '~/utils/data'
 import { getValidated } from '~/utils/h3'
 import { unauthorized } from '~/utils/nuxt'
 import { numericString } from '~/utils/zod'
 import { paginationSchema } from '~/schemas/data'
-import { characterLocalizations } from '~~/db/schema'
+import { characterLocalizations, characters, usernames } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const query = await getValidated(event, 'query', paginationSchema().extend({
@@ -21,31 +22,33 @@ export default eventHandler(async (event) => {
 
   const { limit, offset } = calculatePagination(query)
 
-  const ormQuery = orm.query.characters.findMany({
-    limit,
-    offset,
-    with: {
-      usernames: true,
-      characterLocalizations: {
-        columns: {
-          name: true,
-          description: true,
-          instructions: true,
-        },
-        where: (characters, { sql, and, eq }) => and(query.search
-          ? sql`lower(${characters.name}) like ${sql.placeholder('name')}`
-          : undefined, eq(characterLocalizations.locale, query.locale)),
-      },
-    },
-    where: (characters, { sql, and, eq }) => and(
-      query.categoryId
-        ? sql`category_id = ${query.categoryId}`
-        : undefined,
-      eq(characters.discoverable, true),
-    ),
-  }).prepare()
-
-  const result = await ormQuery.execute({ name: `%${query.search}%` })
+  const result = await orm
+    .select({
+      categoryId: characters.categoryId,
+      createdAt: characters.createdAt,
+      creatorId: characters.creatorId,
+      discoverable: characters.discoverable,
+      username: usernames.username,
+      name: characterLocalizations.name,
+      description: characterLocalizations.description,
+    })
+    .from(characters)
+    .leftJoin(usernames, eq(usernames.characterId, characters.id))
+    .leftJoin(characterLocalizations, and(
+      eq(characterLocalizations.characterId, characters.id),
+      eq(characterLocalizations.locale, query.locale),
+    ))
+    .where(
+      and(
+        query.categoryId ? eq(characters.categoryId, query.categoryId) : undefined,
+        eq(characters.discoverable, true),
+        query.search
+          ? like(characterLocalizations.name, `%${query.search}%`)
+          : undefined,
+      ),
+    )
+    .limit(limit)
+    .offset(offset)
 
   return getPaginatedDto(query, result)
 })

@@ -6,7 +6,6 @@ description: Tasks and items for the release.
 
 ## 0.1.0-9
 
-- Fix discover search
 - Fix characterBuilderData
 - Add rate limit error handling to username validation on client
 - Notify error (specially username taken and invalid username) when approving character

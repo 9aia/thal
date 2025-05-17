@@ -137,10 +137,10 @@ watch(categoryId, () => {
               <DiscoverCharacterItem
                 v-for="character in data?.pages"
                 :key="`character-${character.id}`"
-                :name="character.characterLocalizations?.[0]?.name"
-                :description="character.characterLocalizations?.[0]?.description"
+                :name="character.name"
+                :description="character.description"
                 :category-id="character.categoryId"
-                :username="character.usernames?.username"
+                :username="character.username"
                 show-copy
                 show-send-message
                 class="w-full"
