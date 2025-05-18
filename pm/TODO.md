@@ -4,11 +4,14 @@ description: Tasks and items for the release.
 
 # TODO
 
-## 0.1.0-9
+## 0.1.0-10
 
 - Close drawer on character generation and go to character chat route
-  - Add edit action on character chat header if you are the owner
-  - Action for discard draft
+- Improve DB column sizes (name, description, instructions)
+
+- Add prompt from discover search after clicking on character create button
+- Add edit action on character chat header if you are the owner
+- Action for discard draft
 
 - Revision and adjust
   - Improve the design system and UI
