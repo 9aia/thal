@@ -11,6 +11,9 @@ description: A detailed, chronological record of all changes made to a project, 
 - Added rate limit for various endpoints
 - Fixed draft available status code
 - Fixed discover search
+- Prevent user from creating an character draft without prompt
+- Fixed reactivity for displaName when deleting a contact
+- Fixed incorrect display name for discover characters
 - Fixed waving hand icon
 - Fixed missing send message button
 - Fixed update contact with new info in contact drawer
