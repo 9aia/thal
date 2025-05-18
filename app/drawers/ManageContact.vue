@@ -2,7 +2,7 @@
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { useDebounceFn } from '@vueuse/core'
 import { useForm } from 'vee-validate'
-import { contactData, drawers, isRootDrawerOpen } from '~/store'
+import { contactData, contactInfoData, drawers, isRootDrawerOpen } from '~/store'
 import { nameSchema, usernameSchema } from '~~/db/schema'
 import queryKeys from '~/queryKeys'
 import type { Contact } from '~/types'
@@ -117,6 +117,12 @@ function onSuccess(data: typeof form.values) {
     ],
     position: 'start-bottom',
   })
+
+  contactInfoData.value = {
+    username: data.username,
+    displayName: data.name,
+    avatarName: data.username,
+  }
 
   form.resetForm()
   emit('close')

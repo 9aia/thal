@@ -1,5 +1,4 @@
 import { and, eq, isNull } from 'drizzle-orm'
-import { now } from '~/utils/date'
 import { getValidated } from '~/utils/h3'
 import { badRequest, paymentRequired, unauthorized } from '~/utils/nuxt'
 import { isPlanPastDue } from '~/utils/plan'

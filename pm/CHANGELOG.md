@@ -13,6 +13,7 @@ description: A detailed, chronological record of all changes made to a project, 
 - Fixed discover search
 - Fixed waving hand icon
 - Fixed missing send message button
+- Fixed update contact with new info in contact drawer
 - Added support for redirecting to URLs containing query parameters
 - Unified contact and character usernames
 - Improved button icons
