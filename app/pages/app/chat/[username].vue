@@ -71,7 +71,6 @@ const isScrollDownButtonVisible = computed(() => {
 const text = ref('')
 
 interface SendMessageData {
-  type: 'text'
   value: string
   refresh?: boolean
   editing?: boolean
@@ -96,9 +95,13 @@ function updateHistory(newMessage: SendMessageData) {
     from: 'user',
     status: isOnline.value ? 'seen' : 'sending',
     message: newMessage.value,
-    replyingId: newMessage.replyingId,
-    replyMessage: newMessage.replyMessage,
-    replyFrom: newMessage.replyFrom,
+    replyingMessage: newMessage?.replyingId
+      ? {
+          id: newMessage!.replyingId!,
+          message: newMessage!.replyMessage!,
+          from: newMessage!.replyFrom!,
+        }
+      : null,
     time: new Date().getTime(),
   })
 
@@ -269,7 +272,6 @@ const messageError = computed(() => {
 
 function handleSend() {
   sendMessage({
-    type: 'text',
     value: text.value,
     refresh: false,
     replyingId: replying.value?.id,
@@ -283,7 +285,6 @@ function handleResend() {
 
   if (lastMessage.status === 'error') {
     sendMessage({
-      type: 'text',
       value: lastMessage.message,
       refresh: true,
       replyingId: replying.value?.id,
@@ -316,12 +317,11 @@ function handleEdit() {
   handleDelete(edition.editingMessageId!, false)
 
   sendMessage({
-    type: 'text',
     value: edition.message!,
     editingId: edition.editingMessageId!,
-    replyingId: editingMessage.replyingId!,
-    replyMessage: editingMessage.replyMessage,
-    replyFrom: editingMessage.replyFrom,
+    replyingId: editingMessage?.replyingMessage?.id,
+    replyMessage: editingMessage?.replyingMessage?.message,
+    replyFrom: editingMessage?.replyingMessage?.from,
   })
 
   edition.message = ''

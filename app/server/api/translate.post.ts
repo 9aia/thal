@@ -97,7 +97,7 @@ export default defineEventHandler(async (event) => {
 
     if (replyMessageData) {
       const sender = replyMessageData.isBot ? 'Bot: ' : 'User: '
-      replyMessage = replyMessageData.data.type === 'text' ? sender + replyMessageData.data.value : ''
+      replyMessage = sender + replyMessageData.data
     }
   }
 
