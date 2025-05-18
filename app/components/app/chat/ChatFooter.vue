@@ -2,6 +2,7 @@
 import { useMagicKeys, useOnline } from '@vueuse/core'
 import { useQueryClient } from '@tanstack/vue-query'
 import { useEventListener } from '@vueuse/core/index.cjs'
+import type { FetchError } from 'ofetch'
 import { contentEditableRef, edition, replies, sendingChatIds, sentErrorChatIds } from '~/store'
 import queryKeys from '~/queryKeys'
 
@@ -118,6 +119,7 @@ const isReplying = computed(() => !!replies[username.value])
 const replyMessage = computed(() => replies[username.value])
 
 const translation = useTranslation({
+  queryKey: 'footer-input-translation',
   message: text,
   replyMessageId: computed(() => replyMessage.value ? replyMessage.value.id : undefined),
   chatUsername: username,
@@ -132,6 +134,24 @@ watch(translation.isLoading, (value) => {
   }
 
   text.value = translation.translation.value!
+})
+
+const toast = useToast()
+
+watch(translation.error, async (value) => {
+  if (!value) {
+    return
+  }
+
+  const error = value as FetchError
+  const errorStatus = error.response?.status
+
+  if (errorStatus === RATE_LIMIT_STATUS_CODE) {
+    toast.error(t('You are translating messages too fast. Please wait a moment.'))
+    return
+  }
+
+  toast.error(t('Failed to translate message'))
 })
 </script>
 
@@ -156,7 +176,7 @@ watch(translation.isLoading, (value) => {
         <div class="flex-1 flex flex-col tooltip-center bg-gradient-2" :class="{ tooltip: isCharacterDeleted }" :data-tip="t('You can\'t message this character — they have been deleted.')">
           <label class="input bg-gray-50 flex gap-1 w-full h-full items-center justify-center p-2 textarea" for="input">
             <Button
-              v-if="!isEmpty" size="sm" shape="circle" :disabled="isChatError || isChatSending || undefined"
+              v-if="!isEmpty" size="sm" shape="circle" :disabled="isChatSending || undefined"
               class="btn-ghost" :loading="translation.isLoading.value" @click="translation.onTranslate()"
             >
               <Icon name="material-symbols:translate" class="text-base" />

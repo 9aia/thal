@@ -29,6 +29,7 @@ const { params } = useRoute()
 const queryClient = useQueryClient()
 const localWithDefaultRegion = useLocaleDefaultRegion()
 
+// TODO: remove this?
 // async function validateUsername(username: string) {
 //   if (!username)
 //     return
@@ -123,6 +124,9 @@ const approveMutation = useMutation({
     }
 
     emit('approved')
+  },
+  onError: (error) => {
+    console.log(error)
   },
 })
 

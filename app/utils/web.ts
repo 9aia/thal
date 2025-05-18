@@ -1,3 +1,6 @@
+export const RATE_LIMIT_STATUS_CODE = 429
+export const PAYMENT_REQUIRED_STATUS_CODE = 402
+
 export function getCursorPosition(el: HTMLSpanElement) {
   const end = el.textContent?.length || 0
 

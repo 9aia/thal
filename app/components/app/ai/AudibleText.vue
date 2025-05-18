@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { useMutation } from '@tanstack/vue-query'
+import type { FetchError } from 'ofetch'
+import { RateLimitError } from '~/composables/useSpeech'
 import { currentPlayingMessage } from '~/store'
 
 const props = defineProps<{
@@ -38,7 +40,14 @@ const playMutation = useMutation({
     speech.play()
     currentPlayingMessage.value = props.text
   },
-  onError: () => toast.error(t('Error synthesizing voice.')),
+  onError: async (e) => {
+    if (e instanceof RateLimitError) {
+      toast.error(t('You are requesting speech synthesis too much. Please wait a moment.'))
+      return
+    }
+
+    toast.error(t('Error synthesizing voice.'))
+  },
 })
 
 watch(currentPlayingMessage, (value) => {

@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import type { Translation } from '~/composables/useTranslation'
-
 defineProps<{
-  translation: Translation
   right: boolean
   isCharacterDeleted: boolean
 }>()

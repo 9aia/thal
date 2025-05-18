@@ -2,6 +2,7 @@
 import { Menu } from '@ark-ui/vue'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 import { useForm } from 'vee-validate'
+import type { FetchError } from 'ofetch'
 import type { MenuItemType } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
 import { characterBuilderData } from '~/store'
@@ -128,8 +129,14 @@ const submit = form.handleSubmit(async (data) => {
     })
   }
   catch (e) {
-    const _ = e
-    toast.error(t('An error occurred while creating character.'))
+    const _ = e as FetchError
+
+    if (_?.response?.status === RATE_LIMIT_STATUS_CODE) {
+      toast.error(t('You are generating characters too fast. Please wait a moment.'))
+    }
+    else {
+      toast.error(t('An error occurred while generating character.'))
+    }
   }
 
   loading.value = false

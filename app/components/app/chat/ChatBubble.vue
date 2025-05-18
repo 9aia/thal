@@ -44,6 +44,7 @@ const time = computed(() => new Intl.DateTimeFormat(locale.value, {
 
 const copyToClipboard = useClipboard(toRef(props, 'message'))
 const translation = useTranslation({
+  queryKey: 'chat-bubble-translation',
   chatUsername: username.value,
   message: computed(() => isEditing.value ? edition.message : props.message),
   replyMessageId: computed(() => props.replyingId ? props.replyingId : undefined),

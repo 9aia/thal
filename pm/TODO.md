@@ -7,9 +7,11 @@ description: Tasks and items for the release.
 ## 0.1.0-9
 
 - Fix characterBuilderData
-- Add rate limit error handling to username validation on client
 - Notify error (specially username taken and invalid username) when approving character
 - Fix discover character item names (display name, avatar name)
+
+- useTranslation should be separate instances (loading, error, etc)?
+- useSpeech should be separate instances (loading, error, etc)?
 
 - Revision and adjust
   - Improve the design system and UI

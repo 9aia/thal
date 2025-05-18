@@ -1,8 +1,10 @@
 import { useQuery } from '@tanstack/vue-query'
+import type { FetchError } from 'ofetch'
 
 export type Translation = ReturnType<typeof useTranslation>
 
 export interface UseTranslation {
+  queryKey: string
   message: MaybeRef<string>
   messageIsBot: MaybeRef<boolean>
   chatUsername?: MaybeRef<string>
@@ -11,12 +13,13 @@ export interface UseTranslation {
   refetchOnTranslate?: MaybeRef<boolean>
 }
 
-function useTranslation({ messageIsBot, message, replyMessageId, chatUsername, toNative = true, refetchOnTranslate }: UseTranslation) {
+function useTranslation({ messageIsBot, message, replyMessageId, chatUsername, toNative = true, refetchOnTranslate, queryKey }: UseTranslation) {
   const open = ref(false)
   const enabled = ref(false)
+  const _queryKey = queryKey || 'message-translation'
 
   const translationQuery = useQuery({
-    queryKey: ['message-translation', unref(message), unref(chatUsername), unref(toNative)],
+    queryKey: [_queryKey, unref(message), unref(chatUsername), unref(toNative)],
     queryFn: async () => $fetch('/api/translate', {
       method: 'POST',
       body: {
@@ -28,17 +31,6 @@ function useTranslation({ messageIsBot, message, replyMessageId, chatUsername, t
       },
     }),
     enabled,
-  })
-
-  const toast = useToast()
-  const { t } = useI18nExperimental()
-
-  watch(translationQuery.error, (value) => {
-    if (!value) {
-      return
-    }
-
-    toast.error(t('Failed to translate message'))
   })
 
   const onTranslate = () => {
@@ -67,6 +59,7 @@ function useTranslation({ messageIsBot, message, replyMessageId, chatUsername, t
   return {
     translation,
     isOpen: open,
+    error: translationQuery.error,
     isError: translationQuery.isError,
     refetch: translationQuery.refetch,
     isLoading: computed(() => translationQuery.isLoading.value || translationQuery.isRefetching.value),

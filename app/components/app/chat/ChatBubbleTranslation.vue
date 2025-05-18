@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { t } from '@psitta/vue'
+import type { FetchError } from 'ofetch'
 import type { Translation } from '~/composables/useTranslation'
 
 const props = defineProps<{
@@ -8,10 +8,12 @@ const props = defineProps<{
 
 const {
   isOpen,
-  isError,
+  error,
   translation,
   refetch,
 } = props.translation
+
+const { t } = useI18nExperimental()
 </script>
 
 <template>
@@ -33,11 +35,14 @@ const {
   </div>
 
   <div
-    v-if="isError && isOpen"
+    v-if="error && isOpen"
     class="bg-gradient-8 rounded-lg mt-2 mb-1 px-3 py-2 min-h-[38px] flex items-start justify-between gap-2 group/translation"
   >
-    <div class="text-gray-800 text-sm">
-      {{ t("An error occurred while translating the message") }}
+    <div v-if="(error as FetchError).status === RATE_LIMIT_STATUS_CODE" class="text-gray-800 text-sm">
+      {{ t("You are translating messages too fast. Please wait a moment.") }}
+    </div>
+    <div v-else class="text-gray-800 text-sm">
+      {{ t('Failed to translate message. Try again later.') }}
     </div>
 
     <div class="items-start min-w-[64px] min-h-[32px] flex">

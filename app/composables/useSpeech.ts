@@ -1,3 +1,5 @@
+import type { FetchError } from 'ofetch'
+
 interface Synthesis {
   audioUrl: string
   timepoints: { markName: string, timeSeconds: number }[]
@@ -5,7 +7,16 @@ interface Synthesis {
 
 const NON_PLAYING = -1
 
+export class RateLimitError extends Error {
+  constructor(message: string) {
+    super(message)
+    this.name = 'RateLimitError'
+  }
+}
+
 function useSpeech(text: MaybeRef<string>) {
+  const toast = useToast()
+  const { t } = useI18nExperimental()
   const currentWord = ref(NON_PLAYING)
 
   const audio = ref<HTMLAudioElement | null>(null)
@@ -35,7 +46,15 @@ function useSpeech(text: MaybeRef<string>) {
       synthesis.value = { audioUrl, timepoints }
     }
     catch (e) {
-      const _ = e
+      const error = e as FetchError
+
+      const errorStatus = error.response?.status
+      const errorMessage = await error.data?.message
+
+      if (errorStatus === RATE_LIMIT_STATUS_CODE) {
+        throw new RateLimitError(errorMessage)
+      }
+
       isError.value = true
       synthesis.value = null
     }

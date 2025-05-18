@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import { t } from '@psitta/vue'
+import type { FetchError } from 'ofetch'
 import { edition, replies } from '~/store'
+
+const toast = useToast()
+const { t } = useI18nExperimental()
 
 const isEmpty = useIsTextEmpty(toRef(() => edition.message))
 const route = useRoute()
@@ -8,6 +11,7 @@ const username = computed(() => route.params.username as string)
 const replyMessage = computed(() => replies[username.value])
 
 const translation = useTranslation({
+  queryKey: 'edit-bubble-translation',
   message: toRef(() => edition.message),
   replyMessageId: computed(() => replyMessage.value ? replyMessage.value.id : undefined),
   chatUsername: username,
@@ -22,6 +26,22 @@ watch(translation.isLoading, (value) => {
   }
 
   edition.message = translation.translation.value!
+})
+
+watch(translation.error, async (value) => {
+  if (!value) {
+    return
+  }
+
+  const error = value as FetchError
+  const errorStatus = error.response?.status
+
+  if (errorStatus === RATE_LIMIT_STATUS_CODE) {
+    toast.error(t('You are translating messages too fast. Please wait a moment.'))
+    return
+  }
+
+  toast.error(t('Failed to translate message'))
 })
 </script>
 

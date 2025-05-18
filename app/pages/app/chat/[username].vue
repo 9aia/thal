@@ -165,9 +165,6 @@ function emptyInput() {
 
 const newMessageTmp = ref()
 
-const RATE_LIMIT_STATUS_CODE = 429
-const PAYMENT_REQUIRED_STATUS_CODE = 402
-
 const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending } = useMutation({
   mutationFn: (data: SendMessageData) => $fetch(`/api/message/${route.params.username}`, {
     method: 'POST',
