@@ -234,7 +234,7 @@ const hasChanges = computed(() => {
             :disabled="isPastDueVisible"
           />
 
-          <Button :loading="loading" class="btn-info text-white" :disabled="hasErrors || isPastDueVisible">
+          <Button :loading="loading" class="btn-info text-white" :disabled="!form.values.prompt || hasErrors || isPastDueVisible">
             {{ !!draft ? t("Regenerate") : t("Generate") }}
           </Button>
         </form>
