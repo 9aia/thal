@@ -8,7 +8,6 @@ const props = defineProps<{
   description: string
   username: string
   categoryId: number
-  avatar?: string
   showCopy?: boolean
   showSendMessage?: boolean
 }>()
@@ -28,11 +27,11 @@ const category = computed(() => {
 })
 
 const avatarName = computed(() => {
-  return props.avatar || props.name
+  return props.name || props.username
 })
 
 const displayName = computed(() => {
-  return props.name
+  return props.name || `@${props.username}`
 })
 </script>
 
