@@ -23,8 +23,6 @@ export default eventHandler(async (event) => {
   const orm = event.context.orm
   const user = event.context.user
 
-  throw rateLimit()
-
   if (!user)
     throw unauthorized()
 
