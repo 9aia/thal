@@ -17,6 +17,13 @@ export function error(
   return err
 }
 
+export function noContent(
+  message?: string,
+  options: Partial<NuxtError<unknown>> = {},
+) {
+  return error(204, message, options)
+}
+
 export function notFound(
   message?: string,
   options: Partial<NuxtError<unknown>> = {},

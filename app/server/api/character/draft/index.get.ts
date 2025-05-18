@@ -2,7 +2,7 @@ import { and, eq, isNull } from 'drizzle-orm'
 import { z } from 'zod'
 import { getCharacterCategoryName } from '~/server/services/character'
 import { getValidated } from '~/utils/h3'
-import { badRequest, paymentRequired, unauthorized } from '~/utils/nuxt'
+import { noContent, paymentRequired, unauthorized } from '~/utils/nuxt'
 import { isPlanPastDue } from '~/utils/plan'
 import { characterDraftLocalizations, characterDrafts } from '~~/db/schema'
 import { numericString } from '~/utils/zod'
@@ -33,7 +33,7 @@ export default eventHandler(async (event) => {
   })
 
   if (!draftCharacter)
-    throw badRequest('There is no pending character draft')
+    throw noContent('There is no pending character draft')
 
   const existingDraft = draftCharacter.data
 

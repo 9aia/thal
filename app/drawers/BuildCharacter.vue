@@ -24,14 +24,34 @@ interface FormValues {
 
 const localWithDefaultRegion = useLocaleDefaultRegion()
 
+function draftQueryFn() {
+  return new Promise<CharacterDraftApiData | null>((resolve, reject) => {
+    $fetch('/api/character/draft', {
+      query: {
+        characterId: characterBuilderData.value?.id,
+        locale: localWithDefaultRegion.value,
+      },
+      async onResponse({ response }) {
+        if (response.status === 204) {
+          resolve(null)
+        }
+
+        if (response.status === 200) {
+          resolve(response._data)
+        }
+
+        reject(new Error('Failed to fetch character draft'))
+      },
+      onResponseError() {
+        reject(new Error('Failed to fetch character draft'))
+      },
+    })
+  })
+}
+
 const draftQuery = useQuery({
   queryKey: queryKeys.characterDraftEdit(localWithDefaultRegion, characterBuilderData.value?.usernames?.username as string),
-  queryFn: () => $fetch('/api/character/draft', {
-    query: {
-      characterId: characterBuilderData.value?.id,
-      locale: localWithDefaultRegion.value,
-    },
-  }),
+  queryFn: draftQueryFn,
 })
 
 const initialValuesFromData = computed(() => {
