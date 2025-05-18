@@ -1,11 +1,13 @@
 import { and, eq, isNull } from 'drizzle-orm'
-import { getCharacterCategoryId } from '~/server/services/character'
+import { z } from 'zod'
+import { getCharacterCategoryId, getCharacterCategoryName } from '~/server/services/character'
 import { type CharacterDraftResponseSchema, getCharacterDraftPrompt } from '~/utils/character'
 import { now } from '~/utils/date'
 import { promptGeminiJson } from '~/utils/gemini'
 import { getValidated } from '~/utils/h3'
 import { badRequest, internal, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
 import { isPlanPastDue } from '~/utils/plan'
+import { numericString } from '~/utils/zod'
 import type { CharacterDraftData } from '~~/db/schema'
 import { characterDraftLocalizations, characterDraftSchema, characterDrafts } from '~~/db/schema'
 
@@ -27,14 +29,33 @@ export default eventHandler(async (event) => {
   if (isPlanPastDue(user))
     throw paymentRequired()
 
-  const { locale, ...data } = await getValidated(event, 'body', characterDraftSchema)
+  const { locale, characterId, ...data } = await getValidated(event, 'body', characterDraftSchema.extend({
+    characterId: z.number().optional(),
+  }))
 
-  const [existingDraft] = await orm.select().from(characterDrafts).where(
-    and(eq(characterDrafts.creatorId, user.id), isNull(characterDrafts.characterId)),
-  )
+  const existingDraft = await orm.query.characterDrafts.findFirst({
+    where: and(
+      eq(characterDrafts.creatorId, user.id),
+      characterId
+        ? eq(characterDrafts.characterId, characterId)
+        : isNull(characterDrafts.characterId),
+    ),
+    with: {
+      characterDraftLocalizations: {
+        where: eq(characterDraftLocalizations.locale, 'en-US'),
+      },
+      character: !characterId
+        ? undefined
+        : {
+            columns: {
+              categoryId: true,
+            },
+          },
+    },
+  })
 
   if (!existingDraft)
-    throw badRequest('You do not have a pending character draft')
+    throw badRequest(characterId ? `You do not have a pending character draft for \`characterId\` ${characterId}` : 'You do not have a pending character draft')
 
   const generateCharacterRateLimit = await event.context.cloudflare.env.GENERATE_CHARACTER_RATE_LIMIT.limit({ key: `generate-character-${user.id}` })
 
@@ -50,10 +71,36 @@ export default eventHandler(async (event) => {
     ${editOutro}
   `
 
+  const promptLocalization = existingDraft.characterDraftLocalizations[0]
+
+  const prompt = !characterId
+    ? data.prompt
+    : `
+    <previous-prompt>
+      ${existingDraft.prompt}
+    </previous-prompt>
+
+    <previous-character-data>
+      ${JSON.stringify({
+        username: existingDraft.data.username,
+        name: promptLocalization.name,
+        description: promptLocalization.description,
+        instructions: promptLocalization.instructions,
+        category: getCharacterCategoryName(existingDraft.character!.categoryId!),
+      }, null, 2)}
+    </previous-character-data>
+
+    <separator></separator>
+
+    <new-prompt>
+      ${data.prompt}
+    </new-prompt>
+  `
+
   const geminiData = await promptGeminiJson<CharacterDraftResponseSchema>({
     apiKey: GEMINI_API_KEY,
     model: GEMINI_MODEL,
-    prompt: data.prompt,
+    prompt,
     responseSchema,
     systemInstruction,
   })

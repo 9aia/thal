@@ -72,14 +72,6 @@ watch(draftQuery.data, () => {
   }
 })
 
-onMounted(() => {
-  if (draftQuery.data.value) {
-    form.setValues({
-      prompt: draftQuery.data.value.prompt,
-    })
-  }
-})
-
 const user = useUser()
 
 const hasErrors = useHasFormErrors(form)
@@ -99,23 +91,12 @@ const createCharacterDraft = useMutation({
 })
 
 const updateCharacterDraft = useMutation({
-  mutationFn: async (data: FormValues) => {
+  mutationFn: async (variables: { data: FormValues, characterId?: number }) => {
     return await $fetch('/api/character/draft', {
       method: 'patch',
       body: {
-        ...data,
-        locale: localWithDefaultRegion.value,
-      },
-    })
-  },
-})
-
-const editApprovedCharacterDraft = useMutation({
-  mutationFn: async (data: FormValues) => {
-    return await $fetch(`/api/character/draft/${characterBuilderData.value!.usernames!.username as string}`, {
-      method: 'patch',
-      body: {
-        ...data,
+        ...variables.data,
+        characterId: variables.characterId,
         locale: localWithDefaultRegion.value,
       },
     })
@@ -123,7 +104,7 @@ const editApprovedCharacterDraft = useMutation({
 })
 
 const isError = computed(() => {
-  return createCharacterDraft.isError || updateCharacterDraft.isError || editApprovedCharacterDraft.isError
+  return createCharacterDraft.isError || updateCharacterDraft.isError
 })
 
 const isEditing = computed(() => !!characterBuilderData.value?.id)
@@ -133,15 +114,14 @@ const submit = form.handleSubmit(async (data) => {
 
   try {
     if (isEditing.value) {
-      await editApprovedCharacterDraft.mutateAsync(data)
+      console.log(characterBuilderData.value)
+      await updateCharacterDraft.mutateAsync({ data, characterId: characterBuilderData.value!.id })
+    }
+    else if (draftQuery.data.value) {
+      await updateCharacterDraft.mutateAsync({ data })
     }
     else {
-      if (draftQuery.data.value) {
-        await updateCharacterDraft.mutateAsync(data)
-      }
-      else {
-        await createCharacterDraft.mutateAsync(data)
-      }
+      await createCharacterDraft.mutateAsync(data)
     }
 
     queryClient.invalidateQueries({
@@ -210,7 +190,6 @@ const hasChanges = computed(() => {
     && d.description === c.description
     && d.instructions === c.instructions
     && d.name === c.name
-    && d.categoryId === c.categoryId
     && d.categoryName === c.categoryName)
 })
 </script>
