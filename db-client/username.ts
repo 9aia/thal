@@ -10,6 +10,6 @@ block('Update all usernames to lowercase', {
   query: db => (
     db.update(usernames)
       .set({ username: sql`LOWER(${usernames.username})` })
-      .returning(),
+      .returning()
   ),
 })
