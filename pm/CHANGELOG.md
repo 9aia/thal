@@ -21,6 +21,10 @@ description: A detailed, chronological record of all changes made to a project, 
 - Unified contact and character usernames
 - Improved button icons
 
+### Performance
+
+- Improved message history performance
+
 ### Removed
 
 - Removed username from "Discover Characters" items
