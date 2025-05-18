@@ -1,9 +1,9 @@
-import { eq } from 'drizzle-orm'
+import { eq, sql } from 'drizzle-orm'
 import type { H3EventContext } from 'h3'
 import type { User } from '~~/db/schema'
-import type { Message } from '~/types'
+import type { Message, MessageStatus } from '~/types'
 import { notFound } from '~/utils/nuxt'
-import { chats, usernames } from '~~/db/schema'
+import { chats, messages, usernames } from '~~/db/schema'
 
 export async function getHistory(
   orm: H3EventContext['orm'],
@@ -16,7 +16,28 @@ export async function getHistory(
       chats: {
         where: eq(chats.userId, user.id!),
         with: {
-          messages: true,
+          messages: {
+            columns: {
+              id: true,
+            },
+            with: {
+              replyingMessage: {
+                columns: {
+                  id: true,
+                },
+                extras: {
+                  from: sql<'user' | 'bot'>`CASE WHEN ${messages.isBot} THEN 'bot' ELSE 'user' END`.as('from'),
+                  message: sql<string>`${messages.data}`.as('message'),
+                },
+              },
+            },
+            extras: {
+              status: sql<MessageStatus>`CONCAT("seen")`.as('status'),
+              from: sql<'user' | 'bot'>`CASE WHEN ${messages.isBot} THEN 'bot' ELSE 'user' END`.as('from'),
+              message: sql<string>`${messages.data}`.as('message'),
+              time: sql<number>`${messages.createdAt}`.as('time'),
+            },
+          },
         },
       },
     },
@@ -27,30 +48,5 @@ export async function getHistory(
 
   const chat = result.chats[0]
 
-  if (!chat?.id)
-    return { chatId: null, history: [] } as { chatId: null, history: Message[] }
-
-  const getReplyFrom = (replyingId: number) => {
-    return chat?.messages.find(m => m.id === replyingId)?.isBot ? 'bot' : 'user'
-  }
-
-  // TODO perf: don't iterate again
-  const messages: Message[] = chat?.messages.map((message) => {
-    const replyMessage = chat?.messages.find(m => m.id === message.replyingId)?.data?.value
-
-    return {
-      id: message.id,
-      status: 'seen',
-      from: message.isBot ? 'bot' : 'user',
-      message: message.data.value,
-      replyMessage,
-      time: message.createdAt.getTime(),
-      replyingId: message.replyingId,
-      replyFrom: message.replyingId
-        ? getReplyFrom(message.replyingId)
-        : undefined,
-    }
-  })
-
-  return { history: messages, chatId: chat.id }
+  return { history: chat?.id ? chat.messages : [], chatId: chat?.id ? chat.id : null }
 }

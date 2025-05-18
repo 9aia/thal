@@ -96,18 +96,19 @@ export default eventHandler(async (event) => {
     from: 'user',
     status: 'seen',
     message: data.value,
-    replyMessage: data.replyMessage,
-    replyingId: data.replyingId,
-    replyFrom: data.replyFrom,
-    time: userMessageTime,
+    replyingMessage: data.replyingId
+      ? {
+          id: data!.replyingId!,
+          message: data!.replyMessage!,
+          from: data!.replyFrom!,
+        }
+      : null,
+    time: userMessageTime.getTime(),
   })
 
   const userMessage: MessageInsert = {
     chatId: chat.id,
-    data: {
-      type: data.type,
-      value: data.value,
-    },
+    data: data.value,
     isBot: false,
     createdAt: userMessageTime,
     replyingId: data.replyingId,
@@ -147,7 +148,7 @@ export default eventHandler(async (event) => {
 
   const botMessagePayload: MessageInsert = {
     chatId: chat.id,
-    data: { type: 'text', value: botMessageContent },
+    data: botMessageContent,
     isBot: true,
     createdAt: botMessageTime,
   }
@@ -186,7 +187,8 @@ export default eventHandler(async (event) => {
       from: 'bot',
       status: 'seen',
       message: botMessageContent,
-      time: botMessageTime,
+      time: botMessageTime.getTime(),
+      replyingMessage: null,
     },
   )
 

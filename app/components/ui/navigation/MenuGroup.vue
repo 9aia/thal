@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { MenuItem as MenuItemType } from './types'
+import type { MenuItemType } from './types'
 
 defineProps<{
   items: MenuItemType[]

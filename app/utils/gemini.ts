@@ -5,7 +5,7 @@ import { getFullMessage } from '~/utils/chat'
 
 export function chatHistoryToGemini(history: Message[]): Content[] {
   return history.map((msg) => {
-    const fullMessage = getFullMessage(msg.message, msg.replyMessage)
+    const fullMessage = getFullMessage(msg.message, msg.replyingMessage?.message)
 
     return {
       role: msg.from === 'user' ? 'user' : 'model',

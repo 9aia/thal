@@ -15,7 +15,7 @@
     "release": "release-it",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "type:check": "tsc --noEmit",
+    "type:check": "vue-tsc --noEmit",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "wrangler d1 migrations apply thal --local",
     "db:migrate:prod": "wrangler d1 migrations apply thal --remote",
@@ -62,6 +62,7 @@
     "vue": "^3.5.13",
     "vue-dragscroll": "^4.0.6",
     "vue-router": "^4.5.0",
+    "vue-tsc": "^2.2.10",
     "yaml": "^2.7.0",
     "zod": "^3.24.4"
   },

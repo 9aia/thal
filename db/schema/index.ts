@@ -3,7 +3,6 @@ import { foreignKey, int, sqliteTable, text, unique } from 'drizzle-orm/sqlite-c
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
 import { relations, sql } from 'drizzle-orm'
 import { z } from 'zod'
-import type { MessageData } from '~/types'
 
 // #region Users
 
@@ -381,9 +380,9 @@ export const chats = sqliteTable('Chat', {
   contactId: int('contact_id')
     .references(() => contacts.id, { onDelete: 'set null' }),
   createdAt: int('created_at', { mode: 'timestamp_ms' }).default(sql`(unixepoch() * 1000)`).notNull(),
-}, t => ({
-  unq: unique().on(t.userId, t.usernameId),
-}))
+}, t => ([
+  unique().on(t.userId, t.usernameId),
+]))
 
 export const chatsRelations = relations(chats, ({ one, many }) => ({
   contact: one(contacts, {
@@ -411,27 +410,30 @@ export const messages = sqliteTable('Message', {
   chatId: int('chat_id')
     .notNull()
     .references(() => chats.id, { onDelete: 'cascade' }),
-  data: text('data', { mode: 'json' }).$type<MessageData>().notNull(),
+  data: text('data').notNull(),
   replyingId: int('replying_id'),
   isBot: int('is_bot', { mode: 'boolean' }).default(false).notNull(),
   createdAt: int('created_at', { mode: 'timestamp_ms' }).default(sql`(unixepoch() * 1000)`).notNull(),
-}, self => ({
-  parentReference: foreignKey({
+}, self => ([
+  foreignKey({
     columns: [self.replyingId],
     foreignColumns: [self.id],
     name: 'messages_replying_id_fkey',
   }),
-}))
+]))
 
 export const messageRelations = relations(messages, ({ one }) => ({
   chat: one(chats, {
     fields: [messages.chatId],
     references: [chats.id],
   }),
+  replyingMessage: one(messages, {
+    fields: [messages.replyingId],
+    references: [messages.id],
+  }),
 }))
 
 export const messageSendSchema = z.object({
-  type: z.enum(['text']),
   value: z.string(),
   replyingId: z.number().optional(),
   replyMessage: z.string().optional(),
@@ -442,8 +444,6 @@ export const selectMessageSchema = createSelectSchema(messages)
 export const insertMessageSchema = createInsertSchema(messages)
 
 export type MessageSelect = z.infer<typeof selectMessageSchema>
-export type MessageInsert = Omit<z.infer<typeof insertMessageSchema>, 'data'> & {
-  data: MessageData
-}
+export type MessageInsert = z.infer<typeof insertMessageSchema>
 
 // #endregion
