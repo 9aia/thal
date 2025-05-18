@@ -1,7 +1,7 @@
 import { and, eq, isNull } from 'drizzle-orm'
 import { z } from 'zod'
 import { getCharacterCategoryId, getCharacterCategoryName } from '~/server/services/character'
-import { type CharacterDraftResponseSchema, getCharacterDraftPrompt } from '~/utils/character'
+import { type CharacterDraftResponseSchema, characterDraftResponseSchema, getCharacterDraftPrompt } from '~/utils/character'
 import { now } from '~/utils/date'
 import { promptGeminiJson } from '~/utils/gemini'
 import { getValidated } from '~/utils/h3'
@@ -97,13 +97,20 @@ export default eventHandler(async (event) => {
     </new-prompt>
   `
 
-  const geminiData = await promptGeminiJson<CharacterDraftResponseSchema>({
+  const rawGeminiData = await promptGeminiJson({
     apiKey: GEMINI_API_KEY,
     model: GEMINI_MODEL,
     prompt,
     responseSchema,
     systemInstruction,
   })
+
+  const geminiDataValidation = characterDraftResponseSchema.safeParse(rawGeminiData)
+  if (!geminiDataValidation.success) {
+    throw internal(`Generated data is invalid: ${JSON.stringify(geminiDataValidation.error.errors)}`)
+  }
+
+  const geminiData = geminiDataValidation.data
   const categoryId = getCharacterCategoryId(geminiData.category)
 
   const draftData: CharacterDraftData = {

@@ -6,9 +6,6 @@ description: Tasks and items for the release.
 
 ## 0.1.0-9
 
-- Fix characterBuilderData
-- Notify error (specially username taken and invalid username) when approving character
-- Search for TODO:
 - Close drawer on character generation and go to character chat route
   - Add edit action on character chat header if you are the owner
   - Action for discard draft

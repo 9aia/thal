@@ -1,12 +1,12 @@
 import { and, eq, isNull } from 'drizzle-orm'
 import { getCharacterCategoryId } from '~/server/services/character'
-import { type CharacterDraftResponseSchema, getCharacterDraftPrompt } from '~/utils/character'
+import { characterDraftResponseSchema, getCharacterDraftPrompt } from '~/utils/character'
 import { promptGeminiJson } from '~/utils/gemini'
 import { getValidated } from '~/utils/h3'
 import { badRequest, internal, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
 import { isPlanPastDue } from '~/utils/plan'
 import type { CharacterDraftData } from '~~/db/schema'
-import { characterDraftLocalizations, characterDraftSchema, characterDrafts } from '~~/db/schema'
+import { characterDraftLocalizations, characterDraftSchema, characterDrafts, usernameSchema } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const { GEMINI_MODEL, GEMINI_API_KEY } = useRuntimeConfig(event)
@@ -49,13 +49,20 @@ export default eventHandler(async (event) => {
 
     ${createOutro}
   `
-  const geminiData = await promptGeminiJson<CharacterDraftResponseSchema>({
+  const rawGeminiData = await promptGeminiJson({
     apiKey: GEMINI_API_KEY,
     model: GEMINI_MODEL,
     prompt,
     responseSchema,
     systemInstruction,
   })
+
+  const geminiDataValidation = characterDraftResponseSchema.safeParse(rawGeminiData)
+  if (!geminiDataValidation.success) {
+    throw internal(`Generated data is invalid: ${JSON.stringify(geminiDataValidation.error.errors)}`)
+  }
+
+  const geminiData = geminiDataValidation.data
   const categoryId = getCharacterCategoryId(geminiData.category)
 
   const draftData: CharacterDraftData = {

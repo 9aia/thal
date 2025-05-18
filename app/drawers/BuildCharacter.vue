@@ -6,7 +6,7 @@ import type { FetchError } from 'ofetch'
 import { T } from '@psitta/vue'
 import type { MenuItemType } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
-import { characterBuilderData, isRootDrawerOpen } from '~/store'
+import { characterBuilderData } from '~/store'
 import type { CharacterBuilderEditViewMode, CharacterDraftApiData } from '~/types'
 
 const emit = defineEmits<{
@@ -129,15 +129,20 @@ const submit = form.handleSubmit(async (data) => {
       queryKey: queryKeys.characterDraft,
     })
   }
-  catch (e) {
-    const _ = e as FetchError
+  catch (_) {
+    const e = _ as FetchError
 
-    if (_?.response?.status === RATE_LIMIT_STATUS_CODE) {
+    if (e.statusCode === INTERNAL_STATUS_CODE && e.statusMessage?.startsWith?.('Generated data is invalid:')) {
+      toast.error(t('Generated data is invalid. Please try regenerating again.'))
+      return
+    }
+
+    if (e.statusCode === RATE_LIMIT_STATUS_CODE) {
       toast.error(t('You are generating characters too fast. Please wait a moment.'))
+      return
     }
-    else {
-      toast.error(t('An error occurred while generating character.'))
-    }
+
+    toast.error(t('Something went wrong generating character. Try again.'))
   }
 
   loading.value = false

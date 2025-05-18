@@ -1,20 +1,24 @@
 import { type ResponseSchema, SchemaType } from '@google/generative-ai'
+import { z } from 'zod'
 import { categories } from '~/constants/discover'
+import { descriptionSchema, instructionsSchema, nameSchema, usernameSchema } from '~~/db/schema'
 
-interface CharacterLocalization {
-  name: string
-  description: string
-  instructions: string
-}
-export interface CharacterDraftResponseSchema {
-  name: string
-  username: string
-  category: string
-  localizations: {
-    'pt-BR': CharacterLocalization
-    'en-US': CharacterLocalization
-  }
-}
+export const characterLocalizationSchema = z.object({
+  name: nameSchema,
+  description: descriptionSchema,
+  instructions: instructionsSchema,
+})
+
+export const characterDraftResponseSchema = z.object({
+  username: usernameSchema,
+  category: z.enum(categories.map(category => category.name) as [string, ...string[]]),
+  localizations: z.object({
+    'pt-BR': characterLocalizationSchema,
+    'en-US': characterLocalizationSchema,
+  }),
+})
+
+export type CharacterDraftResponseSchema = z.infer<typeof characterDraftResponseSchema>
 
 export function getCharacterDraftPrompt() {
   const categoriesData = categories.map(category => ({

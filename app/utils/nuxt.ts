@@ -24,6 +24,13 @@ export function noContent(
   return error(204, message, options)
 }
 
+export function conflict(
+  message?: string,
+  options: Partial<NuxtError<unknown>> = {},
+) {
+  return error(409, message, options)
+}
+
 export function notFound(
   message?: string,
   options: Partial<NuxtError<unknown>> = {},

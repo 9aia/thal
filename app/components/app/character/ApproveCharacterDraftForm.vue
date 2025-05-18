@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { useForm } from 'vee-validate'
+import type { FetchError } from 'ofetch'
 import queryKeys from '~/queryKeys'
 import { characterBuilderData, contactInfoData, isRootDrawerOpen } from '~/store'
+import { CONFLICT_STATUS_CODE } from '~/utils/web'
 
 const emit = defineEmits<{
   (e: 'approved'): void
@@ -28,40 +30,6 @@ const user = useUser()
 const { params } = useRoute()
 const queryClient = useQueryClient()
 const localWithDefaultRegion = useLocaleDefaultRegion()
-
-// TODO: remove this?
-// async function validateUsername(username: string) {
-//   if (!username)
-//     return
-
-//   let invalid = false
-
-//   try {
-//     const { valid } = await $fetch(`/api/character/validate-username/${username}`, {
-//       params: {
-//         editingUsername: characterBuilderData.value?.username,
-//       },
-//     })
-
-//     invalid = !valid
-//   }
-//   catch (e) {
-//     const _ = e
-
-//     toast.error(t(
-//       'An error occurred while validating username.',
-//     ))
-//     invalid = false
-//   }
-
-//   form.setFieldError(
-//     'username',
-//     invalid ? t('Username is invalid.') : undefined,
-//   )
-// }
-
-// const debouncedValidateUsername = useDebounceFn(validateUsername, 500)
-// watch(() => form.values.username, debouncedValidateUsername)
 
 function handleGoToChat(username: string) {
   isRootDrawerOpen.value = false
@@ -110,23 +78,17 @@ const approveMutation = useMutation({
       ],
     })
 
-    characterBuilderData.value = {
-      categoryId: data.categoryId,
-      usernames: {
-        username: data.username,
-      },
-      instructions: data.instructions,
-      discoverable: data.discoverable,
-      id: data.id,
-      creatorId: user.value!.id,
-      description: data.description,
-      name: data.name,
-    }
-
     emit('approved')
   },
   onError: (error) => {
-    console.log(error)
+    const e = error as FetchError
+
+    if (e.statusCode === CONFLICT_STATUS_CODE) {
+      toast.error(t('That username\'s taken — tweak your prompt or suggest one directly.'))
+      return
+    }
+
+    toast.error(t('An error occurred while approving character.'))
   },
 })
 

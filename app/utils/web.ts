@@ -1,5 +1,8 @@
 export const RATE_LIMIT_STATUS_CODE = 429
 export const PAYMENT_REQUIRED_STATUS_CODE = 402
+export const CONFLICT_STATUS_CODE = 409
+export const BAD_REQUEST_STATUS_CODE = 400
+export const INTERNAL_STATUS_CODE = 500
 
 export function getCursorPosition(el: HTMLSpanElement) {
   const end = el.textContent?.length || 0

@@ -20,6 +20,8 @@ description: A detailed, chronological record of all changes made to a project, 
 - Added support for redirecting to URLs containing query parameters
 - Unified contact and character usernames
 - Improved button icons
+- Added validation for character draft generation
+- Improved character draft error handling
 
 ### Performance
 

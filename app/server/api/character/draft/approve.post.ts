@@ -1,6 +1,6 @@
 import { and, eq, isNull } from 'drizzle-orm'
 import { getValidated } from '~/utils/h3'
-import { badRequest, paymentRequired, unauthorized } from '~/utils/nuxt'
+import { badRequest, conflict, paymentRequired, unauthorized } from '~/utils/nuxt'
 import { isPlanPastDue } from '~/utils/plan'
 import type { CharacterGet } from '~~/db/schema'
 import { characterDraftInsertSchema, characterDrafts, characterLocalizations, characters, usernames } from '~~/db/schema'
@@ -50,7 +50,7 @@ export default eventHandler(async (event) => {
     .where(eq(usernames.username, draftData.username))
 
   if (existingUsername && existingUsername.characterId !== null && existingUsername.characterId !== data.characterId)
-    throw badRequest('Username already taken')
+    throw conflict('Username already taken')
 
   let character: CharacterGet
 
