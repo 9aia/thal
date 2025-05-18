@@ -3,9 +3,10 @@ import { Menu } from '@ark-ui/vue'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 import { useForm } from 'vee-validate'
 import type { FetchError } from 'ofetch'
+import { T } from '@psitta/vue'
 import type { MenuItemType } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
-import { characterBuilderData } from '~/store'
+import { characterBuilderData, isRootDrawerOpen } from '~/store'
 import type { CharacterBuilderEditViewMode, CharacterDraftApiData } from '~/types'
 
 const emit = defineEmits<{
@@ -225,6 +226,21 @@ const hasChanges = computed(() => {
     </AppNote>
 
     <div class="px-4 py-4 flex-1 overflow-y-auto bg-white space-y-4">
+      <template v-if="isEditing">
+        <div class="px-1 text-sm text-gray-400">
+          <T
+            text="You are editing {name}."
+            :values="{ name: true }"
+          >
+            <template #name>
+              <button class="text-blue-500" @click="navigateTo(`/app/chat/${character!.username}`)">
+                {{ character?.name }}
+              </button>
+            </template>
+          </T>
+        </div>
+      </template>
+
       <SettingSection>
         <form class="block space-y-4" @submit="submit">
           <Textarea

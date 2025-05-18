@@ -9,6 +9,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 ## Features
 
 - Move Pronouns field into About me textarea
+- Add a "My Characters" section/accordion in the "New Chat"
 - Implement basic analytics to track user engagement and app performance
 - Implement soft-deletes for characters to enable translation/listening in chats with deleted characters
 - Add rate limit details to the pricing page

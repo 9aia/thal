@@ -6,6 +6,7 @@ description: A collection of ideas and feedback from stakeholders or team member
 
 ## Features
 
+- Add a "My Characters" link in Discover Characters
 - Implement translations on deleted characters
 - Add male voice
 - Share chat from message, and continue

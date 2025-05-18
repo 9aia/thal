@@ -11,7 +11,6 @@ description: Tasks and items for the release.
 - Search for TODO:
 - Close drawer on character generation and go to character chat route
   - Add edit action on character chat header if you are the owner
-  - Add "You are editing "<character_name>"
   - Action for discard draft
 
 - Revision and adjust
