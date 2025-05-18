@@ -7,15 +7,15 @@ const props = defineProps<{
   chat: Readonly<ChatItem>
 }>()
 
-const name = computed(() => {
-  if (props.chat.contactName || props.chat.characterName) {
-    return props.chat.contactName || props.chat.characterName
-  }
+const contactInfo = computed(() => ({
+  name: props.chat.characterName,
+  username: props.chat.username,
+  contact: {
+    name: props.chat.contactName,
+  },
+}))
 
-  return props.chat.username
-    ? `@${props.chat.username}`
-    : ''
-})
+const { displayName } = useContactInfo(contactInfo)
 
 const content = computed(() => {
   return props.chat.lastMessageContent || ''
@@ -33,7 +33,7 @@ async function handleGoToChat(username: string) {
 
     <div class="flex-1 flex flex-col justify-center w-10px">
       <div class="flex justify-between items-center">
-        <a class="block text-base text-gray-800">{{ name }}</a>
+        <a class="block text-base text-gray-800">{{ displayName }}</a>
 
         <ClientOnly v-if="content">
           <ChatItemTime :chat="chat" />

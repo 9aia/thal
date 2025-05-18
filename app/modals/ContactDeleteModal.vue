@@ -2,9 +2,12 @@
 import { t } from '@psitta/vue'
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
+import { contactInfoData } from '~/store'
 
 const props = defineProps<{
   contactUsername: string
+  characterUsername?: string
+  characterName?: string
 }>()
 
 const queryClient = useQueryClient()
@@ -40,6 +43,12 @@ const {
     queryClient.invalidateQueries({
       queryKey: queryKeys.chats,
     })
+
+    contactInfoData.value = {
+      username: props.characterUsername,
+      displayName: props.characterName,
+      avatarName: props.characterName,
+    }
 
     isOpen.value = false
   },

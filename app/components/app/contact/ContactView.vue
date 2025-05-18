@@ -125,7 +125,12 @@ function goToChat() {
 
     <div class="flex-1 overflow-y-auto bg-white divide-y-2 divide-gray-50">
       <Teleport to="body">
-        <ContactDeleteModal v-model="contactDeleteModalState" :contact-username="username!" />
+        <ContactDeleteModal
+          v-model="contactDeleteModalState"
+          :contact-username="username!"
+          :character-name="data?.character?.characterLocalizations?.[0].name"
+          :character-username="data?.username"
+        />
       </Teleport>
 
       <Resource :loading="isLoading" :error="isError">

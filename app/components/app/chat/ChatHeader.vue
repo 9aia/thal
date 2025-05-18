@@ -71,7 +71,12 @@ const items = computed(() => [
 
 <template>
   <header class="px-3 py-2 bg-white flex gap-2 w-full">
-    <ContactDeleteModal v-model="contactDeleteModalState" :contact-username="username" />
+    <ContactDeleteModal
+      v-model="contactDeleteModalState"
+      :contact-username="username"
+      :character-name="displayName"
+      :character-username="username"
+    />
 
     <label for="my-drawer" class="lg:hidden btn btn-ghost btn-circle text-black drawer-button">
       <Icon name="material-symbols:arrow-back" />
