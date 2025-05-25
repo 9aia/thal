@@ -6,6 +6,8 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+## [0.1.0-9] - 2025-05-25
+
 ### Fixed
 
 - Added rate limit for various endpoints
