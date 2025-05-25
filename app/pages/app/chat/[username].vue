@@ -345,6 +345,7 @@ const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
           @execute="refetch"
         >
           <ChatHeader
+            :character-id="data!.id!"
             :display-name="displayName"
             :avatar-name="avatarName"
             :username="data!.username"

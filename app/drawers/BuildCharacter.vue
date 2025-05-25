@@ -6,13 +6,14 @@ import type { FetchError } from 'ofetch'
 import { T } from '@psitta/vue'
 import type { MenuItemType } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
-import { characterBuilderData } from '~/store'
-import type { CharacterBuilderEditViewMode, CharacterDraftApiData } from '~/types'
+import { characterBuildId } from '~/store'
+import type { CharacterBuildApiData, CharacterBuilderEditViewMode } from '~/types'
 
 const emit = defineEmits<{
   (e: 'close'): void
 }>()
 const { t } = useI18nExperimental()
+const localWithDefaultRegion = useLocaleDefaultRegion()
 const toast = useToast()
 
 useAutoRedirect({
@@ -23,13 +24,11 @@ interface FormValues {
   prompt: string
 }
 
-const localWithDefaultRegion = useLocaleDefaultRegion()
-
-function draftQueryFn() {
-  return new Promise<CharacterDraftApiData | null>((resolve, reject) => {
-    $fetch('/api/character/draft', {
+function fetchBuild() {
+  return new Promise<CharacterBuildApiData | null>((resolve, reject) => {
+    $fetch('/api/character/build', {
       query: {
-        characterId: characterBuilderData.value?.id,
+        characterId: characterBuildId.value,
         locale: localWithDefaultRegion.value,
       },
       async onResponse({ response }) {
@@ -50,14 +49,14 @@ function draftQueryFn() {
   })
 }
 
-const draftQuery = useQuery({
-  queryKey: queryKeys.characterDraftEdit(localWithDefaultRegion, characterBuilderData.value?.usernames?.username as string),
-  queryFn: draftQueryFn,
+const buildQuery = useQuery({
+  queryKey: queryKeys.characterDraftEdit(localWithDefaultRegion, characterBuildId),
+  queryFn: fetchBuild,
 })
 
 const initialValuesFromData = computed(() => {
   return {
-    prompt: draftQuery.data.value?.prompt || '',
+    prompt: buildQuery.data.value?.draft.prompt || '',
   }
 })
 
@@ -65,10 +64,10 @@ const form = useForm<FormValues>({
   initialValues: initialValuesFromData.value,
 })
 
-watch(draftQuery.data, () => {
-  if (draftQuery.data.value) {
+watch(buildQuery.data, () => {
+  if (buildQuery.data.value) {
     form.setValues({
-      prompt: draftQuery.data.value.prompt,
+      prompt: buildQuery.data.value.draft.prompt,
     })
   }
 })
@@ -108,17 +107,16 @@ const isError = computed(() => {
   return createCharacterDraft.isError || updateCharacterDraft.isError
 })
 
-const isEditing = computed(() => !!characterBuilderData.value?.id)
+const isEditing = computed(() => !!characterBuildId.value)
 
 const submit = form.handleSubmit(async (data) => {
   loading.value = true
 
   try {
     if (isEditing.value) {
-      console.log(characterBuilderData.value)
-      await updateCharacterDraft.mutateAsync({ data, characterId: characterBuilderData.value!.id })
+      await updateCharacterDraft.mutateAsync({ data, characterId: characterBuildId.value! })
     }
-    else if (draftQuery.data.value) {
+    else if (buildQuery.data.value) {
       await updateCharacterDraft.mutateAsync({ data })
     }
     else {
@@ -156,26 +154,6 @@ const isPastDueVisible = computed(() => {
   return isPlanPastDue(user.value)
 })
 
-const draft = computed(() => draftQuery.data.value)
-
-const character = computed((): CharacterDraftApiData | null => {
-  if (characterBuilderData.value) {
-    const localization = characterBuilderData.value.characterLocalizations[0]
-
-    return {
-      prompt: '',
-      username: characterBuilderData.value.usernames?.username || '',
-      name: localization.name,
-      description: localization.description,
-      instructions: localization.instructions,
-      categoryId: characterBuilderData.value.categoryId,
-      categoryName: getCategoryById(characterBuilderData.value.categoryId)!.name,
-    }
-  }
-
-  return null
-})
-
 const viewMode = ref<CharacterBuilderEditViewMode>('preview')
 
 const items: MenuItemType[] = [
@@ -184,8 +162,8 @@ const items: MenuItemType[] = [
 ]
 
 const hasChanges = computed(() => {
-  const d = draft?.value
-  const c = character?.value
+  const d = buildQuery.data.value?.draft
+  const c = buildQuery.data.value?.character
 
   if (!d || !c) {
     return false
@@ -237,8 +215,8 @@ const hasChanges = computed(() => {
             :values="{ name: true }"
           >
             <template #name>
-              <button class="text-blue-500" @click="navigateTo(`/app/chat/${character!.username}`)">
-                {{ character?.name }}
+              <button class="text-blue-500" @click="navigateTo(`/app/chat/${buildQuery.data.value?.character!.username}`)">
+                {{ buildQuery.data.value?.character!.name }}
               </button>
             </template>
           </T>
@@ -255,7 +233,7 @@ const hasChanges = computed(() => {
           />
 
           <Button :loading="loading" class="btn-info text-white" :disabled="!form.values.prompt || hasErrors || isPastDueVisible">
-            {{ !!draft ? t("Regenerate") : t("Generate") }}
+            {{ !!buildQuery.data.value ? t("Regenerate") : t("Generate") }}
           </Button>
         </form>
       </SettingSection>
@@ -265,7 +243,7 @@ const hasChanges = computed(() => {
         :error="isError.value"
       >
         <template #default>
-          <SettingSection v-if="draft">
+          <SettingSection v-if="buildQuery.data.value">
             <div
               class="bg-gradient-2 rounded-2xl p-4 mb-2"
             >
@@ -274,9 +252,7 @@ const hasChanges = computed(() => {
                   <Menu.Trigger class="absolute z-10 -right-2 top-0 btn btn-sm h-fit rounded-full pr-2 pl-3 py-1 bg-transparent border-none shadow-none flex items-center justify-center" @click.stop.prevent>
                     {{ viewMode === "preview" ? t('Preview') : t('Original') }}
 
-                    <Icon class="rotate-180 text-base">
-                      material-symbols:keyboard-arrow-up
-                    </Icon>
+                    <Icon class="rotate-180 text-base" name="material-symbols:keyboard-arrow-up" />
                   </Menu.Trigger>
 
                   <Menu.Positioner>
@@ -289,17 +265,15 @@ const hasChanges = computed(() => {
                 </Menu.Root>
               </div>
 
-              <CharacterDraftContent v-if="draft && viewMode === 'preview'" :draft="draft" />
-
-              <CharacterDraftContent
-                v-if="character && viewMode === 'original'"
-                :draft="character"
-              />
+              <CharacterShowcase v-if="viewMode === 'preview'" :data="buildQuery.data.value.draft" />
+              <CharacterShowcase v-if="viewMode === 'original'" :data="buildQuery.data.value.character!" />
             </div>
 
             <ApproveCharacterDraftForm
               :should-show-discard="hasChanges || !isEditing"
               :is-editing="isEditing"
+              :username="buildQuery.data.value.draft.username"
+              :discoverable="buildQuery.data.value.character?.discoverable"
             />
           </SettingSection>
         </template>

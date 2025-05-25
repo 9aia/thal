@@ -95,15 +95,10 @@ export const currentPlayingMessage = ref<string | null>(null)
 
 /* Character */
 
-export const characterBuilderData = ref<Character | null>(null)
+export const characterBuildId = ref<number | null>(null)
 
-export async function buildCharacter(data?: Character | null) {
-  if (data) {
-    characterBuilderData.value = data
-  }
-  else {
-    characterBuilderData.value = null
-  }
+export async function buildCharacter(characterId?: number | null) {
+  characterBuildId.value = characterId ?? null
 
   isRootDrawerOpen.value = true
   drawers.characterBuilder = true

@@ -88,9 +88,9 @@ async function handleGoToChat(username: string) {
                     :username="character.usernames?.username || undefined"
                     :category-id="character.categoryId"
                     @delete="handleDeleteCharacter(character as unknown as Character)"
-                    @edit="buildCharacter(character as unknown as Character)"
+                    @edit="buildCharacter(character.id)"
                     @chat="handleGoToChat(character.usernames?.username as string)"
-                    @click="buildCharacter(character as unknown as Character)"
+                    @click="buildCharacter(character.id)"
                   />
                 </li>
               </ul>

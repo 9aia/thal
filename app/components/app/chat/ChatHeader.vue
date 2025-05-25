@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { manageContact, openContactView } from '~/store'
+import { buildCharacter, manageContact, openContactView } from '~/store'
 import type { MenuItemType } from '~/components/ui/navigation/types'
 
 const props = defineProps<{
@@ -9,6 +9,7 @@ const props = defineProps<{
   hasContact: boolean
   hasMessages: boolean
   addContact: () => void
+  characterId: number
 }>()
 
 const { t } = useI18nExperimental()
@@ -91,7 +92,11 @@ const items = computed(() => [
         </span>
       </div>
 
-      <div>
+      <div class="flex gap-2">
+        <Button size="md" shape="circle" class="btn-ghost" @click="buildCharacter(characterId)">
+          <Icon>material-symbols:person-edit-outline</Icon>
+        </Button>
+
         <div class="dropdown dropdown-end">
           <Button size="md" shape="circle" class="btn-ghost">
             <Icon>material-symbols:more-vert</Icon>

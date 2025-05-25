@@ -62,6 +62,14 @@ export interface Replies {
 
 export type CharacterBuilderEditViewMode = 'original' | 'preview'
 
-export type CharacterDraftApiData = InternalApi['/api/character/draft']['get']
+export type CharacterBuildApiData = InternalApi['/api/character/build']['get']
+
+export interface CharacterShowcase {
+  username: string
+  name: string
+  description: string
+  instructions: string
+  categoryName: string
+}
 
 // #endregion

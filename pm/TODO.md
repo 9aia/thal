@@ -10,8 +10,6 @@ description: Tasks and items for the release.
 - Improve DB column sizes (name, description, instructions)
 
 - Add prompt from discover search after clicking on character create button
-- Add edit action on character chat header if you are the owner
-- Action for discard draft
 
 - Fix infinite loading on generate button in character builder
 - Fix SQL Constraint error on character deletion

@@ -3,11 +3,13 @@ import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { useForm } from 'vee-validate'
 import type { FetchError } from 'ofetch'
 import queryKeys from '~/queryKeys'
-import { characterBuilderData, contactInfoData, isRootDrawerOpen } from '~/store'
+import { characterBuildId, contactInfoData, isRootDrawerOpen } from '~/store'
 import { CONFLICT_STATUS_CODE } from '~/utils/web'
 
-defineProps<{
+const props = defineProps<{
   shouldShowDiscard: boolean
+  discoverable?: boolean
+  username: string
   isEditing: boolean
 }>()
 
@@ -20,7 +22,7 @@ interface FormValues {
 }
 
 const initialValues = ref<FormValues>({
-  discoverable: characterBuilderData.value?.discoverable ?? true,
+  discoverable: props.discoverable ?? false,
 })
 
 const { t } = useI18nExperimental()
@@ -48,7 +50,7 @@ const approveMutation = useMutation({
     method: 'POST',
     body: {
       discoverable: values.discoverable,
-      characterId: characterBuilderData.value?.id,
+      characterId: characterBuildId.value,
     },
   }),
   onSuccess: (data) => {
@@ -64,32 +66,17 @@ const approveMutation = useMutation({
     queryClient.invalidateQueries({
       queryKey: queryKeys.contactInfo(localWithDefaultRegion.value, data.username),
     })
-
-    const localization = data.characterLocalizations.find((localization) => {
-      return localization.locale === localWithDefaultRegion.value
+    queryClient.invalidateQueries({
+      queryKey: queryKeys.characterDraftEdit(localWithDefaultRegion.value, characterBuildId.value),
     })
-
-    characterBuilderData.value = {
-      categoryId: data.categoryId,
-      characterLocalizations: [
-        {
-          ...localization!,
-          characterId: data.characterId,
-        },
-      ],
-      discoverable: data.discoverable,
-      id: data.id,
-      creatorId: data.creatorId,
-      usernames: { username: data.username },
-    }
 
     // refresh chat route and contact info view if open
     const usernameQuery = params.username
 
-    if (characterBuilderData.value?.usernames?.username === usernameQuery)
+    if (props.username === usernameQuery)
       navigateTo(`/app/chat/${data.username}`)
 
-    if (characterBuilderData.value?.usernames?.username === contactInfoData.value?.username)
+    if (props.username === contactInfoData.value?.username)
       contactInfoData.value = { ...contactInfoData.value || {}, username: data.username }
 
     toast.success(t('Character has been approved successfully.'), undefined, {
@@ -119,7 +106,7 @@ const discardMutation = useMutation({
   mutationFn: () => $fetch('/api/character/draft', {
     method: 'DELETE',
     body: {
-      characterId: characterBuilderData.value?.id,
+      characterId: characterBuildId.value,
     },
   }),
   onSuccess: () => {

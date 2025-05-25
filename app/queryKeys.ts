@@ -11,5 +11,5 @@ export default {
   profile: (username: MaybeRef<string>) => ['profile', username],
   pricingData: ['pricing-data'],
   characterDraft: ['character-draft'],
-  characterDraftEdit: (locale: MaybeRef<string>, username: MaybeRef<string>) => ['character-draft', locale, username],
+  characterDraftEdit: (locale: MaybeRef<string>, characterId: MaybeRef<number | null>) => ['character-draft', locale, characterId],
 }
