@@ -9,12 +9,15 @@ const props = withDefaults(defineProps<Props & {
   shape?: 'circle' | 'square' | 'normal'
   class?: string
   noDisableOnLoading?: boolean
+  icon?: string
 }>(), {
   size: 'sm',
   shape: 'normal',
   class: '',
   noDisableOnLoading: false,
 })
+
+const slots = defineSlots()
 
 const variants = {
   size: {
@@ -47,8 +50,16 @@ type Props = SafeProps<ButtonHTMLAttributes> &
     :class="styles({ size, shape, class: props.class })"
     :disabled="loading && !noDisableOnLoading"
   >
-    <slot v-if="!loading" />
-    <span v-if="loading" class="loading loading-xs loading-spinner" />
+    <div v-if="slots.label">
+      <span class="px-4 py-1 flex items-center justify-center gap-1">
+        <span v-if="loading" class="loading loading-md loading-spinner" />
+        <Icon v-else-if="icon" :name="icon" />
+
+        <component :is="slots.label" />
+      </span>
+    </div>
+    <slot v-else-if="!loading" />
+    <span v-else-if="loading" class="loading loading-xs loading-spinner" />
     <span v-else-if="success" class="material-symbols-outlined">
       check
     </span>

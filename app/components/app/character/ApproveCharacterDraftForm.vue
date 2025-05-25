@@ -6,6 +6,11 @@ import queryKeys from '~/queryKeys'
 import { characterBuilderData, contactInfoData, isRootDrawerOpen } from '~/store'
 import { CONFLICT_STATUS_CODE } from '~/utils/web'
 
+defineProps<{
+  shouldShowDiscard: boolean
+  isEditing: boolean
+}>()
+
 const emit = defineEmits<{
   (e: 'approved'): void
 }>()
@@ -60,6 +65,24 @@ const approveMutation = useMutation({
       queryKey: queryKeys.contactInfo(localWithDefaultRegion.value, data.username),
     })
 
+    const localization = data.characterLocalizations.find((localization) => {
+      return localization.locale === localWithDefaultRegion.value
+    })
+
+    characterBuilderData.value = {
+      categoryId: data.categoryId,
+      characterLocalizations: [
+        {
+          ...localization!,
+          characterId: data.characterId,
+        },
+      ],
+      discoverable: data.discoverable,
+      id: data.id,
+      creatorId: data.creatorId,
+      usernames: { username: data.username },
+    }
+
     // refresh chat route and contact info view if open
     const usernameQuery = params.username
 
@@ -92,6 +115,22 @@ const approveMutation = useMutation({
   },
 })
 
+const discardMutation = useMutation({
+  mutationFn: () => $fetch('/api/character/draft', {
+    method: 'DELETE',
+    body: {
+      characterId: characterBuilderData.value?.id,
+    },
+  }),
+  onSuccess: () => {
+    queryClient.resetQueries({
+      queryKey: queryKeys.characterDraft,
+    })
+
+    toast.success(t('Character has been discarded successfully.'))
+  },
+})
+
 const submit = form.handleSubmit(values => approveMutation.mutate(values))
 
 const isPastDueVisible = computed(() => {
@@ -111,15 +150,34 @@ const isPastDueVisible = computed(() => {
       }}
     </Checkbox>
 
-    <Button
-      type="submit"
-      class="btn-primary"
-      :loading="approveMutation.isPending.value"
-      :disabled="isPastDueVisible"
-    >
-      {{
-        t("Approve character")
-      }}
-    </Button>
+    <div class="flex items-center space-x-2">
+      <Button
+        type="submit"
+        size="xs"
+        class="border-none bg-primary text-black px-1 py-1 rounded-full hover:bg-cyan-600 shadow-none"
+        icon="material-symbols:order-approve-outline"
+        :loading="approveMutation.isPending.value"
+        :disabled="isPastDueVisible"
+      >
+        <template #label>
+          {{ isEditing ? t("Approve edition") : t("Approve character") }}
+        </template>
+      </Button>
+
+      <Button
+        v-if="shouldShowDiscard"
+        size="xs"
+        type="button"
+        class="border-none bg-transparent text-orange-500 px-1 py-1 rounded-full hover:bg-orange-500/10 hover:text-orange-500 shadow-none"
+        icon="material-symbols:cancel-outline"
+        :loading="discardMutation.isPending.value"
+        :disabled="isPastDueVisible"
+        @click="discardMutation.mutate()"
+      >
+        <template #label>
+          {{ isEditing ? t("Discard edition") : t("Discard character") }}
+        </template>
+      </Button>
+    </div>
   </form>
 </template>

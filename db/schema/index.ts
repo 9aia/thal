@@ -130,6 +130,7 @@ export const characters = sqliteTable('Character', {
   id: int('id').primaryKey({ autoIncrement: true }),
   categoryId: int('category_id').notNull(),
   discoverable: int('discoverable', { mode: 'boolean' }).default(true).notNull(),
+  prompt: text('prompt').notNull(),
   creatorId: text('creator_id')
     .references(() => users.id, { onDelete: 'no action' }),
   createdAt: int('created_at', { mode: 'timestamp_ms' }).default(sql`(unixepoch() * 1000)`).notNull(),
@@ -151,6 +152,8 @@ export const characterDataSchema = createInsertSchema(characters).omit({
   id: true,
   createdAt: true,
   discoverable: true,
+  prompt: true,
+  creatorId: true,
 })
   .extend({
     username: usernameSchema,

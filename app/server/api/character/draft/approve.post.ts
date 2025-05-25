@@ -58,6 +58,7 @@ export default eventHandler(async (event) => {
     // Update character from draft
     const [updatedCharacter] = await orm.update(characters).set({
       discoverable: data.discoverable,
+      prompt: existingDraft.prompt,
       categoryId: draftData.categoryId,
     }).where(eq(characters.id, data.characterId!)).returning()
 
@@ -82,6 +83,7 @@ export default eventHandler(async (event) => {
     const [newCharacter] = await orm.insert(characters).values({
       discoverable: data.discoverable,
       creatorId: user.id,
+      prompt: existingDraft.prompt,
       categoryId: draftData.categoryId,
     }).returning()
 
@@ -123,6 +125,9 @@ export default eventHandler(async (event) => {
 
   return {
     ...character,
+    characterLocalizations: existingDraft.characterDraftLocalizations,
     username: draftData.username,
+    characterId: character.id,
+    creatorId: user.id,
   }
 })

@@ -169,7 +169,6 @@ const character = computed((): CharacterDraftApiData | null => {
       description: localization.description,
       instructions: localization.instructions,
       categoryId: characterBuilderData.value.categoryId,
-      creatorId: characterBuilderData.value.creatorId,
       categoryName: getCategoryById(characterBuilderData.value.categoryId)!.name,
     }
   }
@@ -292,10 +291,16 @@ const hasChanges = computed(() => {
 
               <CharacterDraftContent v-if="draft && viewMode === 'preview'" :draft="draft" />
 
-              <CharacterDraftContent v-if="character && viewMode === 'original'" :draft="character" />
+              <CharacterDraftContent
+                v-if="character && viewMode === 'original'"
+                :draft="character"
+              />
             </div>
 
-            <ApproveCharacterDraftForm />
+            <ApproveCharacterDraftForm
+              :should-show-discard="hasChanges || !isEditing"
+              :is-editing="isEditing"
+            />
           </SettingSection>
         </template>
       </Resource>

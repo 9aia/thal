@@ -33,6 +33,7 @@ CREATE TABLE `Character` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`category_id` integer NOT NULL,
 	`discoverable` integer DEFAULT true NOT NULL,
+	`prompt` text NOT NULL,
 	`creator_id` text,
 	`created_at` integer DEFAULT (unixepoch() * 1000) NOT NULL,
 	FOREIGN KEY (`creator_id`) REFERENCES `User`(`id`) ON UPDATE no action ON DELETE no action

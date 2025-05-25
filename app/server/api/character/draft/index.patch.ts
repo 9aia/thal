@@ -115,7 +115,6 @@ export default eventHandler(async (event) => {
   const draftData: CharacterDraftData = {
     username: geminiData.username,
     categoryId,
-    creatorId: user.id,
   }
 
   const result = await orm.batch([
