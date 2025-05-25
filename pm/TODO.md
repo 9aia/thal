@@ -12,7 +12,9 @@ description: Tasks and items for the release.
 - Add prompt from discover search after clicking on character create button
 - Add edit action on character chat header if you are the owner
 - Action for discard draft
+
 - Fix infinite loading on generate button in character builder
+- Fix SQL Constraint error on character deletion
 
 - Revision and adjust
   - Improve the design system and UI
