@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/vue-query'
-import type { FetchError } from 'ofetch'
 
 export type Translation = ReturnType<typeof useTranslation>
 

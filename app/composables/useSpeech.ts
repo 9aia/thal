@@ -15,8 +15,6 @@ export class RateLimitError extends Error {
 }
 
 function useSpeech(text: MaybeRef<string>) {
-  const toast = useToast()
-  const { t } = useI18nExperimental()
   const currentWord = ref(NON_PLAYING)
 
   const audio = ref<HTMLAudioElement | null>(null)

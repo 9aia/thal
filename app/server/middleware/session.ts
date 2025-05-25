@@ -1,6 +1,5 @@
-import { eq } from 'drizzle-orm'
 import { setSessionTokenCookie, validateSessionToken } from '../services/auth'
-import { type Session, type User, users } from '~~/db/schema'
+import type { Session, User } from '~~/db/schema'
 
 export default defineEventHandler(async (event) => {
   if (event.path === '/api/payment/webhook/stripe') {

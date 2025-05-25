@@ -1,5 +1,5 @@
 import z from 'zod'
-import { and, eq, like, sql } from 'drizzle-orm'
+import { and, eq, like } from 'drizzle-orm'
 import { calculatePagination, getPaginatedDto } from '~/utils/data'
 import { getValidated } from '~/utils/h3'
 import { unauthorized } from '~/utils/nuxt'

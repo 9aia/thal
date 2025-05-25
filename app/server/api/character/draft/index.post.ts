@@ -6,7 +6,7 @@ import { getValidated } from '~/utils/h3'
 import { badRequest, internal, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
 import { isPlanPastDue } from '~/utils/plan'
 import type { CharacterDraftData } from '~~/db/schema'
-import { characterDraftLocalizations, characterDraftSchema, characterDrafts, usernameSchema } from '~~/db/schema'
+import { characterDraftLocalizations, characterDraftSchema, characterDrafts } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const { GEMINI_MODEL, GEMINI_API_KEY } = useRuntimeConfig(event)

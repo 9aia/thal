@@ -2,7 +2,7 @@ import { eq } from 'drizzle-orm'
 import { z } from 'zod'
 import { getValidated } from '~/utils/h3'
 import { forbidden, notFound, unauthorized } from '~/utils/nuxt'
-import { usernameSchema, usernames, users } from '~~/db/schema'
+import { usernameSchema, usernames } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const orm = event.context.orm

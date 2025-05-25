@@ -1,6 +1,5 @@
 import { and, eq } from 'drizzle-orm'
 import { getCharacterByUsername } from '~/server/services/character'
-import { now } from '~/utils/date'
 import { getValidated } from '~/utils/h3'
 import { badRequest, internal, unauthorized } from '~/utils/nuxt'
 import { chats, contactInsertSchema, contacts } from '~~/db/schema'

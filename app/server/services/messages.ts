@@ -1,7 +1,7 @@
 import { eq, sql } from 'drizzle-orm'
 import type { H3EventContext } from 'h3'
 import type { User } from '~~/db/schema'
-import type { Message, MessageStatus } from '~/types'
+import type { MessageStatus } from '~/types'
 import { notFound } from '~/utils/nuxt'
 import { chats, messages, usernames } from '~~/db/schema'
 

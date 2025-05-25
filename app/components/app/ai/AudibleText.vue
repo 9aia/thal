@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useMutation } from '@tanstack/vue-query'
-import type { FetchError } from 'ofetch'
 import { RateLimitError } from '~/composables/useSpeech'
 import { currentPlayingMessage } from '~/store'
 
