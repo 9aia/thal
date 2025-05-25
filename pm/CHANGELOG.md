@@ -8,8 +8,13 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ### Added
 
-- Added option to delete character draft edition
+- Added option to discard character draft
 - Added edit action on character chat header if you are the owner
+- Added prompt to build character based on search query
+
+### Fixed
+
+- Improved button icons
 
 ## [0.1.0-9] - 2025-05-25
 

@@ -6,7 +6,7 @@ import type { FetchError } from 'ofetch'
 import { T } from '@psitta/vue'
 import type { MenuItemType } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
-import { characterBuildId } from '~/store'
+import { characterBuildId, characterBuildPrompt } from '~/store'
 import type { CharacterBuildApiData, CharacterBuilderEditViewMode } from '~/types'
 
 const emit = defineEmits<{
@@ -56,7 +56,7 @@ const buildQuery = useQuery({
 
 const initialValuesFromData = computed(() => {
   return {
-    prompt: buildQuery.data.value?.draft.prompt || '',
+    prompt: buildQuery.data.value?.draft.prompt || characterBuildPrompt.value || '',
   }
 })
 

@@ -96,9 +96,11 @@ export const currentPlayingMessage = ref<string | null>(null)
 /* Character */
 
 export const characterBuildId = ref<number | null>(null)
+export const characterBuildPrompt = ref<string>()
 
-export async function buildCharacter(characterId?: number | null) {
+export async function buildCharacter(characterId?: number | null, prompt?: string) {
   characterBuildId.value = characterId ?? null
+  characterBuildPrompt.value = prompt
 
   isRootDrawerOpen.value = true
   drawers.characterBuilder = true

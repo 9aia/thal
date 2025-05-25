@@ -168,7 +168,7 @@ watch(categoryId, () => {
                 {{ t('Easily build a character that fits your learning style! Choose a name and personality, and let the AI bring them to life through dynamic conversations.') }}
               </p>
 
-              <Button class="border-gradient-2 rounded-full" @click="buildCharacter(null)">
+              <Button class="border-gradient-2 rounded-full" @click="buildCharacter(null, search)">
                 <span class="px-4 py-1 flex items-center justify-center gap-1">
                   <Icon name="material-symbols:person-edit-outline" />
                   {{ t("Create character") }}
