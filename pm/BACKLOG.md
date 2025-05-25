@@ -113,3 +113,4 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Fix codeshare perms
 - Improve docs
   - Add docs for the difference between roadmap, changelog and "What's New"
+- Rename username in the usernames table to text.
