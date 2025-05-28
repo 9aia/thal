@@ -15,14 +15,12 @@ const clearChat = useClearChat(username)
 
 const contactDeleteModalState = ref()
 
-const contactQuery = useQuery({
+const contactQuery = useServerQuery(`/api/contact/${username.value}` as `/api/contact/:username`, {
   queryKey: queryKeys.contact(username),
-  queryFn: () => $fetch(`/api/contact/${username.value}` as `/api/contact/:username`),
 })
 
-const characterQuery = useQuery({
+const characterQuery = useServerQuery(() => `/api/character/${username.value}?locale=${localeWithDefaultRegion.value}` as `/api/character/:username`, {
   queryKey: queryKeys.character(localeWithDefaultRegion.value, username),
-  queryFn: () => $fetch(`/api/character/${username.value}` as `/api/character/:username`),
 })
 
 const isContact = computed(() => !!contactQuery.data.value)

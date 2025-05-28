@@ -1,6 +1,5 @@
 import type { MenuItemType } from '~/components/ui/navigation/types'
-import { drawers, isRootDrawerOpen } from '~/store'
-import { useWhatsNewModal } from '~/composables/useWhatsNewModal'
+import { drawers, isRootDrawerOpen, openWhatsNewModal } from '~/store'
 
 const t = (x: string) => x
 
@@ -14,7 +13,7 @@ const general: MenuItemType[] = [
     id: 'account',
     icon: 'material-symbols:person-outline',
     name: t('Account'),
-    onClick: () => drawers.account = true,
+    onClick: () => drawers.accountSettings = true,
   },
   {
     id: 'plan',
@@ -37,8 +36,6 @@ const general: MenuItemType[] = [
     onClick: () => goToDiscover(),
   },
 ]
-
-const { open: openWhatsNewModal } = useWhatsNewModal()
 
 const support: MenuItemType[] = [
   {

@@ -9,8 +9,6 @@ description: Tasks and items for the release.
 - Close drawer on character generation and go to character chat route
 - Improve DB column sizes (name, description, instructions)
 
-- Add prompt from discover search after clicking on character create button
-
 - Fix infinite loading on generate button in character builder
 - Fix SQL Constraint error on character deletion
 

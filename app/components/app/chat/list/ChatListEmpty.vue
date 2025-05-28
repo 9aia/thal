@@ -2,12 +2,12 @@
 import { t } from '@psitta/vue'
 import { buildCharacter, isRootDrawerOpen, manageContact } from '~/store'
 
-const { open: openWhatsNewModal } = useWhatsNewModal()
-
 async function goToDiscover() {
   isRootDrawerOpen.value = false
   await navigateTo('/app/discover')
 }
+
+const isWhatsNewModalOpen = ref(false)
 </script>
 
 <template>
@@ -45,7 +45,9 @@ async function goToDiscover() {
         </span>
       </Button>
 
-      <Button class="border-gradient-4 rounded-full" @click="openWhatsNewModal">
+      <Button class="border-gradient-4 rounded-full" @click="isWhatsNewModalOpen = true">
+        <WhatsNewModal v-model="isWhatsNewModalOpen" />
+
         <span class="px-4 py-1 flex items-center justify-center gap-1">
           <Icon name="material-symbols:news-outline" />
           {{ t("What's New") }}

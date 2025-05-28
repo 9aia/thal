@@ -13,7 +13,7 @@ useAutoRedirect()
 <template>
   <AppLayout>
     <template #side>
-      <NewChat />
+      <NewChatDrawer />
     </template>
     <template #content>
       <Welcome />

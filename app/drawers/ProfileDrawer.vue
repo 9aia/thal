@@ -19,11 +19,11 @@ const user = useUser()
     <Navbar :title="t('Profile')" @close="emit('close')" />
 
     <div class="flex-1 overflow-y-auto bg-white">
-      <ProfileHeader @edit="drawers.account = true" />
+      <ProfileHeader @edit="drawers.accountSettings = true" />
 
       <div class="p-4 flex-1 space-y-4">
         <SettingSection class="space-y-4">
-          <TitleContentItem :label="t('Name')" role="button" @click="drawers.account = true">
+          <TitleContentItem :label="t('Name')" role="button" @click="drawers.accountSettings = true">
             <template #icon>
               <Icon class="text-gray-800">
                 material-symbols:person-outline
@@ -43,7 +43,7 @@ const user = useUser()
             </template>
           </TitleContentItem>
 
-          <TitleContentItem :label="t('Username')" role="button" @click="drawers.account = true">
+          <TitleContentItem :label="t('Username')" role="button" @click="drawers.accountSettings = true">
             <template #icon>
               <Icon class="text-gray-800">
                 material-symbols:id-card-outline

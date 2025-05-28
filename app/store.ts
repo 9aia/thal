@@ -2,10 +2,30 @@ import type { Replies } from '~/types'
 
 export const contentEditableRef = ref()
 
-// #region PastDueModal
+// #region Modal
 
 export const isPastDueModalOpen = ref(false)
 export const isPastDueModalAlreadyShown = ref(false)
+
+const _isWhatsNewModalOpen = ref(false)
+export const isWhatsNewModalOpen = computed(() => _isWhatsNewModalOpen.value)
+
+export const hasUnreadContent = ref(false)
+export const lastSavedContentCount = ref(0)
+
+export async function openWhatsNewModal() {
+  _isWhatsNewModalOpen.value = true
+
+  const contentAmount = await queryContent().count()
+
+  if (hasUnreadContent.value) {
+    lastSavedContentCount.value = contentAmount
+  }
+}
+
+export function closeWhatsNewModal() {
+  _isWhatsNewModalOpen.value = false
+}
 
 // #endregion
 
@@ -14,8 +34,8 @@ export const isPastDueModalAlreadyShown = ref(false)
 export const isRootDrawerOpen = ref(false)
 
 export const drawers = reactive({
-  manageContact: false,
-  account: false,
+  contactManager: false,
+  accountSettings: false,
   settings: false,
   newChat: false,
   characterBuilder: false,
@@ -68,7 +88,7 @@ export async function manageContact(username?: string | null, name?: string) {
   manageContactName.value = name
 
   isRootDrawerOpen.value = true
-  drawers.manageContact = true
+  drawers.contactManager = true
 }
 
 // #endregion
@@ -88,7 +108,7 @@ export const edition = reactive<Edition>({
 })
 
 export const replies = reactive<Replies>({})
-export const chatItemSearch = ref('')
+export const chatListSearch = ref('')
 
 export const sendingChatIds = ref<Set<number>>(new Set())
 export const sentErrorChatIds = ref<Set<number>>(new Set())

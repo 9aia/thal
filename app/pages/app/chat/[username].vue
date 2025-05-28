@@ -182,7 +182,7 @@ const isOnline = useOnline()
 <template>
   <AppLayout>
     <template #sidebar>
-      <ChatList />
+      <ChatListDrawer />
     </template>
 
     <template #content>

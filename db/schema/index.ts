@@ -286,9 +286,9 @@ export const contacts = sqliteTable('Contact', {
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
   createdAt: int('created_at', { mode: 'timestamp_ms' }).default(sql`(unixepoch() * 1000)`).notNull(),
-}, t => ({
-  unq: unique().on(t.userId, t.usernameId),
-}))
+}, t => ([
+  unique().on(t.userId, t.usernameId),
+]))
 
 export const contactsRelations = relations(contacts, ({ one }) => ({
   chat: one(chats, {
@@ -383,8 +383,8 @@ export const chats = sqliteTable('Chat', {
   contactId: int('contact_id')
     .references(() => contacts.id, { onDelete: 'set null' }),
   createdAt: int('created_at', { mode: 'timestamp_ms' }).default(sql`(unixepoch() * 1000)`).notNull(),
-}, t => ([
-  unique().on(t.userId, t.usernameId),
+}, chats => ([
+  unique().on(chats.userId, chats.usernameId),
 ]))
 
 export const chatsRelations = relations(chats, ({ one, many }) => ({
@@ -417,10 +417,10 @@ export const messages = sqliteTable('Message', {
   replyingId: int('replying_id'),
   isBot: int('is_bot', { mode: 'boolean' }).default(false).notNull(),
   createdAt: int('created_at', { mode: 'timestamp_ms' }).default(sql`(unixepoch() * 1000)`).notNull(),
-}, self => ([
+}, messages => ([
   foreignKey({
-    columns: [self.replyingId],
-    foreignColumns: [self.id],
+    columns: [messages.replyingId],
+    foreignColumns: [messages.id],
     name: 'messages_replying_id_fkey',
   }),
 ]))

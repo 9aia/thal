@@ -12,7 +12,7 @@ const {
   isLoading,
   isError,
   refetch,
-} = await useServerQuery(`/api/payment/stripe/pricing-data`, {
+} = useServerQuery(`/api/payment/stripe/pricing-data`, {
   queryKey: queryKeys.pricingData,
   staleTime: 0,
 })

@@ -39,35 +39,35 @@ onMounted(() => {
 
         <div class="flex flex-col h-dvh justify-between w-full sm:w-96">
           <Drawer :model-value="true">
-            <ChatList @close="drawers.newChat = false" />
+            <ChatListDrawer @close="drawers.newChat = false" />
 
             <template #footer>
               <Drawer v-slot="{ close }" v-model="drawers.settings">
-                <Settings @close="close" />
+                <SettingsDrawer @close="close" />
               </Drawer>
 
               <Drawer v-slot="{ close }" v-model="drawers.newChat">
-                <NewChat @close="close" />
+                <NewChatDrawer @close="close" />
               </Drawer>
 
               <Drawer v-slot="{ close }" v-model="drawers.myCharacters">
-                <MyCharacters @close="close" />
+                <MyCharactersDrawer @close="close" />
               </Drawer>
 
               <Drawer v-slot="{ close }" v-model="drawers.profile">
-                <Profile @close="close" />
+                <ProfileDrawer @close="close" />
               </Drawer>
 
-              <Drawer v-slot="{ close }" v-model="drawers.account">
-                <AccountSettings @close="close" />
+              <Drawer v-slot="{ close }" v-model="drawers.accountSettings">
+                <AccountSettingsDrawer @close="close" />
               </Drawer>
 
               <Drawer v-slot="{ close }" v-model="drawers.characterBuilder">
-                <BuildCharacter @close="close" />
+                <CharacterBuilderDrawer @close="close" />
               </Drawer>
 
-              <Drawer v-slot="{ close }" v-model="drawers.manageContact">
-                <ManageContact @close="close" />
+              <Drawer v-slot="{ close }" v-model="drawers.contactManager">
+                <ContactManagerDrawer @close="close" />
               </Drawer>
             </template>
           </Drawer>

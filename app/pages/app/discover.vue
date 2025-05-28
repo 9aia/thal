@@ -14,7 +14,7 @@ useAutoRedirect()
 <template>
   <AppLayout>
     <template #side>
-      <ChatList />
+      <ChatListDrawer />
     </template>
 
     <template #content>

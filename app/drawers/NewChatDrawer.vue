@@ -42,7 +42,7 @@ const {
   isError,
   isPending,
   refetch,
-} = await useServerQuery('/api/contact', {
+} = useServerQuery('/api/contact', {
   queryKey: queryKeys.contactsSearch(search),
   params: () => {
     return {

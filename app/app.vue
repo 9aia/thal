@@ -2,17 +2,14 @@
 import { drawers, isPastDueModalOpen, isRootDrawerOpen } from '~/store'
 import './style.css'
 
-const { state: localeModalState } = useLocaleModal()
-const { state: whatsNewModalState } = useWhatsNewModal()
-
 useInternetConnectionIndicator()
 
+const { state: localeModalState } = useLocaleModal()
 const route = useRoute()
 
 isRootDrawerOpen.value = !!route.meta.showChatList
 
 type DrawersKey = keyof typeof drawers
-
 type Drawers = DrawersKey[]
 
 onMounted(() => {
@@ -24,9 +21,10 @@ onMounted(() => {
 
   const mapping: Record<string, DrawersKey> = {
     create: 'characterBuilder',
-    save: 'manageContact',
+    save: 'contactManager',
     add: 'newChat',
     list: 'myCharacters',
+    account: 'accountSettings',
   }
 
   const mappedDrawer = mapping[drawer] || drawer
@@ -54,7 +52,6 @@ onMounted(() => {
 
   <Toast />
 
-  <WhatsNewModal v-model="whatsNewModalState" />
   <LocaleModal v-model="localeModalState" />
   <PastDuePlanModal v-model="isPastDueModalOpen" />
   <AccountReactivatedModal />
