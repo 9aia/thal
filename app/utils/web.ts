@@ -55,3 +55,9 @@ export function setCursorEnd(el: HTMLSpanElement) {
   selection.removeAllRanges()
   selection.addRange(range)
 }
+
+export function decodeHTML(html: string) {
+  const txt = document.createElement('textarea')
+  txt.innerHTML = html
+  return txt.value
+}

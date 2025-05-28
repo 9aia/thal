@@ -2,53 +2,31 @@
 import { t } from '@psitta/vue'
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
-import { contactInfoData } from '~/store'
 
 const props = defineProps<{
   contactUsername: string
-  characterUsername?: string
-  characterName?: string
+  contactName: string
 }>()
-
-const queryClient = useQueryClient()
-
 const isOpen = defineModel({ default: false })
 
+const queryClient = useQueryClient()
 const localeDefaultRegion = useLocaleDefaultRegion()
 
-const {
-  mutate,
-} = useMutation({
-  mutationFn: async () => {
-    return $fetch(`/api/contact/${props.contactUsername}` as '/api/contact/:username', {
-      method: 'DELETE',
-      query: {
-        locale: localeDefaultRegion.value,
-      },
-    })
-  },
+const { mutate: deleteContact, isPending } = useMutation({
+  mutationFn: () => $fetch(`/api/contact/${props.contactUsername}`, {
+    method: 'DELETE',
+    query: {
+      locale: localeDefaultRegion.value,
+    },
+  }),
   onSuccess: () => {
     queryClient.invalidateQueries({
       queryKey: queryKeys.contacts,
     })
 
     queryClient.invalidateQueries({
-      queryKey: queryKeys.chat(props.contactUsername),
+      queryKey: queryKeys.contact(props.contactUsername),
     })
-
-    queryClient.invalidateQueries({
-      queryKey: queryKeys.contactInfo(localeDefaultRegion, props.contactUsername),
-    })
-
-    queryClient.invalidateQueries({
-      queryKey: queryKeys.chats,
-    })
-
-    contactInfoData.value = {
-      username: props.characterUsername,
-      displayName: props.characterName,
-      avatarName: props.characterName,
-    }
 
     isOpen.value = false
   },
@@ -63,20 +41,25 @@ const {
       </h1>
 
       <p class="mb-4 mt-4 text-gray-800">
-        {{ t("Are you sure you want to delete this contact?") }}
+        {{ t("You are about to delete {contactName} (@{contactUsername}) from your contacts. Are you sure you want to delete it?", {
+          contactName: props.contactName,
+          contactUsername: props.contactUsername,
+        }) }}
       </p>
     </template>
 
     <template #actions>
       <Button
         class="btn-error text-white"
-        @click.prevent="mutate()"
+        :disabled="isPending"
+        @click.prevent="deleteContact()"
       >
         {{ t('Delete contact') }}
       </Button>
 
       <Button
         class="btn-primary"
+        :disabled="isPending"
         @click="isOpen = false"
       >
         {{ t('Cancel') }}

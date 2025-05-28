@@ -1,11 +1,15 @@
-import type { Character, Contact, Replies } from '~/types'
+import type { Replies } from '~/types'
 
 export const contentEditableRef = ref()
 
-/* Core */
+// #region PastDueModal
 
 export const isPastDueModalOpen = ref(false)
 export const isPastDueModalAlreadyShown = ref(false)
+
+// #endregion
+
+// #region Drawers
 
 export const isRootDrawerOpen = ref(false)
 
@@ -31,47 +35,47 @@ watch(isRootDrawerOpen, (value) => {
 
 export const rightDrawer = ref(false)
 export const rightDrawers = reactive({
-  contactView: false,
-  translation: false,
+  contactView: true,
 })
 
-/* Contact */
+// #endregion
 
-export const contactData = ref<Contact | null>(null)
+// #region ContactView
 
-watch(() => drawers.manageContact, (value) => {
-  if (!value) {
-    contactData.value = null
-  }
-})
+export const contactViewUsername = ref<string | null>(null)
 
-export interface ContactInfoData {
-  username?: string
-  displayName?: string
-  avatarName?: string
-}
-export const contactInfoData = ref<ContactInfoData | null>(null)
-
-export function openContactView(data: ContactInfoData) {
-  contactInfoData.value = data
+export function openContactView(username?: string | null) {
+  contactViewUsername.value = username ?? null
 
   rightDrawer.value = true
   rightDrawers.contactView = true
 }
 
-export async function manageContact(data?: Contact | null) {
-  if (data) {
-    contactData.value = data
-  }
-  else {
-    contactData.value = null
-  }
+export function closeContactView() {
+  rightDrawer.value = false
+  rightDrawers.contactView = false
+}
+
+// #endregion
+
+// #region ContactManager
+
+export const manageContactUsername = ref<string | null>(null)
+export const manageContactName = ref<string>()
+
+export async function manageContact(username?: string | null, name?: string) {
+  manageContactUsername.value = username ?? null
+  manageContactName.value = name
+
+  console.log('manageContact', manageContactUsername.value)
 
   isRootDrawerOpen.value = true
   drawers.manageContact = true
 }
 
-/* Chat */
+// #endregion
+
+// #region Chat
 
 export interface Edition {
   editing: boolean
@@ -93,7 +97,9 @@ export const sentErrorChatIds = ref<Set<number>>(new Set())
 
 export const currentPlayingMessage = ref<string | null>(null)
 
-/* Character */
+// #endregion
+
+// #region CharacterBuilder
 
 export const characterBuildId = ref<number | null>(null)
 export const characterBuildPrompt = ref<string>()
@@ -105,3 +111,5 @@ export async function buildCharacter(characterId?: number | null, prompt?: strin
   isRootDrawerOpen.value = true
   drawers.characterBuilder = true
 }
+
+// #endregion

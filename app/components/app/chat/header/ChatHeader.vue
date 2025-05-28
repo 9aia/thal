@@ -23,7 +23,7 @@ const items = computed(() => [
     id: 'view-contact',
     name: t('View contact'),
     icon: 'material-symbols:contact-page-outline',
-    onClick: () => openContactView({ username: props.username, displayName: props.displayName, avatarName: props.avatarName }),
+    onClick: () => openContactView(props.username),
   },
   {
     id: 'share-character',
@@ -36,13 +36,7 @@ const items = computed(() => [
         id: 'edit-contact',
         name: t('Edit contact'),
         icon: 'material-symbols:edit-outline',
-        onClick: () => {
-          manageContact({
-            id: props.username,
-            username: props.username,
-            name: props.displayName,
-          })
-        },
+        onClick: () => manageContact(props.username),
       }
     : null,
   props.hasContact
@@ -72,21 +66,14 @@ const items = computed(() => [
 
 <template>
   <header class="px-3 py-2 bg-white flex gap-2 w-full">
-    <ContactDeleteModal
-      v-model="contactDeleteModalState"
-      :contact-username="username"
-      :character-name="displayName"
-      :character-username="username"
-    />
-
     <label for="my-drawer" class="lg:hidden btn btn-ghost btn-circle text-black drawer-button">
       <Icon name="material-symbols:arrow-back" />
     </label>
 
-    <Avatar :name="avatarName" class="w-10 text-sm" type="button" @click="openContactView({ username, displayName, avatarName })" />
+    <Avatar :name="avatarName" class="w-10 text-sm" type="button" @click="openContactView(username)" />
 
     <div class="flex-1 flex items-center justify-between gap-4">
-      <div tabindex="0" role="button" class="block w-full" @click="openContactView({ username, displayName, avatarName })">
+      <div tabindex="0" role="button" class="block w-full" @click="openContactView(username)">
         <span class="text-gray-800">
           {{ displayName }}
         </span>
@@ -106,5 +93,12 @@ const items = computed(() => [
         </div>
       </div>
     </div>
+
+    <ContactDeleteModal
+      v-model="contactDeleteModalState"
+      :contact-username="username"
+      :character-name="displayName"
+      :character-username="username"
+    />
   </header>
 </template>

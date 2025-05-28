@@ -17,6 +17,27 @@ const emit = defineEmits<{
 onMounted(() => {
   emit('fixScroll')
 })
+
+const historyQuery = useQuery({
+  queryKey: queryKeys.chatHistory(computed(() => route.params.username as string)),
+  queryFn: () => $fetch(`/api/chat/history/${route.params.username}`),
+})
+
+function handleDelete(messageId: number, shouldInvalidateChat = true) {
+  queryClient.setQueryData(
+    queryKeys.chat(route.params.username as string),
+    (oldData: Message[]) => oldData.filter(message => message.id !== messageId),
+  )
+
+  sentErrorChatIds.value.delete(chatId.value)
+  sendingChatIds.value.delete(chatId.value)
+
+  if (shouldInvalidateChat) {
+    queryClient.invalidateQueries({
+      queryKey: queryKeys.chats,
+    })
+  }
+}
 </script>
 
 <template>

@@ -38,12 +38,7 @@ export interface MessageContent {
 
 export type Character = InternalApi['/api/character']['default'][number]
 
-export interface Contact {
-  id?: string
-  name?: string
-  username: string
-}
-
+export type Contact = InternalApi['/api/contact']['get'][number]
 export type Message = Awaited<ReturnType<typeof getHistory>>['history'][number]
 
 export type ChatItem = InternalApi['/api/chat']['get'][number] & {

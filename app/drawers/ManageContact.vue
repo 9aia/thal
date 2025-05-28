@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useMutation, useQueryClient } from '@tanstack/vue-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 import { useDebounceFn } from '@vueuse/core'
 import { useForm } from 'vee-validate'
-import { contactData, contactInfoData, drawers, isRootDrawerOpen } from '~/store'
+import { isRootDrawerOpen, manageContactUsername } from '~/store'
 import { nameSchema, usernameSchema } from '~~/db/schema'
 import queryKeys from '~/queryKeys'
 import type { Contact } from '~/types'
@@ -22,25 +22,8 @@ const queryClient = useQueryClient()
 const form = useForm<Contact>({})
 const hasErrors = useHasFormErrors(form)
 
-const localeDefaultRegion = useLocaleDefaultRegion()
-
-watch(() => contactData.value, () => {
-  if (contactData.value) {
-    form.setValues(contactData.value)
-  }
-  else {
-    form.resetForm()
-  }
-}, { immediate: true })
-
-watch(() => drawers.manageContact, (value) => {
-  if (!value) {
-    form.resetForm()
-  }
-}, { immediate: true })
-
-async function validateUsername(username: string) {
-  if (!username || username === contactData.value?.username)
+async function validateUsername(suggestedUsername: string) {
+  if (!suggestedUsername || suggestedUsername === manageContactUsername.value)
     return
 
   try {
@@ -48,7 +31,7 @@ async function validateUsername(username: string) {
       alreadyAdded,
       isUsernameValid,
       characterNotFound,
-    } = await $fetch(`/api/contact/validate-username/${username}`)
+    } = await $fetch(`/api/contact/validate-username/${suggestedUsername}`)
 
     if (!isUsernameValid) {
       form.setErrors({ username: t('Username is invalid.') })
@@ -69,7 +52,13 @@ async function validateUsername(username: string) {
 const debouncedValidateUsername = useDebounceFn(validateUsername, 500)
 watch(() => form.values.username, debouncedValidateUsername)
 
-const isEditing = computed(() => !!contactData.value?.id)
+const contactQuery = useQuery({
+  queryKey: queryKeys.contact(computed(() => manageContactUsername.value!)),
+  queryFn: () => $fetch(`/api/contact/${manageContactUsername.value!}` as `/api/contact/:username`),
+  enabled: computed(() => !!manageContactUsername.value),
+})
+
+const isEditing = computed(() => !!manageContactUsername.value)
 
 function handleGoToChat(username: string) {
   isRootDrawerOpen.value = false
@@ -86,22 +75,15 @@ function onError() {
   return toast.error(message)
 }
 
-function onSuccess(data: typeof form.values) {
+function onSuccess(data: any) {
   queryClient.invalidateQueries({
     queryKey: queryKeys.contacts,
   })
 
-  queryClient.invalidateQueries({
-    queryKey: queryKeys.chat(contactData.value?.id || data.username),
-  })
-
-  queryClient.invalidateQueries({
-    queryKey: queryKeys.contactInfo(localeDefaultRegion, contactData.value?.id || data.username),
-  })
-
-  queryClient.invalidateQueries({
-    queryKey: queryKeys.chats,
-  })
+  queryClient.setQueryData(
+    queryKeys.contact(manageContactUsername.value!),
+    data,
+  )
 
   const message = isEditing.value
     ? t('{name} was edited.', { name: data.name })
@@ -118,34 +100,26 @@ function onSuccess(data: typeof form.values) {
     position: 'start-bottom',
   })
 
-  contactInfoData.value = {
-    username: data.username,
-    displayName: data.name,
-    avatarName: data.username,
-  }
-
   form.resetForm()
   emit('close')
+  // TODO: change manage contact to edition mode
 }
 
 const createMutation = useMutation({
   mutationFn: () => $fetch(`/api/contact`, {
-    method: 'post',
+    method: 'POST',
     body: form.values,
-    query: {
-      locale: localeDefaultRegion.value,
-    },
   }),
-  onSuccess: () => onSuccess(form.values),
+  onSuccess,
   onError,
 })
 
 const editMutation = useMutation({
-  mutationFn: () => $fetch(`/api/contact/${contactData.value!.id}`, {
+  mutationFn: () => $fetch(`/api/contact/${manageContactUsername.value}`, {
     method: 'PATCH',
     body: form.values,
   }),
-  onSuccess: () => onSuccess(form.values),
+  onSuccess,
   onError,
 })
 

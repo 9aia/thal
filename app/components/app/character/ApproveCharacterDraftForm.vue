@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { useForm } from 'vee-validate'
 import type { FetchError } from 'ofetch'
 import queryKeys from '~/queryKeys'
-import { characterBuildId, contactInfoData, isRootDrawerOpen } from '~/store'
+import { characterBuildId, contactViewUsername, isRootDrawerOpen } from '~/store'
 import { CONFLICT_STATUS_CODE } from '~/utils/web'
 
 const props = defineProps<{
@@ -50,7 +50,7 @@ const approveMutation = useMutation({
     method: 'POST',
     body: {
       discoverable: values.discoverable,
-      characterId: characterBuildId.value,
+      characterId: characterBuildId.value == null ? undefined : characterBuildId.value,
     },
   }),
   onSuccess: (data) => {
@@ -64,7 +64,7 @@ const approveMutation = useMutation({
       queryKey: queryKeys.discoverCharacters,
     })
     queryClient.invalidateQueries({
-      queryKey: queryKeys.contactInfo(localWithDefaultRegion.value, data.username),
+      queryKey: queryKeys.character(localWithDefaultRegion.value, data.username),
     })
     queryClient.invalidateQueries({
       queryKey: queryKeys.characterDraftEdit(localWithDefaultRegion.value, characterBuildId.value),
@@ -76,8 +76,8 @@ const approveMutation = useMutation({
     if (props.username === usernameQuery)
       navigateTo(`/app/chat/${data.username}`)
 
-    if (props.username === contactInfoData.value?.username)
-      contactInfoData.value = { ...contactInfoData.value || {}, username: data.username }
+    if (props.username === contactViewUsername.value)
+      contactViewUsername.value = data.username
 
     toast.success(t('Character has been approved successfully.'), undefined, {
       actions: [

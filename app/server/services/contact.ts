@@ -4,34 +4,20 @@ import { notFound } from '~/utils/nuxt'
 import type { User } from '~~/db/schema'
 import { characterLocalizations, characters, contacts, usernames } from '~~/db/schema'
 
-export async function getContactByUser(
+export async function getContactByUsername(
   orm: H3EventContext['orm'],
   user: User,
   username: string,
-  locale: string,
 ) {
   const result = await orm.query.usernames.findFirst({
     where: eq(usernames.username, username),
-    columns: {
-      id: true,
-      username: true,
-    },
     with: {
-      character: {
-        with: {
-          characterLocalizations: {
-            where: eq(characterLocalizations.locale, locale),
-            columns: {
-              description: true,
-            },
-          },
-        },
-      },
       contacts: {
         where: eq(contacts.userId, user.id!),
         columns: {
           id: true,
           name: true,
+          createdAt: true,
         },
       },
     },
@@ -46,8 +32,8 @@ export async function getContactByUser(
   return {
     id: result.contacts[0].id,
     name: result.contacts[0].name,
-    username: result.username,
-    description: result.character?.characterLocalizations[0]?.description,
+    createdAt: result.contacts[0].createdAt,
+    username,
   }
 }
 

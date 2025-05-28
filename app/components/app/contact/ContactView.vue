@@ -1,38 +1,81 @@
 <script setup lang="ts">
 import { useQuery } from '@tanstack/vue-query'
-import { contactInfoData, manageContact, rightDrawer, rightDrawers } from '~/store'
+import type { MenuItemType } from '~/components/ui/navigation/types'
 import { categories } from '~/constants/discover'
 import queryKeys from '~/queryKeys'
-import type { MenuItemType } from '~/components/ui/navigation/types'
-
-const contactDeleteModalState = ref(false)
-const username = computed(() => contactInfoData.value?.username)
-const displayName = computed(() => contactInfoData.value?.displayName)
-const avatarName = computed(() => contactInfoData.value?.avatarName)
-
-const localeDefaultRegion = useLocaleDefaultRegion()
-
-const {
-  data,
-  isLoading,
-  isError,
-  refetch,
-} = useQuery({
-  queryKey: queryKeys.contactInfo(localeDefaultRegion, username),
-  queryFn: () => $fetch(`/api/contact-info/${username.value!}`, {
-    params: {
-      locale: localeDefaultRegion.value,
-    },
-  }),
-  enabled: computed(() => !!username.value),
-})
+import { closeContactView, manageContact, manageContactUsername } from '~/store'
 
 const { t } = useI18nExperimental()
-
-const { hasContact, addContact } = useContactInfo(data)
-const clearChat = useClearChat(username)
+const localeDefaultRegion = useLocaleDefaultRegion()
 const copyUrl = useCopyUrl()
+const toast = useToast()
+
+const contactDeleteModalState = ref(false)
+
+const username = computed(() => manageContactUsername.value!)
 const copyUsername = useCopyUsername(username)
+const clearChat = useClearChat(username)
+
+const contactQuery = useQuery({
+  queryKey: queryKeys.contact(username),
+  queryFn: () => $fetch(`/api/contact/${manageContactUsername.value!}`),
+  enabled: computed(() => !!manageContactUsername.value),
+})
+
+watch(contactQuery.error, (error) => {
+  if (error) {
+    toast.error(t('Error fetching contact'))
+  }
+})
+
+const characterQuery = useQuery({
+  queryKey: queryKeys.character(localeDefaultRegion, username),
+  queryFn: () => $fetch(`/api/character/${username.value!}?locale=${localeDefaultRegion.value}` as `/api/character/:username`),
+  enabled: computed(() => !!manageContactUsername.value),
+})
+
+watch(characterQuery.error, (error) => {
+  if (error) {
+    toast.error(t('Error fetching character'))
+  }
+})
+
+const isLoading = computed(() => contactQuery.isLoading.value || characterQuery.isLoading.value)
+const isError = computed(() => !!contactQuery.error.value || !!characterQuery.error.value)
+
+function refetch() {
+  if (contactQuery.error.value) {
+    contactQuery.refetch()
+  }
+
+  if (characterQuery.error.value) {
+    characterQuery.refetch()
+  }
+}
+
+const hasContact = computed(() => !!contactQuery.data.value)
+const contactNames = computed(() => getContactName({
+  contactName: contactQuery.data.value?.name,
+  characterName: characterQuery.data.value?.name,
+  username: username.value,
+}))
+
+const categoryName = computed(() => {
+  const category = categories.find(cat => cat.id === characterQuery.data.value?.categoryId)
+  return category?.name
+})
+
+const createdAt = computed(() => {
+  return characterQuery.data.value?.createdAt
+    ? [
+        new Date(characterQuery.data.value?.createdAt),
+        {
+          month: 'long',
+          year: 'numeric',
+        },
+      ]
+    : undefined
+})
 
 const items = computed<MenuItemType[]>(() => [
   hasContact.value
@@ -40,16 +83,7 @@ const items = computed<MenuItemType[]>(() => [
         id: 'edit-contact',
         name: t('Edit contact'),
         icon: 'material-symbols:edit-outline',
-        onClick: () => {
-          if (!data.value)
-            return
-
-          manageContact({
-            id: data.value.username,
-            username: data.value.username,
-            name: data.value.contact.name,
-          })
-        },
+        onClick: () => manageContact(username.value),
       }
     : null,
   hasContact.value
@@ -63,7 +97,7 @@ const items = computed<MenuItemType[]>(() => [
         id: 'add-contact',
         name: t('Add to contacts'),
         icon: 'material-symbols:add',
-        onClick: () => addContact(),
+        onClick: () => manageContact(username.value, characterQuery.data.value?.name),
       },
   {
     id: 'share-character',
@@ -73,30 +107,9 @@ const items = computed<MenuItemType[]>(() => [
   },
 ].filter(item => item !== null))
 
-function closeDrawer() {
-  rightDrawer.value = false
-  rightDrawers.contactView = false
-}
-
-const category = computed(() => {
-  return categories.find(cat => cat.id === data.value?.character?.categoryId)
-})
-
-const date = computed(() => {
-  return data.value?.character?.createdAt
-    ? [
-        new Date(data.value?.character?.createdAt),
-        {
-          month: 'long',
-          year: 'numeric',
-        },
-      ]
-    : undefined
-})
-
 function goToChat() {
   navigateTo(`/app/chat/${username.value}`)
-  closeDrawer()
+  closeContactView()
 }
 </script>
 
@@ -104,7 +117,7 @@ function goToChat() {
   <div class="flex flex-col h-dvh justify-between">
     <header class="px-3 flex gap-2 bg-white">
       <h1 class="text-md py-2 text-gray-800 flex items-center gap-1">
-        <Button size="md" shape="circle" class="btn-ghost" @click="closeDrawer">
+        <Button size="md" shape="circle" class="btn-ghost" @click="closeContactView">
           <Icon name="material-symbols:close" />
         </Button>
         {{ t("Character Info") }}
@@ -124,15 +137,6 @@ function goToChat() {
     </header>
 
     <div class="flex-1 overflow-y-auto bg-white divide-y-2 divide-gray-50">
-      <Teleport to="body">
-        <ContactDeleteModal
-          v-model="contactDeleteModalState"
-          :contact-username="username!"
-          :character-name="data?.character?.characterLocalizations?.[0].name"
-          :character-username="data?.username"
-        />
-      </Teleport>
-
       <Resource :loading="isLoading" :error="isError">
         <template #loading>
           <div class="w-full h-full flex items-center justify-center">
@@ -146,30 +150,44 @@ function goToChat() {
 
         <template #default>
           <section class="w-full px-4 pb-4 flex flex-col justify-center">
-            <Avatar :name="avatarName" class="mx-auto w-24 h-24 text-2xl bg-gray-300 text-gray-800" />
+            <Avatar :name="contactNames.avatarName" class="mx-auto w-24 h-24 text-2xl bg-gray-300 text-gray-800" />
 
             <h2 class="text-gray-900 text-center text-xl">
-              {{ displayName }}
+              {{ contactNames.displayName }}
             </h2>
 
-            <Username :username="data?.username!" :show-copy="true" class="mx-auto" />
+            <Username :username="username" :show-copy="true" class="mx-auto" />
 
             <div class="w-full flex justify-center mt-3 gap-2">
-              <Button v-if="!hasContact" size="sm" class="border-none bg-blue-500 text-white px-1 py-1 rounded-full hover:bg-blue-500 shadow-none" @click="goToChat">
+              <Button
+                v-if="!hasContact"
+                size="sm"
+                class="border-none bg-blue-500 text-white px-1 py-1 rounded-full hover:bg-blue-500 shadow-none"
+                @click="goToChat"
+              >
                 <span class="px-4 py-1 flex items-center justify-center gap-1">
                   <Icon name="material-symbols:chat-outline" />
                   {{ t("Message") }}
                 </span>
               </Button>
 
-              <Button v-if="!hasContact" size="sm" class="border-none bg-transparent text-orange-500 px-1 py-1 rounded-full hover:bg-orange-500/10 hover:text-orange-500 shadow-none" @click="addContact">
+              <Button
+                v-if="!hasContact"
+                size="sm"
+                class="border-none bg-transparent text-orange-500 px-1 py-1 rounded-full hover:bg-orange-500/10 hover:text-orange-500 shadow-none"
+                @click="manageContact(username, contactNames.displayName)"
+              >
                 <span class="px-4 py-1 flex items-center justify-center gap-1">
                   <Icon name="material-symbols:person-add-outline" />
                   {{ t("Save") }}
                 </span>
               </Button>
 
-              <Button size="sm" class="border-none bg-transparent text-brown-500 px-1 py-1 rounded-full hover:bg-brown-500/10 hover:text-brown-500 shadow-none" @click="copyUrl">
+              <Button
+                size="sm"
+                class="border-none bg-transparent text-brown-500 px-1 py-1 rounded-full hover:bg-brown-500/10 hover:text-brown-500 shadow-none"
+                @click="copyUrl"
+              >
                 <span class="px-4 py-1 flex items-center justify-center gap-1">
                   <Icon name="material-symbols:ios-share" />
                   {{ t('Share') }}
@@ -182,24 +200,26 @@ function goToChat() {
             <MenuItem
               :is="{
                 id: 'description',
-                name: data?.character?.characterLocalizations[0].description!,
+                name: characterQuery.data.value?.description ?? '',
                 icon: 'material-symbols:person-outline',
               }"
               class="py-2"
             />
+
             <MenuItem
               :is="{
                 id: 'category',
-                name: category?.name!,
+                name: categoryName,
                 icon: 'material-symbols:category-outline',
               }"
+              v-if="categoryName"
               class="py-2"
             />
           </section>
 
-          <section v-if="date" class="w-full px-4 py-4">
+          <section v-if="createdAt" class="w-full px-4 py-4">
             <p class="text-gray-800 text-sm">
-              {{ t('Created at {date}', { date }) }}
+              {{ t('Created at {date}', { createdAt }) }}
             </p>
           </section>
 
@@ -216,7 +236,7 @@ function goToChat() {
             />
           </section>
 
-          <section v-if="date" class="w-full px-4 py-4">
+          <section v-if="createdAt" class="w-full px-4 py-4">
             <Item
               :is="{
                 id: 'ai-character',
@@ -250,6 +270,14 @@ function goToChat() {
         </template>
       </Resource>
     </div>
+
+    <Teleport to="body">
+      <ContactDeleteModal
+        v-model="contactDeleteModalState"
+        :contact-username="username!"
+        :contact-name="contactQuery.data.value?.name"
+      />
+    </Teleport>
   </div>
 </template>
 
