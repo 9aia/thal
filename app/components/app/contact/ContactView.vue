@@ -219,7 +219,7 @@ function goToChat() {
 
           <section v-if="createdAt" class="w-full px-4 py-4">
             <p class="text-gray-800 text-sm">
-              {{ t('Created at {date}', { createdAt }) }}
+              {{ t('Created at {createdAt}', { createdAt }) }}
             </p>
           </section>
 

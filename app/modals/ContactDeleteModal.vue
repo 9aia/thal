@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { t } from '@psitta/vue'
+import { T, t } from '@psitta/vue'
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
+import type { Contact } from '~/types'
 
 const props = defineProps<{
   contactUsername: string
@@ -20,13 +21,8 @@ const { mutate: deleteContact, isPending } = useMutation({
     },
   }),
   onSuccess: () => {
-    queryClient.invalidateQueries({
-      queryKey: queryKeys.contacts,
-    })
-
-    queryClient.invalidateQueries({
-      queryKey: queryKeys.contact(props.contactUsername),
-    })
+    queryClient.setQueryData(queryKeys.contact(props.contactUsername), null)
+    queryClient.setQueryData(queryKeys.contacts, (old: Contact[]) => old.filter(contact => contact.username !== props.contactUsername))
 
     isOpen.value = false
   },
@@ -41,10 +37,19 @@ const { mutate: deleteContact, isPending } = useMutation({
       </h1>
 
       <p class="mb-4 mt-4 text-gray-800">
-        {{ t("You are about to delete {contactName} (@{contactUsername}) from your contacts. Are you sure you want to delete it?", {
-          contactName: props.contactName,
-          contactUsername: props.contactUsername,
-        }) }}
+        <T
+          text="You are about to delete {inlineContact}  from your contacts. Are you sure you want to delete it?"
+          :values="{ inlineContact: true }"
+        >
+          <template #inlineContact>
+            <span class="text-warning">
+              {{ contactName }}
+            </span>
+            <span class="text-warning">
+              (@{{ contactUsername }})
+            </span>
+          </template>
+        </T>
       </p>
     </template>
 

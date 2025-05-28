@@ -1,29 +1,45 @@
 <script lang="ts" setup>
+import { useQuery } from '@tanstack/vue-query'
 import { buildCharacter, manageContact, openContactView } from '~/store'
 import type { MenuItemType } from '~/components/ui/navigation/types'
-
-const props = defineProps<{
-  displayName: string
-  username: string
-  avatarName: string
-  hasContact: boolean
-  hasMessages: boolean
-  addContact: () => void
-  characterId: number
-}>()
+import queryKeys from '~/queryKeys'
 
 const { t } = useI18nExperimental()
 const copyUrl = useCopyUrl()
-const clearChat = useClearChat(toRef(() => props.username))
+const route = useRoute()
+const localeWithDefaultRegion = useLocaleDefaultRegion()
+
+const username = computed(() => route.params.username as string)
+
+const clearChat = useClearChat(username)
 
 const contactDeleteModalState = ref()
+
+const contactQuery = useQuery({
+  queryKey: queryKeys.contact(username),
+  queryFn: () => $fetch(`/api/contact/${username.value}` as `/api/contact/:username`),
+})
+
+const characterQuery = useQuery({
+  queryKey: queryKeys.character(localeWithDefaultRegion.value, username),
+  queryFn: () => $fetch(`/api/character/${username.value}` as `/api/character/:username`),
+})
+
+const isContact = computed(() => !!contactQuery.data.value)
+const contactNames = computed(() => getContactName({
+  username: username.value,
+  contactName: contactQuery.data.value?.name,
+  characterName: characterQuery.data.value?.name,
+}))
+
+const hasMessages = computed(() => false) // TODO: use query
 
 const items = computed(() => [
   {
     id: 'view-contact',
     name: t('View contact'),
     icon: 'material-symbols:contact-page-outline',
-    onClick: () => openContactView(props.username),
+    onClick: () => openContactView(username.value),
   },
   {
     id: 'share-character',
@@ -31,15 +47,15 @@ const items = computed(() => [
     icon: 'material-symbols:ios-share',
     onClick: () => copyUrl(),
   },
-  props.hasContact
+  isContact.value
     ? {
         id: 'edit-contact',
         name: t('Edit contact'),
         icon: 'material-symbols:edit-outline',
-        onClick: () => manageContact(props.username),
+        onClick: () => manageContact(username.value),
       }
     : null,
-  props.hasContact
+  isContact.value
     ? {
         id: 'delete-contact',
         name: t('Delete contact'),
@@ -50,9 +66,9 @@ const items = computed(() => [
         id: 'add-contact',
         name: t('Add to contacts'),
         icon: 'material-symbols:add',
-        onClick: () => props.addContact(),
+        onClick: () => manageContact(username.value, characterQuery.data.value?.name),
       },
-  props.hasMessages
+  hasMessages.value
     ? {
         id: 'clear-chat',
         name: t('Clear chat'),
@@ -70,17 +86,17 @@ const items = computed(() => [
       <Icon name="material-symbols:arrow-back" />
     </label>
 
-    <Avatar :name="avatarName" class="w-10 text-sm" type="button" @click="openContactView(username)" />
+    <Avatar :name="contactNames.avatarName" class="w-10 text-sm" type="button" @click="openContactView(username)" />
 
     <div class="flex-1 flex items-center justify-between gap-4">
       <div tabindex="0" role="button" class="block w-full" @click="openContactView(username)">
         <span class="text-gray-800">
-          {{ displayName }}
+          {{ contactNames.displayName }}
         </span>
       </div>
 
       <div class="flex gap-2">
-        <Button size="md" shape="circle" class="btn-ghost" @click="buildCharacter(characterId)">
+        <Button size="md" shape="circle" class="btn-ghost" @click="buildCharacter(characterQuery.data.value?.id)">
           <Icon>material-symbols:person-edit-outline</Icon>
         </Button>
 
@@ -95,10 +111,10 @@ const items = computed(() => [
     </div>
 
     <ContactDeleteModal
+      v-if="isContact"
       v-model="contactDeleteModalState"
+      :contact-name="contactQuery.data.value?.name ?? ''"
       :contact-username="username"
-      :character-name="displayName"
-      :character-username="username"
     />
   </header>
 </template>

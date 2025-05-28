@@ -64,6 +64,9 @@ const approveMutation = useMutation({
       queryKey: queryKeys.discoverCharacters,
     })
     queryClient.invalidateQueries({
+      queryKey: queryKeys.discoverCharactersSearch(localWithDefaultRegion.value, '', undefined),
+    })
+    queryClient.invalidateQueries({
       queryKey: queryKeys.character(localWithDefaultRegion.value, data.username),
     })
     queryClient.invalidateQueries({
