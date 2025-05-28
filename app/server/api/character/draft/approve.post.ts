@@ -6,10 +6,10 @@ import type { CharacterGet } from '~~/db/schema'
 import { characterDraftInsertSchema, characterDrafts, characterLocalizations, characters, usernames } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
+  const data = await getValidated(event, 'body', characterDraftInsertSchema)
+
   const orm = event.context.orm
   const user = event.context.user
-
-  const data = await getValidated(event, 'body', characterDraftInsertSchema)
 
   if (!user)
     throw unauthorized()

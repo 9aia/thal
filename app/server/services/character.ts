@@ -35,6 +35,7 @@ export async function getCharacterByUsername(
   }
 }
 
+// TODO: remove this
 export async function getCharacterWithContactByUser(
   orm: H3EventContext['orm'],
   user: User,

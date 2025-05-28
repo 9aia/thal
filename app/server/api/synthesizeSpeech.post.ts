@@ -11,6 +11,11 @@ export default eventHandler(async (event) => {
   if (!GCP_CLOUD_TTS_API_KEY)
     throw internal('GCP_CLOUD_TTS_API_KEY is not set in the environment')
 
+  const data = await getValidated(event, 'body', z.object({
+    text: z.string(),
+    locale: z.string().default('en-US'),
+  }))
+
   const user = event.context.user
 
   if (!user)
@@ -24,11 +29,6 @@ export default eventHandler(async (event) => {
 
   if (!listenRateLimit.success)
     throw rateLimit()
-
-  const data = await getValidated(event, 'body', z.object({
-    text: z.string(),
-    locale: z.string().default('en-US'),
-  }))
 
   const tts = getTts(GCP_CLOUD_TTS_API_KEY)
 

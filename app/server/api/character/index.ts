@@ -5,10 +5,10 @@ import { unauthorized } from '~/utils/nuxt'
 import { characterLocalizations, characters } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
+  const { locale } = await getValidated(event, 'query', z.object({ locale: z.string() }))
+
   const orm = event.context.orm
   const user = event.context.user
-
-  const { locale } = await getValidated(event, 'query', z.object({ locale: z.string() }))
 
   if (!user)
     throw unauthorized()

@@ -15,6 +15,14 @@ export default defineEventHandler(async (event) => {
   if (!GEMINI_MODEL)
     throw internal('GEMINI_MODEL is not set in the environment')
 
+  const data = await getValidated(event, 'body', z.object({
+    messageText: z.string(),
+    messageIsBot: z.boolean().default(false).describe('isBotMessage is used to identify if the message is from the bot'),
+    chatUsername: z.string().describe('The chatUsername is required for context'),
+    toNative: z.boolean().default(true).describe('Should translate to native language'),
+    replyMessageId: z.number().optional().describe('The replyMessageId is the id of the reply message'),
+  }))
+
   const user = event.context.user
   const orm = event.context.orm
 
@@ -29,14 +37,6 @@ export default defineEventHandler(async (event) => {
 
   if (!translateRateLimit.success)
     throw rateLimit()
-
-  const data = await getValidated(event, 'body', z.object({
-    messageText: z.string(),
-    messageIsBot: z.boolean().default(false).describe('isBotMessage is used to identify if the message is from the bot'),
-    chatUsername: z.string().describe('The chatUsername is required for context'),
-    toNative: z.boolean().default(true).describe('Should translate to native language'),
-    replyMessageId: z.number().optional().describe('The replyMessageId is the id of the reply message'),
-  }))
 
   const username = await orm.query.usernames.findFirst({
     where: eq(usernames.username, data.chatUsername!),

@@ -18,6 +18,9 @@ export default eventHandler(async (event) => {
   if (!GEMINI_MODEL)
     throw internal('GEMINI_MODEL is not set in the environment')
 
+  const { username } = await getValidated(event, 'params', z.object({ username: usernameSchema }))
+  const data = await getValidated(event, 'body', messageSendSchema)
+
   const user = event.context.user
 
   if (!user)
@@ -33,9 +36,6 @@ export default eventHandler(async (event) => {
 
   if (!messageRateLimit.success)
     throw rateLimit()
-
-  const { username } = await getValidated(event, 'params', z.object({ username: usernameSchema }))
-  const data = await getValidated(event, 'body', messageSendSchema)
 
   const orm = event.context.orm
 

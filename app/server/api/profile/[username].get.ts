@@ -5,12 +5,12 @@ import { forbidden, notFound, unauthorized } from '~/utils/nuxt'
 import { usernameSchema, usernames } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
-  const orm = event.context.orm
-  const user = event.context.user
-
   const { username } = await getValidated(event, 'params', z.object({
     username: usernameSchema,
   }))
+
+  const orm = event.context.orm
+  const user = event.context.user
 
   if (!user)
     throw unauthorized()

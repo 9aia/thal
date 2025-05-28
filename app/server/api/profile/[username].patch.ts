@@ -5,11 +5,11 @@ import { getValidated } from '~/utils/h3'
 import { forbidden, unauthorized } from '~/utils/nuxt'
 
 export default eventHandler(async (event) => {
-  const orm = event.context.orm
-  const loggedUser = event.context.user
-
   const { username } = await getValidated(event, 'params', z.object({ username: z.string() }))
   const data = await getValidated(event, 'body', userUpdateSchema)
+
+  const orm = event.context.orm
+  const loggedUser = event.context.user
 
   if (!loggedUser)
     throw unauthorized()

@@ -17,6 +17,9 @@ export default eventHandler(async (event) => {
   if (!GEMINI_MODEL)
     throw internal('GEMINI_MODEL is not set in the environment')
 
+  const data = await getValidated(event, 'body', characterDraftSchema)
+  const { prompt, locale } = data
+
   const orm = event.context.orm
   const user = event.context.user
 
@@ -25,9 +28,6 @@ export default eventHandler(async (event) => {
 
   if (isPlanPastDue(user))
     throw paymentRequired()
-
-  const data = await getValidated(event, 'body', characterDraftSchema)
-  const { prompt, locale } = data
 
   const [existingDraft] = await orm.select().from(characterDrafts).where(
     and(eq(characterDrafts.creatorId, user.id), isNull(characterDrafts.characterId)),

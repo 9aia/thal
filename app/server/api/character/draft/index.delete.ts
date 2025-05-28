@@ -6,6 +6,10 @@ import { isPlanPastDue } from '~/utils/plan'
 import { characterDraftLocalizations, characterDrafts, characters } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
+  const { characterId } = await getValidated(event, 'body', z.object({
+    characterId: z.number().optional(),
+  }))
+
   const orm = event.context.orm
   const user = event.context.user
 
@@ -14,10 +18,6 @@ export default eventHandler(async (event) => {
 
   if (isPlanPastDue(user))
     throw paymentRequired()
-
-  const { characterId } = await getValidated(event, 'body', z.object({
-    characterId: z.number().optional(),
-  }))
 
   const existingDraft = await orm.query.characterDrafts.findFirst({
     where: and(
