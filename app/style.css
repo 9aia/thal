@@ -24,6 +24,10 @@ html:has(body.content-overflow-y) {
   scrollbar-gutter: stable !important;
 }
 
+:focus {
+  @apply outline-blue-500;
+}
+
 .border-gradient-1 {
   @apply border-none bg-gray-50 text-magenta-500 px-1 py-1;
 }

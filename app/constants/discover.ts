@@ -1,5 +1,6 @@
-export interface Category {
+export interface CategoryConfig {
   id: number
+  slug: string
   name: string
   icon: string
   description: string
@@ -9,9 +10,10 @@ export interface Category {
 
 const t = (x: string) => x
 
-export const categories: Category[] = [
+export const categories = ([
   {
     id: 1,
+    slug: 'travel-tourism-transportation',
     name: t('Travel, Tourism & Transportation'),
     icon: 'material-symbols:flight-takeoff',
     description: 'Practice conversations for traveling abroad, including booking accommodations, asking for directions, and more.',
@@ -20,6 +22,7 @@ export const categories: Category[] = [
   },
   {
     id: 2,
+    slug: 'shopping-retail',
     name: t('Shopping & Retail'),
     icon: 'material-symbols:storefront-outline',
     description: 'Characters in a retail setting, such as shopping for clothes, groceries, or electronics, designed to practice consumer interactions.',
@@ -28,6 +31,7 @@ export const categories: Category[] = [
   },
   {
     id: 3,
+    slug: 'food-beverage',
     name: t('Food & Beverage'),
     icon: 'material-symbols:restaurant-menu',
     description: 'Characters for practicing conversations in restaurants, cafes, and food-related situations like menu ordering, dietary preferences, and cooking.',
@@ -36,6 +40,7 @@ export const categories: Category[] = [
   },
   {
     id: 4,
+    slug: 'science-nature',
     name: t('Science & Nature'),
     icon: 'material-symbols:science-outline',
     description: 'Characters discussing scientific topics, nature, and environmental issues.',
@@ -44,6 +49,7 @@ export const categories: Category[] = [
   },
   {
     id: 5,
+    slug: 'dating-relationships',
     name: t('Dating & Relationships'),
     icon: 'material-symbols:favorite-outline',
     description: 'Characters for practicing conversations related to dating, relationships, and social interactions.',
@@ -52,6 +58,7 @@ export const categories: Category[] = [
   },
   {
     id: 6,
+    slug: 'education-learning',
     name: t('Education & Learning'),
     icon: 'material-symbols:school-outline',
     description: 'Simulate discussions in educational settings, from classroom dialogues to study groups.',
@@ -60,6 +67,7 @@ export const categories: Category[] = [
   },
   {
     id: 7,
+    slug: 'health-wellness',
     name: t('Health & Wellness'),
     icon: 'material-symbols:local-hospital-outline',
     description: 'Characters that discuss health, fitness, mental well-being, and lifestyle topics.',
@@ -68,6 +76,7 @@ export const categories: Category[] = [
   },
   {
     id: 8,
+    slug: 'technology-engineering',
     name: t('Technology & Engineering'),
     icon: 'material-symbols:memory-outline',
     description: 'Characters discussing tech trends, engineering concepts, and digital innovations.',
@@ -76,6 +85,7 @@ export const categories: Category[] = [
   },
   {
     id: 9,
+    slug: 'historical-figures',
     name: t('Historical Figures'),
     icon: 'material-symbols:history-edu-outline',
     description: 'Interact with simulated characters from different historical eras to learn about their lives and achievements.',
@@ -84,6 +94,7 @@ export const categories: Category[] = [
   },
   {
     id: 10,
+    slug: 'business-career',
     name: t('Business & Career'),
     icon: 'material-symbols:work-outline',
     description: 'Focused on professional settings, such as meetings, emails, and workplace interactions.',
@@ -92,6 +103,7 @@ export const categories: Category[] = [
   },
   {
     id: 11,
+    slug: 'family-relatives',
     name: t('Family & Relatives'),
     icon: 'material-symbols:family-restroom',
     description: 'Focused on family dynamics, parenting, and relationships between relatives.',
@@ -100,6 +112,7 @@ export const categories: Category[] = [
   },
   {
     id: 12,
+    slug: 'law-justice',
     name: t('Law & Justice'),
     icon: 'material-symbols:gavel-rounded',
     description: 'Characters discussing legal matters, court cases, and justice-related topics.',
@@ -108,6 +121,7 @@ export const categories: Category[] = [
   },
   {
     id: 13,
+    slug: 'religion-spirituality',
     name: t('Religion & Spirituality'),
     icon: 'material-symbols:church-outline',
     description: 'Characters discussing religious beliefs, spiritual practices, and philosophical topics.',
@@ -116,6 +130,7 @@ export const categories: Category[] = [
   },
   {
     id: 14,
+    slug: 'sports-recreation',
     name: t('Sports & recreation'),
     icon: 'material-symbols:sports-soccer',
     description: 'Characters discussing sports, fitness, and recreational activities.',
@@ -124,6 +139,7 @@ export const categories: Category[] = [
   },
   {
     id: 15,
+    slug: 'hotel-lodging',
     name: t('Hotel & Lodging'),
     icon: 'material-symbols:hotel-outline',
     description: 'Characters for practicing conversations in hotels, hostels, and other lodging situations.',
@@ -132,6 +148,7 @@ export const categories: Category[] = [
   },
   {
     id: 16,
+    slug: 'comedy-entertainment',
     name: t('Comedy & Entertainment'),
     icon: 'material-symbols:movie-outline',
     description: 'Characters related to the entertainment industry, including actors, comedians, and performers.',
@@ -140,6 +157,7 @@ export const categories: Category[] = [
   },
   {
     id: 17,
+    slug: 'real-estate',
     name: t('Real Estate'),
     icon: 'material-symbols:house-outline',
     description: 'Characters for practicing conversations in real estate, including buying, selling, or renting properties.',
@@ -148,6 +166,7 @@ export const categories: Category[] = [
   },
   {
     id: 18,
+    slug: 'art-design',
     name: t('Art & Design'),
     icon: 'material-symbols:palette-outline',
     description: 'Characters related to art, design, and creative fields.',
@@ -156,6 +175,7 @@ export const categories: Category[] = [
   },
   {
     id: 19,
+    slug: 'casual-everyday',
     name: t('Casual & Everyday'),
     icon: 'material-symbols:chat-outline',
     description: 'Characters for casual conversations about everyday life, hobbies, and interests.',
@@ -164,6 +184,7 @@ export const categories: Category[] = [
   },
   {
     id: 20,
+    slug: 'news-media',
     name: t('News & Media'),
     icon: 'material-symbols:article-outline',
     description: 'Characters discussing current events, news stories, and media topics.',
@@ -172,13 +193,18 @@ export const categories: Category[] = [
   },
   {
     id: 21,
+    slug: 'miscellaneous-others',
     name: t('Miscellaneous & Others'),
     icon: 'material-symbols:more-vert',
     description: 'Characters that don\'t fit into other categories.',
     example: 'A character with a unique background or profession.',
     color: 'text-gray-500 bg-gray-50',
   },
-].sort((a, b) => a.name.localeCompare(b.name))
+] as const satisfies CategoryConfig[])
+  .sort((a, b) => a.name.localeCompare(b.name))
+
+export type Category = (typeof categories)[number]
+export type CategorySlug = Category['slug'] | ''
 
 // print the categories names and their desc with a example
 // categories.forEach((category) => {

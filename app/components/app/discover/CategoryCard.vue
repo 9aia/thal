@@ -14,9 +14,8 @@ defineProps<{
       size="lg"
       shape="circle"
       :class="color"
-      class="relative overflow-hidden border-none"
+      class="relative border-none"
     >
-      <!-- <div class="w-full h-1/2 bg-black/5 absolute top-0 -z-1" /> -->
       <Icon :name="icon" />
     </Button>
 

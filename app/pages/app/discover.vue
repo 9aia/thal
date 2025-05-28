@@ -28,9 +28,7 @@ useAutoRedirect()
         </h1>
       </Navbar>
 
-      <ClientOnly>
-        <CharacterList />
-      </ClientOnly>
+      <DiscoverBody />
     </template>
   </AppLayout>
 </template>

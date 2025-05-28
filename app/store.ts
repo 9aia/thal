@@ -67,8 +67,6 @@ export async function manageContact(username?: string | null, name?: string) {
   manageContactUsername.value = username ?? null
   manageContactName.value = name
 
-  console.log('manageContact', manageContactUsername.value)
-
   isRootDrawerOpen.value = true
   drawers.manageContact = true
 }

@@ -186,7 +186,7 @@ const isOnline = useOnline()
     </template>
 
     <template #content>
-      <div class="flex flex-col h-dvh justify-center items-center bg-gray-50">
+      <div class="flex flex-col h-dvh justify-center items-center bg-white">
         <ChatHeader />
         <!-- <ChatHeader
           :character-id="data!.id!"

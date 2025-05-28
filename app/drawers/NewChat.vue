@@ -33,7 +33,7 @@ const form = useForm({
     search: '',
   },
 })
-const search = refDebounced(toRef(form.values, 'search'), 500)
+const search = refDebounced(toRef(() => form.values.search), 500)
 
 const localeWithDefaultRegion = useLocaleDefaultRegion()
 

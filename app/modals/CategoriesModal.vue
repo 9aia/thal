@@ -21,7 +21,7 @@ const { values, setValues } = useForm({
 
 const {
   results: filteredCategories,
-} = useFuse(toRef(values, 'search'), categories, {
+} = useFuse(toRef(() => values.search), categories, {
   fuseOptions: {
     keys: ['name'],
   },

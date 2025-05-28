@@ -42,7 +42,7 @@ const time = computed(() => new Intl.DateTimeFormat(locale.value, {
   minute: '2-digit',
 }).format(new Date(props.time)))
 
-const copyToClipboard = useClipboard(toRef(props, 'message'))
+const copyToClipboard = useClipboard(toRef(() => props.message))
 const translation = useTranslation({
   queryKey: 'chat-bubble-translation',
   chatUsername: username.value,

@@ -44,6 +44,9 @@ importers:
       '@vueuse/integrations':
         specifier: ^12.7.0
         version: 12.7.0(change-case@5.4.4)(focus-trap@7.5.4)(fuse.js@7.1.0)(typescript@5.7.3)
+      '@vueuse/router':
+        specifier: ^13.3.0
+        version: 13.3.0(vue-router@4.5.0(vue@3.5.13(typescript@5.7.3)))(vue@3.5.13(typescript@5.7.3))
       arctic:
         specifier: ^2.3.4
         version: 2.3.4
@@ -2691,6 +2694,12 @@ packages:
     peerDependencies:
       nuxt: ^3.0.0
 
+  '@vueuse/router@13.3.0':
+    resolution: {integrity: sha512-6pqzHWSZbjFHZ3Uo3x4nykx/b0YfKnkYVoERQs3Is9xJODlO/CTW0LRuEwaQD3kov9TJ6q8ru9MybHZ8DU6mdA==}
+    peerDependencies:
+      vue: ^3.5.0
+      vue-router: ^4.0.0
+
   '@vueuse/shared@10.11.1':
     resolution: {integrity: sha512-LHpC8711VFZlDaYUXEBbFBCQ7GS3dVU9mjOhhMhXP6txTV4EhYQg/KGnQuvt/sPAtoUKq7VVUnL6mVtFoL42sA==}
 
@@ -2699,6 +2708,11 @@ packages:
 
   '@vueuse/shared@12.7.0':
     resolution: {integrity: sha512-coLlUw2HHKsm7rPN6WqHJQr18WymN4wkA/3ThFaJ4v4gWGWAQQGK+MJxLuJTBs4mojQiazlVWAKNJNpUWGRkNw==}
+
+  '@vueuse/shared@13.3.0':
+    resolution: {integrity: sha512-L1QKsF0Eg9tiZSFXTgodYnu0Rsa2P0En2LuLrIs/jgrkyiDuJSsPZK+tx+wU0mMsYHUYEjNsuE41uqqkuR8VhA==}
+    peerDependencies:
+      vue: ^3.5.0
 
   '@zag-js/accordion@1.3.1':
     resolution: {integrity: sha512-E8LvybgNFlCKqx/Qto66nAHC3U9dzPwvbBryR7HXgJ/4JKVwT31NKz2AsmT5qnA92CZPPYIcJ4TQ1n5xGdhe0w==}
@@ -10311,6 +10325,12 @@ snapshots:
       - supports-color
       - vue
 
+  '@vueuse/router@13.3.0(vue-router@4.5.0(vue@3.5.13(typescript@5.7.3)))(vue@3.5.13(typescript@5.7.3))':
+    dependencies:
+      '@vueuse/shared': 13.3.0(vue@3.5.13(typescript@5.7.3))
+      vue: 3.5.13(typescript@5.7.3)
+      vue-router: 4.5.0(vue@3.5.13(typescript@5.7.3))
+
   '@vueuse/shared@10.11.1(vue@3.5.13(typescript@5.7.3))':
     dependencies:
       vue-demi: 0.14.10(vue@3.5.13(typescript@5.7.3))
@@ -10330,6 +10350,10 @@ snapshots:
       vue: 3.5.13(typescript@5.7.3)
     transitivePeerDependencies:
       - typescript
+
+  '@vueuse/shared@13.3.0(vue@3.5.13(typescript@5.7.3))':
+    dependencies:
+      vue: 3.5.13(typescript@5.7.3)
 
   '@zag-js/accordion@1.3.1':
     dependencies:
