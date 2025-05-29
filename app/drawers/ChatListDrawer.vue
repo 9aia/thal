@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/vue-query'
 import { watchDebounced } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import queryKeys from '~/queryKeys'
-import { chatListSearch, drawers, isRootDrawerOpen, openWhatsNewModal } from '~/store'
+import { chatListSearch, drawers, isRootDrawerOpen, isWhatsNewModalOpen, openWhatsNewModal } from '~/store'
 
 const form = useForm({
   initialValues: {
@@ -69,7 +69,7 @@ async function goToDiscover() {
             'text-black': !hasUnreadContent,
           }"
           :loading="countQuery.isLoading.value"
-          @click="openWhatsNewModal"
+          @click="openWhatsNewModal()"
         >
           <Icon v-show="!countQuery.isLoading.value" name="material-symbols:campaign-outline" />
         </Button>

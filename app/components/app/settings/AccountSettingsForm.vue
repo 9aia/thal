@@ -3,7 +3,7 @@ import { useDebounceFn } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import { useQueryClient } from '@tanstack/vue-query'
 import type { User } from '~~/db/schema'
-import { nameSchema, pronounsSchema, usernameSchema } from '~~/db/schema'
+import { nameSchema, pronounsSchema, userLastNameSchema, userNameSchema, usernameSchema } from '~~/db/schema'
 import type { MenuItemType } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
 
@@ -97,6 +97,14 @@ const dangerItems: MenuItemType[] = [
 ]
 
 const logout = useLogout()
+
+const minNameLength = userNameSchema._def.checks.find(check => check.kind === 'min')?.value
+const maxNameLength = userNameSchema._def.checks.find(check => check.kind === 'max')?.value
+const minLastNameLength = userLastNameSchema._def.checks.find(check => check.kind === 'min')?.value
+const maxLastNameLength = userLastNameSchema._def.checks.find(check => check.kind === 'max')?.value
+const minUsernameLength = usernameSchema._def.checks.find(check => check.kind === 'min')?.value
+const maxUsernameLength = usernameSchema._def.checks.find(check => check.kind === 'max')?.value
+const maxPronounsLength = pronounsSchema._def.checks.find(check => check.kind === 'max')?.value
 </script>
 
 <template>
@@ -104,13 +112,19 @@ const logout = useLogout()
     <form class="block space-y-2" @submit="submit">
       <div class="gap-2 grid grid-cols-2">
         <TextField
-          path="name" :label="t('Name')" class="grid-cols-1/2" :rules="yupify(nameSchema, t(
-            'Name must contain between 1 and 20 characters.',
+          path="name" :label="t('Name')" class="grid-cols-1/2" :rules="yupify(userNameSchema, t(
+            `Name must contain between {min} and {max} characters.`, {
+              min: minNameLength,
+              max: maxNameLength,
+            },
           ))"
         />
         <TextField
-          path="lastName" :label="t('Last name')" class="grid-cols-1/2" :rules="yupify(nameSchema, t(
-            'Last name must contain between 1 and 20 characters.',
+          path="lastName" :label="t('Last name')" class="grid-cols-1/2" :rules="yupify(userLastNameSchema, t(
+            `Last name must contain between {min} and {max} characters.`, {
+              min: minLastNameLength,
+              max: maxLastNameLength,
+            },
           ))"
         />
       </div>
@@ -119,7 +133,12 @@ const logout = useLogout()
         autocapitalize="none"
         autocomplete="off"
         :label="t('Username')"
-        :rules="yupify(usernameSchema, t('Username is invalid.'))"
+        :rules="yupify(usernameSchema, t(
+          'Username can only contain letters, numbers, and underscores. Min {min} character, max {max} characters.', {
+            min: minUsernameLength,
+            max: maxUsernameLength,
+          },
+        ))"
         icon-position="right"
       >
         <template #icon="{ errorMessage }">
@@ -131,7 +150,9 @@ const logout = useLogout()
       </TextField>
       <TextField
         path="pronouns" :label="t('Pronouns')" :rules="yupify(pronounsSchema, t(
-          'Pronouns must be up to 20 characters long.',
+          'Pronouns must be up to {max} characters long.', {
+            max: maxPronounsLength,
+          },
         ))"
       />
 

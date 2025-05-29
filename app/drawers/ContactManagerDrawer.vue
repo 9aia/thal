@@ -129,6 +129,11 @@ const submit = form.handleSubmit(() => isEditing.value
   ? editMutation.mutate()
   : createMutation.mutate(),
 )
+
+const minNameLength = nameSchema._def.checks.find(check => check.kind === 'min')?.value
+const maxNameLength = nameSchema._def.checks.find(check => check.kind === 'max')?.value
+const minUsernameLength = usernameSchema._def.checks.find(check => check.kind === 'min')?.value
+const maxUsernameLength = usernameSchema._def.checks.find(check => check.kind === 'max')?.value
 </script>
 
 <template>
@@ -143,7 +148,10 @@ const submit = form.handleSubmit(() => isEditing.value
             path="name"
             :label="t('Name')"
             :rules="yupify(nameSchema, t(
-              'Name must contain between 1 and 20 characters.',
+              `Name must contain between {min} and {max} characters.`, {
+                min: minNameLength,
+                max: maxNameLength,
+              },
             ))"
           />
           <TextField
@@ -152,7 +160,12 @@ const submit = form.handleSubmit(() => isEditing.value
             :label="t('Username')"
             autocapitalize="none"
             autocomplete="off"
-            :rules="yupify(usernameSchema, t('Username is invalid.'))"
+            :rules="yupify(usernameSchema, t(
+              'Username can only contain letters, numbers, and underscores. Min {min} character, max {max} characters.', {
+                min: minUsernameLength,
+                max: maxUsernameLength,
+              },
+            ))"
             icon-position="right"
           >
             <template #icon="{ errorMessage }">

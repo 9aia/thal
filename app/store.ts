@@ -7,14 +7,13 @@ export const contentEditableRef = ref()
 export const isPastDueModalOpen = ref(false)
 export const isPastDueModalAlreadyShown = ref(false)
 
-const _isWhatsNewModalOpen = ref(false)
-export const isWhatsNewModalOpen = computed(() => _isWhatsNewModalOpen.value)
+export const isWhatsNewModalOpen = ref(false)
 
 export const hasUnreadContent = ref(false)
 export const lastSavedContentCount = ref(0)
 
 export async function openWhatsNewModal() {
-  _isWhatsNewModalOpen.value = true
+  isWhatsNewModalOpen.value = true
 
   const contentAmount = await queryContent().count()
 
@@ -24,7 +23,7 @@ export async function openWhatsNewModal() {
 }
 
 export function closeWhatsNewModal() {
-  _isWhatsNewModalOpen.value = false
+  isWhatsNewModalOpen.value = false
 }
 
 // #endregion

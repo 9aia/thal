@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { drawers, isPastDueModalOpen, isRootDrawerOpen } from '~/store'
+import { drawers, isPastDueModalOpen, isRootDrawerOpen, isWhatsNewModalOpen } from '~/store'
 import './style.css'
 
 useInternetConnectionIndicator()
@@ -54,5 +54,6 @@ onMounted(() => {
 
   <LocaleModal v-model="localeModalState" />
   <PastDuePlanModal v-model="isPastDueModalOpen" />
+  <WhatsNewModal v-model="isWhatsNewModalOpen" />
   <AccountReactivatedModal />
 </template>

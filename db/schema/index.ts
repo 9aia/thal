@@ -24,18 +24,21 @@ export enum PlanType {
 
 export const users = sqliteTable('User', {
   id: text('id').primaryKey(),
+
   name: text('name').notNull(),
   lastName: text('last_name').notNull(),
   pronouns: text('pronouns'),
   picture: text('picture'),
-  createdAt: int('created_at', { mode: 'timestamp_ms' }).default(sql`(unixepoch() * 1000)`).notNull(),
   email: text('email'),
+
   plan: int('plan').$type<PlanType>(),
   freeTrialUsed: int('free_trial_used', { mode: 'boolean' }).default(false),
   subscriptionStatus: int('subscription_status').default(SubscriptionStatus.not_subscribed).$type<SubscriptionStatus>(),
   subscriptionId: text('subscription_id'),
   stripeCustomerId: text('stripe_customer_id'),
   checkoutId: text('checkout_id'),
+
+  createdAt: int('created_at', { mode: 'timestamp_ms' }).default(sql`(unixepoch() * 1000)`).notNull(),
   deactivatedAt: int('deactivated_at', { mode: 'timestamp_ms' }),
 })
 
@@ -69,20 +72,20 @@ export const oAuthAccounts = sqliteTable('OAuthAccount', {
     .references(() => users.id, { onDelete: 'cascade' }),
 })
 
-export const usernameSchema = z
-  .string()
-  .min(1, { message: 'Username must be at least 1 character long' })
-  .max(20, { message: 'Username must be at most 20 characters long' })
+export const usernameSchema = z.string().min(1).max(32)
   .regex(/^\w+$/, {
     message: 'Username can only contain letters, numbers, and underscores',
   })
 
-export const nameSchema = z.string().min(1).max(20)
+export const nameSchema = z.string().min(1).max(64)
 export const pronounsSchema = z.string().min(0).max(20).nullish()
 
+export const userNameSchema = z.string().min(1).max(32)
+export const userLastNameSchema = z.string().min(1).max(32)
+
 export const userSelectSchema = createSelectSchema(users, {
-  name: nameSchema,
-  lastName: nameSchema,
+  name: userNameSchema,
+  lastName: userLastNameSchema,
   pronouns: pronounsSchema,
   email: z.string().email().optional().nullable(),
 }).extend({
@@ -91,8 +94,8 @@ export const userSelectSchema = createSelectSchema(users, {
 
 export const userInsertSchema = createInsertSchema(users, {
   id: id => id.optional(),
-  name: nameSchema,
-  lastName: nameSchema,
+  name: userNameSchema,
+  lastName: userLastNameSchema,
   pronouns: pronounsSchema,
   email: z.string().email(),
   createdAt: createdAt => createdAt.optional(),
@@ -101,8 +104,8 @@ export const userInsertSchema = createInsertSchema(users, {
 })
 
 export const userUpdateSchema = createInsertSchema(users, {
-  name: nameSchema,
-  lastName: nameSchema,
+  name: userNameSchema,
+  lastName: userLastNameSchema,
   pronouns: pronounsSchema,
   email: z.string().email(),
 }).extend({
@@ -123,8 +126,8 @@ export type Session = SessionSelect
 
 // #region Characters
 
-export const descriptionSchema = z.string().min(1).max(100)
-export const instructionsSchema = z.string().min(1).max(500)
+export const descriptionSchema = z.string().min(1).max(300)
+export const instructionsSchema = z.string().min(1).max(1000)
 
 export const characters = sqliteTable('Character', {
   id: int('id').primaryKey({ autoIncrement: true }),

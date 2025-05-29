@@ -27,12 +27,23 @@ export function getCharacterDraftPrompt() {
     example: category.example,
   }))
 
+  const minUsernameLength = usernameSchema._def.checks.find(check => check.kind === 'min')?.value
+  const maxUsernameLength = usernameSchema._def.checks.find(check => check.kind === 'max')?.value
+  const minNameLength = nameSchema._def.checks.find(check => check.kind === 'min')?.value
+  const maxNameLength = nameSchema._def.checks.find(check => check.kind === 'max')?.value
+  const minDescriptionLength = descriptionSchema._def.checks.find(check => check.kind === 'min')?.value
+  const maxDescriptionLength = descriptionSchema._def.checks.find(check => check.kind === 'max')?.value
+  const minInstructionsLength = instructionsSchema._def.checks.find(check => check.kind === 'min')?.value
+  const maxInstructionsLength = instructionsSchema._def.checks.find(check => check.kind === 'max')?.value
+
+  console.log(minUsernameLength, maxUsernameLength, minNameLength, maxNameLength, minDescriptionLength, maxDescriptionLength, minInstructionsLength, maxInstructionsLength)
+
   const responseSchema: ResponseSchema = {
     type: SchemaType.OBJECT,
     properties: {
       username: {
         type: SchemaType.STRING,
-        description: 'Unique username for the character. Min 1 character, max 20 characters. Username can only contain letters, numbers, and underscores. Only lowercase letters.',
+        description: `Unique username for the character. Min ${minUsernameLength} character, max ${maxUsernameLength} characters. Username can only contain letters, numbers, and underscores. Only lowercase letters.`,
         example: 'ironman',
       },
       localizations: {
@@ -43,17 +54,17 @@ export function getCharacterDraftPrompt() {
             properties: {
               name: {
                 type: SchemaType.STRING,
-                description: 'Character name. Min 1 character, max 20 characters.',
+                description: `Character name. Min ${minNameLength} character, max ${maxNameLength} characters.`,
                 example: 'Iron Man',
               },
               description: {
                 type: SchemaType.STRING,
-                description: 'Character description. Min 1 character, max 100 characters.',
+                description: `Character description. Min ${minDescriptionLength} character, max ${maxDescriptionLength} characters.`,
                 example: 'Superhero who fights for justice and uses his advanced technology to protect the world.',
               },
               instructions: {
                 type: SchemaType.STRING,
-                description: 'Instructions for the character. Use bullet list. Min 1 character, max 500 characters.',
+                description: `Instructions for the character. Use bullet list. Min ${minInstructionsLength} character, max ${maxInstructionsLength} characters.`,
                 example: `
                   * Confident, charismatic, and witty with a sharp sense of humor.
                   * Brilliant inventor and engineer with a genius-level intellect.
@@ -74,17 +85,17 @@ export function getCharacterDraftPrompt() {
             properties: {
               name: {
                 type: SchemaType.STRING,
-                description: 'Character name. Min 1 character, max 20 characters.',
+                description: `Character name. Min ${minNameLength} character, max ${maxNameLength} characters.`,
                 example: 'Homem de Ferro',
               },
               description: {
                 type: SchemaType.STRING,
-                description: 'Character description. Min 1 character, max 100 characters.',
+                description: `Character description. Min ${minDescriptionLength} character, max ${maxDescriptionLength} characters.`,
                 example: 'Super-herói que luta pela justiça e usa sua tecnologia avançada para proteger o mundo.',
               },
               instructions: {
                 type: SchemaType.STRING,
-                description: 'Instructions for the character. Use bullet list. Min 1 character, max 500 characters.',
+                description: `Instructions for the character. Use bullet list. Min ${minInstructionsLength} character, max ${maxInstructionsLength} characters.`,
                 example: `
                   * Confidente, charismático e sarcástico com um senso de humor aguçado.
                   * Inventor e engenheiro com um nível de inteligência geniônica.
