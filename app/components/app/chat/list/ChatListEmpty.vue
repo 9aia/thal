@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
-import { buildCharacter, isRootDrawerOpen, manageContact } from '~/store'
+import { buildCharacter, isRootDrawerOpen, isWhatsNewModalOpen, manageContact } from '~/store'
 
 async function goToDiscover() {
   isRootDrawerOpen.value = false
   await navigateTo('/app/discover')
 }
-
-const isWhatsNewModalOpen = ref(false)
 </script>
 
 <template>
@@ -46,13 +44,13 @@ const isWhatsNewModalOpen = ref(false)
       </Button>
 
       <Button class="border-gradient-4 rounded-full" @click="isWhatsNewModalOpen = true">
-        <WhatsNewModal v-model="isWhatsNewModalOpen" />
-
         <span class="px-4 py-1 flex items-center justify-center gap-1">
           <Icon name="material-symbols:news-outline" />
           {{ t("What's New") }}
         </span>
       </Button>
     </div>
+
+    <WhatsNewModal v-model="isWhatsNewModalOpen" />
   </div>
 </template>

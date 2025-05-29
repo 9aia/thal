@@ -1,5 +1,5 @@
 import type { MenuItemType } from '~/components/ui/navigation/types'
-import { drawers, isRootDrawerOpen, openWhatsNewModal } from '~/store'
+import { drawers, isRootDrawerOpen, isWhatsNewModalOpen } from '~/store'
 
 const t = (x: string) => x
 
@@ -42,7 +42,7 @@ const support: MenuItemType[] = [
     id: 'whats-new',
     icon: 'material-symbols:news-outline',
     name: 'What\'s New',
-    onClick: () => openWhatsNewModal(),
+    onClick: () => isWhatsNewModalOpen.value = true,
     type: 'accordion',
   },
   {

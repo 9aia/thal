@@ -9,23 +9,6 @@ export const isPastDueModalAlreadyShown = ref(false)
 
 export const isWhatsNewModalOpen = ref(false)
 
-export const hasUnreadContent = ref(false)
-export const lastSavedContentCount = ref(0)
-
-export async function openWhatsNewModal() {
-  isWhatsNewModalOpen.value = true
-
-  const contentAmount = await queryContent().count()
-
-  if (hasUnreadContent.value) {
-    lastSavedContentCount.value = contentAmount
-  }
-}
-
-export function closeWhatsNewModal() {
-  isWhatsNewModalOpen.value = false
-}
-
 // #endregion
 
 // #region Drawers

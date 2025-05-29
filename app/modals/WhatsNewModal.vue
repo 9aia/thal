@@ -5,6 +5,13 @@ import { ARTICLE_TYPES } from '~/constants/content'
 const modelValue = defineModel<boolean>()
 
 const locale = useLocale()
+const whatsNew = useWhatsNew()
+
+watch(modelValue, async (value) => {
+  if (value) {
+    whatsNew.seeContent()
+  }
+})
 </script>
 
 <template>
@@ -18,6 +25,8 @@ const locale = useLocale()
     <h1 class="px-6 pt-6 mb-2 mt-4 font-bold text-2xl text-gray-900">
       {{ t("What's New") }}
     </h1>
+
+    {{ whatsNew.countQuery.data }}
 
     <div class="px-6 h-[250px] lg:h-[350px] overflow-y-auto mt-4 mb-4">
       <ContentList path="whats-new" :where="{ _path: { $regex: `^/whats-new/${locale}/.*$` } }">

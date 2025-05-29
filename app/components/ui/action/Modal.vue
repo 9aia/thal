@@ -37,61 +37,63 @@ watch([visible, dialog], () => {
 </script>
 
 <template>
-  <ClientOnly>
-    <dialog
-      ref="dialog"
-      class="modal modal-bottom sm:modal-middle "
-      @close="visible = false"
-    >
-      <form
-        class="modal-box rounded-none bg-white"
-        method="dialog"
-        :class="{
-          'p-0': props.noPadding,
-          [props.classes]: props.classes,
-        }"
-        @submit="emit('confirm')"
+  <Teleport to="body">
+    <ClientOnly>
+      <dialog
+        ref="dialog"
+        class="modal modal-bottom sm:modal-middle "
+        @close="visible = false"
       >
-        <form v-if="showCloseButton" method="dialog">
-          <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-            ✕
+        <form
+          class="modal-box rounded-none bg-white"
+          method="dialog"
+          :class="{
+            'p-0': props.noPadding,
+            [props.classes]: props.classes,
+          }"
+          @submit="emit('confirm')"
+        >
+          <form v-if="showCloseButton" method="dialog">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+              ✕
+            </button>
+          </form>
+
+          <div :class="contentClass">
+            <slot />
+          </div>
+
+          <div v-if="!props.hideConfirm || props.showCancel" class="modal-action">
+            <slot name="footer" />
+
+            <slot name="actions">
+              <Button
+                v-if="props.showCancel"
+                value="false"
+                class="btn"
+                @click.prevent="visible = false"
+              >
+                {{ props.cancelText }}
+              </Button>
+
+              <Button
+                v-if="!props.hideConfirm"
+                value="true"
+                class="btn-primary"
+                :loading="loading"
+                @click.prevent="emit('confirm')"
+              >
+                {{ props.confirmText }}
+              </Button>
+            </slot>
+          </div>
+        </form>
+        <form method="dialog" class="modal-backdrop">
+          <button @click.prevent="visible = false">
+            close
           </button>
         </form>
-
-        <div :class="contentClass">
-          <slot />
-        </div>
-
-        <div v-if="!props.hideConfirm || props.showCancel" class="modal-action">
-          <slot name="footer" />
-
-          <slot name="actions">
-            <Button
-              v-if="props.showCancel"
-              value="false"
-              class="btn"
-              @click.prevent="visible = false"
-            >
-              {{ props.cancelText }}
-            </Button>
-
-            <Button
-              v-if="!props.hideConfirm"
-              value="true"
-              class="btn-primary"
-              :loading="loading"
-              @click.prevent="emit('confirm')"
-            >
-              {{ props.confirmText }}
-            </Button>
-          </slot>
-        </div>
-      </form>
-      <form method="dialog" class="modal-backdrop">
-        <button @click.prevent="visible = false">
-          close
-        </button>
-      </form>
-    </dialog>
-  </ClientOnly>
+      </dialog>
+    </ClientOnly>
+  </Teleport>
 </template>

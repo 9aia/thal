@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
-import { useQuery } from '@tanstack/vue-query'
 import { watchDebounced } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import queryKeys from '~/queryKeys'
-import { chatListSearch, drawers, isRootDrawerOpen, isWhatsNewModalOpen, openWhatsNewModal } from '~/store'
+import { chatListSearch, drawers, isRootDrawerOpen, isWhatsNewModalOpen } from '~/store'
 
 const form = useForm({
   initialValues: {
@@ -13,6 +12,7 @@ const form = useForm({
 })
 
 const localWithDefaultRegion = useLocaleDefaultRegion()
+const whatsNew = useWhatsNew()
 
 watchDebounced(toRef(() => form.values.search), () => {
   chatListSearch.value = form.values.search
@@ -22,25 +22,6 @@ const {
   data: chats,
 } = useServerQuery(`/api/chat?search=${chatListSearch.value}&locale=${localWithDefaultRegion.value}` as `/api/chat`, {
   queryKey: queryKeys.chatsSearch(localWithDefaultRegion.value, chatListSearch),
-})
-
-const countQuery = useQuery({
-  queryKey: ['content-count'],
-  queryFn: async () => {
-    const contentCount = await queryContent().count()
-    return contentCount
-  },
-})
-
-const lastSavedContentCount = useCookie('lastSavedContentCount', {
-  default: () => 0,
-})
-const hasUnreadContent = computed(() => {
-  if (!countQuery.data.value) {
-    return false
-  }
-
-  return countQuery.data.value > lastSavedContentCount.value
 })
 
 async function goToDiscover() {
@@ -65,13 +46,13 @@ async function goToDiscover() {
           size="md"
           no-disable-on-loading
           :class="{
-            'text-orange-500': hasUnreadContent,
-            'text-black': !hasUnreadContent,
+            'text-orange-500': whatsNew.hasUnreadContent.value,
+            'text-black': !whatsNew.hasUnreadContent.value,
           }"
-          :loading="countQuery.isLoading.value"
-          @click="openWhatsNewModal()"
+          :loading="whatsNew.countQuery.isLoading.value"
+          @click="isWhatsNewModalOpen = true"
         >
-          <Icon v-show="!countQuery.isLoading.value" name="material-symbols:campaign-outline" />
+          <Icon v-show="!whatsNew.countQuery.isLoading.value" name="material-symbols:campaign-outline" />
         </Button>
 
         <Button
@@ -112,6 +93,8 @@ async function goToDiscover() {
         </Button>
       </div>
     </div>
+
+    <WhatsNewModal v-model="isWhatsNewModalOpen" />
   </div>
 </template>
 

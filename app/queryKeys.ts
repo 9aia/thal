@@ -14,4 +14,5 @@ export default {
   pricingData: ['pricing-data'],
   characterDraft: ['character-draft'],
   characterDraftEdit: (locale: MaybeRef<string>, characterId: MaybeRef<number | null>) => [locale, 'character-draft', characterId],
+  contentCount: (locale: MaybeRef<string>, name?: MaybeRef<string | undefined>) => [locale, 'content-count', name],
 }

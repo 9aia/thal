@@ -54,6 +54,5 @@ onMounted(() => {
 
   <LocaleModal v-model="localeModalState" />
   <PastDuePlanModal v-model="isPastDueModalOpen" />
-  <WhatsNewModal v-model="isWhatsNewModalOpen" />
   <AccountReactivatedModal />
 </template>

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { t } from '@psitta/vue'
+
 const isNoteVisibleCookie = useCookie('isNoteVisible', {
   default: () => true,
 })
