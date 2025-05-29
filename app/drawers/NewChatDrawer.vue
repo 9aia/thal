@@ -15,8 +15,8 @@ useAutoRedirect({
 })
 
 const generalItems: MenuItemType[] = [
-  { id: 'new-contact', icon: 'material-symbols:person-add', name: t('New contact'), onClick: () => manageContact(null) },
-  { id: 'create-character', icon: 'material-symbols:engineering-outline', name: t('Build character'), onClick: () => buildCharacter(null) },
+  { id: 'new-contact', icon: 'material-symbols:person-add-outline-rounded', name: t('New contact'), onClick: () => manageContact(null) },
+  { id: 'create-character', icon: 'material-symbols:engineering-outline-rounded', name: t('Build character'), onClick: () => buildCharacter(null) },
 ]
 
 async function goToDiscover() {
@@ -25,7 +25,7 @@ async function goToDiscover() {
 }
 
 const discoverItems: MenuItemType[] = [
-  { id: 'discover-characters', icon: 'material-symbols:groups-3-outline', name: t('Characters'), onClick: () => goToDiscover() },
+  { id: 'discover-characters', icon: 'material-symbols:groups-3-outline-rounded', name: t('Characters'), onClick: () => goToDiscover() },
 ]
 
 const form = useForm({
@@ -44,7 +44,7 @@ const {
   refetch,
 } = useServerQuery('/api/contact', {
   queryKey: queryKeys.contactsSearch(search),
-  params: () => {
+  query: () => {
     return {
       search: search.value,
       locale: localeWithDefaultRegion.value,

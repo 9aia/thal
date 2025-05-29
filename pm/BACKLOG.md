@@ -38,7 +38,6 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Fix listening to long messages
 - Rewrite left joins using Query API
 - Fix DB on build pre-render
-- Fix what's new indicator
 - Avoid breaking layout in chat item when last message is too long
 - Handle longer contexts
 - Fix locale change routing (remove `/{locale}` from `/app`), but keep locale param in site routes
@@ -48,6 +47,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Improve HTML rendering/TTS
 - Handle HTML in input/messages
 - Replace web modal API
+- Use only name instead of name and last name
 
 ## Enhancements
 
@@ -83,12 +83,11 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Deal with long history on translate
 - Clean up current playing message on message stop
 - Pregenerate site pages
-- Improve icon loading on slow networks
 - Skip categorization on discoverability change
-- Improve route loading speed, especially "Chats" and "Discover Characters"
-- Lazy load drawers
+- Improve route loading speed, especially "Chats"
 - Implement infinite scrolls
 - Paginate contact and chat search
+- Lazy load drawers
 
 ## Legal
 

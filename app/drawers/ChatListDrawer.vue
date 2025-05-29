@@ -20,8 +20,12 @@ watchDebounced(toRef(() => form.values.search), () => {
 
 const {
   data: chats,
-} = useServerQuery(`/api/chat?search=${chatListSearch.value}&locale=${localWithDefaultRegion.value}` as `/api/chat`, {
+} = useServerQuery('/api/chat', {
   queryKey: queryKeys.chatsSearch(localWithDefaultRegion.value, chatListSearch),
+  query: () => ({
+    search: chatListSearch.value,
+    locale: localWithDefaultRegion.value,
+  }),
 })
 
 async function goToDiscover() {
@@ -52,7 +56,7 @@ async function goToDiscover() {
           :loading="whatsNew.countQuery.isLoading.value"
           @click="isWhatsNewModalOpen = true"
         >
-          <Icon v-show="!whatsNew.countQuery.isLoading.value" name="material-symbols:campaign-outline" />
+          <Icon v-show="!whatsNew.countQuery.isLoading.value" name="material-symbols:campaign-outline-rounded" />
         </Button>
 
         <Button
@@ -63,7 +67,7 @@ async function goToDiscover() {
           @click="goToDiscover"
         >
           <span class="px-4 py-1 flex items-center justify-center gap-1">
-            <Icon name="material-symbols:person-search-outline" />
+            <Icon name="material-symbols:person-search-outline-rounded" />
           </span>
         </Button>
 

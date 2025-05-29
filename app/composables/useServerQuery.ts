@@ -1,7 +1,9 @@
 import type { DefaultError, QueryClient, QueryKey, UseQueryOptions } from '@tanstack/vue-query'
 import { useQuery } from '@tanstack/vue-query'
-import type { NitroFetchRequest } from 'nitropack'
-import type { Params } from '~/utils/types'
+import type { NitroFetchOptions, NitroFetchRequest } from 'nitropack'
+import type { SearchQueryParams } from '~/utils/types'
+
+export type FetchOptions<R extends NitroFetchRequest> = Omit<NitroFetchOptions<R>, 'query'>
 
 /**
  * A composable that wraps useQuery to enable server-side data prefetching with Vue Query.
@@ -16,27 +18,27 @@ import type { Params } from '~/utils/types'
  *
  * Features:
  * - Automatically passes request headers to $fetch
- * - Supports dynamic params through the params option
+ * - Supports dynamic search query params through the query option
  * - Handles both function and direct request objects
  *
  * @param request - NitroFetchRequest to fetch data from the server. Can be a function or direct NitroFetchRequest.
  * @param options - Configuration options including:
- *   - params: Optional parameters for the request (can be function or object)
+ *   - query: Optional search query params for the request (can be function or object)
  *   - Additional Vue Query options (queryKey, staleTime, etc.)
  * @param queryClient - Optional QueryClient instance to use
  * @returns The query result with prefetched data. Returns the same as useQuery
  *
  * @example
  * ```ts
- * // With static params
+ * // With static search query params
  * const { data } = useServerQuery('/api/users', {
- *   params: { limit: 10 },
+ *   query: { limit: 10 },
  *   queryKey: ['users']
  * })
  *
- * // With dynamic params
+ * // With dynamic search query params
  * const { data } = useServerQuery('/api/users', {
- *   params: () => ({ limit: pageSize.value }),
+ *   query: () => ({ limit: pageSize.value }),
  *   queryKey: ['users', pageSize]
  * })
  * ```
@@ -51,16 +53,18 @@ function useServerQuery<
 >(
   request: (() => R) | R,
   options: {
-    params?: (() => Params) | Params
+    query?: (() => SearchQueryParams) | SearchQueryParams
+    fetch?: FetchOptions<R>
   } & UseQueryOptions<TQueryFnData, TError, TData, TQueryFnData, TQueryKey>,
   queryClient?: QueryClient,
 ) {
   const headers = useRequestHeaders()
-  const { params, ...restOptions } = options
+  const { query, fetch: fetchOptions = {}, ...restOptions } = options
 
   const fetcher = () => $fetch(typeof request === 'function' ? request() : request, {
     headers,
-    params: typeof params === 'function' ? params() : params,
+    query: typeof query === 'function' ? query() : query,
+    ...fetchOptions,
   })
 
   const { suspense, ...rest } = useQuery({

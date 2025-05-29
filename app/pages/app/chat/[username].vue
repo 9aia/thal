@@ -20,6 +20,8 @@ const queryClient = useQueryClient()
 const localeWithDefaultRegion = useLocaleDefaultRegion()
 const isOnline = useOnline()
 
+const username = computed(() => route.params.username as string)
+
 // const {
 //   data,
 //   isPending,
@@ -27,7 +29,7 @@ const isOnline = useOnline()
 //   refetch,
 // } = await useQuery(() `/api/chat/item/${route.params.username}`, {
 //   queryKey: queryKeys.chat(computed(() => route.params.username as string)),
-//   params: () => ({
+//   query: () => ({
 //     locale: localeWithDefaultRegion.value,
 //   }),
 // })
@@ -175,8 +177,6 @@ const isOnline = useOnline()
 //   edition.message = ''
 //   edition.editing = false
 // }
-
-// const { hasContact, displayName, avatarName, addContact } = useContactInfo(data)
 </script>
 
 <template>
@@ -188,18 +188,10 @@ const isOnline = useOnline()
     <template #content>
       <div class="flex flex-col h-dvh justify-center items-center bg-white">
         <ChatHeader />
-        <!-- <ChatHeader
-          :character-id="data!.id!"
-          :display-name="displayName"
-          :avatar-name="avatarName"
-          :username="data!.username"
-          :has-contact="hasContact"
-          :add-contact="addContact"
-          :has-messages="data?.history.length > 0"
-        /> -->
 
-        <!-- <ChatBody />
+        <ChatBody />
 
+        <!--
         <ChatFooter
           v-model="text"
           @fix-scroll="goToBottom"

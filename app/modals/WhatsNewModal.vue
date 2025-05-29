@@ -26,8 +26,6 @@ watch(modelValue, async (value) => {
       {{ t("What's New") }}
     </h1>
 
-    {{ whatsNew.countQuery.data }}
-
     <div class="px-6 h-[250px] lg:h-[350px] overflow-y-auto mt-4 mb-4">
       <ContentList path="whats-new" :where="{ _path: { $regex: `^/whats-new/${locale}/.*$` } }">
         <template #default="{ list }">

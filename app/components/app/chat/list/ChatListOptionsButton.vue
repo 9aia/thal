@@ -28,17 +28,17 @@ async function openSettings() {
 
 const items: MenuItemType[] = [
   { id: 'profile', name: t('Profile'), icon: 'material-symbols:face', onClick: () => openProfile() },
-  { id: 'discover-characters', name: t('Discover characters'), icon: 'material-symbols:person-search-outline', onClick: () => goToDiscover() },
-  { id: 'my-characters', name: t('My characters'), icon: 'material-symbols:manage-accounts-outline', onClick: () => openMyCharacters() },
+  { id: 'discover-characters', name: t('Discover characters'), icon: 'material-symbols:person-search-outline-rounded', onClick: () => goToDiscover() },
+  { id: 'my-characters', name: t('My characters'), icon: 'material-symbols:manage-accounts-outline-rounded', onClick: () => openMyCharacters() },
   {
     id: 'plan',
     name: t('Subscription'),
     action: '/api/payment/stripe/create-portal-session',
     method: 'post',
-    icon: 'material-symbols:subscriptions-outline',
+    icon: 'material-symbols:subscriptions-outline-rounded',
     type: 'external',
   },
-  { id: 'settings', name: t('Settings'), icon: 'material-symbols:settings-outline', onClick: () => openSettings() },
+  { id: 'settings', name: t('Settings'), icon: 'material-symbols:settings-outline-rounded', onClick: () => openSettings() },
   {
     id: 'logout',
     name: t('Logout'),

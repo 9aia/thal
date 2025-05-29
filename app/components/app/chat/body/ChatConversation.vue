@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import queryKeys from '~/queryKeys'
 import type { Message } from '~/types'
 
 defineProps<{
@@ -18,14 +19,17 @@ onMounted(() => {
   emit('fixScroll')
 })
 
+const route = useRoute()
+const username = computed(() => route.params.username as string)
+
 const historyQuery = useQuery({
-  queryKey: queryKeys.chatHistory(computed(() => route.params.username as string)),
-  queryFn: () => $fetch(`/api/chat/history/${route.params.username}`),
+  queryKey: queryKeys.chatHistory(username),
+  queryFn: () => $fetch(`/api/chat/history/${username.value}`),
 })
 
 function handleDelete(messageId: number, shouldInvalidateChat = true) {
   queryClient.setQueryData(
-    queryKeys.chat(route.params.username as string),
+    queryKeys.chat(username),
     (oldData: Message[]) => oldData.filter(message => message.id !== messageId),
   )
 

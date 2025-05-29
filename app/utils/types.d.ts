@@ -1,1 +1,1 @@
-export type Params = Record<string, string | number | undefined>
+export type SearchQueryParams = Record<string, string | number | string[] | number[] | undefined>

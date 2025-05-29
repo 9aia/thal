@@ -21,7 +21,7 @@ const {
 } = usePaginationQuery({
   queryKey: queryKeys.discoverCharactersSearch(localeWithDefaultRegion, toRef(() => props.search), toRef(() => props.categoryId)),
   queryFn: ({ params }) => $fetch('/api/character/discover', {
-    params: {
+    query: {
       ...params,
       search: props.search,
       categoryId: props.categoryId,

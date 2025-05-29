@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { useQuery } from '@tanstack/vue-query'
 import { buildCharacter, manageContact, openContactView } from '~/store'
 import type { MenuItemType } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
@@ -7,20 +6,17 @@ import queryKeys from '~/queryKeys'
 const { t } = useI18nExperimental()
 const copyUrl = useCopyUrl()
 const route = useRoute()
-const localeWithDefaultRegion = useLocaleDefaultRegion()
+const contactDeleteModalState = ref()
 
 const username = computed(() => route.params.username as string)
 
 const clearChat = useClearChat(username)
+const characterNotFound = useState('characterNotFound', () => false)
 
-const contactDeleteModalState = ref()
+const characterQuery = useCharacterQuery(username)
 
 const contactQuery = useServerQuery(`/api/contact/${username.value}` as `/api/contact/:username`, {
   queryKey: queryKeys.contact(username),
-})
-
-const characterQuery = useServerQuery(() => `/api/character/${username.value}?locale=${localeWithDefaultRegion.value}` as `/api/character/:username`, {
-  queryKey: queryKeys.character(localeWithDefaultRegion.value, username),
 })
 
 const isContact = computed(() => !!contactQuery.data.value)
@@ -93,7 +89,7 @@ const items = computed(() => [
         </span>
       </div>
 
-      <div class="flex gap-2">
+      <div v-if="!characterNotFound" class="flex gap-2">
         <Button size="md" shape="circle" class="btn-ghost" @click="buildCharacter(characterQuery.data.value?.id)">
           <Icon>material-symbols:person-edit-outline</Icon>
         </Button>

@@ -16,7 +16,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="w-full mx-auto max-w-[1700px]">
+  <div class="w-full mx-auto max-w-[1700px] h-full">
     <div class="drawer lg:drawer-open">
       <input id="my-drawer" v-model="isRootDrawerOpen" type="checkbox" class="drawer-toggle">
 

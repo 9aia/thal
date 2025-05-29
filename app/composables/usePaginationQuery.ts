@@ -3,7 +3,7 @@ import { useInfiniteQuery } from '@tanstack/vue-query'
 export type QueryKey = Parameters<typeof useInfiniteQuery>[0]['queryKey']
 
 export interface UseInfiniteQueryFnPayload {
-  params: {
+  query: {
     page: number
     perPage: number
   }
@@ -30,7 +30,7 @@ export function usePaginationQuery<
   const query = useInfiniteQuery({
     queryKey: options.queryKey,
     queryFn: ({ pageParam }) => options.queryFn({
-      params: {
+      query: {
         page: pageParam,
         perPage: options.perPage ?? 10,
       },

@@ -11,8 +11,12 @@ const {
   isPending,
   isError,
   refetch,
-} = useServerQuery(`/api/chat?search=${chatListSearch.value}&locale=${localWithDefaultRegion.value}` as `/api/chat`, {
+} = useServerQuery('/api/chat', {
   queryKey: queryKeys.chatsSearch(localWithDefaultRegion.value, chatListSearch),
+  query: () => ({
+    search: chatListSearch.value,
+    locale: localWithDefaultRegion.value,
+  }),
 })
 
 function openChat(username: string) {
