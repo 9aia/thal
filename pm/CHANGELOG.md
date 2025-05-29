@@ -15,6 +15,7 @@ description: A detailed, chronological record of all changes made to a project, 
 ### Fixed
 
 - Improved button icons
+- Fixed infinite loading on generate button in character builder
 
 ## [0.1.0-9] - 2025-05-25
 

@@ -132,15 +132,13 @@ const submit = form.handleSubmit(async (data) => {
 
     if (e.statusCode === INTERNAL_STATUS_CODE && e.statusMessage?.startsWith?.('Generated data is invalid:')) {
       toast.error(t('Generated data is invalid. Please try regenerating again.'))
-      return
     }
-
-    if (e.statusCode === RATE_LIMIT_STATUS_CODE) {
+    else if (e.statusCode === RATE_LIMIT_STATUS_CODE) {
       toast.error(t('You are generating characters too fast. Please wait a moment.'))
-      return
     }
-
-    toast.error(t('Something went wrong generating character. Try again.'))
+    else {
+      toast.error(t('Something went wrong generating character. Try again.'))
+    }
   }
 
   loading.value = false
