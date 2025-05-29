@@ -71,7 +71,7 @@ export default eventHandler(async (event) => {
           username: character.usernames!.username,
           categoryId: character.categoryId,
         },
-      }),
+      }).where(eq(characterDrafts.id, existingDraft.id)),
       orm.update(characterDraftLocalizations).set({
         name: ptLocalization?.name,
         description: ptLocalization?.description,

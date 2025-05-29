@@ -12,7 +12,7 @@ export default {
   character: (locale: MaybeRef<string>, username: MaybeRef<string>) => [locale, 'character', username],
   profile: (username: MaybeRef<string>) => ['profile', username],
   pricingData: ['pricing-data'],
-  characterDraft: ['character-draft'],
+  characterDraft: (locale: MaybeRef<string>) => [locale, 'character-draft'],
   characterDraftEdit: (locale: MaybeRef<string>, characterId: MaybeRef<number | null>) => [locale, 'character-draft', characterId],
   contentCount: (locale: MaybeRef<string>, name?: MaybeRef<string | undefined>) => [locale, 'content-count', name],
 }

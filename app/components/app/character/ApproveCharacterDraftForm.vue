@@ -55,7 +55,7 @@ const approveMutation = useMutation({
   }),
   onSuccess: (data) => {
     queryClient.resetQueries({
-      queryKey: queryKeys.characterDraft,
+      queryKey: queryKeys.characterDraft(localWithDefaultRegion),
     })
     queryClient.invalidateQueries({
       queryKey: queryKeys.myCharacters,
@@ -109,12 +109,12 @@ const discardMutation = useMutation({
   mutationFn: () => $fetch('/api/character/draft', {
     method: 'DELETE',
     body: {
-      characterId: characterBuildId.value,
+      characterId: characterBuildId.value || undefined,
     },
   }),
   onSuccess: () => {
     queryClient.resetQueries({
-      queryKey: queryKeys.characterDraft,
+      queryKey: queryKeys.characterDraft(localWithDefaultRegion),
     })
 
     toast.success(t('Character has been discarded successfully.'))

@@ -124,7 +124,7 @@ const submit = form.handleSubmit(async (data) => {
     }
 
     queryClient.invalidateQueries({
-      queryKey: queryKeys.characterDraft,
+      queryKey: queryKeys.characterDraft(localWithDefaultRegion),
     })
   }
   catch (_) {
