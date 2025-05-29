@@ -111,7 +111,7 @@ const isError = computed(() => {
 const isEditing = computed(() => !!characterBuildId.value)
 
 const editingUsername = computed(() => {
-  return buildQuery.data.value?.draft.username || ''
+  return buildQuery.data.value?.character?.username || ''
 })
 
 const submit = form.handleSubmit(async (data) => {

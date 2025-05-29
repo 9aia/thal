@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
-import { useForm } from 'vee-validate'
 import type { FetchError } from 'ofetch'
+import { useForm } from 'vee-validate'
 import queryKeys from '~/queryKeys'
-import { characterBuildId, contactViewUsername, isRootDrawerOpen } from '~/store'
+import { characterBuildId, contactViewUsername } from '~/store'
 import { CONFLICT_STATUS_CODE } from '~/utils/web'
 
 const props = defineProps<{
@@ -69,7 +69,7 @@ const approveMutation = useMutation({
     // refresh chat route and contact info view if open
     const usernameQuery = params.username
 
-    if (props.username === usernameQuery)
+    if (props.username !== usernameQuery)
       navigateTo(`/app/chat/${data.username}`)
 
     if (props.username === contactViewUsername.value)
