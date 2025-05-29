@@ -38,18 +38,6 @@ const styles = tv({
   variants,
 })
 
-const loadingSize = computed(() => {
-  const options = {
-    xs: '',
-    sm: 'loading-xs',
-    md: 'loading-sm',
-    lg: 'loading-md',
-    xl: 'loading-lg',
-  }
-
-  return options[props.iconSize]
-})
-
 const iconSize = computed(() => {
   const options = {
     xs: 'text-xs',
@@ -76,7 +64,7 @@ type Props = SafeProps<ButtonHTMLAttributes> &
   >
     <div v-if="icon">
       <span class="px-4 py-1 flex items-center justify-center gap-1">
-        <span v-if="loading" class="loading loading-spinner" :class="loadingSize" />
+        <span v-if="loading" class="loading loading-xs loading-spinner" />
         <Icon v-else-if="icon" :name="icon" :class="iconSize" />
 
         <slot />
