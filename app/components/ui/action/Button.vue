@@ -9,15 +9,15 @@ const props = withDefaults(defineProps<Props & {
   shape?: 'circle' | 'square' | 'normal'
   class?: string
   noDisableOnLoading?: boolean
+  iconSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   icon?: string
 }>(), {
   size: 'sm',
+  iconSize: 'md',
   shape: 'normal',
   class: '',
   noDisableOnLoading: false,
 })
-
-const slots = defineSlots()
 
 const variants = {
   size: {
@@ -34,8 +34,32 @@ const variants = {
 } as const
 
 const styles = tv({
-  base: 'btn h-fit',
+  base: 'btn h-fit border-none',
   variants,
+})
+
+const loadingSize = computed(() => {
+  const options = {
+    xs: '',
+    sm: 'loading-xs',
+    md: 'loading-sm',
+    lg: 'loading-md',
+    xl: 'loading-lg',
+  }
+
+  return options[props.iconSize]
+})
+
+const iconSize = computed(() => {
+  const options = {
+    xs: 'text-xs',
+    sm: 'text-sm',
+    md: 'text-base',
+    lg: 'text-lg',
+    xl: 'text-xl',
+  }
+
+  return options[props.iconSize]
 })
 
 type Props = SafeProps<ButtonHTMLAttributes> &
@@ -50,12 +74,12 @@ type Props = SafeProps<ButtonHTMLAttributes> &
     :class="styles({ size, shape, class: props.class })"
     :disabled="loading && !noDisableOnLoading"
   >
-    <div v-if="slots.label">
+    <div v-if="icon">
       <span class="px-4 py-1 flex items-center justify-center gap-1">
-        <span v-if="loading" class="loading loading-md loading-spinner" />
-        <Icon v-else-if="icon" :name="icon" />
+        <span v-if="loading" class="loading loading-spinner" :class="loadingSize" />
+        <Icon v-else-if="icon" :name="icon" :class="iconSize" />
 
-        <component :is="slots.label" />
+        <slot />
       </span>
     </div>
     <slot v-else-if="!loading" />

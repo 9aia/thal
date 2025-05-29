@@ -4,9 +4,10 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 import { useForm } from 'vee-validate'
 import type { FetchError } from 'ofetch'
 import { T } from '@psitta/vue'
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import type { MenuItemType } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
-import { characterBuildId, characterBuildPrompt } from '~/store'
+import { characterBuildId, characterBuildPrompt, isRootDrawerOpen } from '~/store'
 import type { CharacterBuildApiData, CharacterBuilderEditViewMode } from '~/types'
 
 const emit = defineEmits<{
@@ -109,6 +110,10 @@ const isError = computed(() => {
 
 const isEditing = computed(() => !!characterBuildId.value)
 
+const editingUsername = computed(() => {
+  return buildQuery.data.value?.draft.username || ''
+})
+
 const submit = form.handleSubmit(async (data) => {
   loading.value = true
 
@@ -173,6 +178,17 @@ const hasChanges = computed(() => {
     && d.name === c.name
     && d.categoryName === c.categoryName)
 })
+
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const isMobile = computed(() => breakpoints.smaller('lg').value)
+
+function handleGoToChat() {
+  if (isMobile.value) {
+    isRootDrawerOpen.value = false
+  }
+
+  navigateTo(`/app/chat/${editingUsername.value}`)
+}
 </script>
 
 <template>
@@ -222,7 +238,7 @@ const hasChanges = computed(() => {
       </template>
 
       <SettingSection>
-        <form class="block space-y-4" @submit="submit">
+        <form class="flex flex-col space-y-4" @submit="submit">
           <Textarea
             autofocus
             path="prompt"
@@ -230,9 +246,29 @@ const hasChanges = computed(() => {
             :disabled="isPastDueVisible"
           />
 
-          <Button :loading="loading" class="btn-info text-white" :disabled="!form.values.prompt || hasErrors || isPastDueVisible">
-            {{ !!buildQuery.data.value ? t("Regenerate") : t("Generate") }}
-          </Button>
+          <div class="flex gap-x-2">
+            <Button
+              :loading="loading"
+              class="btn-info text-white px-1 py-1"
+              icon-size="md"
+              icon="material-symbols:wand-stars-outline-rounded"
+              :disabled="!form.values.prompt || hasErrors || isPastDueVisible"
+            >
+              {{ !!buildQuery.data.value ? t("Regenerate") : t("Generate") }}
+            </Button>
+
+            <Button
+              v-if="isEditing"
+              class="border-none bg-primary hover:bg-cyan-600 text-black px-1 py-1"
+              type="button"
+              icon-size="md"
+              icon="material-symbols:chat-paste-go-outline"
+              :disabled="loading"
+              @click="handleGoToChat"
+            >
+              {{ t("Go to chat") }}
+            </Button>
+          </div>
         </form>
       </SettingSection>
 
@@ -272,6 +308,7 @@ const hasChanges = computed(() => {
               :is-editing="isEditing"
               :username="buildQuery.data.value.draft.username"
               :discoverable="buildQuery.data.value.character?.discoverable"
+              @approved="characterBuildId = $event"
             />
           </SettingSection>
         </template>

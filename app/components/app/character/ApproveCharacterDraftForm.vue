@@ -14,7 +14,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'approved'): void
+  (e: 'approved', characterId: number): void
 }>()
 
 interface FormValues {
@@ -22,7 +22,7 @@ interface FormValues {
 }
 
 const initialValues = ref<FormValues>({
-  discoverable: props.discoverable ?? false,
+  discoverable: props.discoverable ?? true,
 })
 
 const { t } = useI18nExperimental()
@@ -37,13 +37,6 @@ const user = useUser()
 const { params } = useRoute()
 const queryClient = useQueryClient()
 const localWithDefaultRegion = useLocaleDefaultRegion()
-
-function handleGoToChat(username: string) {
-  isRootDrawerOpen.value = false
-
-  navigateTo(`/app/chat/${username}`)
-  toast.close()
-}
 
 const approveMutation = useMutation({
   mutationFn: (values: FormValues) => $fetch('/api/character/draft/approve', {
@@ -82,16 +75,9 @@ const approveMutation = useMutation({
     if (props.username === contactViewUsername.value)
       contactViewUsername.value = data.username
 
-    toast.success(t('Character has been approved successfully.'), undefined, {
-      actions: [
-        {
-          title: t('Message'),
-          onClick: () => handleGoToChat(data.username),
-        },
-      ],
-    })
+    toast.success(t('Character has been approved successfully.'))
 
-    emit('approved')
+    emit('approved', data.characterId)
   },
   onError: (error) => {
     const e = error as FetchError
@@ -143,20 +129,20 @@ const isPastDueVisible = computed(() => {
     <div class="flex items-center space-x-2">
       <Button
         type="submit"
-        size="xs"
+        size="md"
+        icon-size="lg"
         class="border-none bg-primary text-black px-1 py-1 rounded-full hover:bg-cyan-600 shadow-none"
         icon="material-symbols:order-approve-outline"
         :loading="approveMutation.isPending.value"
         :disabled="isPastDueVisible"
       >
-        <template #label>
-          {{ isEditing ? t("Approve edition") : t("Approve character") }}
-        </template>
+        {{ isEditing ? t("Approve edition") : t("Approve character") }}
       </Button>
 
       <Button
         v-if="shouldShowDiscard"
-        size="xs"
+        size="md"
+        icon-size="lg"
         type="button"
         class="border-none bg-transparent text-orange-500 px-1 py-1 rounded-full hover:bg-orange-500/10 hover:text-orange-500 shadow-none"
         icon="material-symbols:cancel-outline"
@@ -164,9 +150,7 @@ const isPastDueVisible = computed(() => {
         :disabled="isPastDueVisible"
         @click="discardMutation.mutate()"
       >
-        <template #label>
-          {{ isEditing ? t("Discard edition") : t("Discard character") }}
-        </template>
+        {{ isEditing ? t("Discard edition") : t("Discard character") }}
       </Button>
     </div>
   </form>

@@ -11,6 +11,7 @@ description: A detailed, chronological record of all changes made to a project, 
 - Added option to discard character draft
 - Added edit action on character chat header if you are the owner
 - Added prompt to build character based on search query
+- Added go to character chat on character edition
 
 ### Fixed
 

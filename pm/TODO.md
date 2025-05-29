@@ -6,8 +6,6 @@ description: Tasks and items for the release.
 
 ## 0.1.0-10
 
-- Close drawer on character generation and go to character chat route
-
 - Revision and adjust
   - Improve the design system and UI
   - Pre-create and refine default characters
