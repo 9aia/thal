@@ -33,6 +33,8 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## Bugs
 
+- Add drawer search query params when opening drawers
+- Fix input autofocuses on navigate
 - Fix go-to-bottom button position after chat clearing
 - Lower every username comparison
 - Fix listening to long messages
@@ -51,6 +53,8 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## Enhancements
 
+- Improve discover page layout (search should be on top fixed)
+- Add empty contact list fallback
 - Add "Create another character" button for faster multiple creation on preview env
 - Inform deleted character action such as translate, using tooltip
 - Add discover search param

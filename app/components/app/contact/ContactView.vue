@@ -114,13 +114,13 @@ function goToChat() {
 </script>
 
 <template>
-  <div class="flex flex-col h-dvh justify-between">
+  <div class="flex flex-col sm:max-w-md h-dvh justify-between">
     <header class="px-3 flex gap-2 bg-white">
       <h1 class="text-md py-2 text-gray-800 flex items-center gap-1">
         <Button size="md" shape="circle" class="btn-ghost" @click="closeContactView">
           <Icon name="material-symbols:close" />
         </Button>
-        {{ t("Character Info") }}
+        {{ t("Contact Info") }}
       </h1>
 
       <div class="flex-1 flex items-center justify-end gap-4">

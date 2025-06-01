@@ -6,6 +6,7 @@ description: A collection of ideas and feedback from stakeholders or team member
 
 ## Features
 
+- Add contact view for non-existing characters
 - Add active messages (characters send messages when user is offline)
 - Add a "My Characters" link in Discover Characters
 - Implement translations on deleted characters

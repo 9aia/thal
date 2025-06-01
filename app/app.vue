@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { drawers, isPastDueModalOpen, isRootDrawerOpen, isWhatsNewModalOpen } from '~/store'
-import './style.css'
 
 useInternetConnectionIndicator()
 

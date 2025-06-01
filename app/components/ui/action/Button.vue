@@ -1,41 +1,23 @@
 <script setup lang="ts">
-import type { VariantProps } from 'tailwind-variants'
-import { tv } from 'tailwind-variants'
 import type { ButtonHTMLAttributes } from 'vue'
-import type { SafeProps, SafeVariantProps } from '~/types'
+import type { SafeProps } from '~/types'
 
 const props = withDefaults(defineProps<Props & {
-  size?: keyof typeof variants['size']
-  shape?: 'circle' | 'square' | 'normal'
+  as?: string
   class?: string
+
+  disabled?: boolean
+  loading?: boolean
   noDisableOnLoading?: boolean
+  success?: boolean
+
   iconSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   icon?: string
 }>(), {
-  size: 'sm',
-  iconSize: 'md',
-  shape: 'normal',
+  as: 'button',
   class: '',
   noDisableOnLoading: false,
-})
-
-const variants = {
-  size: {
-    xs: 'btn-xs',
-    sm: 'btn-sm',
-    md: '',
-    lg: 'btn-lg',
-  },
-  shape: {
-    circle: 'btn-circle',
-    square: 'btn-square',
-    normal: 'rounded-full px-4 py-2',
-  },
-} as const
-
-const styles = tv({
-  base: 'btn h-fit border-none',
-  variants,
+  iconSize: 'md',
 })
 
 const iconSize = computed(() => {
@@ -50,17 +32,24 @@ const iconSize = computed(() => {
   return options[props.iconSize]
 })
 
-type Props = SafeProps<ButtonHTMLAttributes> &
-  SafeVariantProps<VariantProps<typeof styles>> & {
-    loading?: boolean
-    success?: boolean
+type Props = SafeProps<ButtonHTMLAttributes>
+
+const isDisabled = computed(() => {
+  if (props.disabled) {
+    return props.disabled
   }
+
+  if (!props.noDisableOnLoading) {
+    return props.loading
+  }
+
+  return false
+})
 </script>
 
 <template>
   <button
-    :class="styles({ size, shape, class: props.class })"
-    :disabled="loading && !noDisableOnLoading"
+    :disabled="isDisabled"
   >
     <div v-if="icon">
       <span class="px-4 py-1 flex items-center justify-center gap-1">

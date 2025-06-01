@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 /* reset */
 
 * {
@@ -68,5 +70,4 @@ html:has(body.content-overflow-y) {
 .bg-glow-cyan:hover {
   @apply bg-blue-600 border-2 border-blue-600;
 }
-
 

@@ -129,9 +129,8 @@ const isPastDueVisible = computed(() => {
     <div class="flex items-center space-x-2">
       <Button
         type="submit"
-        size="md"
-        icon-size="lg"
-        class="border-none bg-primary text-black px-1 py-1 rounded-full hover:bg-cyan-600 shadow-none"
+        class="btn bg-primary text-black hover:bg-cyan-600 shadow-none"
+        icon-size="md"
         icon="material-symbols:order-approve-outline"
         :loading="approveMutation.isPending.value"
         :disabled="isPastDueVisible"
@@ -141,10 +140,8 @@ const isPastDueVisible = computed(() => {
 
       <Button
         v-if="shouldShowDiscard"
-        size="md"
-        icon-size="lg"
-        type="button"
-        class="border-none bg-transparent text-orange-500 px-1 py-1 rounded-full hover:bg-orange-500/10 hover:text-orange-500 shadow-none"
+        class="btn bg-transparent text-orange-500 hover:bg-orange-500/10 hover:text-orange-500 shadow-none"
+        icon-size="md"
         icon="material-symbols:cancel-outline"
         :loading="discardMutation.isPending.value"
         :disabled="isPastDueVisible"

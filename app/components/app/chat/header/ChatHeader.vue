@@ -76,14 +76,26 @@ const items = computed(() => [
 
 <template>
   <header class="px-3 py-2 bg-white flex gap-2 w-full">
-    <label for="my-drawer" class="lg:hidden btn btn-ghost btn-circle text-black drawer-button">
+    <!-- <label for="my-drawer" class="text-black drawer-button !p-0">
+    </label> -->
+    <Button as="label" for="my-drawer" class="lg:hidden btn-ghost text-black drawer-button" size="md" shape="circle">
       <Icon name="material-symbols:arrow-back" />
-    </label>
+    </Button>
 
-    <Avatar :name="contactNames.avatarName" class="w-10 text-sm" type="button" @click="openContactView(username)" />
+    <Avatar
+      :name="contactNames.avatarName"
+      class="w-10 text-sm"
+      :type="characterNotFound ? 'div' : 'button'"
+      @click="!characterNotFound && openContactView(username)"
+    />
 
     <div class="flex-1 flex items-center justify-between gap-4">
-      <div tabindex="0" role="button" class="block w-full" @click="openContactView(username)">
+      <div
+        :tabindex="characterNotFound ? undefined : 0"
+        :role="characterNotFound ? undefined : 'button'"
+        class="block w-full"
+        @click="!characterNotFound && openContactView(username)"
+      >
         <span class="text-gray-800">
           {{ contactNames.displayName }}
         </span>

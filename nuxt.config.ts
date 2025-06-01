@@ -1,12 +1,14 @@
 import process from 'node:process'
 import { getConfig } from '@psitta/core'
 import './i18n'
+import tailwindcss from '@tailwindcss/vite'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   srcDir: './app',
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss', 'nitro-cloudflare-dev', '@nuxt/eslint', '@nuxtjs/mdc', '@nuxt/image', '@nuxt/fonts', '@nuxt/content', '@nuxt/icon'],
+  modules: ['nitro-cloudflare-dev', '@nuxt/eslint', '@nuxtjs/mdc', '@nuxt/image', '@nuxt/fonts', '@nuxt/content', '@nuxt/icon'],
+  css: ['~/assets/css/main.css'],
 
   icon: {
     serverBundle: {
@@ -91,6 +93,9 @@ export default defineNuxtConfig({
   ],
 
   vite: {
+    plugins: [
+      tailwindcss(),
+    ],
     server: {
       allowedHosts: ['9aia-dev.com'],
     },

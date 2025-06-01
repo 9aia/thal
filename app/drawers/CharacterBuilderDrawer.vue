@@ -246,10 +246,11 @@ function handleGoToChat() {
             :disabled="isPastDueVisible"
           />
 
-          <div class="flex gap-x-2">
+          <div class="flex gap-x-2 flex-wrap">
             <Button
               :loading="loading"
-              class="btn-info text-white px-1 py-1"
+              color="accent"
+              variant="outline"
               icon-size="md"
               icon="material-symbols:wand-stars-outline-rounded"
               :disabled="!form.values.prompt || hasErrors || isPastDueVisible"
@@ -259,8 +260,7 @@ function handleGoToChat() {
 
             <Button
               v-if="isEditing"
-              class="border-none bg-primary hover:bg-cyan-600 text-black px-1 py-1"
-              type="button"
+              color="secondary"
               icon-size="md"
               icon="material-symbols:chat-paste-go-outline"
               :disabled="loading"

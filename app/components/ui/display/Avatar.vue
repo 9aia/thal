@@ -7,7 +7,7 @@ const props = defineProps<{
   name?: string
   url?: string
   alt?: string
-  type?: string
+  type?: 'button' | 'summary' | 'div'
 }>()
 
 const placeholder = computed(() => {
