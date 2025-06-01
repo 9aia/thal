@@ -34,6 +34,6 @@ const styles = computed(() => tv({
 
 <style scoped>
 .bg-gradient-badge {
-  background: radial-gradient(at bottom, theme('colors.blue.100'), theme('colors.gray.50'));
+  background: radial-gradient(at bottom, var(--color-blue-100), var(--color-gray-50));
 }
 </style>

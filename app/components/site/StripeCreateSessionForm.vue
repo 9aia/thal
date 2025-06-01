@@ -30,9 +30,10 @@ function onSubmit(event: Event) {
     method="post"
     @submit="onSubmit"
   >
-    <button
-      id="checkout-and-portal-button" type="submit"
-      class="h-fit btn py-4 rounded-full bg-cyan-500 border-none flex gap-1"
+    <Button
+      id="checkout-and-portal-button"
+      type="submit"
+      class="btn btn-primary btn-lg"
     >
       <template v-if="!user || (checkoutStatus === null && subscriptionStatus === SubscriptionStatus.not_subscribed)">
         {{ t('Start Your Free Trial Now') }}
@@ -67,6 +68,6 @@ function onSubmit(event: Event) {
       <template v-else-if="subscriptionStatus === SubscriptionStatus.unpaid">
         {{ t('Check Your Subscription Now') }}
       </template>
-    </button>
+    </Button>
   </form>
 </template>

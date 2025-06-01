@@ -14,7 +14,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div role="button" class="px-3 py-1 hover:bg-gradient-1 flex gap-2 rounded items-center group">
+  <div role="button" class="px-3 py-1 hover:bg-gradient-1 flex gap-2 rounded-xs items-center group">
     <Avatar :name="name" class="w-10 text-sm bg-gray-300 text-gray-800" type="button" />
 
     <div class="flex-1 flex flex-col justify-center">
@@ -54,6 +54,6 @@ const emit = defineEmits<{
 
 <style scoped>
 .hover\:bg-gradient-1:hover {
-  background: radial-gradient(circle, theme('colors.magenta.50'), theme('colors.white'));
+  background: radial-gradient(circle, var(--color-magenta-50), var(--color-white));
 }
 </style>

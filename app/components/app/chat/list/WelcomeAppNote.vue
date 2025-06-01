@@ -24,7 +24,7 @@ onMounted(() => {
 
 <style scoped>
 .text-gradient-2 {
-  background: linear-gradient(50deg, theme('colors.red.500'), theme('colors.orange.500')) !important;
+  background: linear-gradient(50deg, var(--color-red-500'), var(--color-orange-500')) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   color: transparent !important;

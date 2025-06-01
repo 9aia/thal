@@ -79,6 +79,6 @@ onMounted(() => {
 
 <style>
 body {
-  @apply bg-gray-100;
+  background: var(--color-gray-100);
 }
 </style>

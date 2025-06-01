@@ -40,7 +40,7 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
 </script>
 
 <template>
-  <main class="bg-white flex-1 flex items-start focus:outline-none overflow-auto">
+  <main class="bg-white flex-1 flex items-start focus:outline-hidden overflow-auto">
     <div class="mx-auto pb-4">
       <section class="px-4 pt-4 mb-4">
         <TextField
@@ -119,6 +119,8 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
 </template>
 
 <style scoped>
+@reference "~/assets/css/main.css";
+
 .border-gradient-2 {
   @apply border-none px-1 py-1 bg-blue-50 text-blue-500;
   @apply bg-gray-50;

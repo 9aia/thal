@@ -12,7 +12,7 @@
         <ContentEditable
           is="span" id="input" ref="contentEditableRef" v-model="text"
           :disabled="isCharacterDeleted"
-          class="flex w-full items-center text-sm outline-none"
+          class="flex w-full items-center text-sm outline-hidden"
           :placeholder="t('Type a message...')"
           @keydown.enter="handleSend"
         />
@@ -33,8 +33,10 @@
 </template>
 
 <style scoped>
+@reference "~/assets/css/main.css";
+
 .tooltip::before {
   @apply px-4 py-2 rounded-lg text-blue-500 max-w-xs sm:max-w-2xl md:max-w-3xl text-sm;
-  background: radial-gradient(at bottom, theme('colors.blue.50'), theme('colors.gray.50'));
+  background: radial-gradient(at bottom, var(--color-blue-50), var(--color-gray-50));
 }
 </style>

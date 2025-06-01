@@ -27,6 +27,6 @@
 
 <style scoped>
 .bg-gradient-1 {
-  background: radial-gradient(at top, theme('colors.yellow.50'), theme('colors.gray.50'));
+  background: radial-gradient(at top, var(--color-yellow-50), var(--color-gray-50));
 }
 </style>

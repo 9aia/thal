@@ -209,7 +209,7 @@ const {
 
 <style scoped>
 .text-gradient-7 {
-  background: linear-gradient(12deg, theme('colors.magenta.500'), theme('colors.red.500')) !important;
+  background: linear-gradient(12deg, var(--color-magenta-500), var(--color-red-500)) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   color: transparent !important;

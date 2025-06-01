@@ -62,7 +62,7 @@ watch(translation.error, async (value) => {
       <ContentEditable
         is="span"
         v-model="edition.message"
-        class="prose flex w-full !max-w-full items-center outline-none"
+        class="prose flex w-full !max-w-full items-center outline-hidden"
         :placeholder="t('Type a message...')"
       />
     </label>

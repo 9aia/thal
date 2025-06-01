@@ -64,6 +64,6 @@ async function handleGoToChat(username: string) {
 
 <style scoped>
 .hover\:bg-gradient-1:hover {
-  background: radial-gradient(circle, theme('colors.magenta.50'), theme('colors.white'));
+  background: radial-gradient(circle, var(--color-magenta-50), var(--color-white));
 }
 </style>

@@ -45,9 +45,7 @@ async function goToDiscover() {
 
       <div class="flex items-center">
         <Button
-          class="btn-ghost"
-          shape="circle"
-          size="md"
+          class="btn btn-circle btn-ghost"
           no-disable-on-loading
           :class="{
             'text-orange-500': whatsNew.hasUnreadContent.value,
@@ -60,9 +58,7 @@ async function goToDiscover() {
         </Button>
 
         <Button
-          class="btn-ghost"
-          shape="circle"
-          size="md"
+          class="btn btn-circle btn-ghost"
           no-disable-on-loading
           @click="goToDiscover"
         >
@@ -92,7 +88,7 @@ async function goToDiscover() {
       </div>
 
       <div class="absolute bottom-4 right-4">
-        <Button shape="circle" size="md" class="border-none bg-cyan-500" @click="drawers.newChat = true">
+        <Button shape="circle" size="md" class="btn btn-lg btn-circle btn-primary" @click="drawers.newChat = true">
           <Icon name="material-symbols:add" />
         </Button>
       </div>
@@ -104,7 +100,7 @@ async function goToDiscover() {
 
 <style scoped>
 .text-gradient-1 {
-  background: linear-gradient(50deg, theme('colors.magenta.500'), theme('colors.red.500')) !important;
+  background: linear-gradient(50deg, var(--color-magenta-500), var(--color-red-500)) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   color: transparent !important;

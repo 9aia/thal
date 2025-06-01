@@ -253,11 +253,11 @@ function cancelEdit() {
 
   0%,
   100% {
-    @apply bg-gray-50;
+    background: var(--color-gray-50);
   }
 
   50% {
-    @apply bg-cyan-100;
+    background: var(--color-cyan-100);
   }
 }
 </style>

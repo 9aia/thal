@@ -89,7 +89,7 @@ defineExpose({
 
 <style>
 .text-gradient-4 {
-  background: linear-gradient(66deg, theme('colors.red.500'), theme('colors.magenta.500'));
+  background: linear-gradient(66deg, var(--color-red-500), var(--color-magenta-500));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

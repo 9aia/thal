@@ -93,6 +93,6 @@ useAutoRedirect({
 
 <style scoped>
 .bg-gradient-1 {
-  background: radial-gradient(circle at bottom, theme('colors.magenta.50'), theme('colors.white'));
+  background: radial-gradient(circle at bottom, var(--color-magenta-50), var(--color-white));
 }
 </style>

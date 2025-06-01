@@ -39,7 +39,7 @@ const displayName = computed(() => {
   <div
     tabindex="0"
     role="button"
-    class="py-1 flex gap-2 rounded items-center group"
+    class="py-1 flex gap-2 rounded-sm items-center group"
     @click.prevent="onClick"
   >
     <Avatar :name="avatarName" class="w-10 text-md" type="button" @click.stop="openContactView({ username, displayName, avatarName })" />

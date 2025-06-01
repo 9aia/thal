@@ -290,7 +290,7 @@ function handleGoToChat() {
                   </Menu.Trigger>
 
                   <Menu.Positioner>
-                    <Menu.Content class="focus:outline-none shadow-sm bg-base-100 rounded-box w-64 z-40 p-2">
+                    <Menu.Content class="focus:outline-hidden shadow-xs bg-base-100 rounded-box w-64 z-40 p-2">
                       <Menu.Item v-for="item in items" :id="item.id" :key="item.id" :value="item.id" class="py-2 px-3 hover:bg-base-200 rounded-lg" @click.stop.prevent="item.onClick">
                         <MenuItem :is="item" />
                       </Menu.Item>
@@ -319,6 +319,6 @@ function handleGoToChat() {
 
 <style scoped>
 .bg-gradient-2 {
-  background: radial-gradient(at bottom, theme('colors.blue.50'), theme('colors.white'));
+  background: radial-gradient(at bottom, var(--color-blue-50), var(--color-white));
 }
 </style>

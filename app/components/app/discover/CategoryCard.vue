@@ -9,7 +9,7 @@ defineProps<{
 </script>
 
 <template>
-  <div role="button" class="flex flex-col items-center space-y-2 group">
+  <div role="button" class="flex flex-col items-center gap-2 group">
     <Button
       size="lg"
       shape="circle"

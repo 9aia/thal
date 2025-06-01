@@ -80,8 +80,10 @@ function openChats() {
 </template>
 
 <style scoped>
+@reference "~/assets/css/main.css";
+
 .bg-gradient-1 {
-  background: radial-gradient(at bottom, theme('colors.blue.50'), theme('colors.gray.50'));
+  background: radial-gradient(at bottom, var(--color-blue-50), var(--colors-gray-50));
 }
 
 .border-gradient-2 {

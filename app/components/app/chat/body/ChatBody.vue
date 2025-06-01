@@ -12,7 +12,7 @@ const characterNotFound = useState('characterNotFound', () => false)
     id="chat-container"
     ref="scrollContainer"
     :tabindex="0"
-    class="bg-white w-full py-4 px-4 flex-1 overflow-y-auto relative focus:outline-none"
+    class="bg-white w-full py-4 px-4 flex-1 overflow-y-auto relative focus:outline-hidden"
   >
     <StyledResource
       :loading="characterQuery.isLoading.value"

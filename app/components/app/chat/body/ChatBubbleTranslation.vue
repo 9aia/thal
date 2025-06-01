@@ -59,19 +59,18 @@ const { t } = useI18nExperimental()
 
 <style scoped>
 .bg-gradient-7 {
-  /* @apply bg-yellow-500/20; */
-  background: radial-gradient(at bottom, theme('colors.magenta.50'), theme('colors.gray.50'));
-  @apply text-orange-900;
+  background: radial-gradient(at bottom, var(--color-magenta-50), var(--color-gray-50));
+  color: var(--text-color-orange-900);
 }
 
 .text-gradient-7 {
-  background: linear-gradient(12deg, theme('colors.magenta.500'), theme('colors.red.500')) !important;
+  background: linear-gradient(12deg, var(--color-magenta-500), var(--color-red-500)) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   color: transparent !important;
 }
 
 .bg-gradient-8 {
-  background: radial-gradient(at top, theme('colors.red.100'), theme('colors.white'));
+  background: radial-gradient(at top, var(--color-red-100), var(--color-white));
 }
 </style>

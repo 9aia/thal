@@ -123,19 +123,19 @@ watch(toast.update, () => {
 
 <style scoped>
 .bg-gradient-success {
-  background: radial-gradient(at top, theme('colors.green.100'), theme('colors.gray.50'));
+  background: radial-gradient(at top, var(--color-green-100), var(--color-gray-50));
 }
 
 .bg-gradient-error {
-  background: radial-gradient(at top, theme('colors.red.100'), theme('colors.gray.50'));
+  background: radial-gradient(at top, var(--color-red-100), var(--color-gray-50));
 }
 
 .bg-gradient-warning {
-  background: radial-gradient(at top, theme('colors.orange.100'), theme('colors.gray.50'));
+  background: radial-gradient(at top, var(--color-orange-100), var(--color-gray-50));
 }
 
 .bg-gradient-info {
-  background: radial-gradient(at top, theme('colors.blue.100'), theme('colors.gray.50'));
+  background: radial-gradient(at top, var(--color-blue-100), var(--color-gray-50));
 }
 
 .animate-progress {

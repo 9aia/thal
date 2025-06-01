@@ -83,7 +83,7 @@
     "@nuxtjs/mdc": "^0.9.5",
     "@tailwindcss/typography": "^0.5.16",
     "@types/lodash-es": "^4.17.12",
-    "daisyui": "^4.12.23",
+    "daisyui": "^5.0.43",
     "drizzle-kit": "^0.30.4",
     "eslint": "^8.57.1",
     "nitro-cloudflare-dev": "^0.2.1",

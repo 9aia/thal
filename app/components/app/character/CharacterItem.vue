@@ -35,7 +35,7 @@ const items: MenuItemType[] = [
 <template>
   <div
     role="button"
-    class="px-3 hover:bg-gradient-1 flex gap-2 rounded items-center group relative"
+    class="px-3 hover:bg-gradient-1 flex gap-2 rounded-sm items-center group relative"
   >
     <Avatar :name="name" class="w-10 text-sm bg-gray-300 text-gray-800" type="button" />
 
@@ -73,7 +73,7 @@ const items: MenuItemType[] = [
             </Icon>
           </Menu.Trigger>
           <Menu.Positioner>
-            <Menu.Content class="shadow-sm bg-base-100 rounded-box w-52 z-40 p-2 focus:outline-none">
+            <Menu.Content class="shadow-xs bg-base-100 rounded-box w-52 z-40 p-2 focus:outline-hidden">
               <Menu.Item v-for="item in items" :id="item.id" :key="item.id" :value="item.id" class="py-2 px-3 hover:bg-base-200 rounded-lg" @click.stop.prevent="item.onClick">
                 <MenuItem :is="item" />
               </Menu.Item>
@@ -87,6 +87,6 @@ const items: MenuItemType[] = [
 
 <style scoped>
 .hover\:bg-gradient-1:hover {
-  background: radial-gradient(circle, theme('colors.magenta.50'), theme('colors.white'));
+  background: radial-gradient(circle, var(--color-magenta-50), var(--color-white));
 }
 </style>

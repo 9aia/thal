@@ -77,6 +77,6 @@ const menuItems: MenuItemType[] = [
 
 <style scoped>
 .bg-gradient-2 {
-  background: radial-gradient(at bottom, theme('colors.blue.50'), theme('colors.gray.50'));
+  background: radial-gradient(at bottom, var(--color-blue-50), var(--color-gray-50));
 }
 </style>

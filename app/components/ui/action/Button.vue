@@ -4,7 +4,6 @@ import type { SafeProps } from '~/types'
 
 const props = withDefaults(defineProps<Props & {
   as?: string
-  class?: string
 
   disabled?: boolean
   loading?: boolean
@@ -15,7 +14,6 @@ const props = withDefaults(defineProps<Props & {
   icon?: string
 }>(), {
   as: 'button',
-  class: '',
   noDisableOnLoading: false,
   iconSize: 'md',
 })

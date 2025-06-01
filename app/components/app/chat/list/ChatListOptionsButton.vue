@@ -53,14 +53,8 @@ const items: MenuItemType[] = [
 
 <template>
   <div class="dropdown dropdown-end">
-    <Button
-      class="btn-ghost"
-      size="md"
-      shape="circle"
-    >
-      <Icon>
-        material-symbols:more-vert
-      </Icon>
+    <Button class="btn btn-ghost btn-circle">
+      <Icon name="material-symbols:more-vert" />
     </Button>
 
     <Menu :items="items" item-class="py-2" />

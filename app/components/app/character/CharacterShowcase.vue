@@ -18,7 +18,7 @@ const trunkedInstructions = computed(() => {
 </script>
 
 <template>
-  <div class="space-y-2 flex flex-col items-end">
+  <div class="gap-2 flex flex-col items-end">
     <section class="w-full px-4 pb-2 flex flex-col justify-center">
       <Avatar :name="data.name" class="mx-auto w-16 h-16 text-base bg-gray-300 text-gray-800 mt-2" />
 

@@ -22,32 +22,24 @@ async function goToDiscover() {
     </p>
 
     <div class="px-4 flex gap-2 justify-center flex-wrap">
-      <Button class="border-gradient-1 rounded-full" @click="goToDiscover">
-        <span class="px-4 py-1 flex items-center justify-center gap-1">
-          <Icon name="material-symbols:person-search-outline-rounded" />
-          {{ t("Discover characters") }}
-        </span>
+      <Button class="btn btn-neutral text-magenta-500" @click="goToDiscover">
+        <Icon name="material-symbols:person-search-outline-rounded" />
+        {{ t("Discover characters") }}
       </Button>
 
-      <Button class="border-gradient-2 rounded-full" @click="buildCharacter(null)">
-        <span class="px-4 py-1 flex items-center justify-center gap-1">
-          <Icon name="material-symbols:person-edit-outline-rounded" />
-          {{ t("Create character") }}
-        </span>
+      <Button class="btn btn-neutral text-blue-500" @click="buildCharacter(null)">
+        <Icon name="material-symbols:person-edit-outline-rounded" />
+        {{ t("Create character") }}
       </Button>
 
-      <Button class="border-gradient-3 rounded-full" @click="manageContact(null)">
-        <span class="px-4 py-1 flex items-center justify-center gap-1">
-          <Icon name="material-symbols:person-add-outline-rounded" />
-          {{ t("Add contact") }}
-        </span>
+      <Button class="btn btn-neutral text-orange-500" @click="manageContact(null)">
+        <Icon name="material-symbols:person-add-outline-rounded" />
+        {{ t("Add contact") }}
       </Button>
 
-      <Button class="border-gradient-4 rounded-full" @click="isWhatsNewModalOpen = true">
-        <span class="px-4 py-1 flex items-center justify-center gap-1">
-          <Icon name="material-symbols:news-outline-rounded" />
-          {{ t("What's New") }}
-        </span>
+      <Button class="btn btn-neutral text-red-500" @click="isWhatsNewModalOpen = true">
+        <Icon name="material-symbols:news-outline-rounded" />
+        {{ t("What's New") }}
       </Button>
     </div>
 
