@@ -43,7 +43,7 @@ export function getCharacterDraftPrompt() {
     properties: {
       username: {
         type: SchemaType.STRING,
-        description: `Unique username for the character. Min ${minUsernameLength} character, max ${maxUsernameLength} characters. Username can only contain letters, numbers, and underscores. Only lowercase letters.`,
+        description: `Unique username for the character. If provided by the user, it must precisely match the username from the prompt and not be altered. Min ${minUsernameLength} character, max ${maxUsernameLength} characters. Username can only contain letters, numbers, and underscores. Only lowercase letters.`,
         example: 'ironman',
       },
       localizations: {
@@ -54,7 +54,7 @@ export function getCharacterDraftPrompt() {
             properties: {
               name: {
                 type: SchemaType.STRING,
-                description: `Character name. Min ${minNameLength} character, max ${maxNameLength} characters.`,
+                description: `Character name. It must match the user prompt. Min ${minNameLength} character, max ${maxNameLength} characters.`,
                 example: 'Iron Man',
               },
               description: {
@@ -130,11 +130,11 @@ export function getCharacterDraftPrompt() {
   const guidelines = `
     ## Creation Guidelines
 
-    - Name & Identity: Give the character a natural, culturally appropriate name and a brief background (e.g., country, age, profession, interests).
-    - Personality & Speaking Style: Define their personality traits (e.g., friendly, humorous, professional, casual) and how they communicate (e.g., uses slang, formal tone, storytelling).
-    - Topics of Interest: List 3-5 topics the character enjoys discussing (e.g., travel, technology, history, daily life).
-    - Unique Traits & Backstory: Provide a small but interesting detail that makes the character memorable (e.g., 'Emma, a barista from London who loves poetry and explains coffee-making terms').
-    - Role & Goal: Define the character's purpose in the conversation (e.g., casual chatting, practicing business English, storytelling, role-playing as a shopkeeper).
+    - Name & Identity: Provide a natural, culturally appropriate name. For real individuals, use their actual name. Include a brief background (e.g., country, age, profession, key interests).
+    - Personality & Speaking Style: Define their core personality traits (e.g., analytical, visionary, direct, humorous) and how they communicate (e.g., uses technical terms, speaks passionately, employs dry wit, formal tone).
+    - Topics of Interest: List 3-5 topics the character genuinely enjoys discussing, reflecting their real-world persona or a well-defined fictional one.
+    - Unique Traits & Backstory: Offer a small but interesting detail that makes the character memorable. For real individuals, this should be a notable characteristic or a brief, impactful aspect of their background.
+    - Role & Goal: Define the character's purpose in the conversation (e.g., discussing technological advancements, sharing entrepreneurial insights, exploring future concepts, providing business advice).
 
     ## Safety Guidelines
 
@@ -146,13 +146,19 @@ export function getCharacterDraftPrompt() {
     - Civic Integrity: The character must not be used for election-related misinformation or manipulation.
   `
 
-  const createIntro = `You are an advanced AI character creator for Thal, an English-learning chat app designed to simulate real-life conversations. Your task is to generate a well-rounded, engaging, and realistic character that users can interact with to improve their English skills. The character should feel authentic, have a clear personality, and be suitable for engaging and educational conversations. You must generate content in English and you must translate any non-English content into English.`
-  const createOutro = `Generate a new and unique character based on these guidelines. The character should feel natural, engaging, and tailored for language learning through meaningful interaction.`
+  const intro = `You are an advanced AI character creator/editor. Your primary goal is to create **authentic, real-world characters** based on user prompts. **Crucially, if the user prompts for a well-known real person, you must not state in the description that this is a simulated or fictionalized version.**When creating characters, focus on making them natural, engaging, and suitable for language learning through meaningful interaction. You must generate content in English and translate any non-English content into English.`
 
-  const editIntro = `You are an advanced AI character creator/editor. You must generate content in English and you must translate any non-English content into English.`
-  const editOutro = `The user is not satisfied with the previous draft. Edit this character based on the guidelines, the previous prompt/draft and the new prompt. The character should feel natural, engaging, and tailored for language learning through meaningful interaction. Change partly or entirely if it's necessary based on the new prompt.`
+  const createOutro = `Generate a new and unique character based on these guidelines. The character should be natural, engaging, and tailored for language learning through meaningful interaction.`
+  const editOutro = `The user is not satisfied with the previous draft. Edit this character based on the guidelines, the previous prompt/draft and the new prompt. The character should be natural, engaging, and tailored for language learning through meaningful interaction. Change it entirely if it's necessary based on the new prompt.`
 
-  return { responseSchema, guidelines, editOutro, editIntro, createIntro, createOutro }
+  return {
+    editIntro: intro,
+    editOutro,
+    createIntro: intro,
+    createOutro,
+    responseSchema,
+    guidelines,
+  }
 }
 
 export function getCategoryById(categoryId: number) {
