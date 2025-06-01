@@ -22,6 +22,7 @@ description: A detailed, chronological record of all changes made to a project, 
 ### Enhancements
 
 - Improved character builder prompt
+- Improved categories example prompt
 
 ## [0.1.0-9] - 2025-05-25
 
