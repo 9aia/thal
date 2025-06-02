@@ -4,19 +4,19 @@ function useCharacterQuery(username: Ref<string>) {
   const localeWithDefaultRegion = useLocaleDefaultRegion()
   const characterNotFound = useState('characterNotFound', () => false)
 
-  return useServerQuery(() => `/api/character/${username.value}` as `/api/character/:username`, {
+  return useServerQuery({
     queryKey: queryKeys.character(localeWithDefaultRegion.value, username.value),
-    query: () => ({
-      locale: localeWithDefaultRegion.value,
-    }),
-    fetch: {
+    queryFn: () => serverFetch(`/api/character/${username.value}` as `/api/character/:username`, {
+      params: {
+        locale: localeWithDefaultRegion.value,
+      },
       onResponse({ response }) {
         if (response.status === 404) {
           characterNotFound.value = true
         }
       },
       ignoreResponseError: true,
-    },
+    }),
   })
 }
 

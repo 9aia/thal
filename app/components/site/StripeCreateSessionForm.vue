@@ -28,6 +28,7 @@ function onSubmit(event: Event) {
   <form
     action="/api/payment/stripe/create-checkout-session"
     method="post"
+    class="flex flex-col gap-2"
     @submit="onSubmit"
   >
     <Button
@@ -35,39 +36,43 @@ function onSubmit(event: Event) {
       type="submit"
       class="btn btn-primary btn-lg"
     >
+      {{ t('Chat now!') }}
+    </Button>
+
+    <p class="text-sm text-gray-600">
       <template v-if="!user || (checkoutStatus === null && subscriptionStatus === SubscriptionStatus.not_subscribed)">
-        {{ t('Start Your Free Trial Now') }}
+        {{ t('Start our free trial now.') }}
       </template>
       <template v-else-if="checkoutStatus === 'open'">
-        {{ t('Continue Your Checkout') }}
+        {{ t('Continue your checkout.') }}
       </template>
       <template v-else-if="checkoutStatus === 'complete' && subscriptionStatus === SubscriptionStatus.not_subscribed">
-        {{ t('Continue Your Access') }}
+        {{ t('Continue your access.') }}
       </template>
       <template v-else-if="subscriptionStatus === SubscriptionStatus.trialing">
-        {{ t('Continue Your Free Trial Now') }}
+        {{ t('Continue your free trial.') }}
       </template>
       <template v-else-if="subscriptionStatus === SubscriptionStatus.active">
-        {{ t('Continue Chatting') }}
+        {{ t('Continue chatting.') }}
       </template>
       <template v-else-if="subscriptionStatus === SubscriptionStatus.canceled">
-        {{ t('Renew Your Subscription Now') }}
+        {{ t('Renew your subscription now.') }}
       </template>
       <template v-else-if="subscriptionStatus === SubscriptionStatus.incomplete">
-        {{ t('Check Your Subscription Now') }}
+        {{ t('Check your subscription now.') }}
       </template>
       <template v-else-if="subscriptionStatus === SubscriptionStatus.incomplete_expired">
-        {{ t('Check Your Subscription Now') }}
+        {{ t('Check your subscription now.') }}
       </template>
       <template v-else-if="subscriptionStatus === SubscriptionStatus.past_due">
-        {{ t('Go To App') }}
+        {{ t('Go to app.') }}
       </template>
       <template v-else-if="subscriptionStatus === SubscriptionStatus.paused">
-        {{ t('Resume Your Subscription Now') }}
+        {{ t('Resume your subscription now.') }}
       </template>
       <template v-else-if="subscriptionStatus === SubscriptionStatus.unpaid">
-        {{ t('Check Your Subscription Now') }}
+        {{ t('Check your subscription now.') }}
       </template>
-    </Button>
+    </p>
   </form>
 </template>

@@ -42,14 +42,14 @@ const {
   isError,
   isPending,
   refetch,
-} = useServerQuery('/api/contact', {
+} = useServerQuery({
   queryKey: queryKeys.contactsSearch(search),
-  query: () => {
-    return {
+  queryFn: () => serverFetch('/api/contact', {
+    params: {
       search: search.value,
       locale: localeWithDefaultRegion.value,
-    }
-  },
+    },
+  }),
 })
 
 async function handleGoToChat(username: string) {
@@ -63,9 +63,10 @@ async function handleGoToChat(username: string) {
 <template>
   <Navbar :title="t('New chat')" @close="emit('close')" />
 
-  <div class="py-4 flex-1 overflow-y-auto bg-white space-y-4">
+  <div class="pb-4 flex-1 overflow-y-auto bg-white space-y-4 pt-2">
     <div class="px-4 mb-2">
       <SearchField
+        v-model="form.values.search"
         :placeholder="t('Search name or username...')"
         path="search"
         autofocus
@@ -75,7 +76,7 @@ async function handleGoToChat(username: string) {
     <SettingSection class="px-4">
       <MenuGroup
         class="p-0 w-full"
-        item-class="py-2"
+        item-class="py-2 cursor-pointer"
         :items="generalItems"
       />
     </SettingSection>
@@ -83,7 +84,7 @@ async function handleGoToChat(username: string) {
     <SettingSection :title="t('Discover')" class="px-4">
       <MenuGroup
         class="p-0 w-full"
-        item-class="py-2"
+        item-class="py-2 cursor-pointer"
         :items="discoverItems"
       />
     </SettingSection>

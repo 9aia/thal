@@ -17,11 +17,13 @@ type Props = SafeProps<InputHTMLAttributes> & {
   mandatory?: boolean
   feedback?: string | boolean
   iconPosition?: 'none' | 'right' | 'left'
+  inputClass?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   iconPosition: 'none',
   autofocus: false,
+  inputClass: '',
 })
 const label = useSlotContent(() => props.label)
 
@@ -62,7 +64,7 @@ defineExpose({
 
       <input
         v-model="value"
-        class="input bg-gray-50 w-full"
+        class="input input-primary border-none w-full"
         :autocomplete="autocomplete"
         :autocapitalize="autocapitalize"
         :placeholder="placeholder"
@@ -70,6 +72,7 @@ defineExpose({
         :class="{
           'pr-12': iconPosition === 'right',
           'pl-12': iconPosition === 'left',
+          [inputClass]: true,
         }"
         :autofocus="autofocus"
       >

@@ -15,6 +15,8 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
+  return []
+
   const foundContacts = getContactsWithCharacterByUser(orm, user, locale, search)
   return foundContacts
 })

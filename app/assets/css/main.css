@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
-@plugin "daisyui";
+@plugin "daisyui" {
+  exclude: rootscrollgutter;
+}
 @plugin "daisyui/theme" {
   name: "gaia-light";
   default: true; /* set as default */
@@ -13,7 +15,7 @@
   --color-base-content: oklch(0 0 0); /* #000000 */
   --color-primary: oklch(0.9054 0.15455 194.7689); /* #00ffff */
   --color-primary-content: oklch(0 0 0); /* #000000 */
-  --color-secondary: oklch(0.2077 0.0398 265.75); /* #0F172A */
+  --color-secondary: oklch(0.6183 0.10555 194.7689); /* #009999 */
   --color-secondary-content: oklch(1 0 0); /* #ffffff */
   --color-accent: oklch(0.452 0.313214 264.052); /* #0000ff */
   --color-accent-content: oklch(1 0 0); /* #ffffff */
@@ -23,7 +25,7 @@
   --color-info-content: oklch(1 0 0); /* #ffffff */
   --color-success: oklch(0.8664 0.294827 142.4953); /* #00ff00 */
   --color-success-content: oklch(0 0 0); /* #000000 */
-  --color-warning: oklch(0.7927 0.171 70.67); /* #FFA500 */
+  --color-warning: oklch(0.6958 0.204259 43.491); /* #FF6600 */
   --color-warning-content: oklch(1 0 0); /* #ffffff */
   --color-error: oklch(0.628 0.2577 29.23); /* #ff0000 */
   --color-error-content: oklch(1 0 0); /* #ffffff */
@@ -49,13 +51,14 @@
   prefersdark: true; /* set as default dark mode (prefers-color-scheme:dark) */
   color-scheme: dark; /* color of browser-provided UI */
 
+  
   --color-base-100: oklch(0.9551 0 0); /* #F0F0F0 */
   --color-base-200: oklch(0.8853 0 0); /* #D9D9D9 */
   --color-base-300: oklch(0.8047 0 0); /* #BFBFBF */
   --color-base-content: oklch(0 0 0); /* #000000 */
   --color-primary: oklch(0.9054 0.15455 194.7689); /* #00ffff */
   --color-primary-content: oklch(0 0 0); /* #000000 */
-  --color-secondary: oklch(0.2077 0.0398 265.75); /* #0F172A */
+  --color-secondary: oklch(0.6183 0.10555 194.7689); /* #009999 */
   --color-secondary-content: oklch(1 0 0); /* #ffffff */
   --color-accent: oklch(0.452 0.313214 264.052); /* #0000ff */
   --color-accent-content: oklch(1 0 0); /* #ffffff */
@@ -65,7 +68,7 @@
   --color-info-content: oklch(1 0 0); /* #ffffff */
   --color-success: oklch(0.8664 0.294827 142.4953); /* #00ff00 */
   --color-success-content: oklch(0 0 0); /* #000000 */
-  --color-warning: oklch(0.7927 0.171 70.67); /* #FFA500 */
+  --color-warning: oklch(0.6958 0.204259 43.491); /* #FF6600 */
   --color-warning-content: oklch(1 0 0); /* #ffffff */
   --color-error: oklch(0.628 0.2577 29.23); /* #ff0000 */
   --color-error-content: oklch(1 0 0); /* #ffffff */
@@ -188,17 +191,17 @@
   --color-gray-900: #0D0D0D;
   --color-gray-950: #050505; /* Very dark gray */
 
-  --color-orange-50:  #FFF3E0; /* Lightest orange */
-  --color-orange-100: #FFE0B3;
-  --color-orange-200: #FFCC80;
-  --color-orange-300: #FFB84D;
-  --color-orange-400: #FFA31A;
-  --color-orange-500: #FFA500; /* Base orange */
-  --color-orange-600: #CC8400;
-  --color-orange-700: #996300;
-  --color-orange-800: #664200;
-  --color-orange-900: #332100; /* Dark orange */
-  --color-orange-950: #1A1100; /* Very dark orange */
+  --color-orange-50:  #FFEFE0; /* Lightest orange */
+  --color-orange-100: #FFD8B3;
+  --color-orange-200: #FFBB80;
+  --color-orange-300: #FF9E4D;
+  --color-orange-400: #FF821A;
+  --color-orange-500: #FF6600; /* Base orange */
+  --color-orange-600: #CC5200;
+  --color-orange-700: #994000;
+  --color-orange-800: #662D00;
+  --color-orange-900: #331900; /* Dark orange */
+  --color-orange-950: #190D00; /* Very dark orange */  
 
   /* #endregion Colors */
 
@@ -217,7 +220,7 @@
 }
 
 @utility btn {
-  @apply rounded-full border-none shadow-none;
+  @apply rounded-full border-none shadow-none font-normal;
 }
 
 /* reset */
@@ -237,57 +240,3 @@ section {
 @page {
   margin: 0;
 }
-
-html {
-  scrollbar-gutter: auto !important;
-}
-
-html:has(body.content-overflow-y) {
-  scrollbar-gutter: stable !important;
-}
-
-:focus {
-  outline-color: var(--color-blue-500);
-}
-
-.border-gradient-1 {
-  @apply border-none bg-gray-50 text-magenta-500 px-1 py-1;
-}
-
-.border-gradient-1:hover {
-  @apply border-none bg-gray-100 text-magenta-500;
-}
-
-.border-gradient-2 {
-  @apply border-none bg-gray-50 text-blue-500 px-1 py-1;
-}
-
-.border-gradient-2:hover {
-  @apply border-none bg-gray-100 text-blue-500;
-}
-
-.border-gradient-3 {
-  @apply border-none bg-gray-50 text-orange-500 px-1 py-1;
-}
-
-.border-gradient-3:hover {
-  @apply border-none bg-gray-100 text-orange-500;
-}
-
-.border-gradient-4 {
-  @apply border-none bg-gray-50 text-red-500 px-1 py-1;
-}
-
-.border-gradient-4:hover {
-  @apply border-none bg-gray-100 text-red-500;
-}
-
-.bg-glow-cyan {
-  background: radial-gradient(at bottom, var(--color-blue-100), var(--color-gray-50));
-  @apply text-blue-500 border-none px-1 py-1;
-}
-
-.bg-glow-cyan:hover {
-  @apply bg-blue-600 border-2 border-blue-600;
-}
-

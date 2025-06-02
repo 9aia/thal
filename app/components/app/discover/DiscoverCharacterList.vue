@@ -8,7 +8,6 @@ const props = defineProps<{
 }>()
 
 const localeWithDefaultRegion = useLocaleDefaultRegion()
-const headers = useRequestHeaders(['cookie'])
 
 const {
   data,
@@ -20,14 +19,13 @@ const {
   suspense,
 } = usePaginationQuery({
   queryKey: queryKeys.discoverCharactersSearch(localeWithDefaultRegion, toRef(() => props.search), toRef(() => props.categoryId)),
-  queryFn: ({ params }) => $fetch('/api/character/discover', {
-    query: {
-      ...params,
+  queryFn: ({ query }) => serverFetch('/api/character/discover', {
+    params: {
+      ...query,
       search: props.search,
       categoryId: props.categoryId,
       locale: localeWithDefaultRegion.value,
     },
-    headers,
   }),
   perPage: 10,
 })

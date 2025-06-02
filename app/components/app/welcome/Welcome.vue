@@ -52,17 +52,15 @@ function openChats() {
           Thal
         </h1>
 
-        <div class="text-center text-lg text-black space-y-1 max-w-lg">
+        <div class="text-center text-lg text-black max-w-lg">
           <p>
             {{ t('Talk to Learn. Learn to Talk.') }}
           </p>
         </div>
 
-        <Button class="border-gradient-2 rounded-full lg:hidden mt-4" @click="openChats()">
-          <span class="px-4 py-1 flex items-center justify-center gap-1">
-            <Icon name="material-symbols:chat-outline" />
-            {{ t("Open chats") }}
-          </span>
+        <Button class="btn btn-soft btn-accent lg:hidden mt-4" @click="openChats()">
+          <Icon name="material-symbols:chat-outline" />
+          {{ t("Open chats") }}
         </Button>
       </div>
     </main>
@@ -84,10 +82,5 @@ function openChats() {
 
 .bg-gradient-1 {
   background: radial-gradient(at bottom, var(--color-blue-50), var(--colors-gray-50));
-}
-
-.border-gradient-2 {
-  @apply border-none px-1 py-1 bg-orange-50 text-orange-500;
-  @apply bg-gray-50;
 }
 </style>

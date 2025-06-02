@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useQuery } from '@tanstack/vue-query'
 import { t } from '@psitta/vue'
 import queryKeys from '~/queryKeys'
 import { chatListSearch, isRootDrawerOpen } from '~/store'
@@ -11,11 +10,13 @@ const {
   isPending,
   isError,
   refetch,
-} = useServerQuery('/api/chat', {
+} = useServerQuery({
   queryKey: queryKeys.chatsSearch(localWithDefaultRegion.value, chatListSearch),
-  query: () => ({
-    search: chatListSearch.value,
-    locale: localWithDefaultRegion.value,
+  queryFn: () => serverFetch('/api/chat', {
+    params: {
+      search: chatListSearch.value,
+      locale: localWithDefaultRegion.value,
+    },
   }),
 })
 

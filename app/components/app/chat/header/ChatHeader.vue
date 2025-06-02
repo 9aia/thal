@@ -15,8 +15,9 @@ const characterNotFound = useState('characterNotFound', () => false)
 
 const characterQuery = useCharacterQuery(username)
 
-const contactQuery = useServerQuery(`/api/contact/${username.value}` as `/api/contact/:username`, {
+const contactQuery = useServerQuery({
   queryKey: queryKeys.contact(username),
+  queryFn: () => serverFetch(`/api/contact/${username.value}` as `/api/contact/:username`),
 })
 
 const isContact = computed(() => !!contactQuery.data.value)

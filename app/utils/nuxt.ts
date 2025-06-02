@@ -11,8 +11,11 @@ export function error(
     ...options,
   })
 
-  if (import.meta.dev)
-    console.error(message ? `${statusCode} - ${message}` : `${statusCode}`)
+  if (import.meta.dev) {
+    if (!statusCode.toString().startsWith('2')) {
+      console.error(message ? `${statusCode} - ${message}` : `${statusCode}`)
+    }
+  }
 
   return err
 }

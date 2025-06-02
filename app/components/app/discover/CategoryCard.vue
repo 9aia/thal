@@ -11,10 +11,8 @@ defineProps<{
 <template>
   <div role="button" class="flex flex-col items-center gap-2 group">
     <Button
-      size="lg"
-      shape="circle"
       :class="color"
-      class="relative border-none"
+      class="btn btn-lg btn-neutral btn-circle"
     >
       <Icon :name="icon" />
     </Button>

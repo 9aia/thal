@@ -6,7 +6,7 @@
   <header class="sticky top-0 w-full z-[1000] bg-white text-cyan-500">
     <nav class="px-4 navbar max-w-[800px] mx-auto">
       <div class="navbar-start">
-        <A href="/" class="text-xl flex gap-1 items-center justify-center">
+        <A href="/" class="text-xl flex gap-1 items-center justify-center border border-transparent focus:border-b-2 focus:border-b-accent focus:outline-hidden">
           <span class="font-medium text-gray-800">Thal</span>
 
           <div class="custom-badge-container">

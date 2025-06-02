@@ -44,39 +44,31 @@ export type FetchOptions<R extends NitroFetchRequest> = Omit<NitroFetchOptions<R
  * ```
  */
 function useServerQuery<
-  DefaultR extends NitroFetchRequest = NitroFetchRequest,
-  R extends NitroFetchRequest = DefaultR,
   TQueryFnData = unknown,
   TError = DefaultError,
   TData = TQueryFnData,
   TQueryKey extends QueryKey = QueryKey,
 >(
-  request: (() => R) | R,
-  options: {
-    query?: (() => SearchQueryParams) | SearchQueryParams
-    fetch?: FetchOptions<R>
-  } & UseQueryOptions<TQueryFnData, TError, TData, TQueryFnData, TQueryKey>,
+  options: UseQueryOptions<TQueryFnData, TError, TData, TQueryFnData, TQueryKey>,
   queryClient?: QueryClient,
 ) {
-  const headers = useRequestHeaders()
-  const { query, fetch: fetchOptions = {}, ...restOptions } = options
-
-  const fetcher = () => $fetch(typeof request === 'function' ? request() : request, {
-    headers,
-    query: typeof query === 'function' ? query() : query,
-    ...fetchOptions,
-  })
-
   const { suspense, ...rest } = useQuery({
-    ...restOptions,
-    queryFn: fetcher as any,
+    ...options,
   }, queryClient)
 
   onServerPrefetch(suspense)
 
-  return rest as Omit<typeof rest, 'data'> & {
-    data: Ref<Readonly<Awaited<ReturnType<typeof fetcher>>>>
-  }
+  return rest
+}
+
+export function serverFetch<R extends NitroFetchRequest = NitroFetchRequest>(request: (() => R) | R, options?: FetchOptions<R>) {
+  const headers = useRequestHeaders()
+  const r = typeof request === 'function' ? request() : request
+
+  return $fetch(r, {
+    headers,
+    ...(options || {}),
+  })
 }
 
 export default useServerQuery

@@ -12,7 +12,8 @@ const {
   isLoading,
   isError,
   refetch,
-} = useServerQuery(`/api/payment/stripe/pricing-data`, {
+} = useServerQuery({
+  queryFn: () => serverFetch('/api/payment/stripe/pricing-data'),
   queryKey: queryKeys.pricingData,
   staleTime: 0,
 })

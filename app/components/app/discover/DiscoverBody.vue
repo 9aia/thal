@@ -43,26 +43,12 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
   <main class="bg-white flex-1 flex items-start focus:outline-hidden overflow-auto">
     <div class="mx-auto pb-4">
       <section class="px-4 pt-4 mb-4">
-        <TextField
+        <SearchField
+          v-model="search"
           :placeholder="t('Search for characters')"
           path="search"
-          icon-position="right"
           autofocus
-        >
-          <template #icon>
-            <Icon
-              v-if="!form.values.search"
-              name="material-symbols:search"
-            />
-
-            <Icon
-              v-else
-              name="material-symbols:close"
-              role="button"
-              @click="form.setValues({ search: '' })"
-            />
-          </template>
-        </TextField>
+        />
       </section>
 
       <section>
@@ -102,14 +88,12 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
             </h3>
 
             <p class="text-sm text-gray-400 mb-6">
-              {{ t('Easily build a character that fits your learning style! Choose a name and personality, and let the AI bring them to life through dynamic conversations.') }}
+              {{ t('Just describe their personality and behavior in a short prompt — our AI will instantly bring them to life in seconds, ready for dynamic and engaging conversations.') }}
             </p>
 
-            <Button class="border-gradient-2 rounded-full" @click="buildCharacter(null, search)">
-              <span class="px-4 py-1 flex items-center justify-center gap-1">
-                <Icon name="material-symbols:person-edit-outline" />
-                {{ t("Create character") }}
-              </span>
+            <Button class="btn btn-soft btn-accent rounded-full" @click="buildCharacter(null, search)">
+              <Icon name="material-symbols:person-edit-outline-rounded" />
+              {{ t("Create character") }}
             </Button>
           </div>
         </div>
@@ -117,12 +101,3 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
     </div>
   </main>
 </template>
-
-<style scoped>
-@reference "~/assets/css/main.css";
-
-.border-gradient-2 {
-  @apply border-none px-1 py-1 bg-blue-50 text-blue-500;
-  @apply bg-gray-50;
-}
-</style>

@@ -50,7 +50,7 @@ const isDisabled = computed(() => {
     :disabled="isDisabled"
   >
     <div v-if="icon">
-      <span class="px-4 py-1 flex items-center justify-center gap-1">
+      <span class="px-4 py-1 flex items-center justify-center gap-2">
         <span v-if="loading" class="loading loading-xs loading-spinner" />
         <Icon v-else-if="icon" :name="icon" :class="iconSize" />
 

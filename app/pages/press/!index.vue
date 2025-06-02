@@ -10,7 +10,8 @@ const {
   isLoading,
   isError,
   refetch,
-} = useServerQuery(`/api/payment/stripe/pricing-data`, {
+} = useServerQuery({
+  queryFn: () => serverFetch('/api/payment/stripe/pricing-data'),
   queryKey: queryKeys.pricingData,
   staleTime: 0,
 })
@@ -64,7 +65,7 @@ const {
       <div class="absolute bottom-4 right-1/2 translate-x-1/2 text-black z-30">
         <a
           href="#features"
-          class="no-underline flex flex-col gap-2 items-center"
+          class="no-underline flex flex-col gap-2 items-center px-6 py-2 rounded-3xl focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:outline-hidden"
         >
           {{ t("Learn more") }}
           <Icon
@@ -115,12 +116,14 @@ const {
             </p>
           </div>
 
-          <div class="drop-shadow-2xl relative z-[10] mx-auto">
-            <div class="mockup-phone border-blue-500">
-              <div class="camera" />
-              <div class="display bg-white">
-                <div class="artboard artboard-demo phone-1 mt-24">
-                  <img src="/screenshots/app_chat_max_nova.png" alt="Discover" class="w-full h-auto">
+          <div class="relative w-full h-[568px]">
+            <div class="drop-shadow-2xl z-[10] mx-auto absolute right-1/2 translate-x-1/2">
+              <div class="mockup-phone border-cyan-500">
+                <div class="mockup-phone-camera" />
+                <div class="mockup-phone-display w-[320px] h-[568px] bg-white">
+                  <div class="mt-10">
+                    <img src="/screenshots/app_chat_max_nova.png" alt="Discover" class="w-full h-auto">
+                  </div>
                 </div>
               </div>
             </div>
@@ -145,7 +148,7 @@ const {
         </p>
 
         <div class="drop-shadow-2xl w-full max-w-[800px] mx-auto relative z-[10] ">
-          <div class="mockup-window border border-none bg-gray-50 text-black">
+          <div class="mockup-window rounded-3xl border-none bg-white text-black">
             <div class="flex justify-center bg-cyan-950">
               <img src="/screenshots/app_discover.png" alt="Discover" class="w-full h-auto">
             </div>

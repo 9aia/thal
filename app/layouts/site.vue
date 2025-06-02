@@ -40,7 +40,7 @@ const redirectUrl = useRedirectUrl()
           <div>
             <div v-if="!!user">
               <div class="dropdown dropdown-end">
-                <Avatar type="button" class="w-10" :button="true" />
+                <Avatar type="button" wrapper-class="w-10" />
 
                 <Menu :items="menuItems" item-class="py-2" />
               </div>

@@ -20,11 +20,13 @@ watchDebounced(toRef(() => form.values.search), () => {
 
 const {
   data: chats,
-} = useServerQuery('/api/chat', {
+} = useServerQuery({
   queryKey: queryKeys.chatsSearch(localWithDefaultRegion.value, chatListSearch),
-  query: () => ({
-    search: chatListSearch.value,
-    locale: localWithDefaultRegion.value,
+  queryFn: () => serverFetch('/api/chat', {
+    params: {
+      search: chatListSearch.value,
+      locale: localWithDefaultRegion.value,
+    },
   }),
 })
 
@@ -72,11 +74,11 @@ async function goToDiscover() {
     </Navbar>
 
     <div class="flex-1 overflow-y-auto bg-white">
-      <WelcomeAppNote />
       <PastDueAppNote />
 
       <div v-if="chats?.length" class="px-4 py-2">
         <SearchField
+          v-model="form.values.search"
           :placeholder="t('Search name or username...')"
           path="search"
           autofocus

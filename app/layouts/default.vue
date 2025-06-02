@@ -45,9 +45,9 @@ const menuItems: MenuItemType[] = [
             <div v-if="!!user">
               <div class="dropdown dropdown-end">
                 <Avatar
+                  :name="user.name"
                   type="button"
-                  class="w-10 bg-gray-200 text-gray-800"
-                  :button="true"
+                  wrapper-class="bg-neutral-50 text-neutral-content"
                 />
 
                 <Menu :items="menuItems" item-class="py-2" />

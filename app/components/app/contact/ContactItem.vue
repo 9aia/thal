@@ -14,8 +14,12 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div role="button" class="px-3 py-1 hover:bg-gradient-1 flex gap-2 rounded-xs items-center group">
-    <Avatar :name="name" class="w-10 text-sm bg-gray-300 text-gray-800" type="button" />
+  <div role="button" class="px-3 py-1 flex gap-4 rounded-xs items-center group cursor-pointer">
+    <Avatar
+      :name="name"
+      type="button"
+      wrapper-class="bg-neutral text-neutral-content"
+    />
 
     <div class="flex-1 flex flex-col justify-center">
       <div class="flex flex-col justify-between">
@@ -30,7 +34,12 @@ const emit = defineEmits<{
       </div>
     </div>
 
-    <div class="hidden group-hover:flex">
+    <div
+      class="hidden"
+      :class="{
+        'group-hover:flex': showEdit || showDelete,
+      }"
+    >
       <Button
         v-if="showEdit"
         class="btn-ghost"

@@ -17,20 +17,23 @@ function checkIsSelected(categoryId: number) {
 </script>
 
 <template>
-  <div
-    v-for="category, index in categories"
-    :key="`category-${index}`"
-    class="flex py-2 gap-x-4 px-6 group"
-    role="button"
-    @click="emit('click', category)"
-  >
-    <Icon
-      :name="category.icon"
-      :class="checkIsSelected(category.id) ? 'text-blue-500' : 'text-gray-800'"
-    />
+  <div class="flex flex-col gap-2 px-12 py-1">
+    <button
+      v-for="category, index in categories"
+      :key="`category-${index}`"
+      class="group cursor-pointer group focus:outline-hidden"
+      @click="emit('click', category)"
+    >
+      <div class="px-5 py-2 flex w-full gap-4 rounded-full bg-white group-focus:ring-2 group-focus:ring-blue-500 group-focus:ring-offset-2">
+        <Icon
+          :name="category.icon"
+          :class="checkIsSelected(category.id) ? 'text-gray-400' : 'text-gray-800'"
+        />
 
-    <div :class="checkIsSelected(category.id) ? 'text-blue-500' : 'text-gray-800 group-hover:underline'">
-      {{ t(category.name) }}
-    </div>
+        <div :class="checkIsSelected(category.id) ? 'text-gray-400' : 'text-gray-800'">
+          {{ t(category.name) }}
+        </div>
+      </div>
+    </button>
   </div>
 </template>

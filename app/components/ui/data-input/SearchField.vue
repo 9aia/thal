@@ -17,17 +17,20 @@ const { value } = useField(props.path, props.rules)
     path="search"
     icon-position="right"
     :autofocus="autofocus"
+    input-class="input-lg text-base rounded-full pl-6"
   >
     <template #icon>
       <Icon
         v-if="!value"
-        name="material-symbols:search"
+        name="material-symbols:search-rounded"
+        class="pointer-events-none cursor-auto"
       />
 
       <Icon
         v-else
-        name="material-symbols:close"
+        name="material-symbols:close-rounded"
         role="button"
+        class="cursor-pointer"
         @click="value = ''"
       />
     </template>

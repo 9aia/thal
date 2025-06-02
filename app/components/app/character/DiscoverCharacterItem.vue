@@ -37,12 +37,18 @@ const displayName = computed(() => {
 
 <template>
   <div
-    tabindex="0"
     role="button"
-    class="py-1 flex gap-2 rounded-sm items-center group"
+    class="py-1 flex gap-3 items-center group cursor-pointer"
     @click.prevent="onClick"
   >
-    <Avatar :name="avatarName" class="w-10 text-md" type="button" @click.stop="openContactView({ username, displayName, avatarName })" />
+    <Avatar
+      :name="avatarName"
+      type="button"
+      wrapper-class="bg-neutral text-neutral-content"
+      @click.stop="openContactView(username)"
+    >
+      <template #icon />
+    </Avatar>
 
     <div class="flex-1 flex flex-col justify-center">
       <div class="flex justify-between gap-1">
@@ -54,7 +60,6 @@ const displayName = computed(() => {
           <div v-if="category" class="text-sm text-gray-600 flex justify-between gap-1 items-center">
             <Badge no-bg class="bg-transparent border-none flex gap-1 px-0 py-3 text-xs text-black">
               <Icon :name="category?.icon" class="text-xl" />
-
               {{ t(category?.name) }}
             </Badge>
           </div>
@@ -70,11 +75,9 @@ const displayName = computed(() => {
         <div class="flex gap-2 items-center">
           <Button
             v-if="showSendMessage && username"
-            class="text-gray-800 hover:text-gray-600 btn-ghost"
-            shape="circle"
-            size="md"
+            class="btn btn-neutral btn-ghost btn-circle"
           >
-            <Icon name="material-symbols:chat-outline" />
+            <Icon name="material-symbols:chat-outline-rounded" />
           </Button>
         </div>
       </div>

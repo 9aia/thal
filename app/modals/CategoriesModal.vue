@@ -45,39 +45,24 @@ watch(modelValue, (value) => {
     hide-confirm
     show-close-button
     no-padding
-    content-class="pb-6"
+    content-class="py-6"
   >
     <template #default>
-      <div class="px-6 pt-6 mb-4">
-        <h1 class="font-bold text-2xl mb-2 mt-4 text-gray-900">
-          {{ t("All categories") }}
-        </h1>
+      <div class="h-128 overflow-auto">
+        <header class="sticky top-0 px-12 pt-0 pb-2 bg-white z-10">
+          <h1 class="text-sm mb-4 text-gray-900">
+            {{ t("All categories") }}
+          </h1>
 
-        <TextField
-          :placeholder="t('Search for categories')"
-          path="search"
-          icon-position="right"
-          class="mb-1"
-          autofocus
-        >
-          <template #icon>
-            <Icon
-              v-if="!values.search"
-              name="material-symbols:search"
-            />
+          <SearchField
+            v-model="values.search"
+            :placeholder="t('Search for categories')"
+            path="search"
+            autofocus
+            class="pointer-events-auto"
+          />
+        </header>
 
-            <Icon
-              v-else
-              name="material-symbols:close"
-              role="button"
-              :title="t('Clear search')"
-              @click="setValues({ search: '' })"
-            />
-          </template>
-        </TextField>
-      </div>
-
-      <div class="overflow-auto h-[250px] flex flex-col gap-2">
         <CategoryList
           v-if="filteredCategories.length !== 0"
           :categories="filteredCategories.map((category) => category.item)"
@@ -86,11 +71,11 @@ watch(modelValue, (value) => {
         />
 
         <template v-else>
-          <p class="text-orange-500 text-sm py-2 px-6 text-center">
+          <p class="px-12 py-2 text-gray-500 text-sm text-center">
             {{ t(`No results found for "{query}"`, { query: values.search }) }}
           </p>
 
-          <h2 class="text-sm py-2 text-brown-500 px-6">
+          <h2 class="px-12 py-2 text-sm text-brown-500">
             {{ t("Browse by categories") }}
           </h2>
 

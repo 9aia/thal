@@ -41,11 +41,11 @@ watch([visible, dialog], () => {
     <ClientOnly>
       <dialog
         ref="dialog"
-        class="modal modal-bottom sm:modal-middle "
+        class="modal modal-bottom sm:modal-middle max-w-auto"
         @close="visible = false"
       >
         <form
-          class="modal-box rounded-none bg-white"
+          class="modal-box bg-white rounded-3xl sm:w-11/12 sm:max-w-xl"
           method="dialog"
           :class="{
             'p-0': props.noPadding,
@@ -54,7 +54,7 @@ watch([visible, dialog], () => {
           @submit="emit('confirm')"
         >
           <form v-if="showCloseButton" method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+            <button class="btn btn-neutral btn-sm btn-circle btn-ghost absolute right-4 top-4 z-20">
               ✕
             </button>
           </form>
