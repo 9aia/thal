@@ -12,21 +12,20 @@ const props = defineProps<{
 const section = tv({
   slots: {
     base: '',
-    header: 'text-brown-500',
-    headerTitle: 'text-sm',
+    header: '',
     body: 'pt-4',
   },
 })
-const { base, header, headerTitle, body } = section()
+const { base, header, body } = section()
 </script>
 
 <template>
   <section :class="base({ class: props.class })">
     <slot name="header">
       <div v-if="title" :class="header({ class: headerClass })">
-        <h2 :class="headerTitle({ class: titleClass })">
+        <SettingSectionTitle :class="titleClass">
           {{ title }}
-        </h2>
+        </SettingSectionTitle>
       </div>
     </slot>
 

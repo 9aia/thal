@@ -17,23 +17,41 @@ export default eventHandler(async (event) => {
   const usernameData = await orm.query.usernames.findFirst({
     where: and(eq(usernames.username, username), isNotNull(usernames.userId)),
     with: {
-      user: true,
+      user: {
+        columns: {
+          id: true,
+        },
+      },
     },
   })
 
   if (loggedUser.id !== usernameData?.user?.id)
     throw forbidden()
 
-  const result = await orm.batch([
-    orm.update(usernames).set({
+  const updateUsername = orm.update(usernames)
+    .set({
       username: data.username,
-    }).where(eq(usernames.userId, usernameData?.user?.id)).returning(),
-    orm.update(users).set(users).where(eq(users.id, usernameData?.user?.id)).returning(),
-  ])
+    })
+    .where(eq(usernames.userId, usernameData?.user?.id))
+    .returning({
+      username: usernames.username,
+    })
+  const updateUser = orm.update(users)
+    .set(users)
+    .where(eq(users.id, usernameData?.user?.id))
+    .returning({
+      name: users.name,
+      lastName: users.lastName,
+      pronouns: users.pronouns,
+    })
+
+  const [usernameResults, userResults] = await orm.batch([updateUsername, updateUser])
+  const usernameResult = usernameResults[0]
+  const userResult = userResults[0]
 
   const profile = {
-    ...result[1][0],
-    username: result[0][0].username,
+    ...userResult,
+    username: usernameResult.username,
   }
 
   return profile

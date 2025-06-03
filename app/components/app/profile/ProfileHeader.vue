@@ -9,12 +9,17 @@ const user = useUser()
 <template>
   <div
     role="button"
-    class="flex justify-between items-start"
+    class="flex justify-between items-start cursor-pointer"
     @click="emit('edit')"
   >
     <div class="flex flex-col gap-4 w-full">
       <div class="pt-4 flex justify-center">
-        <Avatar :name="user?.name" class="w-32 text-3xl mx-auto bg-gray-300 text-gray-800" />
+        <Avatar
+          :name="user?.name"
+          size="xl"
+          wrapper-class="bg-neutral text-neutral-content"
+          class="mx-auto"
+        />
       </div>
     </div>
   </div>

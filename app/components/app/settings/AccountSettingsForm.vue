@@ -1,72 +1,34 @@
 <script setup lang="ts">
-import { useDebounceFn } from '@vueuse/core'
+import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { useForm } from 'vee-validate'
-import { useQueryClient } from '@tanstack/vue-query'
-import type { User } from '~~/db/schema'
-import { nameSchema, pronounsSchema, userLastNameSchema, userNameSchema, usernameSchema } from '~~/db/schema'
 import type { MenuItemType } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
+import type { User } from '~~/db/schema'
+import { pronounsSchema, pronounsSchemaChecks, userLastNameSchema, userLastNameSchemaChecks, userNameSchema, userNameSchemaChecks, usernameSchema, usernameSchemaChecks } from '~~/db/schema'
 
 const { t } = useI18nExperimental()
 const toast = useToast()
-
 const user = useUser()
+const logout = useLogout()
+const queryClient = useQueryClient()
+
 const form = useForm<User>({
   initialValues: toValue(user),
 })
+useUsernameValidation(form)
 const hasErrors = useHasFormErrors(form)
-const invalidUsername = ref(false)
-const loading = ref(false)
-
-const queryClient = useQueryClient()
 
 const isDeactivateModalOpen = ref(false)
 
-async function validateUsername(username: string) {
-  if (!username)
-    return
-
-  const currentUsername = user.value?.username
-
-  let invalid = false
-
-  try {
-    const { valid } = await $fetch(`/api/character/validate-username/${username}`)
-
-    invalid = !valid && currentUsername !== username
-  }
-  catch (e) {
-    const _ = e
-
-    toast.error(t(
-      'An error occurred while validating username.',
-    ))
-    invalid = false
-  }
-
-  invalidUsername.value = invalid
-
-  form.setFieldError(
-    'username',
-    invalid ? t('Username is invalid.') : undefined,
-  )
-}
-
-const debouncedValidateUsername = useDebounceFn(validateUsername, 500)
-watch(() => form.values.username, debouncedValidateUsername)
-
-const submit = form.handleSubmit(async (data) => {
-  const username = user.value?.username
-
-  loading.value = true
-
-  try {
-    await $fetch(`/api/profile/${username}`, {
+const editAccountMutation = useMutation({
+  mutationFn: async ({ username, formData }: { username: string, formData: User }) => {
+    return await $fetch(`/api/profile/${username}`, {
       method: 'patch',
-      body: data,
+      body: formData,
     })
-
-    const updatedUser = { ...user.value, ...data }
+  },
+  onSuccess(data) {
+    const updatedUser: User = { ...user.value!, ...data }
 
     user.value = updatedUser
 
@@ -75,13 +37,19 @@ const submit = form.handleSubmit(async (data) => {
     queryClient.invalidateQueries({
       queryKey: queryKeys.profile(updatedUser.username),
     })
-  }
-  catch (e) {
-    const _ = e
+  },
+  onError: () => {
     toast.error(t('An error occurred while updating personal data.'))
-  }
+  },
+})
 
-  loading.value = false
+const submit = form.handleSubmit(async (data) => {
+  const username = user.value!.username!
+
+  editAccountMutation.mutate({
+    username,
+    formData: data,
+  })
 })
 
 const dangerItems: MenuItemType[] = [
@@ -90,21 +58,9 @@ const dangerItems: MenuItemType[] = [
     icon: 'material-symbols:account-circle-off-outline',
     name: t('Deactivate account'),
     type: 'accordion',
-    onClick: () => {
-      isDeactivateModalOpen.value = true
-    },
+    onClick: () => { isDeactivateModalOpen.value = true },
   },
 ]
-
-const logout = useLogout()
-
-const minNameLength = userNameSchema._def.checks.find(check => check.kind === 'min')?.value
-const maxNameLength = userNameSchema._def.checks.find(check => check.kind === 'max')?.value
-const minLastNameLength = userLastNameSchema._def.checks.find(check => check.kind === 'min')?.value
-const maxLastNameLength = userLastNameSchema._def.checks.find(check => check.kind === 'max')?.value
-const minUsernameLength = usernameSchema._def.checks.find(check => check.kind === 'min')?.value
-const maxUsernameLength = usernameSchema._def.checks.find(check => check.kind === 'max')?.value
-const maxPronounsLength = pronounsSchema._def.checks.find(check => check.kind === 'max')?.value
 </script>
 
 <template>
@@ -112,32 +68,33 @@ const maxPronounsLength = pronounsSchema._def.checks.find(check => check.kind ==
     <form class="block space-y-2" @submit="submit">
       <div class="gap-2 grid grid-cols-2">
         <TextField
-          path="name" :label="t('Name')" class="grid-cols-1/2" :rules="yupify(userNameSchema, t(
-            `Name must contain between {min} and {max} characters.`, {
-              min: minNameLength,
-              max: maxNameLength,
-            },
+          path="name"
+          :label="t('Name')"
+          class="grid-cols-1/2"
+          :rules="yupify(userNameSchema, t(
+            `Name must contain between {min} and {max} characters.`,
+            userNameSchemaChecks,
           ))"
         />
         <TextField
-          path="lastName" :label="t('Last name')" class="grid-cols-1/2" :rules="yupify(userLastNameSchema, t(
-            `Last name must contain between {min} and {max} characters.`, {
-              min: minLastNameLength,
-              max: maxLastNameLength,
-            },
+          path="lastName"
+          :label="t('Last name')"
+          class="grid-cols-1/2"
+          :rules="yupify(userLastNameSchema, t(
+            `Last name must contain between {min} and {max} characters.`,
+            userLastNameSchemaChecks,
           ))"
         />
       </div>
+
       <TextField
         path="username"
         autocapitalize="none"
         autocomplete="off"
         :label="t('Username')"
         :rules="yupify(usernameSchema, t(
-          'Username can only contain letters, numbers, and underscores. Min {min} character, max {max} characters.', {
-            min: minUsernameLength,
-            max: maxUsernameLength,
-          },
+          'Username can only contain letters, numbers, and underscores. Min {min} character, max {max} characters.',
+          usernameSchemaChecks,
         ))"
         icon-position="right"
       >
@@ -148,36 +105,26 @@ const maxPronounsLength = pronounsSchema._def.checks.find(check => check.kind ==
           />
         </template>
       </TextField>
+
       <TextField
-        path="pronouns" :label="t('Pronouns')" :rules="yupify(pronounsSchema, t(
-          'Pronouns must be up to {max} characters long.', {
-            max: maxPronounsLength,
-          },
+        path="pronouns"
+        :label="t('Pronouns')"
+        :rules="yupify(pronounsSchema, t(
+          'Pronouns must be up to {max} characters long.',
+          pronounsSchemaChecks,
         ))"
       />
 
-      <div class="h-2" />
-
-      <Button :loading="loading" class="border-none px-4 py-2 bg-cyan-500 hover:bg-cyan-500 rounded-full" :disabled="hasErrors">
-        {{
-          t("Save")
-        }}
+      <Button
+        :loading="loading"
+        class="btn btn-sm btn-primary"
+        :disabled="hasErrors"
+      >
+        {{ t('Save account settings') }}
       </Button>
     </form>
 
-    <ul class="mt-6">
-      <li class="flex gap-2 items-center">
-        <Icon class="text-success" name="material-symbols:check" />
-
-        <span class="text-sm text-gray-800">{{ t('Signed in with Google') }}</span>
-      </li>
-
-      <li class="flex gap-2 items-center">
-        <Icon class="text-success" name="material-symbols:check" />
-
-        <span class="text-sm text-gray-800">{{ t('Connected with Stripe') }}</span>
-      </li>
-    </ul>
+    <AccountFeatureList />
   </SettingSection>
 
   <div class="flex gap-4 items-center mt-4">
@@ -203,9 +150,7 @@ const maxPronounsLength = pronounsSchema._def.checks.find(check => check.kind ==
         :items="dangerItems"
       />
 
-      <ClientOnly>
-        <AccountDeactivateModal v-model="isDeactivateModalOpen" />
-      </ClientOnly>
+      <AccountDeactivateModal v-model="isDeactivateModalOpen" />
     </template>
   </SettingSection>
 </template>

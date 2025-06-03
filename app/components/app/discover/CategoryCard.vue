@@ -1,24 +1,41 @@
 <script setup lang="ts">
-defineProps<{
+import { useEventListener } from '@vueuse/core'
+import { scrollIntoView } from '~/utils/web'
+import type Button from '~/components/ui/action/Button.vue'
+
+const props = defineProps<{
   name: string
   description: string
   icon: string
   color: string
   isSelected: boolean
 }>()
+
+const button = useTemplateRef<ComponentPublicInstance<typeof Button>>('button')
+
+watchEffect(() => {
+  if (props.isSelected)
+    scrollIntoView(button.value?.buttonElement)
+})
+
+useEventListener(toRef(() => button.value?.buttonElement), 'focusin', (event) => {
+  const target = event.target as HTMLElement
+  scrollIntoView(target)
+})
 </script>
 
 <template>
-  <div role="button" class="flex flex-col items-center gap-2 group">
-    <Button
-      :class="color"
-      class="btn btn-lg btn-neutral btn-circle"
-    >
-      <Icon :name="icon" />
-    </Button>
+  <Button
+    ref="button"
+    class="btn btn-neutral btn-xs !px-3 !py-4 w-max"
+    :class="[color, {
+      'outline-2 outline-offset-2 outline-accent': isSelected,
+    }]"
+  >
+    <Icon :name="icon" class="text-lg" />
 
-    <div class="text-center text-xs" :class="isSelected ? 'text-gray-800 font-bold' : 'text-gray-900'">
+    <span class="text-black text-xs">
       {{ name }}
-    </div>
-  </div>
+    </span>
+  </Button>
 </template>

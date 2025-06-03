@@ -76,12 +76,33 @@ export const usernameSchema = z.string().min(1).max(32)
   .regex(/^\w+$/, {
     message: 'Username can only contain letters, numbers, and underscores',
   })
+export const usernameSchemaChecks = {
+  min: usernameSchema._def.checks.find(check => check.kind === 'min')?.value,
+  max: usernameSchema._def.checks.find(check => check.kind === 'max')?.value,
+}
 
 export const nameSchema = z.string().min(1).max(64)
+export const nameSchemaChecks = {
+  min: nameSchema._def.checks.find(check => check.kind === 'min')?.value,
+  max: nameSchema._def.checks.find(check => check.kind === 'max')?.value,
+}
+
 export const pronounsSchema = z.string().min(0).max(20).nullish()
+export const pronounsSchemaChecks = {
+  max: pronounsSchema._def.innerType._def.innerType._def.checks.find(check => check.kind === 'max')?.value,
+}
 
 export const userNameSchema = z.string().min(1).max(32)
+export const userNameSchemaChecks = {
+  min: userNameSchema._def.checks.find(check => check.kind === 'min')?.value,
+  max: userNameSchema._def.checks.find(check => check.kind === 'max')?.value,
+}
+
 export const userLastNameSchema = z.string().min(1).max(32)
+export const userLastNameSchemaChecks = {
+  min: userLastNameSchema._def.checks.find(check => check.kind === 'min')?.value,
+  max: userLastNameSchema._def.checks.find(check => check.kind === 'max')?.value,
+}
 
 export const userSelectSchema = createSelectSchema(users, {
   name: userNameSchema,
@@ -127,8 +148,16 @@ export type Session = SessionSelect
 // #region Characters
 
 export const descriptionSchema = z.string().min(1).max(300)
-export const instructionsSchema = z.string().min(1).max(1000)
+export const descriptionSchemaChecks = {
+  min: descriptionSchema._def.checks.find(check => check.kind === 'min')?.value,
+  max: descriptionSchema._def.checks.find(check => check.kind === 'max')?.value,
+}
 
+export const instructionsSchema = z.string().min(1).max(1000)
+export const instructionsSchemaChecks = {
+  min: instructionsSchema._def.checks.find(check => check.kind === 'min')?.value,
+  max: instructionsSchema._def.checks.find(check => check.kind === 'max')?.value,
+}
 export const characters = sqliteTable('Character', {
   id: int('id').primaryKey({ autoIncrement: true }),
   categoryId: int('category_id').notNull(),

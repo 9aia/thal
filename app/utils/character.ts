@@ -1,7 +1,7 @@
 import { type ResponseSchema, SchemaType } from '@google/generative-ai'
 import { z } from 'zod'
 import { categories } from '~/constants/discover'
-import { descriptionSchema, instructionsSchema, nameSchema, usernameSchema } from '~~/db/schema'
+import { descriptionSchema, instructionsSchema, nameSchema, nameSchemaChecks, usernameSchema, usernameSchemaChecks } from '~~/db/schema'
 
 export const characterLocalizationSchema = z.object({
   name: nameSchema,
@@ -27,10 +27,6 @@ export function getCharacterDraftPrompt() {
     example: category.example,
   }))
 
-  const minUsernameLength = usernameSchema._def.checks.find(check => check.kind === 'min')?.value
-  const maxUsernameLength = usernameSchema._def.checks.find(check => check.kind === 'max')?.value
-  const minNameLength = nameSchema._def.checks.find(check => check.kind === 'min')?.value
-  const maxNameLength = nameSchema._def.checks.find(check => check.kind === 'max')?.value
   const minDescriptionLength = descriptionSchema._def.checks.find(check => check.kind === 'min')?.value
   const maxDescriptionLength = descriptionSchema._def.checks.find(check => check.kind === 'max')?.value
   const minInstructionsLength = instructionsSchema._def.checks.find(check => check.kind === 'min')?.value
@@ -41,7 +37,7 @@ export function getCharacterDraftPrompt() {
     properties: {
       username: {
         type: SchemaType.STRING,
-        description: `Unique username for the character. If provided by the user, it must precisely match the username from the prompt and not be altered. Min ${minUsernameLength} character, max ${maxUsernameLength} characters. Username can only contain letters, numbers, and underscores. Only lowercase letters.`,
+        description: `Unique username for the character. If provided by the user, it must precisely match the username from the prompt and not be altered. Min ${usernameSchemaChecks.min} character, max ${usernameSchemaChecks.max} characters. Username can only contain letters, numbers, and underscores. Only lowercase letters.`,
         example: 'ironman',
       },
       localizations: {
@@ -52,7 +48,7 @@ export function getCharacterDraftPrompt() {
             properties: {
               name: {
                 type: SchemaType.STRING,
-                description: `Character name. It must match the user prompt. Min ${minNameLength} character, max ${maxNameLength} characters.`,
+                description: `Character name. It must match the user prompt. Min ${nameSchemaChecks.min} character, max ${nameSchemaChecks.max} characters.`,
                 example: 'Iron Man',
               },
               description: {

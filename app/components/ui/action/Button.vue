@@ -29,6 +29,12 @@ const emit = defineEmits<{
   (e: 'click'): any
 }>()
 
+const buttonElement = useTemplateRef<HTMLButtonElement>('buttonElement')
+
+defineExpose({
+  buttonElement,
+})
+
 const countdown = toRef(() => props.resetIn)
 const { start } = useCountdown(countdown, {
   onComplete: () => {
@@ -69,6 +75,7 @@ const isDisabled = computed(() => {
 
 <template>
   <button
+    ref="buttonElement"
     :disabled="isDisabled"
     @click="countdown > 0 ? start() : emit('click')"
   >

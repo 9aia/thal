@@ -21,13 +21,16 @@ const user = useUser()
     <div class="flex-1 overflow-y-auto bg-white">
       <ProfileHeader @edit="drawers.accountSettings = true" />
 
-      <div class="p-4 flex-1 space-y-4">
-        <SettingSection class="space-y-4">
-          <TitleContentItem :label="t('Name')" role="button" @click="drawers.accountSettings = true">
+      <div class="p-4 flex-1">
+        <SettingSection body-class="flex flex-col gap-4">
+          <TitleContentItem
+            :label="t('Name')"
+            role="button"
+            class="cursor-pointer"
+            @click="drawers.accountSettings = true"
+          >
             <template #icon>
-              <Icon class="text-gray-800">
-                material-symbols:person-outline
-              </Icon>
+              <Icon name="material-symbols:person-outline-rounded" />
             </template>
 
             <template #main>
@@ -43,15 +46,18 @@ const user = useUser()
             </template>
           </TitleContentItem>
 
-          <TitleContentItem :label="t('Username')" role="button" @click="drawers.accountSettings = true">
+          <TitleContentItem
+            :label="t('Username')"
+            role="button"
+            class="cursor-pointer"
+            @click="drawers.accountSettings = true"
+          >
             <template #icon>
-              <Icon class="text-gray-800">
-                material-symbols:id-card-outline
-              </Icon>
+              <Icon name="material-symbols:id-card-outline-rounded" />
             </template>
 
             <template #main>
-              <div class="text-base text-gray-900 mb-2">
+              <div class="text-black mb-2">
                 @{{ user?.username }}
               </div>
             </template>

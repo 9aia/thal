@@ -5,7 +5,6 @@ import { type CategorySlug, categories } from '~/constants/discover'
 
 const categoryId = defineModel<number>()
 const categorySlug = computed(() => categories.find(c => c.id === categoryId.value)!.slug)
-
 const categoryRouteQuery = useRouteQuery<CategorySlug>('category', '')
 
 watch(categoryId, (newValue) => {
@@ -14,17 +13,6 @@ watch(categoryId, (newValue) => {
     categoryRouteQuery.value = categorySlug.value
   else
     categoryRouteQuery.value = ''
-
-  // scroll to category when it changes
-  const el = document.querySelector(`#category-${categoryId.value}`)
-
-  if (el) {
-    el.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-      inline: 'center',
-    })
-  }
 })
 
 function toggleCategory(id: number) {
@@ -35,7 +23,7 @@ const isCategoryModalOpen = ref(false)
 </script>
 
 <template>
-  <div class="flex justify-between px-4">
+  <div class="flex justify-between px-5">
     <slot name="header" />
 
     <button
@@ -48,7 +36,7 @@ const isCategoryModalOpen = ref(false)
 
   <DraggableArea
     v-slot="{ bindData }"
-    class="flex gap-2 py-4 px-4 overflow-x-hidden w-screen sm:w-[500px] lg:w-[600px] cursor-grab pb-3"
+    class="px-5 py-4 flex gap-2 overflow-x-hidden w-full sm:w-[500px] lg:w-[600px] cursor-grab pb-3"
   >
     <CategoryCard
       v-for="category, index in categories"

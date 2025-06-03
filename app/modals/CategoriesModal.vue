@@ -49,7 +49,7 @@ watch(modelValue, (value) => {
   >
     <template #default>
       <div class="h-128 overflow-auto">
-        <header class="sticky top-0 px-12 pt-0 pb-2 bg-white z-10">
+        <header class="sticky top-0 px-12 pt-0 pb-4 bg-white z-10">
           <h1 class="text-sm mb-4 text-gray-900">
             {{ t("All categories") }}
           </h1>

@@ -61,3 +61,14 @@ export function decodeHTML(html: string) {
   txt.innerHTML = html
   return txt.value
 }
+
+export function scrollIntoView(el: HTMLElement | null) {
+  if (!el)
+    return
+
+  el.scrollIntoView({
+    behavior: 'smooth',
+    block: 'center',
+    inline: 'center',
+  })
+}

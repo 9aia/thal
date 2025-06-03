@@ -40,9 +40,9 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
 </script>
 
 <template>
-  <main class="bg-white flex-1 flex items-start focus:outline-hidden overflow-auto">
-    <div class="mx-auto pb-4">
-      <form class="px-4 pt-4 mb-4">
+  <main class="bg-white flex-1 flex w-fullitems-start focus:outline-hidden overflow-auto">
+    <div class="flex flex-col pb-4 w-full sm:w-auto sm:mx-auto">
+      <form class="px-5 pt-4">
         <SearchField
           v-model="search"
           :placeholder="t('Search for characters')"
@@ -51,22 +51,18 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
         />
       </form>
 
-      <section>
-        <CategoryPanel v-model="categoryId">
+      <SettingSection body-class="space-y-2 mb-4">
+        <CategoryPanel v-model="categoryId" class="">
           <template #header>
-            <h2 class="text-brown-500 text-sm">
+            <SettingSectionTitle>
               {{ t("Categories") }}
-            </h2>
+            </SettingSectionTitle>
           </template>
         </CategoryPanel>
-      </section>
+      </SettingSection>
 
-      <section class="space-y-2">
-        <h2 class="text-brown-500 px-4 text-sm">
-          {{ t("Characters") }}
-        </h2>
-
-        <div class="px-4 pb-2 overflow-y-auto mt-4 flex flex-col items-center w-screen sm:w-[500px] lg:w-[600px]">
+      <SettingSection :title="t('Characters')" title-class="px-5" body-class="px-5 space-y-2">
+        <div class="pb-2 overflow-y-auto flex flex-col items-center w-full sm:w-[500px] lg:w-[600px]">
           <Suspense>
             <template #fallback>
               <div class="py-4 w-full flex justify-center">
@@ -97,7 +93,7 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
             </Button>
           </div>
         </div>
-      </section>
+      </SettingSection>
     </div>
   </main>
 </template>

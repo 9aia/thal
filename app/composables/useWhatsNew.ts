@@ -8,8 +8,8 @@ function useWhatsNew() {
   const countQuery = useQuery({
     queryKey: queryKeys.contentCount(locale.value, 'whats-new'),
     queryFn: () => queryContent('whats-new', locale.value).count(),
-    refetchOnMount: 'always',
   })
+  onServerPrefetch(countQuery.suspense)
 
   const lastSavedContentCount = useCookie('lastSavedContentCount', {
     default: () => 0,

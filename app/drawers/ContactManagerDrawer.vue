@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 import { useDebounceFn } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import { isRootDrawerOpen, manageContactUsername } from '~/store'
-import { nameSchema, usernameSchema } from '~~/db/schema'
+import { nameSchema, nameSchemaChecks, usernameSchema, usernameSchemaChecks } from '~~/db/schema'
 import queryKeys from '~/queryKeys'
 import type { Contact } from '~/types'
 
@@ -129,11 +129,6 @@ const submit = form.handleSubmit(() => isEditing.value
   ? editMutation.mutate()
   : createMutation.mutate(),
 )
-
-const minNameLength = nameSchema._def.checks.find(check => check.kind === 'min')?.value
-const maxNameLength = nameSchema._def.checks.find(check => check.kind === 'max')?.value
-const minUsernameLength = usernameSchema._def.checks.find(check => check.kind === 'min')?.value
-const maxUsernameLength = usernameSchema._def.checks.find(check => check.kind === 'max')?.value
 </script>
 
 <template>
@@ -148,10 +143,8 @@ const maxUsernameLength = usernameSchema._def.checks.find(check => check.kind ==
             path="name"
             :label="t('Name')"
             :rules="yupify(nameSchema, t(
-              `Name must contain between {min} and {max} characters.`, {
-                min: minNameLength,
-                max: maxNameLength,
-              },
+              `Name must contain between {min} and {max} characters.`,
+              nameSchemaChecks,
             ))"
           />
           <TextField
@@ -161,10 +154,8 @@ const maxUsernameLength = usernameSchema._def.checks.find(check => check.kind ==
             autocapitalize="none"
             autocomplete="off"
             :rules="yupify(usernameSchema, t(
-              'Username can only contain letters, numbers, and underscores. Min {min} character, max {max} characters.', {
-                min: minUsernameLength,
-                max: maxUsernameLength,
-              },
+              'Username can only contain letters, numbers, and underscores. Min {min} character, max {max} characters.',
+              usernameSchemaChecks,
             ))"
             icon-position="right"
           >
@@ -178,10 +169,13 @@ const maxUsernameLength = usernameSchema._def.checks.find(check => check.kind ==
 
           <div class="h-2" />
 
-          <Button :loading="loading" class="btn-primary rounded-full px-4" :disabled="hasErrors">
-            {{
-              t("Save")
-            }}
+          <Button
+            :loading="loading"
+            class="btn btn-primary"
+            :disabled="hasErrors"
+          >
+            <Icon name="material-symbols:person-add-outline-rounded" />
+            {{ t('Save contact') }}
           </Button>
         </form>
       </SettingSection>
