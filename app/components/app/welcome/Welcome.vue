@@ -81,6 +81,6 @@ function openChats() {
 @reference "~/assets/css/main.css";
 
 .bg-gradient-1 {
-  background: radial-gradient(at bottom, var(--color-blue-50), var(--colors-gray-50));
+  background: radial-gradient(at bottom, var(--color-blue-50), var(--color-gray-50));
 }
 </style>

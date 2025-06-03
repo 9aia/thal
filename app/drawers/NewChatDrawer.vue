@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { t } from '@psitta/vue'
 import { refDebounced } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import type { MenuItemType } from '~/components/ui/navigation/types'
@@ -13,6 +12,8 @@ const emit = defineEmits<({
 useAutoRedirect({
   query: { drawer: ['new'] },
 })
+
+const { t } = useI18nExperimental()
 
 const generalItems: MenuItemType[] = [
   { id: 'new-contact', icon: 'material-symbols:person-add-outline-rounded', name: t('New contact'), onClick: () => manageContact(null) },
@@ -37,14 +38,11 @@ const search = refDebounced(toRef(() => form.values.search), 500)
 
 const localeWithDefaultRegion = useLocaleDefaultRegion()
 
-const {
-  data: contacts,
-  isError,
-  isPending,
-  refetch,
-} = useServerQuery({
+const headers = useRequestHeaders(['cookie'])
+const contactsQuery = useServerQuery({
   queryKey: queryKeys.contactsSearch(search),
-  queryFn: () => serverFetch('/api/contact', {
+  queryFn: () => $fetch('/api/contact', {
+    headers,
     params: {
       search: search.value,
       locale: localeWithDefaultRegion.value,
@@ -58,58 +56,56 @@ async function handleGoToChat(username: string) {
 
   await navigateTo(`/app/chat/${username}`)
 }
+
+const emptyMessage = computed(() => {
+  if (search.value) {
+    return t('No results found for "{query}"', { query: search.value })
+  }
+
+  return t('No results found.')
+})
 </script>
 
 <template>
   <Navbar :title="t('New chat')" @close="emit('close')" />
 
   <div class="pb-4 flex-1 overflow-y-auto bg-white space-y-4 pt-2">
-    <div class="px-4 mb-2">
+    <form class="px-4">
       <SearchField
         v-model="form.values.search"
         :placeholder="t('Search name or username...')"
         path="search"
         autofocus
       />
-    </div>
+    </form>
 
-    <SettingSection class="px-4">
+    <SettingSection body-class="px-5">
       <MenuGroup
-        class="p-0 w-full"
-        item-class="py-2 cursor-pointer"
+        item-class="cursor-pointer border-b-2 border-transparent focus:border-b-primary focus:outline-hidden"
         :items="generalItems"
       />
     </SettingSection>
 
-    <SettingSection :title="t('Discover')" class="px-4">
+    <SettingSection :title="t('Discover')" title-class="px-5" body-class="px-5">
       <MenuGroup
-        class="p-0 w-full"
-        item-class="py-2 cursor-pointer"
+        item-class="cursor-pointer border-b-2 border-transparent focus:border-b-primary focus:outline-hidden"
         :items="discoverItems"
       />
     </SettingSection>
 
-    <SettingSection :title="t('Contacts')" title-class="px-4">
-      <Resource
-        :error="isError"
-        :loading="isPending"
-        @execute="refetch"
+    <SettingSection :title="t('Contacts')" title-class="px-5" body-class="px-5 space-y-2">
+      <CommonResource
+        :for="contactsQuery"
+        :empty-message="emptyMessage"
       >
-        <template v-if="!contacts.length">
-          <p class="text-gray-500 text-sm py-2 px-6 text-center">
-            {{ search ? t(`No results found for "{query}"`, { query: search }) : t('No results found.') }}
-          </p>
-        </template>
-
         <ContactItem
-          v-for="contact in contacts"
-          v-else
+          v-for="contact in contactsQuery.data.value"
           :key="`contact-${contact.contactId}`"
           :name="contact.contactName"
           :description="contact.characterDescription"
           @click="handleGoToChat(contact.username)"
         />
-      </Resource>
+      </CommonResource>
     </SettingSection>
   </div>
 </template>

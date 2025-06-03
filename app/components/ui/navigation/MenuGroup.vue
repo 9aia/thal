@@ -19,7 +19,7 @@ function closeMenu() {
 </script>
 
 <template>
-  <ul tabindex="0" class="rounded-box w-full">
+  <ul class="w-full space-y-1">
     <li v-for="item in items" :key="item.id" class="group" @click="closeMenu">
       <div>
         <Item

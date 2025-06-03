@@ -15,9 +15,12 @@ const characterNotFound = useState('characterNotFound', () => false)
 
 const characterQuery = useCharacterQuery(username)
 
+const headers = useRequestHeaders(['cookie'])
 const contactQuery = useServerQuery({
   queryKey: queryKeys.contact(username),
-  queryFn: () => serverFetch(`/api/contact/${username.value}` as `/api/contact/:username`),
+  queryFn: () => $fetch(`/api/contact/${username.value}`, {
+    headers,
+  }),
 })
 
 const isContact = computed(() => !!contactQuery.data.value)
@@ -79,8 +82,12 @@ const items = computed(() => [
   <header class="px-3 py-2 bg-white flex gap-2 w-full">
     <!-- <label for="my-drawer" class="text-black drawer-button !p-0">
     </label> -->
-    <Button as="label" for="my-drawer" class="lg:hidden btn-ghost text-black drawer-button" size="md" shape="circle">
-      <Icon name="material-symbols:arrow-back" />
+    <Button
+      as="label"
+      for="my-drawer"
+      class="lg:hidden btn btn-neutral btn-md btn-ghost btn-circle drawer-button"
+    >
+      <Icon name="material-symbols:arrow-back-rounded" />
     </Button>
 
     <Avatar

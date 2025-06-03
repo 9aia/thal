@@ -7,13 +7,11 @@ import { SubscriptionStatus } from '~~/db/schema'
 const RUNTIME_ENV = useRuntimeEnv()
 const locale = useLocale()
 
-const {
-  data,
-  isLoading,
-  isError,
-  refetch,
-} = useServerQuery({
-  queryFn: () => serverFetch('/api/payment/stripe/pricing-data'),
+const headers = useRequestHeaders(['cookie'])
+const pricingQuery = useServerQuery({
+  queryFn: () => $fetch('/api/payment/stripe/pricing-data', {
+    headers,
+  }),
   queryKey: queryKeys.pricingData,
   staleTime: 0,
 })
@@ -24,7 +22,7 @@ const price = computed(() => {
     currency: 'BRL',
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
-  }).format(Number(data.value.price))
+  }).format(Number(pricingQuery.data.value?.price))
 })
 
 const discountPrice = computed(() => new Intl.NumberFormat(locale.value, {
@@ -83,58 +81,54 @@ const trialPeriodDays = PLANS.allInOne.trialPeriodDays
           </li>
         </ul>
 
-        <Resource :loading="isLoading" :error="isError || data?.price == null">
-          <template #loading>
-            <div class="w-full h-full flex items-center justify-center mb-4">
-              <Spinner class="text-gray-800" />
-            </div>
-          </template>
-
-          <template #error>
-            <ErrorFallback :loading="isLoading" centered class="mb-4" @retry="refetch" />
-          </template>
-
-          <template #default>
-            <div class="flex flex-col items-center justify-center py-2 gap-1 text-2xl">
-              <div class="flex justify-center items-center gap-1">
-                <div class="flex items-center gap-1">
-                  <div class="line-through">
-                    {{ price }}
-                  </div>
-
-                  <span class="text-gradient-7">
-                    {{ discountPrice }}
-                  </span>
+        <CommonResource
+          :for="{
+            data: pricingQuery.data,
+            isLoading: pricingQuery.isLoading,
+            isError: pricingQuery.isError.value || pricingQuery.data.value?.price == null,
+            refetch: pricingQuery.refetch,
+          }"
+          centered-error-fallback
+        >
+          <div class="flex flex-col items-center justify-center py-2 gap-1 text-2xl">
+            <div class="flex justify-center items-center gap-1">
+              <div class="flex items-center gap-1">
+                <div class="line-through">
+                  {{ price }}
                 </div>
-              </div>
 
-              <span class="text-gray-800 ml-1">
-                <div>{{ t('for the first {x} (day|days)', { x: trialPeriodDays }) }}</div>
-              </span>
-
-              <div class="text-gray-500 text-base text-center">
-                {{ t('{price}/month after', { price }) }}
+                <span class="text-gradient-7">
+                  {{ discountPrice }}
+                </span>
               </div>
             </div>
 
-            <div class="text-gray-500 text-xs text-center">
-              {{ t('No hidden fees. Cancel anytime.') }}
-              <A class="underline text-brown-500" href="/terms">{{ t('Terms apply') }}</A>
+            <span class="text-gray-800 ml-1">
+              <div>{{ t('for the first {x} (day|days)', { x: trialPeriodDays }) }}</div>
+            </span>
+
+            <div class="text-gray-500 text-base text-center">
+              {{ t('{price}/month after', { price }) }}
             </div>
+          </div>
 
-            <p class="text-black text-sm mb-4 text-center mt-6">
-              {{ t('Curious to see how chatting can boost your English?') }}
-            </p>
+          <div class="text-gray-500 text-xs text-center">
+            {{ t('No hidden fees. Cancel anytime.') }}
+            <A class="underline text-brown-500" href="/terms">{{ t('Terms apply') }}</A>
+          </div>
 
-            <div class="flex flex-col items-center justify-center h-fit mt-4 gap-2">
-              <StripeCreateSessionForm :checkout-status="data?.checkoutStatus || null" :subscription-status="data?.subscriptionStatus || SubscriptionStatus.not_subscribed" />
+          <p class="text-black text-sm mb-4 text-center mt-6">
+            {{ t('Curious to see how chatting can boost your English?') }}
+          </p>
 
-              <div v-if="RUNTIME_ENV === 'dev' || RUNTIME_ENV === 'preview'" class="text-blue-500 text-xs flex mt-2 justify-center text-center">
-                <div>{{ t("Thal is in preview. We're not actually charging for access.") }}</div>
-              </div>
+          <div class="flex flex-col items-center justify-center h-fit mt-4 gap-2">
+            <StripeCreateSessionForm :checkout-status="data?.checkoutStatus || null" :subscription-status="data?.subscriptionStatus || SubscriptionStatus.not_subscribed" />
+
+            <div v-if="RUNTIME_ENV === 'dev' || RUNTIME_ENV === 'preview'" class="text-blue-500 text-xs flex mt-2 justify-center text-center">
+              <div>{{ t("Thal is in preview. We're not actually charging for access.") }}</div>
             </div>
-          </template>
-        </Resource>
+          </div>
+        </CommonResource>
       </div>
     </div>
   </div>

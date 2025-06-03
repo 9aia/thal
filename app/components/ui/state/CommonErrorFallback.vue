@@ -5,6 +5,7 @@ defineProps<{
   loading?: boolean
   disabled?: boolean
   centered?: boolean
+  isRetryAvailable?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -27,8 +28,13 @@ const { t } = useI18nExperimental()
       {{ t('An unexpected error has occurred. Please try again later.') }}
     </p>
 
-    <div class="mb-4">
-      <Button class="btn-warning btn-outline mt-2 py-2 flex gap-1" :disabled="disabled" :loading="loading" :reset-in="3000" @click="emit('retry')">
+    <div v-if="isRetryAvailable" class="mb-4">
+      <Button
+        class="btn-warning btn-outline mt-2 py-2 flex gap-1"
+        :disabled="disabled"
+        :loading="loading"
+        @click="emit('retry')"
+      >
         {{ t('Try again') }}
       </Button>
     </div>
@@ -39,7 +45,9 @@ const { t } = useI18nExperimental()
           <A
             target="_blank" :localize="false" :href="t('https://forms.gle/ANMv7qnwTHva1k7L8')"
             class="text-warning underline"
-          >{{ t('report the issue here') }}</A>
+          >
+            {{ t('report the issue here') }}
+          </A>
         </template>
       </T>
     </p>

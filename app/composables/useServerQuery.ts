@@ -61,14 +61,4 @@ function useServerQuery<
   return rest
 }
 
-export function serverFetch<R extends NitroFetchRequest = NitroFetchRequest>(request: (() => R) | R, options?: FetchOptions<R>) {
-  const headers = useRequestHeaders()
-  const r = typeof request === 'function' ? request() : request
-
-  return $fetch(r, {
-    headers,
-    ...(options || {}),
-  })
-}
-
 export default useServerQuery

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type { ButtonHTMLAttributes } from 'vue'
+import { useCountdown } from '@vueuse/core'
+import type { MaybePromise } from 'vee-validate'
 import type { SafeProps } from '~/types'
 
 const props = withDefaults(defineProps<Props & {
@@ -13,11 +15,25 @@ const props = withDefaults(defineProps<Props & {
   iconSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   icon?: string
   iconPosition?: 'left' | 'right' | false
+
+  resetIn?: number
 }>(), {
   as: 'button',
   noDisableOnLoading: false,
   iconSize: 'md',
   iconPosition: 'left',
+  resetIn: 0,
+})
+
+const emit = defineEmits<{
+  (e: 'click'): any
+}>()
+
+const countdown = toRef(() => props.resetIn)
+const { start } = useCountdown(countdown, {
+  onComplete: () => {
+    emit('click')
+  },
 })
 
 const iconSize = computed(() => {
@@ -43,6 +59,10 @@ const isDisabled = computed(() => {
     return props.loading
   }
 
+  if (countdown.value > 0) {
+    return true
+  }
+
   return false
 })
 </script>
@@ -50,6 +70,7 @@ const isDisabled = computed(() => {
 <template>
   <button
     :disabled="isDisabled"
+    @click="countdown > 0 ? start() : emit('click')"
   >
     <div v-if="icon">
       <span class="flex items-center justify-center gap-2" :class="{ 'flex-row-reverse': iconPosition === 'right' }">
@@ -57,6 +78,7 @@ const isDisabled = computed(() => {
         <Icon v-else-if="icon" :name="icon" :class="iconSize" />
 
         <slot />
+        <span v-if="countdown > 0">({{ countdown }}s)</span>
       </span>
     </div>
     <slot v-else-if="!loading" />
@@ -64,5 +86,6 @@ const isDisabled = computed(() => {
     <span v-else-if="success" class="material-symbols-outlined">
       check
     </span>
+    <span v-if="countdown > 0 && !icon">({{ countdown }}s)</span>
   </button>
 </template>

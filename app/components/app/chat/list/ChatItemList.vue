@@ -5,18 +5,15 @@ import { chatListSearch, isRootDrawerOpen } from '~/store'
 
 const localWithDefaultRegion = useLocaleDefaultRegion()
 
-const {
-  data: chats,
-  isPending,
-  isError,
-  refetch,
-} = useServerQuery({
+const headers = useRequestHeaders(['cookie'])
+const chatsQuery = useServerQuery({
   queryKey: queryKeys.chatsSearch(localWithDefaultRegion.value, chatListSearch),
-  queryFn: () => serverFetch('/api/chat', {
+  queryFn: () => $fetch('/api/chat', {
     params: {
       search: chatListSearch.value,
       locale: localWithDefaultRegion.value,
     },
+    headers,
   }),
 })
 
@@ -27,26 +24,22 @@ function openChat(username: string) {
 </script>
 
 <template>
-  <StyledResource
-    :loading="isPending"
-    :error="isError"
-    @execute="refetch"
-  >
-    <ChatListEmpty v-if="!chats?.length && !chatListSearch.trim()" />
+  <CommonResource :for="chatsQuery">
+    <template #empty>
+      <ChatListEmpty v-if="!chatListSearch.trim()" />
 
-    <template v-else-if="!chats?.length">
-      <p class="text-gray-500 text-sm py-2 px-6 text-center">
+      <p v-else class="text-gray-500 text-sm py-2 px-6 text-center">
         {{ chatListSearch ? t(`No results found for "{query}"`, { query: chatListSearch }) : t('No results found.') }}
       </p>
     </template>
 
-    <template v-else>
+    <template #default>
       <ChatItem
-        v-for="chat in chats"
+        v-for="chat in chatsQuery.data.value"
         :key="chat.chatId"
         :chat="chat"
         @click="openChat(chat.username)"
       />
     </template>
-  </StyledResource>
+  </CommonResource>
 </template>

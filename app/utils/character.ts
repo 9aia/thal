@@ -36,8 +36,6 @@ export function getCharacterDraftPrompt() {
   const minInstructionsLength = instructionsSchema._def.checks.find(check => check.kind === 'min')?.value
   const maxInstructionsLength = instructionsSchema._def.checks.find(check => check.kind === 'max')?.value
 
-  console.log(minUsernameLength, maxUsernameLength, minNameLength, maxNameLength, minDescriptionLength, maxDescriptionLength, minInstructionsLength, maxInstructionsLength)
-
   const responseSchema: ResponseSchema = {
     type: SchemaType.OBJECT,
     properties: {

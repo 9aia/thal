@@ -15,13 +15,13 @@ const emit = defineEmits<({
     <h1 v-if="!hideTitle" class="text-sm py-2 text-black flex items-center gap-1 -translate-x-2">
       <Button
         v-if="hideBack !== 'never'"
-        class="btn btn-md btn-ghost btn-circle text-black"
+        class="btn btn-neutral btn-md btn-ghost btn-circle"
         :class="{
           'lg:hidden': hideBack === 'on-lg',
         }"
         @click="emit('close')"
       >
-        <Icon name="material-symbols:arrow-back" />
+        <Icon name="material-symbols:arrow-back-rounded" />
       </Button>
 
       {{ title }}

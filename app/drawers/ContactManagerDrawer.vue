@@ -54,7 +54,7 @@ watch(() => form.values.username, debouncedValidateUsername)
 
 const contactQuery = useQuery({
   queryKey: queryKeys.contact(computed(() => manageContactUsername.value!)),
-  queryFn: () => $fetch(`/api/contact/${manageContactUsername.value!}` as `/api/contact/:username`),
+  queryFn: () => $fetch(`/api/contact/${manageContactUsername.value!}`),
   enabled: computed(() => !!manageContactUsername.value),
 })
 

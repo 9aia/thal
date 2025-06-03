@@ -14,11 +14,7 @@ const characterNotFound = useState('characterNotFound', () => false)
     :tabindex="0"
     class="bg-white w-full py-4 px-4 flex-1 overflow-y-auto relative focus:outline-hidden"
   >
-    <StyledResource
-      :loading="characterQuery.isLoading.value"
-      :error="characterQuery.isError.value"
-      @execute="characterQuery.refetch()"
-    >
+    <CommonResource :for="characterQuery">
       <template v-if="characterNotFound">
         <CharacterNotFound :username="username" />
       </template>
@@ -26,6 +22,6 @@ const characterNotFound = useState('characterNotFound', () => false)
       <template v-else>
         Body // TODO
       </template>
-    </StyledResource>
+    </CommonResource>
   </main>
 </template>

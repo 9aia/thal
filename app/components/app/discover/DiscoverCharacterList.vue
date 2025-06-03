@@ -9,39 +9,41 @@ const props = defineProps<{
 
 const localeWithDefaultRegion = useLocaleDefaultRegion()
 
-const {
-  data,
-  isError,
-  isLoading,
-  fetchNextPage,
-  refetch,
-  hasNextPage,
-  suspense,
-} = usePaginationQuery({
+const headers = useRequestHeaders(['cookie'])
+const discoverQuery = usePaginationQuery({
   queryKey: queryKeys.discoverCharactersSearch(localeWithDefaultRegion, toRef(() => props.search), toRef(() => props.categoryId)),
-  queryFn: ({ query }) => serverFetch('/api/character/discover', {
+  queryFn: ({ query }) => $fetch('/api/character/discover', {
     params: {
       ...query,
       search: props.search,
       categoryId: props.categoryId,
       locale: localeWithDefaultRegion.value,
     },
+    headers,
   }),
   perPage: 10,
 })
 
-onServerPrefetch(suspense)
+onServerPrefetch(discoverQuery.suspense)
+
+const emptyMessage = computed(() => {
+  if (props.search) {
+    return t(`No results found for "{query}"`, { query: props.search })
+  }
+
+  return t('No results found.')
+})
 </script>
 
 <template>
-  <StyledResource
-    :error="isError"
-    :loading="isLoading"
-    @execute="refetch"
+  <CommonResource
+    :for="discoverQuery"
+    :empty-condition="!discoverQuery.data.value?.pages?.length"
+    :empty-message="emptyMessage"
   >
-    <template v-if="data?.pages?.length">
+    <template #default>
       <DiscoverCharacterItem
-        v-for="character in data?.pages"
+        v-for="character in discoverQuery.data.value?.pages"
         :key="`character-${character.id}`"
         :name="character.name"
         :description="character.description"
@@ -52,17 +54,11 @@ onServerPrefetch(suspense)
         class="w-full"
       />
 
-      <Observable class="w-full min-h-px flex items-center justify-center" :is-connected="hasNextPage" @intersect="fetchNextPage()">
+      <Observable class="w-full min-h-px flex items-center justify-center" :is-connected="discoverQuery.hasNextPage.value" @intersect="discoverQuery.fetchNextPage()">
         <template #default="{ visible }">
-          <Spinner v-if="visible && hasNextPage && isLoading" class="mt-6 text-gray-800" />
+          <Spinner v-if="visible && discoverQuery.hasNextPage.value && discoverQuery.isLoading.value" class="mt-6 text-gray-800" />
         </template>
       </Observable>
     </template>
-
-    <div v-else class="flex flex-col items-center gap-y-4">
-      <p class="text-gray-500 text-sm py-2 px-6 text-center">
-        {{ search ? t(`No results found for "{query}"`, { query: search }) : t('No results found.') }}
-      </p>
-    </div>
-  </StyledResource>
+  </CommonResource>
 </template>

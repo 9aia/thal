@@ -14,7 +14,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div role="button" class="px-3 py-1 flex gap-4 rounded-xs items-center group cursor-pointer">
+  <div role="button" class="flex gap-4 rounded-xs items-center group cursor-pointer">
     <Avatar
       :name="name"
       type="button"

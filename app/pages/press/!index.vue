@@ -5,13 +5,11 @@ import { SubscriptionStatus } from '~~/db/schema'
 
 useAutoRedirect()
 
-const {
-  data,
-  isLoading,
-  isError,
-  refetch,
-} = useServerQuery({
-  queryFn: () => serverFetch('/api/payment/stripe/pricing-data'),
+const headers = useRequestHeaders(['cookie'])
+const pricingQuery = useServerQuery({
+  queryFn: () => $fetch('/api/payment/stripe/pricing-data', {
+    headers,
+  }),
   queryKey: queryKeys.pricingData,
   staleTime: 0,
 })
@@ -44,21 +42,13 @@ const {
             </T>
           </p>
 
-          <Resource :loading="isLoading" :error="isError">
-            <template #loading>
-              <div class="w-full h-full flex items-center justify-center mb-4">
-                <Spinner class="text-gray-800" />
-              </div>
-            </template>
-
-            <template #error>
-              <ErrorFallback :loading="isLoading" centered class="mb-4" @retry="refetch" />
-            </template>
-
-            <template #default>
-              <StripeCreateSessionForm :checkout-status="data?.checkoutStatus || null" :subscription-status="data?.subscriptionStatus || SubscriptionStatus.not_subscribed" class="flex items-center justify-center" />
-            </template>
-          </Resource>
+          <CommonResource :for="pricingQuery" centered-error-fallback>
+            <StripeCreateSessionForm
+              :checkout-status="pricingQuery.data.value?.checkoutStatus || null"
+              :subscription-status="pricingQuery.data.value?.subscriptionStatus || SubscriptionStatus.not_subscribed"
+              class="flex items-center justify-center"
+            />
+          </CommonResource>
         </div>
       </div>
 

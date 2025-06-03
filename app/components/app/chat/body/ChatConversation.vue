@@ -22,9 +22,12 @@ onMounted(() => {
 const route = useRoute()
 const username = computed(() => route.params.username as string)
 
-const historyQuery = useQuery({
+const headers = useRequestHeaders(['cookie'])
+const historyQuery = useServerQuery({
   queryKey: queryKeys.chatHistory(username),
-  queryFn: () => $fetch(`/api/chat/history/${username.value}`),
+  queryFn: () => $fetch(`/api/chat/history/${username.value}`, {
+    headers,
+  }),
 })
 
 function handleDelete(messageId: number, shouldInvalidateChat = true) {

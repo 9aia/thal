@@ -279,53 +279,55 @@ const isAlreadyChatting = computed(() => {
         </form>
       </SettingSection>
 
-      <Resource
-        :loading="loading"
-        :error="isError.value"
+      <CommonResource
+        :for="{
+          data: buildQuery.data,
+          isLoading: buildQuery.isLoading,
+          isError,
+          refetch: buildQuery.refetch,
+        }"
       >
-        <template #default>
-          <SettingSection v-if="buildQuery.data.value">
-            <div
-              class="bg-gradient-2 rounded-2xl p-4 mb-4"
-            >
-              <div class="text-sm w-full h-full relative">
-                <Menu.Root v-if="hasChanges">
-                  <Menu.Trigger class="absolute z-10 -left-2 top-0 btn btn-primary btn-xs bg-transparent" @click.stop.prevent>
-                    {{ viewMode === "preview" ? t('Preview') : t('Original') }}
-                    <Icon class="rotate-180 text-base" name="material-symbols:keyboard-arrow-up-rounded" />
-                  </Menu.Trigger>
+        <SettingSection>
+          <div
+            class="bg-gradient-2 rounded-2xl p-4 mb-4"
+          >
+            <div class="text-sm w-full h-full relative">
+              <Menu.Root v-if="hasChanges">
+                <Menu.Trigger class="absolute z-10 -left-2 top-0 btn btn-primary btn-xs bg-transparent" @click.stop.prevent>
+                  {{ viewMode === "preview" ? t('Preview') : t('Original') }}
+                  <Icon class="rotate-180 text-base" name="material-symbols:keyboard-arrow-up-rounded" />
+                </Menu.Trigger>
 
-                  <Menu.Positioner>
-                    <Menu.Content class="focus:outline-hidden shadow-xs bg-base-100 rounded-box w-64 z-40 p-2">
-                      <Menu.Item v-for="item in items" :id="item.id" :key="item.id" :value="item.id" class="cursor-pointer py-2 px-3 hover:bg-base-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-primary" tabindex="0" @click.stop.prevent="item.onClick">
-                        <MenuItem :is="item" />
-                      </Menu.Item>
-                    </Menu.Content>
-                  </Menu.Positioner>
-                </Menu.Root>
+                <Menu.Positioner>
+                  <Menu.Content class="focus:outline-hidden shadow-xs bg-base-100 rounded-box w-64 z-40 p-2">
+                    <Menu.Item v-for="item in items" :id="item.id" :key="item.id" :value="item.id" class="cursor-pointer py-2 px-3 hover:bg-base-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-primary" tabindex="0" @click.stop.prevent="item.onClick">
+                      <MenuItem :is="item" />
+                    </Menu.Item>
+                  </Menu.Content>
+                </Menu.Positioner>
+              </Menu.Root>
 
-                <DiscardDraftButton
-                  v-if="hasChanges || !isEditing"
-                  class="absolute z-10 -right-2 top-0"
-                  :character-build-id="characterBuildId"
-                  :is-past-due-visible="isPastDueVisible"
-                  :is-editing="isEditing"
-                />
+              <DiscardDraftButton
+                v-if="hasChanges || !isEditing"
+                class="absolute z-10 -right-2 top-0"
+                :character-build-id="characterBuildId"
+                :is-past-due-visible="isPastDueVisible"
+                :is-editing="isEditing"
+              />
 
-                <CharacterShowcase v-if="viewMode === 'preview'" :data="buildQuery.data.value.draft" />
-                <CharacterShowcase v-if="viewMode === 'original'" :data="buildQuery.data.value.character!" />
+              <CharacterShowcase v-if="viewMode === 'preview'" :data="buildQuery.data.value?.draft!" />
+              <CharacterShowcase v-if="viewMode === 'original'" :data="buildQuery.data.value?.character!" />
 
-                <ApproveCharacterDraftForm
-                  :is-editing="isEditing"
-                  :username="buildQuery.data.value.draft.username"
-                  :discoverable="buildQuery.data.value.character?.discoverable"
-                  @approved="characterBuildId = $event"
-                />
-              </div>
+              <ApproveCharacterDraftForm
+                :is-editing="isEditing"
+                :username="buildQuery.data.value?.draft?.username!"
+                :discoverable="buildQuery.data.value?.character?.discoverable"
+                @approved="characterBuildId = $event"
+              />
             </div>
-          </SettingSection>
-        </template>
-      </Resource>
+          </div>
+        </SettingSection>
+      </CommonResource>
     </div>
   </div>
 </template>

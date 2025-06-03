@@ -54,13 +54,15 @@ watch(modelValue, (value) => {
             {{ t("All categories") }}
           </h1>
 
-          <SearchField
-            v-model="values.search"
-            :placeholder="t('Search for categories')"
-            path="search"
-            autofocus
-            class="pointer-events-auto"
-          />
+          <form>
+            <SearchField
+              v-model="values.search"
+              :placeholder="t('Search for categories')"
+              path="search"
+              autofocus
+              class="pointer-events-auto"
+            />
+          </form>
         </header>
 
         <CategoryList

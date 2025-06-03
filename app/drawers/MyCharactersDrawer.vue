@@ -15,12 +15,7 @@ useAutoRedirect({
 
 const localWithDefaultRegion = useLocaleDefaultRegion()
 
-const {
-  data: characters,
-  isPending,
-  isError,
-  refetch,
-} = useQuery({
+const myCharactersQuery = useQuery({
   queryKey: queryKeys.myCharacters,
   queryFn: () => $fetch('/api/character', {
     query: {
@@ -71,15 +66,11 @@ async function handleGoToChat(username: string) {
             />
           </Teleport>
 
-          <StyledResource
-            :loading="isPending"
-            :error="isError"
-            @execute="refetch"
-          >
+          <CommonResource :for="myCharactersQuery">
             <div class="h-full">
               <ul>
                 <li
-                  v-for="character in characters"
+                  v-for="character in myCharactersQuery.data.value"
                   :key="`character-${character.id}`"
                   class="group"
                 >
@@ -95,7 +86,7 @@ async function handleGoToChat(username: string) {
                 </li>
               </ul>
             </div>
-          </StyledResource>
+          </CommonResource>
 
           <div>
             <ul>

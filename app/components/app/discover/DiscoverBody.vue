@@ -42,14 +42,14 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
 <template>
   <main class="bg-white flex-1 flex items-start focus:outline-hidden overflow-auto">
     <div class="mx-auto pb-4">
-      <section class="px-4 pt-4 mb-4">
+      <form class="px-4 pt-4 mb-4">
         <SearchField
           v-model="search"
           :placeholder="t('Search for characters')"
           path="search"
           autofocus
         />
-      </section>
+      </form>
 
       <section>
         <CategoryPanel v-model="categoryId">
