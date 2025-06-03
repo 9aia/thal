@@ -160,8 +160,8 @@ const isPastDueVisible = computed(() => {
 const viewMode = ref<CharacterBuilderEditViewMode>('preview')
 
 const items: MenuItemType[] = [
-  { id: 'preview', name: t('Preview'), icon: 'material-symbols:preview-outline', description: t('How it will look after approval'), onClick: () => viewMode.value = 'preview' },
-  { id: 'original', name: t('Original'), icon: 'material-symbols:history-edu-outline', description: t('How it looked before editing'), onClick: () => viewMode.value = 'original' },
+  { id: 'preview', name: t('Preview'), icon: 'material-symbols:history-edu-outline-rounded', description: t('How it will look after approval'), onClick: () => viewMode.value = 'preview' },
+  { id: 'original', name: t('Original'), icon: 'material-symbols:history-edu-rounded', description: t('How it looked before editing'), onClick: () => viewMode.value = 'original' },
 ]
 
 const hasChanges = computed(() => {
@@ -189,6 +189,13 @@ function handleGoToChat() {
 
   navigateTo(`/app/chat/${editingUsername.value}`)
 }
+
+const route = useRoute()
+const username = computed(() => route.params.username as string)
+const isAlreadyChatting = computed(() => {
+  // check if username is in the url matches with the character username
+  return username.value === editingUsername.value
+})
 </script>
 
 <template>
@@ -213,7 +220,7 @@ function handleGoToChat() {
         <form action="/api/payment/stripe/create-portal-session" method="POST">
           <Button size="xs" class="bg-yellow-500 rounded-full">
             <span class="flex text-black items-center justify-center gap-1">
-              <Icon name="material-symbols:subscriptions-outline" />
+              <Icon name="material-symbols:subscriptions-outline-rounded" />
               <span class="whitespace-nowrap">{{ t("Renew Thal") }}</span>
             </span>
           </Button>
@@ -221,54 +228,54 @@ function handleGoToChat() {
       </div>
     </AppNote>
 
-    <div class="px-4 py-4 flex-1 overflow-y-auto bg-white space-y-4">
+    <div class="px-4 flex-1 overflow-y-auto bg-white space-y-4">
       <template v-if="isEditing">
-        <div class="px-1 text-sm text-gray-400">
+        <div class="px-4 text-xs text-gray-400 flex justify-between items-center">
           <T
-            text="You are editing {name}."
+            text="You are editing: {name}"
             :values="{ name: true }"
           >
             <template #name>
+              <br>
               <button class="text-blue-500" @click="navigateTo(`/app/chat/${buildQuery.data.value?.character!.username}`)">
                 {{ buildQuery.data.value?.character!.name }}
               </button>
             </template>
           </T>
+
+          <Button
+            v-if="isEditing && !isAlreadyChatting"
+            class="btn btn-xs btn-dash btn-secondary"
+            icon-size="md"
+            icon="material-symbols:chat-paste-go-outline-rounded"
+            :disabled="loading"
+            @click="handleGoToChat"
+          >
+            {{ t("Open chat") }}
+          </Button>
         </div>
       </template>
 
       <SettingSection>
-        <form class="flex flex-col space-y-4" @submit="submit">
+        <form class="flex flex-col gap-2" @submit="submit">
           <Textarea
             autofocus
             path="prompt"
+            textarea-class="textarea-sm textarea-primary w-full"
+            :placeholder="t('A wise elder sharing life stories')"
             :label="t('Describe your character')"
             :disabled="isPastDueVisible"
           />
 
-          <div class="flex gap-x-2 flex-wrap">
-            <Button
-              :loading="loading"
-              color="accent"
-              variant="outline"
-              icon-size="md"
-              icon="material-symbols:wand-stars-outline-rounded"
-              :disabled="!form.values.prompt || hasErrors || isPastDueVisible"
-            >
-              {{ !!buildQuery.data.value ? t("Regenerate") : t("Generate") }}
-            </Button>
-
-            <Button
-              v-if="isEditing"
-              color="secondary"
-              icon-size="md"
-              icon="material-symbols:chat-paste-go-outline"
-              :disabled="loading"
-              @click="handleGoToChat"
-            >
-              {{ t("Go to chat") }}
-            </Button>
-          </div>
+          <Button
+            :loading="loading"
+            class="btn btn-soft btn-accent w-fit"
+            icon-size="md"
+            icon="material-symbols:wand-stars-outline-rounded"
+            :disabled="!form.values.prompt || hasErrors || isPastDueVisible"
+          >
+            {{ !!buildQuery.data.value ? t("Regenerate") : t("Generate") }}
+          </Button>
         </form>
       </SettingSection>
 
@@ -279,37 +286,43 @@ function handleGoToChat() {
         <template #default>
           <SettingSection v-if="buildQuery.data.value">
             <div
-              class="bg-gradient-2 rounded-2xl p-4 mb-2"
+              class="bg-gradient-2 rounded-2xl p-4 mb-4"
             >
-              <div v-if="hasChanges" class="text-sm p-0 flex gap-1 justify-end relative hover:cursor-pointer">
-                <Menu.Root>
-                  <Menu.Trigger class="absolute z-10 -right-2 top-0 btn btn-sm h-fit rounded-full pr-2 pl-3 py-1 bg-transparent border-none shadow-none flex items-center justify-center" @click.stop.prevent>
+              <div class="text-sm w-full h-full relative">
+                <Menu.Root v-if="hasChanges">
+                  <Menu.Trigger class="absolute z-10 -left-2 top-0 btn btn-primary btn-xs bg-transparent" @click.stop.prevent>
                     {{ viewMode === "preview" ? t('Preview') : t('Original') }}
-
-                    <Icon class="rotate-180 text-base" name="material-symbols:keyboard-arrow-up" />
+                    <Icon class="rotate-180 text-base" name="material-symbols:keyboard-arrow-up-rounded" />
                   </Menu.Trigger>
 
                   <Menu.Positioner>
                     <Menu.Content class="focus:outline-hidden shadow-xs bg-base-100 rounded-box w-64 z-40 p-2">
-                      <Menu.Item v-for="item in items" :id="item.id" :key="item.id" :value="item.id" class="py-2 px-3 hover:bg-base-200 rounded-lg" @click.stop.prevent="item.onClick">
+                      <Menu.Item v-for="item in items" :id="item.id" :key="item.id" :value="item.id" class="cursor-pointer py-2 px-3 hover:bg-base-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-primary" tabindex="0" @click.stop.prevent="item.onClick">
                         <MenuItem :is="item" />
                       </Menu.Item>
                     </Menu.Content>
                   </Menu.Positioner>
                 </Menu.Root>
+
+                <DiscardDraftButton
+                  v-if="hasChanges || !isEditing"
+                  class="absolute z-10 -right-2 top-0"
+                  :character-build-id="characterBuildId"
+                  :is-past-due-visible="isPastDueVisible"
+                  :is-editing="isEditing"
+                />
+
+                <CharacterShowcase v-if="viewMode === 'preview'" :data="buildQuery.data.value.draft" />
+                <CharacterShowcase v-if="viewMode === 'original'" :data="buildQuery.data.value.character!" />
+
+                <ApproveCharacterDraftForm
+                  :is-editing="isEditing"
+                  :username="buildQuery.data.value.draft.username"
+                  :discoverable="buildQuery.data.value.character?.discoverable"
+                  @approved="characterBuildId = $event"
+                />
               </div>
-
-              <CharacterShowcase v-if="viewMode === 'preview'" :data="buildQuery.data.value.draft" />
-              <CharacterShowcase v-if="viewMode === 'original'" :data="buildQuery.data.value.character!" />
             </div>
-
-            <ApproveCharacterDraftForm
-              :should-show-discard="hasChanges || !isEditing"
-              :is-editing="isEditing"
-              :username="buildQuery.data.value.draft.username"
-              :discoverable="buildQuery.data.value.character?.discoverable"
-              @approved="characterBuildId = $event"
-            />
           </SettingSection>
         </template>
       </Resource>

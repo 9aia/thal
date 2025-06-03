@@ -7,6 +7,7 @@ type Props = SafeProps<InputHTMLAttributes> & {
   path: string
   disabled?: boolean
   inputClass?: string
+  label?: string
 }
 
 const props = defineProps<Props>()
@@ -15,20 +16,17 @@ const { value, handleBlur } = useField(props.path)
 </script>
 
 <template>
-  <div class="form-control">
-    <label class="label" :class="{ 'cursor-pointer': !disabled }">
-      <span class="label-text flex gap-1 items-center">
-        <slot />
-      </span>
-
+  <fieldset class="fieldset">
+    <label class="label text-black">
       <input
         v-model="value"
-        class="checkbox"
-        :class="inputClass"
         type="checkbox"
+        class="checkbox"
         :disabled="disabled"
+        :class="inputClass"
         @blur="handleBlur"
       >
+      {{ label }}
     </label>
-  </div>
+  </fieldset>
 </template>

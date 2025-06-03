@@ -7,7 +7,6 @@ import { characterBuildId, contactViewUsername } from '~/store'
 import { CONFLICT_STATUS_CODE } from '~/utils/web'
 
 const props = defineProps<{
-  shouldShowDiscard: boolean
   discoverable?: boolean
   username: string
   isEditing: boolean
@@ -91,22 +90,6 @@ const approveMutation = useMutation({
   },
 })
 
-const discardMutation = useMutation({
-  mutationFn: () => $fetch('/api/character/draft', {
-    method: 'DELETE',
-    body: {
-      characterId: characterBuildId.value || undefined,
-    },
-  }),
-  onSuccess: () => {
-    queryClient.resetQueries({
-      queryKey: queryKeys.characterDraft(localWithDefaultRegion),
-    })
-
-    toast.success(t('Character has been discarded successfully.'))
-  },
-})
-
 const submit = form.handleSubmit(values => approveMutation.mutate(values))
 
 const isPastDueVisible = computed(() => {
@@ -119,35 +102,25 @@ const isPastDueVisible = computed(() => {
 </script>
 
 <template>
-  <form class="space-y-4" @submit.prevent="submit">
-    <Checkbox path="discoverable" input-class="checkbox-primary" :disabled="isPastDueVisible">
-      {{
-        t('Discoverable')
-      }}
-    </Checkbox>
+  <form class="flex justify-between items-center space-y-4" @submit.prevent="submit">
+    <CheckboxField
+      path="discoverable"
+      input-class="checkbox-primary"
+      class="mb-0"
+      :disabled="isPastDueVisible"
+      :label="t('Discoverable')"
+    />
 
     <div class="flex items-center space-x-2">
       <Button
         type="submit"
-        class="btn bg-primary text-black hover:bg-cyan-600 shadow-none"
+        class="btn btn-sm btn-primary"
         icon-size="md"
         icon="material-symbols:order-approve-outline"
         :loading="approveMutation.isPending.value"
         :disabled="isPastDueVisible"
       >
         {{ isEditing ? t("Approve edition") : t("Approve character") }}
-      </Button>
-
-      <Button
-        v-if="shouldShowDiscard"
-        class="btn bg-transparent text-orange-500 hover:bg-orange-500/10 hover:text-orange-500 shadow-none"
-        icon-size="md"
-        icon="material-symbols:cancel-outline"
-        :loading="discardMutation.isPending.value"
-        :disabled="isPastDueVisible"
-        @click="discardMutation.mutate()"
-      >
-        {{ isEditing ? t("Discard edition") : t("Discard character") }}
       </Button>
     </div>
   </form>

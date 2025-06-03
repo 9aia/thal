@@ -13,9 +13,12 @@ type Props = SafeProps<TextareaHTMLAttributes> & {
   rules?: MaybeRef<RuleExpression<string>>
   mandatory?: boolean
   feedback?: string | boolean
+  textareaClass?: string
 }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  textareaClass: '',
+})
 const label = useSlotContent(() => props.label)
 
 const { value, errorMessage, handleBlur } = useField(props.path, props.rules)
@@ -34,20 +37,19 @@ defineExpose({
 </script>
 
 <template>
-  <label ref="labelRef" class="form-control w-full">
-    <div v-if="label" class="label">
-      <span class="label-text">
-        {{ label }}
-      </span>
+  <fieldset ref="labelRef" class="fieldset">
+    <legend v-if="label" class="fieldset-legend ml-4">
+      {{ label }}
       <span
         v-if="mandatory"
         class="absolute bottom-1/2 translate-y-1/2 right-[-0.4em] text-red-500"
       >*</span>
-    </div>
+    </legend>
 
     <textarea
       v-model="value"
-      class="textarea textarea-sm bg-gray-50 textarea-ghost h-40 leading-[1.6em] w-full resize-none"
+      class="textarea"
+      :class="textareaClass"
       :placeholder="placeholder"
       :disabled="disabled"
       @blur="handleBlur"
@@ -66,5 +68,5 @@ defineExpose({
         </slot>
       </span>
     </div>
-  </label>
+  </fieldset>
 </template>
