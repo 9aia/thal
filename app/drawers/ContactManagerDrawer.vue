@@ -139,9 +139,11 @@ const submit = form.handleSubmit(() => isEditing.value
       <SettingSection :title="t('General Information')">
         <form class="block space-y-2" @submit="submit">
           <TextField
+            input-class="input px-4 rounded-full"
             autofocus
             path="name"
             :label="t('Name')"
+            :placeholder="t('John Doe')"
             :rules="yupify(nameSchema, t(
               `Name must contain between {min} and {max} characters.`,
               nameSchemaChecks,
@@ -149,8 +151,10 @@ const submit = form.handleSubmit(() => isEditing.value
           />
           <TextField
             v-if="!isEditing"
+            input-class="input px-4 rounded-full"
             path="username"
             :label="t('Username')"
+            :placeholder="t('john_doe')"
             autocapitalize="none"
             autocomplete="off"
             :rules="yupify(usernameSchema, t(
@@ -167,11 +171,9 @@ const submit = form.handleSubmit(() => isEditing.value
             </template>
           </TextField>
 
-          <div class="h-2" />
-
           <Button
             :loading="loading"
-            class="btn btn-primary"
+            class="btn btn-primary float-right mt-4"
             :disabled="hasErrors"
           >
             <Icon name="material-symbols:person-add-outline-rounded" />

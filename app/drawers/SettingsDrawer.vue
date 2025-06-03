@@ -82,7 +82,7 @@ useAutoRedirect({
         </SettingSection>
 
         <section>
-          <button class="underline font-bold text-warning mb-2" @click="logout">
+          <button class="underline text-warning mb-2" @click="logout">
             {{ t("Logout") }}
           </button>
         </section>

@@ -27,7 +27,7 @@ const isCategoryModalOpen = ref(false)
     <slot name="header" />
 
     <button
-      class="text-blue-500 text-xs float-right cursor-pointer border border-transparent focus:border-b-2 focus:border-b-blue-500 focus:outline-hidden"
+      class="text-blue-500 text-xs float-right cursor-pointer border-b border-transparent focus:border-b-2 focus:border-b-blue-500 focus:outline-hidden"
       @click="isCategoryModalOpen = true"
     >
       {{ t("View all") }}

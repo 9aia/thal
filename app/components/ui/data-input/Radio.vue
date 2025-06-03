@@ -7,29 +7,31 @@ type Props = SafeProps<InputHTMLAttributes> & {
   path: string
   value: string
   disabled?: boolean
+  inputClass?: string
+  label?: string
 }
 
 const props = defineProps<Props>()
 
-const { value, handleBlur } = useField(props.path, {}, { type: 'radio' })
+const { value, handleBlur } = useField(props.path, {}, {
+  type: 'radio',
+})
 </script>
 
 <template>
-  <div class="form-control">
-    <label class="label" :class="{ 'cursor-pointer': !disabled }">
-      <span class="label-text flex gap-1 items-center">
-        <slot />
-      </span>
-
+  <fieldset class="fieldset">
+    <label class="label text-black">
       <input
         v-model="value"
         :name="path"
         :value="props.value"
-        class="radio radio-primary"
         type="radio"
+        class="radio"
+        :class="inputClass"
         :disabled="disabled"
         @blur="handleBlur"
       >
+      {{ label }}
     </label>
-  </div>
+  </fieldset>
 </template>

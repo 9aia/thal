@@ -14,7 +14,7 @@ onMounted(() => {
 <template>
   <Modal v-model="isOpen" show-close-button :confirm-text="t('Continue')" @confirm="isOpen = false">
     <template #default>
-      <h1 class="font-bold text-2xl mb-2 mt-4 text-gray-900">
+      <h1 class="text-2xl mb-2 mt-4 text-gray-900">
         {{ t("Account Reactivated") }}
       </h1>
 

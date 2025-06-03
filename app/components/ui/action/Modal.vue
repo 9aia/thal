@@ -70,7 +70,7 @@ watch([visible, dialog], () => {
               <Button
                 v-if="props.showCancel"
                 value="false"
-                class="btn"
+                class="btn btn-neutral"
                 @click.prevent="visible = false"
               >
                 {{ props.cancelText }}
@@ -79,7 +79,7 @@ watch([visible, dialog], () => {
               <Button
                 v-if="!props.hideConfirm"
                 value="true"
-                class="btn-primary"
+                class="btn btn-primary"
                 :loading="loading"
                 @click.prevent="emit('confirm')"
               >

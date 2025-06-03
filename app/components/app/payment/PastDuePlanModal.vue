@@ -8,7 +8,7 @@ const modelValue = defineModel<boolean>()
 <template>
   <Modal v-model="modelValue">
     <template #default>
-      <h1 class="font-bold text-2xl mb-2 mt-4 text-gray-900">
+      <h1 class="text-2xl mb-2 mt-4 text-gray-900">
         {{ t("Your Subscription is Overdue") }}
       </h1>
 

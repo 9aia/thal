@@ -227,6 +227,10 @@
   @apply border-none rounded-3xl p-4 h-40 leading-[1.6em] resize-none;
 }
 
+@utility radio {
+  @apply bg-gray-50 border-none shadow-none;
+}
+
 @utility fieldset-legend {
   @apply font-normal; 
 }

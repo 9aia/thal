@@ -52,22 +52,31 @@ const submit = form.handleSubmit(async (data) => {
 </script>
 
 <template>
-  <Modal v-model="isOpen" :loading="loading" :confirm-text="t('Save')" @confirm="submit">
+  <Modal
+    v-model="isOpen"
+    :loading="loading"
+    :confirm-text="t('Save')"
+    show-close-button @confirm="submit"
+  >
     <template #default>
-      <h1 class="font-bold text-2xl mb-2 mt-4 text-gray-900">
+      <h1 class="text-sm mb-4 mt-4 text-gray-900">
         {{ t("Select the interface language") }}
       </h1>
 
-      <p class="font-gray-600 mb-4">
+      <p class="text-sm text-gray-500 mb-4">
         {{ t("Thal allows you to tailor your preferences to suit your needs, whether you prefer to navigate in your native language or challenge yourself with English.") }}
       </p>
 
-      <div class="h-[200px] px-2 overflow-auto">
-        <Radio v-for="item in LOCALES" :key="item.id" path="locale" :value="item.id" :label="item.name">
-          <Icon>{{ item.icon }}</Icon>
-          {{ item.name }}
-        </Radio>
-      </div>
+      <form class="h-[200px] px-2 py-4 overflow-y-auto">
+        <Radio
+          v-for="item in LOCALES"
+          :key="item.id"
+          :value="item.id"
+          path="locale"
+          :label="item.name"
+          input-class="radio-primary"
+        />
+      </form>
     </template>
   </Modal>
 </template>

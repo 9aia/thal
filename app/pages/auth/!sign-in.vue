@@ -11,8 +11,11 @@ import { T, t } from '@psitta/vue'
 
       <div class="flex items-center justify-center">
         <form action="/api/auth/google" method="GET">
-          <Button type="submit" class="bg-cyan-500 border-none mt-2 w-full flex gap-1">
-            <GoogleLogo />
+          <Button
+            type="submit"
+            class="btn btn-neutral mt-2"
+          >
+            <Icon name="logos:google-icon" />
             {{ t('Continue with Google') }}
           </Button>
         </form>

@@ -22,7 +22,7 @@ watch(modelValue, async (value) => {
     no-padding
     content-class="pb-6"
   >
-    <h1 class="px-6 pt-6 mb-2 mt-4 font-bold text-2xl text-gray-900">
+    <h1 class="px-6 pt-6 mb-2 mt-4 text-sm text-black">
       {{ t("What's New") }}
     </h1>
 

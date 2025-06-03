@@ -20,7 +20,7 @@ const { t } = useI18nExperimental()
     class="w-full sm:w-auto sm:h-auto p-4"
     :class="centered ? 'flex flex-col items-center justify-center text-center' : ''"
   >
-    <h1 class="text-error text-sm font-bold mb-2">
+    <h1 class="text-error text-sm mb-2">
       {{ t('Oops! Something Went Wrong') }}
     </h1>
 
