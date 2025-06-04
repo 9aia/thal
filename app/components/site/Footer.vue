@@ -37,10 +37,10 @@ const logout = useLogout()
           <A v-if="user" class="flex" href="/settings/account">
             <Icon name="material-symbols:settings-outline" />
           </A>
-          <button class="flex" @click="localeModal.open()">
+          <button class="flex cursor-pointer" @click="localeModal.open()">
             <Icon name="material-symbols:language" />
           </button>
-          <button v-if="user" class="flex text-orange-500" @click="logout()">
+          <button v-if="user" class="cursor-pointer flex text-orange-500" @click="logout()">
             <Icon name="material-symbols:logout" />
           </button>
         </div>

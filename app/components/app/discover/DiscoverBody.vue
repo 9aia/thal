@@ -42,24 +42,26 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
 <template>
   <main class="bg-white flex-1 flex w-fullitems-start focus:outline-hidden overflow-auto">
     <div class="flex flex-col pb-4 w-full sm:w-auto sm:mx-auto">
-      <form class="px-5 pt-4">
-        <SearchField
-          v-model="search"
-          :placeholder="t('Search for characters')"
-          path="search"
-          autofocus
-        />
-      </form>
+      <div class="sticky top-0 z-1 bg-white">
+        <form class="px-5 pt-4">
+          <SearchField
+            v-model="search"
+            :placeholder="t('Search for characters')"
+            path="search"
+            autofocus
+          />
+        </form>
 
-      <SettingSection body-class="space-y-2 mb-4">
-        <CategoryPanel v-model="categoryId" class="">
-          <template #header>
-            <SettingSectionTitle>
-              {{ t("Categories") }}
-            </SettingSectionTitle>
-          </template>
-        </CategoryPanel>
-      </SettingSection>
+        <SettingSection body-class="space-y-2 mb-4">
+          <CategoryPanel v-model="categoryId">
+            <template #header>
+              <SettingSectionTitle>
+                {{ t("Categories") }}
+              </SettingSectionTitle>
+            </template>
+          </CategoryPanel>
+        </SettingSection>
+      </div>
 
       <SettingSection :title="t('Characters')" title-class="px-5" body-class="px-5 space-y-2">
         <div class="pb-2 overflow-y-auto flex flex-col items-center w-full sm:w-[500px] lg:w-[600px]">
@@ -78,7 +80,7 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
             </template>
           </Suspense>
 
-          <div class="text-center mt-24 mb-24">
+          <div class="flex flex-col items-center text-center mt-24 mb-24">
             <h3 class="text-lg mb-2">
               {{ t('Create Your Own Character') }}
             </h3>

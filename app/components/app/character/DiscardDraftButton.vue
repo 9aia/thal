@@ -34,7 +34,7 @@ const discardMutation = useMutation({
   <Button
     class="btn btn-xs btn-warning btn-outline"
     icon-size="md"
-    icon="material-symbols:cancel-outline"
+    icon="material-symbols:cancel-outline-rounded"
     icon-position="right"
     :loading="discardMutation.isPending.value"
     :disabled="isPastDueVisible"

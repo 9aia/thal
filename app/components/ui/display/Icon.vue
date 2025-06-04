@@ -16,7 +16,7 @@ const nameNormalized = computed(() => {
     return `material-symbols:${name.value.trim()}`
   }
 
-  return name.value.trim()
+  return name.value?.trim()
 })
 
 const icon = tv({

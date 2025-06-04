@@ -19,7 +19,7 @@ const isError = computed(() => toValue(props.for.isError))
 const isEmpty = computed(() =>
   props.emptyCondition !== undefined
     ? props.emptyCondition
-    : !data.value?.length)
+    : Array.isArray(data.value) && !data.value?.length)
 const isNotFound = computed(() =>
   props.notFoundCondition !== undefined
     ? props.notFoundCondition
@@ -39,7 +39,7 @@ const isNotFound = computed(() =>
       @retry="retry"
     />
   </template>
-  <slot v-else-if="Array.isArray(data) && isEmpty" name="empty" />
+  <slot v-else-if="isEmpty" name="empty" />
   <slot v-else-if="isNotFound" name="not-found" />
   <slot v-else />
 </template>

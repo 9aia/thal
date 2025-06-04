@@ -33,6 +33,6 @@ const isExternal = computed(() => {
     <span class="group-hover:underline">
       <slot />
     </span>
-    <Icon v-if="isExternal" name="material-symbols:north-east" class="text-base" />
+    <Icon v-if="isExternal" name="material-symbols:north-west-rounded" class="text-base rotate-90" />
   </A>
 </template>

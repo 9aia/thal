@@ -29,14 +29,18 @@ const { t } = useI18nExperimental()
     </p>
 
     <div v-if="isRetryAvailable" class="mb-4">
-      <Button
-        class="btn-warning btn-outline mt-2 py-2 flex gap-1"
-        :disabled="disabled"
-        :loading="loading"
-        @click="emit('retry')"
-      >
-        {{ t('Try again') }}
-      </Button>
+      <KeepAlive>
+        <Button
+          class="btn btn-warning btn-soft"
+          :disabled="disabled"
+          :loading="loading"
+          icon="material-symbols:refresh-rounded"
+          :reset-in="3"
+          @click="emit('retry')"
+        >
+          {{ t('Try again') }}
+        </Button>
+      </KeepAlive>
     </div>
 
     <p class="text-xs text-gray-600">

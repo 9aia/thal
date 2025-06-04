@@ -116,7 +116,7 @@ const isPastDueVisible = computed(() => {
         type="submit"
         class="btn btn-sm btn-primary"
         icon-size="md"
-        icon="material-symbols:order-approve-outline"
+        icon="material-symbols:order-approve-outline-rounded"
         :loading="approveMutation.isPending.value"
         :disabled="isPastDueVisible"
       >

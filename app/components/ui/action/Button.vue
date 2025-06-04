@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { ButtonHTMLAttributes } from 'vue'
 import { useCountdown } from '@vueuse/core'
-import type { MaybePromise } from 'vee-validate'
+import { tv } from 'tailwind-variants'
+import type { ButtonHTMLAttributes } from 'vue'
 import type { SafeProps } from '~/types'
 
 const props = withDefaults(defineProps<Props & {
@@ -20,43 +20,31 @@ const props = withDefaults(defineProps<Props & {
 }>(), {
   as: 'button',
   noDisableOnLoading: false,
-  iconSize: 'md',
   iconPosition: 'left',
   resetIn: 0,
 })
 
-const emit = defineEmits<{
-  (e: 'click'): any
-}>()
+const emit = defineEmits(['click'])
+const { v } = useI18nExperimental()
 
+type Props = SafeProps<ButtonHTMLAttributes>
 const buttonElement = useTemplateRef<HTMLButtonElement>('buttonElement')
 
 defineExpose({
   buttonElement,
 })
 
-const countdown = toRef(() => props.resetIn)
-const { start } = useCountdown(countdown, {
-  onComplete: () => {
-    emit('click')
-  },
+const countdown = useCountdown(toRef(() => props.resetIn))
+
+onActivated(() => {
+  countdown.start(countdown.remaining.value)
 })
-
-const iconSize = computed(() => {
-  const options = {
-    xs: 'text-xs',
-    sm: 'text-sm',
-    md: 'text-base',
-    lg: 'text-lg',
-    xl: 'text-xl',
-  }
-
-  return options[props.iconSize]
-})
-
-type Props = SafeProps<ButtonHTMLAttributes>
 
 const isDisabled = computed(() => {
+  if (countdown.remaining.value > 0 && countdown.isActive.value) {
+    return true
+  }
+
   if (props.disabled) {
     return props.disabled
   }
@@ -65,11 +53,33 @@ const isDisabled = computed(() => {
     return props.loading
   }
 
-  if (countdown.value > 0) {
-    return true
-  }
-
   return false
+})
+
+function handleClick() {
+  countdown.start()
+  emit('click')
+}
+
+const remainingFormatted = computed(() => v([countdown.remaining.value, {
+  style: 'unit',
+  unit: 'second',
+  unitDisplay: 'narrow',
+}]))
+
+const iconStyles = tv({
+  variants: {
+    size: {
+      xs: 'text-xs',
+      sm: 'text-sm',
+      md: 'text-base',
+      lg: 'text-lg',
+      xl: 'text-xl',
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+  },
 })
 </script>
 
@@ -77,22 +87,18 @@ const isDisabled = computed(() => {
   <button
     ref="buttonElement"
     :disabled="isDisabled"
-    @click="countdown > 0 ? start() : emit('click')"
+    class="flex items-center justify-center gap-2"
+    :class="{ 'flex-row-reverse': iconPosition === 'right' }"
+    @click="handleClick"
   >
-    <div v-if="icon">
-      <span class="flex items-center justify-center gap-2" :class="{ 'flex-row-reverse': iconPosition === 'right' }">
-        <span v-if="loading" class="loading loading-xs loading-spinner" />
-        <Icon v-else-if="icon" :name="icon" :class="iconSize" />
+    <span v-if="loading" class="loading loading-xs loading-spinner" />
+    <Icon v-else-if="success" name="material-symbols:check-rounded" />
+    <Icon v-else-if="icon" :name="icon" :class="iconStyles({ size: iconSize })" />
 
-        <slot />
-        <span v-if="countdown > 0">({{ countdown }}s)</span>
-      </span>
-    </div>
-    <slot v-else-if="!loading" />
-    <span v-else-if="loading" class="loading loading-xs loading-spinner" />
-    <span v-else-if="success" class="material-symbols-outlined">
-      check
+    <slot />
+
+    <span v-if="countdown.remaining.value > 0 && countdown.isActive.value">
+      ({{ remainingFormatted }})
     </span>
-    <span v-if="countdown > 0 && !icon">({{ countdown }}s)</span>
   </button>
 </template>

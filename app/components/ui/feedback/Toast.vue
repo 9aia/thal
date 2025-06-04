@@ -47,10 +47,10 @@ interface Icons {
   info: string
 }
 const icons: Icons = {
-  success: 'material-symbols:check-circle-outline',
-  warning: 'material-symbols:warning-outline',
-  error: 'material-symbols:error-outline',
-  info: 'material-symbols:info-outline',
+  success: 'material-symbols:check-circle-outline-rounded',
+  warning: 'material-symbols:warning-outline-rounded',
+  error: 'material-symbols:error-outline-rounded',
+  info: 'material-symbols:info-outline-rounded',
 }
 const icon = computed(() => toast.icon.value || icons[toast.type.value || 'info'])
 
@@ -102,7 +102,7 @@ watch(toast.update, () => {
             class="w-5 h-5 flex items-center justify-center cursor-pointer"
             @click="toast.close()"
           >
-            <Icon name="material-symbols:close" class="text-gray-800" />
+            <Icon name="material-symbols:close-rounded" class="text-gray-800" />
           </button>
         </div>
 

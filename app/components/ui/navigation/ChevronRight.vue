@@ -1,9 +1,3 @@
-<script setup lang="ts">
-import Icon from '../display/Icon.vue'
-</script>
-
 <template>
-  <Icon class="text-gray-800 transition-all transition-300 group-hover:translate-x-2">
-    material-symbols:chevron-right
-  </Icon>
+  <Icon name="material-symbols:chevron-right-rounded" class="text-gray-800 transition-all transition-300 group-hover:translate-x-2" />
 </template>

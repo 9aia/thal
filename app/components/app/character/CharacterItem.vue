@@ -25,10 +25,10 @@ const category = computed(() => {
 const copyUsername = useCopyUsername(toRef(() => props.username))
 
 const items: MenuItemType[] = [
-  { id: 'edit-character', name: 'Edit character', icon: 'material-symbols:person-edit-outline', onClick: () => emit('edit') },
-  { id: 'share-character', name: 'Share character', icon: 'material-symbols:ios-share', onClick: () => copyUsername() },
-  { id: 'chat', name: 'Message character', icon: 'material-symbols:chat-outline', onClick: () => emit('chat') },
-  { id: 'delete-character', name: 'Delete character', icon: 'material-symbols:delete-outline', onClick: () => emit('delete'), meaning: 'danger' },
+  { id: 'edit-character', name: 'Edit character', icon: 'material-symbols:person-edit-outline-rounded', onClick: () => emit('edit') },
+  { id: 'share-character', name: 'Share character', icon: 'material-symbols:ios-share-rounded', onClick: () => copyUsername() },
+  { id: 'chat', name: 'Message character', icon: 'material-symbols:chat-outline-rounded', onClick: () => emit('chat') },
+  { id: 'delete-character', name: 'Delete character', icon: 'material-symbols:delete-outline-rounded', onClick: () => emit('delete'), meaning: 'danger' },
 ]
 </script>
 
@@ -68,9 +68,7 @@ const items: MenuItemType[] = [
       >
         <Menu.Root>
           <Menu.Trigger class="btn btn-circle btn-ghost text-gray-800" @click.stop.prevent>
-            <Icon>
-              material-symbols:more-vert
-            </Icon>
+            <Icon name="material-symbols:more-vert" />
           </Menu.Trigger>
           <Menu.Positioner>
             <Menu.Content class="shadow-xs bg-base-100 rounded-box w-52 z-40 p-2 focus:outline-hidden">

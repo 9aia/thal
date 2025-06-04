@@ -17,7 +17,7 @@ const isForbidden = computed(() => props.error.statusCode === 403)
 <template>
   <div class="card w-96 bg-gray-800 text-primary-content">
     <div class="card-body items-center text-center">
-      <h2 class="card-title text-teal-500">
+      <h2 class="card-title text-accent">
         <slot
           name="title"
           :is-not-found="isNotFound"
@@ -50,10 +50,10 @@ const isForbidden = computed(() => props.error.statusCode === 403)
         >
           <Button
             v-if="!isNotFound"
-            class="btn-primary"
+            class="btn btn-neutral"
             @click="emit('tryAgain')"
           >
-            <Icon name="material-symbols:refresh" />
+            <Icon name="material-symbols:refresh-rounded" />
             {{ t('Try again') }}
           </Button>
         </slot>

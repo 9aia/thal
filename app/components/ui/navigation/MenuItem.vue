@@ -68,9 +68,7 @@ const descriptionStyles = tv({
       </div>
     </div>
 
-    <Icon v-if="is.type === 'external'" class="text-gray-800">
-      material-symbols:north-east
-    </Icon>
+    <Icon v-if="is.type === 'external'" name="material-symbols:north-west-rounded" class="rotate-90 text-gray-800" />
     <ChevronRight v-if="is.type === 'accordion'" />
   </div>
 </template>

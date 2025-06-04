@@ -6,6 +6,10 @@ async function goToDiscover() {
   isRootDrawerOpen.value = false
   await navigateTo('/app/discover')
 }
+
+function print() {
+  console.log('click')
+}
 </script>
 
 <template>
