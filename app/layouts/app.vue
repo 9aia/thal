@@ -23,7 +23,7 @@ onMounted(() => {
       <div class="drawer-content flex flex-col h-dvh">
         <div class="drawer drawer-end">
           <input id="my-drawer-4" v-model="rightDrawer" type="checkbox" class="drawer-toggle">
-          <div class="drawer-content flex flex-col h-dvh bg-white">
+          <div class="drawer-content flex flex-col h-dvh bg-white overflow-auto">
             <slot name="content" />
           </div>
           <div class="drawer-side">

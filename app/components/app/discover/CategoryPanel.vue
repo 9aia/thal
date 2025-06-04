@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
 import { useRouteQuery } from '@vueuse/router'
+import { tv } from 'tailwind-variants'
 import { type CategorySlug, categories } from '~/constants/discover'
+
+defineProps<{
+  headerClass?: string
+  bodyClass?: string
+}>()
 
 const categoryId = defineModel<number>()
 const categorySlug = computed(() => categories.find(c => c.id === categoryId.value)!.slug)
@@ -20,10 +26,18 @@ function toggleCategory(id: number) {
 }
 
 const isCategoryModalOpen = ref(false)
+
+const headerStyles = tv({
+  base: 'flex justify-between relative',
+})
+
+const bodyStyles = tv({
+  base: 'py-4 flex gap-2 overflow-x-hidden cursor-grab pb-3',
+})
 </script>
 
 <template>
-  <div class="flex justify-between px-5">
+  <div :class="headerStyles({ class: headerClass })">
     <slot name="header" />
 
     <button
@@ -36,7 +50,7 @@ const isCategoryModalOpen = ref(false)
 
   <DraggableArea
     v-slot="{ bindData }"
-    class="px-5 py-4 flex gap-2 overflow-x-hidden w-full sm:w-[500px] lg:w-[600px] cursor-grab pb-3"
+    :class="bodyStyles({ class: bodyClass })"
   >
     <CategoryCard
       v-for="category, index in categories"

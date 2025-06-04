@@ -19,7 +19,6 @@ useAutoRedirect()
 
     <template #content>
       <Navbar
-        class="px-3 py-2 bg-gray-800 flex gap-2 h-[64px]"
         :title="t('Characters')"
         hide-back="on-lg"
         @close="isRootDrawerOpen = true"

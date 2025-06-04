@@ -53,10 +53,10 @@ async function goToDiscover() {
             'text-orange-500': whatsNew.hasUnreadContent.value,
             'text-black': !whatsNew.hasUnreadContent.value,
           }"
-          :loading="whatsNew.countQuery.isFetching.value"
+          :loading="whatsNew.countQuery.isLoading.value"
           @click="isWhatsNewModalOpen = true"
         >
-          <Icon v-show="!whatsNew.countQuery.isFetching.value" name="material-symbols:campaign-outline-rounded" />
+          <Icon v-if="!whatsNew.countQuery.isLoading.value" name="material-symbols:campaign-outline-rounded" />
         </Button>
 
         <Button

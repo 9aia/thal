@@ -40,20 +40,25 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
 </script>
 
 <template>
-  <main class="bg-white flex-1 flex w-fullitems-start focus:outline-hidden overflow-auto">
-    <div class="flex flex-col pb-4 w-full sm:w-auto sm:mx-auto">
-      <div class="sticky top-0 z-1 bg-white">
-        <form class="px-5 pt-4">
-          <SearchField
-            v-model="search"
-            :placeholder="t('Search for characters')"
-            path="search"
-            autofocus
-          />
-        </form>
+  <main class="bg-white flex-1 flex w-full items-start">
+    <div class="flex flex-col pb-4 w-full">
+      <div class="sticky top-0 z-1 bg-white/50 backdrop-blur-md">
+        <SettingSection body-class="px-5">
+          <form class="w-full sm:w-[500px] lg:w-[600px] mx-auto">
+            <SearchField
+              v-model="search"
+              :placeholder="t('Search for characters')"
+              path="search"
+              autofocus
+            />
+          </form>
+        </SettingSection>
 
-        <SettingSection body-class="space-y-2 mb-4">
-          <CategoryPanel v-model="categoryId">
+        <SettingSection>
+          <CategoryPanel
+            v-model="categoryId"
+            header-class="w-full sm:w-[500px] lg:w-[600px] mx-auto"
+          >
             <template #header>
               <SettingSectionTitle>
                 {{ t("Categories") }}
@@ -63,7 +68,12 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
         </SettingSection>
       </div>
 
-      <SettingSection :title="t('Characters')" title-class="px-5" body-class="px-5 space-y-2">
+      <SettingSection
+        class="sm:w-auto sm:mx-auto"
+        :title="t('Characters')"
+        title-class="px-5"
+        body-class="px-5 space-y-2"
+      >
         <div class="pb-2 overflow-y-auto flex flex-col items-center w-full sm:w-[500px] lg:w-[600px]">
           <Suspense>
             <template #fallback>
