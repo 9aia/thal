@@ -32,12 +32,3 @@ const emit = defineEmits<({
     <slot />
   </div>
 </template>
-
-<style scoped>
-.text-gradient-1 {
-  background: radial-gradient(var(--color-blue-500), var(--color-blue-500)) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  color: transparent !important;
-}
-</style>

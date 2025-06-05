@@ -20,7 +20,6 @@ const props = withDefaults(defineProps<Props>(), {
   textareaClass: '',
 })
 const label = useSlotContent(() => props.label)
-
 const { value, errorMessage, handleBlur } = useField(props.path, props.rules)
 
 const labelRef = ref<HTMLInputElement>()
@@ -38,13 +37,11 @@ defineExpose({
 
 <template>
   <fieldset ref="labelRef" class="fieldset">
-    <legend v-if="label" class="fieldset-legend ml-4">
-      {{ label }}
-      <span
-        v-if="mandatory"
-        class="absolute bottom-1/2 translate-y-1/2 right-[-0.4em] text-red-500"
-      >*</span>
-    </legend>
+    <Legend
+      v-if="label"
+      :label="label"
+      :mandatory="mandatory"
+    />
 
     <textarea
       v-model="value"
@@ -55,18 +52,14 @@ defineExpose({
       @blur="handleBlur"
     />
 
-    <div v-if="errorMessage && !feedback" class="label">
-      <span class="label-text-alt text-error">
-        {{ errorMessage }}
-      </span>
-    </div>
+    <p v-if="errorMessage && !feedback" class="label text-error">
+      {{ errorMessage }}
+    </p>
 
-    <div v-if="feedback" class="label">
-      <span class="label-text-alt">
-        <slot name="feedback" :feedback="feedback">
-          {{ feedback }}
-        </slot>
-      </span>
-    </div>
+    <p v-if="feedback" class="label">
+      <slot name="feedback" :feedback="feedback">
+        {{ feedback }}
+      </slot>
+    </p>
   </fieldset>
 </template>

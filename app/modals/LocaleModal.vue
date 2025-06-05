@@ -68,7 +68,7 @@ const submit = form.handleSubmit(async (data) => {
       </p>
 
       <form class="h-[200px] px-2 py-4 overflow-y-auto">
-        <Radio
+        <RadioField
           v-for="item in LOCALES"
           :key="item.id"
           :value="item.id"

@@ -139,7 +139,7 @@ const submit = form.handleSubmit(() => isEditing.value
       <SettingSection :title="t('General Information')">
         <form class="block space-y-2" @submit="submit">
           <TextField
-            input-class="input px-4 rounded-full"
+            input-class="input-lg input-primary w-full"
             autofocus
             path="name"
             :label="t('Name')"
@@ -151,7 +151,8 @@ const submit = form.handleSubmit(() => isEditing.value
           />
           <TextField
             v-if="!isEditing"
-            input-class="input px-4 rounded-full"
+            class="w-full"
+            input-class="input-lg input-primary w-full"
             path="username"
             :label="t('Username')"
             :placeholder="t('john_doe')"

@@ -220,8 +220,14 @@ export type characterLocalizationsGet = z.infer<typeof characterLocalizationsSch
 
 // #region CharacterDrafts
 
+export const promptSchema = z.string().min(1).max(1000)
+export const promptSchemaChecks = {
+  min: promptSchema._def.checks.find(check => check.kind === 'min')?.value,
+  max: promptSchema._def.checks.find(check => check.kind === 'max')?.value,
+}
+
 export const characterDraftSchema = z.object({
-  prompt: z.string(),
+  prompt: promptSchema,
   locale: z.enum(['pt-BR', 'en-US']),
 })
 

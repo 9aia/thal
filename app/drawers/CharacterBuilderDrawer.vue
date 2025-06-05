@@ -9,6 +9,7 @@ import type { MenuItemType } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
 import { characterBuildId, characterBuildPrompt, isRootDrawerOpen } from '~/store'
 import type { CharacterBuildApiData, CharacterBuilderEditViewMode } from '~/types'
+import { promptSchema, promptSchemaChecks } from '~~/db/schema'
 
 const emit = defineEmits<{
   (e: 'close'): void
@@ -258,18 +259,22 @@ const isAlreadyChatting = computed(() => {
 
       <SettingSection>
         <form class="flex flex-col gap-2" @submit="submit">
-          <Textarea
+          <TextareaField
             autofocus
             path="prompt"
             textarea-class="textarea-sm textarea-primary w-full"
             :placeholder="t('A wise elder sharing life stories')"
             :label="t('Describe your character')"
             :disabled="isPastDueVisible"
+            :rules="yupify(promptSchema, t(
+              `Prompt must contain between {min} and {max} characters.`,
+              promptSchemaChecks,
+            ))"
           />
 
           <Button
             :loading="loading"
-            class="btn btn-soft btn-accent w-fit"
+            class="btn btn-soft btn-primary w-fit"
             icon-size="md"
             icon="material-symbols:wand-stars-outline-rounded"
             :disabled="!form.values.prompt || hasErrors || isPastDueVisible"
@@ -293,7 +298,7 @@ const isAlreadyChatting = computed(() => {
           >
             <div class="text-sm w-full h-full relative">
               <Menu.Root v-if="hasChanges">
-                <Menu.Trigger class="absolute z-10 -left-2 top-0 btn btn-primary btn-xs bg-transparent" @click.stop.prevent>
+                <Menu.Trigger class="absolute z-10 left-2 top-2 btn btn-primary btn-xs bg-transparent" @click.stop.prevent>
                   {{ viewMode === "preview" ? t('Preview') : t('Original') }}
                   <Icon class="rotate-180 text-base" name="material-symbols:keyboard-arrow-up-rounded" />
                 </Menu.Trigger>
@@ -309,7 +314,7 @@ const isAlreadyChatting = computed(() => {
 
               <DiscardDraftButton
                 v-if="hasChanges || !isEditing"
-                class="absolute z-10 -right-2 top-0"
+                class="absolute z-10 right-2 top-2"
                 :character-build-id="characterBuildId"
                 :is-past-due-visible="isPastDueVisible"
                 :is-editing="isEditing"

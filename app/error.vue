@@ -47,7 +47,7 @@ function handleError() {
   <NuxtLayout>
     <div class="w-full relative" style="height: calc(100vh - 64px)">
       <div class="text-center absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 flex flex-col items-center w-full max-w-md">
-        <h1 class="text-8xl text-gradient-1 text-center mb-4" :class="errorMessage.color">
+        <h1 class="text-8xl text-gradient bg-linear-[66deg] from-orange-500 to-red-500 text-center mb-4" :class="errorMessage.color">
           {{ error!.statusCode }}
         </h1>
 
@@ -73,11 +73,3 @@ function handleError() {
     </div>
   </NuxtLayout>
 </template>
-
-<style scoped>
-.text-gradient-1 {
-  background: linear-gradient(66deg, var(--color-orange-500), var(--color-red-500));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-</style>

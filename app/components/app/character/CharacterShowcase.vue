@@ -22,8 +22,8 @@ const trunkedInstructions = computed(() => {
 </script>
 
 <template>
-  <div class="gap-2 flex flex-col items-end">
-    <section class="w-full px-4 pb-2 flex flex-col justify-center">
+  <div class="gap-2 flex flex-col items-end px-2">
+    <section class="w-full px-4 flex flex-col justify-center">
       <Avatar
         :name="data.name"
         class="mt-2 mx-auto"
@@ -38,13 +38,14 @@ const trunkedInstructions = computed(() => {
       <Username :username="data.username" class="mx-auto text-xs" :show-copy="false" />
     </section>
 
-    <section class="w-full flex flex-col gap-2 pb-4">
+    <section class="w-full flex flex-col gap-2 pb-4 mt-2">
       <MenuItem
         :is="{
           id: 'description',
           name: data.description,
           icon: 'material-symbols:person-outline-rounded',
         }"
+        wrapper-class="text-gray-500 items-start"
       />
 
       <MenuItem

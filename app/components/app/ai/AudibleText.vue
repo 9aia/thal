@@ -63,10 +63,10 @@ watch(currentWord, () => {
 
     spans.forEach((span, i) => {
       if (i === currentWord.value) {
-        span.classList.add('text-gradient-4')
+        span.classList.add('text-gradient bg-linear-[66deg] from-magenta-500 to-red-500')
       }
       else {
-        span.classList.remove('text-gradient-4')
+        span.classList.remove('text-gradient bg-linear-[66deg] from-magenta-500 to-red-500')
       }
     })
   }
@@ -86,11 +86,3 @@ defineExpose({
     />
   </div>
 </template>
-
-<style>
-.text-gradient-4 {
-  background: linear-gradient(66deg, var(--color-red-500), var(--color-magenta-500));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-</style>

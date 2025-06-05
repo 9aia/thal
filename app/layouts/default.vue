@@ -34,7 +34,10 @@ const menuItems: MenuItemType[] = [
   <div class="bg-white min-h-screen flex flex-col">
     <Header>
       <template #navbar-top>
-        <div v-if="RUNTIME_ENV === 'dev' || RUNTIME_ENV === 'preview'" class="bg-gradient-2 text-xs flex text-center justify-center py-2 px-4 text-blue-500">
+        <div
+          v-if="RUNTIME_ENV === 'dev' || RUNTIME_ENV === 'preview'"
+          class="bg-radial-[at_bottom] from-blue-50 to-gray-50 text-xs flex text-center justify-center py-2 px-4 text-blue-500"
+        >
           {{ t("Thal is in preview! We are not charging for access. Expect bugs and unfinished features.") }}
         </div>
       </template>
@@ -74,9 +77,3 @@ const menuItems: MenuItemType[] = [
     <Footer />
   </div>
 </template>
-
-<style scoped>
-.bg-gradient-2 {
-  background: radial-gradient(at bottom, var(--color-blue-50), var(--color-gray-50));
-}
-</style>

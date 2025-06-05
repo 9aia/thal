@@ -40,6 +40,6 @@ const discardMutation = useMutation({
     :disabled="isPastDueVisible"
     @click="discardMutation.mutate()"
   >
-    {{ isEditing ? t("Discard edition") : t("Discard character") }}
+    {{ t("Discard") }}
   </Button>
 </template>

@@ -7,6 +7,7 @@ import type { MenuItemType } from './types'
 
 defineProps<{
   is: MenuItemType
+  wrapperClass?: string
 }>()
 
 const iconStyles = tv({
@@ -44,12 +45,16 @@ const descriptionStyles = tv({
     },
   },
 })
+
+const wrapperStyles = tv({
+  base: 'flex justify-between items-center gap-2',
+})
 </script>
 
 <template>
   <div class="flex w-full justify-between items-center">
     <div
-      class="flex justify-between items-center gap-2"
+      :class="wrapperStyles({ class: wrapperClass })"
     >
       <Icon v-if="is.icon" :class="iconStyles({ color: is.meaning || 'normal' })">
         {{ is.icon }}

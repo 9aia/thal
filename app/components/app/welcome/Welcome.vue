@@ -14,7 +14,7 @@ function openChats() {
 
 <template>
   <div class="flex flex-col w-full h-dvh bg-white">
-    <Navbar class="bg-gray-800 lg:hidden" hide-back hide-title>
+    <Navbar class="bg-gray-800 lg:hidden" hide-back="on-lg" hide-title>
       <h1 class="text-lg text-black flex items-center gap-1">
         {{ t('Thal') }}
       </h1>
@@ -65,7 +65,7 @@ function openChats() {
       </div>
     </main>
 
-    <footer class="bg-gradient-1 text-blue-500 flex px-4 py-2">
+    <footer class="bg-radial-[at_bottom] from-blue-50 to-gray-50 flex px-4 py-2">
       <div class="sm:max-w-5xl md:max-w-6xl lg:max-w-9xl mx-auto flex gap-2 items-center justify-center">
         <Icon name="material-symbols:science-outline" class="text-xl" />
 
@@ -76,11 +76,3 @@ function openChats() {
     </footer>
   </div>
 </template>
-
-<style scoped>
-@reference "~/assets/css/main.css";
-
-.bg-gradient-1 {
-  background: radial-gradient(at bottom, var(--color-blue-50), var(--color-gray-50));
-}
-</style>

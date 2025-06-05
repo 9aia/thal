@@ -102,7 +102,7 @@ const isPastDueVisible = computed(() => {
 </script>
 
 <template>
-  <form class="flex justify-between items-center space-y-4" @submit.prevent="submit">
+  <form class="flex justify-between items-center space-y-4 p-2" @submit.prevent="submit">
     <CheckboxField
       path="discoverable"
       input-class="checkbox-primary"

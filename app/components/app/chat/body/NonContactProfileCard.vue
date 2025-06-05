@@ -16,7 +16,7 @@
       </p>
 
       <div class="card-actions justify-center">
-        <Button class="bg-cyan-500 border-none rounded-full px-4 py-2 text-gray-800 hover:bg-cyan-400" @click="addContact()">
+        <Button class="btn btn-accent" @click="addContact()">
           <Icon name="material-symbols:person-add-outline" />
           Add
         </Button>

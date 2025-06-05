@@ -27,7 +27,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 const label = useSlotContent(() => props.label)
 
-const { value, errorMessage } = useField(props.path, props.rules)
+const { value, errorMessage, handleBlur } = useField(props.path, props.rules)
 
 const labelRef = ref<HTMLInputElement>()
 
@@ -43,16 +43,12 @@ defineExpose({
 </script>
 
 <template>
-  <label ref="labelRef" class="form-control w-full">
-    <div v-if="label" class="label relative w-fit">
-      <span class="label-text">
-        {{ label }}
-      </span>
-      <span
-        v-if="mandatory"
-        class="absolute bottom-1/2 translate-y-1/2 right-[-0.4em] text-red-500"
-      >*</span>
-    </div>
+  <fieldset ref="labelRef" class="fieldset">
+    <Legend
+      v-if="label"
+      :label="label"
+      :mandatory="mandatory"
+    />
 
     <div class="relative">
       <div
@@ -64,18 +60,20 @@ defineExpose({
 
       <input
         v-model="value"
-        class="input input-primary border-none w-full"
-        :autocomplete="autocomplete"
-        :autocapitalize="autocapitalize"
+        class="input"
         :placeholder="placeholder"
         :disabled="disabled"
+        :autocomplete="autocomplete"
+        :autocapitalize="autocapitalize"
         :class="{
           'pr-12': iconPosition === 'right',
           'pl-12': iconPosition === 'left',
           [inputClass]: true,
         }"
         :autofocus="autofocus"
+        @blur="handleBlur"
       >
+
       <div
         v-if="iconPosition === 'right'"
         class="flex absolute right-4 bottom-1/2 translate-y-1/2"
@@ -84,18 +82,14 @@ defineExpose({
       </div>
     </div>
 
-    <div v-if="errorMessage && !feedback" class="label">
-      <span class="label-text-alt text-error">
-        {{ errorMessage }}
-      </span>
-    </div>
+    <p v-if="errorMessage && !feedback" class="label text-error">
+      {{ errorMessage }}
+    </p>
 
-    <div v-if="feedback" class="label">
-      <span class="label-text-alt">
-        <slot name="feedback" :feedback="feedback">
-          {{ feedback }}
-        </slot>
-      </span>
-    </div>
-  </label>
+    <p v-if="feedback" class="label">
+      <slot name="feedback" :feedback="feedback">
+        {{ feedback }}
+      </slot>
+    </p>
+  </fieldset>
 </template>

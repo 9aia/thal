@@ -2,9 +2,7 @@
 import { t, useLocale } from '@psitta/vue'
 import { PLANS } from '~/constants/payment'
 import queryKeys from '~/queryKeys'
-import { SubscriptionStatus } from '~~/db/schema'
 
-const RUNTIME_ENV = useRuntimeEnv()
 const locale = useLocale()
 
 const headers = useRequestHeaders(['cookie'])
@@ -39,16 +37,11 @@ const trialPeriodDays = PLANS.allInOne.trialPeriodDays
 
 <template>
   <div class="w-full">
-    <p class="text-black text-sm text-center mb-8 max-w-lg mx-auto">
-      <span class="text-gradient-7">{{ t('Simple, Transparent Pricing.') }}</span>
-      {{ t('We believe in making language learning accessible and straightforward. That’s why we offer a single plan with everything you need to improve your English.') }}
-    </p>
-
-    <div class="max-w-sm mx-auto">
-      <div class="p-4">
+    <div class="max-w-sm mx-auto border-2 border-linear-[12deg] from-blue-500 to-magenta-500 rounded-3xl">
+      <div class="p-12">
         <h2 class="text-4xl text-black flex gap-2 justify-center items-center">
           <Icon name="material-symbols:package-2-outline" class="text-black text-4xl" />
-          {{ t('All-in-One Plan') }}
+          {{ t('Subscription') }}
         </h2>
 
         <p class="text-gray-500 text-sm mb-2 mt-4 text-center">
@@ -97,7 +90,7 @@ const trialPeriodDays = PLANS.allInOne.trialPeriodDays
                   {{ price }}
                 </div>
 
-                <span class="text-gradient-7">
+                <span class="text-gradient bg-linear-[12deg] from-magenta-500 to-red-500">
                   {{ discountPrice }}
                 </span>
               </div>
@@ -116,32 +109,8 @@ const trialPeriodDays = PLANS.allInOne.trialPeriodDays
             {{ t('No hidden fees. Cancel anytime.') }}
             <A class="underline text-brown-500" href="/terms">{{ t('Terms apply') }}</A>
           </div>
-
-          <p class="text-black text-sm mb-4 text-center mt-6">
-            {{ t('Curious to see how chatting can boost your English?') }}
-          </p>
-
-          <div class="flex flex-col items-center justify-center h-fit mt-4 gap-2">
-            <StripeCreateSessionForm
-              :checkout-status="pricingQuery.data.value?.checkoutStatus || null"
-              :subscription-status="pricingQuery.data.value?.subscriptionStatus || SubscriptionStatus.not_subscribed"
-            />
-
-            <div v-if="RUNTIME_ENV === 'dev' || RUNTIME_ENV === 'preview'" class="text-blue-500 text-xs flex mt-2 justify-center text-center">
-              <div>{{ t("Thal is in preview. We're not actually charging for access.") }}</div>
-            </div>
-          </div>
         </CommonResource>
       </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-.text-gradient-7 {
-  background: linear-gradient(12deg, var(--color-magenta-500), var(--color-red-500)) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  color: transparent !important;
-}
-</style>

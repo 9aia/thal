@@ -36,12 +36,13 @@ function onSubmit(event: Event) {
       type="submit"
       class="btn btn-primary btn-lg"
     >
-      {{ t('Chat now!') }}
+      {{ t('Start chatting') }}
     </Button>
 
-    <p class="text-sm text-gray-600">
+    <p class="text-sm text-black flex items-center gap-2">
       <template v-if="!user || (checkoutStatus === null && subscriptionStatus === SubscriptionStatus.not_subscribed)">
-        {{ t('Start our free trial now.') }}
+        <Icon name="material-symbols:info-outline-rounded" class="text-warning" />
+        {{ t('Try 1 Day Free – No Credit Card Needed') }}
       </template>
       <template v-else-if="checkoutStatus === 'open'">
         {{ t('Continue your checkout.') }}
@@ -50,6 +51,7 @@ function onSubmit(event: Event) {
         {{ t('Continue your access.') }}
       </template>
       <template v-else-if="subscriptionStatus === SubscriptionStatus.trialing">
+        <Icon name="material-symbols:info-outline-rounded" class="text-black" />
         {{ t('Continue your free trial.') }}
       </template>
       <template v-else-if="subscriptionStatus === SubscriptionStatus.active">

@@ -13,12 +13,12 @@
   --color-base-200: oklch(0.8853 0 0); /* #D9D9D9 */
   --color-base-300: oklch(0.8047 0 0); /* #BFBFBF */
   --color-base-content: oklch(0 0 0); /* #000000 */
-  --color-primary: oklch(0.9054 0.15455 194.7689); /* #00ffff */
-  --color-primary-content: oklch(0 0 0); /* #000000 */
+  --color-primary: oklch(0.452 0.313214 264.052); /* #0000ff */
+  --color-primary-content: oklch(1 0 0); /* #ffffff */
   --color-secondary: oklch(0.6183 0.10555 194.7689); /* #009999 */
   --color-secondary-content: oklch(1 0 0); /* #ffffff */
-  --color-accent: oklch(0.452 0.313214 264.052); /* #0000ff */
-  --color-accent-content: oklch(1 0 0); /* #ffffff */
+  --color-accent: oklch(0.9054 0.15455 194.7689); /* #00ffff */
+  --color-accent-content: oklch(0 0 0); /* #000000 */
   --color-neutral: oklch(0.9551 0 0); /* #F0F0F0 */
   --color-neutral-content: oklch(0 0 0); /* #000000 */
   --color-info: oklch(0.452 0.313214 264.052); /* #0000ff */
@@ -51,17 +51,16 @@
   prefersdark: true; /* set as default dark mode (prefers-color-scheme:dark) */
   color-scheme: dark; /* color of browser-provided UI */
 
-  
   --color-base-100: oklch(0.9551 0 0); /* #F0F0F0 */
   --color-base-200: oklch(0.8853 0 0); /* #D9D9D9 */
   --color-base-300: oklch(0.8047 0 0); /* #BFBFBF */
   --color-base-content: oklch(0 0 0); /* #000000 */
-  --color-primary: oklch(0.9054 0.15455 194.7689); /* #00ffff */
-  --color-primary-content: oklch(0 0 0); /* #000000 */
+  --color-primary: oklch(0.452 0.313214 264.052); /* #0000ff */
+  --color-primary-content: oklch(1 0 0); /* #ffffff */
   --color-secondary: oklch(0.6183 0.10555 194.7689); /* #009999 */
   --color-secondary-content: oklch(1 0 0); /* #ffffff */
-  --color-accent: oklch(0.452 0.313214 264.052); /* #0000ff */
-  --color-accent-content: oklch(1 0 0); /* #ffffff */
+  --color-accent: oklch(0.9054 0.15455 194.7689); /* #00ffff */
+  --color-accent-content: oklch(0 0 0); /* #000000 */
   --color-neutral: oklch(0.9551 0 0); /* #F0F0F0 */
   --color-neutral-content: oklch(0 0 0); /* #000000 */
   --color-info: oklch(0.452 0.313214 264.052); /* #0000ff */
@@ -89,7 +88,6 @@
   --depth: 1;
   --noise: 0;
 }
-
 
 @theme {
   /* #region Colors */
@@ -223,8 +221,20 @@
   @apply rounded-full border-none shadow-none font-normal;
 }
 
+@utility input {
+  @apply rounded-2xl border-none shadow-none px-4 py-2;
+}
+
+@utility label {
+  @apply text-wrap;
+}
+
 @utility textarea {
-  @apply border-none rounded-3xl p-4 h-40 leading-[1.6em] resize-none;
+  @apply rounded-3xl border-none shadow-none p-4 h-40 leading-[1.6em] resize-none;
+}
+
+@utility checkbox {
+  @apply bg-transparent border-2 shadow-none;
 }
 
 @utility radio {
@@ -233,6 +243,28 @@
 
 @utility fieldset-legend {
   @apply font-normal; 
+}
+
+/* extended gradients */
+
+@utility text-gradient {
+  @apply inline-block text-transparent bg-clip-text;
+}
+
+@utility bg-* {
+  --bg-color: --value(--color-*);
+}
+
+@utility border-linear-* {
+  @apply border-transparent bg-origin-border;
+  background-image:
+    linear-gradient(var(--bg-color), var(--bg-color)),
+    linear-gradient(
+      --value(angle, [angle]),
+      var(--tw-gradient-from) var(--tw-gradient-from-position),
+      var(--tw-gradient-to) var(--tw-gradient-to-position)
+    );
+  background-clip: content-box, border-box;
 }
 
 /* reset */

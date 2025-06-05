@@ -17,8 +17,8 @@ const { t } = useI18nExperimental()
 </script>
 
 <template>
-  <div v-if="translation" class="bg-gradient-7 rounded-2xl px-3 py-2 min-h-[38px] flex items-start justify-between gap-2 group/translation">
-    <article class="text-gradient-7 text-sm">
+  <div v-if="translation" class="bg-radial-[at_bottom] from-magenta-50 to-gray-50 text-orange-900 rounded-2xl px-3 py-2 min-h-[38px] flex items-start justify-between gap-2 group/translation">
+    <article class="text-gradient bg-linear-[12deg] from-magenta-500 to-red-500 text-sm">
       {{ translation }}
     </article>
 
@@ -36,7 +36,7 @@ const { t } = useI18nExperimental()
 
   <div
     v-if="error && isOpen"
-    class="bg-gradient-8 rounded-lg mt-2 mb-1 px-3 py-2 min-h-[38px] flex items-start justify-between gap-2 group/translation"
+    class="bg-radial-[at_top] from-red-100 to-white rounded-lg mt-2 mb-1 px-3 py-2 min-h-[38px] flex items-start justify-between gap-2 group/translation"
   >
     <div v-if="(error as FetchError).status === RATE_LIMIT_STATUS_CODE" class="text-gray-800 text-sm">
       {{ t("You are translating messages too fast. Please wait a moment.") }}
@@ -56,21 +56,3 @@ const { t } = useI18nExperimental()
     </div>
   </div>
 </template>
-
-<style scoped>
-.bg-gradient-7 {
-  background: radial-gradient(at bottom, var(--color-magenta-50), var(--color-gray-50));
-  color: var(--text-color-orange-900);
-}
-
-.text-gradient-7 {
-  background: linear-gradient(12deg, var(--color-magenta-500), var(--color-red-500)) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  color: transparent !important;
-}
-
-.bg-gradient-8 {
-  background: radial-gradient(at top, var(--color-red-100), var(--color-white));
-}
-</style>

@@ -13,6 +13,8 @@ const pricingQuery = useServerQuery({
   queryKey: queryKeys.pricingData,
   staleTime: 0,
 })
+
+const RUNTIME_ENV = useRuntimeEnv()
 </script>
 
 <template>
@@ -23,20 +25,20 @@ const pricingQuery = useServerQuery({
     >
       <div class="hero-content z-30">
         <div class="max-w-2xl flex flex-col justify-center text-center text-black">
-          <h1 class="text-5xl mb-4 sm:text-6xl max-w-lg tracking-wide">
+          <h1 class="text-5xl mb-6 sm:text-6xl lg:text-7xl max-w-xl mx-auto tracking-wide">
             {{ t("Talk to Learn. Learn to Talk.") }}
           </h1>
 
-          <p class="mb-8 text-xl sm:text-2xl mx-auto max-w-lg">
+          <p class="mb-8 text-xl sm:text-2xl mx-auto max-w-2xl ">
             <T
-              text="Practice real-world {EnglishSkillsWithAICharacters}  tailored to your learning goals. Simple, intuitive, and fun!"
+              text="Your new way to master {English}  — through real conversations with smart AI characters that adapt to you."
               :values="{
-                EnglishSkillsWithAICharacters: true,
+                English: true,
               }"
             >
-              <template #EnglishSkillsWithAICharacters>
-                <span class="text-gradient-7">
-                  {{ t('English skills with AI characters') }}
+              <template #English>
+                <span class="text-gradient bg-linear-[12deg] from-red-500 to-magenta-500">
+                  {{ t('English') }}
                 </span>
               </template>
             </T>
@@ -49,13 +51,17 @@ const pricingQuery = useServerQuery({
               class="flex items-center justify-center"
             />
           </CommonResource>
+
+          <p class="text-lg text-black flex items-center gap-2 mx-auto mt-4">
+            Feel the difference in your fluency from the very first chat.
+          </p>
         </div>
       </div>
 
       <div class="absolute bottom-4 right-1/2 translate-x-1/2 text-black z-30">
         <a
           href="#features"
-          class="no-underline flex flex-col gap-2 items-center px-6 py-2 rounded-3xl focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:outline-hidden"
+          class="no-underline flex flex-col gap-2 items-center px-6 py-2 rounded-3xl focus:outline-2 focus:outline-offset-2 focus:outline-primary"
         >
           {{ t("Learn more") }}
           <Icon
@@ -189,22 +195,34 @@ const pricingQuery = useServerQuery({
       </div>
     </section>
 
-    <section class="w-full relative p-8">
-      <h2 class="mx-auto text-4xl text-gray-800 mb-6 max-w-lg flex flex-wrap justify-center items-center gap-1">
+    <section class="w-full relative">
+      <h2 class="mx-auto text-4xl text-gray-800 max-w-lg flex flex-wrap justify-center items-center gap-1">
         <Icon name="material-symbols:subscriptions-outline" class="text-6xl" />
         {{ t('Pricing') }}
       </h2>
 
+      <p class="text-gray-800 max-w-lg mx-auto mb-8 mt-6">
+        {{ t('We believe in making language learning accessible and straightforward. That’s why we offer a single plan with everything you need to improve your English.') }}
+      </p>
+
       <Pricing />
+    </section>
+
+    <section class="w-full p-12 mb-16">
+      <p class="text-black text-2xl mb-4 text-center mt-6">
+        {{ t('Curious to see how chatting can boost your English?') }}
+      </p>
+
+      <div class="flex flex-col items-center justify-center h-fit mt-4 gap-2">
+        <StripeCreateSessionForm
+          :checkout-status="pricingQuery.data.value?.checkoutStatus || null"
+          :subscription-status="pricingQuery.data.value?.subscriptionStatus || SubscriptionStatus.not_subscribed"
+        />
+
+        <div v-if="RUNTIME_ENV === 'dev' || RUNTIME_ENV === 'preview'" class="text-blue-500 text-xs flex mt-2 justify-center text-center">
+          <div>{{ t("Thal is in preview. We're not actually charging for access.") }}</div>
+        </div>
+      </div>
     </section>
   </div>
 </template>
-
-<style scoped>
-.text-gradient-7 {
-  background: linear-gradient(12deg, var(--color-magenta-500), var(--color-red-500)) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  color: transparent !important;
-}
-</style>

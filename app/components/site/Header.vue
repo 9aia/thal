@@ -1,22 +1,25 @@
+<script setup>
+import { t } from '@psitta/vue'
+</script>
+
 <template>
   <div>
     <slot name="navbar-top" />
   </div>
 
-  <header class="sticky top-0 w-full z-[1000] bg-white text-cyan-500">
+  <header class="sticky top-0 w-full z-[1000] bg-white/50 backdrop-blur-md">
     <nav class="px-4 navbar max-w-[800px] mx-auto">
-      <div class="navbar-start">
-        <A href="/" class="text-xl flex gap-1 items-center justify-center border border-transparent focus:border-b-2 focus:border-b-accent focus:outline-hidden">
+      <div class="navbar-start flex items-center gap-2">
+        <A href="/" class="text-xl flex gap-2 items-center justify-center border border-transparent focus:border-b-2 focus:border-b-accent focus:outline-hidden">
+          <img src="/favicon.ico" alt="Thal" class="w-6 h-6 grayscale">
           <span class="font-medium text-gray-800">Thal</span>
-
-          <div class="custom-badge-container">
-            <div class="custom-badge-content text-green-500 text-xs uppercase">
-              <span class="px-2 py-1">
-                Experimental
-              </span>
-            </div>
-          </div>
         </A>
+
+        <div class="rounded-full bg-radial-[at_bottom] from-magenta-50 to-gray-50 text-black text-xs uppercase">
+          <div class="px-2 py-1 block">
+            {{ t('Experimental') }}
+          </div>
+        </div>
       </div>
       <div class="navbar-end">
         <slot name="navbar-end" />
@@ -24,14 +27,3 @@
     </nav>
   </header>
 </template>
-
-<style>
-@reference "~/assets/css/main.css";
-
-.custom-badge-content {
-  @apply border-transparent border-double border-2 rounded-3xl;
-  background-image: linear-gradient(white, white), radial-gradient(circle at top left, var(--color-green-500), var(--color-cyan-500));
-  background-origin: border-box;
-  background-clip: content-box, border-box;
-}
-</style>

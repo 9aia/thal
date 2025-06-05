@@ -8,7 +8,10 @@ import { characterDraftLocalizations, characterDrafts, characterLocalizations } 
 import { numericString } from '~/utils/zod'
 
 export default eventHandler(async (event) => {
-  const { characterId, locale } = await getValidated(event, 'query', z.object({ characterId: numericString(z.number().optional()), locale: z.string() }))
+  const { characterId, locale } = await getValidated(event, 'query', z.object({
+    characterId: numericString(z.number().optional()),
+    locale: z.string(),
+  }))
 
   const orm = event.context.orm
   const user = event.context.user
@@ -20,7 +23,12 @@ export default eventHandler(async (event) => {
     throw paymentRequired()
 
   const draftCharacter = await orm.query.characterDrafts.findFirst({
-    where: and(eq(characterDrafts.creatorId, user.id), characterId ? eq(characterDrafts.characterId, characterId) : isNull(characterDrafts.characterId)),
+    where: and(
+      eq(characterDrafts.creatorId, user.id),
+      characterId
+        ? eq(characterDrafts.characterId, characterId)
+        : isNull(characterDrafts.characterId),
+    ),
     columns: {
       data: true,
       prompt: true,

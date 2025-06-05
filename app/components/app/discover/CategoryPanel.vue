@@ -7,6 +7,7 @@ import { type CategorySlug, categories } from '~/constants/discover'
 defineProps<{
   headerClass?: string
   bodyClass?: string
+  viewAllButtonClass?: string
 }>()
 
 const categoryId = defineModel<number>()
@@ -34,6 +35,10 @@ const headerStyles = tv({
 const bodyStyles = tv({
   base: 'py-4 flex gap-2 overflow-x-hidden cursor-grab pb-3',
 })
+
+const viewAllButtonStyles = tv({
+  base: 'text-blue-500 text-xs float-right cursor-pointer border-b border-transparent focus:border-b-2 focus:border-b-blue-500 focus:outline-hidden',
+})
 </script>
 
 <template>
@@ -41,7 +46,7 @@ const bodyStyles = tv({
     <slot name="header" />
 
     <button
-      class="text-blue-500 text-xs float-right cursor-pointer border-b border-transparent focus:border-b-2 focus:border-b-blue-500 focus:outline-hidden"
+      :class="viewAllButtonStyles({ class: viewAllButtonClass })"
       @click="isCategoryModalOpen = true"
     >
       {{ t("View all") }}

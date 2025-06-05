@@ -114,6 +114,7 @@ const isUsernameInvalid = computed(() => {
       </p>
 
       <TextField
+        input-class="input-lg input-primary w-full"
         label="Username"
         path="username"
         autocapitalize="none"

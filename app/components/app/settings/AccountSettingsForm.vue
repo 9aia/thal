@@ -71,6 +71,7 @@ const dangerItems: MenuItemType[] = [
           path="name"
           :label="t('Name')"
           class="grid-cols-1/2"
+          input-class="input-lg input-primary w-full"
           :rules="yupify(userNameSchema, t(
             `Name must contain between {min} and {max} characters.`,
             userNameSchemaChecks,
@@ -80,6 +81,7 @@ const dangerItems: MenuItemType[] = [
           path="lastName"
           :label="t('Last name')"
           class="grid-cols-1/2"
+          input-class="input-lg input-primary w-full"
           :rules="yupify(userLastNameSchema, t(
             `Last name must contain between {min} and {max} characters.`,
             userLastNameSchemaChecks,
@@ -96,6 +98,7 @@ const dangerItems: MenuItemType[] = [
           'Username can only contain letters, numbers, and underscores. Min {min} character, max {max} characters.',
           usernameSchemaChecks,
         ))"
+        input-class="input-lg input-primary w-full"
         icon-position="right"
       >
         <template #icon="{ errorMessage }">
@@ -109,6 +112,7 @@ const dangerItems: MenuItemType[] = [
       <TextField
         path="pronouns"
         :label="t('Pronouns')"
+        input-class="input-lg input-primary w-full"
         :rules="yupify(pronounsSchema, t(
           'Pronouns must be up to {max} characters long.',
           pronounsSchemaChecks,
@@ -116,7 +120,7 @@ const dangerItems: MenuItemType[] = [
       />
 
       <Button
-        :loading="loading"
+        :loading="editAccountMutation.isPending.value"
         class="btn btn-sm btn-primary"
         :disabled="hasErrors"
       >

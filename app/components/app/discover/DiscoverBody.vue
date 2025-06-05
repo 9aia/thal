@@ -57,7 +57,7 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
         <SettingSection>
           <CategoryPanel
             v-model="categoryId"
-            header-class="w-full sm:w-[500px] lg:w-[600px] mx-auto"
+            header-class="px-5 sm:px-0 w-full sm:w-[500px] lg:w-[600px] mx-auto"
           >
             <template #header>
               <SettingSectionTitle>
