@@ -45,7 +45,7 @@ watch([visible, dialog], () => {
         @close="visible = false"
       >
         <form
-          class="modal-box bg-white rounded-3xl sm:w-11/12 sm:max-w-xl"
+          class="modal-box bg-white p-4 rounded-3xl sm:w-11/12 sm:max-w-xl"
           method="dialog"
           :class="{
             'p-0': props.noPadding,

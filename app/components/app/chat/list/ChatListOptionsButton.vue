@@ -53,7 +53,7 @@ const items: MenuItemType[] = [
 
 <template>
   <div class="dropdown dropdown-end">
-    <Button class="btn btn-ghost btn-circle">
+    <Button class="btn btn-neutral btn-ghost btn-circle">
       <Icon name="material-symbols:more-vert" />
     </Button>
 

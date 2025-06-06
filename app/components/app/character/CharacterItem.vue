@@ -35,9 +35,13 @@ const items: MenuItemType[] = [
 <template>
   <div
     role="button"
-    class="px-3 hover:bg-gradient-1 flex gap-2 rounded-sm items-center group relative"
+    tabindex="0"
+    class="px-3 py-2 cursor-pointer flex gap-3 items-center group relative focus:outline-none border-b-2 border-transparent focus:border-primary"
   >
-    <Avatar :name="name" class="w-10 text-sm bg-gray-300 text-gray-800" type="button" />
+    <Avatar
+      :name="name"
+      wrapper-class="bg-neutral text-neutral-content"
+    />
 
     <div
       class="flex-1 flex flex-col justify-center"
@@ -67,7 +71,7 @@ const items: MenuItemType[] = [
         class="flex right-0 absolute gap-1 py-1 bg-gradient-to-r from-transparent via-white to-white"
       >
         <Menu.Root>
-          <Menu.Trigger class="btn btn-circle btn-ghost text-gray-800" @click.stop.prevent>
+          <Menu.Trigger class="btn btn-neutral btn-circle btn-ghost" @click.stop.prevent>
             <Icon name="material-symbols:more-vert" />
           </Menu.Trigger>
           <Menu.Positioner>
@@ -82,9 +86,3 @@ const items: MenuItemType[] = [
     </div>
   </div>
 </template>
-
-<style scoped>
-.hover\:bg-gradient-1:hover {
-  background: radial-gradient(circle, var(--color-magenta-50), var(--color-white));
-}
-</style>

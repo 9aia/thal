@@ -42,7 +42,7 @@ async function handleGoToChat(username: string) {
   <div v-if="drawers.myCharacters" class="flex flex-col h-dvh justify-between">
     <Navbar :title="t('My Characters')" @click="emit('close')" />
 
-    <div class="flex-1 overflow-y-auto bg-white">
+    <div class="flex-1 p-4 overflow-y-auto bg-white">
       <div class="pt-4 text-center">
         <div class="text-gray-800 flex items-center justify-center">
           <Icon name="material-symbols:manage-accounts-outline" class="text-8xl" />

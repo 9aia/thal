@@ -76,9 +76,3 @@ onMounted(() => {
     </div>
   </div>
 </template>
-
-<style>
-body {
-  background: var(--color-gray-100);
-}
-</style>

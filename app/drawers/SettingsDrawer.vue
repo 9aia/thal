@@ -22,13 +22,18 @@ useAutoRedirect({
   <div class="flex flex-col h-dvh justify-between">
     <Navbar :title="t('Settings')" @click="emit('close')" />
 
-    <div class="flex-1 overflow-y-auto bg-white">
+    <div class="flex-1 overflow-y-auto bg-white mt-2">
       <div
-        role="button" class="group bg-gradient-1 p-4 flex justify-between items-center transition duration-300"
+        role="button"
+        class="group bg-radial-[circle_at_bottom] from-magenta-50 to-gray-50 p-6 flex justify-between items-center transition duration-300"
         @click="drawers.profile = true"
       >
         <div class="flex gap-4 items-center">
-          <Avatar :name="user?.name" class="w-16 text-md" />
+          <Avatar
+            :name="user?.name"
+            wrapper-class="bg-white text-neutral-content"
+            size="lg"
+          />
 
           <label class="relative cursor-pointer flex flex-col gap-0">
             <h2 class="text-lg">{{ user?.name }}</h2>
@@ -42,11 +47,11 @@ useAutoRedirect({
         <ChevronRight />
       </div>
 
-      <div class="space-y-4 px-4 py-4">
+      <div class="space-y-4 p-6">
         <SettingSection :title="t('General')">
           <MenuGroup
             class="p-0 w-full shadow-none"
-            item-class="py-2"
+            item-class="py-2 cursor-pointer"
             :items="SETTINGS.general"
           >
             <template #footer>
@@ -68,7 +73,7 @@ useAutoRedirect({
 
         <SettingSection :title="t('Support')">
           <MenuGroup
-            item-class="py-2"
+            item-class="py-2 cursor-pointer"
             :items="SETTINGS.support"
           />
         </SettingSection>
@@ -76,7 +81,7 @@ useAutoRedirect({
         <SettingSection :title="t('Legal')">
           <MenuGroup
             class="p-0 w-full shadow-none"
-            item-class="py-2"
+            item-class="py-2 cursor-pointer"
             :items="SETTINGS.legal"
           />
         </SettingSection>
@@ -90,9 +95,3 @@ useAutoRedirect({
     </div>
   </div>
 </template>
-
-<style scoped>
-.bg-gradient-1 {
-  background: radial-gradient(circle at bottom, var(--color-magenta-50), var(--color-white));
-}
-</style>

@@ -40,14 +40,14 @@ async function goToDiscover() {
   <div class="bg-white flex flex-col h-dvh justify-between">
     <Navbar hide-title hide-back="always">
       <h1 class="text-lg py-2 flex items-center gap-1">
-        <A href="/app/" class="text-lg text-black flex items-center">
+        <A href="/app/" class="text-lg text-black flex items-center border-b-2 border-transparent focus:outline-none focus:border-b-primary">
           {{ t("Thal") }}
         </A>
       </h1>
 
-      <div class="flex items-center">
+      <div class="flex gap-1 items-center">
         <Button
-          class="btn btn-circle btn-ghost"
+          class="btn btn-neutral btn-circle btn-ghost"
           no-disable-on-loading
           :class="{
             'text-orange-500': whatsNew.hasUnreadContent.value,
@@ -60,7 +60,7 @@ async function goToDiscover() {
         </Button>
 
         <Button
-          class="btn btn-circle btn-ghost"
+          class="btn btn-neutral btn-circle btn-ghost"
           no-disable-on-loading
           @click="goToDiscover"
         >
@@ -82,6 +82,7 @@ async function goToDiscover() {
           :placeholder="t('Search name or username...')"
           path="search"
           autofocus
+          input-class="input-lg input-primary w-full"
         />
       </form>
 

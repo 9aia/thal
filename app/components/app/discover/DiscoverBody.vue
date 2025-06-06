@@ -42,7 +42,7 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
 <template>
   <main class="bg-white flex-1 flex w-full items-start">
     <div class="flex flex-col pb-4 w-full">
-      <div class="sticky top-0 z-1 bg-white/50 backdrop-blur-md">
+      <div class="sticky top-0 z-1 bg-white">
         <SettingSection body-class="px-5">
           <form class="w-full sm:w-[500px] lg:w-[600px] mx-auto">
             <SearchField
@@ -50,6 +50,7 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
               :placeholder="t('Search for characters')"
               path="search"
               autofocus
+              input-class="input-lg input-primary w-full"
             />
           </form>
         </SettingSection>
@@ -99,7 +100,7 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
               {{ t('Just describe their personality and behavior in a short prompt — our AI will instantly bring them to life in seconds, ready for dynamic and engaging conversations.') }}
             </p>
 
-            <Button class="btn btn-soft btn-accent rounded-full" @click="buildCharacter(null, search)">
+            <Button class="btn btn-soft btn-primary rounded-full" @click="buildCharacter(null, search)">
               <Icon name="material-symbols:person-edit-outline-rounded" />
               {{ t("Create character") }}
             </Button>

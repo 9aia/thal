@@ -76,6 +76,7 @@ const emptyMessage = computed(() => {
         :placeholder="t('Search name or username...')"
         path="search"
         autofocus
+        input-class="input-lg input-primary w-full"
       />
     </form>
 

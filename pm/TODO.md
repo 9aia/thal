@@ -6,6 +6,8 @@ description: Tasks and items for the release.
 
 ## 0.1.0-10
 
+- Refactor chat
+
 - Add not found handling on /chat/:username route
 - Revision and adjust
   - Improve the design system and UI
@@ -23,6 +25,12 @@ description: Tasks and items for the release.
 ## 0.1.0-11
 
 - Make all icons rounded
+- Add setting item type for modal openers
+- Turn chat list into a typical responsive drawer
+- Move discover to its own route
+- Move settings to its own route and layout
+- Create "about me" field in the profile page
+- Refactor menu components into reusable components instead of JS array
 
 - Deploy
   - Set the GCP OAuth screen to production instead of testing (requires app verification).

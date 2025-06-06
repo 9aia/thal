@@ -7,7 +7,7 @@ import { t } from '@psitta/vue'
     <slot name="navbar-top" />
   </div>
 
-  <header class="sticky top-0 w-full z-[1000] bg-white/50 backdrop-blur-md">
+  <header class="sticky top-0 w-full z-[1000] bg-white">
     <nav class="px-4 navbar max-w-[800px] mx-auto">
       <div class="navbar-start flex items-center gap-2">
         <A href="/" class="text-xl flex gap-2 items-center justify-center border border-transparent focus:border-b-2 focus:border-b-accent focus:outline-hidden">

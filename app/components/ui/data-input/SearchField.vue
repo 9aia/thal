@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { tv } from 'tailwind-variants'
 import { type RuleExpression, useField } from 'vee-validate'
 
 const props = defineProps<{
@@ -6,9 +7,14 @@ const props = defineProps<{
   rules?: MaybeRef<RuleExpression<string>>
   placeholder?: string
   autofocus?: boolean
+  inputClass?: string
 }>()
 
 const { value } = useField(props.path, props.rules)
+
+const styles = tv({
+  base: 'input-lg text-base rounded-full pl-6',
+})
 </script>
 
 <template>
@@ -17,7 +23,7 @@ const { value } = useField(props.path, props.rules)
     path="search"
     icon-position="right"
     :autofocus="autofocus"
-    input-class="input-lg text-base rounded-full pl-6"
+    :input-class="styles({ class: inputClass })"
   >
     <template #icon>
       <Icon

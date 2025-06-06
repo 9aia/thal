@@ -13,10 +13,6 @@ useAutoRedirect()
 
 <template>
   <AppLayout>
-    <template #side>
-      <ChatListDrawer />
-    </template>
-
     <template #content>
       <Navbar
         :title="t('Characters')"

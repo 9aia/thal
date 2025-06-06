@@ -80,7 +80,7 @@ const isUsernameInvalid = computed(() => {
 <template>
   <Modal v-model="isOpen">
     <template #default>
-      <h1 class="text-2xl mb-2 mt-4 text-gray-900">
+      <h1 class="px-6 pt-6 mb-2 mt-4 text-sm text-black">
         {{ t("Are you sure?") }}
       </h1>
 

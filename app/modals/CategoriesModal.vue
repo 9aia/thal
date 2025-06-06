@@ -45,12 +45,11 @@ watch(modelValue, (value) => {
     hide-confirm
     show-close-button
     no-padding
-    content-class="py-6"
   >
     <template #default>
-      <div class="h-128 overflow-auto">
-        <header class="sticky top-0 px-12 pt-0 pb-4 bg-white z-10">
-          <h1 class="text-sm mb-4 text-gray-900">
+      <div class="h-128 overflow-auto pb-6 my-6 px-4 ">
+        <header class="sticky rounded-3xl top-0 px-8 pt-6 pb-4 bg-white z-10">
+          <h1 class="mb-4 text-sm text-black">
             {{ t("All categories") }}
           </h1>
 
@@ -61,6 +60,7 @@ watch(modelValue, (value) => {
               path="search"
               autofocus
               class="pointer-events-auto"
+              input-class="input-lg input-primary w-full"
             />
           </form>
         </header>

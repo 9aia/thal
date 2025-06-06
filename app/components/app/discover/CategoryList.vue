@@ -17,7 +17,7 @@ function checkIsSelected(categoryId: number) {
 </script>
 
 <template>
-  <div class="flex flex-col gap-4 px-12 py-1">
+  <div class="flex flex-col gap-4 px-8 py-1">
     <div
       v-for="category, index in categories"
       :key="`category-${index}`"

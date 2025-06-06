@@ -274,7 +274,7 @@
 }
 
 body {
-  background: #fff;
+  @apply bg-radial-[circle_at_bottom] from-blue-50 to-gray-50;
 }
 
 section {

@@ -52,12 +52,27 @@ const submit = form.handleSubmit(async (data) => {
   })
 })
 
-const dangerItems: MenuItemType[] = [
+const items: MenuItemType[] = [
+  {
+    id: 'manage-billing',
+    icon: 'material-symbols:subscriptions-outline-rounded',
+    action: '/api/payment/stripe/create-portal-session',
+    method: 'post',
+    name: t('Manage billing information'),
+  },
+  {
+    id: 'logout',
+    icon: 'material-symbols:logout-rounded',
+    name: t('Logout'),
+    meaning: 'warning',
+    onClick: () => { logout() },
+  },
   {
     id: 'deactivate',
-    icon: 'material-symbols:account-circle-off-outline',
+    icon: 'material-symbols:account-circle-off-outline-rounded',
     name: t('Deactivate account'),
     type: 'accordion',
+    meaning: 'danger',
     onClick: () => { isDeactivateModalOpen.value = true },
   },
 ]
@@ -65,7 +80,7 @@ const dangerItems: MenuItemType[] = [
 
 <template>
   <SettingSection :title="t('General Information')">
-    <form class="block space-y-2" @submit="submit">
+    <form class="flex flex-col gap-2 items-end" @submit="submit">
       <div class="gap-2 grid grid-cols-2">
         <TextField
           path="name"
@@ -98,6 +113,7 @@ const dangerItems: MenuItemType[] = [
           'Username can only contain letters, numbers, and underscores. Min {min} character, max {max} characters.',
           usernameSchemaChecks,
         ))"
+        class="w-full"
         input-class="input-lg input-primary w-full"
         icon-position="right"
       >
@@ -109,19 +125,21 @@ const dangerItems: MenuItemType[] = [
         </template>
       </TextField>
 
-      <TextField
+      <!-- TODO: Move pronouns to the profile page -> About me -->
+      <!-- <TextField
         path="pronouns"
         :label="t('Pronouns')"
+        class="w-full"
         input-class="input-lg input-primary w-full"
         :rules="yupify(pronounsSchema, t(
           'Pronouns must be up to {max} characters long.',
           pronounsSchemaChecks,
         ))"
-      />
+      /> -->
 
       <Button
         :loading="editAccountMutation.isPending.value"
-        class="btn btn-sm btn-primary"
+        class="btn btn-primary mt-2 mb-4"
         :disabled="hasErrors"
       >
         {{ t('Save account settings') }}
@@ -131,30 +149,16 @@ const dangerItems: MenuItemType[] = [
     <AccountFeatureList />
   </SettingSection>
 
-  <div class="flex gap-4 items-center mt-4">
-    <form method="POST" action="/api/payment/stripe/create-portal-session">
-      <button type="submit" class="text-left w-fit underline text-black">
-        {{ t("Manage your billing information") }}
-      </button>
-    </form>
+  <SettingSection
+    class="pt-4"
+    :title="t('Actions')"
+  >
+    <MenuGroup
+      class="p-0 w-full shadow-none"
+      item-class="py-2 cursor-pointer"
+      :items="items"
+    />
 
-    <button class="text-left w-fit underline font-bold text-orange-500" @click="logout">
-      {{ t("Logout") }}
-    </button>
-  </div>
-
-  <SettingSection :title="t('Danger zone')" class="pt-4 mt-12" title-class="text-error">
-    <template #header>
-      <hr class="border-b-2 border-error">
-    </template>
-    <template #default>
-      <MenuGroup
-        class="p-0 w-full shadow-none"
-        item-class="py-2"
-        :items="dangerItems"
-      />
-
-      <AccountDeactivateModal v-model="isDeactivateModalOpen" />
-    </template>
+    <AccountDeactivateModal v-model="isDeactivateModalOpen" />
   </SettingSection>
 </template>

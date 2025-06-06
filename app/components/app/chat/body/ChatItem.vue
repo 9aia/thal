@@ -29,7 +29,13 @@ async function handleGoToChat(username: string) {
 
 <template>
   <div role="button" class="px-3 py-1 hover:bg-gradient-1 flex gap-2" @click="handleGoToChat(chat.username)">
-    <Avatar :name="chat.characterName" class="w-10 text-sm bg-gray-300 text-gray-800" type="button" />
+    <Avatar
+      :name="chat.characterName"
+      class="mt-2 mx-auto"
+      size="sm"
+      wrapper-class="bg-neutral text-neutral-content"
+      type="button"
+    />
 
     <div class="flex-1 flex flex-col justify-center w-10px">
       <div class="flex justify-between items-center">
