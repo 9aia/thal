@@ -79,45 +79,52 @@ const items = computed(() => [
 </script>
 
 <template>
-  <header class="px-3 py-2 bg-white flex gap-2 w-full">
+  <header
+    class="p-4 bg-white flex gap-3 w-full"
+    :class="{
+      'cursor-pointer': !characterNotFound,
+    }"
+    @click="!characterNotFound && openContactView(username)"
+  >
     <!-- <label for="my-drawer" class="text-black drawer-button !p-0">
     </label> -->
-    <Button
+    <button
       as="label"
       for="my-drawer"
       class="lg:hidden btn btn-neutral btn-md btn-ghost btn-circle drawer-button"
+      @click.stop
     >
       <Icon name="material-symbols:arrow-back-rounded" />
-    </Button>
+    </button>
 
     <Avatar
       :name="contactNames.avatarName"
-      class="w-10 text-sm"
-      :type="characterNotFound ? 'div' : 'button'"
-      @click="!characterNotFound && openContactView(username)"
+      wrapper-class="bg-neutral text-content-neutral"
+      type="div"
     />
 
     <div class="flex-1 flex items-center justify-between gap-4">
-      <div
-        :tabindex="characterNotFound ? undefined : 0"
-        :role="characterNotFound ? undefined : 'button'"
-        class="block w-full"
-        @click="!characterNotFound && openContactView(username)"
-      >
+      <div class="block w-full">
         <span class="text-gray-800">
           {{ contactNames.displayName }}
         </span>
       </div>
 
       <div v-if="!characterNotFound" class="flex gap-2">
-        <Button size="md" shape="circle" class="btn-ghost" @click="buildCharacter(characterQuery.data.value?.id)">
-          <Icon>material-symbols:person-edit-outline</Icon>
-        </Button>
+        <button
+          class="btn btn-neutral btn-circle btn-md btn-ghost"
+          @click.stop="buildCharacter(characterQuery.data.value?.id)"
+        >
+          <Icon name="material-symbols:person-edit-outline-rounded" />
+        </button>
 
         <div class="dropdown dropdown-end">
-          <Button size="md" shape="circle" class="btn-ghost">
-            <Icon>material-symbols:more-vert</Icon>
-          </Button>
+          <button
+            class="btn btn-neutral btn-circle btn-md btn-ghost"
+            @click.stop
+          >
+            <Icon name="material-symbols:more-vert" />
+          </button>
 
           <Menu :items="items" item-class="py-2" />
         </div>

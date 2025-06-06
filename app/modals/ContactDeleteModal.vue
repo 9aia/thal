@@ -36,7 +36,7 @@ const { mutate: deleteContact, isPending } = useMutation({
         {{ t("Deleting Contact") }}
       </h1>
 
-      <p class="mb-4 mt-4 text-gray-800">
+      <p class="px-6 mb-4 mt-4 text-gray-800">
         <T
           text="You are about to delete {inlineContact}  from your contacts. Are you sure you want to delete it?"
           :values="{ inlineContact: true }"
@@ -55,7 +55,7 @@ const { mutate: deleteContact, isPending } = useMutation({
 
     <template #actions>
       <Button
-        class="btn-error text-white"
+        class="btn btn-soft btn-warning "
         :disabled="isPending"
         @click.prevent="deleteContact()"
       >
@@ -63,7 +63,7 @@ const { mutate: deleteContact, isPending } = useMutation({
       </Button>
 
       <Button
-        class="btn-primary"
+        class="btn btn-primary"
         :disabled="isPending"
         @click="isOpen = false"
       >

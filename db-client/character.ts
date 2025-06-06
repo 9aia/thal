@@ -10,10 +10,10 @@ block('List all characters', {
 block('Delete all character data', {
   danger: true,
   run: db => db.batch([
-    db.delete(usernames).where(isNotNull(usernames.characterId)),
     db.delete(characters),
-    db.delete(characterDrafts),
+    db.delete(usernames).where(isNotNull(usernames.characterId)),
     db.delete(characterDraftLocalizations),
+    db.delete(characterDrafts),
   ]),
 })
 

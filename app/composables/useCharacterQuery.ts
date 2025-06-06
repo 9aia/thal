@@ -7,7 +7,7 @@ function useCharacterQuery(username: Ref<string>) {
 
   return useServerQuery({
     queryKey: queryKeys.character(localeWithDefaultRegion.value, username.value),
-    queryFn: () => $fetch(`/api/character/${username.value}`, {
+    queryFn: () => $fetch(`/api/character/${username.value}` as `/api/character/:username`, {
       params: {
         locale: localeWithDefaultRegion.value,
       },

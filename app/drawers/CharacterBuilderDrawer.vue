@@ -26,6 +26,7 @@ interface FormValues {
   prompt: string
 }
 
+const headers = useRequestHeaders(['cookie'])
 function fetchBuild() {
   return new Promise<CharacterBuildApiData | null>((resolve, reject) => {
     $fetch('/api/character/build', {
@@ -33,6 +34,7 @@ function fetchBuild() {
         characterId: characterBuildId.value,
         locale: localWithDefaultRegion.value,
       },
+      headers,
       async onResponse({ response }) {
         if (response.status === 204) {
           resolve(null)
@@ -51,7 +53,7 @@ function fetchBuild() {
   })
 }
 
-const buildQuery = useQuery({
+const buildQuery = useServerQuery({
   queryKey: queryKeys.characterDraftEdit(localWithDefaultRegion, characterBuildId),
   queryFn: fetchBuild,
 })
@@ -229,9 +231,9 @@ const isAlreadyChatting = computed(() => {
       </div>
     </AppNote>
 
-    <div class="px-4 flex-1 overflow-y-auto bg-white space-y-4">
+    <div class="px-6 flex-1 overflow-y-auto bg-white space-y-4">
       <template v-if="isEditing">
-        <div class="px-4 text-xs text-gray-400 flex justify-between items-center">
+        <div class="text-xs text-gray-400 flex justify-between items-center">
           <T
             text="You are editing: {name}"
             :values="{ name: true }"
@@ -291,6 +293,7 @@ const isAlreadyChatting = computed(() => {
           isError,
           refetch: buildQuery.refetch,
         }"
+        :not-found-condition="false"
       >
         <SettingSection>
           <div

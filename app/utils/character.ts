@@ -1,7 +1,7 @@
 import { type ResponseSchema, SchemaType } from '@google/generative-ai'
 import { z } from 'zod'
 import { categories } from '~/constants/discover'
-import { descriptionSchema, instructionsSchema, nameSchema, nameSchemaChecks, usernameSchema, usernameSchemaChecks } from '~~/db/schema'
+import { descriptionSchema, descriptionSchemaChecks, instructionsSchema, instructionsSchemaChecks, nameSchema, nameSchemaChecks, usernameSchema, usernameSchemaChecks } from '~~/db/schema'
 
 export const characterLocalizationSchema = z.object({
   name: nameSchema,
@@ -27,11 +27,6 @@ export function getCharacterDraftPrompt() {
     example: category.example,
   }))
 
-  const minDescriptionLength = descriptionSchema._def.checks.find(check => check.kind === 'min')?.value
-  const maxDescriptionLength = descriptionSchema._def.checks.find(check => check.kind === 'max')?.value
-  const minInstructionsLength = instructionsSchema._def.checks.find(check => check.kind === 'min')?.value
-  const maxInstructionsLength = instructionsSchema._def.checks.find(check => check.kind === 'max')?.value
-
   const responseSchema: ResponseSchema = {
     type: SchemaType.OBJECT,
     properties: {
@@ -53,12 +48,12 @@ export function getCharacterDraftPrompt() {
               },
               description: {
                 type: SchemaType.STRING,
-                description: `Character description. Min ${minDescriptionLength} character, max ${maxDescriptionLength} characters.`,
+                description: `Character description. Min ${descriptionSchemaChecks.min} character, max ${descriptionSchemaChecks.max} characters.`,
                 example: 'Superhero who fights for justice and uses his advanced technology to protect the world.',
               },
               instructions: {
                 type: SchemaType.STRING,
-                description: `Instructions for the character. Use bullet list. Min ${minInstructionsLength} character, max ${maxInstructionsLength} characters.`,
+                description: `Instructions for the character. Use bullet list. Min ${instructionsSchemaChecks.min} character, max ${instructionsSchemaChecks.max} characters.`,
                 example: `
                   * Confident, charismatic, and witty with a sharp sense of humor.
                   * Brilliant inventor and engineer with a genius-level intellect.
@@ -79,17 +74,17 @@ export function getCharacterDraftPrompt() {
             properties: {
               name: {
                 type: SchemaType.STRING,
-                description: `Character name. Min ${minNameLength} character, max ${maxNameLength} characters.`,
+                description: `Character name. Min ${nameSchemaChecks.min} character, max ${nameSchemaChecks.max} characters.`,
                 example: 'Homem de Ferro',
               },
               description: {
                 type: SchemaType.STRING,
-                description: `Character description. Min ${minDescriptionLength} character, max ${maxDescriptionLength} characters.`,
+                description: `Character description. Min ${descriptionSchemaChecks.min} character, max ${descriptionSchemaChecks.max} characters.`,
                 example: 'Super-herói que luta pela justiça e usa sua tecnologia avançada para proteger o mundo.',
               },
               instructions: {
                 type: SchemaType.STRING,
-                description: `Instructions for the character. Use bullet list. Min ${minInstructionsLength} character, max ${maxInstructionsLength} characters.`,
+                description: `Instructions for the character. Use bullet list. Min ${instructionsSchemaChecks.min} character, max ${instructionsSchemaChecks.max} characters.`,
                 example: `
                   * Confidente, charismático e sarcástico com um senso de humor aguçado.
                   * Inventor e engenheiro com um nível de inteligência geniônica.
