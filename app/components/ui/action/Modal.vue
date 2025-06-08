@@ -4,22 +4,33 @@ import Button from './Button.vue'
 const props = withDefaults(
   defineProps<{
     classes?: string
+
+    // header
+    title?: string
+    showCloseButton?: boolean
+
+    // content
+    contentClass?: string
+    noScroll?: boolean
+
+    // footer
     confirmText?: string
     cancelText?: string
     hideConfirm?: boolean
     showCancel?: boolean
-    loading?: boolean
-    showCloseButton?: boolean
-    contentClass?: string
-    noPadding?: boolean
+    confirmLoading?: boolean
   }>(),
   {
     classes: '',
+
+    showCloseButton: false,
+
+    noScroll: false,
+
     confirmText: 'Confirm',
     cancelText: 'Cancel',
     hideConfirm: false,
     showCancel: false,
-    showCloseButton: false,
   },
 )
 
@@ -45,25 +56,39 @@ watch([visible, dialog], () => {
         @close="visible = false"
       >
         <form
-          class="modal-box bg-white p-4 rounded-3xl sm:w-11/12 sm:max-w-xl"
+          class="modal-box bg-white rounded-3xl sm:w-11/12 sm:max-w-xl p-0"
           method="dialog"
-          :class="{
-            'p-0': props.noPadding,
-            [props.classes]: props.classes,
-          }"
+          :class="props.classes"
           @submit="emit('confirm')"
         >
           <form v-if="showCloseButton" method="dialog">
-            <button class="btn btn-neutral btn-sm btn-circle btn-ghost absolute right-4 top-4 z-20">
-              ✕
-            </button>
+            <Button
+              class="btn btn-neutral btn-sm btn-circle btn-ghost absolute right-4 top-4 z-20"
+            >
+              <Icon name="material-symbols:close-rounded" class="text-base" />
+            </Button>
           </form>
 
           <div :class="contentClass">
-            <slot />
+            <div
+              class="px-4 pb-6 my-6"
+              :class="{
+                'h-128 overflow-auto': !noScroll,
+              }"
+            >
+              <header class="sticky top-0 px-8 pt-6 pb-4 bg-white z-10">
+                <h1 v-if="title" class="mb-4 text-sm text-black">
+                  {{ title }}
+                </h1>
+
+                <slot name="header" />
+              </header>
+
+              <slot />
+            </div>
           </div>
 
-          <div v-if="!props.hideConfirm || props.showCancel" class="modal-action">
+          <div v-if="!props.hideConfirm || props.showCancel" class="modal-action p-4">
             <slot name="footer" />
 
             <slot name="actions">
@@ -80,7 +105,7 @@ watch([visible, dialog], () => {
                 v-if="!props.hideConfirm"
                 value="true"
                 class="btn btn-primary"
-                :loading="loading"
+                :loading="confirmLoading"
                 @click.prevent="emit('confirm')"
               >
                 {{ props.confirmText }}
@@ -88,6 +113,7 @@ watch([visible, dialog], () => {
             </slot>
           </div>
         </form>
+
         <form method="dialog" class="modal-backdrop">
           <button @click.prevent="visible = false">
             close

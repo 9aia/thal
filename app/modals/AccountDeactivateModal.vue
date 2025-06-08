@@ -34,15 +34,22 @@ const isUsernameInvalid = computed(() => {
 </script>
 
 <template>
-  <form ref="formDeleteUserRef" action="/api/user/deactivate" method="POST" aria-hidden class="hidden" />
+  <form
+    ref="formDeleteUserRef"
+    action="/api/user/deactivate"
+    method="POST"
+    aria-hidden
+    class="hidden"
+    @submit.prevent="submit"
+  />
 
-  <Modal v-model="isOpen">
+  <Modal
+    v-model="isOpen"
+    no-scroll
+    :title="t('Deactivate Account')"
+  >
     <template #default>
-      <h1 class="px-6 pt-6 mb-2 mt-4 text-sm text-black">
-        {{ t("Deactivate Account") }}
-      </h1>
-
-      <div role="alert" class="flex items-center gap-2 bg-transparent">
+      <div role="alert" class="px-8 flex items-center gap-3 bg-transparent">
         <Icon class="text-warning">
           material-symbols:warning-outline
         </Icon>
@@ -59,9 +66,9 @@ const isUsernameInvalid = computed(() => {
         </T>
       </div>
 
-      <p class="mb-4 mt-4 text-gray-800" />
+      <p class="px-8 mb-4 mt-4 text-gray-800" />
 
-      <p class="mb-2 text-gray-800">
+      <p class="px-8 mb-2 text-gray-800">
         <T text="To confirm, please insert {username} below:" :values="{ username: user?.username }">
           <template #username="slotProps">
             <span class="text-warning font-bold">
@@ -72,6 +79,7 @@ const isUsernameInvalid = computed(() => {
       </p>
 
       <TextField
+        class="px-8"
         input-class="input-lg input-primary w-full"
         autocapitalize="none"
         autocomplete="off"
@@ -82,11 +90,11 @@ const isUsernameInvalid = computed(() => {
     </template>
 
     <template #actions>
-      <Button value="true" class="btn-error text-white" :disabled="isUsernameInvalid" @click.prevent="submit">
+      <Button class="btn btn-error" value="true" :disabled="isUsernameInvalid" @click.prevent="submit">
         {{ t('Deactivate my account') }}
       </Button>
 
-      <Button value="false" class="btn-primary" @click="isOpen = false">
+      <Button class="btn btn-primary" value="false" @click="isOpen = false">
         {{ t('Cancel') }}
       </Button>
     </template>

@@ -13,8 +13,6 @@ const pricingQuery = useServerQuery({
   queryKey: queryKeys.pricingData,
   staleTime: 0,
 })
-
-const RUNTIME_ENV = useRuntimeEnv()
 </script>
 
 <template>
@@ -37,7 +35,7 @@ const RUNTIME_ENV = useRuntimeEnv()
               }"
             >
               <template #English>
-                <span class="text-gradient bg-linear-[12deg] from-red-500 to-magenta-500">
+                <span class="text-gradient bg-linear-[12deg] from-blue-500 to-magenta-500">
                   {{ t('English') }}
                 </span>
               </template>
@@ -53,7 +51,7 @@ const RUNTIME_ENV = useRuntimeEnv()
           </CommonResource>
 
           <p class="text-lg text-black flex items-center gap-2 mx-auto mt-4">
-            Feel the difference in your fluency from the very first chat.
+            {{ t('Feel the difference in your fluency from the very first chat.') }}
           </p>
         </div>
       </div>
@@ -201,28 +199,51 @@ const RUNTIME_ENV = useRuntimeEnv()
         {{ t('Pricing') }}
       </h2>
 
-      <p class="text-gray-800 max-w-lg mx-auto mb-8 mt-6">
+      <p class="text-gray-800 max-w-lg mx-auto px-4 mb-8 mt-6">
         {{ t('We believe in making language learning accessible and straightforward. That’s why we offer a single plan with everything you need to improve your English.') }}
       </p>
 
-      <Pricing />
+      <div class="w-full px-4">
+        <div class="max-w-2xl mx-auto">
+          <Price />
+
+          <div class="w-full mx-auto max-w-sm mt-6">
+            <p class="text-gray-500 text-sm mb-2 mt-4 text-center">
+              {{ t('What’s included:') }}
+            </p>
+
+            <ul class="flex flex-col mx-auto text-gray-500 space-y-1 mb-4 text-sm">
+              <li class="flex justify-center gap-2">
+                <Icon name="material-symbols:check" class="text-blue-500" />
+                <div class="gap-2">
+                  <span class="text-blue-500">{{ t('Engaging Conversations:') }}</span>
+                  {{ t('Chat with AI-powered characters anytime, anywhere.') }}
+                </div>
+              </li>
+
+              <li class="flex justify-center gap-2">
+                <Icon name="material-symbols:check" class="text-blue-500" />
+                <div class="gap-2">
+                  <span class="text-blue-500">{{ t('Interactive Assistance:') }}</span>
+                  {{ t('Translations, corrections, and listening while chatting.') }}
+                </div>
+              </li>
+
+              <li class="flex justify-center gap-2">
+                <Icon name="material-symbols:check" class="text-blue-500" />
+                <div class="gap-2">
+                  <span class="text-blue-500">{{ t('Personalized Characters:') }}</span>
+                  {{ t('Create, discover and save characters for tailored learning.') }}
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section class="w-full p-12 mb-16">
-      <p class="text-black text-2xl mb-4 text-center mt-6">
-        {{ t('Curious to see how chatting can boost your English?') }}
-      </p>
-
-      <div class="flex flex-col items-center justify-center h-fit mt-4 gap-2">
-        <StripeCreateSessionForm
-          :checkout-status="pricingQuery.data.value?.checkoutStatus || null"
-          :subscription-status="pricingQuery.data.value?.subscriptionStatus || SubscriptionStatus.not_subscribed"
-        />
-
-        <div v-if="RUNTIME_ENV === 'dev' || RUNTIME_ENV === 'preview'" class="text-blue-500 text-xs flex mt-2 justify-center text-center">
-          <div>{{ t("Thal is in preview. We're not actually charging for access.") }}</div>
-        </div>
-      </div>
+      <FooterCta />
     </section>
   </div>
 </template>

@@ -17,7 +17,7 @@ const isForbidden = computed(() => props.error.statusCode === 403)
 <template>
   <div class="card w-96 bg-gray-800 text-primary-content">
     <div class="card-body items-center text-center">
-      <h2 class="card-title text-accent">
+      <h2 class="card-title text-primary">
         <slot
           name="title"
           :is-not-found="isNotFound"

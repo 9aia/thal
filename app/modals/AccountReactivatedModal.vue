@@ -16,18 +16,16 @@ onMounted(() => {
     v-model="isOpen"
     show-close-button
     :confirm-text="t('Continue')"
+    :title="t('Account Reactivated')"
+    no-scroll
     @confirm="isOpen = false"
   >
-    <h1 class="px-6 pt-6 mb-2 mt-4 text-sm text-black">
-      {{ t("Account Reactivated") }}
-    </h1>
-
-    <p class="font-gray-600 mb-4">
-      {{ t("Your account has been successfully reactivated. Welcome back! 🎉") }}
+    <p class="px-8 font-gray-600 mb-4">
+      {{ t("Your account is active again — great to have you back! 🎉") }}
     </p>
 
-    <p class="text-sm text-gray-600">
-      {{ t("You can now access your content and resume using all features.") }}
+    <p class="px-8 text-sm text-gray-600">
+      {{ t("You now have full access to your content and features.") }}
     </p>
   </Modal>
 </template>

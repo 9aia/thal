@@ -19,9 +19,9 @@ function openChats() {
         {{ t('Thal') }}
       </h1>
 
-      <div>
+      <div class="flex gap-1">
         <Button
-          class="btn-ghost"
+          class="btn btn-ghost btn-circle"
           shape="circle"
           no-disable-on-loading
           @click="openChats"
@@ -32,7 +32,7 @@ function openChats() {
         </Button>
 
         <Button
-          class="btn-ghost"
+          class="btn btn-ghost btn-circle"
           shape="circle"
           no-disable-on-loading
           @click="goToDiscover"
@@ -48,17 +48,22 @@ function openChats() {
 
     <main class="flex-1 px-4 py-4 w-full sm:w-[500px] lg:w-[600px] sm:mx-auto">
       <div class="flex flex-col h-full items-center justify-center">
+        <Icon
+          name="material-symbols:chat-outline-rounded"
+          class="text-9xl text-black mb-2 flex items-center gap-2"
+        />
+
         <h1 class="text-6xl text-black mb-2 flex items-center gap-2">
           Thal
         </h1>
 
         <div class="text-center text-lg text-black max-w-lg">
-          <p>
-            {{ t('Talk to Learn. Learn to Talk.') }}
+          <p class="text-gray-500 text-sm">
+            {{ t('Talk to thals to practice, learn, and have fun.') }}
           </p>
         </div>
 
-        <Button class="btn btn-soft btn-accent lg:hidden mt-4" @click="openChats()">
+        <Button class="btn btn-soft btn-primary lg:hidden mt-4" @click="openChats()">
           <Icon name="material-symbols:chat-outline" />
           {{ t("Open chats") }}
         </Button>
@@ -70,7 +75,7 @@ function openChats() {
         <Icon name="material-symbols:science-outline" class="text-xl" />
 
         <p class="text-xs">
-          {{ t('Talk to thals to practice, learn, and have fun. Chats are not professional instruction. Use responsibly.') }}
+          {{ t('AI may be inaccurate. Verify important responses.') }}
         </p>
       </div>
     </footer>

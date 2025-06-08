@@ -293,8 +293,13 @@ const isAlreadyChatting = computed(() => {
           isError,
           refetch: buildQuery.refetch,
         }"
-        :not-found-condition="false"
       >
+        <template #not-found>
+          <span aria-hidden="true" class="hidden">
+            NO_CHARACTER_DRAFT_FOUND
+          </span>
+        </template>
+
         <SettingSection>
           <div
             class="bg-gradient-2 rounded-2xl p-4 mb-4"

@@ -18,6 +18,8 @@ description: Tasks and items for the release.
 - Move settings to its own route and layout
 - Create "about me" field in the profile page
 - Refactor menu components into reusable components instead of JS array
+- Fix error handling in the API endpoints fetched using form
+- Add high traffic UI alert
 
 - Revision and adjust
   - Improve the design system and UI

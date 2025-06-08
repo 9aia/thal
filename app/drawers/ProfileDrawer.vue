@@ -21,8 +21,8 @@ const user = useUser()
     <div class="flex-1 overflow-y-auto bg-white">
       <ProfileHeader @edit="drawers.accountSettings = true" />
 
-      <div class="p-4 flex-1">
-        <SettingSection body-class="flex flex-col gap-4">
+      <div class="p-4 flex-1 ">
+        <SettingSection body-class="flex flex-col gap-4 w-full">
           <TitleContentItem
             :label="t('Name')"
             role="button"

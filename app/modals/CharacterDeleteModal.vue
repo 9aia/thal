@@ -78,13 +78,14 @@ const isUsernameInvalid = computed(() => {
 </script>
 
 <template>
-  <Modal v-model="isOpen">
+  <Modal
+    v-model="isOpen"
+    :title="t('Are you sure?')"
+    show-close-button
+    no-scroll
+  >
     <template #default>
-      <h1 class="px-6 pt-6 mb-2 mt-4 text-sm text-black">
-        {{ t("Are you sure?") }}
-      </h1>
-
-      <div role="alert" class="flex items-center gap-2 bg-transparent">
+      <div role="alert" class="px-8 flex items-center gap-3 bg-transparent">
         <Icon class="text-warning">
           material-symbols:warning-outline
         </Icon>
@@ -101,9 +102,9 @@ const isUsernameInvalid = computed(() => {
         </T>
       </div>
 
-      <p class="mb-4 mt-4 text-gray-800" />
+      <p class="px-8 mb-4 mt-4 text-gray-800" />
 
-      <p class="mb-2 text-gray-800">
+      <p class="px-8 mb-2 text-gray-800">
         <T text="To confirm, please insert {username} below:" :values="{ username: true }">
           <template #username>
             <span class="text-warning font-bold">
@@ -114,6 +115,7 @@ const isUsernameInvalid = computed(() => {
       </p>
 
       <TextField
+        class="px-8"
         input-class="input-lg input-primary w-full"
         label="Username"
         path="username"
@@ -124,11 +126,11 @@ const isUsernameInvalid = computed(() => {
     </template>
 
     <template #actions>
-      <Button value="true" class="btn-error" :disabled="isUsernameInvalid" @click.prevent="submit">
+      <Button class="btn btn-error" value="true" :disabled="isUsernameInvalid" @click.prevent="submit">
         {{ t('Delete character') }}
       </Button>
 
-      <Button value="false" class="btn-primary" @click="isOpen = false">
+      <Button class="btn btn-primary" value="false" @click="isOpen = false">
         {{ t('Cancel') }}
       </Button>
     </template>

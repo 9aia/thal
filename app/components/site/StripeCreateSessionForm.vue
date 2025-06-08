@@ -6,6 +6,7 @@ import { SubscriptionStatus } from '~~/db/schema'
 const props = defineProps<{
   checkoutStatus: CheckoutStatus
   subscriptionStatus: SubscriptionStatus
+  noInfo?: boolean
 }>()
 
 const user = useUser()
@@ -34,12 +35,12 @@ function onSubmit(event: Event) {
     <Button
       id="checkout-and-portal-button"
       type="submit"
-      class="btn btn-primary btn-lg"
+      class="btn btn-primary btn-lg w-fit mx-auto"
     >
       {{ t('Start chatting') }}
     </Button>
 
-    <p class="text-sm text-black flex items-center gap-2">
+    <p v-if="!noInfo" class="text-sm text-black flex items-center gap-2">
       <template v-if="!user || (checkoutStatus === null && subscriptionStatus === SubscriptionStatus.not_subscribed)">
         <Icon name="material-symbols:info-outline-rounded" class="text-warning" />
         {{ t('Try 1 Day Free – No Credit Card Needed') }}

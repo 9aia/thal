@@ -30,13 +30,14 @@ const { mutate: deleteContact, isPending } = useMutation({
 </script>
 
 <template>
-  <Modal v-model="isOpen">
+  <Modal
+    v-model="isOpen"
+    :title="t('Deleting Contact')"
+    show-close-button
+    no-scroll
+  >
     <template #default>
-      <h1 class="px-6 pt-6 mb-2 mt-4 text-sm text-black">
-        {{ t("Deleting Contact") }}
-      </h1>
-
-      <p class="px-6 mb-4 mt-4 text-gray-800">
+      <p class="px-8 text-sm text-black">
         <T
           text="You are about to delete {inlineContact}  from your contacts. Are you sure you want to delete it?"
           :values="{ inlineContact: true }"

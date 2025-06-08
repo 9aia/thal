@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useCountdown } from '@vueuse/core'
+import { useCountdown, useEventListener } from '@vueuse/core'
 import { tv } from 'tailwind-variants'
 import type { ButtonHTMLAttributes } from 'vue'
 import type { SafeProps } from '~/types'
@@ -24,7 +24,6 @@ const props = withDefaults(defineProps<Props & {
   resetIn: 0,
 })
 
-const emit = defineEmits(['click'])
 const { v } = useI18nExperimental()
 
 type Props = SafeProps<ButtonHTMLAttributes>
@@ -58,7 +57,6 @@ const isDisabled = computed(() => {
 
 function handleClick() {
   countdown.start()
-  emit('click')
 }
 
 const remainingFormatted = computed(() => v([countdown.remaining.value, {
@@ -81,6 +79,8 @@ const iconStyles = tv({
     size: 'md',
   },
 })
+
+useEventListener(buttonElement, 'click', handleClick)
 </script>
 
 <template>
@@ -89,7 +89,6 @@ const iconStyles = tv({
     :disabled="isDisabled"
     class="flex items-center justify-center gap-2"
     :class="{ 'flex-row-reverse': iconPosition === 'right' }"
-    @click="handleClick"
   >
     <span v-if="loading" class="loading loading-xs loading-spinner" />
     <Icon v-else-if="success" name="material-symbols:check-rounded" />

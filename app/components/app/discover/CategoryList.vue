@@ -17,7 +17,7 @@ function checkIsSelected(categoryId: number) {
 </script>
 
 <template>
-  <div class="flex flex-col gap-4 px-8 py-1">
+  <div class="flex flex-col gap-4">
     <div
       v-for="category, index in categories"
       :key="`category-${index}`"
@@ -32,7 +32,7 @@ function checkIsSelected(categoryId: number) {
       </Button>
 
       <div class="flex flex-col gap-1 relative w-full">
-        <p class="flex items-center gap-2" :class="checkIsSelected(category.id) ? 'text-accent' : 'text-black'">
+        <p class="flex items-center gap-2" :class="checkIsSelected(category.id) ? 'text-primary' : 'text-black'">
           {{ t(category.name) }}
         </p>
 

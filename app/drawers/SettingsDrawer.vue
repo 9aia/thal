@@ -25,7 +25,7 @@ useAutoRedirect({
     <div class="flex-1 overflow-y-auto bg-white mt-2">
       <div
         role="button"
-        class="group bg-radial-[circle_at_bottom] from-magenta-50 to-gray-50 p-6 flex justify-between items-center transition duration-300"
+        class="cursor-pointer group bg-radial-[circle_at_bottom] from-magenta-50 to-gray-50 p-6 flex justify-between items-center transition duration-300"
         @click="drawers.profile = true"
       >
         <div class="flex gap-4 items-center">

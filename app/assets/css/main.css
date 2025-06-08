@@ -260,7 +260,7 @@
   background-image:
     linear-gradient(var(--bg-color), var(--bg-color)),
     linear-gradient(
-      --value(angle, [angle]),
+      --value([angle]),
       var(--tw-gradient-from) var(--tw-gradient-from-position),
       var(--tw-gradient-to) var(--tw-gradient-to-position)
     );
