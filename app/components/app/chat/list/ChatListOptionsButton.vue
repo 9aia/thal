@@ -2,6 +2,10 @@
 import { drawers, isRootDrawerOpen } from '~/store'
 import type { MenuItemType } from '~/components/ui/navigation/types'
 
+const props = defineProps<{
+  hideHome?: boolean
+}>()
+
 const logout = useLogout()
 
 const t = (x: string) => x
@@ -25,8 +29,8 @@ async function openSettings() {
   drawers.settings = true
 }
 
-const items: MenuItemType[] = [
-  { id: 'home', name: t('Home'), icon: 'material-symbols:home-outline-rounded', onClick: () => goToHome() },
+const items: MenuItemType[] = computed(() => [
+  !props.hideHome && { id: 'home', name: t('Home'), icon: 'material-symbols:home-outline-rounded', onClick: () => goToHome() },
   { id: 'profile', name: t('Profile'), icon: 'material-symbols:face', onClick: () => openProfile() },
   { id: 'my-characters', name: t('My characters'), icon: 'material-symbols:manage-accounts-outline-rounded', onClick: () => openMyCharacters() },
   {
@@ -47,7 +51,7 @@ const items: MenuItemType[] = [
     meaning: 'warning',
     onSubmit: logout,
   },
-]
+].filter(item => Boolean(item)))
 </script>
 
 <template>

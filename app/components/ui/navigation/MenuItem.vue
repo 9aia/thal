@@ -14,7 +14,7 @@ const iconStyles = tv({
   base: 'text-3xl',
   variants: {
     color: {
-      normal: 'text-gray-800',
+      normal: 'text-black',
       warning: 'text-warning',
       info: 'text-info',
       danger: 'text-error',
@@ -26,7 +26,7 @@ const titleStyles = tv({
   base: 'text-sm',
   variants: {
     color: {
-      normal: 'text-gray-900',
+      normal: 'text-black',
       warning: 'text-warning font-semibold',
       danger: 'text-error font-semibold',
       info: 'text-info font-semibold',
@@ -38,7 +38,7 @@ const descriptionStyles = tv({
   base: 'text-xs',
   variants: {
     color: {
-      normal: 'text-gray-700',
+      normal: 'text-gray-600',
       warning: 'text-warning',
       danger: 'text-error',
       info: 'text-info',
@@ -62,7 +62,10 @@ const wrapperStyles = tv({
 
       <div class="flex flex-col w-full items-start">
         <div class="text-sm flex items-center justify-center gap-1" :class="titleStyles({ color: is.meaning || 'normal' })">
-          {{ t(is.name) }}
+          <template v-if="is.name">
+            {{ t(is.name) }}
+          </template>
+
           <slot name="title" />
         </div>
 

@@ -2,7 +2,7 @@ export type BreadcrumbItem = MenuItemType
 
 export interface MenuItemType {
   id: string
-  name: string
+  name?: string
   description?: string
   icon?: string
   href?: string

@@ -46,7 +46,7 @@ async function goToDiscover() {
           <Icon name="material-symbols:person-search-outline" />
         </Button>
 
-        <ChatListOptionsButton />
+        <ChatListOptionsButton hide-home />
       </div>
     </Navbar>
 

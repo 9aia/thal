@@ -28,6 +28,11 @@ const chatsQuery = useServerQuery({
     headers,
   }),
 })
+
+function goToHome() {
+  isRootDrawerOpen.value = false
+  navigateTo('/app/')
+}
 </script>
 
 <template>
@@ -37,7 +42,7 @@ const chatsQuery = useServerQuery({
         <Button
           class="btn btn-neutral btn-circle btn-ghost"
           no-disable-on-loading
-          @click="isRootDrawerOpen = false"
+          @click="goToHome()"
         >
           <Icon name="material-symbols:chat-outline-rounded" />
         </Button>
