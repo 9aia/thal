@@ -225,6 +225,12 @@
   @apply rounded-2xl border-none shadow-none px-4 py-2;
 }
 
+@utility input-xs { @apply text-xs; }
+@utility input-sm { @apply text-xs; }
+@utility input-md { @apply text-sm; }
+@utility input-lg { @apply text-sm; }
+@utility input-xl { @apply text-base; }
+
 @utility label {
   @apply text-wrap;
 }

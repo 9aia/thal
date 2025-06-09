@@ -42,30 +42,19 @@ async function handleGoToChat(username: string) {
   <div v-if="drawers.myCharacters" class="flex flex-col h-dvh justify-between">
     <Navbar :title="t('My Characters')" @click="emit('close')" />
 
-    <div class="flex-1 p-4 overflow-y-auto bg-white">
-      <div class="pt-4 text-center">
-        <div class="text-gray-800 flex items-center justify-center">
-          <Icon name="material-symbols:manage-accounts-outline" class="text-8xl" />
-        </div>
+    <div class="flex-1 pt-2 pb-4overflow-y-auto bg-white">
+      <SettingHeader
+        class="mb-4"
+        :title="t('Characters')"
+        icon="material-symbols:manage-accounts-outline-rounded"
+        :description="t('Create a custom character that matches your specific goals in learning English.')"
+      />
 
-        <h2 class="text-lg px-4 py-2 text-gray-800">
-          {{ t("Characters") }}
-        </h2>
-
-        <p class="px-4 text-sm text-gray-800">
-          {{ t("Create a custom character that matches your specific goals in learning English.") }}
-        </p>
-      </div>
-
-      <div class="py-4">
-        <SettingSection :title="t('Characters')" title-class="px-4">
-          <Teleport to="body">
-            <CharacterDeleteModal
-              v-model="deleteCharacter"
-              :character="characterToDelete!"
-            />
-          </Teleport>
-
+      <div class="py-4 mt-4">
+        <SettingSection
+          :title="t('Characters')"
+          class="px-4"
+        >
           <CommonResource :for="myCharactersQuery">
             <div class="h-full">
               <ul>
@@ -90,7 +79,7 @@ async function handleGoToChat(username: string) {
 
           <div>
             <ul>
-              <li class="group px-4 mt-2" @click="buildCharacter(null)">
+              <li class="group mt-2" @click="buildCharacter(null)">
                 <div class="cursor-pointer flex w-full gap-2 justify-between items-center">
                   <MenuItem
                     :is="{ id: 'add-character', name: 'Create character', icon: 'material-symbols:add' }"
@@ -100,6 +89,11 @@ async function handleGoToChat(username: string) {
               </li>
             </ul>
           </div>
+
+          <CharacterDeleteModal
+            v-model="deleteCharacter"
+            :character="characterToDelete!"
+          />
         </SettingSection>
       </div>
     </div>

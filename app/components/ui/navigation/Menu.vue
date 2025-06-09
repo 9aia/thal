@@ -22,12 +22,18 @@ function closeMenu() {
 <template>
   <ul
     tabindex="0"
-    class="menu menu-sm p-2 dropdown-content overflow-hidden mt-3 z-[1] shadow bg-base-100 rounded-box w-52"
+    class="px-3 menu menu-sm dropdown-content overflow-hidden mt-3 shadow-2xl bg-base-100 rounded-2xl w-56"
   >
-    <li v-for="item in items" :key="item.id" class="group w-full h-full" @click="closeMenu">
+    <li
+      v-for="item in items"
+      :key="item.id"
+      class="w-full h-full px-0 py-0 hover:bg-base-200/80 rounded-full"
+      @click="closeMenu"
+    >
       <Item
         :is="item"
         :class="itemClass"
+        class="hover:bg-transparent flex w-full"
         @action="emit('action', $event)"
       />
     </li>

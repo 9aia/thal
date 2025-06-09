@@ -59,10 +59,10 @@ async function handleGoToChat(username: string) {
 
 const emptyMessage = computed(() => {
   if (search.value) {
-    return t('No results found for "{query}"', { query: search.value })
+    return t('No contacts found for "{query}"', { query: search.value })
   }
 
-  return t('No results found.')
+  return t('No contacts found.')
 })
 </script>
 
@@ -82,14 +82,14 @@ const emptyMessage = computed(() => {
 
     <SettingSection body-class="px-5">
       <MenuGroup
-        item-class="cursor-pointer border-b-2 border-transparent focus:border-b-primary focus:outline-hidden"
+        item-class="border-b-2 border-transparent focus:border-b-primary focus:outline-hidden"
         :items="generalItems"
       />
     </SettingSection>
 
     <SettingSection :title="t('Discover')" title-class="px-5" body-class="px-5">
       <MenuGroup
-        item-class="cursor-pointer border-b-2 border-transparent focus:border-b-primary focus:outline-hidden"
+        item-class="border-b-2 border-transparent focus:border-b-primary focus:outline-hidden"
         :items="discoverItems"
       />
     </SettingSection>

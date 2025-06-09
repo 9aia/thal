@@ -155,7 +155,6 @@ const items: MenuItemType[] = [
   >
     <MenuGroup
       class="p-0 w-full shadow-none"
-      item-class="py-2 cursor-pointer"
       :items="items"
     />
 

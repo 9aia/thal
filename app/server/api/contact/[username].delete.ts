@@ -2,7 +2,7 @@ import { and, eq } from 'drizzle-orm'
 import { z } from 'zod'
 import { getContactByUsername } from '~/server/services/contact'
 import { getValidated } from '~/utils/h3'
-import { unauthorized } from '~/utils/nuxt'
+import { notFound, unauthorized } from '~/utils/nuxt'
 import { contacts, usernameSchema } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
@@ -16,8 +16,12 @@ export default eventHandler(async (event) => {
 
   const contact = await getContactByUsername(orm, user, username)
 
+  if (!contact.id)
+    throw notFound('Contact not found')
+
   const [deletedContact] = await orm
     .delete(contacts)
+    // TODO: rename column to adderUserId
     .where(and(eq(contacts.userId /* adderUserId */, user.id), eq(contacts.id, contact.id)))
     .returning()
 

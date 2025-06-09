@@ -235,10 +235,10 @@ const isAlreadyChatting = computed(() => {
       <template v-if="isEditing">
         <div class="text-xs text-gray-400 flex justify-between items-center">
           <T
-            text="You are editing: {name}"
-            :values="{ name: true }"
+            text="You are editing: {characterName}"
+            :values="{ characterName: true }"
           >
-            <template #name>
+            <template #characterName>
               <br>
               <button class="text-blue-500" @click="navigateTo(`/app/chat/${buildQuery.data.value?.character!.username}`)">
                 {{ buildQuery.data.value?.character!.name }}

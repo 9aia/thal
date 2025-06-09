@@ -51,7 +51,6 @@ useAutoRedirect({
         <SettingSection :title="t('General')">
           <MenuGroup
             class="p-0 w-full shadow-none"
-            item-class="py-2 cursor-pointer"
             :items="SETTINGS.general"
           >
             <template #footer>
@@ -73,7 +72,6 @@ useAutoRedirect({
 
         <SettingSection :title="t('Support')">
           <MenuGroup
-            item-class="py-2 cursor-pointer"
             :items="SETTINGS.support"
           />
         </SettingSection>
@@ -81,7 +79,6 @@ useAutoRedirect({
         <SettingSection :title="t('Legal')">
           <MenuGroup
             class="p-0 w-full shadow-none"
-            item-class="py-2 cursor-pointer"
             :items="SETTINGS.legal"
           />
         </SettingSection>

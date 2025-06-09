@@ -53,7 +53,7 @@ const menuItems: MenuItemType[] = [
                   wrapper-class="bg-neutral-50 text-neutral-content"
                 />
 
-                <Menu :items="menuItems" item-class="py-2" />
+                <Menu :items="menuItems" />
               </div>
             </div>
 

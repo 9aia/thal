@@ -4,7 +4,7 @@ export const contentEditableRef = ref()
 
 // #region Modal
 
-export const isPastDueModalOpen = ref(true)
+export const isPastDueModalOpen = ref(false)
 export const isPastDueModalAlreadyShown = ref(false)
 
 export const isWhatsNewModalOpen = ref(false)

@@ -13,8 +13,8 @@ const copy = useCopyUsername(props.username)
   <component
     :is="showCopy ? 'button' : 'span'"
     size="sm"
-    class="text-blue-500 hover:text-blue-600 flex items-center gap-1"
-    :class="{ 'flex-row-reverse': showCopy === 'left' }"
+    class="text-blue-500 hover:text-blue-600 flex items-center gap-1 border-b-2 border-transparent focus:border-blue-500 focus:outline-none"
+    :class="{ 'flex-row-reverse': showCopy === 'left', 'cursor-pointer': showCopy }"
     @click.stop.prevent="!!showCopy && copy()"
   >
     @{{ username }}

@@ -14,5 +14,6 @@ export default eventHandler(async (event) => {
     throw unauthorized()
 
   const contact = await getContactByUsername(orm, user, username)
+
   return contact
 })

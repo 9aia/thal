@@ -45,7 +45,7 @@ async function goToDiscover() {
         </A>
       </h1>
 
-      <div class="flex gap-1 items-center">
+      <div class="flex gap-1 items-center translate-x-1.5 z-50">
         <Button
           class="btn btn-neutral btn-circle btn-ghost"
           no-disable-on-loading

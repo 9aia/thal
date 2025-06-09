@@ -6,10 +6,6 @@ async function goToDiscover() {
   isRootDrawerOpen.value = false
   await navigateTo('/app/discover')
 }
-
-function print() {
-  console.log('click')
-}
 </script>
 
 <template>
@@ -32,7 +28,7 @@ function print() {
       </Button>
 
       <Button class="btn btn-neutral text-blue-500" @click="buildCharacter(null)">
-        <Icon name="material-symbols:person-edit-outline-rounded" />
+        <Icon name="material-symbols:frame-person-outline-rounded" />
         {{ t("Create character") }}
       </Button>
 

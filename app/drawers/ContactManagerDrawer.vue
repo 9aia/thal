@@ -2,7 +2,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 import { useDebounceFn } from '@vueuse/core'
 import { useForm } from 'vee-validate'
-import { isRootDrawerOpen, manageContactUsername } from '~/store'
+import { isRootDrawerOpen, manageContactName, manageContactUsername } from '~/store'
 import { nameSchema, nameSchemaChecks, usernameSchema, usernameSchemaChecks } from '~~/db/schema'
 import queryKeys from '~/queryKeys'
 import type { Contact } from '~/types'
@@ -18,9 +18,27 @@ useAutoRedirect({
 const { t } = useI18nExperimental()
 const toast = useToast()
 const queryClient = useQueryClient()
+const localeDefaultRegion = useLocaleDefaultRegion()
 
-const form = useForm<Contact>({})
+const contactQuery = useServerQuery({
+  queryKey: queryKeys.contact(computed(() => manageContactUsername.value!)),
+  queryFn: () => $fetch(`/api/contact/${manageContactUsername.value!}` as `/api/contact/:username`),
+  enabled: computed(() => !!manageContactUsername.value),
+})
+
+const form = useForm<{ name: string, username: string }>({
+  initialValues: {
+    name: manageContactName.value ?? contactQuery.data.value?.name ?? '',
+    username: manageContactUsername.value ?? '',
+  },
+})
 const hasErrors = useHasFormErrors(form)
+
+const characterQuery = useServerQuery({
+  queryKey: queryKeys.character(localeDefaultRegion, toRef(() => form.values.username)),
+  queryFn: () => $fetch(`/api/character/${form.values.username}` as `/api/character/:username`),
+  enabled: computed(() => !!form.values.username),
+})
 
 async function validateUsername(suggestedUsername: string) {
   if (!suggestedUsername || suggestedUsername === manageContactUsername.value)
@@ -44,7 +62,7 @@ async function validateUsername(suggestedUsername: string) {
     }
   }
   catch (e) {
-    const _ = e
+    console.error(e)
     toast.error(t('An error occurred while validating username.'))
   }
 }
@@ -52,13 +70,7 @@ async function validateUsername(suggestedUsername: string) {
 const debouncedValidateUsername = useDebounceFn(validateUsername, 500)
 watch(() => form.values.username, debouncedValidateUsername)
 
-const contactQuery = useQuery({
-  queryKey: queryKeys.contact(computed(() => manageContactUsername.value!)),
-  queryFn: () => $fetch(`/api/contact/${manageContactUsername.value!}`),
-  enabled: computed(() => !!manageContactUsername.value),
-})
-
-const isEditing = computed(() => !!manageContactUsername.value)
+const isEditing = computed(() => !!contactQuery.data.value?.id)
 
 function handleGoToChat(username: string) {
   isRootDrawerOpen.value = false
@@ -75,42 +87,40 @@ function onError() {
   return toast.error(message)
 }
 
-function onSuccess(data: any) {
-  queryClient.invalidateQueries({
-    queryKey: queryKeys.contacts,
-  })
-
-  queryClient.setQueryData(
-    queryKeys.contact(manageContactUsername.value!),
-    data,
-  )
-
-  const message = isEditing.value
-    ? t('{name} was edited.', { name: data.name })
-    : t('{name} was added to your contacts.', { name: data.name })
-  const username = data.username
-
-  toast.success(message, 5000, {
-    actions: [
-      {
-        title: t('Message'),
-        onClick: () => handleGoToChat(username),
-      },
-    ],
-    position: 'start-bottom',
-  })
-
-  form.resetForm()
-  emit('close')
-  // TODO: change manage contact to edition mode
-}
-
 const createMutation = useMutation({
   mutationFn: () => $fetch(`/api/contact`, {
     method: 'POST',
     body: form.values,
   }),
-  onSuccess,
+  onSuccess: (data) => {
+    const contactsItem = {
+      username: data.username,
+      contactId: data.id,
+      contactName: data.name,
+      characterDescription: characterQuery.data.value?.description ?? '',
+    }
+
+    queryClient.setQueryData<Contact[]>(
+      queryKeys.contacts,
+      oldData => [...(oldData ?? []), contactsItem],
+    )
+
+    queryClient.setQueryData(
+      queryKeys.contact(data.username),
+      data,
+    )
+
+    toast.success(
+      t('{name} was added to your contacts.', { name: data.name }),
+      5000,
+      {
+        actions: [
+          { title: t('Message'), onClick: () => handleGoToChat(data.username) },
+        ],
+        position: 'start-bottom',
+      },
+    )
+  },
   onError,
 })
 
@@ -119,11 +129,39 @@ const editMutation = useMutation({
     method: 'PATCH',
     body: form.values,
   }),
-  onSuccess,
+  onSuccess: (data) => {
+    const contactsItem = {
+      username: data.username,
+      contactId: data.id,
+      contactName: data.name,
+      characterDescription: characterQuery.data.value?.description ?? '',
+    }
+
+    queryClient.setQueryData<Contact[]>(
+      queryKeys.contacts,
+      oldData => oldData?.map(item => item.username === data.username ? contactsItem : item) ?? [],
+    )
+
+    queryClient.setQueryData(
+      queryKeys.contact(data.username),
+      data,
+    )
+
+    toast.success(
+      t('{name} was edited.', { name: data.name }),
+      5000,
+      {
+        actions: [
+          { title: t('Message'), onClick: () => handleGoToChat(data.username) },
+        ],
+        position: 'start-bottom',
+      },
+    )
+  },
   onError,
 })
 
-const loading = computed(() => createMutation.isPending.value || editMutation.isPending.value)
+const isLoading = computed(() => createMutation.isPending.value || editMutation.isPending.value)
 
 const submit = form.handleSubmit(() => isEditing.value
   ? editMutation.mutate()
@@ -173,7 +211,7 @@ const submit = form.handleSubmit(() => isEditing.value
           </TextField>
 
           <Button
-            :loading="loading"
+            :loading="isLoading"
             class="btn btn-primary float-right mt-4"
             :disabled="hasErrors"
           >

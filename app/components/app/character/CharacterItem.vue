@@ -25,7 +25,7 @@ const category = computed(() => {
 const copyUsername = useCopyUsername(toRef(() => props.username))
 
 const items: MenuItemType[] = [
-  { id: 'edit-character', name: 'Edit character', icon: 'material-symbols:person-edit-outline-rounded', onClick: () => emit('edit') },
+  { id: 'edit-character', name: 'Edit character', icon: 'material-symbols:frame-person-outline-rounded', onClick: () => emit('edit') },
   { id: 'share-character', name: 'Share character', icon: 'material-symbols:ios-share-rounded', onClick: () => copyUsername() },
   { id: 'chat', name: 'Message character', icon: 'material-symbols:chat-outline-rounded', onClick: () => emit('chat') },
   { id: 'delete-character', name: 'Delete character', icon: 'material-symbols:delete-outline-rounded', onClick: () => emit('delete'), meaning: 'danger' },
@@ -36,7 +36,7 @@ const items: MenuItemType[] = [
   <div
     role="button"
     tabindex="0"
-    class="px-3 py-2 cursor-pointer flex gap-3 items-center group relative focus:outline-none border-b-2 border-transparent focus:border-primary"
+    class="cursor-pointer flex gap-3 items-center group relative focus:outline-none border-b-2 border-transparent focus:border-primary"
   >
     <Avatar
       :name="name"
@@ -49,13 +49,6 @@ const items: MenuItemType[] = [
       <div class="py-1">
         <div class="flex gap-2 items-center text-base text-gray-900">
           {{ name }}
-
-          <div
-            v-if="username"
-            class="text-gray-600 flex gap-1 font-normal"
-          >
-            @{{ username }}
-          </div>
         </div>
 
         <div v-if="category" class="text-sm text-gray-600 flex gap-1 items-center">

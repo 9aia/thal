@@ -37,7 +37,8 @@ function handleSubmit(event: Event) {
 
   <template v-else-if="is.action">
     <form
-      :action="is.action" :method="is.method" class="flex w-full"
+      :action="is.action" :method="is.method"
+      class="flex min-w-full"
       v-on="{ submit: !!is.onSubmit ? handleSubmit : undefined }"
     >
       <button
@@ -74,7 +75,7 @@ function handleSubmit(event: Event) {
   <template v-else-if="is.emit">
     <div
       class="flex w-full justify-between items-center"
-      @click="emit('action', is.emit)"
+      @click.stop="emit('action', is.emit)"
     >
       <MenuItem :is="is">
         <template #title>
@@ -90,7 +91,7 @@ function handleSubmit(event: Event) {
   <template v-else>
     <A
       :href="is.href ? t(is.href as any) : undefined"
-      class="cursor-pointer flex w-full gap-2 justify-between items-center py-2"
+      class="cursor-pointer flex w-full gap-2 justify-between items-center"
       :target="is.newTab ? '_blank' : undefined" :localize="is.localize ?? true"
     >
       <MenuItem :is="is">

@@ -4,7 +4,7 @@ import { computed, effect, ref } from 'vue'
 import Icon from '../display/Icon.vue'
 
 const styles = tv({
-  base: 'alert border-0 flex justify-between',
+  base: 'alert border-0 flex justify-between w-full',
   variants: {
     type: {
       info: 'bg-gradient-info',
@@ -16,11 +16,11 @@ const styles = tv({
 })
 
 const actionStyles = tv({
-  base: 'btn btn-sm btn-outline border-gray-800 text-gray-800 hover:bg-gray-800 hover:border-gray-800 hover:text-primary',
+  base: 'btn btn-sm btn-soft btn-neutral text-black',
 })
 
 const toastStyles = tv({
-  base: 'toast z-50 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5',
+  base: 'toast z-50 w-max max-w-full md:max-w-1/2 lg:max-w-1/3 xl:max-w-1/4',
   variants: {
     position: {
       'start-top': 'toast-start toast-top',
@@ -55,7 +55,7 @@ const icons: Icons = {
 const icon = computed(() => toast.icon.value || icons[toast.type.value || 'info'])
 
 effect(() => {
-  const duration = toast.duration.value ?? 3000
+  const duration = toast.duration.value ?? 5000
 
   if (el.value) {
     if (duration < 1)
@@ -76,7 +76,11 @@ watch(toast.update, () => {
 
 <template>
   <Transition>
-    <div v-if="toast.visible.value" class="overflow-hidden" :class="toastStyles({ position: toast.position.value })">
+    <div
+      v-if="toast.visible.value"
+      class="overflow-hidden"
+      :class="toastStyles({ position: toast.position.value })"
+    >
       <div class="relative overflow-hidden" :class="styles({ type: toast.type.value })">
         <div class="flex items-center justify-center gap-2">
           <Icon :name="icon" class="text-gray-800" />

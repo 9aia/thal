@@ -21,8 +21,14 @@ const { mutate: deleteContact, isPending } = useMutation({
     },
   }),
   onSuccess: () => {
-    queryClient.setQueryData(queryKeys.contact(props.contactUsername), null)
-    queryClient.setQueryData(queryKeys.contacts, (old: Contact[]) => old.filter(contact => contact.username !== props.contactUsername))
+    queryClient.setQueryData(
+      queryKeys.contact(props.contactUsername),
+      null,
+    )
+    queryClient.setQueryData(
+      queryKeys.contacts,
+      (old: Contact[]) => old.filter(contact => contact.username !== props.contactUsername),
+    )
 
     isOpen.value = false
   },

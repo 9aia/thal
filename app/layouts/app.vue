@@ -28,7 +28,7 @@ onMounted(() => {
           </div>
           <div class="drawer-side">
             <div class="flex flex-col h-dvh justify-between max-w-2xl">
-              <ContactView v-if="rightDrawer" />
+              <ContactViewDrawer v-if="rightDrawer" />
             </div>
           </div>
         </div>

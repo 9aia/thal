@@ -57,6 +57,6 @@ const items: MenuItemType[] = [
       <Icon name="material-symbols:more-vert" />
     </Button>
 
-    <Menu :items="items" item-class="py-2" />
+    <Menu :items="items" />
   </div>
 </template>

@@ -12,9 +12,12 @@ const characterNotFound = useState('characterNotFound', () => false)
     id="chat-container"
     ref="scrollContainer"
     :tabindex="0"
-    class="bg-white w-full py-4 px-4 flex-1 overflow-y-auto relative focus:outline-hidden"
+    class="bg-white w-full py-4 px-4 flex-1 flex items-center justify-center overflow-y-auto relative focus:outline-hidden"
   >
-    <CommonResource :for="characterQuery">
+    <CommonResource
+      :for="characterQuery"
+      centered-error-fallback
+    >
       <template v-if="characterNotFound">
         <CharacterNotFound :username="username" />
       </template>

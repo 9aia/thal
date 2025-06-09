@@ -42,7 +42,7 @@ const redirectUrl = useRedirectUrl()
               <div class="dropdown dropdown-end">
                 <Avatar type="button" wrapper-class="w-10" />
 
-                <Menu :items="menuItems" item-class="py-2" />
+                <Menu :items="menuItems" />
               </div>
             </div>
 

@@ -14,7 +14,7 @@ const emit = defineEmits<({
   <div
     class="bg-white px-4 pt-4 pb-0 h-[64px] min-h-[64px] flex gap-2 justify-between"
   >
-    <h1 v-if="!hideTitle" class="text-sm py-2 text-black flex items-center gap-1 -translate-x-2">
+    <h1 v-if="!hideTitle" class="text-sm py-2 text-black flex items-center justify-start gap-1 -translate-x-1.5">
       <Button
         v-if="hideBack !== 'never'"
         class="btn btn-neutral btn-md btn-ghost btn-circle"

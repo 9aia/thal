@@ -101,7 +101,7 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
             </p>
 
             <Button class="btn btn-soft btn-primary rounded-full" @click="buildCharacter(null, search)">
-              <Icon name="material-symbols:person-edit-outline-rounded" />
+              <Icon name="material-symbols:frame-person-outline-rounded" />
               {{ t("Create character") }}
             </Button>
           </div>

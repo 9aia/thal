@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { buildCharacter, manageContact, openContactView } from '~/store'
+import { buildCharacter, isRootDrawerOpen, manageContact, openContactView } from '~/store'
 import type { MenuItemType } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
 
@@ -23,7 +23,7 @@ const contactQuery = useServerQuery({
   }),
 })
 
-const isContact = computed(() => !!contactQuery.data.value)
+const isContact = computed(() => !!contactQuery.data.value?.id)
 const contactNames = computed(() => getContactName({
   username: username.value,
   contactName: contactQuery.data.value?.name,
@@ -36,20 +36,20 @@ const items = computed(() => [
   {
     id: 'view-contact',
     name: t('View contact'),
-    icon: 'material-symbols:contact-page-outline',
+    icon: 'material-symbols:contact-page-outline-rounded',
     onClick: () => openContactView(username.value),
   },
   {
     id: 'share-character',
     name: t('Share character'),
-    icon: 'material-symbols:ios-share',
+    icon: 'material-symbols:ios-share-rounded',
     onClick: () => copyUrl(),
   },
   isContact.value
     ? {
         id: 'edit-contact',
         name: t('Edit contact'),
-        icon: 'material-symbols:edit-outline',
+        icon: 'material-symbols:person-edit-outline-rounded',
         onClick: () => manageContact(username.value),
       }
     : null,
@@ -57,13 +57,13 @@ const items = computed(() => [
     ? {
         id: 'delete-contact',
         name: t('Delete contact'),
-        icon: 'material-symbols:delete-outline',
+        icon: 'material-symbols:person-remove-outline-rounded',
         onClick: () => contactDeleteModalState.value = true,
       }
     : {
         id: 'add-contact',
         name: t('Add to contacts'),
-        icon: 'material-symbols:add',
+        icon: 'material-symbols:person-add-outline-rounded',
         onClick: () => manageContact(username.value, characterQuery.data.value?.name),
       },
   hasMessages.value
@@ -86,13 +86,11 @@ const items = computed(() => [
     }"
     @click="!characterNotFound && openContactView(username)"
   >
-    <!-- <label for="my-drawer" class="text-black drawer-button !p-0">
-    </label> -->
     <button
       as="label"
       for="my-drawer"
       class="lg:hidden btn btn-neutral btn-md btn-ghost btn-circle drawer-button"
-      @click.stop
+      @click.stop="isRootDrawerOpen = true"
     >
       <Icon name="material-symbols:arrow-back-rounded" />
     </button>
@@ -101,6 +99,7 @@ const items = computed(() => [
       :name="contactNames.avatarName"
       wrapper-class="bg-neutral text-content-neutral"
       type="div"
+      size="sm"
     />
 
     <div class="flex-1 flex items-center justify-between gap-4">
@@ -110,12 +109,12 @@ const items = computed(() => [
         </span>
       </div>
 
-      <div v-if="!characterNotFound" class="flex gap-2">
+      <div v-if="!characterNotFound" class="flex gap-1">
         <button
           class="btn btn-neutral btn-circle btn-md btn-ghost"
           @click.stop="buildCharacter(characterQuery.data.value?.id)"
         >
-          <Icon name="material-symbols:person-edit-outline-rounded" />
+          <Icon name="material-symbols:frame-person-outline-rounded" />
         </button>
 
         <div class="dropdown dropdown-end">
@@ -126,7 +125,7 @@ const items = computed(() => [
             <Icon name="material-symbols:more-vert" />
           </button>
 
-          <Menu :items="items" item-class="py-2" />
+          <Menu :items="items" />
         </div>
       </div>
     </div>
@@ -134,7 +133,7 @@ const items = computed(() => [
     <ContactDeleteModal
       v-if="isContact"
       v-model="contactDeleteModalState"
-      :contact-name="contactQuery.data.value?.name ?? ''"
+      :contact-name="contactQuery.data.value?.name!"
       :contact-username="username"
     />
   </header>

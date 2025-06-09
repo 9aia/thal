@@ -108,12 +108,13 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## DX
 
-- Upgrade to Tailwind v4
+- Rename username in the usernames table to text
+- Refactor toast
+- Refactor menu (items, dropdown, etc)
 - Improve logging
 - Remove unused files/code
 - Use inferred schemas as DTOs
-- Add nuxt devserver to codeshare container
-- Fix codeshare perms
 - Improve docs
   - Add docs for the difference between roadmap, changelog and "What's New"
-- Rename username in the usernames table to text.
+- Add nuxt devserver to codeshare container
+- Fix codeshare perms

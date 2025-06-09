@@ -1,6 +1,6 @@
 export function getContactName(names: {
   username: string
-  contactName?: string
+  contactName?: string | null
   characterName?: string
 }) {
   const displayName = names.contactName || names.characterName || `@${names.username}`

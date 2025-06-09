@@ -11,6 +11,7 @@ description: Tasks and items for the release.
 
 ## 0.1.0-11
 
+- Improve deployment process (facilitate the deployment of the app)
 - Make all icons rounded
 - Add setting item type for modal openers
 - Turn chat list into a typical responsive drawer
@@ -20,6 +21,8 @@ description: Tasks and items for the release.
 - Refactor menu components into reusable components instead of JS array
 - Fix error handling in the API endpoints fetched using form
 - Add high traffic UI alert
+
+- Enhance toast style widths
 
 - Revision and adjust
   - Improve the design system and UI
