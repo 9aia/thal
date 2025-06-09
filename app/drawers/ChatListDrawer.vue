@@ -12,7 +12,6 @@ const form = useForm({
 })
 
 const localWithDefaultRegion = useLocaleDefaultRegion()
-const whatsNew = useWhatsNew()
 
 watchDebounced(toRef(() => form.values.search), () => {
   chatListSearch.value = form.values.search
@@ -29,47 +28,29 @@ const chatsQuery = useServerQuery({
     headers,
   }),
 })
-
-async function goToDiscover() {
-  isRootDrawerOpen.value = false
-  await navigateTo('/app/discover')
-}
 </script>
 
 <template>
   <div class="bg-white flex flex-col h-dvh justify-between">
     <Navbar hide-title hide-back="always">
-      <h1 class="text-lg py-2 flex items-center gap-1">
-        <A href="/app/" class="text-lg text-black flex items-center border-b-2 border-transparent focus:outline-none focus:border-b-primary">
-          {{ t("Thal") }}
-        </A>
-      </h1>
+      <div class="flex gap-1 items-center -translate-x-1.5 z-50">
+        <Button
+          class="btn btn-neutral btn-circle btn-ghost"
+          no-disable-on-loading
+          @click="isRootDrawerOpen = false"
+        >
+          <Icon name="material-symbols:chat-outline-rounded" />
+        </Button>
+      </div>
 
       <div class="flex gap-1 items-center translate-x-1.5 z-50">
         <Button
-          class="btn btn-neutral btn-circle btn-ghost"
+          class="btn btn-neutral btn-circle btn-ghost lg:hidden"
           no-disable-on-loading
-          :class="{
-            'text-orange-500': whatsNew.hasUnreadContent.value,
-            'text-black': !whatsNew.hasUnreadContent.value,
-          }"
-          :loading="whatsNew.countQuery.isLoading.value"
-          @click="isWhatsNewModalOpen = true"
+          @click="isRootDrawerOpen = false"
         >
-          <Icon v-if="!whatsNew.countQuery.isLoading.value" name="material-symbols:campaign-outline-rounded" />
+          <Icon name="material-symbols:arrow-menu-close-rounded" />
         </Button>
-
-        <Button
-          class="btn btn-neutral btn-circle btn-ghost"
-          no-disable-on-loading
-          @click="goToDiscover"
-        >
-          <span class="px-4 py-1 flex items-center justify-center gap-1">
-            <Icon name="material-symbols:person-search-outline-rounded" />
-          </span>
-        </Button>
-
-        <ChatListOptionsButton />
       </div>
     </Navbar>
 

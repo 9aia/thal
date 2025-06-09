@@ -34,10 +34,10 @@ onMounted(() => {
         </div>
       </div>
 
-      <div class="drawer-side">
+      <div class="drawer-side z-50">
         <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay" />
 
-        <div class="flex flex-col h-dvh justify-between w-full sm:w-96">
+        <div class="flex flex-col h-dvh justify-between w-[80%] sm:w-96">
           <Drawer :model-value="true">
             <ChatListDrawer @close="drawers.newChat = false" />
 

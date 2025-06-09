@@ -3,6 +3,7 @@ defineProps<{
   title?: string
   hideBack?: 'always' | 'on-lg' | 'never'
   hideTitle?: boolean
+  backIcon?: string
 }>()
 
 const emit = defineEmits<({
@@ -23,7 +24,7 @@ const emit = defineEmits<({
         }"
         @click="emit('close')"
       >
-        <Icon name="material-symbols:arrow-back-rounded" />
+        <Icon :name="backIcon || 'material-symbols:arrow-back-rounded'" />
       </Button>
 
       {{ title }}

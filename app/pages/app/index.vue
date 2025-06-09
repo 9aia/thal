@@ -4,7 +4,6 @@ import AppLayout from '~/layouts/app.vue'
 definePageMeta({
   layout: false,
   middleware: 'premium',
-  showChatList: true,
 })
 
 useAutoRedirect()
@@ -16,7 +15,7 @@ useAutoRedirect()
       <NewChatDrawer />
     </template>
     <template #content>
-      <Welcome />
+      <Home />
     </template>
   </AppLayout>
 </template>

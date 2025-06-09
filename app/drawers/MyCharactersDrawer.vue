@@ -46,7 +46,8 @@ async function handleGoToChat(username: string) {
       <SettingHeader
         class="mb-4"
         :title="t('Characters')"
-        icon="material-symbols:manage-accounts-outline-rounded"
+        icon="material-symbols:manage-accounts-rounded"
+        icon-class="text-gray-100"
         :description="t('Create a custom character that matches your specific goals in learning English.')"
       />
 

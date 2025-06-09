@@ -6,8 +6,6 @@ useInternetConnectionIndicator()
 const { state: localeModalState } = useLocaleModal()
 const route = useRoute()
 
-isRootDrawerOpen.value = !!route.meta.showChatList
-
 type DrawersKey = keyof typeof drawers
 type Drawers = DrawersKey[]
 

@@ -17,7 +17,7 @@ const { t } = useI18nExperimental()
 
 const generalItems: MenuItemType[] = [
   { id: 'new-contact', icon: 'material-symbols:person-add-outline-rounded', name: t('New contact'), onClick: () => manageContact(null) },
-  { id: 'create-character', icon: 'material-symbols:engineering-outline-rounded', name: t('Build character'), onClick: () => buildCharacter(null) },
+  { id: 'create-character', icon: 'material-symbols:frame-person-outline-rounded', name: t('Build character'), onClick: () => buildCharacter(null) },
 ]
 
 async function goToDiscover() {
@@ -26,7 +26,7 @@ async function goToDiscover() {
 }
 
 const discoverItems: MenuItemType[] = [
-  { id: 'discover-characters', icon: 'material-symbols:groups-3-outline-rounded', name: t('Characters'), onClick: () => goToDiscover() },
+  { id: 'discover-characters', icon: 'material-symbols:person-search-outline-rounded', name: t('Characters'), onClick: () => goToDiscover() },
 ]
 
 const form = useForm({

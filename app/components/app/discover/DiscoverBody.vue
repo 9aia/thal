@@ -4,9 +4,10 @@ import { refDebounced } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import { useRouteQuery } from '@vueuse/router'
 import { type CategorySlug, categories } from '~/constants/discover'
-import { buildCharacter } from '~/store'
+import { buildCharacter, isRootDrawerOpen, isWhatsNewModalOpen } from '~/store'
 
 const toast = useToast()
+const whatsNew = useWhatsNew()
 const searchRouteQuery = useRouteQuery<string>('search', '')
 const categoryRouteQuery = useRouteQuery<CategorySlug>('category', '')
 
@@ -40,35 +41,61 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
 </script>
 
 <template>
-  <main class="bg-white flex-1 flex w-full items-start">
-    <div class="flex flex-col pb-4 w-full">
-      <div class="sticky top-0 z-1 bg-white">
-        <SettingSection body-class="px-5">
-          <form class="w-full sm:w-[500px] lg:w-[600px] mx-auto">
-            <SearchField
-              v-model="search"
-              :placeholder="t('Search for characters')"
-              path="search"
-              autofocus
-              input-class="input-lg input-primary w-full"
-            />
-          </form>
-        </SettingSection>
+  <div class="sticky top-0 z-1">
+    <Navbar
+      :title="t('Characters')"
+      hide-back="on-lg"
+      back-icon="material-symbols:menu-rounded"
+      @close="isRootDrawerOpen = true"
+    >
+      <div class="flex gap-1 items-center translate-x-1.5 z-50">
+        <Button
+          class="btn btn-neutral btn-circle btn-ghost"
+          no-disable-on-loading
+          :class="{
+            'text-orange-500': whatsNew.hasUnreadContent.value,
+            'text-black': !whatsNew.hasUnreadContent.value,
+          }"
+          :loading="whatsNew.countQuery.isLoading.value"
+          @click="isWhatsNewModalOpen = true"
+        >
+          <Icon v-if="!whatsNew.countQuery.isLoading.value" name="material-symbols:campaign-outline-rounded" />
+        </Button>
 
-        <SettingSection>
-          <CategoryPanel
-            v-model="categoryId"
-            header-class="px-5 sm:px-0 w-full sm:w-[500px] lg:w-[600px] mx-auto"
-          >
-            <template #header>
-              <SettingSectionTitle>
-                {{ t("Categories") }}
-              </SettingSectionTitle>
-            </template>
-          </CategoryPanel>
-        </SettingSection>
+        <ChatListOptionsButton />
       </div>
+    </Navbar>
 
+    <div class="top-0 z-1 bg-white">
+      <SettingSection body-class="px-5">
+        <form class="w-full sm:w-[500px] lg:w-[600px] mx-auto">
+          <SearchField
+            v-model="search"
+            :placeholder="t('Search for characters')"
+            path="search"
+            autofocus
+            input-class="input-lg input-primary w-full"
+          />
+        </form>
+      </SettingSection>
+
+      <SettingSection>
+        <CategoryPanel
+          v-model="categoryId"
+          header-class="px-5 sm:px-0 w-full sm:w-[500px] lg:w-[600px] mx-auto"
+        >
+          <template #header>
+            <SettingSectionTitle>
+              {{ t("Categories") }}
+            </SettingSectionTitle>
+          </template>
+        </CategoryPanel>
+      </SettingSection>
+    </div>
+  </div>
+
+  <main class="bg-white flex-1 flex w-full items-start pt-4">
+    <div class="flex flex-col pb-4 w-full">
       <SettingSection
         class="sm:w-auto sm:mx-auto"
         :title="t('Characters')"

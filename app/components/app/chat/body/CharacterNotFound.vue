@@ -9,8 +9,8 @@ defineProps<{
 <template>
   <div class="flex flex-col h-full justify-center items-center bg-white">
     <Icon
-      name="material-symbols:person-cancel-outline-rounded"
-      class="text-red-500 text-9xl"
+      name="material-symbols:person-cancel-rounded"
+      class="text-orange-500 text-9xl"
     />
 
     <h1 class="text-2xl mb-2">
