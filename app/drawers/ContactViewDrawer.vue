@@ -82,6 +82,12 @@ function goToChat() {
   toast.close()
 }
 
+function saveContact() {
+  manageContact(username.value, contactNames.value.displayName)
+  closeContactView()
+  toast.close()
+}
+
 const items = computed<MenuItemType[]>(() => [
   isContact.value
     ? {
@@ -149,43 +155,38 @@ const items = computed<MenuItemType[]>(() => [
           refetch,
         }"
       >
-        <section class="w-full px-4 pb-4 mt-2 flex flex-col justify-center">
+        <section class="w-full px-6 pb-4 mt-2 flex flex-col justify-center">
           <ContactViewIdentifier
             :username="username"
             :avatar-name="contactNames.avatarName"
             :display-name="contactNames.displayName"
+            actions-class="gap-8"
           >
             <template #actions>
-              <Button
+              <LabeledIconButton
                 v-if="!isContact"
-                class="btn btn-primary btn-soft"
+                icon="material-symbols:chat-outline-rounded"
+                :label="t('Message')"
                 @click="goToChat()"
-              >
-                <Icon name="material-symbols:chat-outline-rounded" />
-                {{ t("Message") }}
-              </Button>
+              />
 
-              <Button
+              <LabeledIconButton
                 v-if="!isContact"
-                class="btn btn-soft btn-warning"
-                @click="manageContact(username, contactNames.displayName)"
-              >
-                <Icon name="material-symbols:person-add-outline-rounded" />
-                {{ t("Save") }}
-              </Button>
+                icon="material-symbols:person-add-outline-rounded"
+                :label="t('Save')"
+                @click="saveContact()"
+              />
 
-              <Button
-                class="btn btn-ghost btn-warning text-warning hover:text-white"
+              <LabeledIconButton
+                icon="material-symbols:ios-share-rounded"
+                :label="t('Share')"
                 @click="copyUrl"
-              >
-                <Icon name="material-symbols:ios-share-rounded" />
-                {{ t('Share') }}
-              </Button>
+              />
             </template>
           </ContactViewIdentifier>
         </section>
 
-        <section class="w-full px-4">
+        <section class="w-full px-6">
           <MenuItem
             :is="{
               id: 'ai-character',
@@ -195,7 +196,7 @@ const items = computed<MenuItemType[]>(() => [
           />
         </section>
 
-        <section class="w-full px-4 py-4 flex flex-col gap-2">
+        <section class="w-full px-6 py-4 flex flex-col gap-2">
           <MenuItem
             :is="{
               id: 'description',
@@ -224,7 +225,7 @@ const items = computed<MenuItemType[]>(() => [
           />
         </section>
 
-        <section v-if="createdAt" class="w-full px-4 py-4">
+        <section v-if="createdAt" class="px-6 py-4 w-full">
           <Item
             :is="{
               id: 'ai-character',
@@ -234,17 +235,16 @@ const items = computed<MenuItemType[]>(() => [
             }"
           >
             <template #title>
-              <button
-                class="text-blue-500 hover:text-blue-600 flex items-center"
-                @click.stop.prevent="copyUsername"
+              <div
+                class="text-blue-500 hover:text-blue-600 flex items-center cursor-pointer"
               >
                 <Icon name="material-symbols:content-copy-outline-rounded" class="text-xl" />
-              </button>
+              </div>
             </template>
           </Item>
         </section>
 
-        <section class="w-full px-4 py-4 flex flex-col gap-2">
+        <section class="px-6 py-4 w-full flex flex-col gap-2">
           <Item
             :is="{
               id: 'clear-chat',

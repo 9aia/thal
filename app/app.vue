@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import { drawers, isPastDueModalOpen, isRootDrawerOpen } from '~/store'
+import { drawers, isPastDueModalOpen, isRootDrawerOpen, openContactView } from '~/store'
+import { usernameSchema } from '~~/db/schema'
 
 useInternetConnectionIndicator()
 
 const { state: localeModalState } = useLocaleModal()
 const route = useRoute()
+const toast = useToast()
 
 type DrawersKey = keyof typeof drawers
 type Drawers = DrawersKey[]
 
-onMounted(() => {
+function openDrawersFromQuery() {
   const drawer = route.query.drawer as DrawersKey
 
   if (!drawer) {
@@ -34,6 +36,29 @@ onMounted(() => {
 
   isRootDrawerOpen.value = true
   drawers[mappedDrawer] = true
+}
+
+function openContactViewByQuery() {
+  const usernameQueryValue = route.query['contact-info']
+
+  if (!usernameQueryValue) {
+    return
+  }
+
+  const usernameValidation = usernameSchema.safeParse(usernameQueryValue)
+
+  if (!usernameValidation.success) {
+    toast.error('Failed to open contact view by username query. Invalid username. Usage: /?contact-info=username')
+    return
+  }
+
+  const username = usernameValidation.data
+  openContactView(username)
+}
+
+onMounted(() => {
+  openDrawersFromQuery()
+  openContactViewByQuery()
 })
 </script>
 

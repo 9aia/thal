@@ -81,17 +81,11 @@ const emptyMessage = computed(() => {
     </form>
 
     <SettingSection body-class="px-5">
-      <MenuGroup
-        item-class="border-b-2 border-transparent focus:border-b-primary focus:outline-hidden"
-        :items="generalItems"
-      />
+      <MenuGroup :items="generalItems" />
     </SettingSection>
 
     <SettingSection :title="t('Discover')" title-class="px-5" body-class="px-5">
-      <MenuGroup
-        item-class="border-b-2 border-transparent focus:border-b-primary focus:outline-hidden"
-        :items="discoverItems"
-      />
+      <MenuGroup :items="discoverItems" />
     </SettingSection>
 
     <SettingSection :title="t('Contacts')" title-class="px-5" body-class="px-5 space-y-2">

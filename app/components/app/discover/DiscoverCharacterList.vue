@@ -58,9 +58,16 @@ const emptyMessage = computed(() => {
       class="w-full"
     />
 
-    <Observable class="w-full min-h-px flex items-center justify-center" :is-connected="discoverQuery.hasNextPage.value" @intersect="discoverQuery.fetchNextPage()">
+    <Observable
+      class="w-full min-h-px flex items-center justify-center"
+      :is-connected="discoverQuery.hasNextPage.value"
+      @intersect="discoverQuery.fetchNextPage()"
+    >
       <template #default="{ visible }">
-        <Spinner v-if="visible && discoverQuery.hasNextPage.value && discoverQuery.isLoading.value" class="mt-6 text-gray-800" />
+        <Spinner
+          v-if="visible && discoverQuery.hasNextPage.value && discoverQuery.isLoading.value"
+          class="mt-6 text-gray-800"
+        />
       </template>
     </Observable>
   </CommonResource>

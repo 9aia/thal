@@ -40,7 +40,7 @@ async function handleGoToChat(username: string) {
 
 <template>
   <div v-if="drawers.myCharacters" class="flex flex-col h-dvh justify-between">
-    <Navbar :title="t('My Characters')" @click="emit('close')" />
+    <Navbar :title="t('My Characters')" @close="emit('close')" />
 
     <div class="flex-1 pt-2 pb-4overflow-y-auto bg-white">
       <SettingHeader

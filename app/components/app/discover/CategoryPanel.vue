@@ -37,7 +37,7 @@ const bodyStyles = tv({
 })
 
 const viewAllButtonStyles = tv({
-  base: 'text-blue-500 text-xs float-right cursor-pointer border-b border-transparent focus:border-b-2 focus:border-b-blue-500 focus:outline-hidden',
+  base: 'text-blue-500 text-xs float-right cursor-pointer border-b-2 border-transparent focus:border-b-2 focus:border-b-blue-500 focus:outline-hidden',
 })
 </script>
 

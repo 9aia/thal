@@ -23,11 +23,14 @@ onMounted(() => {
       <div class="drawer-content flex flex-col h-dvh">
         <div class="drawer drawer-end">
           <input id="my-drawer-4" v-model="rightDrawer" type="checkbox" class="drawer-toggle">
+
           <div class="drawer-content flex flex-col h-dvh bg-white overflow-auto">
             <slot name="content" />
           </div>
-          <div class="drawer-side">
-            <div class="flex flex-col h-dvh justify-between max-w-2xl">
+          <div class="drawer-side z-[100]">
+            <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay" />
+
+            <div class="flex flex-col h-dvh items-end justify-center w-full sm:w-96">
               <ContactViewDrawer v-if="rightDrawer" />
             </div>
           </div>

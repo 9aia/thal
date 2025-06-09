@@ -20,7 +20,7 @@ const actionStyles = tv({
 })
 
 const toastStyles = tv({
-  base: 'toast z-50 w-max max-w-full md:max-w-1/2 lg:max-w-1/3 xl:max-w-1/4',
+  base: 'toast z-[999] w-max max-w-full md:max-w-1/2 lg:max-w-1/3 xl:max-w-1/4',
   variants: {
     position: {
       'start-top': 'toast-start toast-top',

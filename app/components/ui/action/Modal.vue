@@ -71,7 +71,7 @@ watch([visible, dialog], () => {
 
           <div :class="contentClass">
             <div
-              class="px-4 pb-6 my-6"
+              class="px-4 pb-6 my-6 focus:outline-2 focus:outline-primary"
               :class="{
                 'h-128 overflow-auto': !noScroll,
               }"

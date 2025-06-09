@@ -12,12 +12,15 @@ const copy = useCopyUsername(props.username)
 <template>
   <component
     :is="showCopy ? 'button' : 'span'"
-    size="sm"
-    class="text-blue-500 hover:text-blue-600 flex items-center gap-1 border-b-2 border-transparent focus:border-blue-500 focus:outline-none"
+    class="group text-black flex items-center gap-1 border-b-2 border-transparent focus:border-blue-500 focus:outline-none"
     :class="{ 'flex-row-reverse': showCopy === 'left', 'cursor-pointer': showCopy }"
     @click.stop.prevent="!!showCopy && copy()"
   >
     @{{ username }}
-    <Icon v-if="Boolean(showCopy)" name="material-symbols:content-copy-outline-rounded" class="text-xl" />
+    <Icon
+      v-if="Boolean(showCopy)"
+      name="material-symbols:content-copy-outline-rounded"
+      class="text-xl text-blue-500 group-hover:text-blue-600 "
+    />
   </component>
 </template>

@@ -21,7 +21,7 @@ function handleSubmit(event: Event) {
 <template>
   <template v-if="!!is.onClick">
     <button
-      class="cursor-pointer flex w-full justify-between items-center"
+      class="cursor-pointer flex w-full justify-between items-center border-b-2 border-transparent focus:border-b-2 focus:border-primary focus:outline-none"
       @click="is.onClick"
     >
       <MenuItem :is="is">
@@ -43,7 +43,7 @@ function handleSubmit(event: Event) {
     >
       <button
         type="submit"
-        class="cursor-pointer flex w-full justify-between items-center"
+        class="cursor-pointer flex w-full justify-between items-center border-b-2 border-transparent focus:border-b-2 focus:border-primary focus:outline-none"
       >
         <MenuItem :is="is">
           <template #title>
@@ -59,7 +59,7 @@ function handleSubmit(event: Event) {
   <template v-else-if="is.for">
     <label
       :for="is.for"
-      class="cursor-pointer flex w-full justify-between items-center"
+      class="cursor-pointer flex w-full justify-between items-center border-b-2 border-transparent focus:border-b-2 focus:border-primary focus:outline-none"
     >
       <MenuItem :is="is">
         <template #title>
@@ -74,7 +74,7 @@ function handleSubmit(event: Event) {
 
   <template v-else-if="is.emit">
     <div
-      class="flex w-full justify-between items-center"
+      class="flex w-full justify-between items-center border-b-2 border-transparent focus:border-b-2 focus:border-primary focus:outline-none"
       @click.stop="emit('action', is.emit)"
     >
       <MenuItem :is="is">
@@ -91,7 +91,7 @@ function handleSubmit(event: Event) {
   <template v-else>
     <A
       :href="is.href ? t(is.href as any) : undefined"
-      class="cursor-pointer flex w-full gap-2 justify-between items-center"
+      class="cursor-pointer flex w-full gap-2 justify-between items-center border-b-2 border-transparent focus:border-b-2 focus:border-primary focus:outline-none"
       :target="is.newTab ? '_blank' : undefined" :localize="is.localize ?? true"
     >
       <MenuItem :is="is">

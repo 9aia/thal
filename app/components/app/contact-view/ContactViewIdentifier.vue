@@ -1,9 +1,20 @@
 <script setup lang="ts">
+import { tv } from 'tailwind-variants'
+
 defineProps<{
   username: string
   avatarName: string
   displayName: string
+  actionsClass?: string
 }>()
+
+const baseStyles = tv({
+  slots: {
+    actions: 'w-full flex justify-center mt-3 gap-2',
+  },
+})
+
+const styles = baseStyles()
 </script>
 
 <template>
@@ -15,17 +26,17 @@ defineProps<{
       class="mx-auto"
     />
 
-    <h2 class="text-xl text-black text-center mt-1">
+    <h2 class="text-xl text-black text-center mt-1 mb-1">
       {{ displayName }}
     </h2>
 
     <Username
       :username="username"
       :show-copy="true"
-      class="mx-auto"
+      class="mx-auto text-sm"
     />
 
-    <div class="w-full flex justify-center mt-3 gap-2">
+    <div :class="styles.actions({ class: actionsClass })">
       <slot name="actions" />
     </div>
   </div>

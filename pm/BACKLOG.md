@@ -22,7 +22,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Add chat item option "Mark as unread", "Delete chat"
 - Add dark theme
 - Add date stamps in chat
-- Add query param to add contact from URL (eg. /app/chat/username?add=true and /app?add-contact=username)
+- Add query param to add contact from URL (eg. /app/chat/username?add=true and /app?add-contact=username) and others
 - Add a deleted/non-existent section in contacts
 - Add character search results to chat and contact search
 - Add multiple message TTS player

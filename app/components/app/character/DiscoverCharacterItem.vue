@@ -12,14 +12,9 @@ const props = defineProps<{
   showSendMessage?: boolean
 }>()
 
-async function sendMessage() {
+async function goToChat() {
   isRootDrawerOpen.value = false
   await navigateTo(`/app/chat/${props.username}`)
-}
-
-function onClick() {
-  if (props.showSendMessage && props.username)
-    sendMessage()
 }
 
 const category = computed(() => {
@@ -39,7 +34,7 @@ const displayName = computed(() => {
   <div
     role="button"
     class="py-1 flex gap-3 items-center group cursor-pointer"
-    @click.prevent="onClick"
+    @click.prevent="openContactView(username)"
   >
     <Avatar
       :name="avatarName"
@@ -76,6 +71,7 @@ const displayName = computed(() => {
           <Button
             v-if="showSendMessage && username"
             class="btn btn-neutral btn-ghost btn-circle"
+            @click.stop="goToChat"
           >
             <Icon name="material-symbols:chat-outline-rounded" />
           </Button>
