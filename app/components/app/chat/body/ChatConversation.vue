@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// TODO: remove this
 import queryKeys from '~/queryKeys'
 import type { Message } from '~/types'
 
@@ -15,36 +16,21 @@ const emit = defineEmits<{
   (e: 'delete', index: number): void
 }>()
 
-onMounted(() => {
-  emit('fixScroll')
-})
+// function handleDelete(messageId: number, shouldInvalidateChat = true) {
+//   queryClient.setQueryData(
+//     queryKeys.chat(username),
+//     (oldData: Message[]) => oldData.filter(message => message.id !== messageId),
+//   )
 
-const route = useRoute()
-const username = computed(() => route.params.username as string)
+//   sentErrorChatIds.value.delete(chatId.value)
+//   sendingChatIds.value.delete(chatId.value)
 
-const headers = useRequestHeaders(['cookie'])
-const historyQuery = useServerQuery({
-  queryKey: queryKeys.chatHistory(username),
-  queryFn: () => $fetch(`/api/chat/history/${username.value}`, {
-    headers,
-  }),
-})
-
-function handleDelete(messageId: number, shouldInvalidateChat = true) {
-  queryClient.setQueryData(
-    queryKeys.chat(username),
-    (oldData: Message[]) => oldData.filter(message => message.id !== messageId),
-  )
-
-  sentErrorChatIds.value.delete(chatId.value)
-  sendingChatIds.value.delete(chatId.value)
-
-  if (shouldInvalidateChat) {
-    queryClient.invalidateQueries({
-      queryKey: queryKeys.chats,
-    })
-  }
-}
+//   if (shouldInvalidateChat) {
+//     queryClient.invalidateQueries({
+//       queryKey: queryKeys.chats,
+//     })
+//   }
+// }
 </script>
 
 <template>

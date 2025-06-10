@@ -15,14 +15,12 @@ const emit = defineEmits<{
     :class="right ? 'flex-row-reverse' : 'flex-row'"
   >
     <Button
-      shape="circle"
-      size="sm"
       :disabled="isCharacterDeleted"
-      class="hidden group-hover:block"
+      class="hidden group-hover:block btn btn-sm btn-circle"
       @click="emit('setReply')"
     >
       <Icon
-        name="material-symbols:reply"
+        name="material-symbols:reply-rounded"
         class="text-base"
       />
     </Button>

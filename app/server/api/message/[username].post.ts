@@ -89,7 +89,7 @@ export default eventHandler(async (event) => {
   }
 
   const userMessageTime = now()
-  const { history } = await getHistory(orm, user, username)
+  const history = await getHistory(orm, user, username)
 
   history.push({
     id: history.length + 1,

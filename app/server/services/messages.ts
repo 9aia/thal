@@ -47,6 +47,9 @@ export async function getHistory(
     throw notFound('Character Username not found')
 
   const chat = result.chats[0]
+  const history = chat?.id ? chat.messages : []
 
-  return { history: chat?.id ? chat.messages : [], chatId: chat?.id ? chat.id : null }
+  return history
+  // TODO: remove this
+  // return { history: chat?.id ? chat.messages : [], chatId: chat?.id ? chat.id : null }
 }

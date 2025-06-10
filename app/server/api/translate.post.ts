@@ -70,7 +70,7 @@ export default defineEventHandler(async (event) => {
     throw internal('Character localization not found')
   }
 
-  const { history } = await getHistory(orm, user, data.chatUsername!)
+  const history = await getHistory(orm, user, data.chatUsername!)
 
   const formattedHistory = history.map((message) => {
     if (message.from === 'user') {

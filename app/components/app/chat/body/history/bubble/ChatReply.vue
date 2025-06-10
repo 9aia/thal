@@ -60,7 +60,7 @@ const replyMessage = computed(() => trimReplyMessage(props.replyMessage))
 
 <template>
   <div
-    class="rounded-2xl bg-gradient-1 py-1 px-3 relative w-full overflow-hidden pb-4" role="button"
+    class="rounded-2xl bg-radial-[at_bottom] from-blue-50 to-gray-50 py-1 px-3 relative w-full overflow-hidden pb-4" role="button"
     @click="scrollToMessage"
   >
     <div class="flex items-center gap-1 text-xs text-blue-500">
@@ -75,9 +75,3 @@ const replyMessage = computed(() => trimReplyMessage(props.replyMessage))
     <MDC :value="replyMessage" tag="article" class="text-xs text-blue-500 line-clamp-3 prose prose-slate prose-sm" />
   </div>
 </template>
-
-<style scoped>
-.bg-gradient-1 {
-  background: radial-gradient(at bottom, var(--color-blue-50), var(--color-gray-50));
-}
-</style>

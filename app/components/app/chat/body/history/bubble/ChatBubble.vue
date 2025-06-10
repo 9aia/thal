@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useLocale } from '@psitta/vue'
 import type { UseMutationReturnType } from '@tanstack/vue-query'
-import MessageIcon from './MessageIcon.vue'
 import type { MessageStatus } from '~/types'
 import { contentEditableRef, edition, replies } from '~/store'
 
@@ -14,7 +13,6 @@ const props = defineProps<{
   replyingId?: number | null
   replyFrom?: 'user' | 'bot'
   status: MessageStatus
-  img: string
   showResend: boolean
   showEdit: boolean
   showDelete: boolean
@@ -173,9 +171,7 @@ function cancelEdit() {
           shape="circle"
           @click="edit"
         >
-          <Icon class="text-base">
-            material-symbols:edit-outline
-          </Icon>
+          <Icon name="material-symbols:edit-outline-rounded" class="text-base" />
         </Button>
 
         <Button
@@ -184,9 +180,7 @@ function cancelEdit() {
           class="btn-ghost btn-gray text-magenta-500 sm:hidden group-hover:block"
           @click="emit('resend')"
         >
-          <Icon class="text-base">
-            material-symbols:refresh
-          </Icon>
+          <Icon name="material-symbols:refresh" class="text-base" />
         </Button>
 
         <Button
@@ -195,9 +189,7 @@ function cancelEdit() {
           class="text-gray-800 btn-ghost sm:hidden group-hover:block"
           @click="copyToClipboard"
         >
-          <Icon class="text-base">
-            material-symbols:content-copy-outline
-          </Icon>
+          <Icon name="material-symbols:content-copy-outline" class="text-base" />
         </Button>
 
         <Button
@@ -207,9 +199,7 @@ function cancelEdit() {
           no-disable-on-loading
           :loading="audiableTextMutation?.isPending.value" @click="audiableTextMutation?.mutate()"
         >
-          <Icon class="text-base">
-            material-symbols:volume-up-outline
-          </Icon>
+          <Icon name="material-symbols:volume-up-outline" class="text-base" />
         </Button>
 
         <Button

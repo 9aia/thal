@@ -31,25 +31,14 @@ const contactNames = computed(() => getContactName({
       v-if="!isContact"
       :avatar-name="contactNames.avatarName"
       :display-name="contactNames.displayName"
-      :description="characterQuery.data.value?.description"
+      :description="characterQuery.data.value!.description"
       :username="username"
       class="mb-4"
     />
 
     <ExperimentalAlert />
 
-    <!--
-
-    <ChatConversation
-      :is-error="messageError"
-      :is-character-deleted="data.isCharacterDeleted"
-      @fix-scroll="goToBottom"
-      @resend="handleResend()"
-      @delete="handleDelete($event)"
-      @edit="handleEdit()"
-    />
-
-    <ChatBubbleLoading v-if="isMessagePending && isOnline" /> -->
+    <!-- <History /> -->
 
     <div class="sticky bottom-0 right-0 flex justify-end">
       <!-- <GoToBottomButton /> -->

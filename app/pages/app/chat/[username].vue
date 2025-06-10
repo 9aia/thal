@@ -16,8 +16,6 @@ const username = computed(() => route.params.username as string)
 const text = ref('')
 const characterNotFound = useState('characterNotFound', () => false)
 
-const { goToBottom } = useChatHistoryScroll()
-
 const headers = useRequestHeaders(['cookie'])
 const chatQuery = useServerQuery({
   queryKey: queryKeys.chat(username),
@@ -40,13 +38,12 @@ const chatId = computed(() => chatQuery.data.value?.id || OPTIMISTIC_CHAT_ID)
       <div class="flex flex-col h-dvh justify-center items-center bg-white">
         <ChatHeader />
 
-        <ChatBody />
+        <!-- <ChatBody /> -->
 
         <ChatFooter
           v-if="!characterNotFound"
           v-model="text"
           :chat-id="chatId"
-          @fix-scroll="goToBottom"
         />
       </div>
     </template>

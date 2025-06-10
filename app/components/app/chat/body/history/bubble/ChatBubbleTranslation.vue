@@ -24,12 +24,10 @@ const { t } = useI18nExperimental()
 
     <div class="items-start min-w-[32px] min-h-[32px] flex">
       <Button
-        class="btn-ghost hidden group-hover/translation:block"
-        shape="circle"
-        size="sm"
+        class="btn btn-circle btn-sm btn-ghost hidden group-hover/translation:block"
         @click="isOpen = false"
       >
-        <Icon name="material-symbols:close" class="text-base" />
+        <Icon name="material-symbols:close-rounded" class="text-base" />
       </Button>
     </div>
   </div>
@@ -41,17 +39,24 @@ const { t } = useI18nExperimental()
     <div v-if="(error as FetchError).status === RATE_LIMIT_STATUS_CODE" class="text-gray-800 text-sm">
       {{ t("You are translating messages too fast. Please wait a moment.") }}
     </div>
+
     <div v-else class="text-gray-800 text-sm">
       {{ t('Failed to translate message. Try again later.') }}
     </div>
 
     <div class="items-start min-w-[64px] min-h-[32px] flex">
-      <Button class="btn-ghost hidden group-hover/translation:block" shape="circle" @click="refetch()">
-        <Icon name="material-symbols:refresh" class="text-base" />
+      <Button
+        class="btn btn-circle btn-ghost hidden group-hover/translation:block"
+        @click="refetch()"
+      >
+        <Icon name="material-symbols:refresh-rounded" class="text-base" />
       </Button>
 
-      <Button class="btn-ghost hidden group-hover/translation:block" shape="circle" @click="isOpen = false">
-        <Icon name="material-symbols:close" class="text-base" />
+      <Button
+        class="btn btn-circle btn-ghost hidden group-hover/translation:block"
+        @click="isOpen = false"
+      >
+        <Icon name="material-symbols:close-rounded" class="text-base" />
       </Button>
     </div>
   </div>

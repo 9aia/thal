@@ -28,7 +28,7 @@ async function handleGoToChat(username: string) {
 </script>
 
 <template>
-  <div role="button" class="px-3 py-1 hover:bg-gradient-1 flex gap-2" @click="handleGoToChat(chat.username)">
+  <div role="button" class="px-3 py-1 flex gap-2" @click="handleGoToChat(chat.username)">
     <Avatar
       :name="chat.characterName"
       class="mt-2 mx-auto"
@@ -49,7 +49,11 @@ async function handleGoToChat(username: string) {
       <div
         class="text-sm text-gray-600 flex items-center gap-0.5"
       >
-        <div v-if="chat.lastMessageStatus === 'seen'" class="line-clamp-1 text-green-500" :class="{ invisible: !chat.lastMessageContent }">
+        <div
+          v-if="chat.lastMessageStatus === 'seen'"
+          class="line-clamp-1 text-green-500"
+          :class="{ invisible: !chat.lastMessageContent }"
+        >
           {{ t('Typing...') }}
         </div>
 
@@ -67,9 +71,3 @@ async function handleGoToChat(username: string) {
     </div>
   </div>
 </template>
-
-<style scoped>
-.hover\:bg-gradient-1:hover {
-  background: radial-gradient(circle, var(--color-magenta-50), var(--color-white));
-}
-</style>

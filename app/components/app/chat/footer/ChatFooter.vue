@@ -5,15 +5,12 @@ defineProps<{
   chatId: number
 }>()
 
-// const emit = defineEmits<{
-//   (e: 'fixScroll'): void
-// }>()
-
 const text = defineModel<string>({
   required: true,
 })
 
 const route = useRoute()
+const { goToBottom } = useChatHistoryScroll()
 
 const username = computed(() => route.params.username as string)
 // TODO: refactor replies
@@ -111,34 +108,10 @@ const isReplying = computed(() => !!replies[username.value])
 //   onSettled: () => {
 //     sendingChatIds.value.delete(props.chatId.value)
 
-//     emit('fixScroll')
+// goToBottom()
 //   },
 // })
 // const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending } = messageMutation
-
-// function updateHistory(newMessage: SendMessageData) {
-//   const newHistory = [...data.value.history || []]
-
-//   newHistory.push({
-//     id: newHistory.length + 1,
-//     from: 'user',
-//     status: isOnline.value ? 'seen' : 'sending',
-//     message: newMessage.value,
-//     replyingMessage: newMessage?.replyingId
-//       ? {
-//           id: newMessage!.replyingId!,
-//           message: newMessage!.replyMessage!,
-//           from: newMessage!.replyFrom!,
-//         }
-//       : null,
-//     time: new Date().getTime(),
-//   })
-
-//   queryClient.setQueryData(queryKeys.chat(route.params.username as string), {
-//     ...data.value,
-//     history: newHistory,
-//   })
-// }
 
 // onMounted(() => {
 //   const chatContainer = document.querySelector('#chat-container')
