@@ -251,6 +251,16 @@
   @apply font-normal; 
 }
 
+@utility menu {
+  li > * {
+    @apply rounded-2xl;
+  }
+}
+
+menu li > * {
+  @apply outline-2 outline-offset-2 outline-blue-500;
+}
+
 /* extended gradients */
 
 @utility text-gradient {

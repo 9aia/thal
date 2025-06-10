@@ -39,11 +39,15 @@ const redirectUrl = useRedirectUrl()
         <div class="flex items-center gap-2 text-gray-900">
           <div>
             <div v-if="!!user">
-              <div class="dropdown dropdown-end">
-                <Avatar type="button" wrapper-class="w-10" />
+              <Dropdown class="dropdown-end">
+                <Avatar
+                  type="button"
+                  size="md"
+                  wrapper-class="bg-neutral text-neutral-content"
+                />
 
-                <Menu :items="menuItems" />
-              </div>
+                <DropdownContent :items="menuItems" />
+              </Dropdown>
             </div>
 
             <A v-else class="link link-red-500" href="/sign-in" @click="redirectUrl = '/app'">

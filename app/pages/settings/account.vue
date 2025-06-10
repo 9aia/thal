@@ -15,10 +15,8 @@ useAutoRedirect()
       {{ t("Account Settings") }}
     </h1>
 
-    <div class="flex-1 bg-white space-y-4 w-full flex">
-      <div class="w-full flex flex-col h-full pb-8">
-        <AccountSettingsForm />
-      </div>
+    <div class="pt-2 flex-1 overflow-y-auto bg-white space-y-4 -mx-6">
+      <AccountSettingsForm />
     </div>
   </div>
 </template>

@@ -13,7 +13,7 @@ const emit = defineEmits<({
 
 <template>
   <div
-    class="bg-white px-4 pt-4 pb-0 h-[64px] min-h-[64px] flex gap-2 justify-between"
+    class="bg-white px-6 pt-4 pb-0 h-[64px] min-h-[64px] flex gap-2 justify-between"
   >
     <h1 v-if="!hideTitle" class="text-sm py-2 text-black flex items-center justify-start gap-1 -translate-x-1.5">
       <Button

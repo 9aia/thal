@@ -26,9 +26,11 @@ function openChat(username: string) {
 <template>
   <CommonResource :for="chatsQuery">
     <template #empty>
-      <ChatListEmpty v-if="!chatListSearch.trim()" />
+      <p v-if="!chatListSearch.trim()" class="text-gray-500 text-xs px-2 py-2">
+        {{ t('You have no chats yet.') }}
+      </p>
 
-      <p v-else class="text-gray-500 text-sm py-2 px-6 text-center">
+      <p v-else class="text-gray-500 text-xs py-2">
         {{ chatListSearch ? t(`No results found for "{query}"`, { query: chatListSearch }) : t('No results found.') }}
       </p>
     </template>

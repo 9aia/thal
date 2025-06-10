@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import { tv } from 'tailwind-variants'
 import type { MenuItemType } from './types'
 import Item from './Item.vue'
 
-defineProps<{
+const props = defineProps<{
   items: MenuItemType[]
+  class?: string
+  liClass?: string
   itemClass?: string
 }>()
 
@@ -17,23 +20,32 @@ function closeMenu() {
   if (elem)
     elem?.blur()
 }
+
+const baseStyles = tv({
+  slots: {
+    base: 'dropdown-content bg-base-100 rounded-2xl z-1 w-56 p-4 shadow-2xl mt-3 overflow-visible space-y-2',
+    li: '',
+    item: 'flex px-2 w-full rounded-2xl focus:outline-2 focus:outline-offset-2 focus:outline-blue-500',
+  },
+})
+
+const styles = baseStyles()
 </script>
 
 <template>
   <ul
     tabindex="0"
-    class="px-3 menu menu-sm dropdown-content overflow-hidden mt-3 shadow-2xl bg-base-100 rounded-2xl w-56"
+    :class="styles.base({ class: props.class })"
   >
     <li
       v-for="item in items"
       :key="item.id"
-      class="w-full h-full px-0 py-0 hover:bg-base-200/80 rounded-full"
+      :class="styles.li({ class: liClass })"
       @click="closeMenu"
     >
       <Item
         :is="item"
-        :class="itemClass"
-        class="hover:bg-transparent flex w-full"
+        :class="styles.item({ class: itemClass })"
         @action="emit('action', $event)"
       />
     </li>

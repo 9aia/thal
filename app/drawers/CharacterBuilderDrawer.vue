@@ -231,7 +231,7 @@ const isAlreadyChatting = computed(() => {
       </div>
     </AppNote>
 
-    <div class="px-6 flex-1 overflow-y-auto bg-white space-y-4">
+    <div class="pt-2 flex-1 overflow-y-auto bg-white space-y-4">
       <template v-if="isEditing">
         <div class="text-xs text-gray-400 flex justify-between items-center">
           <T
@@ -249,7 +249,7 @@ const isAlreadyChatting = computed(() => {
           <Button
             v-if="isEditing && !isAlreadyChatting"
             class="btn btn-xs btn-dash btn-secondary"
-            icon-size="md"
+            icon-size="xl"
             icon="material-symbols:chat-paste-go-outline-rounded"
             :disabled="loading"
             @click="handleGoToChat"
@@ -259,7 +259,9 @@ const isAlreadyChatting = computed(() => {
         </div>
       </template>
 
-      <SettingSection>
+      <SettingSection
+        body-class="px-6"
+      >
         <form class="flex flex-col gap-2" @submit="submit">
           <TextareaField
             autofocus
@@ -276,8 +278,8 @@ const isAlreadyChatting = computed(() => {
 
           <Button
             :loading="loading"
-            class="btn btn-soft btn-primary w-fit"
-            icon-size="md"
+            class="btn btn-dash btn-primary w-fit"
+            icon-size="xl"
             icon="material-symbols:wand-stars-outline-rounded"
             :disabled="!form.values.prompt || hasErrors || isPastDueVisible"
           >
@@ -300,9 +302,11 @@ const isAlreadyChatting = computed(() => {
           </span>
         </template>
 
-        <SettingSection>
+        <SettingSection
+          body-class="px-6 pt-2"
+        >
           <div
-            class="bg-gradient-2 rounded-2xl p-4 mb-4"
+            class="bg-radial-[at_bottom] from-yellow-50 to-gray-50 rounded-2xl p-4 mb-4"
           >
             <div class="text-sm w-full h-full relative">
               <Menu.Root v-if="hasChanges">
@@ -344,9 +348,3 @@ const isAlreadyChatting = computed(() => {
     </div>
   </div>
 </template>
-
-<style scoped>
-.bg-gradient-2 {
-  background: radial-gradient(at bottom, var(--color-blue-50), var(--color-white));
-}
-</style>

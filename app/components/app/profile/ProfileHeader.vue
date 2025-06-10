@@ -13,7 +13,7 @@ const user = useUser()
     @click="emit('edit')"
   >
     <div class="flex flex-col gap-4 w-full">
-      <div class="pt-4 flex justify-center">
+      <div class="flex justify-center">
         <Avatar
           :name="user?.name"
           size="xl"

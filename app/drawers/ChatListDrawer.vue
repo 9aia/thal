@@ -2,8 +2,9 @@
 import { t } from '@psitta/vue'
 import { watchDebounced } from '@vueuse/core'
 import { useForm } from 'vee-validate'
+import type { MenuItemType } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
-import { chatListSearch, drawers, isRootDrawerOpen, isWhatsNewModalOpen } from '~/store'
+import { buildCharacter, chatListSearch, drawers, isRootDrawerOpen, isWhatsNewModalOpen, manageContact } from '~/store'
 
 const form = useForm({
   initialValues: {
@@ -33,22 +34,39 @@ function goToHome() {
   isRootDrawerOpen.value = false
   navigateTo('/app/')
 }
+
+// function goToDiscover() {
+//   isRootDrawerOpen.value = false
+//   navigateTo('/app/discover/')
+// }
+
+// function openMyCharacters() {
+//   drawers.myCharacters = true
+// }
+
+// const generalItems: MenuItemType[] = [
+//   { id: 'create-character', icon: 'material-symbols:frame-person-outline-rounded', name: t('Build character'), onClick: () => buildCharacter(null) },
+//   { id: 'new-contact', icon: 'material-symbols:person-add-outline-rounded', name: t('New contact'), onClick: () => manageContact(null) },
+//   // { id: 'my-characters', icon: 'material-symbols:manage-accounts-outline-rounded', name: t('My characters'), onClick: () => openMyCharacters() },
+// ]
+
+// const discoverItems: MenuItemType[] = [
+//   { id: 'discover-characters', icon: 'material-symbols:person-search-outline-rounded', name: t('Characters'), onClick: () => goToDiscover() },
+// ]
 </script>
 
 <template>
   <div class="bg-white flex flex-col h-dvh justify-between">
     <Navbar hide-title hide-back="always">
-      <div class="flex gap-1 items-center -translate-x-1.5 z-50">
-        <Button
-          class="btn btn-neutral btn-circle btn-ghost"
-          no-disable-on-loading
-          @click="goToHome()"
-        >
-          <Icon name="material-symbols:chat-outline-rounded" />
-        </Button>
+      <div class="flex gap-1 items-center z-50">
+        <h1>
+          <button class="text-sm cursor-pointer border-b-2 border-b-transparent focus:border-b-primary focus:outline-hidden" @click="goToHome()">
+            {{ t('Thal') }}
+          </button>
+        </h1>
       </div>
 
-      <div class="flex gap-1 items-center translate-x-1.5 z-50">
+      <div class="flex gap-1 items-center translate-x-2 z-50">
         <Button
           class="btn btn-neutral btn-circle btn-ghost lg:hidden"
           no-disable-on-loading
@@ -59,10 +77,10 @@ function goToHome() {
       </div>
     </Navbar>
 
-    <div class="flex-1 overflow-y-auto bg-white">
+    <div class="pt-2 flex-1 space-y-4 overflow-y-auto">
       <PastDueAppNote />
 
-      <form v-if="chatsQuery.data.value?.length" class="px-4 py-2">
+      <form v-if="chatsQuery.data.value?.length" class="px-6">
         <SearchField
           v-model="form.values.search"
           :placeholder="t('Search name or username...')"
@@ -71,10 +89,27 @@ function goToHome() {
           input-class="input-lg input-primary w-full"
         />
       </form>
+      <!--
+      <SettingSection
+        title-class="px-6"
+        body-class="px-4"
+      >
+        <ItemList :items="generalItems" />
+      </SettingSection>
 
-      <div class="flex-1 overflow-y-auto bg-white">
+      <SettingSection
+        :title="t('Discover')"
+        title-class="px-6"
+        body-class="px-4"
+      >
+        <ItemList :items="discoverItems" />
+      </SettingSection> -->
+
+      <SettingSection
+        body-class="px-4"
+      >
         <ChatItemList />
-      </div>
+      </SettingSection>
 
       <div class="absolute bottom-4 right-4">
         <Button

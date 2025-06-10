@@ -55,11 +55,11 @@ const items: MenuItemType[] = computed(() => [
 </script>
 
 <template>
-  <div class="dropdown dropdown-end">
+  <Dropdown class="dropdown-end">
     <Button class="btn btn-neutral btn-ghost btn-circle">
       <Icon name="material-symbols:more-vert" />
     </Button>
 
-    <Menu :items="items" />
-  </div>
+    <DropdownContent :items="items" />
+  </Dropdown>
 </template>

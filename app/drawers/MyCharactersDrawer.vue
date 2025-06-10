@@ -42,23 +42,24 @@ async function handleGoToChat(username: string) {
   <div v-if="drawers.myCharacters" class="flex flex-col h-dvh justify-between">
     <Navbar :title="t('My Characters')" @close="emit('close')" />
 
-    <div class="flex-1 pt-2 pb-4overflow-y-auto bg-white">
+    <div class="pt-2 flex-1 pb-4 overflow-y-auto bg-white">
       <SettingHeader
-        class="mb-4"
+        class="px-4 mb-6"
         :title="t('Characters')"
         icon="material-symbols:manage-accounts-rounded"
         icon-class="text-gray-100"
         :description="t('Create a custom character that matches your specific goals in learning English.')"
       />
 
-      <div class="py-4 mt-4">
+      <div class="mt-4">
         <SettingSection
           :title="t('Characters')"
-          class="px-4"
+          title-class="px-6"
+          body-class="px-4"
         >
           <CommonResource :for="myCharactersQuery">
-            <div class="h-full">
-              <ul>
+            <div class="h-full px-2">
+              <ul class="space-y-3">
                 <li
                   v-for="character in myCharactersQuery.data.value"
                   :key="`character-${character.id}`"
@@ -78,17 +79,15 @@ async function handleGoToChat(username: string) {
             </div>
           </CommonResource>
 
-          <div>
-            <ul>
-              <li class="group mt-2" @click="buildCharacter(null)">
-                <div class="cursor-pointer flex w-full gap-2 justify-between items-center">
-                  <MenuItem
-                    :is="{ id: 'add-character', name: 'Create character', icon: 'material-symbols:add' }"
-                    class="py-2"
-                  />
-                </div>
-              </li>
-            </ul>
+          <div class="pl-6 mt-4 -translate-x-3.5 w-full">
+            <Button
+              class="w-full flex items-center justify-start cursor-pointer py-1 border-b-2 border-transparent focus:border-b-primary focus:outline-hidden"
+              icon="material-symbols:add"
+              icon-size="xl"
+              @click="buildCharacter(null)"
+            >
+              {{ t('Create character') }}
+            </Button>
           </div>
 
           <CharacterDeleteModal

@@ -32,8 +32,8 @@ const discardMutation = useMutation({
 
 <template>
   <Button
-    class="btn btn-xs btn-warning btn-outline"
-    icon-size="md"
+    class="btn btn-sm btn-warning btn-outline"
+    icon-size="xl"
     icon="material-symbols:cancel-outline-rounded"
     icon-position="right"
     :loading="discardMutation.isPending.value"

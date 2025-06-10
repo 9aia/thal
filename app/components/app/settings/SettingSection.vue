@@ -12,8 +12,8 @@ const props = defineProps<{
 const section = tv({
   slots: {
     base: '',
-    header: '',
-    body: 'pt-4',
+    header: 'pb-4',
+    body: '',
   },
 })
 const { base, header, body } = section()

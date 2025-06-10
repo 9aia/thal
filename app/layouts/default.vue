@@ -46,15 +46,15 @@ const menuItems: MenuItemType[] = [
         <div class="flex items-center gap-2 text-gray-900">
           <div>
             <div v-if="!!user">
-              <div class="dropdown dropdown-end">
+              <Dropdown class="dropdown-end">
                 <Avatar
                   :name="user.name"
                   type="button"
                   wrapper-class="bg-neutral-50 text-neutral-content"
                 />
 
-                <Menu :items="menuItems" />
-              </div>
+                <DropdownContent :items="menuItems" />
+              </Dropdown>
             </div>
 
             <A

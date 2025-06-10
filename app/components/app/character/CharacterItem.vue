@@ -36,7 +36,7 @@ const items: MenuItemType[] = [
   <div
     role="button"
     tabindex="0"
-    class="cursor-pointer flex gap-3 items-center group relative focus:outline-none border-b-2 border-transparent focus:border-primary"
+    class="cursor-pointer flex gap-3 items-center group relative focus:outline-hidden"
   >
     <Avatar
       :name="name"
@@ -46,7 +46,7 @@ const items: MenuItemType[] = [
     <div
       class="flex-1 flex flex-col justify-center"
     >
-      <div class="py-1">
+      <div>
         <div class="flex gap-2 items-center text-base text-gray-900">
           {{ name }}
         </div>
@@ -61,15 +61,25 @@ const items: MenuItemType[] = [
       </div>
 
       <div
-        class="flex right-0 absolute gap-1 py-1 bg-gradient-to-r from-transparent via-white to-white"
+        class="flex right-0 absolute gap-1 bg-gradient-to-r from-transparent via-white to-white"
       >
         <Menu.Root>
           <Menu.Trigger class="btn btn-neutral btn-circle btn-ghost" @click.stop.prevent>
             <Icon name="material-symbols:more-vert" />
           </Menu.Trigger>
           <Menu.Positioner>
-            <Menu.Content class="shadow-xs bg-base-100 rounded-box w-52 z-40 p-2 focus:outline-hidden">
-              <Menu.Item v-for="item in items" :id="item.id" :key="item.id" :value="item.id" class="py-2 px-3 hover:bg-base-200 rounded-lg" @click.stop.prevent="item.onClick">
+            <Menu.Content
+              class="bg-base-100 rounded-2xl z-40 w-56 p-4 shadow-2xl mt-3 overflow-visible space-y-2 focus:outline-hidden"
+            >
+              <Menu.Item
+                v-for="item in items"
+                :id="item.id"
+                :key="item.id"
+                :value="item.id"
+                tabindex="0"
+                class="flex px-2 w-full rounded-2xl focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
+                @click.stop.prevent="item.onClick"
+              >
                 <MenuItem :is="item" />
               </Menu.Item>
             </Menu.Content>

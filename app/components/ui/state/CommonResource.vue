@@ -39,7 +39,7 @@ const props = withDefaults(defineProps<{
 
     <template #empty>
       <slot name="empty">
-        <p class="text-gray-500 text-sm py-2 px-6 text-center">
+        <p class="text-gray-500 text-xs py-2 px-2">
           {{ emptyMessage || t('No results found.') }}
         </p>
       </slot>
@@ -47,7 +47,7 @@ const props = withDefaults(defineProps<{
 
     <template #not-found>
       <slot name="not-found">
-        <p class="text-gray-500 text-sm py-2 px-6 text-center">
+        <p class="text-gray-500 text-xs py-2 px-2">
           {{ notFoundMessage || t('No results found.') }}
         </p>
       </slot>

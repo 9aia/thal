@@ -7,10 +7,10 @@ const styles = tv({
   base: 'alert border-0 flex justify-between w-full',
   variants: {
     type: {
-      info: 'bg-gradient-info',
-      warning: 'bg-gradient-warning',
-      error: 'bg-gradient-error',
-      success: 'bg-gradient-success',
+      info: 'bg-radial-[at_top] from-[var(--color-blue-100)] to-[var(--color-gray-50)]',
+      warning: 'bg-radial-[at_top] from-[var(--color-orange-100)] to-[var(--color-gray-50)]',
+      error: 'bg-radial-[at_top] from-[var(--color-red-100)] to-[var(--color-gray-50)]',
+      success: 'bg-radial-[at_top] from-[var(--color-green-100)] to-[var(--color-gray-50)]',
     },
   },
 })
@@ -20,7 +20,7 @@ const actionStyles = tv({
 })
 
 const toastStyles = tv({
-  base: 'toast z-[999] w-max max-w-full md:max-w-1/2 lg:max-w-1/3 xl:max-w-1/4',
+  base: 'toast rounded-2xl z-[999]',
   variants: {
     position: {
       'start-top': 'toast-start toast-top',
@@ -126,22 +126,6 @@ watch(toast.update, () => {
 </template>
 
 <style scoped>
-.bg-gradient-success {
-  background: radial-gradient(at top, var(--color-green-100), var(--color-gray-50));
-}
-
-.bg-gradient-error {
-  background: radial-gradient(at top, var(--color-red-100), var(--color-gray-50));
-}
-
-.bg-gradient-warning {
-  background: radial-gradient(at top, var(--color-orange-100), var(--color-gray-50));
-}
-
-.bg-gradient-info {
-  background: radial-gradient(at top, var(--color-blue-100), var(--color-gray-50));
-}
-
 .animate-progress {
   animation: fill-progress linear;
   animation-play-state: paused;

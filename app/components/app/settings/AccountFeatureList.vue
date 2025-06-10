@@ -3,7 +3,7 @@ import { t } from '@psitta/vue'
 </script>
 
 <template>
-  <ul class="mt-6">
+  <ul>
     <li class="flex gap-2 items-center">
       <Icon class="text-success" name="material-symbols:check-rounded" />
 

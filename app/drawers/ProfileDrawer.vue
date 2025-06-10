@@ -18,11 +18,13 @@ const user = useUser()
   <div class="flex flex-col h-dvh justify-between">
     <Navbar :title="t('Profile')" @close="emit('close')" />
 
-    <div class="flex-1 overflow-y-auto bg-white">
+    <div class="flex-1 overflow-y-auto bg-white pt-4">
       <ProfileHeader @edit="drawers.accountSettings = true" />
 
-      <div class="p-4 flex-1 ">
-        <SettingSection body-class="flex flex-col gap-4 w-full">
+      <div class="flex-1 mt-4">
+        <SettingSection
+          body-class="px-6 flex flex-col gap-4 w-full"
+        >
           <TitleContentItem
             :label="t('Name')"
             role="button"

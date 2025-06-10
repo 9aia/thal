@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
+import { tv } from 'tailwind-variants'
 import MenuItem from './MenuItem.vue'
 import type { MenuItemType } from './types'
 
 const props = defineProps<{
   is: MenuItemType
+  class?: string
 }>()
 
 const emit = defineEmits<{
@@ -16,12 +18,22 @@ function handleSubmit(event: Event) {
 
   props.is.onSubmit && props.is.onSubmit(event)
 }
+
+const baseStyles = tv({
+  slots: {
+    button: 'cursor-pointer flex w-full justify-between items-center',
+    label: 'cursor-pointer flex w-full justify-between items-center',
+    a: 'cursor-pointer flex w-full gap-2 justify-between items-center',
+    div: 'group flex w-full justify-between items-center',
+  },
+})
+const styles = baseStyles()
 </script>
 
 <template>
   <template v-if="!!is.onClick">
     <button
-      class="cursor-pointer flex w-full justify-between items-center border-b-2 border-transparent focus:border-b-2 focus:border-primary focus:outline-none"
+      :class="styles.button({ class: props.class })"
       @click="is.onClick"
     >
       <MenuItem :is="is">
@@ -43,7 +55,7 @@ function handleSubmit(event: Event) {
     >
       <button
         type="submit"
-        class="cursor-pointer flex w-full justify-between items-center border-b-2 border-transparent focus:border-b-2 focus:border-primary focus:outline-none"
+        :class="styles.button({ class: props.class })"
       >
         <MenuItem :is="is">
           <template #title>
@@ -59,7 +71,7 @@ function handleSubmit(event: Event) {
   <template v-else-if="is.for">
     <label
       :for="is.for"
-      class="cursor-pointer flex w-full justify-between items-center border-b-2 border-transparent focus:border-b-2 focus:border-primary focus:outline-none"
+      :class="styles.label({ class: props.class })"
     >
       <MenuItem :is="is">
         <template #title>
@@ -74,7 +86,8 @@ function handleSubmit(event: Event) {
 
   <template v-else-if="is.emit">
     <div
-      class="flex w-full justify-between items-center border-b-2 border-transparent focus:border-b-2 focus:border-primary focus:outline-none"
+      tabindex="0"
+      :class="styles.div({ class: props.class })"
       @click.stop="emit('action', is.emit)"
     >
       <MenuItem :is="is">
@@ -91,7 +104,7 @@ function handleSubmit(event: Event) {
   <template v-else>
     <A
       :href="is.href ? t(is.href as any) : undefined"
-      class="cursor-pointer flex w-full gap-2 justify-between items-center border-b-2 border-transparent focus:border-b-2 focus:border-primary focus:outline-none"
+      :class="styles.a({ class: props.class })"
       :target="is.newTab ? '_blank' : undefined" :localize="is.localize ?? true"
     >
       <MenuItem :is="is">

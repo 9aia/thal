@@ -3,11 +3,6 @@ import { drawers, isRootDrawerOpen, isWhatsNewModalOpen } from '~/store'
 
 const t = (x: string) => x
 
-async function goToDiscover() {
-  isRootDrawerOpen.value = false
-  await navigateTo('/app/discover')
-}
-
 const general: MenuItemType[] = [
   {
     id: 'account',
@@ -28,12 +23,6 @@ const general: MenuItemType[] = [
     icon: 'material-symbols:manage-accounts-outline',
     name: t('My characters'),
     onClick: () => drawers.myCharacters = true,
-  },
-  {
-    id: 'discover-characters',
-    icon: 'material-symbols:person-search-outline',
-    name: t('Discover characters'),
-    onClick: () => goToDiscover(),
   },
 ]
 

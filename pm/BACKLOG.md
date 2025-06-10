@@ -108,6 +108,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## DX
 
+- Rewrite Daisy dropdowns using ArkUI components
 - Rename username in the usernames table to text
 - Refactor toast
 - Refactor menu (items, dropdown, etc)

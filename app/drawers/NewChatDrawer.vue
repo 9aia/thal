@@ -16,8 +16,8 @@ useAutoRedirect({
 const { t } = useI18nExperimental()
 
 const generalItems: MenuItemType[] = [
-  { id: 'new-contact', icon: 'material-symbols:person-add-outline-rounded', name: t('New contact'), onClick: () => manageContact(null) },
   { id: 'create-character', icon: 'material-symbols:frame-person-outline-rounded', name: t('Build character'), onClick: () => buildCharacter(null) },
+  { id: 'new-contact', icon: 'material-symbols:person-add-outline-rounded', name: t('New contact'), onClick: () => manageContact(null) },
 ]
 
 async function goToDiscover() {
@@ -62,15 +62,15 @@ const emptyMessage = computed(() => {
     return t('No contacts found for "{query}"', { query: search.value })
   }
 
-  return t('No contacts found.')
+  return t('You have no contacts yet.')
 })
 </script>
 
 <template>
   <Navbar :title="t('New chat')" @close="emit('close')" />
 
-  <div class="pb-4 flex-1 overflow-y-auto bg-white space-y-4 pt-2">
-    <form class="px-4">
+  <div class="pt-2 pb-4 flex-1 overflow-y-auto bg-white space-y-4">
+    <form class="px-6">
       <SearchField
         v-model="form.values.search"
         :placeholder="t('Search name or username...')"
@@ -80,15 +80,26 @@ const emptyMessage = computed(() => {
       />
     </form>
 
-    <SettingSection body-class="px-5">
-      <MenuGroup :items="generalItems" />
+    <SettingSection
+      title-class="px-6"
+      body-class="px-4"
+    >
+      <ItemList :items="generalItems" />
     </SettingSection>
 
-    <SettingSection :title="t('Discover')" title-class="px-5" body-class="px-5">
-      <MenuGroup :items="discoverItems" />
+    <SettingSection
+      :title="t('Discover')"
+      title-class="px-6"
+      body-class="px-4"
+    >
+      <ItemList :items="discoverItems" />
     </SettingSection>
 
-    <SettingSection :title="t('Contacts')" title-class="px-5" body-class="px-5 space-y-2">
+    <SettingSection
+      :title="t('Contacts')"
+      title-class="px-6"
+      body-class="px-4 space-y-2"
+    >
       <CommonResource
         :for="contactsQuery"
         :empty-message="emptyMessage"

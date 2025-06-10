@@ -134,15 +134,15 @@ const items = computed<MenuItemType[]>(() => [
       </h1>
 
       <div class="flex-1 flex items-center justify-end gap-1 translate-x-1.5 z-50">
-        <div class="dropdown dropdown-end">
+        <Dropdown class="dropdown-end">
           <Button
             class="btn btn-neutral btn-circle btn-ghost"
           >
             <Icon name="material-symbols:more-vert" />
           </Button>
 
-          <Menu :items="items" />
-        </div>
+          <DropdownContent :items="items" />
+        </Dropdown>
       </div>
     </header>
 

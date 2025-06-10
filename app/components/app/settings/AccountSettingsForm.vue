@@ -4,7 +4,7 @@ import { useForm } from 'vee-validate'
 import type { MenuItemType } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
 import type { User } from '~~/db/schema'
-import { pronounsSchema, pronounsSchemaChecks, userLastNameSchema, userLastNameSchemaChecks, userNameSchema, userNameSchemaChecks, usernameSchema, usernameSchemaChecks } from '~~/db/schema'
+import { userLastNameSchema, userLastNameSchemaChecks, userNameSchema, userNameSchemaChecks, usernameSchema, usernameSchemaChecks } from '~~/db/schema'
 
 const { t } = useI18nExperimental()
 const toast = useToast()
@@ -79,41 +79,43 @@ const items: MenuItemType[] = [
 </script>
 
 <template>
-  <SettingSection :title="t('General Information')">
-    <form class="flex flex-col gap-2 items-end" @submit="submit">
-      <div class="gap-2 grid grid-cols-2">
-        <TextField
-          path="name"
-          :label="t('Name')"
-          class="grid-cols-1/2"
-          input-class="input-lg input-primary w-full"
-          :rules="yupify(userNameSchema, t(
-            `Name must contain between {min} and {max} characters.`,
-            userNameSchemaChecks,
-          ))"
-        />
-        <TextField
-          path="lastName"
-          :label="t('Last name')"
-          class="grid-cols-1/2"
-          input-class="input-lg input-primary w-full"
-          :rules="yupify(userLastNameSchema, t(
-            `Last name must contain between {min} and {max} characters.`,
-            userLastNameSchemaChecks,
-          ))"
-        />
-      </div>
+  <SettingSection
+    :title="t('General Information')"
+    title-class="px-6"
+    body-class="px-4"
+  >
+    <form class="px-2 flex flex-col gap-2 items-end" @submit="submit">
+      <TextField
+        path="name"
+        :label="t('Name')"
+        class="w-full"
+        input-class="input-lg input-primary w-full"
+        :rules="yupify(userNameSchema, t(
+          `Name must contain between {min} and {max} characters.`,
+          userNameSchemaChecks,
+        ))"
+      />
+      <TextField
+        path="lastName"
+        :label="t('Last name')"
+        class="w-full"
+        input-class="input-lg input-primary w-full"
+        :rules="yupify(userLastNameSchema, t(
+          `Last name must contain between {min} and {max} characters.`,
+          userLastNameSchemaChecks,
+        ))"
+      />
 
       <TextField
         path="username"
         autocapitalize="none"
         autocomplete="off"
         :label="t('Username')"
+        class="w-full"
         :rules="yupify(usernameSchema, t(
           'Username can only contain letters, numbers, and underscores. Min {min} character, max {max} characters.',
           usernameSchemaChecks,
         ))"
-        class="w-full"
         input-class="input-lg input-primary w-full"
         icon-position="right"
       >
@@ -140,23 +142,23 @@ const items: MenuItemType[] = [
       <Button
         :loading="editAccountMutation.isPending.value"
         class="btn btn-primary mt-2 mb-4"
+        icon="material-symbols:save-outline-rounded"
+        icon-size="xl"
         :disabled="hasErrors"
       >
         {{ t('Save account settings') }}
       </Button>
     </form>
 
-    <AccountFeatureList />
+    <AccountFeatureList class="mt-4 px-2" />
   </SettingSection>
 
   <SettingSection
-    class="pt-4"
     :title="t('Actions')"
+    title-class="px-6"
+    body-class="px-4"
   >
-    <MenuGroup
-      class="p-0 w-full shadow-none"
-      :items="items"
-    />
+    <ItemList :items="items" />
 
     <AccountDeactivateModal v-model="isDeactivateModalOpen" />
   </SettingSection>

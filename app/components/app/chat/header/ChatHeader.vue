@@ -117,7 +117,7 @@ const items = computed(() => [
           <Icon name="material-symbols:frame-person-outline-rounded" />
         </button>
 
-        <div class="dropdown dropdown-end">
+        <Dropdown class="dropdown-end">
           <button
             class="btn btn-neutral btn-circle btn-md btn-ghost"
             @click.stop
@@ -125,8 +125,8 @@ const items = computed(() => [
             <Icon name="material-symbols:more-vert" />
           </button>
 
-          <Menu :items="items" />
-        </div>
+          <DropdownContent :items="items" />
+        </Dropdown>
       </div>
     </div>
 

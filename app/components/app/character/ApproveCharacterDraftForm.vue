@@ -115,12 +115,13 @@ const isPastDueVisible = computed(() => {
       <Button
         type="submit"
         class="btn btn-sm btn-primary"
-        icon-size="md"
+        icon-size="xl"
         icon="material-symbols:order-approve-outline-rounded"
+        icon-position="right"
         :loading="approveMutation.isPending.value"
         :disabled="isPastDueVisible"
       >
-        {{ isEditing ? t("Approve edition") : t("Approve character") }}
+        {{ isEditing ? t("Approve") : t("Approve") }}
       </Button>
     </div>
   </form>

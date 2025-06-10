@@ -173,9 +173,15 @@ const submit = form.handleSubmit(() => isEditing.value
   <div class="flex flex-col h-dvh justify-between">
     <Navbar :title="isEditing ? t('Edit Contact') : t('New Contact')" @close="emit('close')" />
 
-    <div class="px-4 py-4 flex-1 overflow-y-auto bg-white space-y-4">
-      <SettingSection :title="t('General Information')">
-        <form class="block space-y-2" @submit="submit">
+    <div
+      class="pt-2 flex-1 overflow-y-auto bg-white space-y-4"
+    >
+      <SettingSection
+        :title="t('General Information')"
+        title-class="px-6"
+        body-class="px-4"
+      >
+        <form class="px-2 block space-y-2" @submit="submit">
           <TextField
             input-class="input-lg input-primary w-full"
             autofocus
@@ -212,10 +218,11 @@ const submit = form.handleSubmit(() => isEditing.value
 
           <Button
             :loading="isLoading"
-            class="btn btn-primary float-right mt-4"
+            class="btn btn-primary float-right mt-2"
+            icon="material-symbols:person-add-outline-rounded"
+            icon-size="xl"
             :disabled="hasErrors"
           >
-            <Icon name="material-symbols:person-add-outline-rounded" />
             {{ t('Save contact') }}
           </Button>
         </form>

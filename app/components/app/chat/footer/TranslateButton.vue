@@ -61,6 +61,7 @@ watch(translation.error, async (value) => {
     :disabled="isChatSending"
     :loading="translation.isLoading.value"
     icon="material-symbols:translate-rounded"
+    icon-size="xl"
     @click="translation.onTranslate()"
   />
 </template>

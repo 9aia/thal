@@ -67,7 +67,9 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
     </Navbar>
 
     <div class="top-0 z-1 bg-white">
-      <SettingSection body-class="px-5">
+      <SettingSection
+        body-class="px-6"
+      >
         <form class="w-full sm:w-[500px] lg:w-[600px] mx-auto">
           <SearchField
             v-model="search"
@@ -82,7 +84,7 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
       <SettingSection>
         <CategoryPanel
           v-model="categoryId"
-          header-class="px-5 sm:px-0 w-full sm:w-[500px] lg:w-[600px] mx-auto"
+          header-class="px-6 pt-4 sm:px-0 w-full sm:w-[500px] lg:w-[600px] mx-auto"
         >
           <template #header>
             <SettingSectionTitle>
@@ -99,8 +101,8 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
       <SettingSection
         class="sm:w-auto sm:mx-auto"
         :title="t('Characters')"
-        title-class="px-5"
-        body-class="px-5 space-y-2"
+        title-class="px-6"
+        body-class="px-6 space-y-2"
       >
         <div class="pb-2 overflow-y-auto flex flex-col items-center w-full sm:w-[500px] lg:w-[600px]">
           <Suspense>
