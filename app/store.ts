@@ -1,7 +1,5 @@
 import type { Replies } from '~/types'
 
-export const contentEditableRef = ref()
-
 // #region Modal
 
 export const isPastDueModalOpen = ref(false)
@@ -76,6 +74,9 @@ export async function manageContact(username?: string | null, name?: string) {
 // #endregion
 
 // #region Chat
+
+export const contentEditableRef = ref()
+export const chatContainerRef = ref<HTMLDivElement>()
 
 export interface Edition {
   editing: boolean

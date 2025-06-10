@@ -1,34 +1,54 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
+import { manageContact, openContactView } from '~/store'
 
-defineProps<{
-  hasContact: boolean
+const props = defineProps<{
   avatarName: string
   displayName: string
   description: string
+  username: string
 }>()
+
+const truncatedDescription = computed(() => {
+  return props.description.length > 100 ? `${props.description.slice(0, 64)}...` : props.description
+})
 </script>
 
 <template>
   <div
-    v-if="!hasContact"
-    class="bg-radial-[at_top] from-yellow-50 to-gray-50 mb-8 text-gray-800 text-center sm:max-w-lg mx-auto rounded-3xl"
+    class="bg-radial-[at_top] from-orange-50 to-gray-50 text-gray-800 text-center sm:max-w-sm mx-auto rounded-3xl"
   >
-    <div class="py-8 px-4">
-      <Avatar :name="avatarName" class="mx-auto w-20 h-20 text-lg bg-gray-100 text-gray-800" />
+    <div class="py-6 px-6">
+      <Avatar
+        :name="avatarName"
+        type="button"
+        size="xl"
+        class="mx-auto"
+        wrapper-class="bg-neutral text-neutral-content"
+        @click="openContactView(username)"
+      />
 
-      <h2 class="text-gray-900 text-center mb-1">
+      <h2 class="text-gray-900 text-center mb-1 mt-2">
         {{ displayName }}
       </h2>
 
-      <small class="text-gray-600 text-xs">~ {{ description }}</small>
+      <p class="text-black text-xs mb-4">
+        @{{ username }}
+      </p>
 
-      <p class="mb-2 text-gray-600 text-sm">
+      <small class="text-gray-500 text-xs">
+        ~ {{ truncatedDescription }}
+      </small>
+
+      <p class="text-black text-xs mb-4 mt-4">
         {{ t('Not a contact') }}
       </p>
 
       <div class="card-actions justify-center">
-        <Button class="btn btn-soft btn-primary" @click="addContact()">
+        <Button
+          class="btn btn-soft btn-primary"
+          @click="manageContact(username, displayName)"
+        >
           <Icon name="material-symbols:person-add-outline" />
           {{ t('Add') }}
         </Button>

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-const scrollContainer = ref<HTMLDivElement>()
-
 const route = useRoute()
 const username = computed(() => route.params.username as string)
 const characterQuery = useCharacterQuery(username)
@@ -10,9 +8,8 @@ const characterNotFound = useState('characterNotFound', () => false)
 <template>
   <main
     id="chat-container"
-    ref="scrollContainer"
     :tabindex="0"
-    class="bg-white w-full py-4 px-4 flex-1 flex items-center justify-center overflow-y-auto relative focus:outline-hidden"
+    class="bg-white overflow-y-auto w-full py-4 px-4 flex-1 flex items-center justify-center relative focus:outline-hidden"
   >
     <CommonResource
       :for="characterQuery"
@@ -23,7 +20,7 @@ const characterNotFound = useState('characterNotFound', () => false)
       </template>
 
       <template v-else>
-        Body // TODO
+        <ChatMainContent />
       </template>
     </CommonResource>
   </main>
