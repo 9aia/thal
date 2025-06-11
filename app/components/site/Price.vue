@@ -65,8 +65,8 @@ const trialPeriodDays = PLANS.allInOne.trialPeriodDays
               </span>
             </template>
 
-            <template #x>
-              {{ trialPeriodDays }}
+            <template #x="{ decline }">
+              {{ trialPeriodDays }} {{ decline(trialPeriodDays) }}
             </template>
           </T>
         </div>

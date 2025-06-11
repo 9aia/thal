@@ -45,18 +45,26 @@ function handleError() {
 
 <template>
   <NuxtLayout>
-    <div class="w-full relative" style="height: calc(100vh - 64px)">
-      <div class="text-center absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 flex flex-col items-center w-full max-w-md">
-        <h1 class="text-8xl text-gradient bg-linear-[66deg] from-orange-500 to-red-500 text-center mb-4" :class="errorMessage.color">
-          {{ error!.statusCode }}
+    <div class="flex flex-col w-full h-[calc(100vh - 64px)] justify-center items-center bg-white">
+      <div class="mx-auto max-w-lg text-center">
+        <Icon
+          :name="error.statusCode === 404 ? 'material-symbols:warning-rounded' : 'material-symbols:error-rounded'"
+          class="text-9xl"
+          :class="[error.statusCode === 404 ? 'text-orange-500' : 'text-red-500']"
+        />
+
+        <h1 class="text-2xl mb-2">
+          {{ error.statusCode === 404 ? t('Route Not Found') : t('Error') }}
         </h1>
 
-        <p class="text-md text-gray-600">
-          <template v-if="error!.statusCode === 404">
-            {{ t('Oops, the page you are looking for does not exist.') }}
-          </template>
+        <p class="text-sm text-gray-500 mb-2">
+          {{ error.statusCode === 404
+            ? t('We couldn\'t find that page. Maybe the link is broken, or the page moved somewhere else.')
+            : t('Something went wrong on our side — Thal couldn\'t load what you were expecting. It might just be a temporary glitch, or something needs fixing.') }}
+        </p>
 
-          <T v-else text="If the problem persists, please {reportIssue}." :values="{ reportIssue: 'true' }">
+        <p class="text-sm text-gray-500">
+          <T text="If the problem persists, please {reportIssue}." :values="{ reportIssue: 'true' }">
             <template #reportIssue>
               <A
                 target="_blank" :localize="false" :href="t('https://forms.gle/ANMv7qnwTHva1k7L8')"
@@ -66,7 +74,7 @@ function handleError() {
           </T>
         </p>
 
-        <A class="mt-4 w-fit rounded-full px-4 py-2 bg-cyan-500 text-black hover:bg-cyan-600" href="/" @click="handleError">
+        <A class="btn btn-primary mt-4" href="/" @click="handleError">
           {{ t('Access the home page') }}
         </A>
       </div>
