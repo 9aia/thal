@@ -15,11 +15,7 @@ import { t } from '@psitta/vue'
           <span class="font-medium text-gray-800">Thal</span>
         </A>
 
-        <div class="rounded-full bg-radial-[at_bottom] from-magenta-50 to-gray-50 text-black text-xs uppercase">
-          <div class="px-2 py-1 block">
-            {{ t('Experimental') }}
-          </div>
-        </div>
+        <ExperimentalBadge />
       </div>
       <div class="navbar-end">
         <slot name="navbar-end" />

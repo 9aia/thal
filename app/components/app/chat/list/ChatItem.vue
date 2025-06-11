@@ -1,24 +1,36 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
-import { isRootDrawerOpen } from '~/store'
-import type { ChatItem } from '~/types'
+import queryKeys from '~/queryKeys'
+import { isRootDrawerOpen, openContactView } from '~/store'
+import type { MessageStatus } from '~/types'
 
 const props = defineProps<{
-  chat: Readonly<ChatItem>
+  username: string
+  lastMessage?: {
+    datetime: number
+    status: MessageStatus
+    content: string
+  }
 }>()
 
-const contactInfo = computed(() => ({
-  name: props.chat.characterName,
-  username: props.chat.username,
-  contact: {
-    name: props.chat.contactName,
-  },
+const characterQuery = useCharacterQuery(toRef(props, 'username'))
+
+const headers = useRequestHeaders(['cookie'])
+const contactQuery = useServerQuery({
+  queryKey: queryKeys.contact(toRef(props, 'username')),
+  queryFn: () => $fetch(`/api/contact/${props.username}` as `/api/contact/:username`, {
+    headers,
+  }),
+})
+
+const contactNames = computed(() => getContactName({
+  username: props.username,
+  contactName: contactQuery.data.value?.name,
+  characterName: characterQuery.data.value?.name,
 }))
 
-const { displayName } = useContactInfo(contactInfo)
-
 const content = computed(() => {
-  return props.chat.lastMessageContent || ''
+  return props.lastMessage?.content || ''
 })
 
 async function handleGoToChat(username: string) {
@@ -28,39 +40,50 @@ async function handleGoToChat(username: string) {
 </script>
 
 <template>
-  <div role="button" class="px-3 py-1 flex gap-2" @click="handleGoToChat(chat.username)">
+  <div
+    role="button"
+    class="group px-2 py-2 flex items-center justify-center gap-3 cursor-pointer rounded-2xl focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-blue-500 "
+    @click="handleGoToChat(username)"
+  >
     <Avatar
-      :name="chat.characterName"
-      class="mt-2 mx-auto"
-      size="sm"
-      wrapper-class="bg-neutral text-neutral-content"
+      :name="contactNames.avatarName"
+      size="md"
+      wrapper-class="bg-gray-50 text-neutral-content"
       type="button"
+      @click.stop.prevent="openContactView(username)"
     />
 
-    <div class="flex-1 flex flex-col justify-center w-10px">
+    <div
+      class="flex-1 flex flex-col justify-center w-10px focus:outline-none"
+      tabindex="0"
+      @click="handleGoToChat(username)"
+    >
       <div class="flex justify-between items-center">
-        <a class="block text-base text-gray-800">{{ displayName }}</a>
+        <a class="block text-base text-gray-800">
+          {{ contactNames.displayName }}
+        </a>
 
-        <ClientOnly v-if="content">
-          <ChatItemTime :chat="chat" />
+        <ClientOnly v-if="lastMessage">
+          <ChatItemTime :datetime="lastMessage.datetime" />
         </Clientonly>
       </div>
 
       <div
+        v-if="lastMessage"
         class="text-sm text-gray-600 flex items-center gap-0.5"
       >
         <div
-          v-if="chat.lastMessageStatus === 'seen'"
+          v-if="lastMessage.status === 'sending'"
           class="line-clamp-1 text-green-500"
-          :class="{ invisible: !chat.lastMessageContent }"
+          :class="{ invisible: !lastMessage.content }"
         >
           {{ t('Typing...') }}
         </div>
 
         <template v-else>
           <MessageIcon
-            v-if="chat.lastMessageContent && chat.lastMessageStatus"
-            :status="chat.lastMessageStatus"
+            v-if="lastMessage.content && lastMessage.status"
+            :status="lastMessage.status"
           />
 
           <div class="line-clamp-1" :class="{ invisible: !content }">

@@ -451,9 +451,13 @@ export const messages = sqliteTable('Message', {
   chatId: int('chat_id')
     .notNull()
     .references(() => chats.id, { onDelete: 'cascade' }),
+  // TODO: rename data to content
   data: text('data').notNull(),
+  // TODO: add status column
   replyingId: int('replying_id'),
+  // TODO: change to speaker_id (user or bot)
   isBot: int('is_bot', { mode: 'boolean' }).default(false).notNull(),
+
   createdAt: int('created_at', { mode: 'timestamp_ms' }).default(sql`(unixepoch() * 1000)`).notNull(),
 }, messages => ([
   foreignKey({

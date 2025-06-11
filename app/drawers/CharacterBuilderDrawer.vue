@@ -233,7 +233,7 @@ const isAlreadyChatting = computed(() => {
 
     <div class="pt-2 flex-1 overflow-y-auto bg-white space-y-4">
       <template v-if="isEditing">
-        <div class="text-xs text-gray-400 flex justify-between items-center">
+        <div class="px-6 text-xs text-gray-400 flex justify-between items-center">
           <T
             text="You are editing: {characterName}"
             :values="{ characterName: true }"

@@ -39,7 +39,12 @@ function openChat(username: string) {
       <ChatItem
         v-for="chat in chatsQuery.data.value"
         :key="chat.chatId"
-        :chat="chat"
+        :username="chat.username"
+        :last-message="chat.lastMessageDatetime ? {
+          datetime: chat.lastMessageDatetime,
+          status: 'seen',
+          content: chat.lastMessageContent!,
+        } : undefined"
         @click="openChat(chat.username)"
       />
     </template>

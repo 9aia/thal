@@ -33,6 +33,8 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## Bugs
 
+- Drawer isn't opening in front of all drawers after it's already open behind them
+- Rewrite Daisy dropdowns using ArkUI components (should fix the closing on click on padding bug as well)
 - Add drawer search query params when opening drawers
 - Fix input autofocuses on navigate
 - Fix go-to-bottom button position after chat clearing
@@ -72,6 +74,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Add loading splashscreen for hydration, data loading, etc
 - ---
 - Improve a11y
+  - Improve a11y for avatars
 - Improve error handling
 - Improve loading handling
   - Improve chat loading by rendering the skeleton on the backend and the message on the client
@@ -108,7 +111,6 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## DX
 
-- Rewrite Daisy dropdowns using ArkUI components
 - Rename username in the usernames table to text
 - Refactor toast
 - Refactor menu (items, dropdown, etc)

@@ -4,6 +4,7 @@ import type { MessageStatus } from '~/types'
 
 const props = defineProps<{
   status: MessageStatus
+  class?: string
 }>()
 
 const icon = computed(() => {
@@ -47,6 +48,6 @@ const styles = tv({
 <template>
   <Icon
     :name="icon"
-    :class="styles({ type: props.status })"
+    :class="styles({ class: props.class, type: props.status })"
   />
 </template>

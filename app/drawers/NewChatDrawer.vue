@@ -109,6 +109,7 @@ const emptyMessage = computed(() => {
           :key="`contact-${contact.contactId}`"
           :name="contact.contactName"
           :description="contact.characterDescription"
+          class="px-2"
           @click="handleGoToChat(contact.username)"
         />
       </CommonResource>

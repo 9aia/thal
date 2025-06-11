@@ -58,10 +58,14 @@ function goToHome() {
 <template>
   <div class="bg-white flex flex-col h-dvh justify-between">
     <Navbar hide-title hide-back="always">
-      <div class="flex gap-1 items-center z-50">
+      <div class="flex gap-2 items-center">
         <h1>
-          <button class="text-sm cursor-pointer border-b-2 border-b-transparent focus:border-b-primary focus:outline-hidden" @click="goToHome()">
+          <button
+            class="flex items-center gap-2 justify-center text-lg font-medium text-black cursor-pointer border-b-2 border-b-transparent focus:border-b-primary focus:outline-hidden"
+            @click="goToHome()"
+          >
             {{ t('Thal') }}
+            <ExperimentalBadge />
           </button>
         </h1>
       </div>
@@ -106,12 +110,12 @@ function goToHome() {
       </SettingSection> -->
 
       <SettingSection
-        body-class="px-4"
+        body-class="px-4 space-y-1"
       >
         <ChatItemList />
       </SettingSection>
 
-      <div class="absolute bottom-4 right-4">
+      <div class="absolute bottom-6 right-6">
         <Button
           class="btn btn-lg btn-circle btn-primary"
           @click="drawers.newChat = true"

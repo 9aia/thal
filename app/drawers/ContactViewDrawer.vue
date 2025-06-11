@@ -225,7 +225,7 @@ const items = computed<MenuItemType[]>(() => [
           />
         </section>
 
-        <section v-if="createdAt" class="px-6 py-4 w-full">
+        <section v-if="createdAt" class="px-4 py-2 w-full">
           <Item
             :is="{
               id: 'ai-character',
@@ -233,6 +233,7 @@ const items = computed<MenuItemType[]>(() => [
               description: t('Username'),
               onClick: () => copyUsername(),
             }"
+            class="px-2 py-2 rounded-2xl focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
           >
             <template #title>
               <div
@@ -244,7 +245,7 @@ const items = computed<MenuItemType[]>(() => [
           </Item>
         </section>
 
-        <section class="px-6 py-4 w-full flex flex-col gap-2">
+        <section class="px-4 py-2 w-full flex flex-col gap-2">
           <Item
             :is="{
               id: 'clear-chat',
@@ -253,6 +254,7 @@ const items = computed<MenuItemType[]>(() => [
               meaning: 'danger',
               onClick: () => clearChat(),
             }"
+            class="px-2 py-2 rounded-2xl focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
           />
         </section>
       </CommonResource>

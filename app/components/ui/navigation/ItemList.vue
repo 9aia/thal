@@ -24,7 +24,7 @@ const baseStyles = tv({
   slots: {
     base: 'w-full space-y-2',
     li: 'group',
-    item: 'group flex px-2 w-full rounded-2xl focus:outline-2 focus:outline-offset-2 focus:outline-blue-500',
+    item: 'group flex px-2 py-1 w-full rounded-2xl focus:outline-2 focus:outline-offset-2 focus:outline-blue-500',
   },
 })
 

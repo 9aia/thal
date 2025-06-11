@@ -11,7 +11,7 @@ defineProps<{
 }>()
 
 const iconStyles = tv({
-  base: 'text-3xl',
+  base: 'text-2xl',
   variants: {
     color: {
       normal: 'text-black',

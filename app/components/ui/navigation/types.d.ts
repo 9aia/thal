@@ -16,4 +16,5 @@ export interface MenuItemType {
   localize?: boolean
   onSubmit?: (e: Event) => void
   onClick?: (e: Event) => void
+  closeMenu?: boolean
 }

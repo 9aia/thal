@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { useLocale } from '@psitta/vue'
-import type { ChatItem } from '~/types'
 
 const props = defineProps<{
-  chat?: Readonly<ChatItem>
+  datetime: number
 }>()
 
 const locale = useLocale()
 
 const date = computed(() => {
-  const date = props.chat?.lastMessageDatetime ? new Date(props.chat.lastMessageDatetime) : now()
+  const date = props.datetime ? new Date(props.datetime) : now()
 
   if (isToday(date)) {
     const formatter = new Intl.DateTimeFormat(locale.value, {

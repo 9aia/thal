@@ -11,7 +11,7 @@ const username = computed(() => route.params.username as string)
 const replying = computed(() => replies[username.value])
 const data = computed(() => queryClient.getQueryData(queryKeys.chat(username)))
 
-const { displayName } = useContactInfo(data)
+const displayName = computed(() => getContactName(data.value))
 
 const replyDisplayName = computed(() => replying.value.from === 'user'
   ? t('You')

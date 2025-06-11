@@ -38,7 +38,7 @@ const chatId = computed(() => chatQuery.data.value?.id || OPTIMISTIC_CHAT_ID)
       <div class="flex flex-col h-dvh justify-center items-center bg-white">
         <ChatHeader />
 
-        <!-- <ChatBody /> -->
+        <ChatBody />
 
         <ChatFooter
           v-if="!characterNotFound"

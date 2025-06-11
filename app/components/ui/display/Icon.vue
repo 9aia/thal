@@ -20,7 +20,7 @@ const nameNormalized = computed(() => {
 })
 
 const icon = tv({
-  base: 'text-2xl',
+  base: 'text-2xl shrink-0',
 })
 </script>
 

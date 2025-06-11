@@ -27,7 +27,7 @@ const trunkedInstructions = computed(() => {
       <Avatar
         :name="data.name"
         class="mt-2 mx-auto"
-        size="lg"
+        size="xl"
         wrapper-class="bg-neutral text-neutral-content"
       />
 
