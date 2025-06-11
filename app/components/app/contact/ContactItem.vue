@@ -43,7 +43,7 @@ const emit = defineEmits<{
       <Button
         v-if="showEdit"
         class="btn btn-circle btn-sm btn-ghost"
-        icon="material-symbols:edit-outline"
+        icon="material-symbols:edit-outline-rounded"
         icon-class="text-xl"
 
         @click.prevent="emit('edit')"

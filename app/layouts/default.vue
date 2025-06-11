@@ -8,8 +8,8 @@ const RUNTIME_ENV = useRuntimeEnv()
 const localeModal = useLocaleModal()
 
 const menuItems: MenuItemType[] = [
-  { id: 'app', name: 'App', icon: 'material-symbols:chat-outline', href: '/app' },
-  { id: 'settings', name: 'Account Settings', icon: 'material-symbols:settings-outline', href: '/settings/account' },
+  { id: 'app', name: 'App', icon: 'material-symbols:chat-outline-rounded', href: '/app' },
+  { id: 'settings', name: 'Account Settings', icon: 'material-symbols:settings-outline-rounded', href: '/settings/account' },
   {
     id: 'language',
     name: 'Language',
@@ -23,7 +23,7 @@ const menuItems: MenuItemType[] = [
     name: 'Logout',
     action: '/api/auth/logout',
     method: 'post',
-    icon: 'material-symbols:logout',
+    icon: 'material-symbols:logout-rounded',
     meaning: 'warning',
     onSubmit: logout,
   },

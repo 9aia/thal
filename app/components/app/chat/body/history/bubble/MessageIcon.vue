@@ -12,19 +12,19 @@ const icon = computed(() => {
 
   switch (props.status) {
     case 'sending':
-      icon = 'material-symbols:schedule-outline'
+      icon = 'material-symbols:schedule-outline-rounded'
       break
     case 'seen':
-      icon = 'material-symbols:done-all'
+      icon = 'material-symbols:done-all-rounded'
       break
     case 'received':
-      icon = 'material-symbols:done-all'
+      icon = 'material-symbols:done-all-rounded'
       break
     case 'sent':
       icon = 'material-symbols:check-rounded'
       break
     case 'error':
-      icon = 'material-symbols:error-outline'
+      icon = 'material-symbols:error-outline-rounded'
       break
   }
 

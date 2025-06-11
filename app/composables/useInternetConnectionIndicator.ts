@@ -10,14 +10,14 @@ export default function useInternetConnectionIndicator() {
   watch(isOnline, (value) => {
     if (value) {
       toast.success(t('Internet is back'), undefined, {
-        icon: 'material-symbols:wifi',
+        icon: 'material-symbols:wifi-rounded',
         position: 'center-top',
       })
     }
     else {
       toast.error(t('No internet'), 0, {
         position: 'center-top',
-        icon: 'material-symbols:signal-wifi-off-outline',
+        icon: 'material-symbols:signal-wifi-off-outline-rounded',
       })
     }
   })

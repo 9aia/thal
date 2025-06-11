@@ -211,7 +211,7 @@ const submit = form.handleSubmit(() => isEditing.value
             <template #icon="{ errorMessage }">
               <Icon
                 :class="{ 'text-error': errorMessage, 'text-success': !errorMessage }"
-                :name="errorMessage ? 'material-symbols:close' : 'material-symbols:check'"
+                :name="errorMessage ? 'material-symbols:close-rounded' : 'material-symbols:check-rounded'"
               />
             </template>
           </TextField>
@@ -220,7 +220,7 @@ const submit = form.handleSubmit(() => isEditing.value
             :loading="isLoading"
             class="btn btn-primary float-right mt-2"
             icon="material-symbols:person-add-outline-rounded"
-            
+
             :disabled="hasErrors"
           >
             {{ t('Save contact') }}

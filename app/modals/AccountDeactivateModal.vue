@@ -50,9 +50,7 @@ const isUsernameInvalid = computed(() => {
   >
     <template #default>
       <div role="alert" class="px-8 flex items-center gap-3 bg-transparent">
-        <Icon class="text-warning">
-          material-symbols:warning-outline
-        </Icon>
+        <Icon class="text-warning" name="material-symbols:warning-outline-rounded" />
 
         <T
           text="This action will {hide} your account and all associated data. You can reactivate it anytime."

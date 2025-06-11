@@ -43,7 +43,7 @@ const icon = computed(() => {
   if (isChatError.value)
     return 'material-symbols:error-outline-rounded'
 
-  return isEmpty.value ? 'material-symbols:mic-outline' : 'material-symbols:send-outline'
+  return isEmpty.value ? 'material-symbols:mic-outline-rounded' : 'material-symbols:send-outline-rounded'
 })
 
 function handleSend(e: Event) {
@@ -103,7 +103,7 @@ function handleSend(e: Event) {
           class="btn btn-circle btn-neutral btn-ghost"
           :disabled="isChatError || isChatSending || isCharacterDeleted"
           :icon="icon"
-          
+
           @click="handleSend"
         />
       </div>

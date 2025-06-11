@@ -22,6 +22,6 @@ const timestampData = timestampJson as Record<string, number>
     </time>
   </template>
   <template v-else>
-    <Icon name="material-symbols:error-outline" class="align-middle text-red-500" />
+    <Icon name="material-symbols:error-outline-rounded" class="align-middle text-red-500" />
   </template>
 </template>

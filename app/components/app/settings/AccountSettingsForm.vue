@@ -122,7 +122,7 @@ const items: MenuItemType[] = [
         <template #icon="{ errorMessage }">
           <Icon
             :class="{ 'text-error': errorMessage, 'text-success': !errorMessage }"
-            :name="errorMessage ? 'material-symbols:close' : 'material-symbols:check'"
+            :name="errorMessage ? 'material-symbols:close-rounded' : 'material-symbols:check-rounded'"
           />
         </template>
       </TextField>
@@ -143,7 +143,7 @@ const items: MenuItemType[] = [
         :loading="editAccountMutation.isPending.value"
         class="btn btn-primary mt-2 mb-4"
         icon="material-symbols:save-outline-rounded"
-        
+
         :disabled="hasErrors"
       >
         {{ t('Save account settings') }}

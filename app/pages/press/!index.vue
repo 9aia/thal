@@ -63,7 +63,7 @@ const pricingQuery = useServerQuery({
         >
           {{ t("Learn more") }}
           <Icon
-            name="material-symbols:arrow-downward"
+            name="material-symbols:arrow-downward-rounded"
             class="flex items-center justify-center text-4xl"
           />
         </a>
@@ -76,7 +76,7 @@ const pricingQuery = useServerQuery({
     >
       <div class="max-w-lg mx-auto">
         <h2 class="text-4xl text-gray-800 mb-6 flex flex-col items-center gap-1">
-          <Icon name="material-symbols:chat-outline" class="text-6xl" />
+          <Icon name="material-symbols:chat-outline-rounded" class="text-6xl" />
           {{ t("Dynamic Conversations") }}
         </h2>
 
@@ -97,7 +97,7 @@ const pricingQuery = useServerQuery({
         <div class="flex gap-12 flex-col md:flex-row">
           <div class="mx-auto flex flex-col items-center md:items-start">
             <h2 class="text-4xl text-gray-800 mb-6 flex flex-wrap justify-center sm:justify-start items-center gap-1">
-              <Icon name="material-symbols:translate" class="text-6xl" />
+              <Icon name="material-symbols:translate-rounded" class="text-6xl" />
               {{ t("Interactive Language Assistance") }}
             </h2>
 
@@ -129,7 +129,7 @@ const pricingQuery = useServerQuery({
     <section class="mx-auto text-black text-center">
       <div class="px-4 py-12 mx-auto flex flex-col items-center justify-center">
         <h2 class="text-4xl text-gray-800 mb-6 max-w-lg flex flex-wrap justify-center items-center gap-1">
-          <Icon name="material-symbols:person-search-outline" class="text-6xl" />
+          <Icon name="material-symbols:person-search-outline-rounded" class="text-6xl" />
           {{ t("Discover Characters") }}
         </h2>
 
@@ -158,7 +158,7 @@ const pricingQuery = useServerQuery({
         <div class="flex gap-12 flex-col md:flex-row">
           <div class="mx-auto flex flex-col items-center md:items-start">
             <h2 class="text-4xl text-gray-800 mb-6 flex flex-wrap justify-center sm:justify-start items-center gap-1">
-              <Icon name="material-symbols:engineering-outline" class="text-6xl" />
+              <Icon name="material-symbols:engineering-outline-rounded" class="text-6xl" />
               {{ t("Create Your Own Character") }}
             </h2>
 
@@ -179,7 +179,7 @@ const pricingQuery = useServerQuery({
     <section class="w-full mx-auto text-center">
       <div class="px-4 py-12 flex flex-col items-center justify-center">
         <h2 class="text-4xl text-gray-800 mb-6 max-w-lg flex flex-wrap justify-center items-center gap-1">
-          <Icon name="material-symbols:person-add-outline" class="text-6xl" />
+          <Icon name="material-symbols:person-add-outline-rounded" class="text-6xl" />
           {{ t("Save Your Favorite Characters") }}
         </h2>
 
@@ -195,7 +195,7 @@ const pricingQuery = useServerQuery({
 
     <section class="w-full relative">
       <h2 class="mx-auto text-4xl text-gray-800 max-w-lg flex flex-wrap justify-center items-center gap-1">
-        <Icon name="material-symbols:subscriptions-outline" class="text-6xl" />
+        <Icon name="material-symbols:subscriptions-outline-rounded" class="text-6xl" />
         {{ t('Pricing') }}
       </h2>
 
@@ -214,7 +214,7 @@ const pricingQuery = useServerQuery({
 
             <ul class="flex flex-col mx-auto text-gray-500 space-y-1 mb-4 text-sm">
               <li class="flex justify-center gap-2">
-                <Icon name="material-symbols:check" class="text-blue-500" />
+                <Icon name="material-symbols:check-rounded" class="text-blue-500" />
                 <div class="gap-2">
                   <span class="text-blue-500">{{ t('Engaging Conversations:') }}</span>
                   {{ t('Chat with AI-powered characters anytime, anywhere.') }}
@@ -222,7 +222,7 @@ const pricingQuery = useServerQuery({
               </li>
 
               <li class="flex justify-center gap-2">
-                <Icon name="material-symbols:check" class="text-blue-500" />
+                <Icon name="material-symbols:check-rounded" class="text-blue-500" />
                 <div class="gap-2">
                   <span class="text-blue-500">{{ t('Interactive Assistance:') }}</span>
                   {{ t('Translations, corrections, and listening while chatting.') }}
@@ -230,7 +230,7 @@ const pricingQuery = useServerQuery({
               </li>
 
               <li class="flex justify-center gap-2">
-                <Icon name="material-symbols:check" class="text-blue-500" />
+                <Icon name="material-symbols:check-rounded" class="text-blue-500" />
                 <div class="gap-2">
                   <span class="text-blue-500">{{ t('Personalized Characters:') }}</span>
                   {{ t('Create, discover and save characters for tailored learning.') }}

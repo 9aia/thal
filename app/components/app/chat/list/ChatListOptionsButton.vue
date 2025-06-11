@@ -29,7 +29,7 @@ async function openSettings() {
   drawers.settings = true
 }
 
-const items: MenuItemType[] = computed(() => [
+const items = computed(() => [
   !props.hideHome && { id: 'home', name: t('Home'), icon: 'material-symbols:home-outline-rounded', onClick: () => goToHome() },
   { id: 'profile', name: t('Profile'), icon: 'material-symbols:face', onClick: () => openProfile() },
   { id: 'my-characters', name: t('My characters'), icon: 'material-symbols:manage-accounts-outline-rounded', onClick: () => openMyCharacters() },
@@ -47,7 +47,7 @@ const items: MenuItemType[] = computed(() => [
     name: t('Logout'),
     action: '/api/auth/logout',
     method: 'post',
-    icon: 'material-symbols:logout',
+    icon: 'material-symbols:logout-rounded',
     meaning: 'warning',
     onSubmit: logout,
   },
@@ -58,7 +58,7 @@ const items: MenuItemType[] = computed(() => [
   <Dropdown class="dropdown-end">
     <Button
       class="btn btn-neutral btn-ghost btn-circle"
-      
+
       icon="material-symbols:more-vert"
     />
 
