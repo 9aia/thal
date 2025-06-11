@@ -22,10 +22,10 @@ const emit = defineEmits<({
         :class="{
           'lg:hidden': hideBack === 'on-lg',
         }"
+        :icon="backIcon || 'material-symbols:arrow-back-rounded'"
+        
         @click="emit('close')"
-      >
-        <Icon :name="backIcon || 'material-symbols:arrow-back-rounded'" />
-      </Button>
+      />
 
       {{ title }}
     </h1>

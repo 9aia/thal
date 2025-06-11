@@ -102,12 +102,12 @@ watch(toast.update, () => {
             </button>
           </div>
 
-          <button
+          <Button
             class="w-5 h-5 flex items-center justify-center cursor-pointer"
+            icon="material-symbols:close-rounded"
+            
             @click="toast.close()"
-          >
-            <Icon name="material-symbols:close-rounded" class="text-gray-800" />
-          </button>
+          />
         </div>
 
         <div class="absolute overflow-hidden w-full h-full flex items-end pointer-events-none">

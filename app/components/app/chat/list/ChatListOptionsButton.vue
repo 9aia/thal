@@ -56,9 +56,11 @@ const items: MenuItemType[] = computed(() => [
 
 <template>
   <Dropdown class="dropdown-end">
-    <Button class="btn btn-neutral btn-ghost btn-circle">
-      <Icon name="material-symbols:more-vert" />
-    </Button>
+    <Button
+      class="btn btn-neutral btn-ghost btn-circle"
+      
+      icon="material-symbols:more-vert"
+    />
 
     <DropdownContent :items="items" />
   </Dropdown>

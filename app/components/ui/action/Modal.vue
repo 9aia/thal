@@ -64,9 +64,9 @@ watch([visible, dialog], () => {
           <form v-if="showCloseButton" method="dialog">
             <Button
               class="btn btn-neutral btn-sm btn-circle btn-ghost absolute right-4 top-4 z-20"
-            >
-              <Icon name="material-symbols:close-rounded" class="text-base" />
-            </Button>
+              icon="material-symbols:close-rounded"
+              icon-class="text-xl"
+            />
           </form>
 
           <div :class="contentClass">

@@ -51,9 +51,10 @@ const isForbidden = computed(() => props.error.statusCode === 403)
           <Button
             v-if="!isNotFound"
             class="btn btn-neutral"
+            icon="material-symbols:refresh-rounded"
+            
             @click="emit('tryAgain')"
           >
-            <Icon name="material-symbols:refresh-rounded" />
             {{ t('Try again') }}
           </Button>
         </slot>

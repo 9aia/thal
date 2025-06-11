@@ -24,12 +24,11 @@ function checkIsSelected(categoryId: number) {
       class="cursor-pointer flex items-center gap-4"
       @click="emit('click', category)"
     >
-      <Button class="btn btn-lg btn-neutral btn-circle">
-        <Icon
-          :name="category.icon"
-          :class="category.color"
-        />
-      </Button>
+      <Button
+        class="btn btn-lg btn-neutral btn-circle"
+        :icon-class="category.color"
+        :icon="category.icon"
+      />
 
       <div class="flex flex-col gap-1 relative w-full">
         <p class="flex items-center gap-2" :class="checkIsSelected(category.id) ? 'text-primary' : 'text-black'">

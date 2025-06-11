@@ -19,7 +19,7 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="w-full relative" style="height: calc(100vh - 64px)">
+  <div class="w-full relative h-[calc(100vh-64px)]">
     <div class="text-center w-full max-w-2xl absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2">
       <h1 class="text-3xl text-black text-center mb-4">
         {{ t('Checkout with Success!') }}
@@ -31,11 +31,11 @@ definePageMeta({
 
       <div class="flex items-center justify-center h-fit mt-4">
         <form action="/api/payment/stripe/create-portal-session" method="post" class="flex gap-2">
-          <A href="/app" class="h-fit btn py-4 rounded-full bg-cyan-500 border-none flex gap-1">
+          <A href="/app" class="btn btn-primary">
             {{ t('Go to app') }}
           </A>
 
-          <Button type="submit" class="py-4 bg-cyan-500 border-none flex gap-1">
+          <Button type="submit" class="btn btn-soft btn-primary">
             {{ t('Manage your billing information') }}
           </Button>
         </form>

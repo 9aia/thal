@@ -35,7 +35,7 @@ const { t } = useI18nExperimental()
           :disabled="disabled"
           :loading="loading"
           icon="material-symbols:refresh-rounded"
-          icon-size="xl"
+          
           :reset-in="3"
           @click="emit('retry')"
         >

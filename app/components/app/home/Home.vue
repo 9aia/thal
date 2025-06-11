@@ -16,12 +16,10 @@ async function goToDiscover() {
       <div class="flex gap-1 items-center -translate-x-1.5 z-50">
         <Button
           class="btn btn-neutral btn-circle btn-ghost lg:hidden"
+          icon="material-symbols:menu-rounded"
+          
           @click="isRootDrawerOpen = true"
-        >
-          <span class="px-4 py-1 flex items-center justify-center gap-1">
-            <Icon name="material-symbols:menu-rounded" />
-          </span>
-        </Button>
+        />
       </div>
 
       <div class="flex gap-1 items-center translate-x-1.5 z-50">
@@ -33,18 +31,18 @@ async function goToDiscover() {
             'text-black': !whatsNew.hasUnreadContent.value,
           }"
           :loading="whatsNew.countQuery.isLoading.value"
+          icon="material-symbols:campaign-outline-rounded"
+          
           @click="isWhatsNewModalOpen = true"
-        >
-          <Icon v-if="!whatsNew.countQuery.isLoading.value" name="material-symbols:campaign-outline-rounded" />
-        </Button>
+        />
 
         <Button
           class="btn btn-neutral btn-circle btn-ghost"
           no-disable-on-loading
+          icon="material-symbols:person-search-outline-rounded"
+          
           @click="goToDiscover()"
-        >
-          <Icon name="material-symbols:person-search-outline" />
-        </Button>
+        />
 
         <ChatListOptionsButton hide-home />
       </div>
@@ -72,23 +70,39 @@ async function goToDiscover() {
         </div>
 
         <div class="flex gap-2 justify-center flex-wrap">
-          <Button class="btn sm:btn-lg btn-neutral text-magenta-500" @click="goToDiscover">
-            <Icon name="material-symbols:person-search-outline-rounded" />
+          <Button
+            class="btn sm:btn-lg btn-neutral text-magenta-500"
+            icon="material-symbols:person-search-outline-rounded"
+            
+            @click="goToDiscover"
+          >
             {{ t("Discover characters") }}
           </Button>
 
-          <Button class="btn sm:btn-lg btn-neutral text-blue-500" @click="buildCharacter(null)">
-            <Icon name="material-symbols:frame-person-outline-rounded" />
+          <Button
+            class="btn sm:btn-lg btn-neutral text-blue-500"
+            icon="material-symbols:frame-person-outline-rounded"
+            
+            @click="buildCharacter(null)"
+          >
             {{ t("Create character") }}
           </Button>
 
-          <Button class="btn sm:btn-lg btn-neutral text-orange-500" @click="manageContact(null)">
-            <Icon name="material-symbols:person-add-outline-rounded" />
+          <Button
+            class="btn sm:btn-lg btn-neutral text-orange-500"
+            icon="material-symbols:person-add-outline-rounded"
+            
+            @click="manageContact(null)"
+          >
             {{ t("Add contact") }}
           </Button>
 
-          <Button class="btn sm:btn-lg btn-neutral text-red-500" @click="isWhatsNewModalOpen = true">
-            <Icon name="material-symbols:news-outline-rounded" />
+          <Button
+            class="btn sm:btn-lg btn-neutral text-red-500"
+            icon="material-symbols:news-outline-rounded"
+            
+            @click="isWhatsNewModalOpen = true"
+          >
             {{ t("What's New") }}
           </Button>
         </div>

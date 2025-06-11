@@ -23,11 +23,12 @@ const isPastDueVisible = computed(() => {
       </h2>
 
       <form action="/api/payment/stripe/create-portal-session" method="POST">
-        <Button size="xs" class="bg-yellow-500 rounded-full">
-          <span class="flex text-black items-center justify-center gap-1">
-            <Icon name="material-symbols:subscriptions-outline" />
-            <span class="whitespace-nowrap">{{ t("Renew Thal") }}</span>
-          </span>
+        <Button
+          size="xs"
+          class="bg-yellow-500 rounded-full"
+          icon="material-symbols:subscriptions-outline-rounded"
+        >
+          {{ t("Renew Thal") }}
         </Button>
       </form>
     </div>

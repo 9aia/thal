@@ -25,10 +25,11 @@ const { t } = useI18nExperimental()
     <div class="items-start min-w-[32px] min-h-[32px] flex">
       <Button
         class="btn btn-circle btn-sm btn-ghost hidden group-hover/translation:block"
+
+        icon="material-symbols:close-rounded"
+        icon-class="text-xl"
         @click="isOpen = false"
-      >
-        <Icon name="material-symbols:close-rounded" class="text-base" />
-      </Button>
+      />
     </div>
   </div>
 
@@ -47,17 +48,17 @@ const { t } = useI18nExperimental()
     <div class="items-start min-w-[64px] min-h-[32px] flex">
       <Button
         class="btn btn-circle btn-ghost hidden group-hover/translation:block"
+
+        icon="material-symbols:refresh-rounded"
         @click="refetch()"
-      >
-        <Icon name="material-symbols:refresh-rounded" class="text-base" />
-      </Button>
+      />
 
       <Button
         class="btn btn-circle btn-ghost hidden group-hover/translation:block"
+
+        icon="material-symbols:close-rounded"
         @click="isOpen = false"
-      >
-        <Icon name="material-symbols:close-rounded" class="text-base" />
-      </Button>
+      />
     </div>
   </div>
 </template>

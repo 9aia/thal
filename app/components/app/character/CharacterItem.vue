@@ -69,7 +69,8 @@ const items: MenuItemType[] = [
           </Menu.Trigger>
           <Menu.Positioner>
             <Menu.Content
-              class="bg-base-100 rounded-2xl z-40 w-56 p-4 shadow-2xl mt-3 overflow-visible space-y-2 focus:outline-hidden"
+              class="cursor-auto bg-base-100 rounded-2xl z-40 w-56 p-4 shadow-2xl mt-3 overflow-visible space-y-2 focus:outline-hidden"
+              @click.stop.prevent
             >
               <Menu.Item
                 v-for="item in items"
@@ -77,7 +78,7 @@ const items: MenuItemType[] = [
                 :key="item.id"
                 :value="item.id"
                 tabindex="0"
-                class="flex px-2 w-full rounded-2xl focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
+                class="cursor-pointer flex px-2 py-1 w-full rounded-2xl focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
                 @click.stop.prevent="item.onClick"
               >
                 <MenuItem :is="item" />

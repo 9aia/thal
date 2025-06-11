@@ -42,21 +42,21 @@ const emit = defineEmits<{
     >
       <Button
         v-if="showEdit"
-        class="btn-ghost"
-        shape="circle"
+        class="btn btn-circle btn-sm btn-ghost"
+        icon="material-symbols:edit-outline"
+        icon-class="text-xl"
+
         @click.prevent="emit('edit')"
-      >
-        <Icon name="material-symbols:edit-outline" class="text-black" />
-      </Button>
+      />
 
       <Button
         v-if="showDelete"
-        shape="circle"
-        class="btn-ghost"
+        class="btn btn-circle btn-sm btn-ghost"
+        icon="material-symbols:delete-outline-rounded"
+        icon-class="text-xl"
+
         @click.prevent="emit('delete')"
-      >
-        <Icon name="material-symbols:delete-outline" class="text-black text-xs" />
-      </Button>
+      />
     </div>
   </div>
 </template>

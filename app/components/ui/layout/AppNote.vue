@@ -27,9 +27,11 @@ const modelValue = defineModel<boolean>()
         v-if="!hideClose"
         class="flex items-center gap-2"
       >
-        <button class="btn btn-md btn-ghost btn-circle" @click="modelValue = false">
-          <Icon name="material-symbols:close-rounded" class="text-gray-800" />
-        </button>
+        <Button
+          class="btn btn-md btn-ghost btn-circle"
+          icon="material-symbols:close-rounded"
+          @click="modelValue = false"
+        />
       </div>
     </div>
   </div>

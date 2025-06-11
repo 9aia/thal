@@ -74,10 +74,10 @@ function goToHome() {
         <Button
           class="btn btn-neutral btn-circle btn-ghost lg:hidden"
           no-disable-on-loading
+          icon="material-symbols:arrow-menu-close-rounded"
+          
           @click="isRootDrawerOpen = false"
-        >
-          <Icon name="material-symbols:arrow-menu-close-rounded" />
-        </Button>
+        />
       </div>
     </Navbar>
 
@@ -118,10 +118,10 @@ function goToHome() {
       <div class="absolute bottom-6 right-6">
         <Button
           class="btn btn-lg btn-circle btn-primary"
+          icon="material-symbols:add-rounded"
+          
           @click="drawers.newChat = true"
-        >
-          <Icon name="material-symbols:add" />
-        </Button>
+        />
       </div>
     </div>
 

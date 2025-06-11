@@ -56,3 +56,7 @@ description: A collection of ideas and feedback from stakeholders or team member
 ## Bugs
 
 - Clearing chats shouldn't clear message history
+
+## Enhancements
+
+- Improve empty contact list fallback

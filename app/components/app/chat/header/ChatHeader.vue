@@ -86,14 +86,13 @@ const items = computed(() => [
     }"
     @click="!characterNotFound && openContactView(username)"
   >
-    <button
+    <Button
       as="label"
       for="my-drawer"
       class="lg:hidden btn btn-neutral btn-md btn-ghost btn-circle drawer-button"
+      icon="material-symbols:arrow-back-rounded"
       @click.stop="isRootDrawerOpen = true"
-    >
-      <Icon name="material-symbols:arrow-back-rounded" />
-    </button>
+    />
 
     <Avatar
       :name="contactNames.avatarName"
@@ -110,20 +109,18 @@ const items = computed(() => [
       </div>
 
       <div v-if="!characterNotFound" class="flex gap-1">
-        <button
+        <Button
           class="btn btn-neutral btn-circle btn-md btn-ghost"
+          icon="material-symbols:frame-person-outline-rounded"
           @click.stop="buildCharacter(characterQuery.data.value?.id)"
-        >
-          <Icon name="material-symbols:frame-person-outline-rounded" />
-        </button>
+        />
 
         <Dropdown class="dropdown-end">
-          <button
+          <Button
             class="btn btn-neutral btn-circle btn-md btn-ghost"
+            icon="material-symbols:more-vert"
             @click.stop
-          >
-            <Icon name="material-symbols:more-vert" />
-          </button>
+          />
 
           <DropdownContent :items="items" />
         </Dropdown>

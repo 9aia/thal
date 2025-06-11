@@ -17,12 +17,10 @@ const emit = defineEmits<{
     <Button
       :disabled="isCharacterDeleted"
       class="hidden group-hover:block btn btn-sm btn-circle"
+
+      icon="material-symbols:reply-rounded"
+      icon-class="text-xl"
       @click="emit('setReply')"
-    >
-      <Icon
-        name="material-symbols:reply-rounded"
-        class="text-base"
-      />
-    </Button>
+    />
   </div>
 </template>

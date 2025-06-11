@@ -143,7 +143,7 @@ const items: MenuItemType[] = [
         :loading="editAccountMutation.isPending.value"
         class="btn btn-primary mt-2 mb-4"
         icon="material-symbols:save-outline-rounded"
-        icon-size="xl"
+        
         :disabled="hasErrors"
       >
         {{ t('Save account settings') }}

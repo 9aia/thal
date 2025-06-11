@@ -62,7 +62,7 @@ const { mutate: deleteContact, isPending } = useMutation({
 
     <template #actions>
       <Button
-        class="btn btn-soft btn-warning "
+        class="btn btn-soft btn-warning"
         :disabled="isPending"
         @click.prevent="deleteContact()"
       >

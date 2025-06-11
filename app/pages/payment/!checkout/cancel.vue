@@ -21,11 +21,11 @@ useAutoRedirect()
       </p>
 
       <div class="flex items-center justify-center h-fit mt-4 gap-2">
-        <A class="h-fit btn py-4 rounded-full bg-cyan-500 border-none flex gap-1" :href="t('https://forms.gle/yHaiExzsQvv1mTdM8')">
+        <A class="btn btn-primary" :href="t('https://forms.gle/yHaiExzsQvv1mTdM8')">
           {{ t('Give feedback') }}
         </A>
 
-        <A href="/pricing" class="h-fit btn py-4 rounded-full bg-cyan-500 border-none flex gap-1">
+        <A href="/pricing" class="btn btn-soft btn-primary">
           {{ t('Go to pricing') }}
         </A>
       </div>

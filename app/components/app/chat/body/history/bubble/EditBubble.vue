@@ -50,14 +50,13 @@ watch(translation.error, async (value) => {
     <label class="flex gap-1 w-full h-full items-center justify-center" for="input">
       <Button
         v-if="!isEmpty"
-        size="sm"
-        shape="circle"
-        class="btn-ghost"
+        class="btn btn-circle btn-sm btn-ghost"
         :loading="translation.isLoading.value"
+
+        icon="material-symbols:translate-rounded"
+        icon-class="text-xl"
         @click="translation.onTranslate()"
-      >
-        <Icon name="material-symbols:translate" class="text-base" />
-      </Button>
+      />
 
       <ContentEditable
         is="span"

@@ -12,8 +12,8 @@ const props = withDefaults(defineProps<Props & {
   noDisableOnLoading?: boolean
   success?: boolean
 
-  iconSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   icon?: string
+  iconClass?: string
   iconPosition?: 'left' | 'right' | false
 
   resetIn?: number
@@ -66,18 +66,7 @@ const remainingFormatted = computed(() => v([countdown.remaining.value, {
 }]))
 
 const iconStyles = tv({
-  variants: {
-    size: {
-      xs: 'text-xs',
-      sm: 'text-sm',
-      md: 'text-base',
-      lg: 'text-lg',
-      xl: 'text-xl',
-    },
-  },
-  defaultVariants: {
-    size: 'md',
-  },
+  base: '',
 })
 
 useEventListener(buttonElement, 'click', handleClick)
@@ -92,7 +81,7 @@ useEventListener(buttonElement, 'click', handleClick)
   >
     <span v-if="loading" class="loading loading-xs loading-spinner" />
     <Icon v-else-if="success" name="material-symbols:check-rounded" />
-    <Icon v-else-if="icon" :name="icon" :class="iconStyles({ size: iconSize })" />
+    <Icon v-else-if="icon" :name="icon" :class="iconStyles({ class: iconClass })" />
 
     <slot />
 

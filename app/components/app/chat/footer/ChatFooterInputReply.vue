@@ -33,8 +33,12 @@ function removeReply() {
       {{ replyMessage }}
     </p>
 
-    <Button shape="circle" size="xs" class="btn-ghost absolute top-1 right-1" @click="removeReply">
-      <Icon name="material-symbols:close" class="text-sm" />
-    </Button>
+    <Button
+      class="btn btn-circle btn-sm btn-ghost absolute top-1 right-1"
+
+      icon="material-symbols:close-rounded"
+      icon-class="text-xl"
+      @click="removeReply"
+    />
   </div>
 </template>

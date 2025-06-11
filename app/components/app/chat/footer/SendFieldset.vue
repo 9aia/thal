@@ -102,10 +102,10 @@ function handleSend(e: Event) {
           v-if="!isEmpty"
           class="btn btn-circle btn-neutral btn-ghost"
           :disabled="isChatError || isChatSending || isCharacterDeleted"
+          :icon="icon"
+          
           @click="handleSend"
-        >
-          <Icon :name="icon" />
-        </Button>
+        />
       </div>
     </div>
   </div>

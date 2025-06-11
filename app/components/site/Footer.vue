@@ -37,12 +37,17 @@ const logout = useLogout()
           <A v-if="user" class="flex" href="/settings/account">
             <Icon name="material-symbols:settings-outline" />
           </A>
-          <button class="flex cursor-pointer" @click="localeModal.open()">
-            <Icon name="material-symbols:language" />
-          </button>
-          <button v-if="user" class="cursor-pointer flex text-orange-500" @click="logout()">
-            <Icon name="material-symbols:logout" />
-          </button>
+          <Button
+            class="flex cursor-pointer"
+            icon="material-symbols:language-outline-rounded"
+            @click="localeModal.open()"
+          />
+          <Button
+            v-if="user"
+            class="cursor-pointer flex text-orange-500"
+            icon="material-symbols:logout-rounded"
+            @click="logout()"
+          />
         </div>
       </div>
 

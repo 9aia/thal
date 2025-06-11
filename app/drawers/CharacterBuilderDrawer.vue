@@ -221,11 +221,12 @@ const isAlreadyChatting = computed(() => {
         </h2>
 
         <form action="/api/payment/stripe/create-portal-session" method="POST">
-          <Button size="xs" class="bg-yellow-500 rounded-full">
-            <span class="flex text-black items-center justify-center gap-1">
-              <Icon name="material-symbols:subscriptions-outline-rounded" />
-              <span class="whitespace-nowrap">{{ t("Renew Thal") }}</span>
-            </span>
+          <Button
+            size="xs"
+            class="bg-yellow-500 rounded-full"
+            icon="material-symbols:subscriptions-outline-rounded"
+          >
+            {{ t("Renew Thal") }}
           </Button>
         </form>
       </div>
@@ -249,8 +250,9 @@ const isAlreadyChatting = computed(() => {
           <Button
             v-if="isEditing && !isAlreadyChatting"
             class="btn btn-xs btn-dash btn-secondary"
-            icon-size="xl"
+
             icon="material-symbols:chat-paste-go-outline-rounded"
+            icon-class="text-xl"
             :disabled="loading"
             @click="handleGoToChat"
           >
@@ -279,7 +281,7 @@ const isAlreadyChatting = computed(() => {
           <Button
             :loading="loading"
             class="btn btn-dash btn-primary w-fit"
-            icon-size="xl"
+
             icon="material-symbols:wand-stars-outline-rounded"
             :disabled="!form.values.prompt || hasErrors || isPastDueVisible"
           >

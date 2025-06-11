@@ -57,10 +57,10 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
             'text-black': !whatsNew.hasUnreadContent.value,
           }"
           :loading="whatsNew.countQuery.isLoading.value"
+          icon="material-symbols:campaign-outline-rounded"
+          
           @click="isWhatsNewModalOpen = true"
-        >
-          <Icon v-if="!whatsNew.countQuery.isLoading.value" name="material-symbols:campaign-outline-rounded" />
-        </Button>
+        />
 
         <ChatListOptionsButton />
       </div>
@@ -129,8 +129,12 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
               {{ t('Just describe their personality and behavior in a short prompt — our AI will instantly bring them to life in seconds, ready for dynamic and engaging conversations.') }}
             </p>
 
-            <Button class="btn btn-soft btn-primary rounded-full" @click="buildCharacter(null, search)">
-              <Icon name="material-symbols:frame-person-outline-rounded" />
+            <Button
+              class="btn btn-soft btn-primary rounded-full"
+              icon="material-symbols:frame-person-outline-rounded"
+              
+              @click="buildCharacter(null, search)"
+            >
               {{ t("Create character") }}
             </Button>
           </div>

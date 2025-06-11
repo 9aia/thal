@@ -124,22 +124,22 @@ function cancelEdit() {
         <template v-if="isEditing">
           <div class="flex justify-end gap-1">
             <Button
-              size="xs"
+              class="btn btn-sm btn-ghost"
+
+              icon="material-symbols:close-rounded"
+              icon-class="text-xl"
               @click="cancelEdit"
             >
-              <Icon class="text-base">
-                material-symbols:close
-              </Icon>
               {{ t('Cancel') }}
             </Button>
 
             <Button
-              size="xs"
+              class="btn btn-sm btn-ghost"
+
+              icon="material-symbols:send-outline-rounded"
+              icon-class="text-xl"
               @click="emit('edit')"
             >
-              <Icon class="text-base">
-                material-symbols:send-outline
-              </Icon>
               {{ t('Send') }}
             </Button>
           </div>
@@ -166,65 +166,61 @@ function cancelEdit() {
       <div class="flex items-center min-h-8" :class="{ 'flex-row-reverse': !right }">
         <Button
           v-if="(from === 'user') && showEdit && !isEditing"
-          class="btn-ghost btn-gray text-blue-500 sm:hidden group-hover:block"
-          size="sm"
-          shape="circle"
+          class="btn btn-sm btn-circle btn-ghost text-blue-500 sm:hidden group-hover:block"
+
+          icon="material-symbols:edit-outline-rounded"
+          icon-class="text-xl"
           @click="edit"
-        >
-          <Icon name="material-symbols:edit-outline-rounded" class="text-base" />
-        </Button>
+        />
 
         <Button
           v-if="(from === 'user') && showResend && !isEditing"
-          shape="circle"
-          class="btn-ghost btn-gray text-magenta-500 sm:hidden group-hover:block"
+          class="btn btn-sm btn-circle btn-ghost text-magenta-500 sm:hidden group-hover:block"
+
+          icon="material-symbols:refresh-rounded"
+          icon-class="text-xl"
           @click="emit('resend')"
-        >
-          <Icon name="material-symbols:refresh" class="text-base" />
-        </Button>
+        />
 
         <Button
           v-if="!isEditing"
-          shape="circle"
-          class="text-gray-800 btn-ghost sm:hidden group-hover:block"
+          class="btn btn-sm btn-circle btn-ghost text-gray-800 sm:hidden group-hover:block"
+
+          icon="material-symbols:content-copy-outline-rounded"
+          icon-class="text-xl"
           @click="copyToClipboard"
-        >
-          <Icon name="material-symbols:content-copy-outline" class="text-base" />
-        </Button>
+        />
 
         <Button
           v-if="!isEditing && status !== 'error'"
-          shape="circle"
-          class="text-gray-800 btn-ghost sm:hidden group-hover:block"
+          class="btn btn-sm btn-circle btn-ghost text-gray-800 sm:hidden group-hover:block"
           no-disable-on-loading
-          :loading="audiableTextMutation?.isPending.value" @click="audiableTextMutation?.mutate()"
-        >
-          <Icon name="material-symbols:volume-up-outline" class="text-base" />
-        </Button>
+          :loading="audiableTextMutation?.isPending.value"
+
+          icon="material-symbols:volume-up-outline-rounded"
+          icon-class="text-xl"
+          @click="audiableTextMutation?.mutate()"
+        />
 
         <Button
           v-if="!isEditing && status !== 'error'"
-          shape="circle"
-          class="text-gray-800 btn-ghost sm:hidden group-hover:block"
+          class="btn btn-circle btn-sm btn-ghost text-gray-800 sm:hidden group-hover:block"
           :loading="translation.isLoading.value"
           :disabled="isCharacterDeleted"
+
+          icon="material-symbols:translate-rounded"
+          icon-class="text-xl"
           @click="translation.onTranslate()"
-        >
-          <Icon class="text-base">
-            material-symbols:translate
-          </Icon>
-        </Button>
+        />
 
         <Button
           v-if="(from === 'user') && showDelete"
-          shape="circle"
-          class="btn-ghost btn-gray text-red-500 sm:hidden group-hover:block"
+          class="btn btn-sm btn-circle btn-ghost text-red-500 sm:hidden group-hover:block"
+
+          icon="material-symbols:delete-outline-rounded"
+          icon-class="text-xl"
           @click="emit('delete')"
-        >
-          <Icon class="text-base">
-            material-symbols:delete-outline
-          </Icon>
-        </Button>
+        />
       </div>
     </div>
   </div>

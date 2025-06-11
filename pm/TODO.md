@@ -8,6 +8,9 @@ description: Tasks and items for the release.
 
 - Refactor chat
 - Translate all content using Psitta
+- Check <button>
+- Change icon xl to 2xl
+- Check PastDueAppNote
 
 ## 0.1.0-11
 

@@ -31,11 +31,9 @@ useEventListener(toRef(() => button.value?.buttonElement), 'focusin', (event) =>
     :class="[color, {
       'outline-2 outline-offset-2 outline-primary': isSelected,
     }]"
+    :icon="icon"
+    icon-class="text-xl"
   >
-    <Icon :name="icon" class="text-lg" />
-
-    <span class="text-black text-xs">
-      {{ name }}
-    </span>
+    {{ name }}
   </Button>
 </template>

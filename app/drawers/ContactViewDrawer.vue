@@ -125,10 +125,10 @@ const items = computed<MenuItemType[]>(() => [
       <h1 class="text-sm text-black flex items-center gap-1 -translate-x-1.5">
         <Button
           class="btn btn-neutral btn-circle btn-ghost"
+          
+          icon="material-symbols:close-rounded"
           @click="closeContactView"
-        >
-          <Icon name="material-symbols:close-rounded" />
-        </Button>
+        />
 
         {{ t("Contact Info") }}
       </h1>
@@ -137,9 +137,9 @@ const items = computed<MenuItemType[]>(() => [
         <Dropdown class="dropdown-end">
           <Button
             class="btn btn-neutral btn-circle btn-ghost"
-          >
-            <Icon name="material-symbols:more-vert" />
-          </Button>
+            
+            icon="material-symbols:more-vert"
+          />
 
           <DropdownContent :items="items" />
         </Dropdown>

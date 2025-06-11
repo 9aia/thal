@@ -55,8 +55,6 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## Enhancements
 
-- Improve discover page layout (search should be on top fixed)
-- Add empty contact list fallback
 - Add "Create another character" button for faster multiple creation on preview env
 - Inform deleted character action such as translate, using tooltip
 - Add discover search param
@@ -72,9 +70,6 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Add character search to new-chat view search
 - ---
 - Add loading splashscreen for hydration, data loading, etc
-- ---
-- Improve a11y
-  - Improve a11y for avatars
 - Improve error handling
 - Improve loading handling
   - Improve chat loading by rendering the skeleton on the backend and the message on the client
@@ -84,6 +79,11 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Change forms to another platform that supports localization
 - Add custom payment pages
 - Improve scroll look and feel
+
+## Accessibility
+
+- Add aria-label and title to all buttons (add title prop to Button component)
+- Improve a11y for avatars
 
 ## Performance
 
@@ -111,6 +111,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## DX
 
+- Refactor Link component to support icon props and rewrite all <A> using it
 - Rename username in the usernames table to text
 - Refactor toast
 - Refactor menu (items, dropdown, etc)

@@ -41,7 +41,7 @@ const contactNames = computed(() => getContactName({
     <!-- <History /> -->
 
     <div class="sticky bottom-0 right-0 flex justify-end">
-      <!-- <GoToBottomButton /> -->
+      <GoToBottomButton />
     </div>
   </div>
 </template>

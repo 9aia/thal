@@ -83,7 +83,7 @@ async function handleGoToChat(username: string) {
             <Button
               class="w-full flex items-center justify-start cursor-pointer py-1 border-b-2 border-transparent focus:border-b-primary focus:outline-hidden"
               icon="material-symbols:add"
-              icon-size="xl"
+
               @click="buildCharacter(null)"
             >
               {{ t('Create character') }}
