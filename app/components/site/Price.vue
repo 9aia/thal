@@ -47,11 +47,11 @@ const trialPeriodDays = PLANS.allInOne.trialPeriodDays
   >
     <div>
       <div class="flex flex-col items-center pt-2 gap-1 text-2xl">
-        <div class="flex gap-1 text-gray-800">
+        <div class="text-gray-800">
           <T
             text="{price} {discountPrice} for the first {x} (day|days)"
             :values="{ price, discountPrice, x: trialPeriodDays }"
-            class="flex items-center justify-center gap-1"
+            class="flex flex-wrap items-center justify-center gap-x-1"
           >
             <template #price>
               <div class="line-through">

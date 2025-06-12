@@ -75,14 +75,14 @@ function goToHome() {
           class="btn btn-neutral btn-circle btn-ghost lg:hidden"
           no-disable-on-loading
           icon="material-symbols:arrow-menu-close-rounded"
-          
+
           @click="isRootDrawerOpen = false"
         />
       </div>
     </Navbar>
 
     <div class="pt-2 flex-1 space-y-4 overflow-y-auto">
-      <PastDueAppNote />
+      <ChatListPastDueAppNote />
 
       <form v-if="chatsQuery.data.value?.length" class="px-6">
         <SearchField
@@ -119,7 +119,7 @@ function goToHome() {
         <Button
           class="btn btn-lg btn-circle btn-primary"
           icon="material-symbols:add-rounded"
-          
+
           @click="drawers.newChat = true"
         />
       </div>

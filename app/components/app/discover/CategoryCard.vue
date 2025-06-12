@@ -28,11 +28,11 @@ useEventListener(toRef(() => button.value?.buttonElement), 'focusin', (event) =>
   <Button
     ref="button"
     class="btn btn-neutral btn-xs !px-3 !py-4 w-max"
-    :class="[color, {
+    :class="[{
       'outline-2 outline-offset-2 outline-primary': isSelected,
     }]"
     :icon="icon"
-    icon-class="text-xl"
+    :icon-class="`text-xl ${color}`"
   >
     {{ name }}
   </Button>

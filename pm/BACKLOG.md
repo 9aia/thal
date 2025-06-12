@@ -111,6 +111,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## DX
 
+- Refactor menu components into reusable components instead of JS array
 - Refactor Link component to support icon props and rewrite all <A> using it
 - Rename username in the usernames table to text
 - Refactor toast

@@ -23,11 +23,11 @@ const pricingQuery = useServerQuery({
     >
       <div class="hero-content z-30">
         <div class="max-w-2xl flex flex-col justify-center text-center text-black">
-          <h1 class="text-5xl mb-6 sm:text-6xl lg:text-7xl max-w-xl mx-auto tracking-wide">
+          <h1 class="text-4xl mb-6 sm:text-6xl lg:text-7xl max-w-xl mx-auto tracking-wide">
             {{ t("Talk to Learn. Learn to Talk.") }}
           </h1>
 
-          <p class="mb-8 text-xl sm:text-2xl mx-auto max-w-2xl ">
+          <p class="mb-8 text-lg sm:text-2xl mx-auto max-w-2xl ">
             <T
               text="Your new way to master {English}  — through real conversations with smart AI characters that adapt to you."
               :values="{
@@ -50,9 +50,9 @@ const pricingQuery = useServerQuery({
             />
           </CommonResource>
 
-          <p class="text-lg text-black flex items-center gap-2 mx-auto mt-4">
+          <!-- <p class="text-base text-black flex items-center gap-2 mx-auto mt-4">
             {{ t('Feel the difference in your fluency from the very first chat.') }}
-          </p>
+          </p> -->
         </div>
       </div>
 
@@ -76,7 +76,7 @@ const pricingQuery = useServerQuery({
     >
       <div class="max-w-lg mx-auto">
         <h2 class="text-4xl text-gray-800 mb-6 flex flex-col items-center gap-1">
-          <Icon name="material-symbols:chat-outline-rounded" class="text-6xl" />
+          <Icon name="material-symbols:chat-rounded" class="text-6xl text-gray-100" />
           {{ t("Dynamic Conversations") }}
         </h2>
 
@@ -97,7 +97,7 @@ const pricingQuery = useServerQuery({
         <div class="flex gap-12 flex-col md:flex-row">
           <div class="mx-auto flex flex-col items-center md:items-start">
             <h2 class="text-4xl text-gray-800 mb-6 flex flex-wrap justify-center sm:justify-start items-center gap-1">
-              <Icon name="material-symbols:translate-rounded" class="text-6xl" />
+              <Icon name="material-symbols:translate-rounded" class="text-6xl text-gray-100" />
               {{ t("Interactive Language Assistance") }}
             </h2>
 
@@ -129,7 +129,7 @@ const pricingQuery = useServerQuery({
     <section class="mx-auto text-black text-center">
       <div class="px-4 py-12 mx-auto flex flex-col items-center justify-center">
         <h2 class="text-4xl text-gray-800 mb-6 max-w-lg flex flex-wrap justify-center items-center gap-1">
-          <Icon name="material-symbols:person-search-outline-rounded" class="text-6xl" />
+          <Icon name="material-symbols:person-search-rounded" class="text-6xl text-gray-100" />
           {{ t("Discover Characters") }}
         </h2>
 
@@ -158,7 +158,7 @@ const pricingQuery = useServerQuery({
         <div class="flex gap-12 flex-col md:flex-row">
           <div class="mx-auto flex flex-col items-center md:items-start">
             <h2 class="text-4xl text-gray-800 mb-6 flex flex-wrap justify-center sm:justify-start items-center gap-1">
-              <Icon name="material-symbols:engineering-outline-rounded" class="text-6xl" />
+              <Icon name="material-symbols:engineering-rounded" class="text-6xl text-gray-100" />
               {{ t("Create Your Own Character") }}
             </h2>
 
@@ -179,7 +179,7 @@ const pricingQuery = useServerQuery({
     <section class="w-full mx-auto text-center">
       <div class="px-4 py-12 flex flex-col items-center justify-center">
         <h2 class="text-4xl text-gray-800 mb-6 max-w-lg flex flex-wrap justify-center items-center gap-1">
-          <Icon name="material-symbols:person-add-outline-rounded" class="text-6xl" />
+          <Icon name="material-symbols:person-add-rounded" class="text-6xl text-gray-100" />
           {{ t("Save Your Favorite Characters") }}
         </h2>
 
@@ -195,7 +195,7 @@ const pricingQuery = useServerQuery({
 
     <section class="w-full relative">
       <h2 class="mx-auto text-4xl text-gray-800 max-w-lg flex flex-wrap justify-center items-center gap-1">
-        <Icon name="material-symbols:subscriptions-outline-rounded" class="text-6xl" />
+        <Icon name="material-symbols:subscriptions-rounded" class="text-6xl text-gray-100" />
         {{ t('Pricing') }}
       </h2>
 
