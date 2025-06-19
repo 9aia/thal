@@ -10,7 +10,7 @@ defineProps<{
 
 const baseStyles = tv({
   slots: {
-    actions: 'w-full flex justify-center mt-3 gap-2',
+    actions: 'w-full flex justify-center mt-2 gap-2',
   },
 })
 

@@ -78,7 +78,7 @@ const trialPeriodDays = PLANS.allInOne.trialPeriodDays
 
       <div class="text-gray-500 text-xs text-center mt-2">
         {{ t('No hidden fees. Cancel or pause anytime.') }}
-        <A class="underline text-brown-500" href="/terms">{{ t('Terms apply') }}</A>
+        <A class="underline text-brown-500 border-b-2 border-transparent focus:border-blue-500 focus:outline-none" href="/terms">{{ t('Terms apply') }}</A>
       </div>
     </div>
   </CommonResource>

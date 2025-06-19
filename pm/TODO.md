@@ -9,14 +9,11 @@ description: Tasks and items for the release.
 - Refactor chat
 - Translate all content using Psitta
 - Check PastDueAppNote
-- Fix landpage focus items
-- Fix price/discount layout mobile responsiveness
 
 ## 0.1.0-11
 
-- Add setting item type for modal openers
 - Turn chat list into a typical responsive drawer
-- Move discover to its own route
+- Move discover to its own layout
 - Move settings to its own route and layout
 - Fix error handling in the API endpoints fetched using form
 - Enhance toast style widths
