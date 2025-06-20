@@ -1,5 +1,6 @@
 import { and, eq, isNull } from 'drizzle-orm'
 import { z } from 'zod'
+import { now } from '~/utils/date'
 import { getValidated } from '~/utils/h3'
 import { badRequest, paymentRequired, unauthorized } from '~/utils/nuxt'
 import { isPlanPastDue } from '~/utils/plan'
@@ -71,6 +72,7 @@ export default eventHandler(async (event) => {
           username: character.usernames!.username,
           categoryId: character.categoryId,
         },
+        updatedAt: now(),
       }).where(eq(characterDrafts.id, existingDraft.id)),
       orm.update(characterDraftLocalizations).set({
         name: ptLocalization?.name,
@@ -78,6 +80,7 @@ export default eventHandler(async (event) => {
         instructions: ptLocalization?.instructions,
         locale: 'pt-BR',
         characterDraftId: existingDraft.id,
+        updatedAt: now(),
       }).where(and(
         eq(characterDraftLocalizations.locale, 'pt-BR'),
         eq(characterDraftLocalizations.characterDraftId, existingDraft.id),
@@ -88,6 +91,7 @@ export default eventHandler(async (event) => {
         instructions: enLocalization?.instructions,
         locale: 'en-US',
         characterDraftId: existingDraft.id,
+        updatedAt: now(),
       }).where(and(
         eq(characterDraftLocalizations.locale, 'en-US'),
         eq(characterDraftLocalizations.characterDraftId, existingDraft.id),

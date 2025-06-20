@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import { useQueryClient } from '@tanstack/vue-query'
+import { useOnline } from '@vueuse/core'
 import queryKeys from '~/queryKeys'
 
+const props = defineProps<{
+  chatId: number
+}>()
+
 const route = useRoute()
+const isOnline = useOnline()
 const queryClient = useQueryClient()
 const username = computed(() => route.params.username as string)
 const headers = useRequestHeaders(['cookie'])
@@ -14,29 +20,12 @@ const historyQuery = useServerQuery({
   }),
 })
 
-// function updateHistory(newMessage: SendMessageData) {
-//   const newHistory = [...data.value.history || []]
+const { isMessagePending } = useMessageSender(username, toRef(() => props.chatId))
 
-//   newHistory.push({
-//     id: newHistory.length + 1,
-//     from: 'user',
-//     status: isOnline.value ? 'seen' : 'sending',
-//     message: newMessage.value,
-//     replyingMessage: newMessage?.replyingId
-//       ? {
-//           id: newMessage!.replyingId!,
-//           message: newMessage!.replyMessage!,
-//           from: newMessage!.replyFrom!,
-//         }
-//       : null,
-//     time: new Date().getTime(),
-//   })
-
-//   queryClient.setQueryData(queryKeys.chat(route.params.username as string), {
-//     ...data.value,
-//     history: newHistory,
-//   })
-// }
+const isLastMessageError = computed(() => {
+  // TODO: redo this
+  return historyQuery.data.value?.length && historyQuery.data.value[historyQuery.data.value.length - 1].status === 'error'
+})
 </script>
 
 <template>
@@ -49,28 +38,24 @@ const historyQuery = useServerQuery({
 
     <template #default>
       <div class="space-y-2">
-        {{ JSON.stringify(historyQuery.data.value) }}
-
-        <!-- <ChatBubble
+        <ChatBubble
           v-for="item, index in historyQuery.data.value"
           :id="item.id"
           :key="item.id"
 
           :status="item.status"
-          :message="item.message"
+          :content="item.content"
           :time="item.time"
           :from="item.from"
 
-          :is-character-deleted="false"
+          :in-reply-to="item.inReplyTo ? { ...item.inReplyTo } : undefined"
 
-          :reply-message="item.replyingMessage?.message"
-          :replying-id="item.replyingMessage?.id"
-          :reply-from="item.replyingMessage?.from"
+          :is-character-deleted="false"
 
           :show-delete="index === (historyQuery.data.value!.length - 1) && isLastMessageError"
           :show-edit="index === (historyQuery.data.value!.length - 1) && isLastMessageError"
           :show-resend="index === (historyQuery.data.value!.length - 1) && isLastMessageError"
-        /> -->
+        />
       <!-- TODO: redo this -->
       <!--
         :is-character-deleted="isCharacterDeleted"
@@ -89,7 +74,7 @@ const historyQuery = useServerQuery({
         />
       -->
 
-      <!-- <ChatBubbleLoading v-if="isMessagePending && isOnline" /> -->
+      <ChatBubbleLoading v-if="isMessagePending && isOnline" />
     </template>
   </CommonResource>
 </template>

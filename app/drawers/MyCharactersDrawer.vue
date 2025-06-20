@@ -57,7 +57,10 @@ async function handleGoToChat(username: string) {
           title-class="px-6"
           body-class="px-4"
         >
-          <CommonResource :for="myCharactersQuery">
+          <CommonResource
+            :for="myCharactersQuery"
+            :empty-message="t('You have no characters yet.')"
+          >
             <div class="h-full px-2">
               <ul class="space-y-3">
                 <li

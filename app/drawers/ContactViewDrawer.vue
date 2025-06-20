@@ -15,6 +15,13 @@ const username = computed(() => contactViewUsername.value!)
 const copyUsername = useCopyUsername(username)
 const clearChat = useClearChat(username)
 
+const historyQuery = useServerQuery({
+  queryKey: queryKeys.chatHistory(username),
+  queryFn: () => $fetch(`/api/chat/history/${username.value!}` as `/api/chat/history/:username`),
+  enabled: computed(() => !!username.value),
+})
+const hasMessages = computed(() => !!historyQuery.data.value?.length)
+
 const contactQuery = useServerQuery({
   queryKey: queryKeys.contact(username),
   queryFn: () => $fetch(`/api/contact/${contactViewUsername.value!}` as `/api/contact/:username`),
@@ -254,6 +261,7 @@ const items = computed<MenuItemType[]>(() => [
               meaning: 'danger',
               onClick: () => clearChat(),
             }"
+            v-if="hasMessages"
             class="px-2 py-2 rounded-2xl focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
           />
         </section>

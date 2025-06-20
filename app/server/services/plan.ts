@@ -2,6 +2,7 @@ import { and, eq } from 'drizzle-orm'
 import type { DrizzleD1Database } from 'drizzle-orm/d1'
 import type Stripe from 'stripe'
 import type { CheckoutStatus, PlanSettings } from '~/types'
+import { now } from '~/utils/date'
 import { internal } from '~/utils/nuxt'
 import type { User, UserSelect } from '~~/db/schema'
 import { PlanType, SubscriptionStatus, users } from '~~/db/schema'
@@ -21,6 +22,7 @@ export async function updateSubscription(
     stripeCustomerId: subscription.customer as string,
     subscriptionId: subscription.id,
     plan: PlanType.ALL_IN_ONE,
+    updatedAt: now(),
   }
 
   if (subscription.status === 'trialing') {
@@ -48,6 +50,7 @@ export async function createSubscription(
     stripeCustomerId: subscription.customer as string,
     subscriptionId: subscription.id,
     plan: PlanType.ALL_IN_ONE,
+    updatedAt: now(),
   }
 
   if (subscription.status === 'trialing') {
@@ -78,6 +81,7 @@ export async function deletedSubscription(
       subscriptionId: subscription.id,
       checkoutId: null,
       plan: null,
+      updatedAt: now(),
     })
     .where(and(eq(users.id, userId), eq(users.subscriptionId, subscription.id)))
 }

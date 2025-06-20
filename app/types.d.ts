@@ -2,7 +2,7 @@ import type { InternalApi } from 'nitropack'
 import type { VariantProps } from 'tailwind-variants'
 import type { HTMLAttributes } from 'vue'
 import type { getHistory } from './server/services/messages'
-import type { ReplyMessage, UserSelect } from '~~/db/schema'
+import type { InReplyTo, UserSelect } from '~~/db/schema'
 
 export interface SafeProps<T extends HTMLAttributes> extends /* @vue-ignore */ T {}
 export interface SafeVariantProps<T extends VariantProps> extends /* @vue-ignore */ T {}
@@ -45,8 +45,8 @@ export type ChatItem = InternalApi['/api/chat']['get'][number] & {
   lastMessageStatus?: MessageStatus
 }
 
-export interface Replies {
-  [key: string]: ReplyMessage
+export interface InReplyTos {
+  [key: string]: InReplyTo
 }
 
 export type CharacterBuilderEditViewMode = 'original' | 'preview'

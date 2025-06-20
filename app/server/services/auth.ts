@@ -3,6 +3,7 @@ import { encodeHexLowerCase } from '@oslojs/encoding'
 import { sha256 } from '@oslojs/crypto/sha2'
 import type { H3Event, H3EventContext } from 'h3'
 import { type Session, type User, sessions } from '~~/db/schema'
+import { now } from '~/utils/date'
 
 export async function createSession(orm: H3EventContext['orm'], token: string, userId: string): Promise<Session> {
   const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)))
@@ -46,6 +47,7 @@ export async function validateSessionToken(orm: H3EventContext['orm'], token: st
       .update(sessions)
       .set({
         expiresAt: session.expiresAt,
+        updatedAt: now(),
       })
       .where(eq(sessions.id, session.id))
   }

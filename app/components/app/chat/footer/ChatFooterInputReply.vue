@@ -1,36 +1,47 @@
 <script setup lang="ts">
-import { useQueryClient } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
-import { replies } from '~/store'
+import { inReplyTos } from '~/store'
 
-const queryClient = useQueryClient()
 const route = useRoute()
 const { t } = useI18nExperimental()
 
 const username = computed(() => route.params.username as string)
-const replying = computed(() => replies[username.value])
-const data = computed(() => queryClient.getQueryData(queryKeys.chat(username)))
+const inReplyTo = computed(() => inReplyTos[username.value])
 
-const displayName = computed(() => getContactName(data.value))
+const headers = useRequestHeaders(['cookie'])
+const contactQuery = useServerQuery({
+  queryKey: queryKeys.contact(username),
+  queryFn: () => $fetch(`/api/contact/${username.value}` as `/api/contact/:username`, {
+    headers,
+  }),
+})
 
-const replyDisplayName = computed(() => replying.value.from === 'user'
+const characterQuery = useCharacterQuery(username)
+
+const contactNames = computed(() => getContactName({
+  username: username.value,
+  contactName: contactQuery.data.value?.name,
+  characterName: characterQuery.data.value?.name,
+}))
+
+const displayName = computed(() => inReplyTo.value.from === 'user'
   ? t('You')
-  : displayName.value,
+  : contactNames.value.displayName,
 )
 
 function removeReply() {
-  delete replies[username.value]
+  delete inReplyTos[username.value]
 }
 </script>
 
 <template>
   <div class="border-l-4 border-blue-100 bg-blue-50 p-3 relative w-full">
     <h3 class="text-sm font-medium text-blue-500">
-      {{ replyDisplayName }}
+      {{ displayName }}
     </h3>
 
     <p class="text-xs text-gray-600 line-clamp-3">
-      {{ replyMessage }}
+      {{ inReplyTo.content }}
     </p>
 
     <Button

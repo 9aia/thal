@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useMagicKeys, useOnline } from '@vueuse/core'
-import { contentEditableRef, replies, sendingChatIds, sentErrorChatIds } from '~/store'
+import { contentEditableRef, inReplyTos, sendingChatIds, sentErrorChatIds } from '~/store'
 
 const props = defineProps<{
   chatId: number
@@ -29,7 +29,7 @@ const isCharacterDeleted = computed(() => !characterQuery.data.value?.id)
 
 const replying = computed(() => {
   const username = route.params.username as string
-  return replies[username]
+  return inReplyTos[username]
 })
 
 const icon = computed(() => {

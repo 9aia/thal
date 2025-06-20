@@ -159,6 +159,7 @@ export default eventHandler(async (event) => {
     await orm.update(lastMessages).set({
       content: botMessageContent,
       datetime: new Date(botMessageTime),
+      updatedAt: now(),
     }).where(eq(lastMessages.chatId, chat.id))
   }
   else {
@@ -178,14 +179,12 @@ export default eventHandler(async (event) => {
     content: data.content,
     inReplyToId: data.inReplyTo?.id,
     isBot: false,
-    createdAt: userMessageTime,
   }
 
   const botMessagePayload: MessageInsert = {
     chatId: chat.id,
     content: botMessageContent,
     isBot: true,
-    createdAt: botMessageTime,
   }
 
   const [_, botMessageRecord] = await orm

@@ -8,12 +8,12 @@ const props = defineProps<{
 
 const showMore = ref(false)
 
-const trunkedInstructions = computed(() => {
+const instructions = computed(() => {
   if (!props.data) {
     return ''
   }
 
-  if (props.data.instructions.length > 100) {
+  if (props.data.instructions.length > 100 && !showMore.value) {
     return `${props.data.instructions.slice(0, 100)}...`
   }
 
@@ -66,7 +66,7 @@ const trunkedInstructions = computed(() => {
       />
 
       <div class="flex flex-col gap-1">
-        <MDC tag="article" class="prose prose-sm text-sm text-gray-500" :value="showMore ? data.instructions : trunkedInstructions" />
+        <MDC tag="article" class="prose prose-sm text-sm text-gray-500" :value="instructions" />
 
         <button class="w-fit text-blue-500 text-sm text-left cursor-pointer border-b-2 border-transparent focus:border-b-blue-500 focus:outline-hidden" @click="showMore = !showMore">
           {{ showMore ? t('Show less') : t('Show more') }}

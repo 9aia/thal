@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
+import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { useDebounceFn } from '@vueuse/core'
 import { useForm } from 'vee-validate'
-import { isRootDrawerOpen, manageContactName, manageContactUsername } from '~/store'
-import { nameSchema, nameSchemaChecks, usernameSchema, usernameSchemaChecks } from '~~/db/schema'
 import queryKeys from '~/queryKeys'
+import { isRootDrawerOpen, manageContactName, manageContactUsername } from '~/store'
 import type { Contact } from '~/types'
+import yupify from '~/utils/yupify'
+import { nameSchema, nameSchemaChecks, usernameSchema, usernameSchemaChecks } from '~~/db/schema'
 
 const emit = defineEmits<{
   (e: 'close'): void
@@ -36,7 +37,9 @@ const hasErrors = useHasFormErrors(form)
 
 const characterQuery = useServerQuery({
   queryKey: queryKeys.character(localeDefaultRegion, toRef(() => form.values.username)),
-  queryFn: () => $fetch(`/api/character/${form.values.username}` as `/api/character/:username`),
+  queryFn: () => $fetch(`/api/character/${form.values.username}` as `/api/character/:username`, {
+    params: { locale: localeDefaultRegion.value },
+  }),
   enabled: computed(() => !!form.values.username),
 })
 

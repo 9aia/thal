@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { FetchError } from 'ofetch'
-import { edition, replies } from '~/store'
+import { edition, inReplyTos } from '~/store'
 
 const toast = useToast()
 const { t } = useI18nExperimental()
@@ -8,7 +8,7 @@ const { t } = useI18nExperimental()
 const isEmpty = useIsTextEmpty(toRef(() => edition.message))
 const route = useRoute()
 const username = computed(() => route.params.username as string)
-const replyMessage = computed(() => replies[username.value])
+const replyMessage = computed(() => inReplyTos[username.value])
 
 const translation = useTranslation({
   queryKey: 'edit-bubble-translation',

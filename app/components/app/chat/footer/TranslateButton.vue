@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { FetchError } from 'ofetch'
-import { replies, sendingChatIds } from '~/store'
+import { inReplyTos, sendingChatIds } from '~/store'
 
 const props = defineProps<{
   chatId: number
@@ -14,7 +14,7 @@ const toast = useToast()
 const { t } = useI18nExperimental()
 const route = useRoute()
 const username = computed(() => route.params.username as string)
-const replyMessage = computed(() => replies[username.value])
+const replyMessage = computed(() => inReplyTos[username.value])
 const isChatSending = computed(() => props.chatId ? sendingChatIds.value.has(props.chatId) : false)
 
 const isTextInputEmpty = useIsTextEmpty(toRef(() => text.value))

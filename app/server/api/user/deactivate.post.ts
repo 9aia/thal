@@ -29,6 +29,7 @@ export default defineEventHandler(async (event) => {
 
   await orm.update(users).set({
     deactivatedAt: now(),
+    updatedAt: now(),
   }).where(eq(users.id, user.id!))
 
   await invalidateSession(orm, session.id)

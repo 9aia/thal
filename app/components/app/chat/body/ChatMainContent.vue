@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { useOnline } from '@vueuse/core'
 import queryKeys from '~/queryKeys'
 
-const { t } = useI18nExperimental()
-const isOnline = useOnline()
+defineProps<{
+  chatId: number
+}>()
+
 const route = useRoute()
 const username = computed(() => route.params.username as string)
 const headers = useRequestHeaders(['cookie'])
@@ -23,10 +24,18 @@ const contactNames = computed(() => getContactName({
   contactName: contactQuery.data.value?.name,
   characterName: characterQuery.data.value?.name,
 }))
+
+const historyQuery = useServerQuery({
+  queryKey: queryKeys.chatHistory(username),
+  queryFn: () => $fetch(`/api/chat/history/${username.value}` as `/api/chat/history/:username`),
+  enabled: computed(() => !!username.value),
+})
+
+const hasMessages = computed(() => !!historyQuery.data.value?.length)
 </script>
 
 <template>
-  <div class="sm:max-w-5xl md:max-w-6xl lg:max-w-9xl mx-auto h-full">
+  <div class="w-full h-full sm:max-w-5xl md:max-w-6xl lg:max-w-9xl mx-auto">
     <NonContactProfileCard
       v-if="!isContact"
       :avatar-name="contactNames.avatarName"
@@ -38,7 +47,9 @@ const contactNames = computed(() => getContactName({
 
     <ExperimentalAlert />
 
-    <!-- <History /> -->
+    <div v-if="hasMessages" class="mt-6">
+      <History :chat-id="chatId" />
+    </div>
 
     <div class="sticky bottom-0 right-0 flex justify-end">
       <GoToBottomButton />

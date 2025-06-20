@@ -1,4 +1,5 @@
 import { and, eq, isNull } from 'drizzle-orm'
+import { now } from '~/utils/date'
 import { getValidated } from '~/utils/h3'
 import { badRequest, conflict, paymentRequired, unauthorized } from '~/utils/nuxt'
 import { isPlanPastDue } from '~/utils/plan'
@@ -60,10 +61,11 @@ export default eventHandler(async (event) => {
       discoverable: data.discoverable,
       prompt: existingDraft.prompt,
       categoryId: draftData.categoryId,
+      updatedAt: now(),
     }).where(eq(characters.id, data.characterId!)).returning()
 
     await orm.update(usernames)
-      .set({ username: draftData.username })
+      .set({ username: draftData.username, updatedAt: now() })
       .where(eq(usernames.characterId, updatedCharacter.id))
 
     for (const localization of existingDraft.characterDraftLocalizations) {
@@ -73,6 +75,7 @@ export default eventHandler(async (event) => {
         instructions: localization.instructions,
         name: localization.name,
         locale: localization.locale,
+        updatedAt: now(),
       }).where(and(eq(characterLocalizations.locale, localization.locale), eq(characterLocalizations.characterId, updatedCharacter.id)))
     }
 
@@ -103,6 +106,7 @@ export default eventHandler(async (event) => {
         .update(usernames)
         .set({
           characterId: character.id,
+          updatedAt: now(),
         })
         .where(eq(usernames.username, draftData.username))
     }
@@ -121,6 +125,7 @@ export default eventHandler(async (event) => {
   // Update draft with characterId for future edits
   await orm.update(characterDrafts).set({
     characterId: character.id,
+    updatedAt: now(),
   }).where(eq(characterDrafts.id, existingDraft.id))
 
   return {

@@ -1,8 +1,9 @@
 /* eslint-disable ts/no-use-before-define */
-import { foreignKey, int, sqliteTable, text, unique } from 'drizzle-orm/sqlite-core'
+import { foreignKey, int, sqliteTable as table, text, unique } from 'drizzle-orm/sqlite-core'
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
 import { relations, sql } from 'drizzle-orm'
 import { z } from 'zod'
+import { timestampOmits, timestamps } from '../columns.helpers'
 
 // #region Usernames
 
@@ -15,23 +16,26 @@ export const usernameSchemaChecks = {
   max: usernameSchema._def.checks.find(check => check.kind === 'max')?.value,
 }
 
-export const usernames = sqliteTable('Username', {
+export const usernames = table('Username', {
   id: int('id').primaryKey({ autoIncrement: true }),
   characterId: int('character_id')
     .references(() => characters.id, { onDelete: 'set null' }),
   userId: text('user_id')
     .references(() => users.id, { onDelete: 'set null' }),
   username: text('username').unique().notNull(),
+  ...timestamps,
 })
 
 export const usernameUpdateSchema = createInsertSchema(usernames, {
   username: usernameSchema,
 })
+  .omit({ ...timestampOmits })
 
 export const usernameInsertSchema = createInsertSchema(usernames, {
   username: usernameSchema,
 }).omit({
   id: true,
+  ...timestampOmits,
 })
 
 export const usernameRelations = relations(usernames, ({ one, many }) => ({
@@ -68,7 +72,7 @@ export enum PlanType {
   ALL_IN_ONE = 0,
 }
 
-export const users = sqliteTable('User', {
+export const users = table('User', {
   id: text('id').primaryKey(),
 
   name: text('name').notNull(),
@@ -84,8 +88,8 @@ export const users = sqliteTable('User', {
   stripeCustomerId: text('stripe_customer_id'),
   checkoutId: text('checkout_id'),
 
-  createdAt: int('created_at', { mode: 'timestamp_ms' }).default(sql`(unixepoch() * 1000)`).notNull(),
   deactivatedAt: int('deactivated_at', { mode: 'timestamp_ms' }),
+  ...timestamps,
 })
 
 export const userRelations = relations(users, ({ one }) => ({
@@ -95,12 +99,13 @@ export const userRelations = relations(users, ({ one }) => ({
   }),
 }))
 
-export const sessions = sqliteTable('Session', {
+export const sessions = table('Session', {
   id: text('id').primaryKey(),
   userId: text('user_id')
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
   expiresAt: int('expires_at', { mode: 'timestamp_ms' }).notNull(),
+  ...timestamps,
 })
 
 export const sessionRelations = relations(sessions, ({ one }) => ({
@@ -110,12 +115,13 @@ export const sessionRelations = relations(sessions, ({ one }) => ({
   }),
 }))
 
-export const oAuthAccounts = sqliteTable('OAuthAccount', {
+export const oAuthAccounts = table('OAuthAccount', {
   providerId: text('provider_id').notNull(),
   providerUserId: text('provider_user_id').notNull(),
   userId: text('user_id')
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
+  ...timestamps,
 })
 
 export const nameSchema = z.string().min(1).max(64)
@@ -146,9 +152,10 @@ export const userSelectSchema = createSelectSchema(users, {
   lastName: userLastNameSchema,
   pronouns: pronounsSchema,
   email: z.string().email().optional().nullable(),
-}).extend({
-  username: usernameSchema,
 })
+  .extend({
+    username: usernameSchema,
+  })
 
 export const userInsertSchema = createInsertSchema(users, {
   id: id => id.optional(),
@@ -156,26 +163,30 @@ export const userInsertSchema = createInsertSchema(users, {
   lastName: userLastNameSchema,
   pronouns: pronounsSchema,
   email: z.string().email(),
-  createdAt: createdAt => createdAt.optional(),
-}).extend({
-  username: usernameSchema,
 })
+  .omit({ ...timestampOmits })
+  .extend({
+    username: usernameSchema,
+  })
 
 export const userUpdateSchema = createInsertSchema(users, {
   name: userNameSchema,
   lastName: userLastNameSchema,
   pronouns: pronounsSchema,
   email: z.string().email(),
-}).extend({
-  username: usernameSchema,
-}).partial()
+})
+  .omit({ ...timestampOmits })
+  .extend({
+    username: usernameSchema,
+  })
+  .partial()
 
 export type UserSelect = z.infer<typeof userSelectSchema>
 export type UserInsert = z.infer<typeof userInsertSchema>
 export type UserUpdate = z.infer<typeof userUpdateSchema>
 export type User = UserSelect
 
-export const sessionSelectSchema = createSelectSchema(sessions)
+export const sessionSelectSchema = createSelectSchema(sessions).omit(timestampOmits)
 
 export type SessionSelect = z.infer<typeof sessionSelectSchema>
 export type Session = SessionSelect
@@ -195,14 +206,14 @@ export const instructionsSchemaChecks = {
   min: instructionsSchema._def.checks.find(check => check.kind === 'min')?.value,
   max: instructionsSchema._def.checks.find(check => check.kind === 'max')?.value,
 }
-export const characters = sqliteTable('Character', {
+export const characters = table('Character', {
   id: int('id').primaryKey({ autoIncrement: true }),
   categoryId: int('category_id').notNull(),
   discoverable: int('discoverable', { mode: 'boolean' }).default(true).notNull(),
   prompt: text('prompt').notNull(),
   creatorId: text('creator_id')
     .references(() => users.id, { onDelete: 'no action' }),
-  createdAt: int('created_at', { mode: 'timestamp_ms' }).default(sql`(unixepoch() * 1000)`).notNull(),
+  ...timestamps,
 })
 
 export const characterRelations = relations(characters, ({ one, many }) => ({
@@ -217,22 +228,20 @@ export const characterGetSchema = createSelectSchema(characters)
 
 export type CharacterGet = z.infer<typeof characterGetSchema>
 
-export const characterDataSchema = createInsertSchema(characters).omit({
-  id: true,
-  createdAt: true,
-  discoverable: true,
-  prompt: true,
-  creatorId: true,
-})
-  .extend({
-    username: usernameSchema,
+export const characterDataSchema = createInsertSchema(characters)
+  .omit({
+    discoverable: true,
+    prompt: true,
+    creatorId: true,
+    ...timestampOmits,
   })
+  .extend({ username: usernameSchema })
 
 // #endregion
 
 // #region CharacterLocalizations
 
-export const characterLocalizations = sqliteTable('CharacterLocalization', {
+export const characterLocalizations = table('CharacterLocalization', {
   id: int('id').primaryKey({ autoIncrement: true }),
   characterId: int('character_id')
     .references(() => characters.id, { onDelete: 'cascade' }),
@@ -240,6 +249,7 @@ export const characterLocalizations = sqliteTable('CharacterLocalization', {
   name: text('name').notNull(),
   description: text('description').notNull(),
   instructions: text('instructions').notNull(),
+  ...timestamps,
 })
 
 export const characterLocalizationsRelations = relations(characterLocalizations, ({ one }) => ({
@@ -250,6 +260,7 @@ export const characterLocalizationsRelations = relations(characterLocalizations,
 }))
 
 export const characterLocalizationsSchema = createInsertSchema(characterLocalizations)
+  .omit({ ...timestampOmits })
 
 export type characterLocalizationsGet = z.infer<typeof characterLocalizationsSchema>
 
@@ -275,7 +286,7 @@ export const characterDraftInsertSchema = z.object({
   discoverable: z.boolean().default(true),
 })
 
-export const characterDrafts = sqliteTable('CharacterDraft', {
+export const characterDrafts = table('CharacterDraft', {
   id: int('id').primaryKey({ autoIncrement: true }),
   characterId: int('character_id')
     .references(() => characters.id, { onDelete: 'cascade' }),
@@ -283,7 +294,7 @@ export const characterDrafts = sqliteTable('CharacterDraft', {
     .references(() => users.id, { onDelete: 'no action' }),
   prompt: text('prompt').notNull(),
   data: text('data', { mode: 'json' }).$type<CharacterDraftData>().notNull(),
-  createdAt: int('created_at', { mode: 'timestamp_ms' }).default(sql`(unixepoch() * 1000)`).notNull(),
+  ...timestamps,
 })
 
 export const characterDraftsRelations = relations(characterDrafts, ({ one, many }) => ({
@@ -294,7 +305,7 @@ export const characterDraftsRelations = relations(characterDrafts, ({ one, many 
   characterDraftLocalizations: many(characterDraftLocalizations),
 }))
 
-export const characterDraftLocalizations = sqliteTable('CharacterDraftLocalization', {
+export const characterDraftLocalizations = table('CharacterDraftLocalization', {
   id: int('id').primaryKey({ autoIncrement: true }),
   characterDraftId: int('character_draft_id')
     .references(() => characterDrafts.id, { onDelete: 'cascade' }),
@@ -302,6 +313,7 @@ export const characterDraftLocalizations = sqliteTable('CharacterDraftLocalizati
   name: text('name').notNull(),
   description: text('description').notNull(),
   instructions: text('instructions').notNull(),
+  ...timestamps,
 })
 
 export const characterDraftLocalizationsRelations = relations(characterDraftLocalizations, ({ one }) => ({
@@ -315,7 +327,7 @@ export const characterDraftLocalizationsRelations = relations(characterDraftLoca
 
 // #region Contacts
 
-export const contacts = sqliteTable('Contact', {
+export const contacts = table('Contact', {
   id: int('id').primaryKey({ autoIncrement: true }),
   name: text('name').notNull(),
   usernameId: int('username_id')
@@ -324,7 +336,7 @@ export const contacts = sqliteTable('Contact', {
   userId: text('user_id')
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
-  createdAt: int('created_at', { mode: 'timestamp_ms' }).default(sql`(unixepoch() * 1000)`).notNull(),
+  ...timestamps,
 }, t => ([
   unique().on(t.userId, t.usernameId),
 ]))
@@ -354,12 +366,13 @@ export const contactGetSchema = createSelectSchema(contacts).omit({
     username: usernameSchema,
   })
 
-export const contactInsertSchema = createInsertSchema(contacts).omit({
-  id: true,
-  userId: true,
-  usernameId: true,
-  createdAt: true,
-})
+export const contactInsertSchema = createInsertSchema(contacts)
+  .omit({
+    id: true,
+    userId: true,
+    usernameId: true,
+    ...timestampOmits,
+  })
   .extend({
     username: usernameSchema,
   })
@@ -372,6 +385,8 @@ export const contactUpdateSchema = createInsertSchema(contacts, {
     userId: true,
     usernameId: true,
     createdAt: true,
+    updatedAt: true,
+    deletedAt: true,
   })
   .partial()
 
@@ -384,7 +399,7 @@ export type ContactUpdateDto = z.infer<typeof contactUpdateSchema>
 
 // #region LastMessages
 
-export const lastMessages = sqliteTable('LastMessage', {
+export const lastMessages = table('LastMessage', {
   id: int('id').primaryKey({ autoIncrement: true }),
   chatId: int('chat_id')
     .notNull()
@@ -393,6 +408,7 @@ export const lastMessages = sqliteTable('LastMessage', {
   datetime: int('datetime', { mode: 'timestamp_ms' })
     .default(sql`(unixepoch() * 1000)`)
     .notNull(),
+  ...timestamps,
 })
 
 export const lastMessageRelations = relations(lastMessages, ({ one }) => ({
@@ -404,6 +420,7 @@ export const lastMessageRelations = relations(lastMessages, ({ one }) => ({
 
 export const selectLastMessageSchema = createSelectSchema(lastMessages)
 export const insertLastMessageSchema = createInsertSchema(lastMessages)
+  .omit({ ...timestampOmits })
 
 export type LastMessageSelect = z.infer<typeof selectLastMessageSchema>
 export type LastMessageInsert = z.infer<typeof insertLastMessageSchema>
@@ -412,7 +429,7 @@ export type LastMessageInsert = z.infer<typeof insertLastMessageSchema>
 
 // #region Chats
 
-export const chats = sqliteTable('Chat', {
+export const chats = table('Chat', {
   id: int('id').primaryKey({ autoIncrement: true }),
   // TODO: rename field to usernameId
   usernameId: int('character_username_id')
@@ -423,7 +440,7 @@ export const chats = sqliteTable('Chat', {
     .references(() => users.id, { onDelete: 'cascade' }),
   contactId: int('contact_id')
     .references(() => contacts.id, { onDelete: 'set null' }),
-  createdAt: int('created_at', { mode: 'timestamp_ms' }).default(sql`(unixepoch() * 1000)`).notNull(),
+  ...timestamps,
 }, chats => ([
   unique().on(chats.userId, chats.usernameId),
 ]))
@@ -461,7 +478,7 @@ export type InReplyTo = z.infer<typeof inReplyToSchema>
 
 // #region Messages
 
-export const messages = sqliteTable('Message', {
+export const messages = table('Message', {
   id: int('id').primaryKey({ autoIncrement: true }),
   chatId: int('chat_id')
     .notNull()
@@ -473,7 +490,7 @@ export const messages = sqliteTable('Message', {
   inReplyToId: int('in_reply_to_id'),
   isBot: int('is_bot', { mode: 'boolean' }).default(false).notNull(), // TODO: change to speaker username (user or bot)
 
-  createdAt: int('created_at', { mode: 'timestamp_ms' }).default(sql`(unixepoch() * 1000)`).notNull(),
+  ...timestamps,
 }, messages => ([
   foreignKey({
     columns: [messages.inReplyToId],
@@ -501,6 +518,7 @@ export const messageSendSchema = z.object({
 
 export const selectMessageSchema = createSelectSchema(messages)
 export const insertMessageSchema = createInsertSchema(messages)
+  .omit({ ...timestampOmits })
 
 export type MessageSelect = z.infer<typeof selectMessageSchema>
 export type MessageInsert = z.infer<typeof insertMessageSchema>

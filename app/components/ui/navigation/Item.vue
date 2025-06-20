@@ -21,10 +21,10 @@ function handleSubmit(event: Event) {
 
 const baseStyles = tv({
   slots: {
-    button: 'cursor-pointer flex w-full justify-between items-center',
-    label: 'cursor-pointer flex w-full justify-between items-center',
-    a: 'cursor-pointer flex w-full gap-2 justify-between items-center',
-    div: 'group flex w-full justify-between items-center',
+    button: 'cursor-pointer flex w-full text-left',
+    label: 'cursor-pointer flex w-full justify-between items-center text-left',
+    a: 'cursor-pointer flex w-full gap-2 justify-between items-center text-left',
+    div: 'group flex w-full justify-between items-center text-left',
   },
 })
 const styles = baseStyles()

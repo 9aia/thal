@@ -1,6 +1,7 @@
 import { block } from '@9aia/castor'
 import { eq, isNotNull } from 'drizzle-orm'
 import { z } from 'zod'
+import { now } from '~~/app/utils/date'
 import { characterDraftLocalizations, characterDrafts, characterLocalizations, characters, usernames } from '~~/db/schema'
 
 block('List all characters', {
@@ -18,11 +19,17 @@ block('Delete all character data', {
 })
 
 block('Make all characters discoverable', {
-  query: db => db.update(characters).set({ discoverable: true }).returning(),
+  query: db => db.update(characters).set({
+    discoverable: true,
+    updatedAt: now(),
+  }).returning(),
 })
 
 block('Make all characters undiscoverable', {
-  query: db => db.update(characters).set({ discoverable: false }).returning(),
+  query: db => db.update(characters).set({
+    discoverable: false,
+    updatedAt: now(),
+  }).returning(),
 })
 
 block('Toggle character discoverability', {
@@ -38,7 +45,10 @@ block('Toggle character discoverability', {
       throw new Error('Character not found')
     }
     return db.update(characters)
-      .set({ discoverable: !character.discoverable })
+      .set({
+        discoverable: !character.discoverable,
+        updatedAt: now(),
+      })
       .where(eq(characters.id, input.id))
       .returning()
   },

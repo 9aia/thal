@@ -74,9 +74,9 @@ export default defineEventHandler(async (event) => {
 
   const formattedHistory = history.map((message) => {
     if (message.from === 'user') {
-      return `Character 1: ${message.message}`
+      return `Character 1: ${message.content}`
     }
-    return `Character 2: ${message.message}`
+    return `Character 2: ${message.content}`
   }).join('\n')
 
   const localization = username.character.characterLocalizations[0]
@@ -97,7 +97,7 @@ export default defineEventHandler(async (event) => {
 
     if (replyMessageData) {
       const sender = replyMessageData.isBot ? 'Bot: ' : 'User: '
-      replyMessage = sender + replyMessageData.data
+      replyMessage = sender + replyMessageData.content
     }
   }
 

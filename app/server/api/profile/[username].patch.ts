@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { userUpdateSchema, usernames, users } from '~~/db/schema'
 import { getValidated } from '~/utils/h3'
 import { forbidden, unauthorized } from '~/utils/nuxt'
+import { now } from '~/utils/date'
 
 export default eventHandler(async (event) => {
   const { username } = await getValidated(event, 'params', z.object({ username: z.string() }))
@@ -31,13 +32,14 @@ export default eventHandler(async (event) => {
   const updateUsername = orm.update(usernames)
     .set({
       username: data.username,
+      updatedAt: now(),
     })
     .where(eq(usernames.userId, usernameData?.user?.id))
     .returning({
       username: usernames.username,
     })
   const updateUser = orm.update(users)
-    .set(users)
+    .set({ ...users, updatedAt: now() })
     .where(eq(users.id, usernameData?.user?.id))
     .returning({
       name: users.name,

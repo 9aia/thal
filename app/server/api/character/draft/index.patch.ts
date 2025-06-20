@@ -124,7 +124,7 @@ export default eventHandler(async (event) => {
         data: draftData,
         prompt: data.prompt,
         creatorId: user.id,
-        createdAt: now(),
+        updatedAt: now(),
       })
       .where(eq(characterDrafts.id, existingDraft.id))
       .returning(),
@@ -134,6 +134,7 @@ export default eventHandler(async (event) => {
       instructions: geminiData.localizations['pt-BR'].instructions,
       locale: 'pt-BR',
       characterDraftId: existingDraft.id,
+      updatedAt: now(),
     }).where(and(eq(characterDraftLocalizations.locale, 'pt-BR'), eq(characterDraftLocalizations.characterDraftId, existingDraft.id))),
     orm.update(characterDraftLocalizations).set({
       name: geminiData.localizations['en-US'].name,
@@ -141,6 +142,7 @@ export default eventHandler(async (event) => {
       instructions: geminiData.localizations['en-US'].instructions,
       locale: 'en-US',
       characterDraftId: existingDraft.id,
+      updatedAt: now(),
     }).where(and(eq(characterDraftLocalizations.locale, 'en-US'), eq(characterDraftLocalizations.characterDraftId, existingDraft.id))),
   ])
 

@@ -1,6 +1,7 @@
 import { block } from '@9aia/castor'
 import { sql } from 'drizzle-orm'
 import { usernames } from '~~/db/schema'
+import { now } from '~~/app/utils/date'
 
 block('List all usernames', {
   query: db => db.select().from(usernames),
@@ -9,7 +10,10 @@ block('List all usernames', {
 block('Update all usernames to lowercase', {
   query: db => (
     db.update(usernames)
-      .set({ username: sql`LOWER(${usernames.username})` })
+      .set({
+        username: sql<string>`LOWER(${usernames.username})`,
+        updatedAt: now(),
+      })
       .returning()
   ),
 })

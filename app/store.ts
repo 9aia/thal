@@ -1,4 +1,4 @@
-import type { Replies } from '~/types'
+import type { InReplyTos, Replies } from '~/types'
 
 // #region Modal
 
@@ -80,17 +80,17 @@ export const chatContainerRef = ref<HTMLDivElement>()
 
 export interface Edition {
   editing: boolean
-  message: string
+  content: string
   editingMessageId: number | null
 }
 
 export const edition = reactive<Edition>({
   editing: false,
-  message: '',
+  content: '',
   editingMessageId: null,
 })
 
-export const replies = reactive<Replies>({})
+export const inReplyTos = reactive<InReplyTos>({})
 export const chatListSearch = ref('')
 
 export const sendingChatIds = ref<Set<number>>(new Set())

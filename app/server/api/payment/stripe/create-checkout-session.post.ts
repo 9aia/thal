@@ -5,6 +5,7 @@ import { getAppUrl } from '~/utils/h3'
 import { PLANS } from '~/constants/payment'
 import { getStripe } from '~/utils/stripe'
 import { internal } from '~/utils/nuxt'
+import { now } from '~/utils/date'
 
 export default eventHandler(async (event) => {
   const { STRIPE_SECRET_KEY } = useRuntimeConfig(event)
@@ -83,6 +84,7 @@ export default eventHandler(async (event) => {
   const orm = event.context.orm
   await orm.update(users).set({
     checkoutId: checkout.id,
+    updatedAt: now(),
   }).where(eq(users.id, user.id))
 
   return sendRedirect(event, checkout.url!)

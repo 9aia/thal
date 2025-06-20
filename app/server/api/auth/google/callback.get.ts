@@ -7,6 +7,7 @@ import type { OAuthProviderParams } from '~/server/types'
 import { generateSessionToken, generateUsernameByEmail } from '~/utils/auth'
 import { badRequest, internal } from '~/utils/nuxt'
 import { type UserInsert, users } from '~~/db/schema'
+import { now } from '~/utils/date'
 
 export default defineEventHandler(async (event) => {
   const google = event.context.google!
@@ -68,7 +69,10 @@ export default defineEventHandler(async (event) => {
       setCookie(event, 'user_reactivated', user.deactivatedAt ? '1' : '')
 
       if (user.deactivatedAt) {
-        await orm.update(users).set({ deactivatedAt: null }).where(eq(users.id, user.id))
+        await orm.update(users).set({
+          deactivatedAt: null,
+          updatedAt: now(),
+        }).where(eq(users.id, user.id))
       }
 
       return sendRedirect(event, redirectUrl)

@@ -5,6 +5,9 @@ CREATE TABLE `CharacterDraftLocalization` (
 	`name` text NOT NULL,
 	`description` text NOT NULL,
 	`instructions` text NOT NULL,
+	`created_at` integer DEFAULT (unixepoch() * 1000) NOT NULL,
+	`updated_at` integer,
+	`deleted_at` integer,
 	FOREIGN KEY (`character_draft_id`) REFERENCES `CharacterDraft`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
@@ -15,6 +18,8 @@ CREATE TABLE `CharacterDraft` (
 	`prompt` text NOT NULL,
 	`data` text NOT NULL,
 	`created_at` integer DEFAULT (unixepoch() * 1000) NOT NULL,
+	`updated_at` integer,
+	`deleted_at` integer,
 	FOREIGN KEY (`character_id`) REFERENCES `Character`(`id`) ON UPDATE no action ON DELETE cascade,
 	FOREIGN KEY (`creator_id`) REFERENCES `User`(`id`) ON UPDATE no action ON DELETE no action
 );
@@ -26,6 +31,9 @@ CREATE TABLE `CharacterLocalization` (
 	`name` text NOT NULL,
 	`description` text NOT NULL,
 	`instructions` text NOT NULL,
+	`created_at` integer DEFAULT (unixepoch() * 1000) NOT NULL,
+	`updated_at` integer,
+	`deleted_at` integer,
 	FOREIGN KEY (`character_id`) REFERENCES `Character`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
@@ -36,6 +44,8 @@ CREATE TABLE `Character` (
 	`prompt` text NOT NULL,
 	`creator_id` text,
 	`created_at` integer DEFAULT (unixepoch() * 1000) NOT NULL,
+	`updated_at` integer,
+	`deleted_at` integer,
 	FOREIGN KEY (`creator_id`) REFERENCES `User`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
@@ -45,6 +55,8 @@ CREATE TABLE `Chat` (
 	`user_id` text NOT NULL,
 	`contact_id` integer,
 	`created_at` integer DEFAULT (unixepoch() * 1000) NOT NULL,
+	`updated_at` integer,
+	`deleted_at` integer,
 	FOREIGN KEY (`character_username_id`) REFERENCES `Username`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`user_id`) REFERENCES `User`(`id`) ON UPDATE no action ON DELETE cascade,
 	FOREIGN KEY (`contact_id`) REFERENCES `Contact`(`id`) ON UPDATE no action ON DELETE set null
@@ -57,6 +69,8 @@ CREATE TABLE `Contact` (
 	`username_id` integer NOT NULL,
 	`user_id` text NOT NULL,
 	`created_at` integer DEFAULT (unixepoch() * 1000) NOT NULL,
+	`updated_at` integer,
+	`deleted_at` integer,
 	FOREIGN KEY (`username_id`) REFERENCES `Username`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`user_id`) REFERENCES `User`(`id`) ON UPDATE no action ON DELETE cascade
 );
@@ -67,26 +81,34 @@ CREATE TABLE `LastMessage` (
 	`chat_id` integer NOT NULL,
 	`content` text NOT NULL,
 	`datetime` integer DEFAULT (unixepoch() * 1000) NOT NULL,
-	`user_id` text NOT NULL,
-	FOREIGN KEY (`chat_id`) REFERENCES `Chat`(`id`) ON UPDATE no action ON DELETE cascade,
-	FOREIGN KEY (`user_id`) REFERENCES `User`(`id`) ON UPDATE no action ON DELETE cascade
+	`created_at` integer DEFAULT (unixepoch() * 1000) NOT NULL,
+	`updated_at` integer,
+	`deleted_at` integer,
+	FOREIGN KEY (`chat_id`) REFERENCES `Chat`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
 CREATE TABLE `Message` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`chat_id` integer NOT NULL,
-	`data` text NOT NULL,
-	`replying_id` integer,
+	`sender_username_id` integer,
+	`content` text NOT NULL,
+	`in_reply_to_id` integer,
 	`is_bot` integer DEFAULT false NOT NULL,
 	`created_at` integer DEFAULT (unixepoch() * 1000) NOT NULL,
+	`updated_at` integer,
+	`deleted_at` integer,
 	FOREIGN KEY (`chat_id`) REFERENCES `Chat`(`id`) ON UPDATE no action ON DELETE cascade,
-	FOREIGN KEY (`replying_id`) REFERENCES `Message`(`id`) ON UPDATE no action ON DELETE no action
+	FOREIGN KEY (`sender_username_id`) REFERENCES `Username`(`id`) ON UPDATE no action ON DELETE no action,
+	FOREIGN KEY (`in_reply_to_id`) REFERENCES `Message`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
 CREATE TABLE `OAuthAccount` (
 	`provider_id` text NOT NULL,
 	`provider_user_id` text NOT NULL,
 	`user_id` text NOT NULL,
+	`created_at` integer DEFAULT (unixepoch() * 1000) NOT NULL,
+	`updated_at` integer,
+	`deleted_at` integer,
 	FOREIGN KEY (`user_id`) REFERENCES `User`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
@@ -94,6 +116,9 @@ CREATE TABLE `Session` (
 	`id` text PRIMARY KEY NOT NULL,
 	`user_id` text NOT NULL,
 	`expires_at` integer NOT NULL,
+	`created_at` integer DEFAULT (unixepoch() * 1000) NOT NULL,
+	`updated_at` integer,
+	`deleted_at` integer,
 	FOREIGN KEY (`user_id`) REFERENCES `User`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
@@ -102,6 +127,9 @@ CREATE TABLE `Username` (
 	`character_id` integer,
 	`user_id` text,
 	`username` text NOT NULL,
+	`created_at` integer DEFAULT (unixepoch() * 1000) NOT NULL,
+	`updated_at` integer,
+	`deleted_at` integer,
 	FOREIGN KEY (`character_id`) REFERENCES `Character`(`id`) ON UPDATE no action ON DELETE set null,
 	FOREIGN KEY (`user_id`) REFERENCES `User`(`id`) ON UPDATE no action ON DELETE set null
 );
@@ -113,7 +141,6 @@ CREATE TABLE `User` (
 	`last_name` text NOT NULL,
 	`pronouns` text,
 	`picture` text,
-	`created_at` integer DEFAULT (unixepoch() * 1000) NOT NULL,
 	`email` text,
 	`plan` integer,
 	`free_trial_used` integer DEFAULT false,
@@ -121,5 +148,8 @@ CREATE TABLE `User` (
 	`subscription_id` text,
 	`stripe_customer_id` text,
 	`checkout_id` text,
-	`deactivated_at` integer
+	`deactivated_at` integer,
+	`created_at` integer DEFAULT (unixepoch() * 1000) NOT NULL,
+	`updated_at` integer,
+	`deleted_at` integer
 );

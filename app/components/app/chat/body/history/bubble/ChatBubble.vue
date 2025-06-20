@@ -2,20 +2,22 @@
 import { useLocale } from '@psitta/vue'
 import type { UseMutationReturnType } from '@tanstack/vue-query'
 import type { MessageStatus } from '~/types'
-import { contentEditableRef, edition, replies } from '~/store'
+import { contentEditableRef, edition, inReplyTos } from '~/store'
+import type { InReplyTo } from '~~/db/schema'
 
 const props = defineProps<{
   id: number
   from: 'user' | 'bot'
   time: number
-  message: string
-  replyMessage?: string
-  replyingId?: number | null
-  replyFrom?: 'user' | 'bot'
+  content: string
   status: MessageStatus
+
+  inReplyTo?: InReplyTo
+
   showResend: boolean
   showEdit: boolean
   showDelete: boolean
+
   isCharacterDeleted: boolean
 }>()
 const emit = defineEmits<{
@@ -40,19 +42,19 @@ const time = computed(() => new Intl.DateTimeFormat(locale.value, {
   minute: '2-digit',
 }).format(new Date(props.time)))
 
-const copyToClipboard = useClipboard(toRef(() => props.message))
+const copyToClipboard = useClipboard(toRef(() => props.content))
 const translation = useTranslation({
   queryKey: 'chat-bubble-translation',
   chatUsername: username.value,
-  message: computed(() => isEditing.value ? edition.message : props.message),
-  replyMessageId: computed(() => props.replyingId ? props.replyingId : undefined),
+  message: computed(() => isEditing.value ? edition.content : props.content),
+  replyMessageId: computed(() => props.inReplyTo?.id ? props.inReplyTo.id : undefined),
   refetchOnTranslate: false,
   messageIsBot: computed(() => props.from === 'bot'),
 })
 
 function setReply() {
-  replies[username.value] = {
-    message: props.message,
+  inReplyTos[username.value] = {
+    content: props.content,
     from: props.from,
     id: props.id,
   }
@@ -71,12 +73,12 @@ const audiableTextMutation = computed(() => {
 })
 
 async function edit() {
-  edition.message = ''
+  edition.content = ''
   edition.editingMessageId = props.id
 
   edition.editing = true
   await nextTick()
-  edition.message = props.message
+  edition.content = props.content
 }
 
 function cancelEdit() {
@@ -91,10 +93,12 @@ function cancelEdit() {
       'chat-end': right,
     }"
   >
-    <div v-if="!!replyMessage" class="px-1 mb-1 translate-y-[1rem]">
+    <div v-if="inReplyTo" class="px-1 mb-1 translate-y-[1rem]">
       <ChatReply
-        :reply-message="replyMessage" :replying-id="replyingId!" :username="username"
-        :reply-from="replyFrom!"
+        :reply-message="inReplyTo!.content"
+        :replying-id="inReplyTo!.id"
+        :username="username"
+        :reply-from="inReplyTo!.from"
       />
     </div>
 
@@ -112,7 +116,7 @@ function cancelEdit() {
         :class="[right ? 'rounded-br-md' : 'rounded-bl-md', !isEditing ? 'max-w-[300px] sm:max-w-[400px] lg:max-w-[500px]' : 'w-full']"
       >
         <div class="px-2">
-          <AudibleText v-if="!isEditing" ref="audiableTextRef" :text="message" />
+          <AudibleText v-if="!isEditing" ref="audiableTextRef" :text="content" />
 
           <EditBubble v-else />
         </div>
