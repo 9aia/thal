@@ -1,6 +1,5 @@
 import process from 'node:process'
 import { type DrizzleD1Database, drizzle as initializeDrizzle } from 'drizzle-orm/d1'
-import type { CfProperties, ExecutionContext } from '@cloudflare/workers-types'
 import * as schema from '../../../db/schema'
 
 export default defineEventHandler(async (event) => {
@@ -15,11 +14,5 @@ export default defineEventHandler(async (event) => {
 declare module 'h3' {
   interface H3EventContext {
     orm: DrizzleD1Database<typeof schema>
-    cf: CfProperties
-    cloudflare: {
-      request: Request
-      env: Env
-      context: ExecutionContext
-    }
   }
 }

@@ -15,13 +15,13 @@
     "release": "release-it",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "type:check": "vue-tsc --noEmit",
+    "type:check": "wrangler types && vue-tsc --noEmit",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "wrangler d1 migrations apply thal --local",
     "db:migrate:prod": "wrangler d1 migrations apply thal --remote",
     "db:studio": "drizzle-kit studio",
     "db:client": "castor",
-    "cf:types": "wrangler types",
+    "cf-typegen": "wrangler types",
     "up": "docker compose up -d",
     "down": "docker compose down",
     "stripe": "docker exec stripe-cli stripe",
@@ -53,7 +53,6 @@
     "h3": "^1.15.0",
     "lodash-es": "^4.17.21",
     "mdast": "^3.0.0",
-    "nitropack": "^2.10.4",
     "remark-emoji": "^5.0.1",
     "stripe": "^14.25.0",
     "tailwind-variants": "^0.2.1",
@@ -62,9 +61,9 @@
     "unist": "^0.0.1",
     "unist-util-visit": "^5.0.0",
     "vee-validate": "^4.15.0",
-    "vue": "^3.5.13",
+    "vue": "^3.5.16",
     "vue-dragscroll": "^4.0.6",
-    "vue-router": "^4.5.0",
+    "vue-router": "^4.5.1",
     "vue-tsc": "^2.2.10",
     "yaml": "^2.7.0",
     "zod": "^3.24.4"
@@ -72,7 +71,6 @@
   "devDependencies": {
     "@9aia/castor": "^0.2.3",
     "@antfu/eslint-config": "^2.27.3",
-    "@cloudflare/workers-types": "^4.20250214.0",
     "@google/generative-ai": "^0.21.0",
     "@iconify-json/ic": "^1.2.2",
     "@iconify-json/material-symbols": "^1.2.20",
@@ -86,10 +84,11 @@
     "daisyui": "^5.0.43",
     "drizzle-kit": "^0.30.4",
     "eslint": "^8.57.1",
-    "nitro-cloudflare-dev": "^0.2.1",
-    "nuxt": "^3.15.4",
+    "nitro-cloudflare-dev": "^0.2.2",
+		"nitropack": "^2.11.12",
+    "nuxt": "^3.17.5",
     "release-it": "^18.1.2",
     "typescript": "^5.7.3",
-    "wrangler": "^3.109.1"
+    "wrangler": "4.20.3"
   }
 }

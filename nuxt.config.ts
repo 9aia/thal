@@ -6,6 +6,8 @@ import { defineNuxtConfig } from 'nuxt/config'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  compatibilityDate: '2025-05-15',
+
   srcDir: './app',
   devtools: { enabled: true },
   modules: ['nitro-cloudflare-dev', '@nuxt/eslint', '@nuxtjs/mdc', '@nuxt/image', '@nuxt/fonts', '@nuxt/content', '@nuxt/icon'],
@@ -30,6 +32,11 @@ export default defineNuxtConfig({
 
   nitro: {
     preset: 'cloudflare-module',
+
+    cloudflare: {
+      deployConfig: true,
+      nodeCompat: true,
+    },
   },
 
   mdc: {
@@ -101,6 +108,4 @@ export default defineNuxtConfig({
       allowedHosts: ['9aia-dev.com'],
     },
   },
-
-  compatibilityDate: '2024-12-25',
 })

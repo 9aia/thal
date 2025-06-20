@@ -6,3 +6,5 @@ declare module '@9aia/castor' {
     database: DrizzleD1Database<typeof schema>
   }
 }
+
+export {}

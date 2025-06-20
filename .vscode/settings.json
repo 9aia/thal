@@ -108,5 +108,9 @@
   "editor.guides.bracketPairs":"active",
   "tailwindCSS.experimental.classRegex": [
     ["([\"'`][^\"'`]*.*?[\"'`])", "[\"'`]([^\"'`]*).*?[\"'`]"]
-  ]
+  ],
+  
+  "files.associations": {
+		"wrangler.json": "jsonc"
+	}
 }

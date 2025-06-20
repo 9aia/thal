@@ -29,7 +29,7 @@ async function loadCache() {
   const messages = await import(`${CONFIG.localesFolder}/index.js`)
 
   Object.values(messages).forEach((translations) => {
-    Object.keys(translations).forEach((message) => {
+    Object.keys(translations as any).forEach((message) => {
       cache.add(message)
     })
   })
@@ -39,12 +39,12 @@ async function loadTranslations() {
   const messagesFileContent = (await import(`${CONFIG.localesFolder}/index.js`)).default
 
   Object.entries(messagesFileContent).forEach(([message, translations]) => {
-    Object.entries(translations).forEach(([lang, translationChunk]) => {
+    Object.entries(translations as any).forEach(([lang, translationChunk]) => {
       if (!messages?.[message]) {
         messages[message] = {}
       }
 
-      messages[message][lang] = translationChunk
+      (messages as any)[message][lang] = translationChunk
     })
   })
 }
