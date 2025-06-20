@@ -6,7 +6,8 @@
     "GitHub.copilot",
     "Vue.volar",
     "eamodio.gitlens",
-    "Nuxt.mdc"
+    "Nuxt.mdc",
+    "antfu.iconify"
   ],
   "unwantedRecommendations": []
 }

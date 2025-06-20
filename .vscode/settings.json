@@ -16,8 +16,8 @@
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
     "package.json": "package-lock.json, pnpm-lock.yaml, .gitignore, tsconfig.json, *.d.ts, .release-it.json, eslint.config.*",
-    "nuxt.config.ts": "vite.config.*, postcss.config.js, tailwind.config.js, i18n.*",
-    "docker-compose.yml": "wrangler.*, .env*, .dev.vars, public_keys.*, drizzle.config.*",
+    "docker-compose.yml": "nuxt.config.ts, wrangler.*, .env*, .dev.vars, public_keys.*, drizzle.config.*, psitta.config.*",
+    "co-authors": "co-authors*",
     "app.vue": "error.vue",
     "README.md": "CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, LICENSE.md",
   },

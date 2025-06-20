@@ -6,7 +6,7 @@ GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 RESET='\033[0m'
 
-COAUTHORS_FILE="./codeshare/co-authors" # Path to the co-authors file
+COAUTHORS_FILE="./co-authors" # Path to the co-authors file
 COMMIT_MSG_FILE="$1"                   # Path to the commit message file
 
 # Check if the co-authors file exists
