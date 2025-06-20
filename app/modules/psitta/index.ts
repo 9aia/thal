@@ -1,5 +1,5 @@
 import { getConfig } from '@psitta/core'
-import '../../../i18n'
+import '~~/psitta.config'
 import type { NuxtPage } from 'nuxt/schema'
 import { defineNuxtModule } from 'nuxt/kit'
 

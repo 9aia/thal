@@ -1,7 +1,8 @@
+import './psitta.config'
 import process from 'node:process'
 import { getConfig } from '@psitta/core'
-import './i18n'
 import tailwindcss from '@tailwindcss/vite'
+import { defineNuxtConfig } from 'nuxt/config'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({

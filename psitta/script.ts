@@ -3,7 +3,7 @@ import process from 'node:process'
 import { type ResponseSchema, SchemaType } from '@google/generative-ai'
 import { type Locale, type Message, type Text, type Translations, getConfig } from '@psitta/core'
 import fg from 'fast-glob'
-import { promptGeminiJson } from '~/utils/gemini'
+import { promptGeminiJson } from '~~/app/utils/gemini'
 
 const CONFIG = {
   // content: ['./app/**/*.vue'],
@@ -11,6 +11,7 @@ const CONFIG = {
   messageRegex: /\bt\s*\(\s*(["'`])(.*?)\1\s*[,)]/g,
   // messageRegex: /(?<=[a-zA-Z0-9])t\(['"]([^'"]+)['"]\)/g,
   messagePerChunk: 10,
+  localesFolder: './app/locales',
 }
 
 interface MessageContext {
@@ -25,7 +26,7 @@ const cache = new Set<string>()
 const messages: Chunk = {}
 
 async function loadCache() {
-  const messages = await import('./index.js')
+  const messages = await import(`${CONFIG.localesFolder}/index.js`)
 
   Object.values(messages).forEach((translations) => {
     Object.keys(translations).forEach((message) => {
@@ -35,7 +36,7 @@ async function loadCache() {
 }
 
 async function loadTranslations() {
-  const messagesFileContent = (await import('./index.js')).default
+  const messagesFileContent = (await import(`${CONFIG.localesFolder}/index.js`)).default
 
   Object.entries(messagesFileContent).forEach(([message, translations]) => {
     Object.entries(translations).forEach(([lang, translationChunk]) => {
@@ -51,7 +52,7 @@ async function loadTranslations() {
 function saveTranslations() {
   const content = `/* eslint-disable */ export default ${JSON.stringify(messages, null, 2)}`
 
-  writeFileSync(`./locales/index.js`, content)
+  writeFileSync(`${CONFIG.localesFolder}/index.js`, content)
 }
 
 function readMessages(filePath: string): MessageContext[] {

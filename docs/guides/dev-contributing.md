@@ -116,7 +116,7 @@ git push
 
 // TODO
 
-Don't forget to modify `./codeshare/co-authors`.
+Don't forget to modify `./co-authors`.
 
 - To run commands inside the codeshare container, run `pnpm cs {command}`
 
