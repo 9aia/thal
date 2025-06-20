@@ -26,8 +26,8 @@
     "down": "docker compose down",
     "stripe": "docker exec stripe-cli stripe",
     "cs": "docker exec codeshare",
-    "dev:cs": "code --reuse-window --remote ssh-remote+codeshare@9aia-dev.com:2222 ./codeshare/",
-    "dev:cs:n": "code --remote ssh-remote+codeshare@9aia-dev.com:2222 ./codeshare/",
+    "dev:cs": "./codeshare/open.sh --host 9aia-dev.com --port 2222",
+    "dev:cs:n": "./codeshare/open.sh --host 9aia-dev.com --port 2222 --new-window",
     "psitta": "bun ./locales/script"
   },
   "dependencies": {
