@@ -23,7 +23,7 @@ export default eventHandler(async (event) => {
   })
 
   if (!result)
-    throw badRequest('Character Username not found')
+    throw badRequest('Username not found')
 
   const chatId = result?.chats?.[0]?.id
 

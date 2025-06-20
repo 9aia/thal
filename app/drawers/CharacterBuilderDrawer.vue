@@ -206,8 +206,7 @@ const isAlreadyChatting = computed(() => {
     <Navbar :title="isEditing ? t('Edit Character') : t('Create Character')" @close="emit('close')" />
 
     <CharacterBuilderPastDueAppNote
-      :model-value="isPastDueVisible"
-      hide-close
+      v-model="isPastDueVisible"
       :editing="isEditing"
     />
 

@@ -20,7 +20,9 @@ const {
 const username = computed(() => route.params.username as string)
 const characterQuery = useCharacterQuery(username)
 const isEmpty = useIsTextEmpty(toRef(() => text.value))
+const { sendMessage } = useMessageSender(username, toRef(() => props.chatId))
 
+// TODO: refactor this
 const isChatError = computed(() => props.chatId ? sentErrorChatIds.value.has(props.chatId) : false)
 const isChatSending = computed(() => props.chatId ? sendingChatIds.value.has(props.chatId) : false)
 const isCharacterDeleted = computed(() => !characterQuery.data.value?.id)
@@ -47,26 +49,21 @@ const icon = computed(() => {
 })
 
 function handleSend(e: Event) {
-  const message = decodeHTML(text.value)
+  e.preventDefault()
 
-  if (!message.trim() || isChatSending.value || isChatError.value) {
-    e.preventDefault()
+  const decodedMessage = decodeHTML(text.value)
+
+  if (!decodedMessage.trim() || isChatSending.value || isChatError.value || shift.value) {
     return
   }
 
-  if (!shift.value) {
-    e.preventDefault()
+  text.value = decodedMessage
 
-    text.value = message
-
-    sendMessage({
-      value: text.value,
-      refresh: false,
-      replyingId: replying.value?.id,
-      replyMessage: replying.value?.message,
-      replyFrom: replying.value?.from,
-    })
-  }
+  sendMessage({
+    text: text.value,
+    refresh: false,
+    replying: replying.value,
+  })
 }
 </script>
 
@@ -81,14 +78,15 @@ function handleSend(e: Event) {
 
       <div class="flex gap-2 items-center justify-center w-full">
         <label class="input input-lg input-neutral w-full flex items-center justify-center" for="input">
-          <TranslateButton
-            v-model:text="text"
-            :chat-id="chatId"
-          />
+          <div class="flex gap-1 items-center justify-center">
+            <TranslateButton
+              v-model:text="text"
+              :chat-id="chatId"
+            />
+          </div>
 
           <ContentEditable
             is="span"
-            id="input"
             ref="contentEditableRef"
             v-model="text"
             :disabled="isCharacterDeleted"
@@ -103,7 +101,6 @@ function handleSend(e: Event) {
           class="btn btn-circle btn-neutral btn-ghost"
           :disabled="isChatError || isChatSending || isCharacterDeleted"
           :icon="icon"
-
           @click="handleSend"
         />
       </div>

@@ -65,7 +65,7 @@ export default eventHandler(async (event) => {
   })
 
   if (!result)
-    throw notFound('Character Username not found')
+    throw notFound('Username not found')
 
   const character = result.character
 
@@ -74,6 +74,8 @@ export default eventHandler(async (event) => {
 
   const contact = result.contacts[0]
   let chat = result.chats[0]
+
+  // #region Create chat if it doesn't exist
 
   if (!chat) {
     const [newChat] = await orm
@@ -88,6 +90,10 @@ export default eventHandler(async (event) => {
     chat = newChat
   }
 
+  // #endregion
+
+  // #region Push user message
+
   const userMessageTime = now()
   const history = await getHistory(orm, user, username)
 
@@ -95,24 +101,14 @@ export default eventHandler(async (event) => {
     id: history.length + 1,
     from: 'user',
     status: 'seen',
-    message: data.value,
-    replyingMessage: data.replyingId
-      ? {
-          id: data!.replyingId!,
-          message: data!.replyMessage!,
-          from: data!.replyFrom!,
-        }
-      : null,
+    content: data.content,
+    inReplyTo: data.inReplyTo || null,
     time: userMessageTime.getTime(),
   })
 
-  const userMessage: MessageInsert = {
-    chatId: chat.id,
-    data: data.value,
-    isBot: false,
-    createdAt: userMessageTime,
-    replyingId: data.replyingId,
-  }
+  // #endregion
+
+  // #region Generate bot message
 
   const datetime = new Date(userMessageTime).toLocaleString('en-US', {
     timeZone: 'America/Sao_Paulo',
@@ -122,15 +118,17 @@ export default eventHandler(async (event) => {
   const localization = character.characterLocalizations[0]
 
   const systemInstruction = `
-    You are ${localization.name} (username: ${result.username}). **You do not engage in any language other than English.** If the user sends a message in another language, **do not translate, interpret, or respond in that language.** Instead, inform them that you only are going to chat in English.
+    You are ${localization.name} (username: ${result.username}). 
+    
+    **Your description:** ${localization.description}.
+
+    **You do not engage in any language other than English.** If the user sends a message in another language, **do not translate, interpret, or respond in that language.** Instead, inform them that you only are going to chat in English.
 
     Maintain a **natural, conversational tone** with concise and engaging responses. Avoid long-winded explanations—keep it chat-like.
 
     **Respond in markdown if necessary but prioritize plain text.**
 
     **Current time:** ${datetime}.
-
-    **Your description:** ${localization.description}.
 
     ## Instructions
 
@@ -144,21 +142,12 @@ export default eventHandler(async (event) => {
     systemInstruction,
     history: geminiHistory,
   })
+
   const botMessageTime = now()
 
-  const botMessagePayload: MessageInsert = {
-    chatId: chat.id,
-    data: botMessageContent,
-    isBot: true,
-    createdAt: botMessageTime,
-  }
+  // #endregion
 
-  const [_, botMessageRecord] = await orm
-    .insert(messages)
-    .values([
-      userMessage,
-      botMessagePayload,
-    ]).returning()
+  // #region Insert or update last message
 
   const lastMessage = await orm.query.lastMessages.findFirst({
     where: eq(messages.chatId, chat.id),
@@ -177,20 +166,47 @@ export default eventHandler(async (event) => {
       chatId: chat.id,
       content: botMessageContent,
       datetime: new Date(botMessageTime),
-      userId: user!.id!,
     })
   }
+
+  // #endregion
+
+  // #region Push bot message
+
+  const userMessage: MessageInsert = {
+    chatId: chat.id,
+    content: data.content,
+    inReplyToId: data.inReplyTo?.id,
+    isBot: false,
+    createdAt: userMessageTime,
+  }
+
+  const botMessagePayload: MessageInsert = {
+    chatId: chat.id,
+    content: botMessageContent,
+    isBot: true,
+    createdAt: botMessageTime,
+  }
+
+  const [_, botMessageRecord] = await orm
+    .insert(messages)
+    .values([
+      userMessage,
+      botMessagePayload,
+    ]).returning()
 
   history.push(
     {
       id: botMessageRecord.id,
       from: 'bot',
       status: 'seen',
-      message: botMessageContent,
+      content: botMessageContent,
       time: botMessageTime.getTime(),
-      replyingMessage: null,
+      inReplyTo: null,
     },
   )
+
+  // #endregion
 
   return history
 })

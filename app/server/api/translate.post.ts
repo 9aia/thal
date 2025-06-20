@@ -59,7 +59,7 @@ export default defineEventHandler(async (event) => {
   })
 
   if (!username)
-    throw notFound('Character Username not found')
+    throw notFound('Username not found')
 
   if (!username.character)
     throw notImplemented('Character not found')

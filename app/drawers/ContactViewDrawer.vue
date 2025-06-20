@@ -120,12 +120,12 @@ const items = computed<MenuItemType[]>(() => [
 </script>
 
 <template>
-  <div class="flex flex-col sm:max-w-md h-dvh justify-between">
+  <div class="flex flex-col w-full sm:w-sm h-dvh justify-between">
     <header class="px-4 pt-4 flex gap-2 bg-white">
       <h1 class="text-sm text-black flex items-center gap-1 -translate-x-1.5">
         <Button
           class="btn btn-neutral btn-circle btn-ghost"
-          
+
           icon="material-symbols:close-rounded"
           @click="closeContactView"
         />
@@ -137,7 +137,7 @@ const items = computed<MenuItemType[]>(() => [
         <Dropdown class="dropdown-end">
           <Button
             class="btn btn-neutral btn-circle btn-ghost"
-            
+
             icon="material-symbols:more-vert"
           />
 

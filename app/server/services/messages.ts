@@ -19,22 +19,22 @@ export async function getHistory(
           messages: {
             columns: {
               id: true,
+              content: true,
             },
             with: {
-              replyingMessage: {
+              inReplyTo: {
                 columns: {
                   id: true,
+                  content: true,
                 },
                 extras: {
                   from: sql<'user' | 'bot'>`CASE WHEN ${messages.isBot} THEN 'bot' ELSE 'user' END`.as('from'),
-                  message: sql<string>`${messages.data}`.as('message'),
                 },
               },
             },
             extras: {
               status: sql<MessageStatus>`CONCAT("seen")`.as('status'),
               from: sql<'user' | 'bot'>`CASE WHEN ${messages.isBot} THEN 'bot' ELSE 'user' END`.as('from'),
-              message: sql<string>`${messages.data}`.as('message'),
               time: sql<number>`${messages.createdAt}`.as('time'),
             },
           },
@@ -44,12 +44,10 @@ export async function getHistory(
   })
 
   if (!result)
-    throw notFound('Character Username not found')
+    throw notFound('Username not found')
 
   const chat = result.chats[0]
   const history = chat?.id ? chat.messages : []
 
   return history
-  // TODO: remove this
-  // return { history: chat?.id ? chat.messages : [], chatId: chat?.id ? chat.id : null }
 }

@@ -17,7 +17,7 @@ export async function getCharacterByUsername(
   })
 
   if (!result)
-    throw notFound('Character Username not found')
+    throw notFound('Username not found')
 
   const character = result?.character
 
@@ -71,7 +71,7 @@ export async function getCharacterWithContactByUser(
   })
 
   if (!result)
-    throw notFound('Character Username not found')
+    throw notFound('Username not found')
 
   const character = result.character
 

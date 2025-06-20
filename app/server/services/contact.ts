@@ -24,7 +24,7 @@ export async function getContactByUsername(
   })
 
   if (!result)
-    throw notFound('Character Username not found')
+    throw notFound('Username not found')
 
   if (!result.contacts.length) {
     return {

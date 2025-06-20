@@ -4,6 +4,51 @@ import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
 import { relations, sql } from 'drizzle-orm'
 import { z } from 'zod'
 
+// #region Usernames
+
+export const usernameSchema = z.string().min(1).max(32)
+  .regex(/^\w+$/, {
+    message: 'Username can only contain letters, numbers, and underscores',
+  })
+export const usernameSchemaChecks = {
+  min: usernameSchema._def.checks.find(check => check.kind === 'min')?.value,
+  max: usernameSchema._def.checks.find(check => check.kind === 'max')?.value,
+}
+
+export const usernames = sqliteTable('Username', {
+  id: int('id').primaryKey({ autoIncrement: true }),
+  characterId: int('character_id')
+    .references(() => characters.id, { onDelete: 'set null' }),
+  userId: text('user_id')
+    .references(() => users.id, { onDelete: 'set null' }),
+  username: text('username').unique().notNull(),
+})
+
+export const usernameUpdateSchema = createInsertSchema(usernames, {
+  username: usernameSchema,
+})
+
+export const usernameInsertSchema = createInsertSchema(usernames, {
+  username: usernameSchema,
+}).omit({
+  id: true,
+})
+
+export const usernameRelations = relations(usernames, ({ one, many }) => ({
+  character: one(characters, {
+    fields: [usernames.characterId],
+    references: [characters.id],
+  }),
+  user: one(users, {
+    fields: [usernames.userId],
+    references: [users.id],
+  }),
+  chats: many(chats),
+  contacts: many(contacts),
+}))
+
+// #endregion
+
 // #region Users
 
 export enum SubscriptionStatus {
@@ -19,6 +64,7 @@ export enum SubscriptionStatus {
 }
 
 export enum PlanType {
+  // TODO: change to INDIVIDUAL
   ALL_IN_ONE = 0,
 }
 
@@ -71,15 +117,6 @@ export const oAuthAccounts = sqliteTable('OAuthAccount', {
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
 })
-
-export const usernameSchema = z.string().min(1).max(32)
-  .regex(/^\w+$/, {
-    message: 'Username can only contain letters, numbers, and underscores',
-  })
-export const usernameSchemaChecks = {
-  min: usernameSchema._def.checks.find(check => check.kind === 'min')?.value,
-  max: usernameSchema._def.checks.find(check => check.kind === 'max')?.value,
-}
 
 export const nameSchema = z.string().min(1).max(64)
 export const nameSchemaChecks = {
@@ -276,42 +313,6 @@ export const characterDraftLocalizationsRelations = relations(characterDraftLoca
 
 // #endregion
 
-// #region usernames
-
-export const usernames = sqliteTable('Username', {
-  id: int('id').primaryKey({ autoIncrement: true }),
-  characterId: int('character_id')
-    .references(() => characters.id, { onDelete: 'set null' }),
-  userId: text('user_id')
-    .references(() => users.id, { onDelete: 'set null' }),
-  username: text('username').unique().notNull(),
-})
-
-export const usernameUpdateSchema = createInsertSchema(usernames, {
-  username: usernameSchema,
-})
-
-export const usernameInsertSchema = createInsertSchema(usernames, {
-  username: usernameSchema,
-}).omit({
-  id: true,
-})
-
-export const usernameRelations = relations(usernames, ({ one, many }) => ({
-  character: one(characters, {
-    fields: [usernames.characterId],
-    references: [characters.id],
-  }),
-  user: one(users, {
-    fields: [usernames.userId],
-    references: [users.id],
-  }),
-  chats: many(chats),
-  contacts: many(contacts),
-}))
-
-// #endregion
-
 // #region Contacts
 
 export const contacts = sqliteTable('Contact', {
@@ -381,7 +382,7 @@ export type ContactUpdateDto = z.infer<typeof contactUpdateSchema>
 
 // #endregion
 
-// #region Chats
+// #region LastMessages
 
 export const lastMessages = sqliteTable('LastMessage', {
   id: int('id').primaryKey({ autoIncrement: true }),
@@ -392,9 +393,6 @@ export const lastMessages = sqliteTable('LastMessage', {
   datetime: int('datetime', { mode: 'timestamp_ms' })
     .default(sql`(unixepoch() * 1000)`)
     .notNull(),
-  userId: text('user_id')
-    .notNull()
-    .references(() => users.id, { onDelete: 'cascade' }),
 })
 
 export const lastMessageRelations = relations(lastMessages, ({ one }) => ({
@@ -410,8 +408,13 @@ export const insertLastMessageSchema = createInsertSchema(lastMessages)
 export type LastMessageSelect = z.infer<typeof selectLastMessageSchema>
 export type LastMessageInsert = z.infer<typeof insertLastMessageSchema>
 
+// #endregion
+
+// #region Chats
+
 export const chats = sqliteTable('Chat', {
   id: int('id').primaryKey({ autoIncrement: true }),
+  // TODO: rename field to usernameId
   usernameId: int('character_username_id')
     .notNull()
     .references(() => usernames.id, { onDelete: 'no action' }),
@@ -444,6 +447,18 @@ export const chatsRelations = relations(chats, ({ one, many }) => ({
 
 // #endregion
 
+// #region InReplyTo
+
+export const inReplyToSchema = z.object({
+  id: z.number(),
+  content: z.string(),
+  from: z.enum(['user', 'bot']), // TODO: change to username
+})
+
+export type InReplyTo = z.infer<typeof inReplyToSchema>
+
+// #endregion
+
 // #region Messages
 
 export const messages = sqliteTable('Message', {
@@ -451,19 +466,19 @@ export const messages = sqliteTable('Message', {
   chatId: int('chat_id')
     .notNull()
     .references(() => chats.id, { onDelete: 'cascade' }),
-  // TODO: rename data to content
-  data: text('data').notNull(),
+  senderUsernameId: int('sender_username_id')
+    .references(() => usernames.id, { onDelete: 'no action' }),
+  content: text('content').notNull(),
   // TODO: add status column
-  replyingId: int('replying_id'),
-  // TODO: change to speaker_id (user or bot)
-  isBot: int('is_bot', { mode: 'boolean' }).default(false).notNull(),
+  inReplyToId: int('in_reply_to_id'),
+  isBot: int('is_bot', { mode: 'boolean' }).default(false).notNull(), // TODO: change to speaker username (user or bot)
 
   createdAt: int('created_at', { mode: 'timestamp_ms' }).default(sql`(unixepoch() * 1000)`).notNull(),
 }, messages => ([
   foreignKey({
-    columns: [messages.replyingId],
+    columns: [messages.inReplyToId],
     foreignColumns: [messages.id],
-    name: 'messages_replying_id_fkey',
+    name: 'messages_in_reply_to_id_fkey',
   }),
 ]))
 
@@ -472,17 +487,16 @@ export const messageRelations = relations(messages, ({ one }) => ({
     fields: [messages.chatId],
     references: [chats.id],
   }),
-  replyingMessage: one(messages, {
-    fields: [messages.replyingId],
+  inReplyTo: one(messages, {
+    fields: [messages.inReplyToId],
     references: [messages.id],
   }),
 }))
 
 export const messageSendSchema = z.object({
-  value: z.string(),
-  replyingId: z.number().optional(),
-  replyMessage: z.string().optional(),
-  replyFrom: z.enum(['user', 'bot']).optional(),
+  content: z.string(),
+  // NOTE: this is not the id of the message, but the message itself. Shouldn't it be the id?
+  inReplyTo: inReplyToSchema.optional(),
 })
 
 export const selectMessageSchema = createSelectSchema(messages)

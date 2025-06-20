@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
 
-const props = defineProps<{
+defineProps<{
   editing: boolean
 }>()
 
@@ -18,7 +18,7 @@ const isPastDueVisible = computed(() => {
 
 <template>
   <AppNote
-    :model-value="isPastDueVisible"
+    v-model="isPastDueVisible"
     hide-close
   >
     <div class="px-4 flex justify-between items-center gap-3 w-full">

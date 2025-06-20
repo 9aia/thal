@@ -10,11 +10,11 @@ function useCopyUsername(username: MaybeRef<string | undefined>) {
 
       await navigator.clipboard.writeText(_username)
 
-      toast.success(t('Copied character username to clipboard'))
+      toast.success(t('Copied username to clipboard'))
     }
     catch (_e) {
       const _ = _e
-      toast.error(t('Failed to copy character username to clipboard'))
+      toast.error(t('Failed to copy username to clipboard'))
     }
   }
 }
