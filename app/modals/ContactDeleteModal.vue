@@ -10,16 +10,20 @@ const props = defineProps<{
 }>()
 const isOpen = defineModel({ default: false })
 
+const toast = useToast()
 const queryClient = useQueryClient()
 const localeDefaultRegion = useLocaleDefaultRegion()
 
-const { mutate: deleteContact, isPending } = useMutation({
+const deleteContactMutation = useMutation({
   mutationFn: () => $fetch(`/api/contact/${props.contactUsername}`, {
     method: 'DELETE',
     query: {
       locale: localeDefaultRegion.value,
     },
   }),
+  onError: () => {
+    toast.error(t('An error occurred while deleting contact.'))
+  },
   onSuccess: () => {
     queryClient.setQueryData(
       queryKeys.contact(props.contactUsername),
@@ -63,15 +67,15 @@ const { mutate: deleteContact, isPending } = useMutation({
     <template #actions>
       <Button
         class="btn btn-soft btn-warning"
-        :disabled="isPending"
-        @click.prevent="deleteContact()"
+        :loading="deleteContactMutation.isPending.value"
+        @click.prevent="deleteContactMutation.mutate()"
       >
         {{ t('Delete contact') }}
       </Button>
 
       <Button
         class="btn btn-primary"
-        :disabled="isPending"
+        :disabled="deleteContactMutation.isPending.value"
         @click="isOpen = false"
       >
         {{ t('Cancel') }}

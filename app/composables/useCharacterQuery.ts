@@ -1,24 +1,36 @@
+import { useQueryClient } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
 
-function useCharacterQuery(username: Ref<string>) {
-  const localeWithDefaultRegion = useLocaleDefaultRegion()
-  const characterNotFound = useState('characterNotFound', () => false)
+export function useReceiverUsernameNotFound() {
+  return useState<boolean>('receiverUsernameNotFound', () => false)
+}
+
+function useCharacterFetchFn(username: MaybeRef<string>) {
+  const receiverUsernameNotFound = useReceiverUsernameNotFound()
   const headers = useRequestHeaders(['cookie'])
+  const localeWithDefaultRegion = useLocaleDefaultRegion()
+
+  return () => $fetch(`/api/character/${toValue(username)}` as `/api/character/:username`, {
+    params: {
+      locale: localeWithDefaultRegion.value,
+    },
+    headers,
+    onResponse({ response }) {
+      if (response.status === 404) {
+        receiverUsernameNotFound.value = true
+      }
+    },
+    ignoreResponseError: true,
+  })
+}
+
+function useCharacterQuery(username: MaybeRef<string>) {
+  const localeWithDefaultRegion = useLocaleDefaultRegion()
+  const fetchFn = useCharacterFetchFn(username)
 
   return useServerQuery({
-    queryKey: queryKeys.character(localeWithDefaultRegion.value, username.value),
-    queryFn: () => $fetch(`/api/character/${username.value}` as `/api/character/:username`, {
-      params: {
-        locale: localeWithDefaultRegion.value,
-      },
-      headers,
-      onResponse({ response }) {
-        if (response.status === 404) {
-          characterNotFound.value = true
-        }
-      },
-      ignoreResponseError: true,
-    }),
+    queryKey: queryKeys.character(localeWithDefaultRegion.value, toValue(username)),
+    queryFn: fetchFn,
   })
 }
 

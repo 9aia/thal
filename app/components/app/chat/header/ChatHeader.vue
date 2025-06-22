@@ -10,8 +10,8 @@ const contactDeleteModalState = ref()
 
 const username = computed(() => route.params.username as string)
 
-const clearChat = useClearChat(username)
-const characterNotFound = useState('characterNotFound', () => false)
+const clearHistoryMutation = useClearHistoryMutation(username)
+const receiverUsernameNotFound = useReceiverUsernameNotFound()
 
 const characterQuery = useCharacterQuery(username)
 
@@ -72,7 +72,7 @@ const items = computed(() => [
         name: t('Clear chat'),
         icon: 'material-symbols:mop-outline',
         meaning: 'danger',
-        onClick: () => clearChat(),
+        onClick: () => clearHistoryMutation.mutate(),
       }
     : null,
 ].filter(item => item !== null) as MenuItemType[])
@@ -82,9 +82,9 @@ const items = computed(() => [
   <header
     class="p-4 bg-white flex gap-3 w-full"
     :class="{
-      'cursor-pointer': !characterNotFound,
+      'cursor-pointer': !receiverUsernameNotFound,
     }"
-    @click="!characterNotFound && openContactView(username)"
+    @click="!receiverUsernameNotFound && openContactView(username)"
   >
     <Button
       as="label"
@@ -108,7 +108,7 @@ const items = computed(() => [
         </span>
       </div>
 
-      <div v-if="!characterNotFound" class="flex gap-1">
+      <div v-if="!receiverUsernameNotFound" class="flex gap-1">
         <Button
           class="btn btn-neutral btn-circle btn-md btn-ghost"
           icon="material-symbols:frame-person-outline-rounded"

@@ -20,6 +20,9 @@ const discardMutation = useMutation({
       characterId: props.characterBuildId || undefined,
     },
   }),
+  onError: () => {
+    toast.error(t('An error occurred while discarding character.'))
+  },
   onSuccess: () => {
     queryClient.resetQueries({
       queryKey: queryKeys.characterDraft(localWithDefaultRegion),

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { drawers, isRootDrawerOpen } from '~/store'
-import type { MenuItemType } from '~/components/ui/navigation/types'
+import type { MenuItemType, MenuItemTypeOrFalse } from '~/components/ui/navigation/types'
 
 const props = defineProps<{
   hideHome?: boolean
@@ -29,7 +29,7 @@ async function openSettings() {
   drawers.settings = true
 }
 
-const items = computed(() => [
+const items = computed(() => ([
   !props.hideHome && { id: 'home', name: t('Home'), icon: 'material-symbols:home-outline-rounded', onClick: () => goToHome() },
   { id: 'profile', name: t('Profile'), icon: 'material-symbols:face', onClick: () => openProfile() },
   { id: 'my-characters', name: t('My characters'), icon: 'material-symbols:manage-accounts-outline-rounded', onClick: () => openMyCharacters() },
@@ -51,7 +51,7 @@ const items = computed(() => [
     meaning: 'warning',
     onSubmit: logout,
   },
-].filter(item => Boolean(item)))
+] satisfies MenuItemTypeOrFalse[]).filter(item => Boolean(item)) as MenuItemType[])
 </script>
 
 <template>

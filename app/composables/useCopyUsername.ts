@@ -4,7 +4,8 @@ function useCopyUsername(username: MaybeRef<string | undefined>) {
 
   return async () => {
     try {
-      const _username = unref(username)
+      const _username = toValue(username)
+
       if (!_username)
         throw new Error('Username is not defined')
 

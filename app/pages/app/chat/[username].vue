@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import AppLayout from '~/layouts/app.vue'
-import queryKeys from '~/queryKeys'
 
 definePageMeta({
   layout: false,
@@ -10,22 +9,10 @@ definePageMeta({
 useAutoRedirect()
 
 const route = useRoute()
-
 const username = computed(() => route.params.username as string)
 
-const text = ref('')
-const characterNotFound = useState('characterNotFound', () => false)
-
-const headers = useRequestHeaders(['cookie'])
-const chatQuery = useServerQuery({
-  queryKey: queryKeys.chat(username),
-  queryFn: () => $fetch(`/api/chat/${username.value}` as `/api/chat/:username`, {
-    headers,
-  }),
-})
-
-const OPTIMISTIC_CHAT_ID = -1
-const chatId = computed(() => chatQuery.data.value?.id || OPTIMISTIC_CHAT_ID)
+const receiverUsernameNotFound = useReceiverUsernameNotFound()
+const characterQuery = useCharacterQuery(username)
 </script>
 
 <template>
@@ -40,11 +27,7 @@ const chatId = computed(() => chatQuery.data.value?.id || OPTIMISTIC_CHAT_ID)
 
         <ChatBody />
 
-        <ChatFooter
-          v-if="!characterNotFound"
-          v-model="text"
-          :chat-id="chatId"
-        />
+        <ChatFooter v-if="characterQuery.data.value && !receiverUsernameNotFound" />
       </div>
     </template>
   </AppLayout>

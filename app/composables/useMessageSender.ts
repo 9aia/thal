@@ -1,8 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
-import { useEventListener } from '@vueuse/core'
 import type { FetchError } from 'ofetch'
 import queryKeys from '~/queryKeys'
-import { contentEditableRef, edition, inReplyTos, isPastDueModalOpen, sendingChatIds, sentErrorChatIds } from '~/store'
+import { edition, inReplyTos, isPastDueModalOpen } from '~/store'
 import type { ChatItem } from '~/types'
 import type { InReplyTo } from '~~/db/schema'
 
@@ -14,43 +13,19 @@ interface SendMessageData {
   replying?: InReplyTo
 }
 
-function useMessageSender(username: MaybeRefOrGetter<string>, chatId: MaybeRefOrGetter<number>) {
+function useMessageSender(username: MaybeRef<string>) {
   const queryClient = useQueryClient()
   const { t } = useI18nExperimental()
   const toast = useToast()
   const { goToBottom } = useChatHistoryScroll()
   const route = useRoute()
 
+  const historyQuery = useHistoryQuery(username)
+
   function emptyInput() {
     delete inReplyTos[username.value]
     text.value = ''
   }
-
-  onMounted(() => {
-    const chatContainer = document.querySelector('#chat-container')
-
-    useEventListener(chatContainer, 'keydown', (event: KeyboardEvent) => {
-      if (edition.editing) {
-        return
-      }
-
-      // Ignore modifier keys
-      if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey)
-        return
-
-      // Explicitly check for 'Meta' key (some browsers may not set event.metaKey reliably)
-      if (event.key === 'Meta')
-        return
-
-      // Ignore function keys (F1-F12) and Escape
-      if (event.key.startsWith('F') || event.key === 'Escape')
-        return
-
-      contentEditableRef.value?.focus()
-    })
-
-    contentEditableRef.value?.focus()
-  })
 
   function editHistory(editedMessage: SendMessageData) {
   // update the message in the history based on the editedMessage.editingId
@@ -102,26 +77,6 @@ function useMessageSender(username: MaybeRefOrGetter<string>, chatId: MaybeRefOr
 
   const newMessageTmp = ref()
 
-  const messageError = computed(() => {
-    if (mutationError.value) {
-      return true
-    }
-
-    if (!data.value) {
-      return false
-    }
-
-    if (data.value.history.length === 0) {
-      return false
-    }
-
-    if (data.value.history[data.value.history.length - 1].status === 'error') {
-      return true
-    }
-
-    return false
-  })
-
   function handleResend() {
     const lastMessage = data.value.history[data.value.history.length - 1]
 
@@ -166,9 +121,9 @@ function useMessageSender(username: MaybeRefOrGetter<string>, chatId: MaybeRefOr
   const messageMutation = useMutation({
     mutationFn: fetchMessage,
     async onMutate(newMessage) {
-      const _chatId = toValue(chatId)
-
-      sendingChatIds.value.add(_chatId)
+      // TODO: remove this after refactoring sendingChatIds
+      // const _chatId = toValue(chatId)
+      // sendingChatIds.value.add(_chatId)
 
       if (newMessage.editing) {
         editHistory(newMessage)
@@ -189,7 +144,6 @@ function useMessageSender(username: MaybeRefOrGetter<string>, chatId: MaybeRefOr
     },
     onError: async (e) => {
       const _username = toValue(username)
-      const _chatId = toValue(chatId)
       const error = e as FetchError
 
       const errorStatus = error.response?.status
@@ -224,7 +178,8 @@ function useMessageSender(username: MaybeRefOrGetter<string>, chatId: MaybeRefOr
         history: newHistory,
       })
 
-      sentErrorChatIds.value.add(_chatId)
+      // TODO: remove this after refactoring sendingChatIds
+      // sentErrorChatIds.value.add(_chatId)
     },
     onSuccess: async (newHistory) => {
       const _username = toValue(username)
@@ -238,10 +193,12 @@ function useMessageSender(username: MaybeRefOrGetter<string>, chatId: MaybeRefOr
         history: newHistory,
       })
 
-      sentErrorChatIds.value.delete(_chatId)
+      // TODO: remove this after refactoring sendingChatIds
+      // sentErrorChatIds.value.delete(_chatId)
     },
     onSettled: () => {
-      sendingChatIds.value.delete(_chatId)
+      // TODO: remove this after refactoring sendingChatIds
+      // sendingChatIds.value.delete(_chatId)
 
       goToBottom()
     },
@@ -271,12 +228,24 @@ function useMessageSender(username: MaybeRefOrGetter<string>, chatId: MaybeRefOr
     })
   }
 
-  const { mutate: sendMessage, isError: mutationError, isPending: isMessagePending } = messageMutation
+  const isMessageError = computed(() => {
+    if (messageMutation.isError.value) {
+      return true
+    }
+
+    // TODO: do we need this condition?
+    if (!historyQuery.data.value || historyQuery.data.value.length === 0) {
+      return false
+    }
+
+    const lastMessageFromHistory = historyQuery.data.value[historyQuery.data.value.length - 1]
+    return lastMessageFromHistory.status === 'error'
+  })
 
   return {
-    sendMessage,
-    isMessagePending,
-    mutationError,
+    sendMessage: messageMutation.mutate,
+    isMessagePending: messageMutation.isPending,
+    isMessageError,
   }
 }
 

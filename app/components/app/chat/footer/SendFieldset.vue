@@ -1,48 +1,38 @@
 <script setup lang="ts">
 import { useMagicKeys, useOnline } from '@vueuse/core'
-import { contentEditableRef, inReplyTos, sendingChatIds, sentErrorChatIds } from '~/store'
-
-const props = defineProps<{
-  chatId: number
-}>()
-
-const text = defineModel<string>({
-  default: '',
-})
+import { OPTIMISTIC_CHAT_ID } from '~/constants/chat'
+import { contentEditableRef, inReplyTos } from '~/store'
 
 const { t } = useI18nExperimental()
-const route = useRoute()
 const isOnline = useOnline()
-const {
-  shift,
-} = useMagicKeys()
+const { shift } = useMagicKeys()
 
+const route = useRoute()
 const username = computed(() => route.params.username as string)
-const characterQuery = useCharacterQuery(username)
-const isEmpty = useIsTextEmpty(toRef(() => text.value))
-const { sendMessage } = useMessageSender(username, toRef(() => props.chatId))
 
-// TODO: refactor this
-const isChatError = computed(() => props.chatId ? sentErrorChatIds.value.has(props.chatId) : false)
-const isChatSending = computed(() => props.chatId ? sendingChatIds.value.has(props.chatId) : false)
+const text = ref('')
+const isEmpty = useIsTextEmpty(text)
+
+const chatQuery = useChatQuery(username)
+const characterQuery = useCharacterQuery(username)
+
+const chatId = computed(() => chatQuery.data.value?.id || OPTIMISTIC_CHAT_ID)
+const replying = computed(() => inReplyTos[username.value])
 const isCharacterDeleted = computed(() => !characterQuery.data.value?.id)
 
-const replying = computed(() => {
-  const username = route.params.username as string
-  return inReplyTos[username]
-})
+const { sendMessage, isMessagePending, isMessageError } = useMessageSender(username)
 
 const icon = computed(() => {
-  if (isChatSending.value && !isOnline.value)
+  if (isMessagePending.value && !isOnline.value)
     return 'material-symbols:signal-wifi-off-outline-rounded'
 
-  if (isChatSending.value)
+  if (isMessagePending.value)
     return 'material-symbols:pending-outline'
 
-  if (isChatError.value && !isOnline.value)
+  if (isMessageError.value && !isOnline.value)
     return 'material-symbols:signal-wifi-off-outline-rounded'
 
-  if (isChatError.value)
+  if (isMessageError.value)
     return 'material-symbols:error-outline-rounded'
 
   return isEmpty.value ? 'material-symbols:mic-outline-rounded' : 'material-symbols:send-outline-rounded'
@@ -53,7 +43,7 @@ function handleSend(e: Event) {
 
   const decodedMessage = decodeHTML(text.value)
 
-  if (!decodedMessage.trim() || isChatSending.value || isChatError.value || shift.value) {
+  if (!decodedMessage.trim() || isMessagePending.value || isMessageError.value || shift.value) {
     return
   }
 
@@ -99,7 +89,7 @@ function handleSend(e: Event) {
         <Button
           v-if="!isEmpty"
           class="btn btn-circle btn-neutral btn-ghost"
-          :disabled="isChatError || isChatSending || isCharacterDeleted"
+          :disabled="isMessageError || isMessagePending || isCharacterDeleted"
           :icon="icon"
           @click="handleSend"
         />

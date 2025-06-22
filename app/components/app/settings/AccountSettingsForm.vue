@@ -27,6 +27,9 @@ const editAccountMutation = useMutation({
       body: formData,
     })
   },
+  onError: () => {
+    toast.error(t('An error occurred while updating personal data.'))
+  },
   onSuccess(data) {
     const updatedUser: User = { ...user.value!, ...data }
 
@@ -37,9 +40,6 @@ const editAccountMutation = useMutation({
     queryClient.invalidateQueries({
       queryKey: queryKeys.profile(updatedUser.username),
     })
-  },
-  onError: () => {
-    toast.error(t('An error occurred while updating personal data.'))
   },
 })
 
@@ -143,7 +143,6 @@ const items: MenuItemType[] = [
         :loading="editAccountMutation.isPending.value"
         class="btn btn-primary mt-2 mb-4"
         icon="material-symbols:save-outline-rounded"
-
         :disabled="hasErrors"
       >
         {{ t('Save account settings') }}

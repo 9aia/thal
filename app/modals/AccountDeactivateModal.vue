@@ -34,6 +34,7 @@ const isUsernameInvalid = computed(() => {
 </script>
 
 <template>
+  <!-- TODO: is it possible to implement loading? -->
   <form
     ref="formDeleteUserRef"
     action="/api/user/deactivate"
@@ -88,11 +89,22 @@ const isUsernameInvalid = computed(() => {
     </template>
 
     <template #actions>
-      <Button class="btn btn-error" value="true" :disabled="isUsernameInvalid" @click.prevent="submit">
+      <Button
+        class="btn btn-error"
+        value="true"
+        :disabled="isUsernameInvalid"
+        :loading="isPending"
+        @click.prevent="submit"
+      >
         {{ t('Deactivate my account') }}
       </Button>
 
-      <Button class="btn btn-primary" value="false" @click="isOpen = false">
+      <Button
+        class="btn btn-primary"
+        value="false"
+        :disabled="isPending"
+        @click="isOpen = false"
+      >
         {{ t('Cancel') }}
       </Button>
     </template>

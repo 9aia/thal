@@ -1,22 +1,10 @@
 <script setup lang="ts">
-import queryKeys from '~/queryKeys'
-
-defineProps<{
-  chatId: number
-}>()
-
 const route = useRoute()
 const username = computed(() => route.params.username as string)
-const headers = useRequestHeaders(['cookie'])
 
+const historyQuery = useHistoryQuery(username)
 const characterQuery = useCharacterQuery(username)
-
-const contactQuery = useServerQuery({
-  queryKey: queryKeys.contact(username),
-  queryFn: () => $fetch(`/api/contact/${username.value}` as `/api/contact/:username`, {
-    headers,
-  }),
-})
+const contactQuery = useContactQuery(username)
 
 const isContact = computed(() => !!contactQuery.data.value?.id)
 const contactNames = computed(() => getContactName({
@@ -24,13 +12,6 @@ const contactNames = computed(() => getContactName({
   contactName: contactQuery.data.value?.name,
   characterName: characterQuery.data.value?.name,
 }))
-
-const historyQuery = useServerQuery({
-  queryKey: queryKeys.chatHistory(username),
-  queryFn: () => $fetch(`/api/chat/history/${username.value}` as `/api/chat/history/:username`),
-  enabled: computed(() => !!username.value),
-})
-
 const hasMessages = computed(() => !!historyQuery.data.value?.length)
 </script>
 
@@ -48,7 +29,7 @@ const hasMessages = computed(() => !!historyQuery.data.value?.length)
     <ExperimentalAlert />
 
     <div v-if="hasMessages" class="mt-6">
-      <History :chat-id="chatId" />
+      <History />
     </div>
 
     <div class="sticky bottom-0 right-0 flex justify-end">

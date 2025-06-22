@@ -1,15 +1,9 @@
 <script setup lang="ts">
-import { useQueryClient } from '@tanstack/vue-query'
 import { useOnline } from '@vueuse/core'
 import queryKeys from '~/queryKeys'
 
-const props = defineProps<{
-  chatId: number
-}>()
-
 const route = useRoute()
 const isOnline = useOnline()
-const queryClient = useQueryClient()
 const username = computed(() => route.params.username as string)
 const headers = useRequestHeaders(['cookie'])
 

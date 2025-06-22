@@ -10,6 +10,7 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18nExperimental()
+const toast = useToast()
 const queryClient = useQueryClient()
 
 const isOpen = defineModel({ default: false })
@@ -18,13 +19,14 @@ const { handleSubmit, resetForm } = useForm()
 
 const { params } = useRoute()
 
-const {
-  mutate,
-} = useMutation({
+const deleteCharacterMutation = useMutation({
   mutationFn: async () => {
     return $fetch(`/api/character/${props.character?.usernames?.username}` as '/api/character/:username', {
       method: 'DELETE',
     })
+  },
+  onError: () => {
+    toast.error(t('An error occurred while deleting character.'))
   },
   onSuccess: () => {
     queryClient.invalidateQueries({
@@ -36,23 +38,20 @@ const {
 
     const username = props.character!.usernames!.username
 
-    queryClient.invalidateQueries({
-      queryKey: queryKeys.chat(username),
-    })
-
+    // TODO: do we need to invalidate chats or just update the data?
     queryClient.invalidateQueries({
       queryKey: queryKeys.chats,
     })
 
     if (params?.username === username)
-      navigateTo('/app')
+      navigateTo('/app/discover')
 
     isOpen.value = false
   },
 })
 
 const submit = handleSubmit(async () => {
-  mutate()
+  deleteCharacterMutation.mutate()
 })
 
 watch(isOpen, () => {
@@ -124,11 +123,22 @@ const isUsernameInvalid = computed(() => {
     </template>
 
     <template #actions>
-      <Button class="btn btn-error" value="true" :disabled="isUsernameInvalid" @click.prevent="submit">
+      <Button
+        class="btn btn-error"
+        value="true"
+        :disabled="isUsernameInvalid"
+        :loading="deleteCharacterMutation.isPending.value"
+        @click.prevent="submit"
+      >
         {{ t('Delete character') }}
       </Button>
 
-      <Button class="btn btn-primary" value="false" @click="isOpen = false">
+      <Button
+        class="btn btn-primary"
+        value="false"
+        :disabled="deleteCharacterMutation.isPending.value"
+        @click="isOpen = false"
+      >
         {{ t('Cancel') }}
       </Button>
     </template>

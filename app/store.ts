@@ -1,4 +1,4 @@
-import type { InReplyTos, Replies } from '~/types'
+import type { InReplyTos } from '~/types'
 
 // #region Modal
 
@@ -63,9 +63,9 @@ export function closeContactView() {
 export const manageContactUsername = ref<string | null>(null)
 export const manageContactName = ref<string>()
 
-export async function manageContact(username?: string | null, name?: string) {
+export async function manageContact(username?: string | null, name?: string | null) {
   manageContactUsername.value = username ?? null
-  manageContactName.value = name
+  manageContactName.value = name ?? undefined
 
   isRootDrawerOpen.value = true
   drawers.contactManager = true
@@ -76,7 +76,7 @@ export async function manageContact(username?: string | null, name?: string) {
 // #region Chat
 
 export const contentEditableRef = ref()
-export const chatContainerRef = ref<HTMLDivElement>()
+export const chatMainRef = ref<HTMLDivElement>()
 
 export interface Edition {
   editing: boolean

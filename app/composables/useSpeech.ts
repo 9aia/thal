@@ -27,7 +27,7 @@ function useSpeech(text: MaybeRef<string>) {
     try {
       const res = await $fetch('/api/synthesizeSpeech', {
         method: 'post',
-        body: { text: unref(text) },
+        body: { text: toValue(text) },
       })
 
       const audioBase64 = res.audioContent

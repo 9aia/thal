@@ -13,7 +13,7 @@ const contactDeleteModalState = ref(false)
 
 const username = computed(() => contactViewUsername.value!)
 const copyUsername = useCopyUsername(username)
-const clearChat = useClearChat(username)
+const clearHistoryMutation = useClearHistoryMutation(username)
 
 const historyQuery = useServerQuery({
   queryKey: queryKeys.chatHistory(username),
@@ -259,7 +259,7 @@ const items = computed<MenuItemType[]>(() => [
               name: t('Clear chat'),
               icon: 'material-symbols:mop-outline',
               meaning: 'danger',
-              onClick: () => clearChat(),
+              onClick: () => clearHistoryMutation.mutate(),
             }"
             v-if="hasMessages"
             class="px-2 py-2 rounded-2xl focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"

@@ -18,15 +18,15 @@ function useTranslation({ messageIsBot, message, replyMessageId, chatUsername, t
   const _queryKey = queryKey || 'message-translation'
 
   const translationQuery = useQuery({
-    queryKey: [_queryKey, unref(message), unref(chatUsername), unref(toNative)],
+    queryKey: [_queryKey, toValue(message), toValue(chatUsername), toValue(toNative)],
     queryFn: async () => $fetch('/api/translate', {
       method: 'POST',
       body: {
-        messageText: unref(message),
-        messageIsBot: unref(messageIsBot),
-        chatUsername: unref(chatUsername),
-        toNative: unref(toNative),
-        replyMessageId: unref(replyMessageId),
+        messageText: toValue(message),
+        messageIsBot: toValue(messageIsBot),
+        chatUsername: toValue(chatUsername),
+        toNative: toValue(toNative),
+        replyMessageId: toValue(replyMessageId),
       },
     }),
     enabled,
@@ -35,7 +35,7 @@ function useTranslation({ messageIsBot, message, replyMessageId, chatUsername, t
   const onTranslate = () => {
     open.value = true
 
-    enabled.value && unref(refetchOnTranslate)
+    enabled.value && toValue(refetchOnTranslate)
       ? translationQuery.refetch()
       : enabled.value = true
   }

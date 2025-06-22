@@ -1,16 +1,7 @@
 <script lang="ts" setup>
 import { inReplyTos } from '~/store'
 
-defineProps<{
-  chatId: number
-}>()
-
-const text = defineModel<string>({
-  required: true,
-})
-
 const route = useRoute()
-
 const username = computed(() => route.params.username as string)
 const hasInReplyTo = computed(() => !!inReplyTos[username.value])
 </script>
@@ -20,10 +11,7 @@ const hasInReplyTo = computed(() => !!inReplyTos[username.value])
     <div class="flex flex-col w-full gap-1">
       <ChatFooterInputReply v-if="hasInReplyTo" />
 
-      <SendFieldset
-        v-model="text"
-        :chat-id="chatId"
-      />
+      <SendFieldset />
     </div>
   </footer>
 </template>

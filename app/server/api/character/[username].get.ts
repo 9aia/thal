@@ -42,17 +42,17 @@ export default eventHandler(async (event) => {
     },
   })
 
-  if (!result?.character)
-    throw notFound()
+  if (!result)
+    throw notFound('Username not found')
 
   const character = result.character
 
   return {
-    id: character.id,
+    id: character?.id || null,
     username,
-    name: character.characterLocalizations[0]?.name,
-    description: character.characterLocalizations[0]?.description,
-    createdAt: character.createdAt,
-    categoryId: character.categoryId,
+    name: character?.characterLocalizations[0]?.name || null,
+    description: character?.characterLocalizations[0]?.description || null,
+    createdAt: character?.createdAt || null,
+    categoryId: character?.categoryId || null,
   }
 })

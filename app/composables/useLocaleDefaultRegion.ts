@@ -1,5 +1,6 @@
 import { useLocale } from '@psitta/vue'
 
+// TODO: remove this after Psitta API is updated
 export default function useLocaleDefaultRegion() {
   const locale = useLocale()
 
