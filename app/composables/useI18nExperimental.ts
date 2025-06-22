@@ -1,5 +1,6 @@
 import { dn as dnLocale, t as tLocale, u as uLocale, useLocale, v as vLocale } from '@psitta/vue'
 
+// TODO: remove this after Psitta API is updated
 export default function useI18nExperimental() {
   const localeRef = useLocale()
 

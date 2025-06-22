@@ -45,7 +45,18 @@ const approveMutation = useMutation({
       characterId: characterBuildId.value == null ? undefined : characterBuildId.value,
     },
   }),
+  onError: (error) => {
+    const e = error as FetchError
+
+    if (e.statusCode === CONFLICT_STATUS_CODE) {
+      toast.error(t('That username\'s taken — tweak your prompt or suggest one directly.'))
+      return
+    }
+
+    toast.error(t('An error occurred while approving character.'))
+  },
   onSuccess: (data) => {
+    // TODO: optimize invalidations (use queryClient.setQueryData)
     queryClient.resetQueries({
       queryKey: queryKeys.characterDraft(localWithDefaultRegion),
     })
@@ -77,16 +88,6 @@ const approveMutation = useMutation({
     toast.success(t('Character has been approved successfully.'))
 
     emit('approved', data.characterId)
-  },
-  onError: (error) => {
-    const e = error as FetchError
-
-    if (e.statusCode === CONFLICT_STATUS_CODE) {
-      toast.error(t('That username\'s taken — tweak your prompt or suggest one directly.'))
-      return
-    }
-
-    toast.error(t('An error occurred while approving character.'))
   },
 })
 

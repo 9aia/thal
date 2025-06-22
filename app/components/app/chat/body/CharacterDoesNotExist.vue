@@ -14,7 +14,7 @@ defineProps<{
     />
 
     <h1 class="text-2xl mb-2">
-      {{ t('Character Not Found') }}
+      {{ t('Character Does Not Exist') }}
     </h1>
 
     <p class="text-sm text-gray-500">

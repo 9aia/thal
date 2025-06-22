@@ -1,16 +1,53 @@
 <script setup lang="ts">
-import { chatContainerRef } from '~/store'
+import { useEventListener } from '@vueuse/core'
+import { chatMainRef, contentEditableRef, edition } from '~/store'
+import { prefetchContactQuery } from '~/composables/useContactQuery'
+import { prefetchHistoryQuery } from '~/composables/useHistoryQuery'
 
 const route = useRoute()
 const username = computed(() => route.params.username as string)
+
+const { updateScrollable } = useChatHistoryScroll()
+
 const characterQuery = useCharacterQuery(username)
-const characterNotFound = useState('characterNotFound', () => false)
+const receiverUsernameNotFound = useReceiverUsernameNotFound()
+
+// prefetch queries before character is loaded
+prefetchHistoryQuery(username)
+prefetchContactQuery(username)
+
+useEventListener(chatMainRef, 'keydown', (event: KeyboardEvent) => {
+  if (edition.editing) {
+    return
+  }
+
+  // ignore modifier keys
+  if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey)
+    return
+
+  // explicitly check for 'Meta' key (some browsers may not set event.metaKey reliably)
+  if (event.key === 'Meta')
+    return
+
+  // ignore function keys (F1-F12) and Escape
+  if (event.key.startsWith('F') || event.key === 'Escape')
+    return
+
+  contentEditableRef.value?.focus()
+})
+
+useEventListener(chatMainRef, 'scroll', () => {
+  updateScrollable()
+})
+
+onMounted(() => {
+  contentEditableRef.value?.focus()
+})
 </script>
 
 <template>
   <main
-    id="chat-container"
-    ref="chatContainerRef"
+    ref="chatMainRef"
     :tabindex="0"
     class="bg-white overflow-y-auto w-full py-4 px-4 flex-1 flex items-center justify-center relative focus:outline-hidden"
   >
@@ -18,8 +55,8 @@ const characterNotFound = useState('characterNotFound', () => false)
       :for="characterQuery"
       centered-error-fallback
     >
-      <template v-if="characterNotFound">
-        <CharacterNotFound :username="username" />
+      <template v-if="receiverUsernameNotFound">
+        <CharacterDoesNotExist :username="username" />
       </template>
 
       <template v-else>

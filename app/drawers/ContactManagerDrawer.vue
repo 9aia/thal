@@ -95,6 +95,7 @@ const createMutation = useMutation({
     method: 'POST',
     body: form.values,
   }),
+  onError,
   onSuccess: (data) => {
     const contactsItem = {
       username: data.username,
@@ -124,7 +125,6 @@ const createMutation = useMutation({
       },
     )
   },
-  onError,
 })
 
 const editMutation = useMutation({
@@ -132,6 +132,7 @@ const editMutation = useMutation({
     method: 'PATCH',
     body: form.values,
   }),
+  onError,
   onSuccess: (data) => {
     const contactsItem = {
       username: data.username,
@@ -161,7 +162,6 @@ const editMutation = useMutation({
       },
     )
   },
-  onError,
 })
 
 const isLoading = computed(() => createMutation.isPending.value || editMutation.isPending.value)

@@ -1,7 +1,6 @@
 import type { DefaultError, QueryClient, QueryKey, UseQueryOptions } from '@tanstack/vue-query'
 import { useQuery } from '@tanstack/vue-query'
 import type { NitroFetchOptions, NitroFetchRequest } from 'nitropack'
-import type { SearchQueryParams } from '~/utils/types'
 
 export type FetchOptions<R extends NitroFetchRequest> = Omit<NitroFetchOptions<R>, 'query'>
 

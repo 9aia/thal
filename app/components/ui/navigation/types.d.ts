@@ -14,7 +14,9 @@ export interface MenuItemType {
   newTab?: boolean
   emit?: string
   localize?: boolean
-  onSubmit?: (e: Event) => void
-  onClick?: (e: Event) => void
+  onSubmit?: (e: Event) => MaybePromise<void>
+  onClick?: (e: Event) => MaybePromise<void>
   closeMenu?: boolean
 }
+
+export type MenuItemTypeOrFalse = MenuItemType | false
