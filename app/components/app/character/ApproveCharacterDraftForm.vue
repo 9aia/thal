@@ -56,6 +56,7 @@ const approveMutation = useMutation({
     toast.error(t('An error occurred while approving character.'))
   },
   onSuccess: (data) => {
+    // TODO: optimize invalidations (use queryClient.setQueryData)
     queryClient.resetQueries({
       queryKey: queryKeys.characterDraft(localWithDefaultRegion),
     })

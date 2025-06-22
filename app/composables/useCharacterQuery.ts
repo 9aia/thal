@@ -1,4 +1,3 @@
-import { useQueryClient } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
 
 export function useReceiverUsernameNotFound() {
