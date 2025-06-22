@@ -46,6 +46,7 @@ description: A collection of ideas and feedback from stakeholders or team member
 - Add login from QR code
 - Add emoji selector
 - Add message reactions
+- Add chat item option "Mark as unread"
 - Starred messages
 - Disappearing messages
 - Add Archived
@@ -61,4 +62,5 @@ description: A collection of ideas and feedback from stakeholders or team member
 
 ## Enhancements
 
+- Turn sign-in page into a modal
 - Improve empty contact list fallback

@@ -18,11 +18,15 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Add native language preference (eg. BR or PT)
 - Add config for time
 - Add character unique voices
-- Add delete character action
-- Add chat item option "Mark as unread", "Delete chat"
-- Add dark theme
-- Add date stamps in chat
+- Add confirmation modal on chat clear
+- ---
+- Add chat item option "Delete chat"
+- Add "Create another character" button for faster multiple creation on preview env
 - Add query param to add contact from URL (eg. /app/chat/username?add=true and /app?add-contact=username) and others
+- ---
+- Save message input state and other fields in local storage
+- Add date stamps in chat
+- Add dark theme
 - Add a deleted/non-existent section in contacts
 - Add character search results to chat and contact search
 - Add drawer search query params when opening drawers
@@ -35,21 +39,21 @@ description: A prioritized list of tasks, features, and ideas for future develop
 ## Bugs
 
 - Deal with long history on translate
-- Drawer isn't opening in front of all drawers after it's already open behind them
 - Fix listening to long messages
-- Lower every username comparison
-- Rewrite Daisy dropdowns using ArkUI components (should fix the closing on click on padding bug as well)
-- Fix input autofocuses on navigate
-- Fix go-to-bottom button position after chat clearing
-- Rewrite left joins using Query API
-- Fix DB on build pre-render
-- Avoid breaking layout in chat item when last message is too long
 - Handle longer contexts
+- Drawer isn't opening in front of all drawers after it's already open behind them
+- Lower every username comparison
+- Fix input autofocuses on navigate
+- Rewrite left joins using Query API
 - Fix locale change routing (remove `/{locale}` from `/app`), but keep locale param in site routes
 - Allow users to use only one session
 - Handle invalid sessions
+- Fix DB on build pre-render
+- ---
+- Rewrite Daisy dropdowns using ArkUI components (should fix the closing on click on padding bug as well)
+- Fix go-to-bottom button position after chat clearing
+- Avoid breaking layout in chat item when last message is too long
 - Replace web modal API
-- Warn Clipboard API not allowed
 - Use only name instead of name and last name
 - Improve HTML rendering/TTS
 - Handle HTML in input/messages
@@ -57,19 +61,14 @@ description: A prioritized list of tasks, features, and ideas for future develop
 ## Enhancements
 
 - Set meta tags for each page
+- Add "Delete character" and "Edit character" actions to chat header options and contact view if you're the owner
 - Move discover to its own layout
 - Move settings to its own route and layout
 - Add setting item type for modal openers
-- Add "Create another character" button for faster multiple creation on preview env
 - Inform deleted character action such as translate, using tooltip
 - Save cookie for "Continue Your Access" after once logged
 - Pass user name to Stripe from Google account
-- Create a custom 500 page for DB or critical errors instead of Nuxt default 500 page
-- Open chat list on mobile always
 - Add button to create character in the discover characters page (aside of search field)
-- Save in-progress state
-- Turn sign-in page into a modal
-- Add confirmation modal on chat clear
 - Add character search to new-chat view search
 - ---
 - Add loading splashscreen for hydration, data loading, etc
@@ -77,15 +76,16 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Improve loading handling
   - Improve chat loading by rendering the skeleton on the backend and the message on the client
   - Improve chat loading and error state fallbacks
-- Update docs
-- ---
-- Change forms to another platform that supports localization
-- Add custom payment pages
+
+## Design
+
 - Improve scroll look and feel
+- Add custom payment pages
 
 ## Accessibility
 
 - Add aria-label and title to all buttons (add title prop to Button component)
+- Add tooltip to all actionable icons
 - Improve a11y for avatars
 
 ## Performance
@@ -114,13 +114,14 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## DX
 
+- Improve logging
+- Change forms to another platform that supports localization
+- Remove unused files/code
+- Use inferred schemas as DTOs
 - Refactor menu components into reusable components instead of JS array
 - Refactor Link component to support icon props and rewrite all <A> using it
 - Refactor toast
 - Refactor menu (items, dropdown, etc)
-- Improve logging
-- Remove unused files/code
-- Use inferred schemas as DTOs
 - Improve docs
   - Add docs for the difference between roadmap, changelog and "What's New"
 - Add nuxt devserver to codeshare container

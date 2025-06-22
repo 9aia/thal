@@ -31,7 +31,7 @@ console.error(`${error.value?.statusCode} - ${error.value?.message}`)
         </p>
 
         <A href="/" class="btn btn-primary mt-6" @click="handleError">
-          {{ t('Return to the home page') }}
+          {{ t('Go to the home page') }}
         </A>
 
         <p class="text-xs text-gray-500 mt-6">
@@ -52,7 +52,7 @@ console.error(`${error.value?.statusCode} - ${error.value?.message}`)
         </p>
 
         <A href="/" class="btn btn-primary mt-6" @click="handleError">
-          {{ t('Return to the home page') }}
+          {{ t('Go to the home page') }}
         </A>
 
         <p class="text-xs text-gray-500 mt-6">
