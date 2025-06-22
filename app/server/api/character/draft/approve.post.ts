@@ -48,7 +48,7 @@ export default eventHandler(async (event) => {
   const [existingUsername] = await orm
     .select()
     .from(usernames)
-    .where(eq(usernames.username, draftData.username))
+    .where(eq(usernames.text, draftData.username))
 
   if (existingUsername && existingUsername.characterId !== null && existingUsername.characterId !== data.characterId)
     throw conflict('Username already taken')
@@ -65,7 +65,7 @@ export default eventHandler(async (event) => {
     }).where(eq(characters.id, data.characterId!)).returning()
 
     await orm.update(usernames)
-      .set({ username: draftData.username, updatedAt: now() })
+      .set({ text: draftData.username, updatedAt: now() })
       .where(eq(usernames.characterId, updatedCharacter.id))
 
     for (const localization of existingDraft.characterDraftLocalizations) {
@@ -97,7 +97,7 @@ export default eventHandler(async (event) => {
 
     if (isNewUsername) {
       await orm.insert(usernames).values({
-        username: draftData.username,
+        text: draftData.username,
         characterId: character.id,
       })
     }
@@ -108,7 +108,7 @@ export default eventHandler(async (event) => {
           characterId: character.id,
           updatedAt: now(),
         })
-        .where(eq(usernames.username, draftData.username))
+        .where(eq(usernames.text, draftData.username))
     }
 
     for (const localization of existingDraft.characterDraftLocalizations) {

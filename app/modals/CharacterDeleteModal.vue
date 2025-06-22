@@ -22,7 +22,7 @@ const localeWithDefaultRegion = useLocaleWithDefaultRegion()
 
 const deleteCharacterMutation = useMutation({
   mutationFn: async () => {
-    return $fetch(`/api/character/${props.character?.usernames?.username}` as '/api/character/:username', {
+    return $fetch(`/api/character/${props.character?.usernames?.text}` as '/api/character/:username', {
       method: 'DELETE',
     })
   },
@@ -37,7 +37,7 @@ const deleteCharacterMutation = useMutation({
       queryKey: queryKeys.discoverCharacters(localeWithDefaultRegion.value),
     })
 
-    const username = props.character!.usernames!.username
+    const username = props.character!.usernames!.text
 
     // TODO: do we need to invalidate chats or just update the data?
     queryClient.invalidateQueries({
@@ -67,7 +67,7 @@ function checkUsernameRule(inputValue: string) {
   if (!inputValue)
     return t('Username is required')
 
-  return inputValue === props.character?.usernames?.username || t('Username does not match')
+  return inputValue === props.character?.usernames?.text || t('Username does not match')
 }
 
 const isFieldError = useFieldError('username')
@@ -107,7 +107,7 @@ const isUsernameInvalid = computed(() => {
         <T text="To confirm, please insert {username} below:" :values="{ username: true }">
           <template #username>
             <span class="text-warning font-bold">
-              {{ character?.usernames?.username }} {{ ' ' }}
+              {{ character?.usernames?.text }} {{ ' ' }}
             </span>
           </template>
         </T>

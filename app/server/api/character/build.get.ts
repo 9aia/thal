@@ -46,7 +46,7 @@ export default eventHandler(async (event) => {
         with: {
           usernames: {
             columns: {
-              username: true,
+              text: true,
             },
           },
           characterLocalizations: {
@@ -80,7 +80,7 @@ export default eventHandler(async (event) => {
       ? {
           id: draftCharacter.character.id,
           categoryName: getCharacterCategoryName(draftCharacter.character.categoryId),
-          username: draftCharacter.character.usernames!.username,
+          username: draftCharacter.character.usernames!.text,
           name: draftCharacter.character.characterLocalizations[0]!.name,
           description: draftCharacter.character.characterLocalizations[0]!.description,
           instructions: draftCharacter.character.characterLocalizations[0]!.instructions,

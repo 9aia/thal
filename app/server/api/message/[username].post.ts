@@ -40,7 +40,10 @@ export default eventHandler(async (event) => {
   const orm = event.context.orm
 
   const result = await orm.query.usernames.findFirst({
-    where: eq(usernames.username, username),
+    where: eq(usernames.text, username),
+    columns: {
+      id: true,
+    },
     with: {
       character: {
         columns: {},
@@ -118,7 +121,7 @@ export default eventHandler(async (event) => {
   const localization = character.characterLocalizations[0]
 
   const systemInstruction = `
-    You are ${localization.name} (username: ${result.username}). 
+    You are ${localization.name} (username: ${username}). 
     
     **Your description:** ${localization.description}.
 

@@ -24,7 +24,7 @@ export default eventHandler(async (event) => {
     with: {
       usernames: {
         columns: {
-          username: true,
+          text: true,
         },
       },
       characterLocalizations: {

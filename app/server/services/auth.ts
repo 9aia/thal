@@ -56,7 +56,7 @@ export async function validateSessionToken(orm: H3EventContext['orm'], token: st
     session,
     user: {
       ...user,
-      username: user.username.username,
+      username: user.username.text,
     },
   }
 }

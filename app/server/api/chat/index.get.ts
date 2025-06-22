@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
   const { results } = await orm.run(sql`
     SELECT 
       ${chats.id} AS chatId,
-      ${usernames.username} AS username,
+      ${usernames.text} AS username,
       ${characterLocalizations.name} AS characterName,
       ${contacts.name} AS contactName,
       ${lastMessages.content} AS lastMessageContent,
@@ -40,7 +40,7 @@ export default defineEventHandler(async (event) => {
     WHERE
       ${chats.userId} = ${user.id}
       ${search
-          ? sql`AND (lower(${contacts.name}) LIKE ${searchLike} OR lower(${usernames.username}) LIKE ${searchLike} OR lower(${characterLocalizations.name}) LIKE ${searchLike})`
+          ? sql`AND (lower(${contacts.name}) LIKE ${searchLike} OR lower(${usernames.text}) LIKE ${searchLike} OR lower(${characterLocalizations.name}) LIKE ${searchLike})`
           : sql``
       }
       AND (${characterLocalizations.locale} = ${locale} OR ${characterLocalizations.locale} IS NULL)

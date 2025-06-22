@@ -22,17 +22,17 @@ export const usernames = table('Username', {
     .references(() => characters.id, { onDelete: 'set null' }),
   userId: text('user_id')
     .references(() => users.id, { onDelete: 'set null' }),
-  username: text('username').unique().notNull(),
+  text: text('text').unique().notNull(),
   ...timestamps,
 })
 
 export const usernameUpdateSchema = createInsertSchema(usernames, {
-  username: usernameSchema,
+  text: usernameSchema,
 })
   .omit({ ...timestampOmits })
 
 export const usernameInsertSchema = createInsertSchema(usernames, {
-  username: usernameSchema,
+  text: usernameSchema,
 }).omit({
   id: true,
   ...timestampOmits,

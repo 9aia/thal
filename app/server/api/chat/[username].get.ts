@@ -24,7 +24,7 @@ export default defineEventHandler(async (event) => {
         where: (chats, { eq }) => eq(chats.userId, user.id!),
       },
     },
-    where: (usernames, { eq }) => eq(usernames.username, username),
+    where: (usernames, { eq }) => eq(usernames.text, username),
   })
 
   const chat = result?.chats[0]

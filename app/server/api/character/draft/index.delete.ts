@@ -69,7 +69,7 @@ export default eventHandler(async (event) => {
         characterId: character.id,
         prompt: character.prompt,
         data: {
-          username: character.usernames!.username,
+          username: character.usernames!.text,
           categoryId: character.categoryId,
         },
         updatedAt: now(),

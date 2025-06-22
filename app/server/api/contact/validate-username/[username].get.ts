@@ -25,7 +25,7 @@ export default eventHandler(async (event) => {
   const [existingUsername] = await orm
     .select()
     .from(usernames)
-    .where(eq(usernames.username, username))
+    .where(eq(usernames.text, username))
 
   if (!existingUsername || existingUsername.characterId == null) {
     return {

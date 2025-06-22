@@ -5,14 +5,14 @@ import { edition, inReplyTos } from '~/store'
 const toast = useToast()
 const { t } = useI18nExperimental()
 
-const isEmpty = useIsTextEmpty(toRef(() => edition.message))
+const isEmpty = useIsTextEmpty(toRef(() => edition.content))
 const route = useRoute()
 const username = computed(() => route.params.username as string)
 const replyMessage = computed(() => inReplyTos[username.value])
 
 const translation = useTranslation({
   queryKey: 'edit-bubble-translation',
-  message: toRef(() => edition.message),
+  message: toRef(() => edition.content),
   replyMessageId: computed(() => replyMessage.value ? replyMessage.value.id : undefined),
   chatUsername: username,
   toNative: false,
@@ -25,7 +25,7 @@ watch(translation.isLoading, (value) => {
     return
   }
 
-  edition.message = translation.translation.value!
+  edition.content = translation.translation.value!
 })
 
 watch(translation.error, async (value) => {
@@ -60,7 +60,7 @@ watch(translation.error, async (value) => {
 
       <ContentEditable
         is="span"
-        v-model="edition.message"
+        v-model="edition.content"
         class="prose flex w-full !max-w-full items-center outline-hidden"
         :placeholder="t('Type a message...')"
       />

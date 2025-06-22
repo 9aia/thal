@@ -10,7 +10,7 @@ export async function getCharacterByUsername(
   username: string,
 ) {
   const result = await orm.query.usernames.findFirst({
-    where: eq(usernames.username, username),
+    where: eq(usernames.text, username),
     with: {
       character: true,
     },
@@ -43,7 +43,8 @@ export async function getCharacterWithContactByUser(
   locale: string,
 ) {
   const result = await orm.query.usernames.findFirst({
-    where: eq(usernames.username, username),
+    where: eq(usernames.text, username),
+    columns: {},
     with: {
       character: {
         columns: {
@@ -84,7 +85,7 @@ export async function getCharacterWithContactByUser(
 
   return {
     id: character?.id,
-    username: result.username,
+    username,
     description: localization?.description,
     name: localization?.name,
     instructions: localization?.instructions,

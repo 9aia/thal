@@ -14,7 +14,7 @@ export default eventHandler(async (event) => {
     throw unauthorized()
 
   const result = await orm.query.usernames.findFirst({
-    where: eq(usernames.username, username),
+    where: eq(usernames.text, username),
     with: {
       character: true,
     },

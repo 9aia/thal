@@ -25,6 +25,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Add query param to add contact from URL (eg. /app/chat/username?add=true and /app?add-contact=username) and others
 - Add a deleted/non-existent section in contacts
 - Add character search results to chat and contact search
+- Add drawer search query params when opening drawers
 - Add multiple message TTS player
 - Add unread badge
 - Add character knowledge
@@ -35,12 +36,11 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 - Deal with long history on translate
 - Drawer isn't opening in front of all drawers after it's already open behind them
+- Fix listening to long messages
+- Lower every username comparison
 - Rewrite Daisy dropdowns using ArkUI components (should fix the closing on click on padding bug as well)
-- Add drawer search query params when opening drawers
 - Fix input autofocuses on navigate
 - Fix go-to-bottom button position after chat clearing
-- Lower every username comparison
-- Fix listening to long messages
 - Rewrite left joins using Query API
 - Fix DB on build pre-render
 - Avoid breaking layout in chat item when last message is too long
@@ -48,20 +48,20 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Fix locale change routing (remove `/{locale}` from `/app`), but keep locale param in site routes
 - Allow users to use only one session
 - Handle invalid sessions
+- Replace web modal API
 - Warn Clipboard API not allowed
+- Use only name instead of name and last name
 - Improve HTML rendering/TTS
 - Handle HTML in input/messages
-- Replace web modal API
-- Use only name instead of name and last name
 
 ## Enhancements
 
+- Set meta tags for each page
+- Move discover to its own layout
+- Move settings to its own route and layout
 - Add setting item type for modal openers
-- Add `updated_at` fields to tables
 - Add "Create another character" button for faster multiple creation on preview env
 - Inform deleted character action such as translate, using tooltip
-- Add discover search param
-- Set meta tags for each page
 - Save cookie for "Continue Your Access" after once logged
 - Pass user name to Stripe from Google account
 - Create a custom 500 page for DB or critical errors instead of Nuxt default 500 page
@@ -116,7 +116,6 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 - Refactor menu components into reusable components instead of JS array
 - Refactor Link component to support icon props and rewrite all <A> using it
-- Rename username in the usernames table to text
 - Refactor toast
 - Refactor menu (items, dropdown, etc)
 - Improve logging

@@ -28,7 +28,7 @@ export default eventHandler(async (event) => {
       createdAt: characters.createdAt,
       creatorId: characters.creatorId,
       discoverable: characters.discoverable,
-      username: usernames.username,
+      username: usernames.text,
       name: characterLocalizations.name,
       description: characterLocalizations.description,
     })

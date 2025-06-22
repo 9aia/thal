@@ -10,7 +10,7 @@ export async function getContactByUsername(
   username: string,
 ) {
   const result = await orm.query.usernames.findFirst({
-    where: eq(usernames.username, username),
+    where: eq(usernames.text, username),
     with: {
       contacts: {
         where: eq(contacts.userId, user.id!),
@@ -53,13 +53,13 @@ export async function getContactWithCharacterByUser(
       id: contacts.id,
       name: contacts.name,
       createdAt: contacts.createdAt,
-      username: usernames.username,
+      username: usernames.text,
       usernameId: usernames.id,
     })
     .from(contacts)
     .leftJoin(usernames, eq(usernames.id, contacts.usernameId))
     .leftJoin(characters, eq(characters.id, usernames.characterId))
-    .where(and(eq(contacts.userId, user.id!), eq(usernames.username, username)))
+    .where(and(eq(contacts.userId, user.id!), eq(usernames.text, username)))
 
   if (!contact)
     throw notFound('Contact not found')
@@ -78,7 +78,7 @@ export async function getContactsWithCharacterByUser(
       SELECT 
         ${contacts.id} AS contactId,
         ${contacts.name} AS contactName,
-        ${usernames.username} AS username,
+        ${usernames.text} AS username,
         ${characterLocalizations.description} AS characterDescription
       FROM 
         ${contacts}
@@ -91,7 +91,7 @@ export async function getContactsWithCharacterByUser(
       WHERE
         ${contacts.userId} = ${user.id}
         ${search
-            ? sql`AND (lower(${contacts.name}) LIKE ${searchLike} OR lower(${usernames.username}) LIKE ${searchLike} OR lower(${characterLocalizations.name}) LIKE ${searchLike})`
+            ? sql`AND (lower(${contacts.name}) LIKE ${searchLike} OR lower(${usernames.text}) LIKE ${searchLike} OR lower(${characterLocalizations.name}) LIKE ${searchLike})`
             : sql``
         }
         AND ${characterLocalizations.locale} = ${locale}

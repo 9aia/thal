@@ -16,7 +16,7 @@ export default eventHandler(async (event) => {
     throw unauthorized()
 
   const usernameData = await orm.query.usernames.findFirst({
-    where: and(eq(usernames.username, username), isNotNull(usernames.userId)),
+    where: and(eq(usernames.text, username), isNotNull(usernames.userId)),
     with: {
       user: {
         columns: {
@@ -31,12 +31,12 @@ export default eventHandler(async (event) => {
 
   const updateUsername = orm.update(usernames)
     .set({
-      username: data.username,
+      text: data.username,
       updatedAt: now(),
     })
     .where(eq(usernames.userId, usernameData?.user?.id))
     .returning({
-      username: usernames.username,
+      username: usernames.text,
     })
   const updateUser = orm.update(users)
     .set({ ...users, updatedAt: now() })

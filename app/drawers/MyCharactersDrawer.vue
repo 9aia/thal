@@ -70,11 +70,11 @@ async function handleGoToChat(username: string) {
                 >
                   <CharacterItem
                     :name="character.characterLocalizations?.[0]?.name"
-                    :username="character.usernames?.username || undefined"
+                    :username="character.usernames?.text || undefined"
                     :category-id="character.categoryId"
                     @delete="handleDeleteCharacter(character as unknown as Character)"
                     @edit="buildCharacter(character.id)"
-                    @chat="handleGoToChat(character.usernames?.username as string)"
+                    @chat="handleGoToChat(character.usernames?.text as string)"
                     @click="buildCharacter(character.id)"
                   />
                 </li>

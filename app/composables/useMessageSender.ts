@@ -23,7 +23,7 @@ function useMessageSender(username: MaybeRef<string>) {
   const historyQuery = useHistoryQuery(username)
 
   function emptyInput() {
-    delete inReplyTos[username.value]
+    delete inReplyTos[toValue(username)]
     text.value = ''
   }
 

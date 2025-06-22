@@ -22,7 +22,7 @@ export async function createUser(
       userId,
     }),
     orm.insert(usernames).values({
-      username: userInsert.username,
+      text: userInsert.username,
       userId,
     }),
   ])

@@ -22,7 +22,7 @@ export default eventHandler(async (event) => {
     with: {
       user: true,
     },
-    where: eq(usernames.username, username),
+    where: eq(usernames.text, username),
   })
 
   if (!userUsername)

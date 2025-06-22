@@ -39,7 +39,7 @@ export default defineEventHandler(async (event) => {
     throw rateLimit()
 
   const username = await orm.query.usernames.findFirst({
-    where: eq(usernames.username, data.chatUsername!),
+    where: eq(usernames.text, data.chatUsername!),
     with: {
       character: {
         columns: {
@@ -82,7 +82,7 @@ export default defineEventHandler(async (event) => {
   const localization = username.character.characterLocalizations[0]
 
   const character = {
-    username: username.username,
+    username: username.text,
     discoverable: username.character.discoverable,
     name: localization.name,
     description: localization.description,

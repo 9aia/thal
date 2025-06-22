@@ -11,7 +11,7 @@ export async function getHistory(
   username: string,
 ) {
   const result = await orm.query.usernames.findFirst({
-    where: eq(usernames.username, username),
+    where: eq(usernames.text, username),
     with: {
       chats: {
         where: eq(chats.userId, user.id!),
