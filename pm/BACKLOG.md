@@ -6,6 +6,24 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## Security
 
+## Bugs
+
+High priority:
+
+- Deal with long history on translate
+- Fix listening to long messages
+- Handle longer contexts
+- Drawer isn't opening in front of all drawers after it's already open behind them
+- Lower every username comparison
+- Rewrite left joins using Query API
+- Allow users to use only one session
+- Handle invalid sessions
+- Use only name instead of name and last name
+
+Low priority:
+
+- Fix DB on build pre-render
+
 ## Features
 
 - Move Pronouns field into About me textarea
@@ -22,6 +40,9 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - ---
 - Add chat item option "Delete chat"
 - Add "Create another character" button for faster multiple creation on preview env
+- Add button to create character in the discover characters page (aside of search field)
+- Add character search to new-chat view search
+- Add "Delete character" and "Edit character" actions to chat header options and contact view if you're the owner
 - Add query param to add contact from URL (eg. /app/chat/username?add=true and /app?add-contact=username) and others
 - ---
 - Save message input state and other fields in local storage
@@ -36,40 +57,12 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Add media messages support, such as audio and picture
 - Add calls
 
-## Bugs
-
-- Deal with long history on translate
-- Fix listening to long messages
-- Handle longer contexts
-- Drawer isn't opening in front of all drawers after it's already open behind them
-- Lower every username comparison
-- Fix input autofocuses on navigate
-- Rewrite left joins using Query API
-- Fix locale change routing (remove `/{locale}` from `/app`), but keep locale param in site routes
-- Allow users to use only one session
-- Handle invalid sessions
-- Fix DB on build pre-render
-- ---
-- Rewrite Daisy dropdowns using ArkUI components (should fix the closing on click on padding bug as well)
-- Fix go-to-bottom button position after chat clearing
-- Avoid breaking layout in chat item when last message is too long
-- Replace web modal API
-- Use only name instead of name and last name
-- Improve HTML rendering/TTS
-- Handle HTML in input/messages
-
 ## Enhancements
 
 - Set meta tags for each page
-- Add "Delete character" and "Edit character" actions to chat header options and contact view if you're the owner
-- Move discover to its own layout
-- Move settings to its own route and layout
-- Add setting item type for modal openers
 - Inform deleted character action such as translate, using tooltip
 - Save cookie for "Continue Your Access" after once logged
 - Pass user name to Stripe from Google account
-- Add button to create character in the discover characters page (aside of search field)
-- Add character search to new-chat view search
 - ---
 - Add loading splashscreen for hydration, data loading, etc
 - Improve error handling
@@ -77,29 +70,39 @@ description: A prioritized list of tasks, features, and ideas for future develop
   - Improve chat loading by rendering the skeleton on the backend and the message on the client
   - Improve chat loading and error state fallbacks
 
-## Design
+---
 
-- Improve scroll look and feel
-- Add custom payment pages
+## Changes
+
+Low priority:
+
+- Fix locale change routing (remove `/{locale}` from `/app`), but keep locale param in site routes
+- Move discover to its own layout
+- Move settings to its own route and layout
+
+## Glitches
+
+Low priority:
+
+- Fix input autofocuses on navigate
+- Rewrite Daisy dropdowns using ArkUI components (should fix the closing on click on padding bug as well)
+- Fix go-to-bottom button position after chat clearing
+- Avoid breaking layout in chat item when last message is too long
+- Replace web modal API
+- Improve HTML rendering/TTS
+- Handle HTML in input/messages
 
 ## Accessibility
+
+Low priority:
 
 - Add aria-label and title to all buttons (add title prop to Button component)
 - Add tooltip to all actionable icons
 - Improve a11y for avatars
 
-## Performance
-
-- Optimize invalidations (use queryClient.setQueryData)
-- Clean up current playing message on message stop
-- Pregenerate site pages
-- Skip categorization on discoverability change
-- Implement infinite scrolls
-- Improve data fetching (specially waterfalls)
-- Paginate contact and chat search
-- Lazy load drawers
-
 ## Legal
+
+Low priority:
 
 - Handle Gemini safety errors
   - Provide feedback indicating that the sending message is not allowed.
@@ -112,14 +115,40 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Add character rating (unrated, teen, mature, everyone)
 - Inform Thal changed (specially terms or privacy)
 
+## Performance
+
+Low priority:
+
+- Optimize invalidations (use queryClient.setQueryData)
+- Clean up current playing message on message stop
+- Pregenerate site pages
+- Skip categorization on discoverability change
+- Implement infinite scrolls
+- Improve data fetching (specially waterfalls)
+- Paginate contact and chat search
+- Lazy load drawers
+
+## Design
+
+Medium priority:
+
+- Add setting item type for modal openers
+- Improve scroll look and feel
+
+Low priority:
+
+- Add custom payment pages
+
 ## DX
+
+Low priority:
 
 - Improve logging
 - Change forms to another platform that supports localization
 - Remove unused files/code
 - Use inferred schemas as DTOs
 - Refactor menu components into reusable components instead of JS array
-- Refactor Link component to support icon props and rewrite all <A> using it
+- Refactor Link component to support icon props and rewrite all `<A>` using it
 - Refactor toast
 - Refactor menu (items, dropdown, etc)
 - Improve docs
