@@ -81,6 +81,7 @@ function handleSend(e: Event) {
             v-model="text"
             :disabled="isCharacterDeleted"
             class="flex w-full items-center outline-hidden"
+            :class="{ 'cursor-not-allowed': isCharacterDeleted }"
             :placeholder="t('Type a message...')"
             @keydown.enter="handleSend"
           />

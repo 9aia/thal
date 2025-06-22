@@ -5,11 +5,14 @@ import { manageContact, openContactView } from '~/store'
 const props = defineProps<{
   avatarName: string
   displayName: string
-  description: string
+  description?: string
   username: string
 }>()
 
 const truncatedDescription = computed(() => {
+  if (!props.description)
+    return null
+
   return props.description.length > 100 ? `${props.description.slice(0, 64)}...` : props.description
 })
 </script>
@@ -36,7 +39,7 @@ const truncatedDescription = computed(() => {
         @{{ username }}
       </p>
 
-      <small class="text-gray-500 text-xs">
+      <small v-if="truncatedDescription" class="text-gray-500 text-xs">
         ~ {{ truncatedDescription }}
       </small>
 
@@ -47,7 +50,7 @@ const truncatedDescription = computed(() => {
       <div class="card-actions justify-center">
         <Button
           class="btn btn-soft btn-primary"
-          
+
           icon="material-symbols:person-add-outline-rounded"
           @click="manageContact(username, displayName)"
         >
