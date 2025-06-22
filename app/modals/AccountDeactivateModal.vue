@@ -93,7 +93,6 @@ const isUsernameInvalid = computed(() => {
         class="btn btn-error"
         value="true"
         :disabled="isUsernameInvalid"
-        :loading="isPending"
         @click.prevent="submit"
       >
         {{ t('Deactivate my account') }}
@@ -102,7 +101,6 @@ const isUsernameInvalid = computed(() => {
       <Button
         class="btn btn-primary"
         value="false"
-        :disabled="isPending"
         @click="isOpen = false"
       >
         {{ t('Cancel') }}

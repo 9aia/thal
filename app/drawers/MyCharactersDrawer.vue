@@ -13,7 +13,7 @@ useAutoRedirect({
   query: { drawer: ['list'] },
 })
 
-const localWithDefaultRegion = useLocaleDefaultRegion()
+const localWithDefaultRegion = useLocaleWithDefaultRegion()
 
 const myCharactersQuery = useQuery({
   queryKey: queryKeys.myCharacters,

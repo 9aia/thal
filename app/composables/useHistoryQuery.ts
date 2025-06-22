@@ -5,7 +5,7 @@ function useHistoryQuery(username: MaybeRef<string>) {
   const headers = useRequestHeaders(['cookie'])
 
   return useServerQuery({
-    queryKey: queryKeys.chatHistory(username),
+    queryKey: queryKeys.history(username),
     queryFn: () => $fetch(`/api/chat/history/${toValue(username)}` as `/api/chat/history/:username`, {
       headers,
     }),
@@ -17,7 +17,7 @@ export function prefetchHistoryQuery(username: MaybeRef<string>) {
 
   const queryClient = useQueryClient()
   queryClient.prefetchQuery({
-    queryKey: queryKeys.chatHistory(username),
+    queryKey: queryKeys.history(username),
     queryFn: () => $fetch(`/api/chat/history/${toValue(username)}` as `/api/chat/history/:username`, {
       headers,
     }),

@@ -21,7 +21,7 @@ const hasMessages = computed(() => !!historyQuery.data.value?.length)
       v-if="!isContact"
       :avatar-name="contactNames.avatarName"
       :display-name="contactNames.displayName"
-      :description="characterQuery.data.value!.description"
+      :description="characterQuery.data.value?.description || undefined"
       :username="username"
       class="mb-4"
     />

@@ -15,7 +15,7 @@
     "release": "release-it",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "type:check": "wrangler types && vue-tsc --noEmit",
+    "type:check": "vue-tsc --noEmit",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "wrangler d1 migrations apply thal --local",
     "db:migrate:prod": "wrangler d1 migrations apply thal --remote",

@@ -12,7 +12,7 @@ const isOpen = defineModel({ default: false })
 
 const toast = useToast()
 const queryClient = useQueryClient()
-const localeDefaultRegion = useLocaleDefaultRegion()
+const localeDefaultRegion = useLocaleWithDefaultRegion()
 
 const deleteContactMutation = useMutation({
   mutationFn: () => $fetch(`/api/contact/${props.contactUsername}`, {

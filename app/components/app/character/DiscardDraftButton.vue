@@ -8,7 +8,7 @@ const props = defineProps<{
   isEditing: boolean
 }>()
 
-const localWithDefaultRegion = useLocaleDefaultRegion()
+const localWithDefaultRegion = useLocaleWithDefaultRegion()
 const queryClient = useQueryClient()
 const toast = useToast()
 const { t } = useI18nExperimental()

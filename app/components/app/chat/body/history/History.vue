@@ -5,20 +5,13 @@ import queryKeys from '~/queryKeys'
 const route = useRoute()
 const isOnline = useOnline()
 const username = computed(() => route.params.username as string)
-const headers = useRequestHeaders(['cookie'])
 
-const historyQuery = useServerQuery({
-  queryKey: queryKeys.chatHistory(username),
-  queryFn: () => $fetch(`/api/chat/history/${username.value}` as `/api/chat/history/:username`, {
-    headers,
-  }),
-})
-
-const { isMessagePending } = useMessageSender(username, toRef(() => props.chatId))
+const historyQuery = useHistoryQuery(username)
+const { isMessagePending } = useMessageSender(username)
 
 const isLastMessageError = computed(() => {
   // TODO: redo this
-  return historyQuery.data.value?.length && historyQuery.data.value[historyQuery.data.value.length - 1].status === 'error'
+  return !!historyQuery.data.value?.length && historyQuery.data.value[historyQuery.data.value.length - 1].status === 'error'
 })
 </script>
 

@@ -17,7 +17,7 @@ function useMessageSender(username: MaybeRef<string>) {
   const queryClient = useQueryClient()
   const { t } = useI18nExperimental()
   const toast = useToast()
-  const { goToBottom } = useChatHistoryScroll()
+  const { goToBottom } = useChatMainScroll()
   const route = useRoute()
 
   const historyQuery = useHistoryQuery(username)

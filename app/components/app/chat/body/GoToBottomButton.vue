@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { isScrollDownButtonVisible, goToBottom } = useChatHistoryScroll()
+const { isScrollDownButtonVisible, goToBottom } = useChatMainScroll()
 </script>
 
 <template>

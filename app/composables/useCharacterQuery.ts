@@ -8,7 +8,7 @@ export function useReceiverUsernameNotFound() {
 function useCharacterFetchFn(username: MaybeRef<string>) {
   const receiverUsernameNotFound = useReceiverUsernameNotFound()
   const headers = useRequestHeaders(['cookie'])
-  const localeWithDefaultRegion = useLocaleDefaultRegion()
+  const localeWithDefaultRegion = useLocaleWithDefaultRegion()
 
   return () => $fetch(`/api/character/${toValue(username)}` as `/api/character/:username`, {
     params: {
@@ -25,7 +25,7 @@ function useCharacterFetchFn(username: MaybeRef<string>) {
 }
 
 function useCharacterQuery(username: MaybeRef<string>) {
-  const localeWithDefaultRegion = useLocaleDefaultRegion()
+  const localeWithDefaultRegion = useLocaleWithDefaultRegion()
   const fetchFn = useCharacterFetchFn(username)
 
   return useServerQuery({

@@ -3,7 +3,7 @@ import { t } from '@psitta/vue'
 import queryKeys from '~/queryKeys'
 import { chatListSearch, isRootDrawerOpen } from '~/store'
 
-const localWithDefaultRegion = useLocaleDefaultRegion()
+const localWithDefaultRegion = useLocaleWithDefaultRegion()
 
 const headers = useRequestHeaders(['cookie'])
 const chatsQuery = useServerQuery({

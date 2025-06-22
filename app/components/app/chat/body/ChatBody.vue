@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import { useEventListener } from '@vueuse/core'
 import { chatMainRef, contentEditableRef, edition } from '~/store'
-import { prefetchContactQuery } from '~/composables/useContactQuery'
-import { prefetchHistoryQuery } from '~/composables/useHistoryQuery'
 
 const route = useRoute()
 const username = computed(() => route.params.username as string)
 
-const { updateScrollable } = useChatHistoryScroll()
+const { updateScrollable } = useChatMainScroll()
 
 const characterQuery = useCharacterQuery(username)
 const receiverUsernameNotFound = useReceiverUsernameNotFound()

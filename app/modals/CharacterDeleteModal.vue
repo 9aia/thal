@@ -18,6 +18,7 @@ const isOpen = defineModel({ default: false })
 const { handleSubmit, resetForm } = useForm()
 
 const { params } = useRoute()
+const localeWithDefaultRegion = useLocaleWithDefaultRegion()
 
 const deleteCharacterMutation = useMutation({
   mutationFn: async () => {
@@ -33,7 +34,7 @@ const deleteCharacterMutation = useMutation({
       queryKey: queryKeys.myCharacters,
     })
     queryClient.invalidateQueries({
-      queryKey: queryKeys.discoverCharacters,
+      queryKey: queryKeys.discoverCharacters(localeWithDefaultRegion.value),
     })
 
     const username = props.character!.usernames!.username
@@ -42,6 +43,7 @@ const deleteCharacterMutation = useMutation({
     queryClient.invalidateQueries({
       queryKey: queryKeys.chats,
     })
+    // invalidate
 
     if (params?.username === username)
       navigateTo('/app/discover')

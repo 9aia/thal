@@ -20,7 +20,7 @@ export default function useClearHistoryMutation(username: MaybeRefOrGetter<strin
     onSuccess: () => {
       const _username = toValue(username) as string
 
-      queryClient.setQueryData(queryKeys.chatHistory(_username), [])
+      queryClient.setQueryData(queryKeys.history(_username), [])
       // TODO: HIGH: set data removing the LastMessage from the chat
 
       toast.success(t('Chat has been cleared'))

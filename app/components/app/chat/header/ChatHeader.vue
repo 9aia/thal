@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { buildCharacter, isRootDrawerOpen, manageContact, openContactView } from '~/store'
-import type { MenuItemType } from '~/components/ui/navigation/types'
+import type { MenuItemType, MenuItemTypeOrFalse } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
 
 const { t } = useI18nExperimental()
@@ -32,7 +32,7 @@ const contactNames = computed(() => getContactName({
 
 const hasMessages = computed(() => false) // TODO: use query
 
-const items = computed(() => [
+const items = computed(() => ([
   {
     id: 'view-contact',
     name: t('View contact'),
@@ -45,14 +45,12 @@ const items = computed(() => [
     icon: 'material-symbols:ios-share-rounded',
     onClick: () => copyUrl(),
   },
-  isContact.value
-    ? {
-        id: 'edit-contact',
-        name: t('Edit contact'),
-        icon: 'material-symbols:person-edit-outline-rounded',
-        onClick: () => manageContact(username.value),
-      }
-    : null,
+  isContact.value && {
+    id: 'edit-contact',
+    name: t('Edit contact'),
+    icon: 'material-symbols:person-edit-outline-rounded',
+    onClick: () => manageContact(username.value),
+  },
   isContact.value
     ? {
         id: 'delete-contact',
@@ -66,16 +64,14 @@ const items = computed(() => [
         icon: 'material-symbols:person-add-outline-rounded',
         onClick: () => manageContact(username.value, characterQuery.data.value?.name),
       },
-  hasMessages.value
-    ? {
-        id: 'clear-chat',
-        name: t('Clear chat'),
-        icon: 'material-symbols:mop-outline',
-        meaning: 'danger',
-        onClick: () => clearHistoryMutation.mutate(),
-      }
-    : null,
-].filter(item => item !== null) as MenuItemType[])
+  hasMessages.value && {
+    id: 'clear-chat',
+    name: t('Clear chat'),
+    icon: 'material-symbols:mop-outline',
+    meaning: 'danger',
+    onClick: () => clearHistoryMutation.mutate(),
+  },
+] satisfies MenuItemTypeOrFalse[]).filter(Boolean) as MenuItemType[])
 </script>
 
 <template>

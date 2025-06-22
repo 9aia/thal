@@ -15,7 +15,7 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 const { t } = useI18nExperimental()
-const localWithDefaultRegion = useLocaleDefaultRegion()
+const localWithDefaultRegion = useLocaleWithDefaultRegion()
 const toast = useToast()
 
 useAutoRedirect({

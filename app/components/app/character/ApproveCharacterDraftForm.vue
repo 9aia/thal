@@ -35,7 +35,7 @@ const toast = useToast()
 const user = useUser()
 const { params } = useRoute()
 const queryClient = useQueryClient()
-const localWithDefaultRegion = useLocaleDefaultRegion()
+const localWithDefaultRegion = useLocaleWithDefaultRegion()
 
 const approveMutation = useMutation({
   mutationFn: (values: FormValues) => $fetch('/api/character/draft/approve', {
@@ -56,7 +56,6 @@ const approveMutation = useMutation({
     toast.error(t('An error occurred while approving character.'))
   },
   onSuccess: (data) => {
-    // TODO: optimize invalidations (use queryClient.setQueryData)
     queryClient.resetQueries({
       queryKey: queryKeys.characterDraft(localWithDefaultRegion),
     })
@@ -64,7 +63,7 @@ const approveMutation = useMutation({
       queryKey: queryKeys.myCharacters,
     })
     queryClient.invalidateQueries({
-      queryKey: queryKeys.discoverCharacters,
+      queryKey: queryKeys.discoverCharacters(localWithDefaultRegion.value),
     })
     queryClient.invalidateQueries({
       queryKey: queryKeys.discoverCharactersSearch(localWithDefaultRegion.value, '', undefined),

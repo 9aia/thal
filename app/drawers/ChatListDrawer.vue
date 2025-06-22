@@ -2,9 +2,8 @@
 import { t } from '@psitta/vue'
 import { watchDebounced } from '@vueuse/core'
 import { useForm } from 'vee-validate'
-import type { MenuItemType } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
-import { buildCharacter, chatListSearch, drawers, isRootDrawerOpen, isWhatsNewModalOpen, manageContact } from '~/store'
+import { chatListSearch, drawers, isRootDrawerOpen, isWhatsNewModalOpen } from '~/store'
 
 const form = useForm({
   initialValues: {
@@ -12,7 +11,7 @@ const form = useForm({
   },
 })
 
-const localWithDefaultRegion = useLocaleDefaultRegion()
+const localWithDefaultRegion = useLocaleWithDefaultRegion()
 
 watchDebounced(toRef(() => form.values.search), () => {
   chatListSearch.value = form.values.search

@@ -33,6 +33,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## Bugs
 
+- Deal with long history on translate
 - Drawer isn't opening in front of all drawers after it's already open behind them
 - Rewrite Daisy dropdowns using ArkUI components (should fix the closing on click on padding bug as well)
 - Add drawer search query params when opening drawers
@@ -89,12 +90,12 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## Performance
 
-- Deal with long history on translate
+- Optimize invalidations (use queryClient.setQueryData)
 - Clean up current playing message on message stop
 - Pregenerate site pages
 - Skip categorization on discoverability change
-- Improve route loading speed, especially "Chats"
 - Implement infinite scrolls
+- Improve data fetching (specially waterfalls)
 - Paginate contact and chat search
 - Lazy load drawers
 

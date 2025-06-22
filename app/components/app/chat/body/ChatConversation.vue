@@ -1,20 +1,20 @@
 <script setup lang="ts">
 // TODO: remove this
-import queryKeys from '~/queryKeys'
-import type { Message } from '~/types'
+// import queryKeys from '~/queryKeys'
+// import type { Message } from '~/types'
 
-defineProps<{
-  history: Message[]
-  isError: boolean
-  isCharacterDeleted: boolean
-}>()
+// defineProps<{
+//   history: Message[]
+//   isError: boolean
+//   isCharacterDeleted: boolean
+// }>()
 
-const emit = defineEmits<{
-  (e: 'fixScroll'): void
-  (e: 'resend'): void
-  (e: 'edit', index: number): void
-  (e: 'delete', index: number): void
-}>()
+// const emit = defineEmits<{
+//   (e: 'fixScroll'): void
+//   (e: 'resend'): void
+//   (e: 'edit', index: number): void
+//   (e: 'delete', index: number): void
+// }>()
 
 // function handleDelete(messageId: number, shouldInvalidateChat = true) {
 //   queryClient.setQueryData(
@@ -35,7 +35,7 @@ const emit = defineEmits<{
 
 <template>
   <div class="space-y-2">
-    <ChatBubble
+    <!-- <ChatBubble
       v-for="item, index in history"
       :id="item.id"
       :key="item.id"
@@ -54,6 +54,6 @@ const emit = defineEmits<{
       @resend="emit('resend')"
       @edit="emit('edit', item.id)"
       @delete="emit('delete', item.id)"
-    />
+    /> -->
   </div>
 </template>

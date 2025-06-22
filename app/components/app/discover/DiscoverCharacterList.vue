@@ -7,7 +7,7 @@ const props = defineProps<{
   categoryId?: number
 }>()
 
-const localeWithDefaultRegion = useLocaleDefaultRegion()
+const localeWithDefaultRegion = useLocaleWithDefaultRegion()
 
 const headers = useRequestHeaders(['cookie'])
 const discoverQuery = usePaginationQuery({

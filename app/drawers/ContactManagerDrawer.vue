@@ -19,7 +19,7 @@ useAutoRedirect({
 const { t } = useI18nExperimental()
 const toast = useToast()
 const queryClient = useQueryClient()
-const localeDefaultRegion = useLocaleDefaultRegion()
+const localeDefaultRegion = useLocaleWithDefaultRegion()
 
 const contactQuery = useServerQuery({
   queryKey: queryKeys.contact(computed(() => manageContactUsername.value!)),

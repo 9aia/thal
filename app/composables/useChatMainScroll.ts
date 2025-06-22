@@ -1,7 +1,7 @@
-import { useEventListener, useScroll } from '@vueuse/core'
+import { useScroll } from '@vueuse/core'
 import { chatMainRef } from '~/store'
 
-function useChatHistoryScroll() {
+function useChatMainScroll() {
   const mainScroll = useScroll(chatMainRef, {
     behavior: 'smooth',
   })
@@ -37,4 +37,4 @@ function useChatHistoryScroll() {
   }
 }
 
-export default useChatHistoryScroll
+export default useChatMainScroll
