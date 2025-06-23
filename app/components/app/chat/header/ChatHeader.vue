@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import { buildCharacter, isRootDrawerOpen, manageContact, openContactView } from '~/store'
 import type { MenuItemType, MenuItemTypeOrFalse } from '~/components/ui/navigation/types'
-import queryKeys from '~/queryKeys'
+import { buildCharacter, isRootDrawerOpen, manageContact, openContactView } from '~/store'
 
 const { t } = useI18nExperimental()
 const copyUrl = useCopyUrl()
@@ -14,14 +13,7 @@ const clearHistoryMutation = useClearHistoryMutation(username)
 const receiverUsernameNotFound = useReceiverUsernameNotFound()
 
 const characterQuery = useCharacterQuery(username)
-
-const headers = useRequestHeaders(['cookie'])
-const contactQuery = useServerQuery({
-  queryKey: queryKeys.contact(username),
-  queryFn: () => $fetch(`/api/contact/${username.value}`, {
-    headers,
-  }),
-})
+const contactQuery = useContactQuery(username)
 
 const isContact = computed(() => !!contactQuery.data.value?.id)
 const contactNames = computed(() => getContactName({

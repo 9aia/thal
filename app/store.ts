@@ -93,9 +93,6 @@ export const edition = reactive<Edition>({
 export const inReplyTos = reactive<InReplyTos>({})
 export const chatListSearch = ref('')
 
-export const sendingChatIds = ref<Set<number>>(new Set())
-export const sentErrorChatIds = ref<Set<number>>(new Set())
-
 export const currentPlayingMessage = ref<string | null>(null)
 
 // #endregion

@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import type { FetchError } from 'ofetch'
-import { inReplyTos, sendingChatIds } from '~/store'
-
-const props = defineProps<{
-  chatId: number
-}>()
+import { inReplyTos } from '~/store'
 
 const text = defineModel<string>('text', {
   default: '',
@@ -15,7 +11,8 @@ const { t } = useI18nExperimental()
 const route = useRoute()
 const username = computed(() => route.params.username as string)
 const replyMessage = computed(() => inReplyTos[username.value])
-const isChatSending = computed(() => props.chatId ? sendingChatIds.value.has(props.chatId) : false)
+
+const { isMessagePending } = useMessageSender(username)
 
 const isTextInputEmpty = useIsTextEmpty(toRef(() => text.value))
 
@@ -58,7 +55,7 @@ watch(translation.error, async (value) => {
   <Button
     v-if="!isTextInputEmpty"
     class="btn btn-sm btn-circle btn-ghost"
-    :disabled="isChatSending"
+    :disabled="isMessagePending"
     :loading="translation.isLoading.value"
     icon="material-symbols:translate-rounded"
     icon-class="text-xl"
