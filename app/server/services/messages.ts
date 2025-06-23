@@ -1,8 +1,7 @@
 import { eq, sql } from 'drizzle-orm'
 import type { H3EventContext } from 'h3'
-import type { User } from '~~/db/schema'
-import type { MessageStatus } from '~/types'
 import { notFound } from '~/utils/nuxt'
+import type { User } from '~~/db/schema'
 import { chats, messages, usernames } from '~~/db/schema'
 
 export async function getHistory(
@@ -20,12 +19,14 @@ export async function getHistory(
             columns: {
               id: true,
               content: true,
+              status: true,
             },
             with: {
               inReplyTo: {
                 columns: {
                   id: true,
                   content: true,
+                  status: true,
                 },
                 extras: {
                   from: sql<'user' | 'bot'>`CASE WHEN ${messages.isBot} THEN 'bot' ELSE 'user' END`.as('from'),
@@ -33,7 +34,6 @@ export async function getHistory(
               },
             },
             extras: {
-              status: sql<MessageStatus>`CONCAT("seen")`.as('status'),
               from: sql<'user' | 'bot'>`CASE WHEN ${messages.isBot} THEN 'bot' ELSE 'user' END`.as('from'),
               time: sql<number>`${messages.createdAt}`.as('time'),
             },

@@ -2,6 +2,7 @@ import { sql } from 'drizzle-orm'
 import { z } from 'zod'
 import { getValidated } from '~/utils/h3'
 import { unauthorized } from '~/utils/nuxt'
+import type { MessageStatus } from '~~/db/schema'
 import { characterLocalizations, characters, chats, contacts, lastMessages, usernames } from '~~/db/schema'
 
 export default defineEventHandler(async (event) => {
@@ -24,7 +25,8 @@ export default defineEventHandler(async (event) => {
       ${characterLocalizations.name} AS characterName,
       ${contacts.name} AS contactName,
       ${lastMessages.content} AS lastMessageContent,
-      ${lastMessages.datetime} AS lastMessageDatetime
+      ${lastMessages.datetime} AS lastMessageDatetime,
+      ${lastMessages.status} AS lastMessageStatus
     FROM 
       ${chats}
     LEFT JOIN 
@@ -55,5 +57,6 @@ export default defineEventHandler(async (event) => {
     contactName?: string
     lastMessageContent?: string
     lastMessageDatetime?: number
+    lastMessageStatus?: MessageStatus
   }[]
 })

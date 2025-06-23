@@ -7,7 +7,7 @@ import { getValidated } from '~/utils/h3'
 import { internal, notFound, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
 import { isPlanActive, isPlanPastDue } from '~/utils/plan'
 import type { MessageInsert } from '~~/db/schema'
-import { characterLocalizations, chats, contacts, lastMessages, messageSendSchema, messages, usernameSchema, usernames } from '~~/db/schema'
+import { MessageStatus, characterLocalizations, chats, contacts, lastMessages, messageSendSchema, messages, usernameSchema, usernames } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const { GEMINI_API_KEY, GEMINI_MODEL } = useRuntimeConfig(event)
@@ -103,7 +103,7 @@ export default eventHandler(async (event) => {
   history.push({
     id: history.length + 1,
     from: 'user',
-    status: 'seen',
+    status: MessageStatus.seen,
     content: data.content,
     inReplyTo: data.inReplyTo || null,
     time: userMessageTime.getTime(),
@@ -150,6 +150,34 @@ export default eventHandler(async (event) => {
 
   // #endregion
 
+  // #endregion
+
+  // #region Insert messages
+
+  const userMessage: MessageInsert = {
+    chatId: chat.id,
+    content: data.content,
+    inReplyToId: data.inReplyTo?.id,
+    isBot: false,
+    status: MessageStatus.seen,
+  }
+
+  const botMessagePayload: MessageInsert = {
+    chatId: chat.id,
+    content: botMessageContent,
+    isBot: true,
+    status: MessageStatus.seen,
+  }
+
+  const [_, botMessageRecord] = await orm
+    .insert(messages)
+    .values([
+      userMessage,
+      botMessagePayload,
+    ]).returning()
+
+  // #endregion
+
   // #region Insert or update last message
 
   const lastMessage = await orm.query.lastMessages.findFirst({
@@ -163,6 +191,7 @@ export default eventHandler(async (event) => {
       content: botMessageContent,
       datetime: new Date(botMessageTime),
       updatedAt: now(),
+      status: MessageStatus.seen,
     }).where(eq(lastMessages.chatId, chat.id))
   }
   else {
@@ -170,38 +199,17 @@ export default eventHandler(async (event) => {
       chatId: chat.id,
       content: botMessageContent,
       datetime: new Date(botMessageTime),
+      status: MessageStatus.seen,
     })
   }
 
-  // #endregion
-
   // #region Push bot message
-
-  const userMessage: MessageInsert = {
-    chatId: chat.id,
-    content: data.content,
-    inReplyToId: data.inReplyTo?.id,
-    isBot: false,
-  }
-
-  const botMessagePayload: MessageInsert = {
-    chatId: chat.id,
-    content: botMessageContent,
-    isBot: true,
-  }
-
-  const [_, botMessageRecord] = await orm
-    .insert(messages)
-    .values([
-      userMessage,
-      botMessagePayload,
-    ]).returning()
 
   history.push(
     {
       id: botMessageRecord.id,
       from: 'bot',
-      status: 'seen',
+      status: MessageStatus.seen,
       content: botMessageContent,
       time: botMessageTime.getTime(),
       inReplyTo: null,

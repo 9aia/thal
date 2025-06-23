@@ -1,7 +1,7 @@
 /* eslint-disable ts/no-use-before-define */
+import { relations, sql } from 'drizzle-orm'
 import { foreignKey, int, sqliteTable as table, text, unique } from 'drizzle-orm/sqlite-core'
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
-import { relations, sql } from 'drizzle-orm'
 import { z } from 'zod'
 import { timestampOmits, timestamps } from '../columns.helpers'
 
@@ -405,6 +405,7 @@ export const lastMessages = table('LastMessage', {
     .notNull()
     .references(() => chats.id, { onDelete: 'cascade' }),
   content: text('content').notNull(),
+  status: int('status').notNull().$type<MessageStatus>(),
   datetime: int('datetime', { mode: 'timestamp_ms' })
     .default(sql`(unixepoch() * 1000)`)
     .notNull(),
@@ -464,11 +465,25 @@ export const chatsRelations = relations(chats, ({ one, many }) => ({
 
 // #endregion
 
+// #region MessageStatus
+
+export enum MessageStatus {
+  sending = 0,
+  error = 1,
+  received = 2,
+  seen = 3,
+  sent = 4,
+  read = 5,
+}
+
+// #endregion
+
 // #region InReplyTo
 
 export const inReplyToSchema = z.object({
   id: z.number(),
   content: z.string(),
+  status: z.nativeEnum(MessageStatus),
   from: z.enum(['user', 'bot']), // TODO: change to username
 })
 
@@ -486,7 +501,7 @@ export const messages = table('Message', {
   senderUsernameId: int('sender_username_id')
     .references(() => usernames.id, { onDelete: 'no action' }),
   content: text('content').notNull(),
-  // TODO: add status column
+  status: int('status').notNull().$type<MessageStatus>(),
   inReplyToId: int('in_reply_to_id'),
   isBot: int('is_bot', { mode: 'boolean' }).default(false).notNull(), // TODO: change to speaker username (user or bot)
 
@@ -522,5 +537,7 @@ export const insertMessageSchema = createInsertSchema(messages)
 
 export type MessageSelect = z.infer<typeof selectMessageSchema>
 export type MessageInsert = z.infer<typeof insertMessageSchema>
+
+export type MessageSend = z.infer<typeof messageSendSchema>
 
 // #endregion

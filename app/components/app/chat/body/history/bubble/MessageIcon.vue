@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { tv } from 'tailwind-variants'
-import type { MessageStatus } from '~/types'
+import { MessageStatus } from '~~/db/schema'
 
 const props = defineProps<{
   status: MessageStatus
@@ -8,38 +8,26 @@ const props = defineProps<{
 }>()
 
 const icon = computed(() => {
-  let icon: string
+  const icons: Record<number, string> = ({
+    [MessageStatus.sending]: 'material-symbols:schedule-outline-rounded',
+    [MessageStatus.seen]: 'material-symbols:done-all-rounded',
+    [MessageStatus.received]: 'material-symbols:done-all-rounded',
+    [MessageStatus.sent]: 'material-symbols:check-rounded',
+    [MessageStatus.error]: 'material-symbols:error-outline-rounded',
+  })
 
-  switch (props.status) {
-    case 'sending':
-      icon = 'material-symbols:schedule-outline-rounded'
-      break
-    case 'seen':
-      icon = 'material-symbols:done-all-rounded'
-      break
-    case 'received':
-      icon = 'material-symbols:done-all-rounded'
-      break
-    case 'sent':
-      icon = 'material-symbols:check-rounded'
-      break
-    case 'error':
-      icon = 'material-symbols:error-outline-rounded'
-      break
-  }
-
-  return icon
+  return icons[props.status]
 })
 
 const styles = tv({
   base: 'text-base',
   variants: {
     type: {
-      error: 'text-red-500',
-      seen: 'text-blue-500',
-      sending: 'text-gray-500',
-      received: 'text-gray-500',
-      sent: 'text-gray-500',
+      [MessageStatus.error]: 'text-red-500',
+      [MessageStatus.seen]: 'text-blue-500',
+      [MessageStatus.sending]: 'text-gray-500',
+      [MessageStatus.received]: 'text-gray-500',
+      [MessageStatus.sent]: 'text-gray-500',
     },
   },
 })
@@ -48,6 +36,6 @@ const styles = tv({
 <template>
   <Icon
     :name="icon"
-    :class="styles({ class: props.class, type: props.status })"
+    :class="styles({ class: props.class, type: props.status as number })"
   />
 </template>

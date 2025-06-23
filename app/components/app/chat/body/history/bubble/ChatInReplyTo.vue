@@ -1,15 +1,28 @@
 <script setup lang="ts">
-import { useQueryClient } from '@tanstack/vue-query'
-import queryKeys from '~/queryKeys'
+import type { InReplyTo } from '~~/db/schema'
 
 const props = defineProps<{
-  replyingId: number
-  replyMessage: string
-  replyFrom: 'user' | 'bot'
+  is: InReplyTo
   username: string
 }>()
 
 const { t } = useI18nExperimental()
+
+const contactQuery = useContactQuery(toRef(props, 'username'))
+const characterQuery = useCharacterQuery(toRef(props, 'username'))
+
+const contactNames = computed(() => getContactName({
+  username: props.username,
+  contactName: contactQuery.data.value?.name,
+  characterName: characterQuery.data.value?.name,
+}))
+
+const replyDisplayName = computed(() => props.is.from === 'user'
+  ? t('You')
+  : contactNames.value.displayName,
+)
+
+const replyMessage = computed(() => trimReplyMessage(props.is.content))
 
 function highlightBubble(bubble: any) {
   // Reset animation
@@ -44,18 +57,6 @@ function scrollToMessage() {
   )
   observer.observe(bubble)
 }
-
-const queryClient = useQueryClient()
-
-const data = computed(() => queryClient.getQueryData(queryKeys.chat(props.username)))
-const { displayName } = useContactInfo(data)
-
-const replyDisplayName = computed(() => props.replyFrom === 'user'
-  ? t('You')
-  : displayName.value,
-)
-
-const replyMessage = computed(() => trimReplyMessage(props.replyMessage))
 </script>
 
 <template>
@@ -64,7 +65,7 @@ const replyMessage = computed(() => trimReplyMessage(props.replyMessage))
     @click="scrollToMessage"
   >
     <div class="flex items-center gap-1 text-xs text-blue-500">
-      <Icon name="material-symbols:reply-rounded" class="text-sm" />
+      <Icon name="material-symbols:reply-rounded" class="text-xs" />
       {{ t('Replying to') }}
     </div>
 

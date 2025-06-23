@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useOnline } from '@vueuse/core'
-import queryKeys from '~/queryKeys'
+import { MessageStatus } from '~~/db/schema'
 
 const route = useRoute()
 const isOnline = useOnline()
@@ -10,8 +10,16 @@ const historyQuery = useHistoryQuery(username)
 const { isMessagePending } = useMessageSender(username)
 
 const isLastMessageError = computed(() => {
-  // TODO: redo this
-  return !!historyQuery.data.value?.length && historyQuery.data.value[historyQuery.data.value.length - 1].status === 'error'
+  if (!historyQuery.data.value) {
+    return false
+  }
+
+  if (historyQuery.data.value.length === 0) {
+    return false
+  }
+
+  const lastMessage = historyQuery.data.value[historyQuery.data.value.length - 1]
+  return lastMessage.status === MessageStatus.error
 })
 </script>
 

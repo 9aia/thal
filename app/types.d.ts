@@ -2,7 +2,7 @@ import type { InternalApi } from 'nitropack'
 import type { VariantProps } from 'tailwind-variants'
 import type { HTMLAttributes } from 'vue'
 import type { getHistory } from './server/services/messages'
-import type { InReplyTo, UserSelect } from '~~/db/schema'
+import type { InReplyTo, MessageStatus, UserSelect } from '~~/db/schema'
 
 export interface SafeProps<T extends HTMLAttributes> extends /* @vue-ignore */ T {}
 export interface SafeVariantProps<T extends VariantProps> extends /* @vue-ignore */ T {}
@@ -24,17 +24,13 @@ export type CheckoutStatus = 'open' | 'complete' | null
 
 // #endregion
 
-// DTOs
+// #region History
+
+export type History = Awaited<ReturnType<typeof getHistory>>
+
+// #endregion
 
 // #region Chat
-
-export type MessageStatus = 'seen' | 'sent' | 'received' | 'sending' | 'error'
-
-export interface MessageContent {
-  date: Date
-  text: string
-  status: MessageStatus
-}
 
 export type Character = InternalApi['/api/character']['default'][number]
 

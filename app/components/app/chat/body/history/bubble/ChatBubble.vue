@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { useLocale } from '@psitta/vue'
 import type { UseMutationReturnType } from '@tanstack/vue-query'
-import type { MessageStatus } from '~/types'
 import { contentEditableRef, edition, inReplyTos } from '~/store'
-import type { InReplyTo } from '~~/db/schema'
+import { type InReplyTo, MessageStatus } from '~~/db/schema'
 
 const props = defineProps<{
   id: number
@@ -57,6 +56,7 @@ function setReply() {
     content: props.content,
     from: props.from,
     id: props.id,
+    status: props.status,
   }
 
   contentEditableRef.value?.focus()
@@ -88,17 +88,18 @@ function cancelEdit() {
 
 <template>
   <div
-    :id="`bubble-container-${id}`" class="w-full group bubble-scrollable" :class="{
+    :id="`bubble-container-${id}`"
+    class="w-full group bubble-scrollable"
+    :class="{
       'chat-start': !right,
       'chat-end': right,
     }"
+    tabindex="0"
   >
     <div v-if="inReplyTo" class="px-1 mb-1 translate-y-[1rem]">
-      <ChatReply
-        :reply-message="inReplyTo!.content"
-        :replying-id="inReplyTo!.id"
+      <ChatInReplyTo
+        :is="inReplyTo"
         :username="username"
-        :reply-from="inReplyTo!.from"
       />
     </div>
 
@@ -128,7 +129,7 @@ function cancelEdit() {
         <template v-if="isEditing">
           <div class="flex justify-end gap-1">
             <Button
-              class="btn btn-sm btn-ghost"
+              class="btn btn-sm btn-ghost btn-neutral"
 
               icon="material-symbols:close-rounded"
               icon-class="text-xl"
@@ -138,7 +139,7 @@ function cancelEdit() {
             </Button>
 
             <Button
-              class="btn btn-sm btn-ghost"
+              class="btn btn-sm btn-ghost btn-neutral"
 
               icon="material-symbols:send-outline-rounded"
               icon-class="text-xl"
@@ -170,7 +171,7 @@ function cancelEdit() {
       <div class="flex items-center min-h-8" :class="{ 'flex-row-reverse': !right }">
         <Button
           v-if="(from === 'user') && showEdit && !isEditing"
-          class="btn btn-sm btn-circle btn-ghost text-blue-500 sm:hidden group-hover:block"
+          class="btn btn-sm btn-circle btn-ghost btn-primary sm:hidden group-hover:block"
 
           icon="material-symbols:edit-outline-rounded"
           icon-class="text-xl"
@@ -179,7 +180,7 @@ function cancelEdit() {
 
         <Button
           v-if="(from === 'user') && showResend && !isEditing"
-          class="btn btn-sm btn-circle btn-ghost text-magenta-500 sm:hidden group-hover:block"
+          class="btn btn-sm btn-circle btn-ghost btn-secondary sm:hidden group-hover:block"
 
           icon="material-symbols:refresh-rounded"
           icon-class="text-xl"
@@ -188,7 +189,7 @@ function cancelEdit() {
 
         <Button
           v-if="!isEditing"
-          class="btn btn-sm btn-circle btn-ghost text-gray-800 sm:hidden group-hover:block"
+          class="btn btn-sm btn-circle btn-ghost btn-neutral sm:hidden group-hover:block"
 
           icon="material-symbols:content-copy-outline-rounded"
           icon-class="text-xl"
@@ -196,8 +197,8 @@ function cancelEdit() {
         />
 
         <Button
-          v-if="!isEditing && status !== 'error'"
-          class="btn btn-sm btn-circle btn-ghost text-gray-800 sm:hidden group-hover:block"
+          v-if="!isEditing && status !== MessageStatus.error"
+          class="btn btn-sm btn-circle btn-ghost btn-neutral sm:hidden group-hover:block"
           no-disable-on-loading
           :loading="audiableTextMutation?.isPending.value"
 
@@ -207,8 +208,8 @@ function cancelEdit() {
         />
 
         <Button
-          v-if="!isEditing && status !== 'error'"
-          class="btn btn-circle btn-sm btn-ghost text-gray-800 sm:hidden group-hover:block"
+          v-if="!isEditing && status !== MessageStatus.error"
+          class="btn btn-circle btn-sm btn-ghost btn-neutral sm:hidden group-hover:block"
           :loading="translation.isLoading.value"
           :disabled="isCharacterDeleted"
 
@@ -219,7 +220,7 @@ function cancelEdit() {
 
         <Button
           v-if="(from === 'user') && showDelete"
-          class="btn btn-sm btn-circle btn-ghost text-red-500 sm:hidden group-hover:block"
+          class="btn btn-sm btn-circle btn-ghost btn-error sm:hidden group-hover:block"
 
           icon="material-symbols:delete-outline-rounded"
           icon-class="text-xl"

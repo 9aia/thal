@@ -52,10 +52,12 @@ Low priority:
 - Add character search results to chat and contact search
 - Add drawer search query params when opening drawers
 - Add multiple message TTS player
-- Add unread badge
 - Add character knowledge
 - Add media messages support, such as audio and picture
 - Add calls
+
+Low priority:
+- Add `read` status and add unread badge to chat item
 
 ## Enhancements
 
@@ -154,4 +156,5 @@ Low priority:
 - Improve docs
   - Add docs for the difference between roadmap, changelog and "What's New"
 - Add nuxt devserver to codeshare container
+  - Pass IS_CODESHARE env var to nuxt devserver and fix sign-in redirect
 - Fix codeshare perms

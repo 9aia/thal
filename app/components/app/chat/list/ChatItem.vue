@@ -2,7 +2,7 @@
 import { t } from '@psitta/vue'
 import queryKeys from '~/queryKeys'
 import { isRootDrawerOpen, openContactView } from '~/store'
-import type { MessageStatus } from '~/types'
+import { MessageStatus } from '~~/db/schema'
 
 const props = defineProps<{
   username: string
@@ -73,7 +73,7 @@ async function handleGoToChat(username: string) {
         class="text-sm text-gray-600 flex items-center gap-0.5"
       >
         <div
-          v-if="lastMessage.status === 'sending'"
+          v-if="lastMessage.status === MessageStatus.sending"
           class="line-clamp-1 text-green-500"
           :class="{ invisible: !lastMessage.content }"
         >

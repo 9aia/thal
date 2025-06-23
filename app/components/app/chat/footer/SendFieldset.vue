@@ -2,6 +2,7 @@
 import { useMagicKeys, useOnline } from '@vueuse/core'
 import { OPTIMISTIC_CHAT_ID } from '~/constants/chat'
 import { contentEditableRef, inReplyTos } from '~/store'
+import { MessageStatus } from '~~/db/schema'
 
 const { t } = useI18nExperimental()
 const isOnline = useOnline()
@@ -17,10 +18,18 @@ const chatQuery = useChatQuery(username)
 const characterQuery = useCharacterQuery(username)
 
 const chatId = computed(() => chatQuery.data.value?.id || OPTIMISTIC_CHAT_ID)
-const replying = computed(() => inReplyTos[username.value])
+const inReplyTo = computed(() => inReplyTos[username.value])
 const isCharacterDeleted = computed(() => !characterQuery.data.value?.id)
 
-const { sendMessage, isMessagePending, isMessageError } = useMessageSender(username)
+const { sendMessage, isMessagePending, isMessageError } = useMessageSender(username, {
+  onMutate: (options) => {
+    if (options.isEditing) {
+      return
+    }
+
+    text.value = ''
+  },
+})
 
 const icon = computed(() => {
   if (isMessagePending.value && !isOnline.value)
@@ -46,13 +55,14 @@ function handleSend(e: Event) {
   if (!decodedMessage.trim() || isMessagePending.value || isMessageError.value || shift.value) {
     return
   }
+  console.log('asdihashud')
 
   text.value = decodedMessage
 
   sendMessage({
-    text: text.value,
-    refresh: false,
-    replying: replying.value,
+    content: text.value,
+    inReplyTo: inReplyTo.value,
+    status: MessageStatus.sending,
   })
 }
 </script>

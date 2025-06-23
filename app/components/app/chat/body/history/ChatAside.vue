@@ -16,7 +16,7 @@ const emit = defineEmits<{
   >
     <Button
       :disabled="isCharacterDeleted"
-      class="hidden group-hover:block btn btn-sm btn-circle"
+      class="hidden group-hover:block btn btn-sm btn-circle btn-neutral"
 
       icon="material-symbols:reply-rounded"
       icon-class="text-xl"

@@ -2,6 +2,7 @@
 import { t } from '@psitta/vue'
 import queryKeys from '~/queryKeys'
 import { chatListSearch, isRootDrawerOpen } from '~/store'
+import { MessageStatus } from '~~/db/schema'
 
 const localWithDefaultRegion = useLocaleWithDefaultRegion()
 
@@ -42,7 +43,7 @@ function openChat(username: string) {
         :username="chat.username"
         :last-message="chat.lastMessageDatetime ? {
           datetime: chat.lastMessageDatetime,
-          status: 'seen',
+          status: MessageStatus.seen,
           content: chat.lastMessageContent!,
         } : undefined"
         @click="openChat(chat.username)"
