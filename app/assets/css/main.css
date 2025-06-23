@@ -215,6 +215,20 @@
       opacity: 0;
     }
   }
+
+  --animate-highlight: highlight 1s ease-in-out;
+  
+  @keyframes highlight {
+  
+    0%,
+    100% {
+      background: var(--color-gray-50);
+    }
+  
+    50% {
+      background: var(--color-cyan-100);
+    }
+  }
 }
 
 @utility btn {

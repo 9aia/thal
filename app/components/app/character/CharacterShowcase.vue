@@ -68,7 +68,10 @@ const instructions = computed(() => {
       <div class="flex flex-col gap-1">
         <MDC tag="article" class="prose prose-sm text-sm text-gray-500" :value="instructions" />
 
-        <button class="w-fit text-blue-500 text-sm text-left cursor-pointer border-b-2 border-transparent focus:border-b-blue-500 focus:outline-hidden" @click="showMore = !showMore">
+        <button
+          class="w-fit text-blue-500 text-sm text-left cursor-pointer border-b-2 border-transparent focus:border-b-blue-500 focus:outline-hidden"
+          @click="showMore = !showMore"
+        >
           {{ showMore ? t('Show less') : t('Show more') }}
         </button>
       </div>

@@ -59,7 +59,6 @@ watch(translation.error, async (value) => {
     :loading="translation.isLoading.value"
     icon="material-symbols:translate-rounded"
     icon-class="text-xl"
-
     @click="translation.onTranslate()"
   />
 </template>

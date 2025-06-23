@@ -63,10 +63,10 @@ watch(currentWord, () => {
 
     spans.forEach((span, i) => {
       if (i === currentWord.value) {
-        span.classList.add('text-gradient bg-linear-[66deg] from-magenta-500 to-red-500')
+        span.classList.add(...('text-gradient bg-linear-[66deg] from-magenta-500 to-red-500'.split(' ')))
       }
       else {
-        span.classList.remove('text-gradient bg-linear-[66deg] from-magenta-500 to-red-500')
+        span.classList.remove(...('text-gradient bg-linear-[66deg] from-magenta-500 to-red-500'.split(' ')))
       }
     })
   }

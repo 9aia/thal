@@ -117,8 +117,6 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
   const fetchMessage = async (data: SendMessageData) => {
     const _username = toValue(username)
 
-    console.log(data)
-
     return $fetch(`/api/message/${_username}`, {
       method: 'POST',
       body: {
@@ -132,11 +130,11 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
     mutationFn: fetchMessage,
     async onMutate(newMessage) {
       delete inReplyTos[toValue(username)]
+
       options.onMutate?.({
         isEditing: newMessage.editing,
       })
 
-      // TODO: remove this after refactoring sendingChatIds
       if (newMessage.editing) {
         // editHistory(newMessage)
         // updateLastMessage(newMessage)
@@ -147,7 +145,7 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
       // newMessageTmp.value = newMessage
 
       pushMessage(newMessage)
-      setLastMessage({
+      setChatItemLastMessage({
         content: newMessage.content,
         time: now().getTime(),
         status: isOnline.value ? MessageStatus.sent : MessageStatus.sending,
@@ -156,9 +154,7 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
       goToBottom()
     },
     onError: async (e) => {
-      const _username = toValue(username)
       const error = e as FetchError
-
       const errorStatus = error.response?.status
       const errorMessage = await error.data?.message
 
@@ -175,21 +171,7 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
         }
       }
 
-      // const newHistory = [...data.value.history || []]
-
-      // const lastMessage = newHistory[newHistory.length - 1]
-
-      // newHistory[newHistory.length - 1] = {
-      //   ...lastMessage,
-      //   status: 'error',
-      // }
-
-      // updateLastMessage(newMessageTmp.value, true)
-
-      // queryClient.setQueryData(queryKeys.chat(_username), {
-      //   ...data.value,
-      //   history: newHistory,
-      // })
+      updateLastMessageToError()
     },
     onSuccess: async (newHistory) => {
       const _username = toValue(username)
@@ -197,7 +179,7 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
       queryClient.setQueryData(queryKeys.history(_username), newHistory)
 
       const lastMessageFromHistory = newHistory[newHistory.length - 1]
-      setLastMessage({
+      setChatItemLastMessage({
         content: lastMessageFromHistory.content,
         time: lastMessageFromHistory.time,
         status: lastMessageFromHistory.status,
@@ -208,7 +190,7 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
     },
   })
 
-  function setLastMessage(lastMessage: { content: string, time: number, status: MessageStatus }) {
+  function setChatItemLastMessage(lastMessage: { content: string, time: number, status: MessageStatus }) {
     const _username = toValue(username)
     const chat = queryClient.getQueryData(queryKeys.chat(_username)) as ChatItem
 
@@ -237,6 +219,26 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
       ...(history as History),
       newMessageData,
     ])
+  }
+
+  function updateLastMessageToError() {
+    const _username = toValue(username)
+
+    const newHistory = historyQuery.data.value || []
+    const lastMessageFromHistory = newHistory[newHistory.length - 1]
+
+    newHistory[newHistory.length - 1] = {
+      ...lastMessageFromHistory,
+      status: MessageStatus.error,
+    }
+
+    queryClient.setQueryData(queryKeys.history(_username), newHistory)
+
+    setChatItemLastMessage({
+      content: lastMessageFromHistory.content,
+      time: lastMessageFromHistory.time,
+      status: lastMessageFromHistory.status,
+    })
   }
 
   const isMessageError = computed(() => {

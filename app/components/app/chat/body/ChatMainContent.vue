@@ -1,10 +1,15 @@
 <script setup lang="ts">
+import { useOnline } from '@vueuse/core'
+
+const isOnline = useOnline()
 const route = useRoute()
 const username = computed(() => route.params.username as string)
 
 const historyQuery = useHistoryQuery(username)
 const characterQuery = useCharacterQuery(username)
 const contactQuery = useContactQuery(username)
+
+const { isMessagePending } = useMessageSender(username)
 
 const isContact = computed(() => !!contactQuery.data.value?.id)
 const contactNames = computed(() => getContactName({
@@ -30,6 +35,8 @@ const hasMessages = computed(() => !!historyQuery.data.value?.length)
 
     <div v-if="hasMessages" class="mt-6">
       <History />
+      {{ JSON.stringify(isMessagePending) }}
+      <ChatBubbleLoading v-if="isMessagePending && isOnline" />
     </div>
 
     <div class="sticky bottom-0 right-0 flex justify-end">

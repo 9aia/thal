@@ -14,7 +14,6 @@ export interface Item { id: keyof UserSelect, icon: string, label: string }
 // #endregion
 
 // #region Payment
-
 export interface PlanSettings {
   trialPeriodDays: number
   lookupKey: string
@@ -24,26 +23,13 @@ export type CheckoutStatus = 'open' | 'complete' | null
 
 // #endregion
 
-// #region History
-
-export type History = Awaited<ReturnType<typeof getHistory>>
-
-// #endregion
-
-// #region Chat
+// #region Character
 
 export type Character = InternalApi['/api/character']['default'][number]
 
-export type Contact = InternalApi['/api/contact']['get'][number]
-export type Message = Awaited<ReturnType<typeof getHistory>>['history'][number]
+// #endregion
 
-export type ChatItem = InternalApi['/api/chat']['get'][number] & {
-  lastMessageStatus?: MessageStatus
-}
-
-export interface InReplyTos {
-  [key: string]: InReplyTo
-}
+// #region CharacterBuilder
 
 export type CharacterBuilderEditViewMode = 'original' | 'preview'
 
@@ -56,5 +42,33 @@ export interface CharacterShowcase {
   instructions: string
   categoryName: string
 }
+
+// #endregion
+
+// #region Contact
+
+export type Contact = InternalApi['/api/contact']['get'][number]
+
+// #endregion
+
+// #region Chat
+
+export type ChatItem = InternalApi['/api/chat']['get'][number]
+
+// #endregion
+
+// #region Message
+
+export type Message = Awaited<ReturnType<typeof getHistory>>['history'][number]
+
+export interface InReplyTos {
+  [key: string]: InReplyTo
+}
+
+// #endregion
+
+// #region History
+
+export type History = Awaited<ReturnType<typeof getHistory>>
 
 // #endregion

@@ -36,7 +36,7 @@ function highlightBubble(bubble: any) {
 }
 
 function scrollToMessage() {
-  const message = document.querySelector(`#bubble-container-${props.replyingId}`)
+  const message = document.querySelector(`#bubble-container-${props.is.id}`)
   if (!message)
     return
 
@@ -61,15 +61,16 @@ function scrollToMessage() {
 
 <template>
   <div
-    class="rounded-2xl bg-radial-[at_bottom] from-blue-50 to-gray-50 py-1 px-3 relative w-full overflow-hidden pb-4" role="button"
+    class="rounded-2xl bg-radial-[at_bottom] from-blue-50 to-gray-50 py-1 px-3 relative w-full overflow-hidden pb-4 cursor-pointer"
+    role="button"
     @click="scrollToMessage"
   >
-    <div class="flex items-center gap-1 text-xs text-blue-500">
+    <div class="flex items-center gap-1 text-xs text-blue-500 mb-1">
       <Icon name="material-symbols:reply-rounded" class="text-xs" />
       {{ t('Replying to') }}
     </div>
 
-    <h3 class="text-sm text-blue-500">
+    <h3 class="text-sm text-blue-500 mb-1">
       {{ replyDisplayName }}
     </h3>
 

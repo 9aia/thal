@@ -50,7 +50,6 @@ const truncatedDescription = computed(() => {
       <div class="card-actions justify-center">
         <Button
           class="btn btn-soft btn-primary"
-
           icon="material-symbols:person-add-outline-rounded"
           @click="manageContact(username, displayName)"
         >

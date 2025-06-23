@@ -55,7 +55,6 @@ function handleSend(e: Event) {
   if (!decodedMessage.trim() || isMessagePending.value || isMessageError.value || shift.value) {
     return
   }
-  console.log('asdihashud')
 
   text.value = decodedMessage
 
@@ -70,11 +69,7 @@ function handleSend(e: Event) {
 <template>
   <div class="flex gap-2 px-3 py-2 w-full">
     <div class="tooltip w-full">
-      <div v-if="isCharacterDeleted" class="tooltip-content max-w-lg rounded-2xl">
-        <div class="px-4 py-2 text-orange-500 text-sm bg-radial-[at_bottom] from-orange-50 to-gray-50">
-          {{ t('You can\'t message this character — they have been deleted.') }}
-        </div>
-      </div>
+      <CharacterDeletedTooltip v-if="isCharacterDeleted" />
 
       <div class="flex gap-2 items-center justify-center w-full">
         <label class="input input-lg input-neutral w-full flex items-center justify-center" for="input">

@@ -46,7 +46,6 @@ function removeReply() {
 
     <Button
       class="btn btn-circle btn-sm btn-ghost absolute top-1 right-1"
-
       icon="material-symbols:close-rounded"
       icon-class="text-xl"
       @click="removeReply"

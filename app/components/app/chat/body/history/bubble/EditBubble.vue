@@ -52,7 +52,6 @@ watch(translation.error, async (value) => {
         v-if="!isEmpty"
         class="btn btn-circle btn-sm btn-ghost"
         :loading="translation.isLoading.value"
-
         icon="material-symbols:translate-rounded"
         icon-class="text-xl"
         @click="translation.onTranslate()"
