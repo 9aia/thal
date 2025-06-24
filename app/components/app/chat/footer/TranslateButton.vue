@@ -12,7 +12,7 @@ const route = useRoute()
 const username = computed(() => route.params.username as string)
 const replyMessage = computed(() => inReplyTos[username.value])
 
-const { isSendMessagePending: isMessagePending } = useMessageSender(username)
+const sendMessageMutation = useSendMessage(username)
 
 const isTextInputEmpty = useIsTextEmpty(toRef(() => text.value))
 
@@ -55,7 +55,7 @@ watch(translation.error, async (value) => {
   <Button
     v-if="!isTextInputEmpty"
     class="btn btn-sm btn-circle btn-ghost btn-primary"
-    :disabled="isMessagePending"
+    :disabled="sendMessageMutation.isPending.value"
     :loading="translation.isLoading.value"
     icon="material-symbols:translate-rounded"
     icon-class="text-xl"

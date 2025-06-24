@@ -5,23 +5,14 @@ const route = useRoute()
 const username = computed(() => route.params.username as string)
 
 const { t } = useI18nExperimental()
-const { editMessage } = useMessageSender(username)
+const sendMessageMutation = useSendMessage(username)
 
 function handleCancel() {
   edition.messageId = undefined
 }
 
 function handleSave() {
-  editMessage({
-    id: edition.messageId!,
-    time: now().getTime(),
-    content: edition.content!,
-    inReplyTo: edition.inReplyTo,
-  })
-
-  edition.messageId = undefined
-  edition.content = undefined
-  edition.inReplyTo = undefined
+  sendMessageMutation.retryMutate()
 }
 </script>
 

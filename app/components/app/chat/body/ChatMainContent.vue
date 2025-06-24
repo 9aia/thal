@@ -10,10 +10,10 @@ const historyQuery = useHistoryQuery(username)
 const characterQuery = useCharacterQuery(username)
 const contactQuery = useContactQuery(username)
 
-const { isSendMessagePending: isMessagePending } = useMessageSender(username)
+const sendMessageMutation = useSendMessage(username)
 
 const showShowChatBubbleLoading = computed(() => {
-  return isMessagePending.value && isOnline.value
+  return sendMessageMutation.isPending.value && isOnline.value
 })
 
 const isContact = computed(() => !!contactQuery.data.value?.id)

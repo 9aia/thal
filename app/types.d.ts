@@ -66,6 +66,13 @@ export interface InReplyTos {
   [key: string]: InReplyTo
 }
 
+export interface MessageSend {
+  id?: number // NOTE: when it's editing, it's the message id and it means retrying
+  content: string
+  time: number
+  inReplyTo?: InReplyTo
+}
+
 // #endregion
 
 // #region History

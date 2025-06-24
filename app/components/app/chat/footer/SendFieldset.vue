@@ -2,7 +2,6 @@
 import { useMagicKeys, useOnline } from '@vueuse/core'
 import { OPTIMISTIC_CHAT_ID } from '~/constants/chat'
 import { contentEditableRef, inReplyTos } from '~/store'
-import { MessageStatus } from '~~/db/schema'
 
 const { t } = useI18nExperimental()
 const isOnline = useOnline()
@@ -21,23 +20,26 @@ const chatId = computed(() => chatQuery.data.value?.id || OPTIMISTIC_CHAT_ID)
 const inReplyTo = computed(() => inReplyTos[username.value])
 const isCharacterDeleted = computed(() => !characterQuery.data.value?.id)
 
-const { sendMessage, isSendMessagePending, isSendMessageError, isError } = useMessageSender(username, {
-  onSendMutate: () => {
+const sendMessageMutation = useSendMessage(username, {
+  onMutate: ({ isRetrying }) => {
+    if (isRetrying)
+      return
+
     text.value = ''
   },
 })
 
 const icon = computed(() => {
-  if (isSendMessagePending.value && !isOnline.value)
+  if (sendMessageMutation.isPending.value && !isOnline.value)
     return 'material-symbols:signal-wifi-off-outline-rounded'
 
-  if (isSendMessagePending.value)
+  if (sendMessageMutation.isPending.value)
     return 'material-symbols:pending-outline'
 
-  if (isSendMessageError.value && !isOnline.value)
+  if (sendMessageMutation.isError.value && !isOnline.value)
     return 'material-symbols:signal-wifi-off-outline-rounded'
 
-  if (isSendMessageError.value)
+  if (sendMessageMutation.isError.value)
     return 'material-symbols:error-outline-rounded'
 
   return isEmpty.value ? 'material-symbols:mic-outline-rounded' : 'material-symbols:send-outline-rounded'
@@ -48,13 +50,13 @@ function handleSend(e: Event) {
 
   const decodedMessage = decodeHTML(text.value)
 
-  if (!decodedMessage.trim() || isSendMessagePending.value || isSendMessageError.value || shift.value) {
+  if (!decodedMessage.trim() || sendMessageMutation.isPending.value || sendMessageMutation.isError.value || shift.value) {
     return
   }
 
   text.value = decodedMessage
 
-  sendMessage({
+  sendMessageMutation.mutate({
     content: text.value,
     time: now().getTime(),
     inReplyTo: inReplyTo.value,
@@ -89,13 +91,10 @@ function handleSend(e: Event) {
           />
         </div>
 
-        {{ isSendMessageError }}
-        {{ isError }}
-
         <Button
           v-if="!isEmpty"
           class="btn btn-circle btn-primary btn-ghost"
-          :disabled="isSendMessageError || isSendMessagePending || isCharacterDeleted"
+          :disabled="sendMessageMutation.isError.value || sendMessageMutation.isPending.value || isCharacterDeleted"
           :icon="icon"
           @click="handleSend"
         />

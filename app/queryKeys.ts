@@ -15,5 +15,4 @@ export default {
   contentCount: (locale: MaybeRef<string>, name?: MaybeRef<string | undefined>) => [locale, 'content-count', name],
   pricingData: ['pricing-data'],
   messageSend: (username: MaybeRef<string>) => ['message-send', username],
-  messageEdit: (username: MaybeRef<string>) => ['message-edit', username],
 }

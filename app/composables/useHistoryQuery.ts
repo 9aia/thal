@@ -1,14 +1,5 @@
-import { useMutationState, useQueryClient } from '@tanstack/vue-query'
+import { useQueryClient } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
-
-function useSendMessageMutationStatus(username: MaybeRef<string>) {
-  const sendMessageStatuses = useMutationState({
-    filters: { mutationKey: queryKeys.messageSend(username) },
-    select: mutation => mutation.state.status,
-  })
-  const latestSendMessageMutationStatus = sendMessageStatuses.value[sendMessageStatuses.value.length - 1]
-  return latestSendMessageMutationStatus
-}
 
 function useHistoryQuery(username: MaybeRef<string>) {
   const headers = useRequestHeaders(['cookie'])
@@ -20,7 +11,7 @@ function useHistoryQuery(username: MaybeRef<string>) {
     queryFn: () => $fetch(`/api/chat/history/${toValue(username)}` as any as `/api/chat/history/:username`, {
       headers,
     }),
-    staleTime: () => sendMessageMutationStatus === 'error' ? Infinity : 5000,
+    staleTime: () => sendMessageMutationStatus.value === 'error' ? Infinity : 5000,
   })
 }
 
@@ -34,6 +25,30 @@ export function prefetchHistoryQuery(username: MaybeRef<string>) {
       headers,
     }),
   })
+}
+
+export function useHistoryQueryUtils(username: MaybeRef<string>) {
+  const historyQuery = useHistoryQuery(username)
+
+  const lastMessage = computed(() => {
+    if (!historyQuery.data.value || historyQuery.data.value.length === 0) {
+      return null
+    }
+
+    return historyQuery.data.value[historyQuery.data.value.length - 1]
+  })
+
+  const predictMessageId = computed(() => {
+    if (!historyQuery.data.value || historyQuery.data.value.length === 0) {
+      return 1
+    }
+    return historyQuery.data.value.length + 1
+  })
+
+  return {
+    lastMessage,
+    predictMessageId,
+  }
 }
 
 export default useHistoryQuery
