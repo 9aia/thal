@@ -2,12 +2,14 @@ import type { Mutation } from '@tanstack/vue-query'
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
 import { edition, inReplyTos } from '~/store'
+import { MessageStatus } from '~~/db/schema'
 
 export default function useClearHistoryMutation(username: MaybeRef<string>) {
   const toast = useToast()
   const { t } = useI18nExperimental()
   const { updateScrollable } = useChatMainScroll()
   const queryClient = useQueryClient()
+  const historyQuery = useHistoryQuery(username)
   const historyClient = useHistoryClient(username)
   const chatClient = useChatClient(username)
 
@@ -17,7 +19,14 @@ export default function useClearHistoryMutation(username: MaybeRef<string>) {
 
       toast.info(t('Clearing chat...'))
 
-      // TODO: clear history on client only if the history has only one message and it's an error message
+      // Clear history on client only if the history has only one message and it's an error message
+      const history = historyQuery.data.value || []
+
+      if (history.length === 1 && history[0]?.status === MessageStatus.error) {
+        historyClient.clear()
+        chatClient.deleteLastMessage()
+        return history
+      }
 
       return await $fetch(`/api/chat/history/${_username}`, { method: 'DELETE' })
     },
