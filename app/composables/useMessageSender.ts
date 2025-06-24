@@ -1,9 +1,15 @@
 import { useIsMutating, useMutation, useQueryClient } from '@tanstack/vue-query'
 import type { FetchError } from 'ofetch'
 import queryKeys from '~/queryKeys'
-import { inReplyTos, isPastDueModalOpen } from '~/store'
-import type { ChatItem, History } from '~/types'
-import { type MessageEdit, type MessageSend, MessageStatus } from '~~/db/schema'
+import { chatListSearch, inReplyTos, isPastDueModalOpen } from '~/store'
+import type { Chats, History, Message } from '~/types'
+import { type InReplyTo, type MessageEdit, type MessageSend, MessageStatus } from '~~/db/schema'
+
+interface MessageSending {
+  content: string
+  time: number
+  inReplyTo?: InReplyTo
+}
 
 interface UseMessageSenderOptions {
   onSendMutate?: () => void
@@ -15,7 +21,7 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
   const { t } = useI18nExperimental()
   const toast = useToast()
   const { goToBottom } = useChatMainScroll()
-
+  const localeWithDefaultRegion = useLocaleWithDefaultRegion()
   const historyQuery = useHistoryQuery(username)
 
   // function editHistory(editedMessage: SendMessageData) {
@@ -82,33 +88,38 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
   //   }
   // }
 
-  const sendMessageFn = async (data: MessageSend) => {
+  const sendMessageFn = async (data: MessageSending) => {
     const _username = toValue(username)
+
+    const message: MessageSend = {
+      content: data.content,
+      inReplyTo: data.inReplyTo,
+    }
 
     return $fetch(`/api/message/${_username}`, {
       method: 'POST',
-      body: data,
+      body: message,
     })
   }
 
   const sendMessageMutation = useMutation({
     mutationKey: queryKeys.messageSend(username),
     mutationFn: sendMessageFn,
-    async onMutate(newMessage) {
+    async onMutate(sendingMessage) {
       delete inReplyTos[toValue(username)]
 
       options.onSendMutate?.()
 
-      pushMessage(newMessage)
+      pushPredictedUserMessage(sendingMessage)
       setChatItemLastMessage({
-        content: newMessage.content,
-        time: now().getTime(),
+        content: sendingMessage.content,
+        time: sendingMessage.time,
         status: MessageStatus.sending,
       })
 
       goToBottom()
     },
-    onError: async (e) => {
+    onError: async (e, sendingMessage) => {
       const error = e as FetchError
       const errorStatus = error.response?.status
       const errorMessage = await error.data?.message
@@ -126,7 +137,13 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
         }
       }
 
-      updateLastMessageToError()
+      updatePredictedUserMessageStatusToError()
+
+      setChatItemLastMessage({
+        content: sendingMessage.content,
+        time: sendingMessage.time,
+        status: MessageStatus.error,
+      })
     },
     onSuccess: async (newHistory) => {
       const _username = toValue(username)
@@ -196,7 +213,7 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
         }
       }
 
-      updateLastMessageToError()
+      updatePredictedUserMessageStatusToError()
     },
     onSuccess: async (newHistory) => {
       const _username = toValue(username)
@@ -236,32 +253,42 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
 
   function setChatItemLastMessage(lastMessage: { content: string, time: number, status: MessageStatus }) {
     const _username = toValue(username)
-    const chat = queryClient.getQueryData(queryKeys.chat(_username)) as ChatItem
 
-    queryClient.setQueryData(queryKeys.chat(_username), {
-      ...chat,
-      lastMessageContent: lastMessage.content,
-      lastMessageDatetime: lastMessage.time,
-      lastMessageStatus: lastMessage.status,
+    queryClient.setQueryData(queryKeys.chatsSearch(localeWithDefaultRegion.value, chatListSearch.value), (oldChats: Chats) => {
+      console.log(JSON.stringify({ oldChats, lastMessage }, null, 2))
+
+      const newChats = [...oldChats]
+      const chatIndex = newChats.findIndex(chat => chat.username === _username)
+
+      if (chatIndex !== -1) {
+        newChats[chatIndex] = {
+          ...newChats[chatIndex],
+          lastMessageContent: lastMessage.content,
+          lastMessageDatetime: lastMessage.time,
+          lastMessageStatus: lastMessage.status,
+        }
+      }
+
+      return newChats
     })
   }
 
-  function pushMessage(newMessage: MessageSend) {
+  function pushPredictedUserMessage(newMessage: MessageSending) {
     const _username = toValue(username)
     const history = historyQuery.data.value || []
 
-    const newMessageData: History[number] = {
+    const predictedUserMessage: Message = {
       id: history.length + 1,
       from: 'user',
-      status: newMessage.status,
       content: newMessage.content,
+      time: newMessage.time,
+      status: MessageStatus.sending,
       inReplyTo: newMessage?.inReplyTo || null,
-      time: new Date().getTime(),
     }
 
     queryClient.setQueryData(queryKeys.history(_username), [
       ...(history as History),
-      newMessageData,
+      predictedUserMessage,
     ])
   }
 
@@ -295,24 +322,22 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
     }
   }
 
-  function updateLastMessageToError() {
+  function updatePredictedUserMessageStatusToError() {
     const _username = toValue(username)
-    const history = historyQuery.data.value || []
 
-    const newHistory = [...history]
-    const lastMessageFromHistory = newHistory[newHistory.length - 1]
+    queryClient.setQueryData(queryKeys.history(_username), (oldHistory: History) => {
+      const lastMessageFromHistory = oldHistory[oldHistory.length - 1]
+      const historyWithoutLastMessage = oldHistory.slice(0, -1)
 
-    newHistory[newHistory.length - 1] = {
-      ...lastMessageFromHistory,
-      status: MessageStatus.error,
-    }
+      const updatedLastMessageFromHistory = {
+        ...lastMessageFromHistory,
+        status: MessageStatus.error,
+      }
 
-    queryClient.setQueryData(queryKeys.history(_username), newHistory)
-
-    setChatItemLastMessage({
-      content: lastMessageFromHistory.content,
-      time: lastMessageFromHistory.time,
-      status: lastMessageFromHistory.status,
+      return [
+        ...historyWithoutLastMessage,
+        updatedLastMessageFromHistory,
+      ]
     })
   }
 

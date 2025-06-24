@@ -21,23 +21,23 @@ const chatId = computed(() => chatQuery.data.value?.id || OPTIMISTIC_CHAT_ID)
 const inReplyTo = computed(() => inReplyTos[username.value])
 const isCharacterDeleted = computed(() => !characterQuery.data.value?.id)
 
-const { sendMessage, isSendMessagePending: isMessagePending, isSendMessageError: isMessageError } = useMessageSender(username, {
+const { sendMessage, isSendMessagePending, isSendMessageError } = useMessageSender(username, {
   onSendMutate: () => {
     text.value = ''
   },
 })
 
 const icon = computed(() => {
-  if (isMessagePending.value && !isOnline.value)
+  if (isSendMessagePending.value && !isOnline.value)
     return 'material-symbols:signal-wifi-off-outline-rounded'
 
-  if (isMessagePending.value)
+  if (isSendMessagePending.value)
     return 'material-symbols:pending-outline'
 
-  if (isMessageError.value && !isOnline.value)
+  if (isSendMessageError.value && !isOnline.value)
     return 'material-symbols:signal-wifi-off-outline-rounded'
 
-  if (isMessageError.value)
+  if (isSendMessageError.value)
     return 'material-symbols:error-outline-rounded'
 
   return isEmpty.value ? 'material-symbols:mic-outline-rounded' : 'material-symbols:send-outline-rounded'
@@ -48,7 +48,7 @@ function handleSend(e: Event) {
 
   const decodedMessage = decodeHTML(text.value)
 
-  if (!decodedMessage.trim() || isMessagePending.value || isMessageError.value || shift.value) {
+  if (!decodedMessage.trim() || isSendMessagePending.value || isSendMessageError.value || shift.value) {
     return
   }
 
@@ -56,8 +56,8 @@ function handleSend(e: Event) {
 
   sendMessage({
     content: text.value,
+    time: now().getTime(),
     inReplyTo: inReplyTo.value,
-    status: MessageStatus.sending,
   })
 }
 </script>
@@ -68,7 +68,7 @@ function handleSend(e: Event) {
       <CharacterDeletedTooltip v-if="isCharacterDeleted" />
 
       <div class="flex gap-2 items-center justify-center w-full">
-        <label class="input input-lg h-full min-h-12 pr-0 input-neutral w-full flex items-center justify-center" for="input">
+        <div class="input input-lg h-full min-h-12 pr-0 input-neutral w-full flex items-center justify-center">
           <div class="flex gap-1 items-center justify-center">
             <TranslateButton
               v-model:text="text"
@@ -87,12 +87,12 @@ function handleSend(e: Event) {
             placeholder-color="var(--color-gray-500)"
             @keydown.enter="handleSend"
           />
-        </label>
+        </div>
 
         <Button
           v-if="!isEmpty"
           class="btn btn-circle btn-primary btn-ghost"
-          :disabled="isMessageError || isMessagePending || isCharacterDeleted"
+          :disabled="isSendMessageError || isSendMessagePending || isCharacterDeleted"
           :icon="icon"
           @click="handleSend"
         />

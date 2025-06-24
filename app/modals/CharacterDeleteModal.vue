@@ -4,6 +4,7 @@ import { T } from '@psitta/vue'
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import type { Character } from '~/types'
 import queryKeys from '~/queryKeys'
+import { chatListSearch } from '~/store'
 
 const props = defineProps<{
   character?: Character
@@ -39,11 +40,9 @@ const deleteCharacterMutation = useMutation({
 
     const username = props.character!.usernames!.text
 
-    // TODO: do we need to invalidate chats or just update the data?
     queryClient.invalidateQueries({
-      queryKey: queryKeys.chats,
+      queryKey: queryKeys.chatsSearch(localeWithDefaultRegion.value, chatListSearch.value),
     })
-    // invalidate
 
     if (params?.username === username)
       navigateTo('/app/discover')

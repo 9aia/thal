@@ -469,11 +469,11 @@ export const chatsRelations = relations(chats, ({ one, many }) => ({
 
 export enum MessageStatus {
   sending = 0,
-  error = 1,
-  received = 2,
-  seen = 3,
-  sent = 4,
-  read = 5,
+  error,
+  received,
+  seen,
+  sent,
+  read,
 }
 
 // #endregion
@@ -527,9 +527,7 @@ export const messageRelations = relations(messages, ({ one }) => ({
 
 export const messageSendSchema = z.object({
   content: z.string(),
-  // NOTE: this is not the id of the message, but the message itself. Shouldn't it be the id?
   inReplyTo: inReplyToSchema.optional(),
-  status: z.nativeEnum(MessageStatus).default(MessageStatus.sending),
 })
 
 export const selectMessageSchema = createSelectSchema(messages)

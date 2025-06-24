@@ -53,13 +53,14 @@ export type Contact = InternalApi['/api/contact']['get'][number]
 
 // #region Chat
 
+export type Chats = InternalApi['/api/chat']['get']
 export type ChatItem = InternalApi['/api/chat']['get'][number]
 
 // #endregion
 
 // #region Message
 
-export type Message = Awaited<ReturnType<typeof getHistory>>['history'][number]
+export type Message = Awaited<ReturnType<typeof getHistory>>[number]
 
 export interface InReplyTos {
   [key: string]: InReplyTo

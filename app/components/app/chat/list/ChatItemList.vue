@@ -1,22 +1,8 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
-import queryKeys from '~/queryKeys'
 import { chatListSearch, isRootDrawerOpen } from '~/store'
-import { MessageStatus } from '~~/db/schema'
 
-const localWithDefaultRegion = useLocaleWithDefaultRegion()
-
-const headers = useRequestHeaders(['cookie'])
-const chatsQuery = useServerQuery({
-  queryKey: queryKeys.chatsSearch(localWithDefaultRegion.value, chatListSearch),
-  queryFn: () => $fetch('/api/chat', {
-    params: {
-      search: chatListSearch.value,
-      locale: localWithDefaultRegion.value,
-    },
-    headers,
-  }),
-})
+const chatsQuery = useChatsQuery()
 
 function openChat(username: string) {
   isRootDrawerOpen.value = false
@@ -42,8 +28,8 @@ function openChat(username: string) {
         :key="chat.chatId"
         :username="chat.username"
         :last-message="chat.lastMessageDatetime ? {
-          datetime: chat.lastMessageDatetime,
-          status: MessageStatus.seen,
+          datetime: chat.lastMessageDatetime!,
+          status: chat.lastMessageStatus!,
           content: chat.lastMessageContent!,
         } : undefined"
         @click="openChat(chat.username)"

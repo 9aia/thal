@@ -42,7 +42,6 @@ const isLastMessageError = computed(() => {
 
 async function handleEdit() {
   edition.editingMessageId = props.messageId
-  await nextTick()
   edition.content = props.messageContent
   edition.inReplyTo = props.inReplyTo
 }
@@ -63,15 +62,15 @@ function handleDelete() {
 
 //   if (shouldInvalidateChat) {
 //     queryClient.invalidateQueries({
-//       queryKey: queryKeys.chats,
+//       queryKey: queryKeys.chatsSearch(localeWithDefaultRegion.value, chatListSearch.value),
 //     })
 //   }
 }
 </script>
 
 <template>
-  <div class="chat-footer opacity-90 flex items-center mt-1" :class="{ 'flex-row-reverse': !right }">
-    <div class="flex items-center min-h-8" :class="{ 'flex-row-reverse': !right }">
+  <div class="chat-footer opacity-90 flex items-center mt-1">
+    <div class="flex items-center min-h-8">
       <Button
         v-if="(messageFrom === 'user') && isLast && isLastMessageError && !isEditing"
         class="btn btn-sm btn-circle btn-ghost btn-primary group-hover:opacity-100 group-focus-within:opacity-100"

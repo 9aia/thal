@@ -5,12 +5,12 @@ import type { InReplyTo, MessageStatus } from '~~/db/schema'
 
 const props = defineProps<{
   id: number
-  from: 'user' | 'bot'
-  time: number
   content: string
+  time: number
   status: MessageStatus
-
+  from: 'user' | 'bot'
   inReplyTo?: InReplyTo
+
   isLast: boolean
 }>()
 
