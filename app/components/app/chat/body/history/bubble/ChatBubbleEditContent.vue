@@ -43,6 +43,15 @@ watch(translation.error, async (value) => {
 
   toast.error(t('Failed to translate message'))
 })
+
+const content = computed({
+  get() {
+    return edition.content
+  },
+  set(value) {
+    edition.content = value
+  },
+})
 </script>
 
 <template>
@@ -57,11 +66,9 @@ watch(translation.error, async (value) => {
         @click="translation.onTranslate()"
       />
 
-      <!-- TODO: edition content is not reactive -->
-
       <ContentEditable
         is="span"
-        v-model="edition.content"
+        v-model="content"
         class="prose flex w-full !max-w-full items-center outline-hidden"
         :placeholder="t('Type a message...')"
       />

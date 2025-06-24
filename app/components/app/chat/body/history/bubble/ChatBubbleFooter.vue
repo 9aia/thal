@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Mutation } from '@tanstack/vue-query'
 import { useQueryClient } from '@tanstack/vue-query'
 import type AudibleText from '~/components/app/ai/AudibleText.vue'
 import queryKeys from '~/queryKeys'
@@ -78,7 +79,7 @@ function handleDelete() {
     mutationKey: queryKeys.messageSend(username),
   })
 
-  mutations.forEach((mutation) => {
+  mutations.forEach((mutation: Mutation) => {
     queryClient.getMutationCache().remove(mutation)
   })
 }

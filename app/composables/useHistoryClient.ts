@@ -40,11 +40,16 @@ function useHistoryClient(username: MaybeRef<string>) {
     queryClient.setQueryData(queryKeys.history(username), newHistory)
   }
 
+  function clear() {
+    queryClient.setQueryData(queryKeys.history(username), [])
+  }
+
   return {
     set,
     pushMessage,
     updateLastMessage,
     deleteMessage,
+    clear,
   }
 }
 

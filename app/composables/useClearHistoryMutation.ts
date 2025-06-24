@@ -1,12 +1,15 @@
+import type { Mutation } from '@tanstack/vue-query'
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
-import { inReplyTos } from '~/store'
+import { edition, inReplyTos } from '~/store'
 
-export default function useClearHistoryMutation(username: MaybeRef<string | undefined>) {
-  const queryClient = useQueryClient()
+export default function useClearHistoryMutation(username: MaybeRef<string>) {
   const toast = useToast()
   const { t } = useI18nExperimental()
   const { updateScrollable } = useChatMainScroll()
+  const queryClient = useQueryClient()
+  const historyClient = useHistoryClient(username)
+  const chatClient = useChatClient(username)
 
   return useMutation({
     mutationFn: async () => {
@@ -24,11 +27,26 @@ export default function useClearHistoryMutation(username: MaybeRef<string | unde
     onSuccess: () => {
       const _username = toValue(username) as string
 
-      queryClient.setQueryData(queryKeys.history(_username), [])
+      historyClient.clear()
+      chatClient.deleteLastMessage()
 
-      // TODO: HIGH: remove the LastMessage from the chat using setQueryData
+      // Exit edition
+      edition.messageId = undefined
+      edition.content = ''
+      edition.inReplyTo = undefined
 
+      // Reset inReplyTo
       delete inReplyTos[_username]
+
+      // Reset sendMessage cache mutations
+      const mutations = queryClient.getMutationCache().findAll({
+        status: 'error',
+        mutationKey: queryKeys.messageSend(username),
+      })
+
+      mutations.forEach((mutation: Mutation) => {
+        queryClient.getMutationCache().remove(mutation)
+      })
 
       toast.success(t('Chat has been cleared'))
 
