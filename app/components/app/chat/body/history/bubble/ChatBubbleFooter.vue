@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import type AudibleText from '~/components/app/ai/AudibleText.vue'
 import { edition } from '~/store'
-import { MessageStatus } from '~~/db/schema'
+import { type InReplyTo, MessageStatus } from '~~/db/schema'
 
 const props = defineProps<{
   messageContent: string
   messageId: number
   messageFrom: 'user' | 'bot'
   messageStatus: MessageStatus
+  inReplyTo?: InReplyTo
   translation: Translation
   isEditing: boolean
   isLast: boolean
@@ -39,13 +40,11 @@ const isLastMessageError = computed(() => {
   return lastMessage.status === MessageStatus.error
 })
 
-async function edit() {
-  edition.content = ''
+async function handleEdit() {
   edition.editingMessageId = props.messageId
-
-  edition.editing = true
   await nextTick()
   edition.content = props.messageContent
+  edition.inReplyTo = props.inReplyTo
 }
 
 function handleResend() {
@@ -68,10 +67,6 @@ function handleDelete() {
 //     })
 //   }
 }
-
-// TODO: remove this
-// const buttonFocuses = ref(0)
-// const isAButtonFocuses = computed(() => buttonFocuses.value > 0)
 </script>
 
 <template>
@@ -83,7 +78,7 @@ function handleDelete() {
         :class="{ 'sm:opacity-0': !isLast }"
         icon="material-symbols:edit-outline-rounded"
         icon-class="text-xl"
-        @click="edit"
+        @click="handleEdit"
       />
 
       <Button

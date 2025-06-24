@@ -7,7 +7,7 @@ description: Tasks and items for the release.
 ## 0.1.0-10
 
 - Refactor chat
-- Translate all content using Psitta
+- Translate all content using Psitta (don't forget `<T>` tags)
 
 ## 0.1.0-11
 

@@ -15,7 +15,7 @@ prefetchHistoryQuery(username)
 prefetchContactQuery(username)
 
 useEventListener(chatMainRef, 'keydown', (event: KeyboardEvent) => {
-  if (edition.editing) {
+  if (edition.editingMessageId !== undefined) {
     return
   }
 

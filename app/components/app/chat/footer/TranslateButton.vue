@@ -12,7 +12,7 @@ const route = useRoute()
 const username = computed(() => route.params.username as string)
 const replyMessage = computed(() => inReplyTos[username.value])
 
-const { isMessagePending } = useMessageSender(username)
+const { isSendMessagePending: isMessagePending } = useMessageSender(username)
 
 const isTextInputEmpty = useIsTextEmpty(toRef(() => text.value))
 

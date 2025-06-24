@@ -529,6 +529,7 @@ export const messageSendSchema = z.object({
   content: z.string(),
   // NOTE: this is not the id of the message, but the message itself. Shouldn't it be the id?
   inReplyTo: inReplyToSchema.optional(),
+  status: z.nativeEnum(MessageStatus).default(MessageStatus.sending),
 })
 
 export const selectMessageSchema = createSelectSchema(messages)
@@ -539,5 +540,13 @@ export type MessageSelect = z.infer<typeof selectMessageSchema>
 export type MessageInsert = z.infer<typeof insertMessageSchema>
 
 export type MessageSend = z.infer<typeof messageSendSchema>
+
+export const messageEditSchema = z.object({
+  id: z.number(),
+  content: z.string(),
+  inReplyTo: inReplyToSchema.optional(),
+})
+
+export type MessageEdit = z.infer<typeof messageEditSchema>
 
 // #endregion

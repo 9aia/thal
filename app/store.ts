@@ -1,4 +1,5 @@
 import type { InReplyTos } from '~/types'
+import type { InReplyTo } from '~~/db/schema'
 
 // #region Modal
 
@@ -79,15 +80,13 @@ export const contentEditableRef = ref()
 export const chatMainRef = ref<HTMLDivElement>()
 
 export interface Edition {
-  editing: boolean
+  editingMessageId?: number
   content: string
-  editingMessageId: number | null
+  inReplyTo?: InReplyTo
 }
 
 export const edition = reactive<Edition>({
-  editing: false,
   content: '',
-  editingMessageId: null,
 })
 
 export const inReplyTos = reactive<InReplyTos>({})

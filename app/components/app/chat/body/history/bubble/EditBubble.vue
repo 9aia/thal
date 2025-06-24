@@ -50,7 +50,7 @@ watch(translation.error, async (value) => {
     <label class="flex gap-1 w-full h-full items-center justify-center" for="input">
       <Button
         v-if="!isEmpty"
-        class="btn btn-circle btn-sm btn-ghost"
+        class="btn btn-circle btn-sm btn-ghost btn-primary"
         :loading="translation.isLoading.value"
         icon="material-symbols:translate-rounded"
         icon-class="text-xl"

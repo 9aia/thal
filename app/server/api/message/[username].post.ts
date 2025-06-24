@@ -23,6 +23,14 @@ export default eventHandler(async (event) => {
 
   const user = event.context.user
 
+  // throw internal('GEMINI_MODEL is not set in the environment')
+  // throw unauthorized()
+  // throw paymentRequired('PAST_DUE')
+  // throw paymentRequired('PAYMENT_REQUIRED')
+  // throw rateLimit()
+  // throw notFound('Username not found')
+  // throw notFound('Character not found')
+
   if (!user)
     throw unauthorized()
 

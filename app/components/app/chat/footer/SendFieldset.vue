@@ -21,12 +21,8 @@ const chatId = computed(() => chatQuery.data.value?.id || OPTIMISTIC_CHAT_ID)
 const inReplyTo = computed(() => inReplyTos[username.value])
 const isCharacterDeleted = computed(() => !characterQuery.data.value?.id)
 
-const { sendMessage, isMessagePending, isMessageError } = useMessageSender(username, {
-  onMutate: (options) => {
-    if (options.isEditing) {
-      return
-    }
-
+const { sendMessage, isSendMessagePending: isMessagePending, isSendMessageError: isMessageError } = useMessageSender(username, {
+  onSendMutate: () => {
     text.value = ''
   },
 })

@@ -4,12 +4,13 @@ import { useOnline } from '@vueuse/core'
 const isOnline = useOnline()
 const route = useRoute()
 const username = computed(() => route.params.username as string)
+const { isScrollDownButtonVisible } = useChatMainScroll()
 
 const historyQuery = useHistoryQuery(username)
 const characterQuery = useCharacterQuery(username)
 const contactQuery = useContactQuery(username)
 
-const { isMessagePending } = useMessageSender(username)
+const { isSendMessagePending: isMessagePending } = useMessageSender(username)
 
 const showShowChatBubbleLoading = computed(() => {
   return isMessagePending.value && isOnline.value
@@ -42,7 +43,7 @@ const hasMessages = computed(() => !!historyQuery.data.value?.length)
       <ChatBubbleLoading v-if="showShowChatBubbleLoading" />
     </div>
 
-    <div class="sticky bottom-0 right-0 flex justify-end z-50">
+    <div class="sticky bottom-0 z-50 w-fit float-right" :class="{ 'pointer-events-none': !isScrollDownButtonVisible }">
       <GoToBottomButton />
     </div>
   </div>

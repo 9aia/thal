@@ -18,7 +18,7 @@ const right = computed(() => props.from === 'user')
 
 const route = useRoute()
 
-const isEditing = computed(() => edition.editing && edition.editingMessageId === props.id)
+const isEditing = computed(() => edition.editingMessageId === props.id)
 const username = computed(() => route.params.username as string)
 
 const translation = useTranslation({
