@@ -16,7 +16,9 @@ function useSendMessage(username: MaybeRef<string>, options: UseSendMessageOptio
   const historyClient = useHistoryClient(username)
   const chatClient = useChatClient(username)
   const sendMessageStatus = useSendMessageMutationStatus(username)
+  const chatQueryUtils = useChatQueryUtils(username)
   const historyQueryUtils = useHistoryQueryUtils(username)
+  const historyQuery = useHistoryQuery(username)
 
   async function fetchMessage(data: MessageSend) {
     const _username = toValue(username)
@@ -41,7 +43,7 @@ function useSendMessage(username: MaybeRef<string>, options: UseSendMessageOptio
       options.onMutate?.({ isRetrying })
 
       if (isRetrying) {
-        updateInReplyToBeingLastMessage({
+        chatQueryUtils.updateInReplyToBeingLastMessage({
           content: message.content,
           status: MessageStatus.sending,
         })
@@ -104,12 +106,12 @@ function useSendMessage(username: MaybeRef<string>, options: UseSendMessageOptio
         status: MessageStatus.error,
       })
 
-      updateInReplyToBeingLastMessage({
+      chatQueryUtils.updateInReplyToBeingLastMessage({
         content: message.content,
         status: MessageStatus.error,
-      })
+      }, historyQuery.data.value)
     },
-    onSuccess: (newHistory: History) => {
+    onSuccess: (newHistory: History, message: MessageSend) => {
       historyClient.set(newHistory)
 
       const lastMessageFromHistory = newHistory[newHistory.length - 1]
@@ -118,11 +120,16 @@ function useSendMessage(username: MaybeRef<string>, options: UseSendMessageOptio
         time: lastMessageFromHistory.time,
         status: lastMessageFromHistory.status,
       })
+      const userLastMessage = newHistory[newHistory.length - 2]
 
-      updateInReplyToBeingLastMessage({
-        content: lastMessageFromHistory.content,
-        status: lastMessageFromHistory.status,
-      })
+      const isRetrying = !!message.id
+      if (isRetrying) {
+        chatQueryUtils.updateInReplyToBeingLastMessage({
+          content: userLastMessage.content,
+          status: MessageStatus.seen,
+          success: true,
+        }, newHistory)
+      }
     },
     onSettled: (_, __, message) => {
       const isRetrying = !!message.id
@@ -133,16 +140,6 @@ function useSendMessage(username: MaybeRef<string>, options: UseSendMessageOptio
       scrollBottom()
     },
   })
-
-  function updateInReplyToBeingLastMessage(newInReplyTo: { content: string, status: MessageStatus }) {
-    const inReplyTo = inReplyTos[toValue(username)]
-    const lastMessage = historyQueryUtils.lastMessage.value
-
-    if (inReplyTo && inReplyTo.id === lastMessage?.id) {
-      inReplyTo.content = newInReplyTo.content
-      inReplyTo.status = newInReplyTo.status
-    }
-  }
 
   const isError = computed(() => {
     if (sendMessageStatus.value === 'error') {

@@ -38,6 +38,13 @@ export function useHistoryQueryUtils(username: MaybeRef<string>) {
     return historyQuery.data.value[historyQuery.data.value.length - 1]
   })
 
+  const userLastMessage = computed(() => {
+    if (!historyQuery.data.value || historyQuery.data.value.length === 0) {
+      return null
+    }
+    return historyQuery.data.value[historyQuery.data.value.length - 2]
+  })
+
   const predictMessageId = computed(() => {
     if (!historyQuery.data.value || historyQuery.data.value.length === 0) {
       return 1
@@ -47,6 +54,7 @@ export function useHistoryQueryUtils(username: MaybeRef<string>) {
 
   return {
     lastMessage,
+    userLastMessage,
     predictMessageId,
   }
 }

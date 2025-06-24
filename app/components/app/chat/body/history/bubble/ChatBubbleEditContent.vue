@@ -57,6 +57,8 @@ watch(translation.error, async (value) => {
         @click="translation.onTranslate()"
       />
 
+      <!-- TODO: edition content is not reactive -->
+
       <ContentEditable
         is="span"
         v-model="edition.content"
