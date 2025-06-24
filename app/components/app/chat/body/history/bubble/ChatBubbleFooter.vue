@@ -55,9 +55,6 @@ async function handleEdit() {
 }
 
 function handleResend() {
-  // TODO: resend message
-  console.log('resend')
-
   historyClient.deleteMessage(props.messageId)
   chatClient.deleteLastMessage()
 

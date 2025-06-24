@@ -76,7 +76,7 @@ onMounted(() => {
     <div class="pt-2 flex-1 space-y-4 overflow-y-auto">
       <ChatListPastDueAppNote />
 
-      <form v-if="chatsQuery.data.value?.length || chatsQuery.isLoading" class="px-6">
+      <form v-if="(chatsQuery.data.value && chatsQuery.data.value.length > 1 || chatListSearch.trim() !== '') || (chatsQuery.isLoading.value)" class="px-6">
         <SearchField
           v-model="form.values.search"
           :placeholder="t('Search name or username...')"

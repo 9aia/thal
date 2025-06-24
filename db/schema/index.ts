@@ -57,14 +57,14 @@ export const usernameRelations = relations(usernames, ({ one, many }) => ({
 
 export enum SubscriptionStatus {
   not_subscribed = 0,
-  trialing = 1,
-  active = 2,
-  incomplete = 3,
-  incomplete_expired = 4,
-  paused = 5,
-  canceled = 6,
-  unpaid = 7,
-  past_due = 8,
+  trialing,
+  active,
+  incomplete,
+  incomplete_expired,
+  paused,
+  canceled,
+  unpaid,
+  past_due,
 }
 
 export enum PlanType {
