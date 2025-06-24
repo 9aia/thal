@@ -14,6 +14,7 @@ const receiverUsernameNotFound = useReceiverUsernameNotFound()
 
 const characterQuery = useCharacterQuery(username)
 const contactQuery = useContactQuery(username)
+const historyQuery = useHistoryQuery(username)
 
 const isContact = computed(() => !!contactQuery.data.value?.id)
 const contactNames = computed(() => getContactName({
@@ -22,7 +23,7 @@ const contactNames = computed(() => getContactName({
   characterName: characterQuery.data.value?.name,
 }))
 
-const hasMessages = computed(() => false) // TODO: use query
+const hasMessages = computed(() => !!historyQuery.data.value?.length)
 
 const items = computed(() => ([
   {

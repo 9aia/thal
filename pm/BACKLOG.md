@@ -88,7 +88,6 @@ Low priority:
 
 - Fix input autofocuses on navigate
 - Rewrite Daisy dropdowns using ArkUI components (should fix the closing on click on padding bug as well)
-- Fix go-to-bottom button position after chat clearing
 - Avoid breaking layout in chat item when last message is too long
 - Replace web modal API
 - Improve HTML rendering/TTS

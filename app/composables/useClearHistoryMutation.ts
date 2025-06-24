@@ -5,6 +5,7 @@ export default function useClearHistoryMutation(username: MaybeRefOrGetter<strin
   const queryClient = useQueryClient()
   const toast = useToast()
   const { t } = useI18nExperimental()
+  const { updateScrollable } = useChatMainScroll()
 
   return useMutation({
     mutationFn: async () => {
@@ -24,6 +25,8 @@ export default function useClearHistoryMutation(username: MaybeRefOrGetter<strin
       // TODO: HIGH: set data removing the LastMessage from the chat
 
       toast.success(t('Chat has been cleared'))
+
+      updateScrollable()
     },
   })
 }

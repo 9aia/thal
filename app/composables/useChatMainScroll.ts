@@ -1,12 +1,13 @@
 import { useScroll } from '@vueuse/core'
 import { chatMainRef } from '~/store'
 
+const isScrollable = ref(false)
+
 function useChatMainScroll() {
   const mainScroll = useScroll(chatMainRef, {
     behavior: 'smooth',
   })
 
-  const isScrollable = ref(false)
   const isScrollDownButtonVisible = computed(() => {
     return !mainScroll.arrivedState.bottom && isScrollable.value
   })
@@ -18,7 +19,7 @@ function useChatMainScroll() {
       return
     }
 
-    isScrollable.value = element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth
+    isScrollable.value = element.scrollHeight > element.clientHeight
   }
 
   const goToBottom = async () => {
