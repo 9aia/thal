@@ -2,7 +2,6 @@
 import { t } from '@psitta/vue'
 import { watchDebounced } from '@vueuse/core'
 import { useForm } from 'vee-validate'
-import queryKeys from '~/queryKeys'
 import { chatListSearch, drawers, isRootDrawerOpen, isWhatsNewModalOpen } from '~/store'
 
 const form = useForm({
@@ -11,23 +10,11 @@ const form = useForm({
   },
 })
 
-const localWithDefaultRegion = useLocaleWithDefaultRegion()
-
 watchDebounced(toRef(() => form.values.search), () => {
   chatListSearch.value = form.values.search
 }, { debounce: 500 })
 
-const headers = useRequestHeaders(['cookie'])
-const chatsQuery = useServerQuery({
-  queryKey: queryKeys.chatsSearch(localWithDefaultRegion.value, chatListSearch),
-  queryFn: () => $fetch('/api/chat', {
-    params: {
-      search: chatListSearch.value,
-      locale: localWithDefaultRegion.value,
-    },
-    headers,
-  }),
-})
+const chatsQuery = useChatsQuery()
 
 function goToHome() {
   isRootDrawerOpen.value = false
@@ -52,6 +39,12 @@ function goToHome() {
 // const discoverItems: MenuItemType[] = [
 //   { id: 'discover-characters', icon: 'material-symbols:person-search-outline-rounded', name: t('Characters'), onClick: () => goToDiscover() },
 // ]
+
+const renderCount = ref(0)
+
+onMounted(() => {
+  renderCount.value++
+})
 </script>
 
 <template>
@@ -83,7 +76,7 @@ function goToHome() {
     <div class="pt-2 flex-1 space-y-4 overflow-y-auto">
       <ChatListPastDueAppNote />
 
-      <form v-if="chatsQuery.data.value?.length" class="px-6">
+      <form v-if="chatsQuery.data.value?.length || chatsQuery.isLoading" class="px-6">
         <SearchField
           v-model="form.values.search"
           :placeholder="t('Search name or username...')"

@@ -6,7 +6,7 @@ description: Tasks and items for the release.
 
 ## 0.1.0-10
 
-- Fix chat list search
+- Fix: update chat list after first message is sent
 
 - Translate all content using Psitta (don't forget `<T>` tags)
 
