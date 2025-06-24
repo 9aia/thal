@@ -9,7 +9,11 @@ const historyQuery = useHistoryQuery(username)
 const characterQuery = useCharacterQuery(username)
 const contactQuery = useContactQuery(username)
 
-const { isMessagePending } = useMessageSender(username)
+const { messageMutation } = useMessageSender(username)
+
+const showShowChatBubbleLoading = computed(() => {
+  return messageMutation.isPending.value && isOnline.value
+})
 
 const isContact = computed(() => !!contactQuery.data.value?.id)
 const contactNames = computed(() => getContactName({
@@ -35,11 +39,13 @@ const hasMessages = computed(() => !!historyQuery.data.value?.length)
 
     <div v-if="hasMessages" class="mt-6">
       <History />
-      {{ JSON.stringify(isMessagePending) }}
-      <ChatBubbleLoading v-if="isMessagePending && isOnline" />
+
+      {{ showShowChatBubbleLoading }}
+
+      <ChatBubbleLoading v-if="showShowChatBubbleLoading" />
     </div>
 
-    <div class="sticky bottom-0 right-0 flex justify-end">
+    <div class="sticky bottom-0 right-0 flex justify-end z-50">
       <GoToBottomButton />
     </div>
   </div>

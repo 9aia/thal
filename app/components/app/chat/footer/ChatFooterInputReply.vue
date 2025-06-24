@@ -35,20 +35,27 @@ function removeReply() {
 </script>
 
 <template>
-  <div class="border-l-4 border-blue-100 bg-blue-50 p-3 relative w-full">
-    <h3 class="text-sm font-medium text-blue-500">
-      {{ displayName }}
-    </h3>
+  <div class="flex flex-col items-end justify-center w-full px-2">
+    <div class="flex w-full justify-end items-center gap-1 text-xs text-blue-500 mb-1 pr-4">
+      <Icon name="material-symbols:reply-rounded" class="text-xs" />
+      {{ t('Replying to') }}
+    </div>
 
-    <p class="text-xs text-gray-600 line-clamp-3">
-      {{ inReplyTo.content }}
-    </p>
+    <div class="bg-radial-[at_bottom] from-blue-50 to-white py-2 px-3 relative rounded-2xl w-full">
+      <h3 class="text-sm text-blue-500 mb-1">
+        {{ displayName }}
+      </h3>
 
-    <Button
-      class="btn btn-circle btn-sm btn-ghost absolute top-1 right-1"
-      icon="material-symbols:close-rounded"
-      icon-class="text-xl"
-      @click="removeReply"
-    />
+      <p class="text-xs text-blue-500 line-clamp-3">
+        {{ inReplyTo.content }}
+      </p>
+
+      <Button
+        class="btn btn-circle btn-sm btn-ghost absolute top-1 right-1"
+        icon="material-symbols:close-rounded"
+        icon-class="text-xl"
+        @click="removeReply"
+      />
+    </div>
   </div>
 </template>

@@ -60,20 +60,22 @@ function scrollToMessage() {
 </script>
 
 <template>
-  <div
-    class="rounded-2xl bg-radial-[at_bottom] from-blue-50 to-gray-50 py-1 px-3 relative w-full overflow-hidden pb-4 cursor-pointer"
-    role="button"
-    @click="scrollToMessage"
-  >
-    <div class="flex items-center gap-1 text-xs text-blue-500 mb-1">
+  <div class="flex flex-col justify-center items-end w-full px-2 max-w-[300px] sm:max-w-[400px] lg:max-w-[500px]">
+    <div class="flex items-center gap-1 text-xs text-blue-500 mb-1 pr-4">
       <Icon name="material-symbols:reply-rounded" class="text-xs" />
       {{ t('Replying to') }}
     </div>
 
-    <h3 class="text-sm text-blue-500 mb-1">
-      {{ replyDisplayName }}
-    </h3>
+    <div
+      class="rounded-3xl bg-radial-[at_bottom] from-blue-50 to-gray-50 px-4 py-4 relative w-full overflow-hidden cursor-pointer"
+      role="button"
+      @click="scrollToMessage"
+    >
+      <h3 class="text-sm text-blue-500 mb-1">
+        {{ replyDisplayName }}
+      </h3>
 
-    <MDC :value="replyMessage" tag="article" class="text-xs text-blue-500 line-clamp-3 prose prose-slate prose-sm" />
+      <MDC :value="replyMessage" tag="article" class="text-xs text-blue-500 line-clamp-3 prose prose-slate prose-sm" />
+    </div>
   </div>
 </template>
