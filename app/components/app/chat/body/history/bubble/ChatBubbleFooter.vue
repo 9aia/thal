@@ -25,6 +25,7 @@ const queryClient = useQueryClient()
 const characterQuery = useCharacterQuery(username)
 const historyQuery = useHistoryQuery(username)
 
+const sendMessageMutation = useSendMessage(username)
 const historyClient = useHistoryClient(username)
 const chatClient = useChatClient(username)
 const copyToClipboard = useClipboard(toRef(() => props.messageContent))
@@ -56,6 +57,18 @@ async function handleEdit() {
 function handleResend() {
   // TODO: resend message
   console.log('resend')
+
+  historyClient.deleteMessage(props.messageId)
+  chatClient.deleteLastMessage()
+
+  // No need to reset inReplyTo because it's a retry
+  // No need to reset sendMessage cache mutations because it's a retry
+
+  sendMessageMutation.mutate({
+    time: now().getTime(),
+    content: props.messageContent,
+    inReplyTo: props.inReplyTo,
+  })
 }
 
 function handleDelete() {

@@ -37,6 +37,7 @@ Low priority:
 - Add config for time
 - Add character unique voices
 - Add confirmation modal on chat clear
+- Add pause icon button to message listen button
 - ---
 - Add chat item option "Delete chat"
 - Add "Create another character" button for faster multiple creation on preview env
