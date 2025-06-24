@@ -1,14 +1,8 @@
 <template>
-  <div
-    class="chat group chat-start"
-  >
-    <div class="chat-bubble flex items-center gap-2 bg-transparent p-0">
-      <div
-        class="chat-bubble max-w-[300px] sm:max-w-[400px] lg:max-w-[500px] bubble px-1 h-full flex items-center"
-      >
-        <div class="px-2 flex items-center">
-          <span class="loading loading-dots loading-xs text-orange-500" />
-        </div>
+  <div class="chat group chat-start">
+    <div class="rounded-3xl rounded-bl-md bg-neutral-100">
+      <div class="p-4 flex items-center">
+        <span class="loading loading-dots loading-xs text-orange-500" />
       </div>
     </div>
   </div>

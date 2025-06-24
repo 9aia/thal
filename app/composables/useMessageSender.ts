@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from '@tanstack/vue-query'
+import { useIsMutating, useMutation, useQueryClient } from '@tanstack/vue-query'
 import { useOnline } from '@vueuse/core'
 import type { FetchError } from 'ofetch'
 import queryKeys from '~/queryKeys'
@@ -27,7 +27,6 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
   const { t } = useI18nExperimental()
   const toast = useToast()
   const { goToBottom } = useChatMainScroll()
-  const isOnline = useOnline()
   // const route = useRoute()
 
   const historyQuery = useHistoryQuery(username)
@@ -127,6 +126,7 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
   }
 
   const messageMutation = useMutation({
+    mutationKey: queryKeys.messageSend(username),
     mutationFn: fetchMessage,
     async onMutate(newMessage) {
       delete inReplyTos[toValue(username)]
@@ -148,7 +148,7 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
       setChatItemLastMessage({
         content: newMessage.content,
         time: now().getTime(),
-        status: isOnline.value ? MessageStatus.sent : MessageStatus.sending,
+        status: MessageStatus.sending,
       })
 
       goToBottom()
@@ -209,7 +209,7 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
     const newMessageData: History[number] = {
       id: history.length + 1,
       from: 'user',
-      status: isOnline.value ? MessageStatus.seen : MessageStatus.sending,
+      status: newMessage.status,
       content: newMessage.content,
       inReplyTo: newMessage?.inReplyTo || null,
       time: new Date().getTime(),
@@ -254,9 +254,14 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
     return lastMessageFromHistory.status === MessageStatus.error
   })
 
+  const isSendMessageMutating = useIsMutating({
+    mutationKey: queryKeys.messageSend(username),
+  })
+
   return {
     sendMessage: messageMutation.mutate,
-    isMessagePending: messageMutation.isPending,
+    isMessagePending: computed(() => isSendMessageMutating.value > 0),
+    messageMutation,
     isMessageError,
   }
 }
