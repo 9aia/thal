@@ -40,6 +40,9 @@ export default defineNuxtConfig({
   },
 
   mdc: {
+    components: {
+      prose: false,
+    },
     remarkPlugins: {
       emoji: {
         src: 'remark-emoji',

@@ -100,12 +100,16 @@ export default eventHandler(async (event) => {
   const userMessageTime = now()
   const history = await getHistory(orm, user, username)
 
+  const inReplyTo = data.inReplyTo
+    ? { ...data.inReplyTo, status: MessageStatus.seen }
+    : null
+
   history.push({
     id: history.length + 1,
     from: 'user',
     status: MessageStatus.seen,
     content: data.content,
-    inReplyTo: data.inReplyTo || null,
+    inReplyTo,
     time: userMessageTime.getTime(),
   })
 

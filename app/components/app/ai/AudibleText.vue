@@ -80,6 +80,7 @@ defineExpose({
 <template>
   <div ref="el">
     <MDC
+      v-if="text"
       :key="text"
       :value="text"
       tag="article"
