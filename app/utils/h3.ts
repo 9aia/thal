@@ -1,13 +1,13 @@
 import type { H3Event } from 'h3'
 import type { RouteLocationNormalized } from 'vue-router'
 import type { SafeParseError, SafeParseSuccess, ZodSchema } from 'zod'
-import { badRequest, internal } from '~/utils/nuxt'
+import { internal, unprocessableEntity } from '~/utils/nuxt'
 
 export async function getValidatedForm<O>(event: H3Event, validate: (data: unknown) => SafeParseSuccess<O> | SafeParseError<O>) {
   const formData = await readFormData(event)
 
   if (!(formData instanceof FormData))
-    throw badRequest('Data should be formData')
+    throw unprocessableEntity('Data should be formData')
 
   const formDataValues = Object.fromEntries(formData.entries())
   return validate(formDataValues)
@@ -22,7 +22,7 @@ export async function getValidated<O>(
     const result = await getValidatedForm(event, data => schema.safeParse(data))
 
     if (!result.success)
-      throw badRequest(`Invalid ${type}`, { data: result.error.issues })
+      throw unprocessableEntity(`Invalid ${type}`, { data: result.error.issues })
 
     return result.data
   }
@@ -40,7 +40,7 @@ export async function getValidated<O>(
   const result = await validator(event, data => schema.safeParse(data))
 
   if (!result.success)
-    throw badRequest(`Invalid ${type}`, { data: result.error.issues })
+    throw unprocessableEntity(`Invalid ${type}`, { data: result.error.issues })
 
   return result.data
 }

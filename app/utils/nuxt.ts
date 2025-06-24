@@ -83,6 +83,13 @@ export function paymentRequired(
   return error(402, message || 'Payment required', options)
 }
 
+export function unprocessableEntity(
+  message?: string,
+  options: Partial<NuxtError<unknown>> = {},
+) {
+  return error(422, message, options)
+}
+
 export function rateLimit(message?: string) {
   return error(429, message || 'Rate limit exceeded')
 }
