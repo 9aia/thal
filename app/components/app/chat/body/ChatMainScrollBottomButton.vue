@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { isScrollDownButtonVisible, goToBottom } = useChatMainScroll()
+const { isScrollDownButtonVisible, scrollBottom } = useChatMainScroll()
 </script>
 
 <template>
@@ -8,6 +8,6 @@ const { isScrollDownButtonVisible, goToBottom } = useChatMainScroll()
     :class="{ 'opacity-100': isScrollDownButtonVisible, 'pointer-events-none': !isScrollDownButtonVisible }"
     icon="material-symbols:keyboard-arrow-down-rounded"
     :tabindex="isScrollDownButtonVisible ? 0 : -1"
-    @click="goToBottom"
+    @click="scrollBottom"
   />
 </template>

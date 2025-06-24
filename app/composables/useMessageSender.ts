@@ -20,7 +20,7 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
   const queryClient = useQueryClient()
   const { t } = useI18nExperimental()
   const toast = useToast()
-  const { goToBottom } = useChatMainScroll()
+  const { scrollBottom } = useChatMainScroll()
   const localeWithDefaultRegion = useLocaleWithDefaultRegion()
   const historyQuery = useHistoryQuery(username)
 
@@ -117,7 +117,7 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
         status: MessageStatus.sending,
       })
 
-      goToBottom()
+      scrollBottom()
     },
     onError: async (e, sendingMessage) => {
       const error = e as FetchError
@@ -158,7 +158,7 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
       })
     },
     onSettled: () => {
-      goToBottom()
+      scrollBottom()
     },
   })
 
@@ -193,7 +193,7 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
         })
       }
 
-      goToBottom()
+      scrollBottom()
     },
     onError: async (e) => {
       const error = e as FetchError

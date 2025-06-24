@@ -5,7 +5,7 @@ import { chatMainRef, contentEditableRef, edition } from '~/store'
 const route = useRoute()
 const username = computed(() => route.params.username as string)
 
-const { updateScrollable } = useChatMainScroll()
+const { updateScrollable, scrollBottom } = useChatMainScroll()
 
 const characterQuery = useCharacterQuery(username)
 const receiverUsernameNotFound = useReceiverUsernameNotFound()
@@ -40,6 +40,8 @@ useEventListener(chatMainRef, 'scroll', () => {
 
 onMounted(() => {
   contentEditableRef.value?.focus()
+
+  scrollBottom()
 })
 </script>
 

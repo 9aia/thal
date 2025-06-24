@@ -22,7 +22,7 @@ function useChatMainScroll() {
     isScrollable.value = element.scrollHeight > element.clientHeight
   }
 
-  const goToBottom = async () => {
+  const scrollBottom = async () => {
     await nextTick()
 
     if (!chatMainRef.value)
@@ -34,7 +34,7 @@ function useChatMainScroll() {
   return {
     isScrollDownButtonVisible,
     updateScrollable,
-    goToBottom,
+    scrollBottom,
   }
 }
 

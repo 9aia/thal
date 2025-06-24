@@ -44,7 +44,7 @@ const hasMessages = computed(() => !!historyQuery.data.value?.length)
     </div>
 
     <div class="sticky bottom-0 z-50 w-fit float-right" :class="{ 'pointer-events-none': !isScrollDownButtonVisible }">
-      <GoToBottomButton />
+      <ChatMainScrollBottomButton />
     </div>
   </div>
 </template>
