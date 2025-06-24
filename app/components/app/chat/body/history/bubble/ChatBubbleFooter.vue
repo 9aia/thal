@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { useQueryClient } from '@tanstack/vue-query'
 import type AudibleText from '~/components/app/ai/AudibleText.vue'
-import { edition } from '~/store'
+import queryKeys from '~/queryKeys'
+import { edition, inReplyTos } from '~/store'
 import { type InReplyTo, MessageStatus } from '~~/db/schema'
 
 const props = defineProps<{
@@ -18,9 +20,12 @@ const props = defineProps<{
 const route = useRoute()
 const username = computed(() => route.params.username as string)
 
+const queryClient = useQueryClient()
 const characterQuery = useCharacterQuery(username)
 const historyQuery = useHistoryQuery(username)
 
+const historyClient = useHistoryClient(username)
+const chatClient = useChatClient(username)
 const copyToClipboard = useClipboard(toRef(() => props.messageContent))
 const isCharacterDeleted = computed(() => !characterQuery.data.value?.id)
 
@@ -53,19 +58,29 @@ function handleResend() {
 }
 
 function handleDelete() {
-  // TODO: delete message
-  console.log('delete')
+  historyClient.deleteMessage(props.messageId)
+  chatClient.deleteLastMessage()
 
-  //   queryClient.setQueryData(
-  //     queryKeys.chat(username),
-  //     (oldData: Message[]) => oldData.filter(message => message.id !== messageId),
-  //   )
+  // Exit edition
+  edition.messageId = undefined
+  edition.content = ''
+  edition.inReplyTo = undefined
 
-//   if (shouldInvalidateChat) {
-//     queryClient.invalidateQueries({
-//       queryKey: queryKeys.chatsSearch(localeWithDefaultRegion.value, chatListSearch.value),
-//     })
-//   }
+  // Delete message from inReplyTo if it's this message
+  const _username = toValue(username)
+  if (inReplyTos[_username]?.id === props.messageId) {
+    delete inReplyTos[_username]
+  }
+
+  // Reset sendMessage cache mutations
+  const mutations = queryClient.getMutationCache().findAll({
+    status: 'error',
+    mutationKey: queryKeys.messageSend(username),
+  })
+
+  mutations.forEach((mutation) => {
+    queryClient.getMutationCache().remove(mutation)
+  })
 }
 </script>
 

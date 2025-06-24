@@ -30,6 +30,12 @@ function useHistoryClient(username: MaybeRef<string>) {
     })
   }
 
+  function deleteMessage(messageId: number) {
+    queryClient.setQueryData(queryKeys.history(username), (oldData: History) => {
+      return oldData.filter(message => message.id !== messageId)
+    })
+  }
+
   function set(newHistory: History) {
     queryClient.setQueryData(queryKeys.history(username), newHistory)
   }
@@ -38,6 +44,7 @@ function useHistoryClient(username: MaybeRef<string>) {
     set,
     pushMessage,
     updateLastMessage,
+    deleteMessage,
   }
 }
 

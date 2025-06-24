@@ -1,8 +1,8 @@
 import { useQueryClient } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
-import { chatListSearch, inReplyTos } from '~/store'
+import { chatListSearch } from '~/store'
 import type { Chats } from '~/types'
-import type { InReplyTo, MessageStatus } from '~~/db/schema'
+import type { MessageStatus } from '~~/db/schema'
 
 function useChatClient(username: MaybeRef<string>) {
   const queryClient = useQueryClient()
@@ -27,8 +27,28 @@ function useChatClient(username: MaybeRef<string>) {
     })
   }
 
+  function deleteLastMessage() {
+    queryClient.setQueryData(queryKeys.chatsSearch(localeWithDefaultRegion.value, chatListSearch.value), (oldChats: Chats) => {
+      const _username = toValue(username)
+      const newChats = [...oldChats]
+      const chatIndex = newChats.findIndex(chat => chat.username === _username)
+
+      if (chatIndex !== -1) {
+        newChats[chatIndex] = {
+          ...newChats[chatIndex],
+          lastMessageContent: '',
+          lastMessageDatetime: undefined,
+          lastMessageStatus: undefined,
+        }
+      }
+
+      return newChats
+    })
+  }
+
   return {
     setLastMessage,
+    deleteLastMessage,
   }
 }
 
