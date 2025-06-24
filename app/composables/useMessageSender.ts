@@ -3,9 +3,16 @@ import type { FetchError } from 'ofetch'
 import queryKeys from '~/queryKeys'
 import { chatListSearch, inReplyTos, isPastDueModalOpen } from '~/store'
 import type { Chats, History, Message } from '~/types'
-import { type InReplyTo, type MessageEdit, type MessageSend, MessageStatus } from '~~/db/schema'
+import { type InReplyTo, type MessagePost, MessageStatus } from '~~/db/schema'
 
 interface MessageSending {
+  content: string
+  time: number
+  inReplyTo?: InReplyTo
+}
+
+interface MessageEditing {
+  id: number
   content: string
   time: number
   inReplyTo?: InReplyTo
@@ -24,74 +31,56 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
   const localeWithDefaultRegion = useLocaleWithDefaultRegion()
   const historyQuery = useHistoryQuery(username)
 
-  // function editHistory(editedMessage: SendMessageData) {
-  // // update the message in the history based on the editedMessage.editingId
-  //   const newHistory = [...data.value.history || []]
+  async function onError(e: unknown, message: MessageSending | MessageEditing) {
+    const error = e as FetchError
+    const errorStatus = error.response?.status
+    const errorMessage = await error.data?.message
 
-  //   const messageIndex = newHistory.findIndex(message => message.id === editedMessage.editingId)
+    if (errorStatus === RATE_LIMIT_STATUS_CODE) {
+      toast.error(t('You are sending messages too fast. Please wait a moment.'))
+    }
 
-  //   if (messageIndex !== -1) {
-  //     newHistory[messageIndex] = {
-  //       ...newHistory[messageIndex],
-  //       message: editedMessage.value,
-  //     }
-  //   }
+    if (errorStatus === PAYMENT_REQUIRED_STATUS_CODE) {
+      if (errorMessage === 'PAST_DUE') {
+        isPastDueModalOpen.value = true
+      }
+      else {
+        navigateTo('/pricing')
+      }
+    }
 
-  //   queryClient.setQueryData(queryKeys.chat(route.params.username as string), {
-  //     ...data.value,
-  //     history: newHistory,
-  //   })
-  // }
+    updatePredictedUserMessageStatusToError()
 
-  // function updateLastMessage(newMessage: SendMessageData, isError = false) {
-  //   const newChat: ChatItem = {
-  //     chatId: chatId.value,
-  //     contactName: data.value.contact?.name,
-  //     username: data.value.username,
-  //     lastMessageContent: newMessage.value,
-  //     lastMessageStatus: isError ? 'error' : (isOnline.value ? 'seen' : 'sending'),
-  //     lastMessageDatetime: new Date().getTime(),
-  //     characterName: data.value.name!,
-  //   }
+    setChatItemLastMessage({
+      content: message.content,
+      time: message.time,
+      status: MessageStatus.error,
+    })
+  }
 
-  //   queryClient.setQueryData(queryKeys.chatsSearch(localeWithDefaultRegion.value, chatItemSearch.value), (oldData: ChatItem[]) => {
-  //     let newChats = [...oldData]
-
-  //     const chatIndex = newChats.findIndex((lastMessage: ChatItem) => lastMessage.username === data.value.username)
-
-  //     if (chatIndex !== -1) {
-  //       newChats[chatIndex] = newChat
-
-  //       newChats = swapToFirst(newChats, chatIndex)
-  //     }
-  //     else {
-  //       newChats.unshift(newChat)
-  //     }
-
-  //     return newChats
-  //   })
-  // }
-
-  // const newMessageTmp = ref()
-
-  // function handleResend() {
-  //   const lastMessage = data.value.history[data.value.history.length - 1]
-
-  //   if (lastMessage.status === 'error') {
-  //     sendMessage({
-  //       value: lastMessage.message,
-  //       refresh: true,
-  //       replyingId: replying.value?.id,
-  //       replyMessage: replying.value?.message,
-  //       replyFrom: replying.value?.from,
-  //     })
-  //   }
-  // }
-
-  const sendMessageFn = async (data: MessageSending) => {
+  function updatePredictedUserMessageStatusToError() {
     const _username = toValue(username)
 
-    const message: MessageSend = {
+    queryClient.setQueryData(queryKeys.history(_username), (oldHistory: History) => {
+      const lastMessageFromHistory = oldHistory[oldHistory.length - 1]
+      const historyWithoutLastMessage = oldHistory.slice(0, -1)
+
+      const updatedLastMessageFromHistory = {
+        ...lastMessageFromHistory,
+        status: MessageStatus.error,
+      }
+
+      return [
+        ...historyWithoutLastMessage,
+        updatedLastMessageFromHistory,
+      ]
+    })
+  }
+
+  async function sendMessageFn(data: MessageSending) {
+    const _username = toValue(username)
+
+    const message: MessagePost = {
       content: data.content,
       inReplyTo: data.inReplyTo,
     }
@@ -99,6 +88,19 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
     return $fetch(`/api/message/${_username}`, {
       method: 'POST',
       body: message,
+    })
+  }
+
+  async function onSuccess(newHistory: History) {
+    const _username = toValue(username)
+
+    queryClient.setQueryData(queryKeys.history(_username), newHistory)
+
+    const lastMessageFromHistory = newHistory[newHistory.length - 1]
+    setChatItemLastMessage({
+      content: lastMessageFromHistory.content,
+      time: lastMessageFromHistory.time,
+      status: lastMessageFromHistory.status,
     })
   }
 
@@ -119,144 +121,36 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
 
       scrollBottom()
     },
-    onError: async (e, sendingMessage) => {
-      const error = e as FetchError
-      const errorStatus = error.response?.status
-      const errorMessage = await error.data?.message
-
-      if (errorStatus === RATE_LIMIT_STATUS_CODE) {
-        toast.error(t('You are sending messages too fast. Please wait a moment.'))
-      }
-
-      if (errorStatus === PAYMENT_REQUIRED_STATUS_CODE) {
-        if (errorMessage === 'PAST_DUE') {
-          isPastDueModalOpen.value = true
-        }
-        else {
-          navigateTo('/pricing')
-        }
-      }
-
-      updatePredictedUserMessageStatusToError()
-
-      setChatItemLastMessage({
-        content: sendingMessage.content,
-        time: sendingMessage.time,
-        status: MessageStatus.error,
-      })
-    },
-    onSuccess: async (newHistory) => {
-      const _username = toValue(username)
-
-      queryClient.setQueryData(queryKeys.history(_username), newHistory)
-
-      const lastMessageFromHistory = newHistory[newHistory.length - 1]
-      setChatItemLastMessage({
-        content: lastMessageFromHistory.content,
-        time: lastMessageFromHistory.time,
-        status: lastMessageFromHistory.status,
-      })
-    },
+    onError,
+    onSuccess,
     onSettled: () => {
       scrollBottom()
     },
   })
 
-  const editMessageFn = async (data: MessageEdit) => {
-    const _username = toValue(username)
-
-    return $fetch(`/api/message/${_username}`, {
-      method: 'POST',
-      body: {
-        content: data.content,
-        inReplyTo: data.inReplyTo,
-      },
-    })
-  }
+  const editMessageFn = (data: MessageEditing) => sendMessageFn(data)
 
   const editMessageMutation = useMutation({
     mutationKey: queryKeys.messageEdit(username),
     mutationFn: editMessageFn,
-    async onMutate(newMessage) {
+    async onMutate(editingMessage) {
       options.onEditMutate?.()
 
-      editMessage(newMessage)
-
-      const messageIndex = historyQuery.data.value?.findIndex(message => message.id === newMessage.id)
-      const isLastMessageBeingEdited = messageIndex === (historyQuery.data.value?.length || 0) - 1
-
-      if (isLastMessageBeingEdited) {
-        setChatItemLastMessage({
-          content: newMessage.content,
-          time: now().getTime(),
-          status: MessageStatus.sending,
-        })
-      }
-
-      scrollBottom()
-    },
-    onError: async (e) => {
-      const error = e as FetchError
-      const errorStatus = error.response?.status
-      const errorMessage = await error.data?.message
-
-      if (errorStatus === RATE_LIMIT_STATUS_CODE) {
-        toast.error(t('You are sending messages too fast. Please wait a moment.'))
-      }
-
-      if (errorStatus === PAYMENT_REQUIRED_STATUS_CODE) {
-        if (errorMessage === 'PAST_DUE') {
-          isPastDueModalOpen.value = true
-        }
-        else {
-          navigateTo('/pricing')
-        }
-      }
-
-      updatePredictedUserMessageStatusToError()
-    },
-    onSuccess: async (newHistory) => {
-      const _username = toValue(username)
-
-      queryClient.setQueryData(queryKeys.history(_username), newHistory)
-
-      const lastMessageFromHistory = newHistory[newHistory.length - 1]
+      editPredictedUserMessage(editingMessage)
       setChatItemLastMessage({
-        content: lastMessageFromHistory.content,
-        time: lastMessageFromHistory.time,
-        status: lastMessageFromHistory.status,
+        content: editingMessage.content,
+        time: editingMessage.time,
+        status: MessageStatus.sending,
       })
     },
+    onError,
+    onSuccess,
   })
-
-  // const editMessageMutation = useMutation()
-
-  // function handleEdit(editingMessageI: number, newMessage: string) {
-  //   const history = historyQuery.data.value || []
-
-  //   const messageIndex = history.findIndex(message => message.id === editingMessageI)
-  //   const editingMessage = history[messageIndex]
-
-  //   // messageMutation.mutate(editingMessageI!, false)
-
-  //   messageMutation.mutate({
-  //     value: newMessage!,
-  //     editingId: editingMessageI!,
-  //     replyingId: editingMessage?.replyingMessage?.id,
-  //     replyMessage: editingMessage?.replyingMessage?.message,
-  //     replyFrom: editingMessage?.replyingMessage?.from,
-  //   })
-
-  //   edition.message = ''
-  //   edition.editing = false
-  // }
 
   function setChatItemLastMessage(lastMessage: { content: string, time: number, status: MessageStatus }) {
     const _username = toValue(username)
 
     queryClient.setQueryData(queryKeys.chatsSearch(localeWithDefaultRegion.value, chatListSearch.value), (oldChats: Chats) => {
-      console.log(JSON.stringify({ oldChats, lastMessage }, null, 2))
-
       const newChats = [...oldChats]
       const chatIndex = newChats.findIndex(chat => chat.username === _username)
 
@@ -273,70 +167,43 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
     })
   }
 
-  function pushPredictedUserMessage(newMessage: MessageSending) {
+  function pushPredictedUserMessage(sendingMessage: MessageSending) {
     const _username = toValue(username)
-    const history = historyQuery.data.value || []
 
     const predictedUserMessage: Message = {
       id: history.length + 1,
       from: 'user',
-      content: newMessage.content,
-      time: newMessage.time,
+      content: sendingMessage.content,
+      time: sendingMessage.time,
       status: MessageStatus.sending,
-      inReplyTo: newMessage?.inReplyTo || null,
+      inReplyTo: sendingMessage?.inReplyTo || null,
     }
 
-    queryClient.setQueryData(queryKeys.history(_username), [
-      ...(history as History),
-      predictedUserMessage,
-    ])
+    queryClient.setQueryData(queryKeys.history(_username), (oldHistory: History) => {
+      return [
+        ...(oldHistory as History),
+        predictedUserMessage,
+      ]
+    })
   }
 
-  function editMessage(newMessage: MessageEdit) {
-    const _username = toValue(username)
-    const history = historyQuery.data.value || []
-
-    const messageIndex = history.findIndex(message => message.id === newMessage.id)
-
-    if (messageIndex !== -1) {
-      const updatedMessage = {
-        ...history[messageIndex],
-        content: newMessage.content,
-        status: MessageStatus.sending,
-      }
-
-      const updatedHistory = [...history]
-      updatedHistory[messageIndex] = updatedMessage
-
-      queryClient.setQueryData(queryKeys.history(_username), updatedHistory)
-    }
-
-    const isLastMessageBeingEdited = messageIndex === history.length - 1
-
-    if (isLastMessageBeingEdited) {
-      setChatItemLastMessage({
-        content: newMessage.content,
-        time: now().getTime(),
-        status: MessageStatus.sending,
-      })
-    }
-  }
-
-  function updatePredictedUserMessageStatusToError() {
+  async function editPredictedUserMessage(editingMessage: MessageEditing) {
     const _username = toValue(username)
 
     queryClient.setQueryData(queryKeys.history(_username), (oldHistory: History) => {
-      const lastMessageFromHistory = oldHistory[oldHistory.length - 1]
-      const historyWithoutLastMessage = oldHistory.slice(0, -1)
-
-      const updatedLastMessageFromHistory = {
-        ...lastMessageFromHistory,
-        status: MessageStatus.error,
+      const predictedMessage = oldHistory[oldHistory.length - 1]
+      const historyWithoutPredictedMessage = oldHistory.slice(0, -1)
+      const updatedPredictedMessage = {
+        ...predictedMessage,
+        content: editingMessage.content,
+        time: editingMessage.time,
+        status: MessageStatus.sending,
+        inReplyTo: editingMessage?.inReplyTo || null,
       }
 
       return [
-        ...historyWithoutLastMessage,
-        updatedLastMessageFromHistory,
+        ...historyWithoutPredictedMessage,
+        updatedPredictedMessage,
       ]
     })
   }
@@ -365,6 +232,7 @@ function useMessageSender(username: MaybeRef<string>, options: UseMessageSenderO
     sendMessage: sendMessageMutation.mutate,
     isSendMessagePending: computed(() => isSendMessageMutating.value > 0),
     isSendMessageError,
+    isError: computed(() => sendMessageMutation.isError.value),
     editMessage: editMessageMutation.mutate,
     isEditMessagePending: computed(() => isEditMessageMutating.value > 0),
     isEditMessageError: editMessageMutation.isPending,

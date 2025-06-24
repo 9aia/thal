@@ -8,15 +8,20 @@ const { t } = useI18nExperimental()
 const { editMessage } = useMessageSender(username)
 
 function handleCancel() {
-  edition.editingMessageId = undefined
+  edition.messageId = undefined
 }
 
-function handleEdit() {
+function handleSave() {
   editMessage({
-    id: edition.editingMessageId!,
-    content: edition.content,
+    id: edition.messageId!,
+    time: now().getTime(),
+    content: edition.content!,
     inReplyTo: edition.inReplyTo,
   })
+
+  edition.messageId = undefined
+  edition.content = undefined
+  edition.inReplyTo = undefined
 }
 </script>
 
@@ -33,7 +38,7 @@ function handleEdit() {
     <Button
       class="btn btn-sm btn-ghost btn-primary"
       icon="material-symbols:send-outline-rounded"
-      @click="handleEdit"
+      @click="handleSave"
     >
       {{ t('Send') }}
     </Button>

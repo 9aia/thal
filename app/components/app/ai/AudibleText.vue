@@ -80,6 +80,7 @@ defineExpose({
 <template>
   <div ref="el">
     <MDC
+      :key="text"
       :value="text"
       tag="article"
       class="prose"

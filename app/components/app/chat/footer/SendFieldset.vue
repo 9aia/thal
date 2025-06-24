@@ -21,7 +21,7 @@ const chatId = computed(() => chatQuery.data.value?.id || OPTIMISTIC_CHAT_ID)
 const inReplyTo = computed(() => inReplyTos[username.value])
 const isCharacterDeleted = computed(() => !characterQuery.data.value?.id)
 
-const { sendMessage, isSendMessagePending, isSendMessageError } = useMessageSender(username, {
+const { sendMessage, isSendMessagePending, isSendMessageError, isError } = useMessageSender(username, {
   onSendMutate: () => {
     text.value = ''
   },
@@ -88,6 +88,9 @@ function handleSend(e: Event) {
             @keydown.enter="handleSend"
           />
         </div>
+
+        {{ isSendMessageError }}
+        {{ isError }}
 
         <Button
           v-if="!isEmpty"

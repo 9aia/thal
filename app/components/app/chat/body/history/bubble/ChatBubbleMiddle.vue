@@ -33,7 +33,7 @@ const time = computed(() => new Intl.DateTimeFormat(locale.value, {
         ref="audiableTextRef"
         :text="messageContent"
       />
-      <EditBubble v-else />
+      <ChatBubbleEditContent v-else />
     </div>
 
     <div

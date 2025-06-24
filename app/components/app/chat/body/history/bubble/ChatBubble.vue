@@ -18,13 +18,13 @@ const right = computed(() => props.from === 'user')
 
 const route = useRoute()
 
-const isEditing = computed(() => edition.editingMessageId === props.id)
+const isEditing = computed(() => edition.messageId === props.id)
 const username = computed(() => route.params.username as string)
 
 const translation = useTranslation({
   queryKey: 'chat-bubble-translation',
   chatUsername: username.value,
-  message: computed(() => isEditing.value ? edition.content : props.content),
+  message: computed(() => isEditing.value ? edition.content! : props.content),
   replyMessageId: computed(() => props.inReplyTo?.id ? props.inReplyTo.id : undefined),
   refetchOnTranslate: false,
   messageIsBot: computed(() => props.from === 'bot'),

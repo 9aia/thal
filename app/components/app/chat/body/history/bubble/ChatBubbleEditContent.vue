@@ -5,14 +5,14 @@ import { edition, inReplyTos } from '~/store'
 const toast = useToast()
 const { t } = useI18nExperimental()
 
-const isEmpty = useIsTextEmpty(toRef(() => edition.content))
+const isEmpty = useIsTextEmpty(toRef(() => edition.content!))
 const route = useRoute()
 const username = computed(() => route.params.username as string)
 const replyMessage = computed(() => inReplyTos[username.value])
 
 const translation = useTranslation({
   queryKey: 'edit-bubble-translation',
-  message: toRef(() => edition.content),
+  message: toRef(() => edition.content!),
   replyMessageId: computed(() => replyMessage.value ? replyMessage.value.id : undefined),
   chatUsername: username,
   toNative: false,

@@ -80,14 +80,12 @@ export const contentEditableRef = ref()
 export const chatMainRef = ref<HTMLDivElement>()
 
 export interface Edition {
-  editingMessageId?: number
-  content: string
+  messageId?: number
+  content?: string
   inReplyTo?: InReplyTo
 }
 
-export const edition = reactive<Edition>({
-  content: '',
-})
+export const edition = reactive<Edition>({})
 
 export const inReplyTos = reactive<InReplyTos>({})
 export const chatListSearch = ref('')

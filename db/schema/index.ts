@@ -525,7 +525,7 @@ export const messageRelations = relations(messages, ({ one }) => ({
   }),
 }))
 
-export const messageSendSchema = z.object({
+export const messageSchema = z.object({
   content: z.string(),
   inReplyTo: inReplyToSchema.optional(),
 })
@@ -537,14 +537,6 @@ export const insertMessageSchema = createInsertSchema(messages)
 export type MessageSelect = z.infer<typeof selectMessageSchema>
 export type MessageInsert = z.infer<typeof insertMessageSchema>
 
-export type MessageSend = z.infer<typeof messageSendSchema>
-
-export const messageEditSchema = z.object({
-  id: z.number(),
-  content: z.string(),
-  inReplyTo: inReplyToSchema.optional(),
-})
-
-export type MessageEdit = z.infer<typeof messageEditSchema>
+export type MessagePost = z.infer<typeof messageSchema>
 
 // #endregion

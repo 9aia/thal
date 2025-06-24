@@ -41,7 +41,8 @@ const isLastMessageError = computed(() => {
 })
 
 async function handleEdit() {
-  edition.editingMessageId = props.messageId
+  edition.messageId = props.messageId
+  await nextTick()
   edition.content = props.messageContent
   edition.inReplyTo = props.inReplyTo
 }
