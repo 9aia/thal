@@ -95,7 +95,7 @@ function handleSend(e: Event) {
 
         <Button
           v-if="!isEmpty"
-          class="btn btn-circle btn-neutral btn-ghost"
+          class="btn btn-circle btn-primary btn-ghost"
           :disabled="isMessageError || isMessagePending || isCharacterDeleted"
           :icon="icon"
           @click="handleSend"

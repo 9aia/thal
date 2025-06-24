@@ -20,7 +20,7 @@ useEventListener(chatMainRef, 'keydown', (event: KeyboardEvent) => {
   }
 
   // ignore modifier keys
-  if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey)
+  if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey || event.code === 'Tab')
     return
 
   // explicitly check for 'Meta' key (some browsers may not set event.metaKey reliably)

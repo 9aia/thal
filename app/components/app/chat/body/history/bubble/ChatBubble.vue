@@ -58,6 +58,7 @@ const audiableTextRef = ref<AudibleTextType | null>(null)
         :message-from="from"
         :message-status="status"
         :message-content="content"
+        :is-last="isLast"
       />
 
       <ChatBubbleMiddle

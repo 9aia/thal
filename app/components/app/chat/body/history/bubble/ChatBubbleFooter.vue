@@ -68,6 +68,10 @@ function handleDelete() {
 //     })
 //   }
 }
+
+// TODO: remove this
+// const buttonFocuses = ref(0)
+// const isAButtonFocuses = computed(() => buttonFocuses.value > 0)
 </script>
 
 <template>
@@ -75,8 +79,8 @@ function handleDelete() {
     <div class="flex items-center min-h-8" :class="{ 'flex-row-reverse': !right }">
       <Button
         v-if="(messageFrom === 'user') && isLast && isLastMessageError && !isEditing"
-        class="btn btn-sm btn-circle btn-ghost btn-primary group-hover:flex"
-        :class="{ 'sm:hidden': !isLast }"
+        class="btn btn-sm btn-circle btn-ghost btn-primary group-hover:opacity-100 group-focus-within:opacity-100"
+        :class="{ 'sm:opacity-0': !isLast }"
         icon="material-symbols:edit-outline-rounded"
         icon-class="text-xl"
         @click="edit"
@@ -84,8 +88,8 @@ function handleDelete() {
 
       <Button
         v-if="(messageFrom === 'user') && isLast && isLastMessageError && !isEditing"
-        class="btn btn-sm btn-circle btn-ghost btn-secondary group-hover:flex"
-        :class="{ 'sm:hidden': !isLast }"
+        class="btn btn-sm btn-circle btn-ghost btn-secondary group-hover:opacity-100 group-focus-within:opacity-100"
+        :class="{ 'sm:opacity-0': !isLast }"
         icon="material-symbols:refresh-rounded"
         icon-class="text-xl"
         @click="handleResend"
@@ -93,8 +97,8 @@ function handleDelete() {
 
       <Button
         v-if="!isEditing"
-        class="btn btn-sm btn-circle btn-ghost btn-neutral group-hover:flex"
-        :class="{ 'sm:hidden': !isLast }"
+        class="btn btn-sm btn-circle btn-ghost btn-neutral group-hover:opacity-100 group-focus-within:opacity-100"
+        :class="{ 'sm:opacity-0': !isLast }"
         icon="material-symbols:content-copy-outline-rounded"
         icon-class="text-xl"
         @click="copyToClipboard"
@@ -102,10 +106,10 @@ function handleDelete() {
 
       <Button
         v-if="!isEditing && messageStatus !== MessageStatus.error"
-        class="btn btn-sm btn-circle btn-ghost btn-neutral group-hover:flex"
+        class="btn btn-sm btn-circle btn-ghost btn-neutral group-hover:opacity-100 group-focus-within:opacity-100"
         no-disable-on-loading
         :loading="audiableTextRef?.playMutation.isPending.value"
-        :class="{ 'sm:hidden': !isLast }"
+        :class="{ 'sm:opacity-0': !isLast }"
         icon="material-symbols:volume-up-outline-rounded"
         icon-class="text-xl"
         @click="audiableTextRef?.playMutation.mutate()"
@@ -113,10 +117,10 @@ function handleDelete() {
 
       <Button
         v-if="!isEditing && messageStatus !== MessageStatus.error"
-        class="btn btn-circle btn-sm btn-ghost btn-neutral group-hover:flex"
+        class="btn btn-circle btn-sm btn-ghost btn-neutral group-hover:opacity-100 group-focus-within:opacity-100"
         :loading="translation.isLoading.value"
         :disabled="isCharacterDeleted"
-        :class="{ 'sm:hidden': !isLast }"
+        :class="{ 'sm:opacity-0': !isLast }"
         icon="material-symbols:translate-rounded"
         icon-class="text-xl"
         @click="translation.onTranslate()"
@@ -124,8 +128,8 @@ function handleDelete() {
 
       <Button
         v-if="(messageFrom === 'user') && isLast && isLastMessageError"
-        class="btn btn-sm btn-circle btn-ghost btn-error group-hover:flex"
-        :class="{ 'sm:hidden': !isLast }"
+        class="btn btn-sm btn-circle btn-ghost btn-error group-hover:opacity-100 group-focus-within:opacity-100"
+        :class="{ 'sm:opacity-0': !isLast }"
         icon="material-symbols:delete-outline-rounded"
         icon-class="text-xl"
         @click="handleDelete"

@@ -54,7 +54,7 @@ watch(translation.error, async (value) => {
 <template>
   <Button
     v-if="!isTextInputEmpty"
-    class="btn btn-sm btn-circle btn-ghost"
+    class="btn btn-sm btn-circle btn-ghost btn-primary"
     :disabled="isMessagePending"
     :loading="translation.isLoading.value"
     icon="material-symbols:translate-rounded"

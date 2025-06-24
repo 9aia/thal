@@ -8,6 +8,7 @@ const props = defineProps<{
   messageFrom: 'user' | 'bot'
   messageStatus: MessageStatus
   messageContent: string
+  isLast: boolean
 }>()
 
 const route = useRoute()
@@ -35,7 +36,8 @@ function handleReply() {
   >
     <Button
       :disabled="isCharacterDeleted"
-      class="hidden group-hover:flex btn btn-sm btn-circle btn-neutral"
+      class="group-hover:opacity-100 group-focus-within:opacity-100 btn btn-sm btn-circle btn-neutral"
+      :class="{ 'sm:opacity-0': !isLast }"
       icon="material-symbols:reply-rounded"
       icon-class="text-xl"
       @click="handleReply"
