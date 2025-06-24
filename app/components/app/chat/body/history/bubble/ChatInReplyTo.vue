@@ -60,8 +60,14 @@ function scrollToMessage() {
 </script>
 
 <template>
-  <div class="flex flex-col justify-center items-end w-full px-2 max-w-[300px] sm:max-w-[400px] lg:max-w-[500px]">
-    <div class="flex items-center gap-1 text-xs text-blue-500 mb-1 pr-4">
+  <div
+    class="flex flex-col justify-center items-end w-full px-2 max-w-[300px] sm:max-w-[400px] lg:max-w-[500px]"
+  >
+    <div
+      class="flex items-center gap-1 text-xs text-blue-500 mb-1 pr-4 cursor-pointer"
+      role="button"
+      @click="scrollToMessage"
+    >
       <Icon name="material-symbols:reply-rounded" class="text-xs" />
       {{ t('Replying to') }}
     </div>
