@@ -3,6 +3,7 @@ const props = withDefaults(defineProps<{
   placeholder: string
   is?: string
   disabled?: boolean
+  placeholderColor?: string
 }>(), {
   is: 'div',
   disabled: false,
@@ -116,6 +117,6 @@ function handlePaste(event: ClipboardEvent) {
 <style scoped>
 [contenteditable]:empty::before {
   content: attr(data-placeholder);
-  color: gray;
+  color: v-bind(placeholderColor);
 }
 </style>

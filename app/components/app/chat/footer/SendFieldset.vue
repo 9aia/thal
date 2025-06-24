@@ -72,7 +72,7 @@ function handleSend(e: Event) {
       <CharacterDeletedTooltip v-if="isCharacterDeleted" />
 
       <div class="flex gap-2 items-center justify-center w-full">
-        <label class="input input-lg input-neutral w-full flex items-center justify-center" for="input">
+        <label class="input input-lg h-full min-h-12 pr-0 input-neutral w-full flex items-center justify-center" for="input">
           <div class="flex gap-1 items-center justify-center">
             <TranslateButton
               v-model:text="text"
@@ -85,9 +85,10 @@ function handleSend(e: Event) {
             ref="contentEditableRef"
             v-model="text"
             :disabled="isCharacterDeleted"
-            class="flex w-full items-center outline-hidden"
+            class="w-full text-wrap outline-hidden !max-h-48 overflow-y-auto pr-4"
             :class="{ 'cursor-not-allowed': isCharacterDeleted }"
             :placeholder="t('Type a message...')"
+            placeholder-color="var(--color-gray-500)"
             @keydown.enter="handleSend"
           />
         </label>
