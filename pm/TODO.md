@@ -6,7 +6,6 @@ description: Tasks and items for the release.
 
 ## 0.1.0-10
 
-- Translate to pt-BR
 - Pre-release
 
 ## 0.1.0-11

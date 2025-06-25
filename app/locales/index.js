@@ -63,7 +63,7 @@
     "pt": "Excluindo contato"
   },
   "Delete contact": {
-    "pt": "Eliminar contacto"
+    "pt": "Apagar contato"
   },
   "Cancel": {
     "pt": "Cancelar"
@@ -237,7 +237,7 @@
     "pt": "Não é um contato"
   },
   "Oops! Something Went Wrong": {
-    "pt": "Oops! Algo deu errado"
+    "pt": "Ops! Algo deu errado"
   },
   "An unexpected error has occurred. Please try again later.": {
     "pt": "Ocorreu um erro inesperado. Por favor, tente novamente mais tarde."
@@ -261,10 +261,10 @@
     "pt": "Partilhar personagem"
   },
   "Edit contact": {
-    "pt": "Editar contacto"
+    "pt": "Editar contato"
   },
   "Add to contacts": {
-    "pt": "Adicionar aos contactos"
+    "pt": "Adicionar aos contatos"
   },
   "Clear chat": {
     "pt": "Limpar conversa"
@@ -540,10 +540,10 @@
     "pt": "Renovar Thal"
   },
   "Renew your overdue subscription to edit characters.": {
-    "pt": "Renova sua assinatura vencida para editar personagens."
+    "pt": "Renove sua assinatura vencida para editar personagens."
   },
   "Renew your overdue subscription to create new characters.": {
-    "pt": "Renova sua assinatura vencida para criar novos personagens."
+    "pt": "Renove sua assinatura vencida para criar novos personagens."
   },
   "Renew Now": {
     "pt": "Renovar agora"

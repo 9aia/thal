@@ -2,11 +2,11 @@ import { cache, loadCache } from '../cache'
 import { loadTranslations, saveTranslations } from '../messages'
 import { extractMessagesFromFiles } from '../scan'
 import type { Chunk } from '../types'
-import { translate } from '../translate'
+import { translate as translateMessages } from '../translate'
 import { normalizeString } from '../utils'
 import { CONFIG } from '~~/psitta/config'
 
-export async function scanAndTranslate() {
+export async function translate() {
   console.log('🔄 Starting scan and translate process...')
 
   await loadCache()
@@ -28,8 +28,6 @@ export async function scanAndTranslate() {
     chunk[msg.message] = {}
     acc[chunkIndex] = chunk
 
-    console.log(msg.message)
-
     return acc
   }, [] as Chunk[])
 
@@ -41,7 +39,7 @@ export async function scanAndTranslate() {
     }
 
     console.log(`🌐 Translating chunk ${index + 1}/${chunks.length} (${Object.keys(chunk).length} messages)...`)
-    await translate(chunk)
+    await translateMessages(chunk)
   }
 
   saveTranslations()

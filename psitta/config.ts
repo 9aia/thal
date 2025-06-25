@@ -5,7 +5,7 @@ export const DEFAULT_CONFIG = {
     /<[^>]*T\s[^>]*text\s*=\s*(["'`])([^"'`]*)\1[^>]*>/g, // T component with text prop
   ],
   // messageRegex: /(?<=[a-zA-Z0-9])t\(['"]([^'"]+)['"]\)/g,
-  messagePerChunk: 10,
+  messagePerChunk: 50,
   localesFolder: './app/locales',
 }
 
