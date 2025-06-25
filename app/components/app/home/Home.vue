@@ -17,7 +17,7 @@ async function goToDiscover() {
         <Button
           class="btn btn-neutral btn-circle btn-ghost lg:hidden"
           icon="material-symbols:menu-rounded"
-          
+
           @click="isRootDrawerOpen = true"
         />
       </div>
@@ -32,7 +32,7 @@ async function goToDiscover() {
           }"
           :loading="whatsNew.countQuery.isLoading.value"
           icon="material-symbols:campaign-outline-rounded"
-          
+
           @click="isWhatsNewModalOpen = true"
         />
 
@@ -40,11 +40,11 @@ async function goToDiscover() {
           class="btn btn-neutral btn-circle btn-ghost"
           no-disable-on-loading
           icon="material-symbols:person-search-outline-rounded"
-          
+
           @click="goToDiscover()"
         />
 
-        <ChatListOptionsButton hide-home />
+        <CommonMenuButton hide-home />
       </div>
     </Navbar>
 
@@ -73,7 +73,7 @@ async function goToDiscover() {
           <Button
             class="btn sm:btn-lg btn-neutral text-magenta-500"
             icon="material-symbols:person-search-outline-rounded"
-            
+
             @click="goToDiscover"
           >
             {{ t("Discover characters") }}
@@ -82,7 +82,7 @@ async function goToDiscover() {
           <Button
             class="btn sm:btn-lg btn-neutral text-blue-500"
             icon="material-symbols:frame-person-outline-rounded"
-            
+
             @click="buildCharacter(null)"
           >
             {{ t("Create character") }}
@@ -91,7 +91,7 @@ async function goToDiscover() {
           <Button
             class="btn sm:btn-lg btn-neutral text-orange-500"
             icon="material-symbols:person-add-outline-rounded"
-            
+
             @click="manageContact(null)"
           >
             {{ t("Add contact") }}
@@ -100,7 +100,7 @@ async function goToDiscover() {
           <Button
             class="btn sm:btn-lg btn-neutral text-red-500"
             icon="material-symbols:news-outline-rounded"
-            
+
             @click="isWhatsNewModalOpen = true"
           >
             {{ t("What's New") }}

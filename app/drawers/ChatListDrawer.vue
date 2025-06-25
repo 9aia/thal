@@ -63,6 +63,8 @@ onMounted(() => {
       </div>
 
       <div class="flex gap-1 items-center translate-x-2 z-50">
+        <CommonMenuButton hide-home />
+
         <Button
           class="btn btn-neutral btn-circle btn-ghost lg:hidden"
           no-disable-on-loading

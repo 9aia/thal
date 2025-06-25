@@ -5,6 +5,7 @@ import type { MenuItemType, MenuItemTypeOrFalse } from '~/components/ui/navigati
 
 const props = defineProps<{
   hideHome?: boolean
+  hideDiscover?: boolean
 }>()
 
 const logout = useLogout()
@@ -30,9 +31,15 @@ async function openSettings() {
   drawers.settings = true
 }
 
+async function goToDiscover() {
+  isRootDrawerOpen.value = false
+  await navigateTo('/app/discover')
+}
+
 const items = computed(() => ([
   !props.hideHome && { id: 'home', name: t('Home'), icon: 'material-symbols:home-outline-rounded', onClick: () => goToHome() },
   { id: 'profile', name: t('Profile'), icon: 'material-symbols:face', onClick: () => openProfile() },
+  !props.hideDiscover && { id: 'discover', name: t('Discover'), icon: 'material-symbols:person-search-outline-rounded', onClick: () => goToDiscover() },
   { id: 'my-characters', name: t('My characters'), icon: 'material-symbols:manage-accounts-outline-rounded', onClick: () => openMyCharacters() },
   {
     id: 'plan',

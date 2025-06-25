@@ -58,11 +58,11 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
           }"
           :loading="whatsNew.countQuery.isLoading.value"
           icon="material-symbols:campaign-outline-rounded"
-          
+
           @click="isWhatsNewModalOpen = true"
         />
 
-        <ChatListOptionsButton />
+        <CommonMenuButton hide-discover />
       </div>
     </Navbar>
 
@@ -132,7 +132,7 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
             <Button
               class="btn btn-soft btn-primary rounded-full"
               icon="material-symbols:frame-person-outline-rounded"
-              
+
               @click="buildCharacter(null, search)"
             >
               {{ t("Create character") }}
