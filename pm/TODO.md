@@ -6,8 +6,7 @@ description: Tasks and items for the release.
 
 ## 0.1.0-10
 
-- Translate all content using Psitta (don't forget `<T>` tags to check if it's translated/working)
-- Generate changelog using AI
+- Translate to pt-BR
 - Pre-release
 
 ## 0.1.0-11

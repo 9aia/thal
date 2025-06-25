@@ -12,17 +12,42 @@ description: A detailed, chronological record of all changes made to a project, 
 - Added edit action on character chat header if you are the owner
 - Added prompt to build character based on search query
 - Added go to character chat on character edition
+- Added button countdowns for retrying errors on common resources
+- Added character does not exist error fallback
+
+### Changed
+
+- Improved modal component with enhanced styling, title support, and scroll control
+- Changed icons to use Material Symbols rounded style
+- Improved icon choices
+- Updated character generation prompts and guidelines to emphasize "authentic, real-world characters"
+- Improved existing character categories with more detailed descriptions, new examples, and standardized slug names
+- Updated navigation and layout components for a consistent and accessible navigation experience
+- Overhauled the core button and field components with new styling and improved accessibility
+- Improved color palette, new gradients and refined component styles across the application
+- Improved drawer styling
+- Improved styling of app notes
+- Improved menu and setting section styling
+- Improved contact view drawer styling
+- Improved character builder styling
+- Improved in-reply-to styling
+- Improved chat list styling
+- Improved app home styling, accessibility and content to guide users towards key functionalities
+- Improved discover route styling, accessibility and content
 
 ### Fixed
 
-- Improved button icons
+- Improved chat component accessibility
+- Improved error fallback components with clearer messages and retry options
 - Fixed infinite loading on generate button in character builder
 - Fixed SQL Constraint error on character deletion
+- Refined validation rules for character fields
+- Fixed scroll bottom button invisible click area
 
-### Enhancements
+### Removed
 
-- Improved character builder prompt
-- Improved categories example prompt
+- Removed pronouns from account settings
+- Removed welcome guide note
 
 ## [0.1.0-9] - 2025-05-25
 
@@ -143,12 +168,6 @@ description: A detailed, chronological record of all changes made to a project, 
 
 - Changed DB plan type to int
 - Merged pricing query with checkout status query
-
-### DX
-
-- Changed DB `freeTrialUsed` to boolean mode
-- Normalized schema payment field names to lower camel case
-- Refactored to use subscription events only
 
 ## [0.1.0-5] - 2025-02-20
 
