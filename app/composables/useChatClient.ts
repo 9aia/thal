@@ -7,6 +7,30 @@ import type { MessageStatus } from '~~/db/schema'
 function useChatClient(username: MaybeRef<string>) {
   const queryClient = useQueryClient()
   const localeWithDefaultRegion = useLocaleWithDefaultRegion()
+  const characterQuery = useCharacterQuery(username)
+  const contactQuery = useContactQuery(username)
+
+  function createIfNotExists(data: { messageContent: string, messageDatetime: number, messageStatus: MessageStatus }) {
+    queryClient.setQueryData(queryKeys.chatsSearch(localeWithDefaultRegion.value, chatListSearch.value), (oldChats: Chats) => {
+      const _username = toValue(username)
+      const newChats = [...oldChats]
+      const chatIndex = newChats.findIndex(chat => chat.username === _username)
+
+      if (chatIndex === -1) {
+        newChats.unshift({
+          chatId: newChats.length + 1,
+          username: _username,
+          characterName: characterQuery.data.value!.name!, // You can't create a chat without a character
+          contactName: contactQuery.data.value?.name || undefined,
+          lastMessageContent: data.messageContent,
+          lastMessageDatetime: data.messageDatetime,
+          lastMessageStatus: data.messageStatus,
+        })
+      }
+
+      return newChats
+    })
+  }
 
   function setLastMessage(lastMessage: { content: string, time: number, status: MessageStatus }) {
     queryClient.setQueryData(queryKeys.chatsSearch(localeWithDefaultRegion.value, chatListSearch.value), (oldChats: Chats) => {
@@ -47,6 +71,7 @@ function useChatClient(username: MaybeRef<string>) {
   }
 
   return {
+    createIfNotExists,
     setLastMessage,
     deleteLastMessage,
   }

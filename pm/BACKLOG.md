@@ -66,6 +66,7 @@ Low priority:
 - Inform deleted character action such as translate, using tooltip
 - Save cookie for "Continue Your Access" after once logged
 - Pass user name to Stripe from Google account
+- Hide contact list and discover search (or other search fields) when there are no results like in the chat list
 - ---
 - Add loading splashscreen for hydration, data loading, etc
 - Improve error handling

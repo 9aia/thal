@@ -42,6 +42,12 @@ function useSendMessage(username: MaybeRef<string>, options: UseSendMessageOptio
 
       options.onMutate?.({ isRetrying })
 
+      chatClient.createIfNotExists({
+        messageContent: message.content,
+        messageDatetime: message.time,
+        messageStatus: MessageStatus.sending,
+      })
+
       if (isRetrying) {
         chatQueryUtils.updateInReplyToBeingLastMessage({
           content: message.content,

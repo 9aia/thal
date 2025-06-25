@@ -6,9 +6,6 @@ description: Tasks and items for the release.
 
 ## 0.1.0-10
 
-- Fix: hide contact list and discover search (or other search fields) when there are no results like in the chat list
-- Fix: update chat list after first message is sent
-
 - Translate all content using Psitta (don't forget `<T>` tags to check if it's translated/working)
 - Generate changelog using AI
 - Pre-release

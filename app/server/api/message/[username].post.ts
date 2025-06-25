@@ -104,11 +104,13 @@ export default eventHandler(async (event) => {
     ? { ...data.inReplyTo, status: MessageStatus.seen }
     : null
 
+  const content = data.content
+
   history.push({
     id: history.length + 1,
     from: 'user',
     status: MessageStatus.seen,
-    content: data.content,
+    content,
     inReplyTo,
     time: userMessageTime.getTime(),
   })
@@ -154,13 +156,11 @@ export default eventHandler(async (event) => {
 
   // #endregion
 
-  // #endregion
-
   // #region Insert messages
 
   const userMessage: MessageInsert = {
     chatId: chat.id,
-    content: data.content,
+    content,
     inReplyToId: data.inReplyTo?.id,
     isBot: false,
     status: MessageStatus.seen,
@@ -206,6 +206,8 @@ export default eventHandler(async (event) => {
       status: MessageStatus.seen,
     })
   }
+
+  // #endregion
 
   // #region Push bot message
 
