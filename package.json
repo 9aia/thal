@@ -28,7 +28,7 @@
     "cs": "docker exec codeshare",
     "dev:cs": "./codeshare/open.sh --host 9aia-dev.com --port 2222",
     "dev:cs:n": "./codeshare/open.sh --host 9aia-dev.com --port 2222 --new-window",
-    "psitta": "bun ./locales/script"
+    "psitta": "bun ./psitta/main.ts"
   },
   "dependencies": {
     "@ark-ui/vue": "^5.0.2",

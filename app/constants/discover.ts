@@ -1,3 +1,5 @@
+// import { dummyT as t } from '@psitta/vue'
+
 export interface CategoryConfig {
   id: number
   slug: string

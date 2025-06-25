@@ -1,45 +1,12 @@
 /* eslint-disable */ export default {
-  "About me": {
-    "pt": "Sobre mim"
-  },
-  "Edit interests": {
-    "pt": "Editar interesses"
-  },
-  "Interests": {
-    "pt": "Interesses"
-  },
-  "Pick up to 7 interests or sports you enjoy that you want to AI know about you.": {
-    "pt": "Escolha de 7 a 7 interessses ou esportes que você gosta, que você quer que a AI saiba sobre você"
-  },
   "Save": {
     "pt": "Salvar"
-  },
-  "Test": {
-    "pt": "Teste"
-  },
-  "You have {count} (apple|apples)": {
-    "pt": "Você possui {count} (maçã|maçãs)"
   },
   "Logout": {
     "pt": "Sair"
   },
-  "You have {n} (apple|apples) and {m} (box|boxes)": {
-    "pt": "Você possui {n} (apple|apples) e {m} (box|boxes)"
-  },
-  "Hello, {user}": {
-    "pt": "Olá, {user}"
-  },
   "Sign in": {
     "pt": "Entrar"
-  },
-  "Choose your plan": {
-    "pt": "Escolha seu plano"
-  },
-  "Choose premium": {
-    "pt": "Escolha o premium"
-  },
-  "Here since {signupDate}": {
-    "pt": "Aqui desde {signupDate}"
   },
   "https://forms.gle/5ePvXjrebyWGUrM26": {
     "pt": "https://forms.gle/yHaiExzsQvv1mTdM8"
@@ -47,17 +14,11 @@
   "https://forms.gle/ANMv7qnwTHva1k7L8": {
     "pt": "https://forms.gle/UyGBzPrBeNfFgwLD6"
   },
-  "Privacy policy": {
-    "pt": "Política de privacidade"
-  },
   "Settings": {
     "pt": "Definições"
   },
   "Profile": {
     "pt": "Perfil"
-  },
-  "Plan": {
-    "pt": "Plano"
   },
   "Show profile": {
     "pt": "Mostrar perfil"
@@ -74,113 +35,11 @@
   "Account": {
     "pt": "Conta"
   },
-  "How Thal works": {
-    "pt": "Como o Thal funciona"
-  },
   "Give us feedback": {
     "pt": "Nos dê seu feedback"
   },
-  "Report an issue": {
-    "pt": "Relatar um problema"
-  },
-  "/terms": {
-    "pt": "/terms"
-  },
   "Terms of Service": {
     "pt": "Termos de serviço"
-  },
-  "/privacy": {
-    "pt": "/privacy"
-  },
-  "Fun": {
-    "pt": "Diversão"
-  },
-  "Personal Development": {
-    "pt": "Desenvolvimento Pessoal"
-  },
-  "Home improvement": {
-    "pt": "Melhoria da casa"
-  },
-  "Yoga": {
-    "pt": "Ioga"
-  },
-  "Observation": {
-    "pt": "Observação"
-  },
-  "Share any additional details you think might help AI personalize your learning experience.": {
-    "pt": "Compartilhe quaisquer detalhes adicionais que você ache que possam ajudar a IA a personalizar sua experiência de aprendizagem."
-  },
-  "Username not found.": {
-    "pt": "Nome de usuário não encontrado."
-  },
-  "Why are you learning English?": {
-    "pt": "Por que você está aprendendo inglês?"
-  },
-  "Thal tailors your learning journey to your unique needs. Tell us what you want to achieve with your English.": {
-    "pt": "O Thal adapta sua jornada de aprendizado às suas necessidades únicas. Conte-nos o que você quer conquistar com seu inglês."
-  },
-  "Select all that apply.": {
-    "pt": "Selecione tudo o que se aplica."
-  },
-  "{selected}/{max} selected": {
-    "pt": "{selected}/{max} selecionados"
-  },
-  "Edit profession": {
-    "pt": "Editar profissão"
-  },
-  "An error occurred while updating your profession.": {
-    "pt": "Ocorreu um erro ao atualizar sua profissão."
-  },
-  "Profession has been updated successfully.": {
-    "pt": "A profissão foi atualizada com sucesso."
-  },
-  "It must contain at most 20 characters": {
-    "pt": "Deve conter no máximo 20 caracteres"
-  },
-  "What do you do for work?": {
-    "pt": "O que você faz para trabalhar?"
-  },
-  "Tell us what you do (or aspire to do). Example: Teacher.": {
-    "pt": "Conte-nos o que você faz (ou aspira fazer). Exemplo: Professor."
-  },
-  "Your profession": {
-    "pt": "Sua profissão"
-  },
-  "P.S. Don't have a traditional job? No worries! Share your life's calling - writer, musician, world traveler - anything goes!": {
-    "pt": "P.S. Não tem um emprego tradicional? Sem problemas! Compartilhe a vocação da sua vida - escritor, músico, viajante do mundo - vale tudo!"
-  },
-  "Add observation": {
-    "pt": "Adicionar observação"
-  },
-  "An error occurred while updating your observation.": {
-    "pt": "Ocorreu um erro ao atualizar sua observação."
-  },
-  "Observation has been updated successfully.": {
-    "pt": "A observação foi atualizada com sucesso."
-  },
-  "It must contain at most 300 characters": {
-    "pt": "Deve conter no máximo 300 caracteres"
-  },
-  "What else would like to share with AI?": {
-    "pt": "O que mais gostaria de compartilhar com a IA?"
-  },
-  "Your observation": {
-    "pt": "Sua observação"
-  },
-  "Back": {
-    "pt": "Voltar"
-  },
-  "Edit profile": {
-    "pt": "Editar perfil"
-  },
-  "Joined {signupDate}": {
-    "pt": "Ingressou {signupDate}"
-  },
-  "No observation added.": {
-    "pt": "Nenhuma observação adicionada."
-  },
-  "By signing in, you agree to our {terms} and {privacy}.": {
-    "pt": "Ao iniciar a sessão, você concorda com nossos {terms} e {privacy}."
   },
   "Privacy Policy": {
     "pt": "Política de privacidade"
@@ -191,74 +50,17 @@
   "Language": {
     "pt": "Linguagem"
   },
-  "Try Thal": {
-    "pt": "Experimente o Thal"
-  },
-  "Master English, Transform Your Future.": {
-    "pt": "Domine o inglês, transforme seu futuro."
-  },
-  "Learn English with Artificial Intelligence effectively and fun!": {
-    "pt": "Aprenda inglês com Inteligência Artificial de forma eficaz e divertida!"
-  },
   "Learn more": {
     "pt": "Saiba mais"
   },
-  "Personalize your Learning Journey": {
-    "pt": "Personalize sua jornada de aprendizado"
-  },
-  "Create your Thal profile in moments and start your personalized English learning journey. With advanced AI, Thal adapts to your learning style, making each lesson unique. Immerse yourself in a world of English adapted especially for you.": {
-    "pt": "Crie seu perfil Thal em instantes e comece sua jornada de aprendizado de inglês personalizada. Com IA avançada, o Thal se adapta ao seu estilo de aprendizado, tornando cada aula única. Mergulhe em um mundo de inglês adaptado especialmente para você."
-  },
-  "Multiplatform Learning Experience": {
-    "pt": "Experiência de aprendizado multiplataforma"
-  },
-  "Learn English on any device - cell phone, tablet or computer. Marathongue offers a learning experience consistent and effective, whether you're at home or on the go. Learn flexibly and conveniently, with full compatibility between devices.": {
-    "pt": "Aprenda inglês em qualquer dispositivo - celular, tablet ou computador. O Thal oferece uma experiência de aprendizado consistente e eficaz, esteja você em casa ou em trânsito. Aprenda com flexibilidade e conveniência, com total compatibilidade entre dispositivos."
-  },
-  "Stand out with English Proficiency": {
-    "pt": "Destaque-se com proficiência em inglês"
-  },
-  "By using Thal, you are preparing yourself to stand out globally. With fluent English, you open doors to opportunities international, increasing your credibility and professional visibility.": {
-    "pt": "Ao usar o Thal, você está se preparando para se destacar globalmente. Com inglês fluente, você abre portas para oportunidades internacionais, aumentando sua credibilidade e visibilidade profissional."
-  },
-  "Direct and Efficient Learning": {
-    "pt": "Aprendizado direto e eficiente"
-  },
-  "With Thal, learning English is straightforward and hassle-free. Without the need for complex registrations, get started quickly and Focus on what really matters: your language progress English.": {
-    "pt": "Com o Thal, aprender inglês é simples e descomplicado. Sem a necessidade de registros complexos, comece rapidamente e concentre-se no que realmente importa: seu progresso no idioma inglês."
-  },
-  "Track your progress": {
-    "pt": "Acompanhe seu progresso"
-  },
-  "Monitor your progress in English with Thal. Receive comments snapshot and insights into your learning, allowing you to understand your strengths and areas for improvement, and make strategic decisions in your learning process.": {
-    "pt": "Monitore seu progresso em inglês com o Thal. Receba um instantâneo de comentários e insights sobre seu aprendizado, permitindo que você entenda seus pontos fortes e áreas para melhoria, e tome decisões estratégicas em seu processo de aprendizado."
-  },
-  "Start learning now": {
-    "pt": "Comece a aprender agora"
-  },
-  "{year} - Developed by {teamName}": {
-    "pt": "{year} - Desenvolvido por {teamName}"
-  },
   "Sign in to Your Account": {
     "pt": "Inicie a sessão na sua conta"
-  },
-  "Sign in with Google": {
-    "pt": "Inicie a sessão com o Google"
-  },
-  "Access the home page": {
-    "pt": "Acessar página inicial"
-  },
-  "Oops, the page you are looking for does not exist.": {
-    "pt": "Oops, a página que você está procurando não existe."
   },
   "report the issue here": {
     "pt": "reportar o problema aqui"
   },
   "Deleting Contact": {
     "pt": "Excluindo contato"
-  },
-  "Are you sure you want to delete this contact?": {
-    "pt": "Tem certeza de que deseja excluir este contato?"
   },
   "Delete contact": {
     "pt": "Eliminar contacto"
@@ -281,9 +83,6 @@
   "Search for categories": {
     "pt": "Pesquisar por categorias"
   },
-  "Clear search": {
-    "pt": "Limpar pesquisa"
-  },
   "No results found for \"{query}\"": {
     "pt": "Nenhum resultado encontrado para \"{query}\""
   },
@@ -295,12 +94,6 @@
   },
   "Account Reactivated": {
     "pt": "Conta reativada"
-  },
-  "Your account has been successfully reactivated. Welcome back! 🎉": {
-    "pt": "Sua conta foi reativada com sucesso. Bem-vindo de volta! 🎉"
-  },
-  "You can now access your content and resume using all features.": {
-    "pt": "Agora você pode acessar seu conteúdo e retomar o uso de todos os recursos."
   },
   "Username is required": {
     "pt": "Nome de utilizador obrigatório"
@@ -344,27 +137,6 @@
   "Talk to Learn. Learn to Talk.": {
     "pt": "Converse para aprender. Aprenda para conversar."
   },
-  "English skills with AI characters": {
-    "pt": "Habilidades em inglês com personagens de IA "
-  },
-  "Get seamless language support during your conversations. The app offers instant translations, message fixing, and more, empowering you to learn without interrupting the flow of your dialogue.": {
-    "pt": "Receba suporte de idioma sem interrupções durante suas conversas. O aplicativo oferece traduções instantâneas, correção de mensagens e muito mais, permitindo que você aprenda sem interromper o fluxo do seu diálogo."
-  },
-  "Practice English in interactive conversations that feel authentic and immersive. The thals adapt to your goals, while the intuitive UI offers translations and grammar corrections, helping you improve naturally as you chat.": {
-    "pt": "Pratique inglês em conversas interativas que parecem autênticas e imersivas. Os thals se adaptam aos seus objetivos, enquanto a interface intuitiva oferece traduções e correções gramaticais, ajudando você a melhorar naturalmente enquanto conversa."
-  },
-  "Explore a diverse range of AI-powered characters tailored to your learning goals. Whether practicing small talk, handling professional scenarios, or diving into roleplay, a character is always ready to engage.": {
-    "pt": "Explore uma ampla variedade de personagens com tecnologia de IA adaptados aos seus objetivos de aprendizado. Seja praticando conversas informais, lidando com cenários profissionais ou mergulhando em jogos de interpretação, um personagem está sempre pronto para se envolver."
-  },
-  "Unleash your creativity by designing characters tailored to your learning needs. Customize their personality, background, and conversation style to create a unique and engaging practice partner.": {
-    "pt": "Liberte sua criatividade projetando personagens adaptados às suas necessidades de aprendizado. Personalize sua personalidade, histórico e estilo de conversa para criar um parceiro de prática único e envolvente."
-  },
-  "Keep track of the characters you enjoy the most. Add them to your contacts for easy access to future conversations. Build your own set of companions to practice with as you progress.": {
-    "pt": "Acompanhe os personagens que você mais gosta. Adicione-os aos seus contatos para facilitar o acesso a futuras conversas. Construa seu próprio conjunto de companheiros para praticar à medida que avança."
-  },
-  "Simple, Transparent Pricing.": {
-    "pt": "Preços simples e transparentes."
-  },
   "Start chatting": {
     "pt": "Começar a conversar"
   },
@@ -392,38 +164,14 @@
   "We believe in making language learning accessible and straightforward. That’s why we offer a single plan with everything you need to improve your English.": {
     "pt": "Acreditamos em tornar o aprendizado de idiomas acessível e direto. É por isso que oferecemos um único plano com tudo o que você precisa para melhorar seu inglês."
   },
-  "All-in-One Plan": {
-    "pt": "Plano All-in-One"
-  },
   "What’s included:": {
     "pt": "O que está incluído:"
-  },
-  "If you have any problem, you can contact us at: {link}": {
-    "pt": "Se tiver algum problema, pode entrar em contato conosco em: {link}"
-  },
-  "If the problem persists, please {reportIssue}.": {
-    "pt": "Se o problema persistir, por favor {reportIssue}."
-  },
-  "This action will {hide} your account and all associated data. You can reactivate it anytime.": {
-    "pt": "Esta ação irá {hide} sua conta e todos os dados associados. Você pode reativá-la a qualquer momento."
-  },
-  "This action {cannot} be undone. This will permanently delete the character.": {
-    "pt": "Esta ação {cannot} ser desfeita. Isso excluirá permanentemente o personagem."
-  },
-  "We’d love to know why you decided not to subscribe. Please share your feedback with us {link}. Your input helps us improve!": {
-    "pt": "Adoraríamos saber por que você decidiu não se inscrever. Por favor, compartilhe seu feedback conosco {link}. Sua opinião nos ajuda a melhorar!"
-  },
-  "Practice real-world {EnglishSkillsWithAICharacters}  tailored to your learning goals. Simple, intuitive, and fun!": {
-    "pt": "Pratique {EnglishSkillsWithAICharacters} do mundo real adaptado aos seus objetivos de aprendizado. Simples, intuitivo e divertido!"
   },
   "Engaging Conversations:": {
     "pt": "Conversas envolventes:"
   },
   "Chat with AI-powered characters anytime, anywhere.": {
     "pt": "Converse com personagens com tecnologia de IA a qualquer hora e em qualquer lugar."
-  },
-  "Interactive Assistance.": {
-    "pt": "Assistência interativa:"
   },
   "Translations, corrections, and listening while chatting.": {
     "pt": "Traduções, correções e escuta durante o bate-papo."
@@ -434,14 +182,8 @@
   "Create, discover and save characters for tailored learning.": {
     "pt": "Crie, descubra e salve personagens para aprendizagem personalizada."
   },
-  "for the first {x} (day|days)": {
-    "pt": "por {x} (dia|dias)"
-  },
   "{price}/month after": {
     "pt": "{price}/mês depois"
-  },
-  "No hidden fees. Cancel anytime.": {
-    "pt": "Sem taxas ocultas. Cancele a qualquer momento."
   },
   "Terms apply": {
     "pt": "Termos se aplicam"
@@ -449,14 +191,8 @@
   "Curious to see how chatting can boost your English?": {
     "pt": "Curioso para ver como conversar pode melhorar seu inglês?"
   },
-  "Thal is in preview. We're not charging for access.": {
-    "pt": "Thal está em preview. Não estamos cobrando pelo acesso."
-  },
   "Thal is in preview! We are not charging for access. Expect bugs and unfinished features.": {
     "pt": "Thal está em preview! Não estamos cobrando pelo acesso. Espere bugs e funcionalidades inacabadas."
-  },
-  "Start Your Free Trial Now": {
-    "pt": "Comece seu Free Trial agora"
   },
   "Home": {
     "pt": "Casa"
@@ -485,26 +221,8 @@
   "Manage your billing information": {
     "pt": "Gerenciar suas informações de cobrança"
   },
-  "Your subscription expired!": {
-    "pt": "Sua assinatura expirou!"
-  },
-  "You can manage your billing information to renew your subscription.  Thank you for using our app!": {
-    "pt": "Você pode gerenciar suas informações de cobrança para renovar sua assinatura. Obrigado por usar nosso aplicativo!"
-  },
-  "Checkout with success!": {
-    "pt": "Compra realizada com sucesso!"
-  },
-  "Thank you for using our app! You will receive an email with your invoice.": {
-    "pt": "Obrigado por usar nosso aplicativo! Você receberá um email com sua fatura."
-  },
   "Go to app": {
     "pt": "Ir para o aplicativo"
-  },
-  "Checkout canceled": {
-    "pt": "Compra cancelada"
-  },
-  "here": {
-    "pt": "aqui"
   },
   "Go to pricing": {
     "pt": "Ir para preços"
@@ -557,14 +275,8 @@
   "Typing...": {
     "pt": "Escrevendo..."
   },
-  "An error occurred while translating the message": {
-    "pt": "Ocorreu um erro durante a tradução da mensagem"
-  },
   "Replying to": {
     "pt": "Respondendo a"
-  },
-  "You didn't speak, try again!": {
-    "pt": "Você não falou, tente novamente!"
   },
   "Error synthesizing voice.": {
     "pt": "Erro ao sintetizar a voz."
@@ -611,20 +323,8 @@
   "General Information": {
     "pt": "Informações Gerais"
   },
-  "Character Info": {
-    "pt": "Informação da personagem"
-  },
   "Share": {
     "pt": "Partilhar"
-  },
-  "Created at {date}": {
-    "pt": "Criado em {date}"
-  },
-  "AI Character": {
-    "pt": "Personagem IA"
-  },
-  "This character leverages AI to simulate responses.": {
-    "pt": "Este personagem usa IA para simular respostas."
   },
   "New contact": {
     "pt": "Novo contato"
@@ -668,17 +368,8 @@
   "Connected with Stripe": {
     "pt": "Conectado com o Stripe"
   },
-  "Danger zone": {
-    "pt": "Zona de perigo"
-  },
   "Thal": {
     "pt": "Thal"
-  },
-  "Chats": {
-    "pt": "Bate-papos"
-  },
-  "Talk to thals to practice, learn, and have fun. Chats are not professional instruction. Use responsibly.": {
-    "pt": "Converse com os thals para praticar, aprender e se divertir. Os bate-papos não são instruções profissionais. Use com responsabilidade."
   },
   "Search for characters": {
     "pt": "Pesquisar personagens"
@@ -688,21 +379,6 @@
   },
   "View all": {
     "pt": "Ver tudo"
-  },
-  "Character has been edited successfully.": {
-    "pt": "Personagem editado com sucesso."
-  },
-  "Character has been created successfully.": {
-    "pt": "Personagem criado com sucesso."
-  },
-  "An error occurred while creating character.": {
-    "pt": "Ocorreu um erro ao criar o personagem."
-  },
-  "Build Character": {
-    "pt": "Construir Personagem"
-  },
-  "Description": {
-    "pt": "Descrição"
   },
   "Instructions": {
     "pt": "Instruções"
@@ -725,15 +401,6 @@
   "Subscription": {
     "pt": "Assinatura"
   },
-  "Welcome!": {
-    "pt": "Bem-vindo!"
-  },
-  "New Chat": {
-    "pt": "Novo bate-papo"
-  },
-  "Start chatting with an AI character to improve your English!": {
-    "pt": "Comece a conversar com um personagem de IA para melhorar seu inglês!"
-  },
   "Create character": {
     "pt": "Criar personagem"
   },
@@ -743,35 +410,8 @@
   "Interactive Assistance:": {
     "pt": "Assistência Interativa:"
   },
-  "Easily build a character that fits your learning style! Choose a name and personality, and let the AI bring them to life through dynamic conversations.": {
-    "pt": "Crie facilmente um personagem que se adapta ao seu estilo de aprendizagem! Escolha um nome e uma personalidade, e deixe a IA dar vida a ele através de conversas dinâmicas!"
-  },
   "Thal is in preview. We're not actually charging for access.": {
     "pt": "Thal está em pré-visualização. Não estamos cobrando pelo acesso."
-  },
-  "Continue Your Checkout": {
-    "pt": "Continuar seu checkout"
-  },
-  "Continue Your Access": {
-    "pt": "Continuar seu acesso"
-  },
-  "Continue Your Free Trial Now": {
-    "pt": "Continue seu teste grátis agora"
-  },
-  "Continue Chatting": {
-    "pt": "Continuar conversando"
-  },
-  "Restart Your Subscription Now": {
-    "pt": "Reinicie sua assinatura agora"
-  },
-  "Check Your Subscription Now": {
-    "pt": "Verifique sua assinatura agora"
-  },
-  "Go To App": {
-    "pt": "Ir para o aplicativo"
-  },
-  "Resume Your Subscription Now": {
-    "pt": "Retome sua assinatura agora"
   },
   "Checkout with Success!": {
     "pt": "Finalização da compra com sucesso!"
@@ -797,18 +437,6 @@
   "We’d love to know why you decided not to cancel. Please share your feedback with us. Your input helps us improve!": {
     "pt": "Gostaríamos de saber por que você decidiu não cancelar. Por favor, compartilhe seu feedback conosco. Sua contribuição nos ajuda a melhorar!"
   },
-  "Open chats": {
-    "pt": "Conversas abertas"
-  },
-  "You can manage your billing information to renew your subscription. Thank you for using our app!": {
-    "pt": "Você pode gerenciar suas informações de cobrança para renovar sua assinatura. Obrigado por usar nosso aplicativo!"
-  },
-  "Copied character username to clipboard": {
-    "pt": "Nome de usuário do personagem copiado para a área de transferência"
-  },
-  "Failed to copy character username to clipboard": {
-    "pt": "Falha ao copiar o nome de usuário do personagem para a área de transferência"
-  },
   "Copied character link to clipboard": {
     "pt": "Link do personagem copiado para a área de transferência"
   },
@@ -832,15 +460,6 @@
   },
   "No internet": {
     "pt": "Sem internet"
-  },
-  "Permission not allowed": {
-    "pt": "Permissão não permitida"
-  },
-  "Microphone not found": {
-    "pt": "Microfone não encontrado"
-  },
-  "Permission error": {
-    "pt": "Erro de permissão"
   },
   "An error occurred while logging out.": {
     "pt": "Ocorreu um erro durante o logout."
@@ -877,9 +496,6 @@
   },
   "Technology & Engineering": {
     "pt": "Tecnologia & Engenharia"
-  },
-  "Historical Figures": {
-    "pt": "Figuras Históricas"
   },
   "Business & Career": {
     "pt": "Negócios & Carreira"
@@ -929,15 +545,6 @@
   "Renew your overdue subscription to create new characters.": {
     "pt": "Renova sua assinatura vencida para criar novos personagens."
   },
-  "Renew Your Subscription Now": {
-    "pt": "Renovar sua assinatura agora"
-  },
-  "Your Subscription is Overdue": {
-    "pt": "Sua assinatura está vencida"
-  },
-  "Your subscription has expired, and access to main features is currently paused. To continue enjoying uninterrupted learning, please renew your subscription.": {
-    "pt": "Sua assinatura expirou e o acesso aos recursos principais está atualmente pausado. Para continuar desfrutando de aprendizado ininterrupto, renove sua assinatura."
-  },
   "Renew Now": {
     "pt": "Renovar agora"
   },
@@ -977,7 +584,295 @@
   "Character has been approved successfully.": {
     "pt": "Personagem foi aprovado com sucesso."
   },
-  "Approve character": {
-    "pt": "Aprovar personagem"
+  "Route Not Found": {
+    "pt": "Rota não encontrada"
+  },
+  "Something Went Wrong": {
+    "pt": "Algo deu errado"
+  },
+  "Go to the home page": {
+    "pt": "Ir para a página inicial"
+  },
+  "let us know here.": {
+    "pt": "avise-nos aqui."
+  },
+  "Uh-oh... something went wrong on our end. It might be a temporary glitch, or the server’s just having a rough day. Please try again later.": {
+    "pt": "Ops... algo deu errado do nosso lado. Pode ser um problema temporário ou o servidor está tendo um dia ruim. Tente novamente mais tarde."
+  },
+  "let us know here": {
+    "pt": "avise-nos aqui"
+  },
+  "Your Subscription Expired": {
+    "pt": "Sua assinatura expirou"
+  },
+  "Your subscription has expired, so access to core features is currently paused. To keep learning without interruption, please renew your subscription.": {
+    "pt": "Sua assinatura expirou, então o acesso aos recursos principais está atualmente pausado. Para continuar aprendendo sem interrupção, renove sua assinatura."
+  },
+  "Save interface language": {
+    "pt": "Salvar idioma da interface"
+  },
+  "An error occurred while deleting contact.": {
+    "pt": "Ocorreu um erro ao excluir o contato."
+  },
+  "Your account is active again — great to have you back! 🎉": {
+    "pt": "Sua conta está ativa novamente — que bom ter você de volta! 🎉"
+  },
+  "You now have full access to your content and features.": {
+    "pt": "Agora você tem acesso total ao seu conteúdo e recursos."
+  },
+  "An error occurred while deleting character.": {
+    "pt": "Ocorreu um erro ao excluir o personagem."
+  },
+  "You have no characters yet.": {
+    "pt": "Você ainda não possui personagens."
+  },
+  "No contacts found for \"{query}\"": {
+    "pt": "Nenhum contato encontrado para \"{query}\""
+  },
+  "You have no contacts yet.": {
+    "pt": "Você ainda não tem contatos."
+  },
+  "Generated data is invalid. Please try regenerating again.": {
+    "pt": "Os dados gerados são inválidos. Por favor, tente gerar novamente."
+  },
+  "You are generating characters too fast. Please wait a moment.": {
+    "pt": "Você está gerando personagens muito rápido. Por favor, aguarde um momento."
+  },
+  "Something went wrong generating character. Try again.": {
+    "pt": "Algo deu errado ao gerar o personagem. Tente novamente."
+  },
+  "Edit Character": {
+    "pt": "Editar Personagem"
+  },
+  "Create Character": {
+    "pt": "Criar Personagem"
+  },
+  "Open chat": {
+    "pt": "Abrir chat"
+  },
+  "A wise elder sharing life stories": {
+    "pt": "Um ancião sábio compartilhando histórias de vida"
+  },
+  "Error fetching contact": {
+    "pt": "Erro ao buscar contato"
+  },
+  "Error fetching character": {
+    "pt": "Erro ao buscar personagem"
+  },
+  "Contact Info": {
+    "pt": "Informações de Contato"
+  },
+  "Character deleted": {
+    "pt": "Personagem excluído"
+  },
+  "This character has been deleted.": {
+    "pt": "Este caractere foi excluído."
+  },
+  "Messages are generated by AI.": {
+    "pt": "As mensagens são geradas por IA."
+  },
+  "Messages were generated by AI.": {
+    "pt": "As mensagens foram geradas por IA."
+  },
+  "Created at {createdAt}": {
+    "pt": "Criado em {createdAt}"
+  },
+  "John Doe": {
+    "pt": "John Doe"
+  },
+  "john_doe": {
+    "pt": "john_doe"
+  },
+  "Save contact": {
+    "pt": "Salvar contato"
+  },
+  "English": {
+    "pt": "Inglês"
+  },
+  "Feel the difference in your fluency from the very first chat.": {
+    "pt": "Sinta a diferença na sua fluência desde o primeiro bate-papo."
+  },
+  "Try 1 Day Free – No Credit Card Needed": {
+    "pt": "Experimente 1 dia grátis – Nenhum cartão de crédito é necessário"
+  },
+  "Continue your checkout.": {
+    "pt": "Continuar sua compra."
+  },
+  "Continue your access.": {
+    "pt": "Continuar seu acesso."
+  },
+  "Continue your free trial.": {
+    "pt": "Continuar seu teste gratuito."
+  },
+  "Continue chatting.": {
+    "pt": "Continuar conversando."
+  },
+  "Renew your subscription now.": {
+    "pt": "Renove sua assinatura agora."
+  },
+  "Check your subscription now.": {
+    "pt": "Verifique sua assinatura agora."
+  },
+  "Go to app.": {
+    "pt": "Ir para o aplicativo."
+  },
+  "Resume your subscription now.": {
+    "pt": "Retomar sua assinatura agora."
+  },
+  "No hidden fees. Cancel or pause anytime.": {
+    "pt": "Sem taxas escondidas. Cancele ou pause quando quiser."
+  },
+  "Forget waiting for perfection. Dive into dialogue, make mistakes, be human — and let learning happen along the way.": {
+    "pt": "Esqueça esperar pela perfeição. Mergulhe no diálogo, cometa erros, seja humano — e deixe a aprendizagem acontecer ao longo do caminho."
+  },
+  "Talk to thals to practice, learn, and have fun.": {
+    "pt": "Converse com os thals para praticar, aprender e se divertir."
+  },
+  "Thal messages are powered by generative AI.": {
+    "pt": "As mensagens Thal são alimentadas por IA generativa."
+  },
+  "An error occurred while discarding character.": {
+    "pt": "Ocorreu um erro ao descartar o personagem."
+  },
+  "Character has been discarded successfully.": {
+    "pt": "Personagem foi descartado com sucesso."
+  },
+  "Discard": {
+    "pt": "Descartar"
+  },
+  "An error occurred while approving character.": {
+    "pt": "Ocorreu um erro ao aprovar o personagem."
+  },
+  "Approve": {
+    "pt": "Aprovar"
+  },
+  "You are requesting speech synthesis too much. Please wait a moment.": {
+    "pt": "Você está solicitando a síntese de fala demais. Por favor, aguarde um momento."
+  },
+  "Experimental": {
+    "pt": "Experimental"
+  },
+  "No results found for category \"{categoryName}\"": {
+    "pt": "Nenhum resultado encontrado para a categoria \"{categoryName}\""
+  },
+  "Just describe their personality and behavior in a short prompt — our AI will instantly bring them to life in seconds, ready for dynamic and engaging conversations.": {
+    "pt": "Apenas descreva sua personalidade e comportamento em um prompt curto — nossa IA os trará à vida instantaneamente em segundos, pronta para conversas dinâmicas e envolventes."
+  },
+  "Manage billing information": {
+    "pt": "Gerenciar informações de cobrança"
+  },
+  "Save account settings": {
+    "pt": "Salvar configurações da conta"
+  },
+  "Actions": {
+    "pt": "Ações"
+  },
+  "You have no chats yet.": {
+    "pt": "Você ainda não tem chats."
+  },
+  "You are translating messages too fast. Please wait a moment.": {
+    "pt": "Você está traduzindo mensagens muito rápido. Por favor, aguarde um momento."
+  },
+  "Character Does Not Exist": {
+    "pt": "Personagem não existe"
+  },
+  "Add": {
+    "pt": "Adicionar"
+  },
+  "Failed to translate message. Try again later.": {
+    "pt": "Falha ao traduzir a mensagem. Tente novamente mais tarde."
+  },
+  "Clearing chat...": {
+    "pt": "Limpando o chat..."
+  },
+  "Copied username to clipboard": {
+    "pt": "Nome de usuário copiado para a área de transferência"
+  },
+  "Failed to copy username to clipboard": {
+    "pt": "Falha ao copiar o nome de usuário para a área de transferência"
+  },
+  "Practice conversations for traveling abroad, including booking accommodations, asking for directions, and more.": {
+    "pt": "Pratique conversas para viajar para o exterior, incluindo reserva de acomodações, pedir informações e muito mais."
+  },
+  "Characters in a retail setting, such as shopping for clothes, groceries, or electronics, designed to practice consumer interactions.": {
+    "pt": "Personagens em um ambiente de varejo, como compras de roupas, mantimentos ou eletrônicos, projetados para praticar interações com o consumidor."
+  },
+  "Characters for practicing conversations in restaurants, cafes, and food-related situations like menu ordering, dietary preferences, and cooking.": {
+    "pt": "Personagens para praticar conversas em restaurantes, cafés e situações relacionadas a alimentos, como pedidos de cardápio, preferências alimentares e culinária."
+  },
+  "Characters discussing scientific topics, nature, and environmental issues.": {
+    "pt": "Personagens discutindo tópicos científicos, natureza e questões ambientais."
+  },
+  "Characters for practicing conversations related to dating, relationships, and social interactions.": {
+    "pt": "Personagens para praticar conversas relacionadas a encontros, relacionamentos e interações sociais."
+  },
+  "Simulate discussions in educational settings, from classroom dialogues to study groups.": {
+    "pt": "Simular discussões em ambientes educacionais, de diálogos em sala de aula a grupos de estudo."
+  },
+  "Characters that discuss health, fitness, mental well-being, and lifestyle topics.": {
+    "pt": "Personagens que discutem saúde, fitness, bem-estar mental e tópicos de estilo de vida."
+  },
+  "Characters discussing tech trends, engineering concepts, and digital innovations.": {
+    "pt": "Personagens discutindo tendências de tecnologia, conceitos de engenharia e inovações digitais."
+  },
+  "Focused on professional settings, such as meetings, emails, and workplace interactions.": {
+    "pt": "Focado em ambientes profissionais, como reuniões, e-mails e interações no local de trabalho."
+  },
+  "Focused on family dynamics, parenting, and relationships between relatives.": {
+    "pt": "Focado na dinâmica familiar, parentalidade e relacionamentos entre parentes."
+  },
+  "Characters discussing legal matters, court cases, and justice-related topics.": {
+    "pt": "Personagens discutindo questões legais, casos judiciais e tópicos relacionados à justiça."
+  },
+  "Characters discussing religious beliefs, spiritual practices, and philosophical topics.": {
+    "pt": "Personagens discutindo crenças religiosas, práticas espirituais e temas filosóficos."
+  },
+  "Characters discussing sports, fitness, and recreational activities.": {
+    "pt": "Personagens discutindo esportes, fitness e atividades recreativas."
+  },
+  "Characters for practicing conversations in hotels, hostels, and other lodging situations.": {
+    "pt": "Personagens para praticar conversas em hotéis, albergues e outras situações de hospedagem."
+  },
+  "Characters related to the entertainment industry, including actors, comedians, and performers.": {
+    "pt": "Personagens relacionados à indústria do entretenimento, incluindo atores, comediantes e artistas."
+  },
+  "Characters for practicing conversations in real estate, including buying, selling, or renting properties.": {
+    "pt": "Personagens para praticar conversas no setor imobiliário, incluindo compra, venda ou aluguel de propriedades."
+  },
+  "Characters related to art, design, and creative fields.": {
+    "pt": "Personagens relacionados à arte, design e áreas criativas."
+  },
+  "Characters for casual conversations about everyday life, hobbies, and interests.": {
+    "pt": "Personagens para conversas casuais sobre a vida cotidiana, hobbies e interesses."
+  },
+  "Characters discussing current events, news stories, and media topics.": {
+    "pt": "Personagens discutindo eventos atuais, notícias e tópicos da mídia."
+  },
+  "If you think this is a mistake, {reportIssue}  We’ll take a look and get it fixed.": {
+    "pt": "Se você acha que isso é um erro, {reportIssue}. Analisaremos e corrigiremos."
+  },
+  "If the problem persists, {reportIssue}. We’ll check it out and get things back on track.": {
+    "pt": "Se o problema persistir, {reportIssue}. Verificaremos e faremos as coisas voltarem aos trilhos."
+  },
+  "To confirm, please insert {username} below:": {
+    "pt": "Para confirmar, insira {username} abaixo:"
+  },
+  "By signing in, you agree to our {terms} and {privacy}.": {
+    "pt": "Ao entrar, você concorda com nossos {terms} e {privacy}."
+  },
+  "If the problem persists, please {reportIssue}.": {
+    "pt": "Se o problema persistir, por favor {reportIssue}."
+  },
+  "Hmm... we couldn't find that route. It might have been moved, renamed, or never existed at all. Please check the URL for typos.": {
+    "pt": "Hmm... não conseguimos encontrar essa rota. Ela pode ter sido movida, renomeada ou nunca ter existido. Verifique se há erros de digitação na URL."
+  },
+  "That username's taken — tweak your prompt or suggest one directly.": {
+    "pt": "Esse nome de usuário já está em uso — ajuste sua solicitação ou sugira um diretamente."
+  },
+  "You can't message this character — they have been deleted.": {
+    "pt": "Você não pode enviar mensagens para este personagem — ele foi excluído."
+  },
+  "Characters that don't fit into other categories.": {
+    "pt": "Personagens que não se encaixam em outras categorias."
   }
 }

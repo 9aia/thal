@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { drawers, isRootDrawerOpen } from '~/store'
 import type { MenuItemType, MenuItemTypeOrFalse } from '~/components/ui/navigation/types'
+// import { dummyT as t } from '@psitta/vue'
 
 const props = defineProps<{
   hideHome?: boolean
