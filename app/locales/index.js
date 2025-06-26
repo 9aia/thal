@@ -874,5 +874,65 @@
   },
   "Characters that don't fit into other categories.": {
     "pt": "Personagens que não se encaixam em outras categorias."
+  },
+  "Having trouble or need help? Reach out to us at {email}  — we’re here for you.": {
+    "pt": "Com problemas ou precisa de ajuda? Entre em contato conosco em {email} — estamos aqui para você."
+  },
+  "You are about to delete {inlineContact}  from your contacts. Are you sure you want to delete it?": {
+    "pt": "Você está prestes a excluir {inlineContact} dos seus contatos. Tem certeza de que deseja excluí-lo?"
+  },
+  "This action {cannot} be undone. This will permanently delete the character.": {
+    "pt": "Esta ação {cannot} não pode ser desfeita. Isso excluirá permanentemente o personagem."
+  },
+  "This action will {hide} your account and all associated data. You can reactivate it anytime.": {
+    "pt": "Esta ação {hide} ocultará sua conta e todos os dados associados. Você pode reativá-la a qualquer momento."
+  },
+  "Prompt must contain between {min} and {max} characters.": {
+    "pt": "O prompt deve conter entre {min} e {max} caracteres."
+  },
+  "You are editing: {characterName}": {
+    "pt": "Você está editando: {characterName}"
+  },
+  "Name must contain between {min} and {max} characters.": {
+    "pt": "O nome deve conter entre {min} e {max} caracteres."
+  },
+  "Username can only contain letters, numbers, and underscores. Min {min} character, max {max} characters.": {
+    "pt": "O nome de usuário só pode conter letras, números e sublinhados. Mínimo {min} caractere, máximo {max} caracteres."
+  },
+  "{year} - Developed by {teamName}": {
+    "pt": "{year} - Desenvolvido por {teamName}"
+  },
+  "{price} {discountPrice} for the first {x} (day|days)": {
+    "pt": "{price} {discountPrice} nos primeiros {x} (dia|dias)"
+  },
+  "Practice English in interactive conversations that feel authentic and immersive. The thals adapt to your goals, while the intuitive UI offers translations and grammar corrections, helping you improve naturally as you chat.": {
+    "pt": "Pratique inglês em conversas interativas que parecem autênticas e imersivas. Os thals se adaptam aos seus objetivos, enquanto a interface do usuário intuitiva oferece traduções e correções gramaticais, ajudando você a melhorar naturalmente enquanto conversa."
+  },
+  "Get seamless language support during your conversations. The app offers instant translations, message fixing, and more, empowering you to learn without interrupting the flow of your dialogue.": {
+    "pt": "Obtenha suporte de idioma contínuo durante suas conversas. O aplicativo oferece traduções instantâneas, correção de mensagens e muito mais, capacitando você a aprender sem interromper o fluxo do seu diálogo."
+  },
+  "Explore a diverse range of AI-powered characters tailored to your learning goals. Whether practicing small talk, handling professional scenarios, or diving into roleplay, a character is always ready to engage.": {
+    "pt": "Explore uma ampla variedade de personagens com tecnologia de IA adaptados aos seus objetivos de aprendizado. Seja praticando bate-papo, lidando com cenários profissionais ou mergulhando em RPG, um personagem está sempre pronto para interagir."
+  },
+  "Unleash your creativity by designing characters tailored to your learning needs. Customize their personality, background, and conversation style to create a unique and engaging practice partner.": {
+    "pt": "Liberte sua criatividade projetando personagens adaptados às suas necessidades de aprendizado. Personalize sua personalidade, histórico e estilo de conversa para criar um parceiro de prática único e envolvente."
+  },
+  "Keep track of the characters you enjoy the most. Add them to your contacts for easy access to future conversations. Build your own set of companions to practice with as you progress.": {
+    "pt": "Acompanhe os personagens que você mais gosta. Adicione-os aos seus contatos para facilitar o acesso a conversas futuras. Construa seu próprio conjunto de companheiros para praticar à medida que avança."
+  },
+  "Your new way to master {English}  — through real conversations with smart AI characters that adapt to you.": {
+    "pt": "Sua nova maneira de dominar o {English} — por meio de conversas reais com personagens de IA inteligentes que se adaptam a você."
+  },
+  "Last name must contain between {min} and {max} characters.": {
+    "pt": "O sobrenome deve conter entre {min} e {max} caracteres."
+  },
+  "Pronouns must be up to {max} characters long.": {
+    "pt": "Os pronomes devem ter no máximo {max} caracteres."
+  },
+  "If you have any problem, you can contact us at: {link}": {
+    "pt": "Se você tiver algum problema, pode entrar em contato conosco em: {link}"
+  },
+  "The character {username} does not exist.": {
+    "pt": "O personagem {username} não existe."
   }
 }

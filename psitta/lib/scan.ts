@@ -18,31 +18,37 @@ export async function extractMessagesFromFiles(source: string): Promise<MessageC
 
 export function readMessages(filePath: string): MessageContext[] {
   const content = readFileSync(filePath, 'utf8')
-  const lines = content.split('\n')
   const messages: MessageContext[] = []
 
-  lines.forEach((line, lineNumber) => {
-    // Handle both single regex and array of regex patterns
-    const regexPatterns = Array.isArray(CONFIG.messageRegex)
-      ? CONFIG.messageRegex
-      : [CONFIG.messageRegex]
+  // Handle both single regex and array of regex patterns
+  const regexPatterns = Array.isArray(CONFIG.messageRegex)
+    ? CONFIG.messageRegex
+    : [CONFIG.messageRegex]
 
-    regexPatterns.forEach((regex) => {
-      let match: RegExpExecArray | null
-      // Reset regex state for each line
-      regex.lastIndex = 0
-      // eslint-disable-next-line no-cond-assign
-      while ((match = regex.exec(line)) !== null) {
-        const column = match.index + 1 // +1 to convert to 1-based index
+  regexPatterns.forEach((regex) => {
+    let match: RegExpExecArray | null
 
-        messages.push({
+    // eslint-disable-next-line no-cond-assign
+    while ((match = regex.exec(content)) !== null) {
+      const lineNumber = content.slice(0, match.index).split('\n').length
+      const column = match.index + 1 // +1 to convert to 1-based index
+
+      if (filePath.includes('AccountSettingsForm.vue')) {
+        console.log({
           message: match[2],
           file: filePath,
-          line: lineNumber + 1, // +1 to convert to 1-based index
+          line: lineNumber,
           column,
         })
       }
-    })
+
+      messages.push({
+        message: match[2],
+        file: filePath,
+        line: lineNumber,
+        column,
+      })
+    }
   })
 
   return messages
