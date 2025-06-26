@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { T, t } from '@psitta/vue'
+import { T, t, useLocale } from '@psitta/vue'
 import queryKeys from '~/queryKeys'
 import { SubscriptionStatus } from '~~/db/schema'
 
@@ -13,6 +13,8 @@ const pricingQuery = useServerQuery({
   queryKey: queryKeys.pricingData,
   staleTime: 0,
 })
+
+const locale = useLocale()
 </script>
 
 <template>
@@ -29,7 +31,7 @@ const pricingQuery = useServerQuery({
 
           <p class="mb-8 text-lg sm:text-2xl mx-auto max-w-2xl ">
             <T
-              text="Your new way to master {English}  — through real conversations with smart AI characters that adapt to you."
+              text="Chat, laugh, learn, and LEVEL UP your {English} with AI characters who never get tired, never judge, and always keep it 💯."
               :values="{
                 English: true,
               }"
@@ -37,6 +39,7 @@ const pricingQuery = useServerQuery({
               <template #English>
                 <span class="text-gradient bg-linear-[12deg] from-blue-500 to-magenta-500">
                   {{ t('English') }}
+                  <span class="mr-[0.5ch]" />
                 </span>
               </template>
             </T>
@@ -49,10 +52,6 @@ const pricingQuery = useServerQuery({
               class="flex items-center justify-center"
             />
           </CommonResource>
-
-          <!-- <p class="text-base text-black flex items-center gap-2 mx-auto mt-4">
-            {{ t('Feel the difference in your fluency from the very first chat.') }}
-          </p> -->
         </div>
       </div>
 
@@ -77,13 +76,13 @@ const pricingQuery = useServerQuery({
       <div class="max-w-lg mx-auto">
         <h2 class="text-4xl text-gray-800 mb-6 flex flex-col items-center gap-1">
           <Icon name="material-symbols:chat-rounded" class="text-6xl text-gray-100" />
-          {{ t("Dynamic Conversations") }}
+          {{ t("Practice real English with interactive chats.") }}
         </h2>
 
         <p class="text-gray-800">
           {{
             t(
-              "Practice English in interactive conversations that feel authentic and immersive. The thals adapt to your goals, while the intuitive UI offers translations and grammar corrections, helping you improve naturally as you chat.",
+              "Practice real English with interactive chats that feel natural and immersive. Thals adapt to your goals while the smart UI helps you with translations and grammar corrections as you go.",
             )
           }}
         </p>
@@ -98,15 +97,11 @@ const pricingQuery = useServerQuery({
           <div class="mx-auto flex flex-col items-center md:items-start">
             <h2 class="text-4xl text-gray-800 mb-6 flex flex-wrap justify-center sm:justify-start items-center gap-1">
               <Icon name="material-symbols:translate-rounded" class="text-6xl text-gray-100" />
-              {{ t("Interactive Language Assistance") }}
+              {{ t("Get instant help while you chat.") }}
             </h2>
 
             <p class="text-gray-800 max-w-sm">
-              {{
-                t(
-                  "Get seamless language support during your conversations. The app offers instant translations, message fixing, and more, empowering you to learn without interrupting the flow of your dialogue.",
-                )
-              }}
+              {{ t("Real-time translations, message fixing, listening tools and more — all built in. Learn while keeping the conversation flowing.") }}
             </p>
           </div>
 
@@ -116,7 +111,7 @@ const pricingQuery = useServerQuery({
                 <div class="mockup-phone-camera" />
                 <div class="mockup-phone-display w-[320px] h-[568px] bg-white">
                   <div class="mt-10">
-                    <img src="/screenshots/app_chat_max_nova.png" alt="Discover" class="w-full h-auto">
+                    <img :src="`/screenshots/chat_${locale}.png`" alt="Discover" class="w-full h-auto">
                   </div>
                 </div>
               </div>
@@ -130,13 +125,13 @@ const pricingQuery = useServerQuery({
       <div class="px-4 py-12 mx-auto flex flex-col items-center justify-center">
         <h2 class="text-4xl text-gray-800 mb-6 max-w-lg flex flex-wrap justify-center items-center gap-1">
           <Icon name="material-symbols:person-search-rounded" class="text-6xl text-gray-100" />
-          {{ t("Discover Characters") }}
+          {{ t("Discover characters.") }}
         </h2>
 
         <p class="mb-8 max-w-lg">
           {{
             t(
-              "Explore a diverse range of AI-powered characters tailored to your learning goals. Whether practicing small talk, handling professional scenarios, or diving into roleplay, a character is always ready to engage.",
+              "Whether you're into casual chats, professional scenarios, or full-on RPG, there's always a Thal ready to talk.",
             )
           }}
         </p>
@@ -144,7 +139,7 @@ const pricingQuery = useServerQuery({
         <div class="drop-shadow-2xl w-full max-w-[800px] mx-auto relative z-[10] ">
           <div class="mockup-window rounded-3xl border-none bg-white text-black">
             <div class="flex justify-center bg-cyan-950">
-              <img src="/screenshots/app_discover.png" alt="Discover" class="w-full h-auto">
+              <img :src="`/screenshots/discover_${locale}.png`" alt="Discover" class="w-full h-auto">
             </div>
           </div>
         </div>
@@ -159,13 +154,13 @@ const pricingQuery = useServerQuery({
           <div class="mx-auto flex flex-col items-center md:items-start">
             <h2 class="text-4xl text-gray-800 mb-6 flex flex-wrap justify-center sm:justify-start items-center gap-1">
               <Icon name="material-symbols:engineering-rounded" class="text-6xl text-gray-100" />
-              {{ t("Create Your Own Character") }}
+              {{ t("Create your own.") }}
             </h2>
 
             <p class="text-gray-800 max-w-sm">
               {{
                 t(
-                  "Unleash your creativity by designing characters tailored to your learning needs. Customize their personality, background, and conversation style to create a unique and engaging practice partner.",
+                  "Just describe their personality and behavior in a short prompt — our AI will instantly bring them to life in seconds, ready for dynamic and engaging conversations.",
                 )
               }}
             </p>
@@ -180,13 +175,13 @@ const pricingQuery = useServerQuery({
       <div class="px-4 py-12 flex flex-col items-center justify-center">
         <h2 class="text-4xl text-gray-800 mb-6 max-w-lg flex flex-wrap justify-center items-center gap-1">
           <Icon name="material-symbols:person-add-rounded" class="text-6xl text-gray-100" />
-          {{ t("Save Your Favorite Characters") }}
+          {{ t("Save Your Favorite.") }}
         </h2>
 
         <p class="text-gray-800 max-w-lg mx-auto mb-8">
           {{
             t(
-              "Keep track of the characters you enjoy the most. Add them to your contacts for easy access to future conversations. Build your own set of companions to practice with as you progress.",
+              "Keep your favorite Thals in a contact list for easy access and consistent practice.",
             )
           }}
         </p>
@@ -199,8 +194,8 @@ const pricingQuery = useServerQuery({
         {{ t('Pricing') }}
       </h2>
 
-      <p class="text-gray-800 max-w-lg mx-auto px-4 mb-8 mt-6">
-        {{ t('We believe in making language learning accessible and straightforward. That’s why we offer a single plan with everything you need to improve your English.') }}
+      <p class="text-gray-800 max-w-lg mx-auto px-4 mb-8 mt-6 text-center">
+        {{ t('Simple. Transparent. Powerful.') }}
       </p>
 
       <div class="w-full px-4">

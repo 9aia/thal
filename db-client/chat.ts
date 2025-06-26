@@ -1,6 +1,6 @@
 import { block } from '@9aia/castor'
-import { sql } from 'drizzle-orm'
-import { chats, lastMessages, messages } from '~~/db/schema'
+import { eq, inArray, isNull, notExists, sql } from 'drizzle-orm'
+import { characters, chats, lastMessages, messages, usernames } from '~~/db/schema'
 
 block('List all chats', {
   query: db => db.select().from(chats),
@@ -14,6 +14,12 @@ block('Delete all chats', {
 block('Drop chat table', {
   danger: true,
   run: db => db.run(sql`DROP TABLE ${chats}`),
+})
+
+block('Delete chats with username that has no character', {
+  query: db => db.delete(chats).where(
+    inArray(chats.usernameId, db.select({ id: usernames.id }).from(usernames).where(isNull(usernames.characterId))),
+  ),
 })
 
 block('Delete last messages', {

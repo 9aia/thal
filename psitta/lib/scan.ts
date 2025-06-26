@@ -33,15 +33,6 @@ export function readMessages(filePath: string): MessageContext[] {
       const lineNumber = content.slice(0, match.index).split('\n').length
       const column = match.index + 1 // +1 to convert to 1-based index
 
-      if (filePath.includes('AccountSettingsForm.vue')) {
-        console.log({
-          message: match[2],
-          file: filePath,
-          line: lineNumber,
-          column,
-        })
-      }
-
       messages.push({
         message: match[2],
         file: filePath,

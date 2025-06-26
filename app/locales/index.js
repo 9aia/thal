@@ -329,32 +329,14 @@
   "English": {
     "pt": "Inglês"
   },
-  "Feel the difference in your fluency from the very first chat.": {
-    "pt": "Sinta a diferença na sua fluência desde o primeiro chat."
-  },
   "Learn more": {
     "pt": "Saiba mais"
-  },
-  "Dynamic Conversations": {
-    "pt": "Conversas Dinâmicas"
-  },
-  "Interactive Language Assistance": {
-    "pt": "Assistência Interativa de Idiomas"
-  },
-  "Discover Characters": {
-    "pt": "Descubra Personagens"
   },
   "Create Your Own Character": {
     "pt": "Crie seu Próprio Personagem"
   },
-  "Save Your Favorite Characters": {
-    "pt": "Salve Seus Personagens Favoritos"
-  },
   "Pricing": {
     "pt": "Preços"
-  },
-  "We believe in making language learning accessible and straightforward. That’s why we offer a single plan with everything you need to improve your English.": {
-    "pt": "Acreditamos em tornar o aprendizado de idiomas acessível e direto. É por isso que oferecemos um plano único com tudo o que você precisa para melhorar seu inglês."
   },
   "What’s included:": {
     "pt": "O que está incluído:"
@@ -905,24 +887,6 @@
   "{price} {discountPrice} for the first {x} (day|days)": {
     "pt": "{price} {discountPrice} nos primeiros {x} (dia|dias)"
   },
-  "Practice English in interactive conversations that feel authentic and immersive. The thals adapt to your goals, while the intuitive UI offers translations and grammar corrections, helping you improve naturally as you chat.": {
-    "pt": "Pratique inglês em conversas interativas que parecem autênticas e imersivas. Os thals se adaptam aos seus objetivos, enquanto a interface do usuário intuitiva oferece traduções e correções gramaticais, ajudando você a melhorar naturalmente enquanto conversa."
-  },
-  "Get seamless language support during your conversations. The app offers instant translations, message fixing, and more, empowering you to learn without interrupting the flow of your dialogue.": {
-    "pt": "Obtenha suporte de idioma contínuo durante suas conversas. O aplicativo oferece traduções instantâneas, correção de mensagens e muito mais, capacitando você a aprender sem interromper o fluxo do seu diálogo."
-  },
-  "Explore a diverse range of AI-powered characters tailored to your learning goals. Whether practicing small talk, handling professional scenarios, or diving into roleplay, a character is always ready to engage.": {
-    "pt": "Explore uma ampla variedade de personagens com tecnologia de IA adaptados aos seus objetivos de aprendizado. Seja praticando bate-papo, lidando com cenários profissionais ou mergulhando em RPG, um personagem está sempre pronto para interagir."
-  },
-  "Unleash your creativity by designing characters tailored to your learning needs. Customize their personality, background, and conversation style to create a unique and engaging practice partner.": {
-    "pt": "Liberte sua criatividade projetando personagens adaptados às suas necessidades de aprendizado. Personalize sua personalidade, histórico e estilo de conversa para criar um parceiro de prática único e envolvente."
-  },
-  "Keep track of the characters you enjoy the most. Add them to your contacts for easy access to future conversations. Build your own set of companions to practice with as you progress.": {
-    "pt": "Acompanhe os personagens que você mais gosta. Adicione-os aos seus contatos para facilitar o acesso a conversas futuras. Construa seu próprio conjunto de companheiros para praticar à medida que avança."
-  },
-  "Your new way to master {English}  — through real conversations with smart AI characters that adapt to you.": {
-    "pt": "Sua nova maneira de dominar o {English} — por meio de conversas reais com personagens de IA inteligentes que se adaptam a você."
-  },
   "Last name must contain between {min} and {max} characters.": {
     "pt": "O sobrenome deve conter entre {min} e {max} caracteres."
   },
@@ -934,5 +898,38 @@
   },
   "The character {username} does not exist.": {
     "pt": "O personagem {username} não existe."
+  },
+  "Chat, laugh, learn, and LEVEL UP your {English} with AI characters who never get tired, never judge, and always keep it 💯.": {
+    "pt": "Converse, ria, aprenda e AUMENTE o seu {English} com personagens de IA que nunca se cansam, nunca julgam e sempre são 💯."
+  },
+  "Practice real English with interactive chats that feel natural and immersive. Thals adapt to your goals while the smart UI helps you with translations and grammar corrections as you go.": {
+    "pt": "Pratique inglês real com bate-papos interativos que parecem naturais e imersivos. Os Thals se adaptam aos seus objetivos, enquanto a interface inteligente ajuda você com traduções e correções gramaticais conforme você avança."
+  },
+  "Real-time translations, message fixing, listening tools and more — all built in. Learn while keeping the conversation flowing.": {
+    "pt": "Traduções em tempo real, correção de mensagens, ferramentas de escuta e muito mais - tudo integrado. Aprenda enquanto mantém a conversa fluindo."
+  },
+  "Whether you're into casual chats, professional scenarios, or full-on RPG, there's always a Thal ready to talk.": {
+    "pt": "Se você gosta de bate-papos casuais, cenários profissionais ou RPG completo, sempre há um Thal pronto para conversar."
+  },
+  "Keep your favorite Thals in a contact list for easy access and consistent practice.": {
+    "pt": "Mantenha seus Thals favoritos em uma lista de contatos para facilitar o acesso e a prática consistente."
+  },
+  "Simple. Transparent. Powerful.": {
+    "pt": "Simples. Transparente. Poderoso."
+  },
+  "Discover characters.": {
+    "pt": "Descubra personagens."
+  },
+  "Practice real English with interactive chats.": {
+    "pt": "Pratique inglês real com chats interativos."
+  },
+  "Get instant help while you chat.": {
+    "pt": "Obtenha ajuda instantânea enquanto você conversa."
+  },
+  "Create your own.": {
+    "pt": "Crie o seu próprio."
+  },
+  "Save Your Favorite.": {
+    "pt": "Salve o seu favorito."
   }
 }
