@@ -6,7 +6,6 @@ description: Tasks and items for the release.
 
 ## 0.1.0-10
 
-- Fix hydration errors on policy pages
 - Fix some Psitta missing translations
 - Lint
 - Tsc

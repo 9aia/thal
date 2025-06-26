@@ -35,7 +35,6 @@ description: A detailed, chronological record of all changes made to a project, 
 - Improved chat list styling
 - Improved app home styling, accessibility and content to guide users towards key functionalities
 - Improved discover route styling, accessibility and content
-- Added automatic redirect to preferred or default locale when accessing a route without a locale parameter
 - Improved translations
 
 ### Fixed

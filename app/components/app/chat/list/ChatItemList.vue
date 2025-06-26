@@ -13,7 +13,7 @@ function openChat(username: string) {
 <template>
   <CommonResource :for="chatsQuery">
     <template #empty>
-      <p v-if="!chatListSearch.trim()" class="text-gray-500 text-xs px-2 py-2">
+      <p v-if="!chatListSearch?.trim()" class="text-gray-500 text-xs px-2 py-2">
         {{ t('You have no chats yet.') }}
       </p>
 
