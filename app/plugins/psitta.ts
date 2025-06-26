@@ -8,8 +8,12 @@ export const store = reactive<PsittaStore>({} as PsittaStore)
 
 export default defineNuxtPlugin((nuxtApp) => {
   store.locale = getConfig().defaultLocale
-
   const locale = toRefs(store).locale
+
+  const route = useRoute()
+  watch(route, (to) => {
+    locale.value = to.params.locale as string
+  }, { immediate: true })
 
   const psitta = createPsitta({
     locale,
@@ -21,14 +25,4 @@ export default defineNuxtPlugin((nuxtApp) => {
       lang: locale,
     },
   })
-
-  const route = useRoute()
-
-  watch(route, (to) => {
-    const metaLocale = to.meta.locale
-
-    if (metaLocale) {
-      locale.value = metaLocale as string
-    }
-  }, { immediate: true })
 })

@@ -22,13 +22,11 @@ export default defineNuxtRouteMiddleware((to: RouteLocationNormalized) => {
         : acceptLanguage || defaultLocale
     }
 
-    if (locale !== defaultLocale && pathname === urlWithoutLocale) {
+    if (pathname === urlWithoutLocale) {
       if (pathname.startsWith('/api/'))
         return
 
       return navigateTo(`/${locale}${urlWithoutLocale}`, { replace: true })
     }
   }
-
-  to.meta.locale = locale || defaultLocale
 })
