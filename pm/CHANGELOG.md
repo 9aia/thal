@@ -36,6 +36,7 @@ description: A detailed, chronological record of all changes made to a project, 
 - Improved app home styling, accessibility and content to guide users towards key functionalities
 - Improved discover route styling, accessibility and content
 - Improved translations
+- Improved landing page
 
 ### Fixed
 

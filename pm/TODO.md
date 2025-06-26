@@ -4,13 +4,6 @@ description: Tasks and items for the release.
 
 # TODO
 
-## 0.1.0-10
-
-- Lint
-- Pre-release
-
-## 0.1.0-11
-
 - Revise Backlog (above `---`) and TODO
 - Implement soft-deletes
 - Fix error handling in the API endpoints fetched using form
