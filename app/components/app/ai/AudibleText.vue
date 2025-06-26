@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import type { MDCParserResult } from '@nuxtjs/mdc'
 import { useMutation } from '@tanstack/vue-query'
+import { computedAsync } from '@vueuse/core'
 import { RateLimitError } from '~/composables/useSpeech'
+import remarkSpanWords from '~/plugins/remark/remark-span-words'
 import { currentPlayingMessage } from '~/store'
 
 const props = defineProps<{
@@ -75,14 +78,27 @@ watch(currentWord, () => {
 defineExpose({
   playMutation,
 })
+
+const { data: ast } = await useAsyncData(
+  () => props.text,
+  () => parseMarkdown(props.text, {
+    remark: {
+      plugins: {
+        remarkSpanWords: {
+          instance: remarkSpanWords,
+        },
+      },
+    },
+  }),
+)
 </script>
 
 <template>
   <div ref="el">
-    <MDC
-      v-if="text"
-      :key="text"
-      :value="text"
+    <MDCRenderer
+      v-if="ast?.body"
+      :body="ast.body"
+      :data="ast.data"
       tag="article"
       class="prose"
     />

@@ -47,9 +47,6 @@ export default defineNuxtConfig({
       emoji: {
         src: 'remark-emoji',
       },
-      remarkSpanWords: {
-        src: '~/plugins/remark/remark-span-words.ts',
-      },
     },
   },
 

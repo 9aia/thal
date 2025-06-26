@@ -1,5 +1,5 @@
 <template>
   <A>
-    <slot />
+    <MDCSlot unwrap="a" />
   </A>
 </template>

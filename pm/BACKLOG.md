@@ -80,7 +80,6 @@ Low priority:
 
 Low priority:
 
-- Fix locale change routing (remove `/{locale}` from `/app`), but keep locale param in site routes
 - Move discover to its own layout
 - Move settings to its own route and layout
 
@@ -122,7 +121,6 @@ Low priority:
 
 Low priority:
 
-- Don't include data-tts in the HTML other than the message
 - Optimize invalidations (use queryClient.setQueryData)
 - Clean up current playing message on message stop
 - Pregenerate site pages
