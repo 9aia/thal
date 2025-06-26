@@ -34,7 +34,7 @@ export default defineNuxtConfig({
     preset: 'cloudflare-module',
 
     cloudflare: {
-      deployConfig: true,
+      deployConfig: false,
       nodeCompat: true,
     },
   },
