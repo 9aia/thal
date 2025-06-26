@@ -25,7 +25,8 @@ export async function translate() {
   const chunks = Array.from(extractedMessages).reduce((acc, msg, index) => {
     const chunkIndex = Math.floor(index / CONFIG.messagePerChunk)
     const chunk = acc[chunkIndex] || {}
-    chunk[msg.message] = {}
+    const message = normalizeString(msg.message)
+    chunk[message] = {}
     acc[chunkIndex] = chunk
 
     return acc

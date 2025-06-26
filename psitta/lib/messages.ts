@@ -8,6 +8,10 @@ export const messages: Chunk = {}
 export async function loadTranslations() {
   const messagesFileContent = (await import(`${process.cwd()}/${CONFIG.localesFolder}/index.js`)).default
 
+  if (!messagesFileContent) {
+    return
+  }
+
   Object.entries(messagesFileContent).forEach(([message, translations]) => {
     Object.entries(translations as any).forEach(([lang, translationChunk]) => {
       if (!messages?.[message]) {

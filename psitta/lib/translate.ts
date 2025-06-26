@@ -21,7 +21,7 @@ export async function translate(chunk: Chunk) {
 
     If you encounter any variables, please keep them in the translation.
   `
-  const prompt = Object.keys(chunk).toString()
+  const prompt = Object.entries(chunk).map(([key, value]) => JSON.stringify({ en: key, pt: value.pt })).join('\n')
 
   const responseSchema: ResponseSchema = {
     type: SchemaType.ARRAY,
