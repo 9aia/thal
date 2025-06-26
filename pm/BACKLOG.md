@@ -122,6 +122,7 @@ Low priority:
 
 Low priority:
 
+- Don't include data-tts in the HTML other than the message
 - Optimize invalidations (use queryClient.setQueryData)
 - Clean up current playing message on message stop
 - Pregenerate site pages
