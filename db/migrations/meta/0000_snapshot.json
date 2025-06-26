@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "9c9fad0f-e5e7-446f-8982-9009d2d73855",
+  "id": "2b0f7348-f6fa-4847-9884-8b7e6a9ee1f8",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "CharacterDraftLocalization": {
@@ -585,6 +585,13 @@
           "notNull": true,
           "autoincrement": false
         },
+        "status": {
+          "name": "status",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
         "datetime": {
           "name": "datetime",
           "type": "integer",
@@ -663,6 +670,13 @@
         "content": {
           "name": "content",
           "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "status": {
+          "name": "status",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -909,8 +923,8 @@
           "notNull": false,
           "autoincrement": false
         },
-        "username": {
-          "name": "username",
+        "text": {
+          "name": "text",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
@@ -940,10 +954,10 @@
         }
       },
       "indexes": {
-        "Username_username_unique": {
-          "name": "Username_username_unique",
+        "Username_text_unique": {
+          "name": "Username_text_unique",
           "columns": [
-            "username"
+            "text"
           ],
           "isUnique": true
         }

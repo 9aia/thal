@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { Menu } from '@ark-ui/vue'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
-import { useForm } from 'vee-validate'
-import type { FetchError } from 'ofetch'
 import { T } from '@psitta/vue'
+import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
+import type { FetchError } from 'ofetch'
+import { useForm } from 'vee-validate'
 import type { MenuItemType } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
 import { characterBuildId, characterBuildPrompt, isRootDrawerOpen } from '~/store'

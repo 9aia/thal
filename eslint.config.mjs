@@ -22,4 +22,9 @@ export default withNuxt(
       'eslint-comments/no-unused-disable': 'off',
     },
   }),
+  {
+    ignores: [
+      'worker-configuration.d.ts',
+    ],
+  },
 )

@@ -14,7 +14,7 @@ import { T, t } from '@psitta/vue'
           <Button
             type="submit"
             class="btn btn-neutral mt-2"
-            
+
             icon="logos:google-icon"
           >
             {{ t('Continue with Google') }}

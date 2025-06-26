@@ -24,7 +24,6 @@ defineProps<{
           v-if="!disableEditButton"
           class="btn btn-circle btn-ghost"
           icon="material-symbols:edit-outline-rounded"
-          
         />
       </div>
 

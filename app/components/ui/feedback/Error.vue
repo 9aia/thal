@@ -52,7 +52,7 @@ const isForbidden = computed(() => props.error.statusCode === 403)
             v-if="!isNotFound"
             class="btn btn-neutral"
             icon="material-symbols:refresh-rounded"
-            
+
             @click="emit('tryAgain')"
           >
             {{ t('Try again') }}

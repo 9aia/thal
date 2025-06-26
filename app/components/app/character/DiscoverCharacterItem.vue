@@ -71,7 +71,7 @@ const displayName = computed(() => {
           <Button
             v-if="showSendMessage && username"
             class="btn btn-neutral btn-ghost btn-circle"
-            
+
             icon="material-symbols:chat-outline-rounded"
             @click.stop="goToChat"
           />

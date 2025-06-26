@@ -1,6 +1,6 @@
 import { block } from '@9aia/castor'
-import { eq, inArray, isNull, notExists, sql } from 'drizzle-orm'
-import { characters, chats, lastMessages, messages, usernames } from '~~/db/schema'
+import { inArray, isNull, sql } from 'drizzle-orm'
+import { chats, lastMessages, messages, usernames } from '~~/db/schema'
 
 block('List all chats', {
   query: db => db.select().from(chats),

@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import type { MDCParserResult } from '@nuxtjs/mdc'
 import { useMutation } from '@tanstack/vue-query'
-import { computedAsync } from '@vueuse/core'
 import { RateLimitError } from '~/composables/useSpeech'
 import remarkSpanWords from '~/plugins/remark/remark-span-words'
 import { currentPlayingMessage } from '~/store'

@@ -80,6 +80,7 @@ CREATE TABLE `LastMessage` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`chat_id` integer NOT NULL,
 	`content` text NOT NULL,
+	`status` integer NOT NULL,
 	`datetime` integer DEFAULT (unixepoch() * 1000) NOT NULL,
 	`created_at` integer DEFAULT (unixepoch() * 1000) NOT NULL,
 	`updated_at` integer,
@@ -92,6 +93,7 @@ CREATE TABLE `Message` (
 	`chat_id` integer NOT NULL,
 	`sender_username_id` integer,
 	`content` text NOT NULL,
+	`status` integer NOT NULL,
 	`in_reply_to_id` integer,
 	`is_bot` integer DEFAULT false NOT NULL,
 	`created_at` integer DEFAULT (unixepoch() * 1000) NOT NULL,
@@ -126,7 +128,7 @@ CREATE TABLE `Username` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`character_id` integer,
 	`user_id` text,
-	`username` text NOT NULL,
+	`text` text NOT NULL,
 	`created_at` integer DEFAULT (unixepoch() * 1000) NOT NULL,
 	`updated_at` integer,
 	`deleted_at` integer,
@@ -134,7 +136,7 @@ CREATE TABLE `Username` (
 	FOREIGN KEY (`user_id`) REFERENCES `User`(`id`) ON UPDATE no action ON DELETE set null
 );
 --> statement-breakpoint
-CREATE UNIQUE INDEX `Username_username_unique` ON `Username` (`username`);--> statement-breakpoint
+CREATE UNIQUE INDEX `Username_text_unique` ON `Username` (`text`);--> statement-breakpoint
 CREATE TABLE `User` (
 	`id` text PRIMARY KEY NOT NULL,
 	`name` text NOT NULL,

@@ -23,7 +23,7 @@ const emit = defineEmits<({
           'lg:hidden': hideBack === 'on-lg',
         }"
         :icon="backIcon || 'material-symbols:arrow-back-rounded'"
-        
+
         @click="emit('close')"
       />
 

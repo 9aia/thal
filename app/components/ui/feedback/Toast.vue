@@ -105,7 +105,7 @@ watch(toast.update, () => {
           <Button
             class="w-5 h-5 flex items-center justify-center cursor-pointer"
             icon="material-symbols:close-rounded"
-            
+
             @click="toast.close()"
           />
         </div>

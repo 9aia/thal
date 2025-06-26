@@ -3,7 +3,7 @@ import type { FetchError } from 'ofetch'
 import queryKeys from '~/queryKeys'
 import { edition, inReplyTos, isPastDueModalOpen } from '~/store'
 import type { History, MessageSend } from '~/types'
-import { type InReplyTo, type MessagePost, MessageStatus } from '~~/db/schema'
+import { type MessagePost, MessageStatus } from '~~/db/schema'
 
 export interface UseSendMessageOptions {
   onMutate?: ({ isRetrying }: { isRetrying: boolean }) => void

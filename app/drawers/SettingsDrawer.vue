@@ -2,7 +2,6 @@
 import { t } from '@psitta/vue'
 import { ref } from 'vue'
 import { SETTINGS } from '~/constants/settings'
-import { drawers } from '~/store'
 
 const emit = defineEmits<{
   (e: 'close'): void
