@@ -158,3 +158,4 @@ Low priority:
 - Add nuxt devserver to codeshare container
   - Pass IS_CODESHARE env var to nuxt devserver and fix sign-in redirect
 - Fix codeshare perms
+- Fix codeshare checking of multiple co-authors already included in the commit message

@@ -1,13 +1,14 @@
 {
   "recommendations": [
-    "humao.rest-client",
     "dbaeumer.vscode-eslint",
-    "bradlc.vscode-tailwindcss",
-    "GitHub.copilot",
     "Vue.volar",
-    "eamodio.gitlens",
+    "bradlc.vscode-tailwindcss",
+    "antfu.iconify",
     "Nuxt.mdc",
-    "antfu.iconify"
+    "yzhang.markdown-all-in-one",
+    "humao.rest-client",
+    "eamodio.gitlens",
+    "GitHub.copilot"
   ],
   "unwantedRecommendations": []
 }

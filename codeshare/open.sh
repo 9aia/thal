@@ -5,8 +5,10 @@ ENV_FILE=".env"
 EDITOR_CMD=""
 WINDOW_FLAG="--reuse-window"
 HOST=""
-PORT=""
+PORT="2222"
 ROOT="./codeshare"
+
+# TODO: read from .env
 
 # Parse args
 while [[ $# -gt 0 ]]; do

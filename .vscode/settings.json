@@ -9,6 +9,7 @@
     "**/node_modules": true,
     "**/.wrangler": true,
     "**/dist": true,
+    "**/.output": true,
     ".nuxt": true,
     ".vscode": false
   },
@@ -19,7 +20,7 @@
     "docker-compose.yml": "nuxt.config.ts, wrangler.*, .env*, .dev.vars, public_keys.*, drizzle.config.*, psitta.config.*",
     "co-authors": "co-authors*",
     "app.vue": "error.vue",
-    "README.md": "CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, LICENSE.md",
+    "README.md": "CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, LICENSE",
   },
   "editor.tabSize": 2,
   "typescript.tsdk": "node_modules/typescript/lib",
@@ -111,6 +112,8 @@
   ],
   
   "files.associations": {
-		"wrangler.json": "jsonc"
+		"wrangler.json": "jsonc",
+    "**/app/content/**/*.md": "mdc",
+    "**/*.md": "markdown"
 	}
 }

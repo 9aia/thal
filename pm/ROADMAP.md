@@ -9,16 +9,20 @@ description: A timeline of key milestones and upcoming features or releases.
 - **`vx.x.x-x`**:
 
 - **Pre-releases (`vx.x.x-x`)**:
-  - Examples: `v0.1.0-0`.
-  - Used for private testing and gathering feedback.
-  - Data may be deleted without warning.
-  - Deployed on temporary environments.
-  - Free to try.
+  - Examples: `v0.1.0-0`
+  - Pre-releases can be accessed at [preview.thal.9aia.com](https://preview.thal.9aia.com)
+  - The preview may break or change often
+  - Used for testing ideas and polishing UX before release
+  - Used for gathering feedback
+  - Data may be deleted without warning
+  - Deployed on temporary environments
+  - Free to try
 
 - **Public Releases (`vx.x.x`)**:
-  - Examples: `v0.1.0`.
-  - Released on the main domain for broader public access.
-  - Payment systems will be fully operational (no sandbox mode).
+  - Examples: `v0.1.0`
+  - Releases can be accessed at [thal.9aia.com](https://thal.9aia.com) (planned)
+  - Released on the main domain for broader public access
+  - Payment systems will be fully operational (no sandbox mode)
 
 ## Phases
 
@@ -48,15 +52,12 @@ description: A timeline of key milestones and upcoming features or releases.
 
 #### Generative Character Building
 
-- Generate a character using a prompt
 - Generate a character from a framework (asking the learning goals, interests, occupation and observations)
 - "Surprise Me" feature for auto-generated character based on "about me" textarea
-- Improve custom character building tab
-  - Add "generate" icon button to each field (e.g., name, description)
 - Display character configured instructions
   - Add "Keep Character instructions private" to Character Builder
 - Fork characters
-- Add character edit button (if its yours) to chat and contact options
+- Add character edit button (if its yours) to contact options
 - Add recently created section in new chat view
 - Add profile photos (generate or upload)
 

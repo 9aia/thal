@@ -34,6 +34,7 @@
       "binding": "DB",
       "database_name": "thal",
       "database_id": "544366bf-fdc9-4627-aee8-dfd1295aeabd",
+      "preview_database_id": "316b3532-6880-4f2e-a02a-fccc5543a19c",
       "migrations_dir": "./db/migrations"
     }
   ],
