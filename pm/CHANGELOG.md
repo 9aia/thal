@@ -8,6 +8,7 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ### Fixed
 
+- Fixed auto redirect on free trial
 - Fixed logout button not working
 - Allowed only character owners to edit character in the chat header
 

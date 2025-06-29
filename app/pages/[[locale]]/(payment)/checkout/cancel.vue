@@ -5,8 +5,6 @@ definePageMeta({
   title: 'Checkout canceled',
   middleware: 'canceled',
 })
-
-useAutoRedirect()
 </script>
 
 <template>
