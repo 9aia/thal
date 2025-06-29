@@ -6,6 +6,11 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed logout button not working
+- Allowed only character owners to edit character in the chat header
+
 ## [0.1.0-10] - 2025-06-26
 
 ### Added
