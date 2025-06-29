@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
-import { chatListSearch, isRootDrawerOpen } from '~/store'
+import { chatListSearch, isChatListDrawerOpen } from '~/store'
 
 const chatsQuery = useChatsQuery()
 
 function openChat(username: string) {
-  isRootDrawerOpen.value = false
+  isChatListDrawerOpen.value = false
   navigateTo(`/app/chat/${username}`)
 }
 </script>

@@ -3,19 +3,16 @@ import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { useDebounceFn } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import queryKeys from '~/queryKeys'
-import { isRootDrawerOpen, manageContactName, manageContactUsername } from '~/store'
+import { isChatListDrawerOpen, manageContactName, manageContactUsername } from '~/store'
 import type { Contact } from '~/types'
 import yupify from '~/utils/yupify'
 import { nameSchema, nameSchemaChecks, usernameSchema, usernameSchemaChecks } from '~~/db/schema'
-
-const emit = defineEmits<{
-  (e: 'close'): void
-}>()
 
 useAutoRedirect({
   query: { drawer: ['save'] },
 })
 
+const sidebar = useSidebar()
 const { t } = useI18nExperimental()
 const toast = useToast()
 const queryClient = useQueryClient()
@@ -76,7 +73,7 @@ watch(() => form.values.username, debouncedValidateUsername)
 const isEditing = computed(() => !!contactQuery.data.value?.id)
 
 function handleGoToChat(username: string) {
-  isRootDrawerOpen.value = false
+  isChatListDrawerOpen.value = false
 
   navigateTo(`/app/chat/${username}`)
   toast.close()
@@ -174,7 +171,7 @@ const submit = form.handleSubmit(() => isEditing.value
 
 <template>
   <div class="flex flex-col h-dvh justify-between">
-    <Navbar :title="isEditing ? t('Edit Contact') : t('New Contact')" @close="emit('close')" />
+    <Navbar :title="isEditing ? t('Edit Contact') : t('New Contact')" @close="sidebar.back()" />
 
     <div
       class="pt-2 flex-1 overflow-y-auto bg-white space-y-4"

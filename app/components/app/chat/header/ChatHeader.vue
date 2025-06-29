@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { MenuItemType, MenuItemTypeOrFalse } from '~/components/ui/navigation/types'
-import { buildCharacter, isRootDrawerOpen, manageContact, openContactView } from '~/store'
+import { buildCharacter, isChatListDrawerOpen, manageContact, openContactView } from '~/store'
 
 const { t } = useI18nExperimental()
 const copyUrl = useCopyUrl()
@@ -85,7 +85,7 @@ const isCharacterFromLoggedUser = computed(() => {
       for="my-drawer"
       class="lg:hidden btn btn-neutral btn-md btn-ghost btn-circle drawer-button"
       icon="material-symbols:arrow-back-rounded"
-      @click.stop="isRootDrawerOpen = true"
+      @click.stop="isChatListDrawerOpen = true"
     />
 
     <Avatar

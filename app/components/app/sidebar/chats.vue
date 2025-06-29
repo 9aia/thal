@@ -2,7 +2,7 @@
 import { t } from '@psitta/vue'
 import { watchDebounced } from '@vueuse/core'
 import { useForm } from 'vee-validate'
-import { chatListSearch, drawers, isRootDrawerOpen, isWhatsNewModalOpen } from '~/store'
+import { chatListSearch, isChatListDrawerOpen, isWhatsNewModalOpen } from '~/store'
 
 const form = useForm({
   initialValues: {
@@ -14,15 +14,11 @@ watchDebounced(toRef(() => form.values.search), () => {
   chatListSearch.value = form.values.search
 }, { debounce: 500 })
 
+const sidebar = useSidebar()
 const chatsQuery = useChatsQuery()
 
-function goToHome() {
-  isRootDrawerOpen.value = false
-  navigateTo('/app/')
-}
-
 // function goToDiscover() {
-//   isRootDrawerOpen.value = false
+//   isChatListDrawerOpen.value = false
 //   navigateTo('/app/discover/')
 // }
 
@@ -50,7 +46,7 @@ onMounted(() => {
         <h1>
           <button
             class="flex items-center gap-2 justify-center text-lg font-medium text-black cursor-pointer border-b-2 border-b-transparent focus:border-b-primary focus:outline-hidden"
-            @click="goToHome()"
+            @click="navigateTo('/app/')"
           >
             {{ t('Thal') }}
             <ExperimentalBadge />
@@ -66,7 +62,7 @@ onMounted(() => {
           no-disable-on-loading
           icon="material-symbols:arrow-menu-close-rounded"
 
-          @click="isRootDrawerOpen = false"
+          @click="isChatListDrawerOpen = false"
         />
       </div>
     </Navbar>
@@ -109,8 +105,7 @@ onMounted(() => {
         <Button
           class="btn btn-lg btn-circle btn-primary"
           icon="material-symbols:add-rounded"
-
-          @click="drawers.newChat = true"
+          @click="sidebar.push('new-chat')"
         />
       </div>
     </div>

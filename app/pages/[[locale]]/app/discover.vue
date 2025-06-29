@@ -1,18 +1,16 @@
 <script setup lang="ts">
-import AppLayout from '~/layouts/app.vue'
-
 definePageMeta({
-  layout: false,
+  layout: 'sidebar',
   middleware: 'premium',
 })
 
 useAutoRedirect()
+
+onMounted(() => {
+  console.log('DiscoverScene mounted')
+})
 </script>
 
 <template>
-  <AppLayout>
-    <template #content>
-      <DiscoverBody />
-    </template>
-  </AppLayout>
+  <DiscoverBody />
 </template>

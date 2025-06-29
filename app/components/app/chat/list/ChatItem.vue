@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
 import queryKeys from '~/queryKeys'
-import { isRootDrawerOpen, openContactView } from '~/store'
+import { isChatListDrawerOpen, openContactView } from '~/store'
 import { MessageStatus } from '~~/db/schema'
 
 const props = defineProps<{
@@ -34,7 +34,7 @@ const content = computed(() => {
 })
 
 async function handleGoToChat(username: string) {
-  isRootDrawerOpen.value = false
+  isChatListDrawerOpen.value = false
   await navigateTo(`/app/chat/${username}`)
 }
 </script>

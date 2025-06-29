@@ -2,7 +2,7 @@
 import { t } from '@psitta/vue'
 import { useQuery } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
-import { buildCharacter, isRootDrawerOpen } from '~/store'
+import { buildCharacter, isChatListDrawerOpen } from '~/store'
 import type { Character } from '~/types'
 
 definePageMeta({
@@ -32,7 +32,7 @@ function handleDeleteCharacter(character: Character) {
 }
 
 async function handleGoToChat(username: string) {
-  isRootDrawerOpen.value = false
+  isChatListDrawerOpen.value = false
   await navigateTo(`/app/chat/${username}`)
 }
 </script>

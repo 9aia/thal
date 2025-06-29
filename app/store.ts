@@ -12,23 +12,7 @@ export const isWhatsNewModalOpen = ref(false)
 
 // #region Drawers
 
-export const isRootDrawerOpen = ref(false)
-
-export const drawers = reactive({
-  contactManager: false,
-  newChat: false,
-  characterBuilder: false,
-})
-
-watch(isRootDrawerOpen, (value) => {
-  if (!value) {
-    setTimeout(() => {
-      for (const key in drawers) {
-        (drawers as any)[key] = false
-      }
-    }, 500)
-  }
-})
+export const isChatListDrawerOpen = ref(false)
 
 export const rightDrawer = ref(false)
 export const rightDrawers = reactive({
@@ -64,8 +48,8 @@ export async function manageContact(username?: string | null, name?: string | nu
   manageContactUsername.value = username ?? null
   manageContactName.value = name ?? undefined
 
-  isRootDrawerOpen.value = true
-  drawers.contactManager = true
+  const sidebar = useSidebar()
+  sidebar.push('manage-contact')
 }
 
 // #endregion
@@ -99,8 +83,8 @@ export async function buildCharacter(characterId?: number | null, prompt?: strin
   characterBuildId.value = characterId ?? null
   characterBuildPrompt.value = prompt
 
-  isRootDrawerOpen.value = true
-  drawers.characterBuilder = true
+  const sidebar = useSidebar()
+  sidebar.push('build-character')
 }
 
 // #endregion

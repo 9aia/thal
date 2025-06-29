@@ -4,6 +4,12 @@ description: Tasks and items for the release.
 
 # TODO
 
+- Fix the sidebar loading component not rendering
+- Fix forgetting sidebar state after navigating to a route
+- Fix this:
+  ```bash
+  hook.js:608 [Vue warn]: Component inside <Transition> renders non-element root node that cannot be animated.
+  ```
 - Fix the iconify issue
   ```bash
   GET https://preview.thal.9aia.com/api/_nuxt_icon/material-symbols.json?icons=close-rounded - Ok @ 6/26/2025, 7:09:44 PM

@@ -7,13 +7,11 @@ import type { FetchError } from 'ofetch'
 import { useForm } from 'vee-validate'
 import type { MenuItemType } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
-import { characterBuildId, characterBuildPrompt, isRootDrawerOpen } from '~/store'
+import { characterBuildId, characterBuildPrompt, isChatListDrawerOpen } from '~/store'
 import type { CharacterBuildApiData, CharacterBuilderEditViewMode } from '~/types'
 import { promptSchema, promptSchemaChecks } from '~~/db/schema'
 
-const emit = defineEmits<{
-  (e: 'close'): void
-}>()
+const sidebar = useSidebar()
 const { t } = useI18nExperimental()
 const localWithDefaultRegion = useLocaleWithDefaultRegion()
 const toast = useToast()
@@ -187,7 +185,7 @@ const isMobile = computed(() => breakpoints.smaller('lg').value)
 
 function handleGoToChat() {
   if (isMobile.value) {
-    isRootDrawerOpen.value = false
+    isChatListDrawerOpen.value = false
   }
 
   navigateTo(`/app/chat/${editingUsername.value}`)
@@ -203,7 +201,7 @@ const isAlreadyChatting = computed(() => {
 
 <template>
   <div class="flex flex-col h-dvh justify-between">
-    <Navbar :title="isEditing ? t('Edit Character') : t('Create Character')" @close="emit('close')" />
+    <Navbar :title="isEditing ? t('Edit Character') : t('Create Character')" @close="sidebar.back()" />
 
     <CharacterBuilderPastDueAppNote
       v-model="isPastDueVisible"

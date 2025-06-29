@@ -4,7 +4,7 @@ import { refDebounced } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import { useRouteQuery } from '@vueuse/router'
 import { type CategorySlug, categories } from '~/constants/discover'
-import { buildCharacter, isRootDrawerOpen, isWhatsNewModalOpen } from '~/store'
+import { buildCharacter, isChatListDrawerOpen, isWhatsNewModalOpen } from '~/store'
 
 const toast = useToast()
 const whatsNew = useWhatsNew()
@@ -46,7 +46,7 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
       :title="t('Characters')"
       hide-back="on-lg"
       back-icon="material-symbols:menu-rounded"
-      @close="isRootDrawerOpen = true"
+      @close="isChatListDrawerOpen = true"
     >
       <div class="flex gap-1 items-center translate-x-1.5 z-50">
         <Button
@@ -58,7 +58,6 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
           }"
           :loading="whatsNew.countQuery.isLoading.value"
           icon="material-symbols:campaign-outline-rounded"
-
           @click="isWhatsNewModalOpen = true"
         />
 

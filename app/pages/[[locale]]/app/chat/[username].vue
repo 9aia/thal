@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import AppLayout from '~/layouts/app.vue'
-
 definePageMeta({
-  layout: false,
+  layout: 'sidebar',
   middleware: 'premium',
 })
 
@@ -16,19 +14,11 @@ const characterQuery = useCharacterQuery(username)
 </script>
 
 <template>
-  <AppLayout>
-    <template #sidebar>
-      <ChatListDrawer />
-    </template>
+  <div class="flex flex-col h-dvh justify-center items-center bg-white">
+    <ChatHeader />
 
-    <template #content>
-      <div class="flex flex-col h-dvh justify-center items-center bg-white">
-        <ChatHeader />
+    <ChatBody />
 
-        <ChatBody />
-
-        <ChatFooter v-if="characterQuery.data.value && !receiverUsernameNotFound" />
-      </div>
-    </template>
-  </AppLayout>
+    <ChatFooter v-if="characterQuery.data.value && !receiverUsernameNotFound" />
+  </div>
 </template>

@@ -149,6 +149,7 @@ Low priority:
 - Change forms to another platform that supports localization
 - Remove unused files/code
 - Use inferred schemas as DTOs
+- Refactor drawers
 - Refactor menu components into reusable components instead of JS array
 - Refactor Link component to support icon props and rewrite all `<A>` using it
 - Refactor toast

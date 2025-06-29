@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { drawers, isRootDrawerOpen } from '~/store'
+import { isChatListDrawerOpen } from '~/store'
 import type { MenuItemType, MenuItemTypeOrFalse } from '~/components/ui/navigation/types'
 // import { dummyT as t } from '@psitta/vue'
 
@@ -13,11 +13,12 @@ const logout = useLogout()
 const t = (x: string) => x
 
 async function goToHome() {
+  isChatListDrawerOpen.value = false
   await navigateTo('/app/')
 }
 
 async function goToDiscover() {
-  isRootDrawerOpen.value = false
+  isChatListDrawerOpen.value = false
   await navigateTo('/app/discover')
 }
 

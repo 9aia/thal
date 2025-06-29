@@ -1,43 +1,28 @@
 <script setup lang="ts">
-import { drawers, isPastDueModalOpen, isRootDrawerOpen, openContactView } from '~/store'
+import { useEventListener } from '@vueuse/core'
+import { isPastDueModalOpen, openContactView } from '~/store'
 import { usernameSchema } from '~~/db/schema'
 
 useInternetConnectionIndicator()
+const spaReferrer = useSpaReferrer()
+spaReferrer.install()
 
 const { state: localeModalState } = useLocaleModal()
 const route = useRoute()
 const toast = useToast()
+const sidebar = useSidebar()
 
-const spaReferrer = useSpaReferrer()
-spaReferrer.install()
+// #region Navigation
 
-type DrawersKey = keyof typeof drawers
-type Drawers = DrawersKey[]
+const navigationDirection = useNavigationDirection()
 
-function openDrawersFromQuery() {
-  const drawer = route.query.drawer as DrawersKey
+useEventListener(window, 'popstate', () => {
+  navigationDirection.value = 'back'
+})
 
-  if (!drawer) {
-    return
-  }
+// #endregion
 
-  const mapping: Record<string, DrawersKey> = {
-    create: 'characterBuilder',
-    save: 'contactManager',
-    add: 'newChat',
-  }
-
-  const mappedDrawer = mapping[drawer] || drawer
-
-  const availableDrawers = Object.keys(drawers) as Drawers
-
-  if (!availableDrawers.includes(mappedDrawer)) {
-    return
-  }
-
-  isRootDrawerOpen.value = true
-  drawers[mappedDrawer] = true
-}
+// #region Drawers
 
 function openContactViewByQuery() {
   const usernameQueryValue = route.query['contact-info']
@@ -58,9 +43,18 @@ function openContactViewByQuery() {
 }
 
 onMounted(() => {
-  openDrawersFromQuery()
   openContactViewByQuery()
 })
+
+// #endregion
+
+// #region Sidebar
+
+watch(route, () => {
+  sidebar.refreshViewQuery()
+})
+
+// #endregion
 </script>
 
 <template>

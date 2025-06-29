@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import AppLayout from '~/layouts/app.vue'
-
 definePageMeta({
-  layout: false,
+  layout: 'sidebar',
   middleware: 'premium',
 })
 
@@ -10,12 +8,5 @@ useAutoRedirect()
 </script>
 
 <template>
-  <AppLayout>
-    <template #side>
-      <NewChatDrawer />
-    </template>
-    <template #content>
-      <Home />
-    </template>
-  </AppLayout>
+  <Home />
 </template>
