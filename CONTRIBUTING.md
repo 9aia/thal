@@ -260,8 +260,8 @@ To deploy a version without creating a release, use the following command:
 
 ```bash
 pnpm run build && pnpm run deploy # for deploying development
-pnpm run build:preview && pnpm run deploy # for deploying preview
-pnpm run build:prod && pnpm run deploy # for deploying production
+pnpm run build:preview && pnpm run deploy:preview # for deploying preview
+pnpm run build:prod && pnpm run deploy:prod # for deploying production
 ```
 
 ## Designing

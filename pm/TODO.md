@@ -4,7 +4,6 @@ description: Tasks and items for the release.
 
 # TODO
 
-- Fix database deployment running prod database on preview
 - Fix the iconify issue
   ```bash
   GET https://preview.thal.9aia.com/api/_nuxt_icon/material-symbols.json?icons=close-rounded - Ok @ 6/26/2025, 7:09:44 PM

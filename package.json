@@ -20,8 +20,8 @@
 
     "db:generate": "drizzle-kit generate",
     "db:migrate": "wrangler d1 migrations apply thal --local",
-    "db:migrate:preview": "wrangler d1 migrations apply thal --remote --preview",
-    "db:migrate:prod": "wrangler d1 migrations apply thal --remote",
+    "db:migrate:preview": "wrangler d1 migrations apply thal --remote --env preview",
+    "db:migrate:prod": "wrangler d1 migrations apply thal --remote --env prod",
     "db:client": "castor",
 
     "build": "NODE_OPTIONS='--max-old-space-size=4096' nuxt build",
@@ -29,7 +29,9 @@
     "build:prod": "NODE_OPTIONS='--max-old-space-size=4096' nuxt build --dotenv .env.prod",
     "generate": "nuxt generate",
     "preview": "wrangler dev .output/server/index.mjs --assets .output/public/",
-    "deploy": "CLOUDFLARE_ACCOUNT_ID=cf5a672bcf77fc2318ec7f0a709c1f77 wrangler deploy .output/server/index.mjs --assets .output/public",
+    "deploy": "CLOUDFLARE_ACCOUNT_ID=cf5a672bcf77fc2318ec7f0a709c1f77 wrangler deploy",
+    "deploy:preview": "pnpm run deploy --env preview",
+    "deploy:prod": "pnpm run deploy --env prod",
     "release": "release-it"
   },
   "dependencies": {

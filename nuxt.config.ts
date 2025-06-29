@@ -1,8 +1,9 @@
-import './psitta.config'
 import process from 'node:process'
 import { getConfig } from '@psitta/core'
 import tailwindcss from '@tailwindcss/vite'
 import { defineNuxtConfig } from 'nuxt/config'
+import ignoreTailwindSourceMapBroken from './app/plugins/vite/ignoreTailwindSourceMapBroken'
+import './psitta.config'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -103,6 +104,7 @@ export default defineNuxtConfig({
   vite: {
     plugins: [
       tailwindcss(),
+      ignoreTailwindSourceMapBroken(),
     ],
     server: {
       allowedHosts: ['9aia-dev.com'],
