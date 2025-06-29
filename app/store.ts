@@ -16,12 +16,8 @@ export const isRootDrawerOpen = ref(false)
 
 export const drawers = reactive({
   contactManager: false,
-  accountSettings: false,
-  settings: false,
   newChat: false,
   characterBuilder: false,
-  myCharacters: false,
-  profile: false,
 })
 
 watch(isRootDrawerOpen, (value) => {

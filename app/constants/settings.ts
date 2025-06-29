@@ -1,5 +1,5 @@
 import type { MenuItemType } from '~/components/ui/navigation/types'
-import { drawers, isWhatsNewModalOpen } from '~/store'
+import { isWhatsNewModalOpen } from '~/store'
 // import { dummyT as t } from '@psitta/vue'
 
 const t = (x: string) => x
@@ -9,7 +9,7 @@ const general: MenuItemType[] = [
     id: 'account',
     icon: 'material-symbols:person-outline-rounded',
     name: t('Account'),
-    onClick: () => drawers.accountSettings = true,
+    onClick: () => navigateTo('/app/settings/account'),
   },
   {
     id: 'plan',
@@ -23,7 +23,7 @@ const general: MenuItemType[] = [
     id: 'my-characters',
     icon: 'material-symbols:manage-accounts-outline-rounded',
     name: t('My characters'),
-    onClick: () => drawers.myCharacters = true,
+    onClick: () => navigateTo('/app/settings/my-characters'),
   },
 ]
 

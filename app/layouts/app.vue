@@ -45,24 +45,8 @@ onMounted(() => {
             <ChatListDrawer @close="drawers.newChat = false" />
 
             <template #footer>
-              <Drawer v-slot="{ close }" v-model="drawers.settings">
-                <SettingsDrawer @close="close" />
-              </Drawer>
-
               <Drawer v-slot="{ close }" v-model="drawers.newChat">
                 <NewChatDrawer @close="close" />
-              </Drawer>
-
-              <Drawer v-slot="{ close }" v-model="drawers.myCharacters">
-                <MyCharactersDrawer @close="close" />
-              </Drawer>
-
-              <Drawer v-slot="{ close }" v-model="drawers.profile">
-                <ProfileDrawer @close="close" />
-              </Drawer>
-
-              <Drawer v-slot="{ close }" v-model="drawers.accountSettings">
-                <AccountSettingsDrawer @close="close" />
               </Drawer>
 
               <Drawer v-slot="{ close }" v-model="drawers.characterBuilder">

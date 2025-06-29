@@ -26,14 +26,10 @@ function goToHome() {
 //   navigateTo('/app/discover/')
 // }
 
-// function openMyCharacters() {
-//   drawers.myCharacters = true
-// }
-
 // const generalItems: MenuItemType[] = [
 //   { id: 'create-character', icon: 'material-symbols:frame-person-outline-rounded', name: t('Build character'), onClick: () => buildCharacter(null) },
 //   { id: 'new-contact', icon: 'material-symbols:person-add-outline-rounded', name: t('New contact'), onClick: () => manageContact(null) },
-//   // { id: 'my-characters', icon: 'material-symbols:manage-accounts-outline-rounded', name: t('My characters'), onClick: () => openMyCharacters() },
+//   // { id: 'my-characters', icon: 'material-symbols:manage-accounts-outline-rounded', name: t('My characters'), onClick: () => navigateTo('/app/settings/my-characters') },
 // ]
 
 // const discoverItems: MenuItemType[] = [

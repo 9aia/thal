@@ -2,17 +2,16 @@
 import { t } from '@psitta/vue'
 import { useQuery } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
-import { buildCharacter, drawers, isRootDrawerOpen } from '~/store'
+import { buildCharacter, isRootDrawerOpen } from '~/store'
 import type { Character } from '~/types'
 
-const emit = defineEmits<{
-  (e: 'close'): void
-}>()
-
-useAutoRedirect({
-  query: { drawer: ['list'] },
+definePageMeta({
+  layout: 'settings',
 })
 
+useAutoRedirect()
+
+const router = useRouter()
 const localWithDefaultRegion = useLocaleWithDefaultRegion()
 
 const myCharactersQuery = useQuery({
@@ -39,8 +38,8 @@ async function handleGoToChat(username: string) {
 </script>
 
 <template>
-  <div v-if="drawers.myCharacters" class="flex flex-col h-dvh justify-between">
-    <Navbar :title="t('My Characters')" @close="emit('close')" />
+  <div class="flex flex-col h-dvh justify-between">
+    <Navbar :title="t('My Characters')" @close="router.back()" />
 
     <div class="pt-2 flex-1 pb-4 overflow-y-auto bg-white">
       <SettingHeader

@@ -3,22 +3,31 @@ import { t } from '@psitta/vue'
 import { ref } from 'vue'
 import { SETTINGS } from '~/constants/settings'
 
-const emit = defineEmits<{
-  (e: 'close'): void
-}>()
+definePageMeta({
+  layout: 'settings',
+})
+
+useAutoRedirect()
 
 const logout = useLogout()
+const router = useRouter()
+const { isExternalEntry } = useSpaReferrer()
 
 const isLocaleModalOpen = ref(false)
 
-useAutoRedirect({
-  query: { drawer: ['settings'] },
-})
+function handleClose() {
+  if (isExternalEntry.value) {
+    navigateTo('/app/')
+    return
+  }
+
+  router.back()
+}
 </script>
 
 <template>
-  <div class="flex flex-col h-dvh justify-between">
-    <Navbar :title="t('Settings')" @close="emit('close')" />
+  <div class="flex flex-col h-dvh justify-between w-full absolute">
+    <Navbar :title="t('Settings')" @close="handleClose" />
 
     <div class="flex-1 overflow-y-auto bg-white mt-2">
       <ProfilePanel />

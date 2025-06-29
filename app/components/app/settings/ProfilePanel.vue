@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
-import { drawers } from '~/store'
 
 const user = useUser()
 </script>
@@ -10,7 +9,7 @@ const user = useUser()
     role="button"
     tabindex="0"
     class="cursor-pointer group bg-radial-[circle_at_bottom] from-magenta-50 to-gray-50 p-6 flex justify-between items-center transition duration-300 focus:outline-none"
-    @click="drawers.profile = true"
+    @click="navigateTo('/app/settings/profile')"
   >
     <div class="flex gap-4 items-center">
       <Avatar

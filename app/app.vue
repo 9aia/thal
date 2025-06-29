@@ -8,6 +8,9 @@ const { state: localeModalState } = useLocaleModal()
 const route = useRoute()
 const toast = useToast()
 
+const spaReferrer = useSpaReferrer()
+spaReferrer.install()
+
 type DrawersKey = keyof typeof drawers
 type Drawers = DrawersKey[]
 
@@ -22,8 +25,6 @@ function openDrawersFromQuery() {
     create: 'characterBuilder',
     save: 'contactManager',
     add: 'newChat',
-    list: 'myCharacters',
-    account: 'accountSettings',
   }
 
   const mappedDrawer = mapping[drawer] || drawer

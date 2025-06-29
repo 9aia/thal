@@ -1,25 +1,21 @@
 <script lang="ts" setup>
-import { drawers } from '~/store'
-
-const emit = defineEmits<{
-  (e: 'close'): void
-}>()
-
-useAutoRedirect({
-  query: { drawer: ['profile'] },
+definePageMeta({
+  layout: 'settings',
 })
 
-const { t } = useI18nExperimental()
+useAutoRedirect()
 
+const { t } = useI18nExperimental()
 const user = useUser()
+const router = useRouter()
 </script>
 
 <template>
   <div class="flex flex-col h-dvh justify-between">
-    <Navbar :title="t('Profile')" @close="emit('close')" />
+    <Navbar :title="t('Profile')" @close="router.back()" />
 
     <div class="flex-1 overflow-y-auto bg-white pt-4">
-      <ProfileHeader @edit="drawers.accountSettings = true" />
+      <ProfileHeader @edit="navigateTo('/app/settings/account')" />
 
       <div class="flex-1 mt-4">
         <SettingSection
@@ -29,7 +25,7 @@ const user = useUser()
             :label="t('Name')"
             role="button"
             class="cursor-pointer"
-            @click="drawers.accountSettings = true"
+            @click="navigateTo('/app/settings/account')"
           >
             <template #icon>
               <Icon name="material-symbols:person-outline-rounded" />
@@ -52,7 +48,7 @@ const user = useUser()
             :label="t('Username')"
             role="button"
             class="cursor-pointer"
-            @click="drawers.accountSettings = true"
+            @click="navigateTo('/app/settings/account')"
           >
             <template #icon>
               <Icon name="material-symbols:id-card-outline-rounded" />

@@ -16,21 +16,6 @@ async function goToHome() {
   await navigateTo('/app/')
 }
 
-async function openProfile() {
-  isRootDrawerOpen.value = true
-  drawers.profile = true
-}
-
-async function openMyCharacters() {
-  isRootDrawerOpen.value = true
-  drawers.myCharacters = true
-}
-
-async function openSettings() {
-  isRootDrawerOpen.value = true
-  drawers.settings = true
-}
-
 async function goToDiscover() {
   isRootDrawerOpen.value = false
   await navigateTo('/app/discover')
@@ -38,9 +23,9 @@ async function goToDiscover() {
 
 const items = computed(() => ([
   !props.hideHome && { id: 'home', name: t('Home'), icon: 'material-symbols:home-outline-rounded', onClick: () => goToHome() },
-  { id: 'profile', name: t('Profile'), icon: 'material-symbols:face', onClick: () => openProfile() },
+  { id: 'profile', name: t('Profile'), icon: 'material-symbols:face', onClick: () => navigateTo('/app/settings/profile') },
   !props.hideDiscover && { id: 'discover', name: t('Discover'), icon: 'material-symbols:person-search-outline-rounded', onClick: () => goToDiscover() },
-  { id: 'my-characters', name: t('My characters'), icon: 'material-symbols:manage-accounts-outline-rounded', onClick: () => openMyCharacters() },
+  { id: 'my-characters', name: t('My characters'), icon: 'material-symbols:manage-accounts-outline-rounded', onClick: () => navigateTo('/app/settings/my-characters') },
   {
     id: 'plan',
     name: t('Subscription'),
@@ -49,7 +34,7 @@ const items = computed(() => ([
     icon: 'material-symbols:subscriptions-outline-rounded',
     type: 'external',
   },
-  { id: 'settings', name: t('Settings'), icon: 'material-symbols:settings-outline-rounded', onClick: () => openSettings() },
+  { id: 'settings', name: t('Settings'), icon: 'material-symbols:settings-outline-rounded', onClick: () => navigateTo('/app/settings') },
   {
     id: 'logout',
     name: t('Logout'),
