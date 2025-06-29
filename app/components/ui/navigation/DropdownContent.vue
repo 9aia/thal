@@ -41,7 +41,7 @@ function click(item: MenuItemType) {
 <template>
   <ul
     :class="styles.base({ class: props.class })"
-    @click.stop.prevent
+    @click.stop
   >
     <li
       v-for="item in items"
