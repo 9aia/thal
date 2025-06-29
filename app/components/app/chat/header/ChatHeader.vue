@@ -5,6 +5,7 @@ import { buildCharacter, isRootDrawerOpen, manageContact, openContactView } from
 const { t } = useI18nExperimental()
 const copyUrl = useCopyUrl()
 const route = useRoute()
+const user = useUser()
 const contactDeleteModalState = ref()
 
 const username = computed(() => route.params.username as string)
@@ -65,6 +66,10 @@ const items = computed(() => ([
     onClick: () => clearHistoryMutation.mutate(),
   },
 ] satisfies MenuItemTypeOrFalse[]).filter(Boolean) as MenuItemType[])
+
+const isCharacterFromLoggedUser = computed(() => {
+  return characterQuery.data.value?.creatorId === user.value?.id
+})
 </script>
 
 <template>
@@ -99,6 +104,7 @@ const items = computed(() => ([
 
       <div v-if="!receiverUsernameNotFound" class="flex gap-1">
         <Button
+          v-if="isCharacterFromLoggedUser"
           class="btn btn-neutral btn-circle btn-md btn-ghost"
           icon="material-symbols:frame-person-outline-rounded"
           @click.stop="buildCharacter(characterQuery.data.value?.id)"
