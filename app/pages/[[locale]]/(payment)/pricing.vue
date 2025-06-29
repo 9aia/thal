@@ -7,8 +7,6 @@ definePageMeta({
   title: 'Pricing',
 })
 
-useAutoRedirect()
-
 const headers = useRequestHeaders(['cookie'])
 const pricingQuery = useServerQuery({
   queryFn: () => $fetch('/api/payment/stripe/pricing-data', {
