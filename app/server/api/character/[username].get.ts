@@ -50,6 +50,7 @@ export default eventHandler(async (event) => {
   return {
     id: character?.id || null,
     username,
+    creatorId: character?.creatorId || null,
     name: character?.characterLocalizations[0]?.name || null,
     description: character?.characterLocalizations[0]?.description || null,
     createdAt: character?.createdAt || null,
