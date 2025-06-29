@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "@ark-ui/vue": "^5.15.1",
-    "@nuxt/icon": "^1.14.0",
+    "@nuxt/icon": "^1.15.0",
     "@oslojs/crypto": "^1.0.1",
     "@oslojs/encoding": "^1.1.0",
     "@pilcrowjs/object-parser": "^0.0.4",
