@@ -3,16 +3,17 @@ import { onMounted } from 'vue'
 import { T, t } from '@psitta/vue'
 import Link from '~/components/ui/navigation/Link.vue'
 
+definePageMeta({
+  title: 'Checkout success',
+  middleware: 'checkout-success',
+  layout: 'site',
+})
+
 onMounted(() => {
   const cookie = useCookie('free_trial_used', {
     path: '/',
   })
   cookie.value = '1'
-})
-
-definePageMeta({
-  title: 'Checkout success',
-  middleware: 'checkout-success',
 })
 </script>
 

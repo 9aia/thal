@@ -5,6 +5,7 @@ import { SubscriptionStatus } from '~~/db/schema'
 
 definePageMeta({
   title: 'Pricing',
+  layout: 'site',
 })
 
 const headers = useRequestHeaders(['cookie'])

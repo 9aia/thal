@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { T, t } from '@psitta/vue'
+
+definePageMeta({
+  layout: 'site',
+})
 </script>
 
 <template>

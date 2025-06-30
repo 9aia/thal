@@ -3,6 +3,10 @@ import { T, t, useLocale } from '@psitta/vue'
 import queryKeys from '~/queryKeys'
 import { SubscriptionStatus } from '~~/db/schema'
 
+definePageMeta({
+  layout: 'site',
+})
+
 useAutoRedirect()
 
 const headers = useRequestHeaders(['cookie'])

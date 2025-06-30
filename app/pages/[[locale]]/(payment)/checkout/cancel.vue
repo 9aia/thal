@@ -2,6 +2,7 @@
 import { t } from '@psitta/vue'
 
 definePageMeta({
+  layout: 'site',
   title: 'Checkout canceled',
   middleware: 'canceled',
 })
