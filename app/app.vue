@@ -64,7 +64,9 @@ watch(route, () => {
   />
 
   <NuxtLayout>
-    <NuxtPage />
+    <div>
+      <NuxtPage />
+    </div>
   </NuxtLayout>
 
   <Toast />
