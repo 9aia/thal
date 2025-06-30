@@ -65,6 +65,15 @@ const items = computed(() => ([
     meaning: 'danger',
     onClick: () => clearHistoryMutation.mutate(),
   },
+  {
+    id: 'feedback',
+    icon: 'material-symbols:feedback-outline-rounded',
+    name: 'Give us feedback',
+    type: 'external',
+    href: 'https://forms.gle/5ePvXjrebyWGUrM26',
+    newTab: true,
+    localize: false,
+  },
 ] satisfies MenuItemTypeOrFalse[]).filter(Boolean) as MenuItemType[])
 
 const isCharacterFromLoggedUser = computed(() => {

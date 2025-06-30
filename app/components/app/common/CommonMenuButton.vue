@@ -35,6 +35,15 @@ const items = computed(() => ([
     icon: 'material-symbols:subscriptions-outline-rounded',
     type: 'external',
   },
+  {
+    id: 'feedback',
+    icon: 'material-symbols:feedback-outline-rounded',
+    name: 'Give us feedback',
+    type: 'external',
+    href: 'https://forms.gle/5ePvXjrebyWGUrM26',
+    newTab: true,
+    localize: false,
+  },
   { id: 'settings', name: t('Settings'), icon: 'material-symbols:settings-outline-rounded', onClick: () => navigateTo('/app/settings') },
   {
     id: 'logout',
