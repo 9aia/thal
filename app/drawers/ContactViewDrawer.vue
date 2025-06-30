@@ -77,12 +77,17 @@ function saveContact() {
   toast.close()
 }
 
+function editContact() {
+  manageContact(username.value)
+  closeContactView()
+}
+
 const items = computed(() => ([
   isContact.value && {
     id: 'edit-contact',
     name: t('Edit contact'),
     icon: 'material-symbols:person-edit-outline-rounded',
-    onClick: () => manageContact(username.value),
+    onClick: () => editContact(),
   },
   isContact.value
     ? {
@@ -95,7 +100,7 @@ const items = computed(() => ([
         id: 'add-contact',
         name: t('Add to contacts'),
         icon: 'material-symbols:person-add-outline-rounded',
-        onClick: () => manageContact(username.value, characterQuery.data.value?.name),
+        onClick: () => saveContact(),
       },
   !isCharacterDeleted.value && {
     id: 'share-character',
@@ -168,7 +173,7 @@ const items = computed(() => ([
                 v-if="!isCharacterDeleted"
                 icon="material-symbols:ios-share-rounded"
                 :label="t('Share')"
-                @click="copyUrl"
+                @click="copyUrl()"
               />
             </template>
           </ContactViewIdentifier>

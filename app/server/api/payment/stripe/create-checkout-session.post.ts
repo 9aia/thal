@@ -24,6 +24,10 @@ export default eventHandler(async (event) => {
     const checkout = await stripe.checkout.sessions.retrieve(user.checkoutId)
 
     if (checkout.status === 'complete') {
+      if (user.subscriptionStatus === SubscriptionStatus.active || user.subscriptionStatus === SubscriptionStatus.trialing || user.subscriptionStatus === SubscriptionStatus.past_due) {
+        return sendRedirect(event, '/app')
+      }
+
       return sendRedirect(event, '/checkout/success')
     }
 

@@ -36,7 +36,6 @@ Low priority:
 - Add native language preference (eg. BR or PT)
 - Add config for time
 - Add character unique voices
-- Add confirmation modal on chat clear
 - Add pause icon button to message listen button
 - ---
 - Add chat item option "Delete chat"
@@ -78,11 +77,6 @@ Low priority:
 
 ## Changes
 
-Low priority:
-
-- Move discover to its own layout
-- Move settings to its own route and layout
-
 ## Glitches
 
 Low priority:
@@ -98,7 +92,7 @@ Low priority:
 
 Low priority:
 
-- Add aria-label and title to all buttons (add title prop to Button component)
+- Add `aria-label` and `title` to all buttons (add `title` prop to Button component)
 - Add tooltip to all actionable icons
 - Improve a11y for avatars
 

@@ -1,15 +1,6 @@
 import type { InfiniteData } from '@tanstack/vue-query'
 import type { Pagination } from '~/schemas/data'
 
-export function getBase64(file: Blob) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = () => resolve(reader.result)
-    reader.onerror = error => reject(error)
-  })
-}
-
 export function calculatePagination<T extends Pagination>(query: T) {
   const { page, perPage } = query
 
@@ -38,21 +29,4 @@ export function unwrapInfiniteData<
     ...data,
     pages: data.pages?.flatMap((page: typeof data.pages[number]) => page.data),
   }
-}
-
-export function swapToFirst<T>(arr: T[], from: number) {
-  if (from <= 0 || from >= arr.length)
-    return arr
-
-  const fromItem = arr[from]
-  const arrCopy = [fromItem]
-
-  for (let i = 0; i < arr.length; i++) {
-    if (i === from)
-      continue
-
-    arrCopy.push(arr[i])
-  }
-
-  return arrCopy
 }
