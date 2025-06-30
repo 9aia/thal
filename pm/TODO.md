@@ -6,6 +6,10 @@ description: Tasks and items for the release.
 
 - Fix the sidebar loading component not rendering
 - Fix forgetting sidebar state after navigating to a route
+- Fix isChatListDrawerOpen not working
+- Add feedback and issue report button to the chat list at the bottom
+- Fix translations of items
+- Fix chat opening auto-opening when character creation (shouldn't open)
 - Fix this:
   ```bash
   hook.js:608 [Vue warn]: Component inside <Transition> renders non-element root node that cannot be animated.

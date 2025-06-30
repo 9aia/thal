@@ -9,6 +9,9 @@ description: A detailed, chronological record of all changes made to a project, 
 ### Enhanced
 
 - Improve sidebar and settings animation
+- Improve route transition animation
+- Improve "My Characters" right padding
+- Enhanced settings header padding
 
 ### Fixed
 

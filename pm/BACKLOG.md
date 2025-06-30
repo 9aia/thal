@@ -122,6 +122,7 @@ Low priority:
 Low priority:
 
 - Optimize invalidations (use queryClient.setQueryData)
+- Implement `<NuxtImg>`
 - Clean up current playing message on message stop
 - Pregenerate site pages
 - Skip categorization on discoverability change
