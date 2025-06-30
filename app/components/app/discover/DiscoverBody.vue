@@ -47,6 +47,7 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
         :title="t('Characters')"
         hide-back="on-lg"
         back-icon="material-symbols:menu-rounded"
+        opener="main"
         @close="isChatListDrawerOpen = true"
       >
         <div class="flex gap-1 items-center translate-x-1.5 z-50">

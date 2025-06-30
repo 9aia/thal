@@ -58,21 +58,21 @@ const items = computed(() => ([
         icon: 'material-symbols:person-add-outline-rounded',
         onClick: () => manageContact(username.value, characterQuery.data.value?.name),
       },
+  {
+    id: 'submit-problem-or-suggestion',
+    icon: 'material-symbols:feedback-outline-rounded',
+    name: t('Submit a problem or suggestion'),
+    type: 'external',
+    href: 'https://forms.gle/ANMv7qnwTHva1k7L8',
+    newTab: true,
+    localize: false,
+  },
   hasMessages.value && {
     id: 'clear-chat',
     name: t('Clear chat'),
     icon: 'material-symbols:mop-outline',
     meaning: 'danger',
     onClick: () => clearHistoryMutation.mutate(),
-  },
-  {
-    id: 'feedback',
-    icon: 'material-symbols:feedback-outline-rounded',
-    name: 'Give us feedback',
-    type: 'external',
-    href: 'https://forms.gle/5ePvXjrebyWGUrM26',
-    newTab: true,
-    localize: false,
   },
 ] satisfies MenuItemTypeOrFalse[]).filter(Boolean) as MenuItemType[])
 

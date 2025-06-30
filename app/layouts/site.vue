@@ -7,27 +7,27 @@ const logout = useLogout()
 
 const localeModal = useLocaleModal()
 
-const menuItems: MenuItemType[] = [
-  { id: 'app', name: 'App', icon: 'material-symbols:chat-outline-rounded', href: '/app' },
-  { id: 'settings', name: 'Account Settings', icon: 'material-symbols:settings-outline-rounded', href: '/settings/account' },
-  {
-    id: 'language',
-    name: 'Language',
-    icon: 'material-symbols:language',
-    onClick: () => {
-      localeModal.open()
+const menuItems = computed<MenuItemType[]>(() => {
+  return [
+    { id: 'app', name: t('Access the app'), icon: 'material-symbols:chat-outline-rounded', href: '/app' },
+    { id: 'settings', name: t('Account settings'), icon: 'material-symbols:settings-outline-rounded', href: '/settings/account' },
+    {
+      id: 'language',
+      name: t('Language'),
+      icon: 'material-symbols:language',
+      onClick: () => localeModal.open(),
     },
-  },
-  {
-    id: 'logout',
-    name: 'Logout',
-    action: '/api/auth/logout',
-    method: 'post',
-    icon: 'material-symbols:logout-rounded',
-    meaning: 'warning',
-    onSubmit: logout,
-  },
-]
+    {
+      id: 'logout',
+      name: t('Logout'),
+      action: '/api/auth/logout',
+      method: 'post',
+      icon: 'material-symbols:logout-rounded',
+      meaning: 'warning',
+      onSubmit: logout,
+    },
+  ]
+})
 
 const redirectUrl = useRedirectUrl()
 </script>
