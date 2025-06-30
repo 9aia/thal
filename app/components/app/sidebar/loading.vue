@@ -3,7 +3,7 @@ import { t } from '@psitta/vue'
 </script>
 
 <template>
-  <div class="bg-white flex flex-col h-dvh justify-between w-full">
+  <div class="bg-white flex flex-col h-dvh justify-between w-full absolute">
     <Navbar hide-title hide-back="always">
       <div class="flex gap-2 items-center">
         <h1>

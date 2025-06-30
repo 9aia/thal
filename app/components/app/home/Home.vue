@@ -11,7 +11,7 @@ async function goToDiscover() {
 </script>
 
 <template>
-  <div class="flex flex-col w-full h-dvh bg-white">
+  <div class="flex flex-col w-full h-dvh bg-white absolute">
     <Navbar class="bg-gray-800" hide-back="on-lg" hide-title>
       <div class="flex gap-1 items-center -translate-x-1.5 z-50">
         <Button

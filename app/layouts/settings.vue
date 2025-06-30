@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
 import AppLayout from '~/layouts/app.vue'
-import { isPastDueModalAlreadyShown, isPastDueModalOpen, rightDrawer } from '~/store'
+import { isPastDueModalAlreadyShown, isPastDueModalOpen } from '~/store'
 import { SubscriptionStatus } from '~~/db/schema'
 
 const user = useUser()

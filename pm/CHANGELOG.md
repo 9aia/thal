@@ -6,11 +6,20 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Enhanced
+
+- Improve sidebar and settings animation
+
 ### Fixed
 
 - Fixed auto redirect on free trial
 - Fixed logout button not working
 - Allowed only character owners to edit character in the chat header
+
+### Performance
+
+- Improved sidebar code splitting
+- Improved code splitting for chat, settings, discover and home routes
 
 ## [0.1.0-10] - 2025-06-26
 
@@ -94,7 +103,7 @@ description: A detailed, chronological record of all changes made to a project, 
 
 - Added character data localization
 
-### Enhancements
+### Enhanced
 
 - Improved contact view drawer width
 - Improved user request on the "Character deletion" modal

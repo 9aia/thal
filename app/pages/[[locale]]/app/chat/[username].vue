@@ -14,7 +14,7 @@ const characterQuery = useCharacterQuery(username)
 </script>
 
 <template>
-  <div class="flex flex-col h-dvh justify-center items-center bg-white">
+  <div class="flex flex-col h-dvh justify-center items-center bg-white absolute w-full">
     <ChatHeader />
 
     <ChatBody />

@@ -170,7 +170,7 @@ const submit = form.handleSubmit(() => isEditing.value
 </script>
 
 <template>
-  <div class="flex flex-col h-dvh justify-between">
+  <div class="flex flex-col h-dvh justify-between w-full absolute">
     <Navbar :title="isEditing ? t('Edit Contact') : t('New Contact')" @close="sidebar.back()" />
 
     <div

@@ -31,8 +31,8 @@ onMounted(() => {
         <div class="drawer drawer-end">
           <input id="my-drawer-4" v-model="rightDrawer" type="checkbox" class="drawer-toggle">
 
-          <div class="drawer-content flex flex-col h-dvh bg-white overflow-auto">
-            <Transition name="fade">
+          <div class="drawer-content flex flex-col h-dvh bg-white overflow-hidden relative">
+            <Transition name="fade-up">
               <slot />
             </Transition>
           </div>
@@ -51,7 +51,7 @@ onMounted(() => {
       <div class="drawer-side z-50">
         <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay" />
 
-        <div class="flex flex-col h-dvh justify-between w-96 overflow-hidden">
+        <div class="flex flex-col h-dvh justify-between w-96 overflow-hidden relative">
           <Transition
             :name="sidebar.navigationDirection.value === 'forward' ? 'slide-right' : 'slide-left'"
           >
@@ -77,5 +77,13 @@ onMounted(() => {
 }
 .slide-left-leave-to, .slide-right-enter-from {
   transform: translateX(100%);
+}
+
+.fade-up-enter-from, .fade-up-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.fade-up-enter-active, .fade-up-leave-active {
+  transition: all 0.2s ease-in-out;
 }
 </style>

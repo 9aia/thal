@@ -200,7 +200,7 @@ const isAlreadyChatting = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-col h-dvh justify-between">
+  <div class="flex flex-col h-dvh justify-between w-full absolute">
     <Navbar :title="isEditing ? t('Edit Character') : t('Create Character')" @close="sidebar.back()" />
 
     <CharacterBuilderPastDueAppNote
