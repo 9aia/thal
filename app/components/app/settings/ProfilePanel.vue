@@ -8,7 +8,7 @@ const user = useUser()
   <div
     role="button"
     tabindex="0"
-    class="cursor-pointer group bg-radial-[circle_at_bottom] from-magenta-50 to-gray-50 p-6 flex justify-between items-center transition duration-300 focus:outline-none"
+    class="cursor-pointer group bg-radial-[circle_at_bottom] from-magenta-50 to-gray-50 flex justify-between items-center transition duration-300 focus:outline-none p-6 w-full"
     @click="navigateTo('/app/settings/profile')"
   >
     <div class="flex gap-4 items-center">

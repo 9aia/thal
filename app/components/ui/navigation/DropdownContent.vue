@@ -23,7 +23,7 @@ function closeMenu() {
 
 const baseStyles = tv({
   slots: {
-    base: 'cursor-auto dropdown-content bg-base-100 rounded-2xl z-1 w-56 p-4 shadow-2xl mt-3 overflow-visible space-y-2',
+    base: 'cursor-auto dropdown-content bg-base-100 rounded-2xl z-1 w-64 p-4 shadow-2xl mt-3 overflow-visible space-y-2',
     li: '',
     item: 'flex px-2 py-1 w-full rounded-2xl focus:outline-2 focus:outline-offset-2 focus:outline-blue-500',
   },

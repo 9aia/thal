@@ -52,7 +52,7 @@ const wrapperStyles = tv({
 </script>
 
 <template>
-  <div class="flex w-full justify-between items-center">
+  <div class="flex w-full justify-between items-center gap-1">
     <div
       :class="wrapperStyles({ class: wrapperClass })"
     >

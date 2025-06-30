@@ -69,7 +69,7 @@ const items: MenuItemType[] = [
           </Menu.Trigger>
           <Menu.Positioner>
             <Menu.Content
-              class="cursor-auto bg-base-100 rounded-2xl z-40 w-56 p-4 shadow-2xl mt-3 overflow-visible space-y-2 focus:outline-hidden"
+              class="cursor-auto bg-base-100 rounded-2xl z-40 w-64 p-4 shadow-2xl mt-3 overflow-visible space-y-2 focus:outline-hidden"
               @click.stop.prevent
             >
               <Menu.Item
