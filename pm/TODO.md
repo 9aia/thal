@@ -4,6 +4,7 @@ description: Tasks and items for the release.
 
 # TODO
 
+- Facilitate issue reporting (for e.g, on toast errors).
 - Fix the sidebar loading component not rendering
 - Fix forgetting sidebar state after navigating to a route
 - Fix isChatListDrawerOpen not working
