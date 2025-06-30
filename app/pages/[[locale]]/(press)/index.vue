@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import { T, t, useLocale } from '@psitta/vue'
+import { getConfig } from '@psitta/core'
 import queryKeys from '~/queryKeys'
 import { SubscriptionStatus } from '~~/db/schema'
 
 definePageMeta({
   layout: 'site',
+  validate(route) {
+    return getConfig().locales.includes(route.params.locale as string)
+  },
 })
 
 useAutoRedirect()
