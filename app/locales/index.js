@@ -401,12 +401,6 @@
   "https://forms.gle/5ePvXjrebyWGUrM26": {
     "pt": "https://forms.gle/yHaiExzsQvv1mTdM8"
   },
-  "Give us feedback": {
-    "pt": "Nos dê feedback"
-  },
-  "Report a problem": {
-    "pt": "Reportar um problema"
-  },
   "Start chatting": {
     "pt": "Começar a conversar"
   },
@@ -472,12 +466,6 @@
   },
   "You canceled your subscription. We hope to see you soon!": {
     "pt": "Você cancelou sua assinatura. Esperamos vê-lo em breve!"
-  },
-  "https://forms.gle/SvTVuoT2YswmGEQF7": {
-    "pt": "https://forms.gle/yHaiExzsQvv1mTdM8"
-  },
-  "Give feedback": {
-    "pt": "Dar feedback"
   },
   "Go to pricing": {
     "pt": "Ir para preços"
@@ -931,5 +919,20 @@
   },
   "Save Your Favorite.": {
     "pt": "Salve o seu favorito."
+  },
+  "App": {
+    "pt": "App"
+  },
+  "Rate Thal": {
+    "pt": "Avaliar Thal"
+  },
+  "Submit a problem or suggestion": {
+    "pt": "Enviar um problema ou sugestão"
+  },
+  "Guidelines": {
+    "pt": "Diretrizes"
+  },
+  "Reports": {
+    "pt": "Relatórios"
   }
 }

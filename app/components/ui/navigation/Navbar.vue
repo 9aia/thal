@@ -1,14 +1,40 @@
 <script setup lang="ts">
-defineProps<{
+const props = withDefaults(defineProps<{
   title?: string
   hideBack?: 'always' | 'on-lg' | 'never'
   hideTitle?: boolean
   backIcon?: string
-}>()
+  opener?: 'router' | 'sidebar' | 'main'
+}>(), {
+  opener: 'router',
+})
 
 const emit = defineEmits<({
   (e: 'close'): void
 })>()
+
+const { isExternalEntry } = useSpaReferrer()
+const sidebar = useSidebar()
+const router = useRouter()
+
+function handleGoBack() {
+  if (props.opener === 'main') {
+    emit('close')
+    return
+  }
+
+  if (isExternalEntry.value) {
+    navigateTo('/app')
+    return
+  }
+
+  if (props.opener === 'router') {
+    router.back()
+  }
+  else if (props.opener === 'sidebar') {
+    sidebar.back()
+  }
+}
 </script>
 
 <template>
@@ -24,7 +50,7 @@ const emit = defineEmits<({
         }"
         :icon="backIcon || 'material-symbols:arrow-back-rounded'"
 
-        @click="emit('close')"
+        @click="handleGoBack()"
       />
 
       {{ title }}

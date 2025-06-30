@@ -6,29 +6,22 @@ description: Tasks and items for the release.
 
 - Facilitate issue reporting (for e.g, on toast errors).
 - Fix the sidebar loading component not rendering
-- Fix forgetting sidebar state after navigating to a route
-- Fix isChatListDrawerOpen not working
-- Add feedback and issue report button to the chat list at the bottom
-- Fix translations of items
 - Fix chat opening auto-opening when character creation (shouldn't open)
+- Fix forgetting sidebar state after navigating to a route
+- Fix translations of items
 - Add confirmation modal on chat clear
-- Fix the iconify issue
-  ```bash
-  GET https://preview.thal.9aia.com/api/_nuxt_icon/material-symbols.json?icons=close-rounded - Ok @ 6/26/2025, 7:09:44 PM
-  (error) [request error] [unhandled] [GET] https://preview.thal.9aia.com/api/_nuxt_icon/material-symbols.json?icons=close-rounded
-  {
-    message: 'No such module "@iconify-json/material-symbols/icons.json".',
-    statusCode: 500
-  }
-  ```
+
+- Add audio pause/resume button to chat messages
+- Fixed speech missing speech stop on chat route leave
+
+## 0.1.0-12
+
 - Implement soft-deletes
-- Improve deployment process (facilitate the deployment of the app)
-
-- Create "about me" field in the profile page
 - Revise Backlog (above `---`) and TODO
+- Look for TODOS inside the codebase
 - Fix error handling in the API endpoints fetched using form
+- Create "about me" field in the profile page
 - Enhance toast style widths
-
 - Add high traffic UI alert
 
 - Revision and adjust

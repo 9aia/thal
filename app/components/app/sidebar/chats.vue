@@ -23,7 +23,7 @@ const chatsQuery = useChatsQuery()
 // }
 
 // const generalItems: MenuItemType[] = [
-//   { id: 'create-character', icon: 'material-symbols:frame-person-outline-rounded', name: t('Build character'), onClick: () => buildCharacter(null) },
+//   { id: 'create-character', icon: 'material-symbols:frame-person-outline-rounded', name: t('Build character'), onClick: () => handleBuildCharacter(null) },
 //   { id: 'new-contact', icon: 'material-symbols:person-add-outline-rounded', name: t('New contact'), onClick: () => manageContact(null) },
 //   // { id: 'my-characters', icon: 'material-symbols:manage-accounts-outline-rounded', name: t('My characters'), onClick: () => navigateTo('/app/settings/my-characters') },
 // ]
@@ -32,21 +32,27 @@ const chatsQuery = useChatsQuery()
 //   { id: 'discover-characters', icon: 'material-symbols:person-search-outline-rounded', name: t('Characters'), onClick: () => goToDiscover() },
 // ]
 
-const renderCount = ref(0)
-
 onMounted(() => {
-  renderCount.value++
+  sidebar.clear()
 })
+
+function handleGoHome() {
+  isChatListDrawerOpen.value = false
+  navigateTo('/app/')
+}
 </script>
 
 <template>
   <div class="bg-white flex flex-col h-dvh justify-between w-full absolute">
-    <Navbar hide-title hide-back="always">
+    <Navbar
+      hide-title
+      hide-back="always"
+    >
       <div class="flex gap-2 items-center">
         <h1>
           <button
             class="flex items-center gap-2 justify-center text-lg font-medium text-black cursor-pointer border-b-2 border-b-transparent focus:border-b-primary focus:outline-hidden"
-            @click="navigateTo('/app/')"
+            @click="handleGoHome()"
           >
             {{ t('Thal') }}
             <ExperimentalBadge />
@@ -55,13 +61,12 @@ onMounted(() => {
       </div>
 
       <div class="flex gap-1 items-center translate-x-2 z-50">
-        <CommonMenuButton hide-home />
+        <CommonMenuButton />
 
         <Button
           class="btn btn-neutral btn-circle btn-ghost lg:hidden"
           no-disable-on-loading
           icon="material-symbols:arrow-menu-close-rounded"
-
           @click="isChatListDrawerOpen = false"
         />
       </div>

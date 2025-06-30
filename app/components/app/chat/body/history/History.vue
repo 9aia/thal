@@ -15,18 +15,20 @@ const historyQuery = useHistoryQuery(username)
 
     <template #default>
       <div class="space-y-2">
-        <ChatBubble
-          v-for="item, index in historyQuery.data.value"
-          :id="item.id"
-          :key="item.id"
-          :status="item.status"
-          :content="item.content"
-          :time="item.time"
-          :from="item.from"
+        <TransitionGroup name="fade-in-out">
+          <ChatBubble
+            v-for="item, index in historyQuery.data.value"
+            :id="item.id"
+            :key="item.id"
+            :status="item.status"
+            :content="item.content"
+            :time="item.time"
+            :from="item.from"
 
-          :in-reply-to="item.inReplyTo ? { ...item.inReplyTo } : undefined"
-          :is-last="index === (historyQuery.data.value!.length - 1)"
-        />
+            :in-reply-to="item.inReplyTo ? { ...item.inReplyTo } : undefined"
+            :is-last="index === (historyQuery.data.value!.length - 1)"
+          />
+        </TransitionGroup>
       </div>
     </template>
   </CommonResource>

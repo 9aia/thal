@@ -1,12 +1,10 @@
 import type { AsyncComponentOptions } from 'vue'
 import { hydrateOnVisible } from 'vue'
-import SidebarLoadingComponent from '~/components/app/sidebar/loading.vue'
 
 const config: Partial<AsyncComponentOptions> = {
   hydrate: hydrateOnVisible(),
-  loadingComponent: SidebarLoadingComponent,
   delay: 0,
-  // errorComponent // TODO: Aad error component
+  // errorComponent // TODO: Add error component
 }
 
 const Chats = defineAsyncComponent({

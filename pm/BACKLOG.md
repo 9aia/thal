@@ -83,6 +83,8 @@ Low priority:
 
 - Fix input autofocuses on navigate
 - Rewrite Daisy dropdowns using ArkUI components (should fix the closing on click on padding bug as well)
+- Fix speech highlighting breaking lines
+- Fix emoji color rendering in translations
 - Avoid breaking layout in chat item when last message is too long
 - Replace web modal API
 - Improve HTML rendering/TTS
@@ -140,7 +142,9 @@ Low priority:
 
 Low priority:
 
+- Add auto-migration for the database on deploy
 - Improve logging
+- Add client-side error tracking
 - Change forms to another platform that supports localization
 - Remove unused files/code
 - Use inferred schemas as DTOs

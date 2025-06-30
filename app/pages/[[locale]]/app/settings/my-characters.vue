@@ -7,11 +7,11 @@ import type { Character } from '~/types'
 
 definePageMeta({
   layout: 'settings',
+  middleware: 'premium',
 })
 
 useAutoRedirect()
 
-const router = useRouter()
 const localWithDefaultRegion = useLocaleWithDefaultRegion()
 
 const myCharactersQuery = useQuery({
@@ -35,11 +35,19 @@ async function handleGoToChat(username: string) {
   isChatListDrawerOpen.value = false
   await navigateTo(`/app/chat/${username}`)
 }
+
+function handleCreateCharacter(characterId?: number | null) {
+  buildCharacter(characterId)
+  navigateTo('/app/settings/build-character')
+}
 </script>
 
 <template>
-  <div class="flex flex-col h-dvh justify-between">
-    <Navbar :title="t('My Characters')" @close="router.back()" />
+  <div class="flex flex-col h-dvh justify-between w-full absolute">
+    <Navbar
+      :title="t('My Characters')"
+      opener="router"
+    />
 
     <div class="pt-2 flex-1 pb-4 overflow-y-auto bg-white">
       <SettingHeader
@@ -54,7 +62,7 @@ async function handleGoToChat(username: string) {
         <SettingSection
           :title="t('Characters')"
           title-class="px-6"
-          body-class="px-4"
+          body-class="pl-4"
         >
           <CommonResource
             :for="myCharactersQuery"
@@ -72,9 +80,9 @@ async function handleGoToChat(username: string) {
                     :username="character.usernames?.text || undefined"
                     :category-id="character.categoryId"
                     @delete="handleDeleteCharacter(character as unknown as Character)"
-                    @edit="buildCharacter(character.id)"
+                    @edit="handleCreateCharacter(character.id)"
                     @chat="handleGoToChat(character.usernames?.text as string)"
-                    @click="buildCharacter(character.id)"
+                    @click="handleCreateCharacter(character.id)"
                   />
                 </li>
               </ul>
@@ -85,8 +93,7 @@ async function handleGoToChat(username: string) {
             <Button
               class="w-full flex items-center justify-start cursor-pointer py-1 border-b-2 border-transparent focus:border-b-primary focus:outline-hidden"
               icon="material-symbols:add-rounded"
-
-              @click="buildCharacter(null)"
+              @click="handleCreateCharacter()"
             >
               {{ t('Create character') }}
             </Button>

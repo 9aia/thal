@@ -6,18 +6,26 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Added
+
+- Added feedback button to header menus
+
 ### Enhanced
 
-- Improve sidebar and settings animation
-- Improve route transition animation
+- Added sidebar and settings animation
+- Added route transition animation
 - Improve "My Characters" right padding
 - Enhanced settings header padding
+- Enhanced dropdown menu styling
+- Enhanced locale modal height
 
 ### Fixed
 
 - Fixed auto redirect on free trial
 - Fixed logout button not working
 - Allowed only character owners to edit character in the chat header
+- Fixed Contact View not closing when clicking on some menu items
+- Fixed locale validation on press page
 
 ### Performance
 

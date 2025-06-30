@@ -1,21 +1,13 @@
 <script setup lang="ts">
+import { t } from '@psitta/vue'
 import { isChatListDrawerOpen } from '~/store'
 import type { MenuItemType, MenuItemTypeOrFalse } from '~/components/ui/navigation/types'
-// import { dummyT as t } from '@psitta/vue'
 
 const props = defineProps<{
-  hideHome?: boolean
   hideDiscover?: boolean
 }>()
 
 const logout = useLogout()
-
-const t = (x: string) => x
-
-async function goToHome() {
-  isChatListDrawerOpen.value = false
-  await navigateTo('/app/')
-}
 
 async function goToDiscover() {
   isChatListDrawerOpen.value = false
@@ -23,10 +15,7 @@ async function goToDiscover() {
 }
 
 const items = computed(() => ([
-  !props.hideHome && { id: 'home', name: t('Home'), icon: 'material-symbols:home-outline-rounded', onClick: () => goToHome() },
   { id: 'profile', name: t('Profile'), icon: 'material-symbols:face', onClick: () => navigateTo('/app/settings/profile') },
-  !props.hideDiscover && { id: 'discover', name: t('Discover'), icon: 'material-symbols:person-search-outline-rounded', onClick: () => goToDiscover() },
-  { id: 'my-characters', name: t('My characters'), icon: 'material-symbols:manage-accounts-outline-rounded', onClick: () => navigateTo('/app/settings/my-characters') },
   {
     id: 'plan',
     name: t('Subscription'),
@@ -35,12 +24,14 @@ const items = computed(() => ([
     icon: 'material-symbols:subscriptions-outline-rounded',
     type: 'external',
   },
+  !props.hideDiscover && { id: 'discover-characters', name: t('Discover characters'), icon: 'material-symbols:person-search-outline-rounded', onClick: () => goToDiscover() },
+  { id: 'my-characters', name: t('My characters'), icon: 'material-symbols:manage-accounts-outline-rounded', onClick: () => navigateTo('/app/settings/my-characters') },
   {
-    id: 'feedback',
+    id: 'submit-problem-or-suggestion',
     icon: 'material-symbols:feedback-outline-rounded',
-    name: 'Give us feedback',
+    name: t('Submit a problem or suggestion'),
     type: 'external',
-    href: 'https://forms.gle/5ePvXjrebyWGUrM26',
+    href: 'https://forms.gle/ANMv7qnwTHva1k7L8',
     newTab: true,
     localize: false,
   },

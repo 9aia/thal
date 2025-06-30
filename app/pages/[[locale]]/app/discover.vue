@@ -5,10 +5,6 @@ definePageMeta({
 })
 
 useAutoRedirect()
-
-onMounted(() => {
-  console.log('DiscoverScene mounted')
-})
 </script>
 
 <template>

@@ -57,6 +57,7 @@ const submit = form.handleSubmit(async (data) => {
     :confirm-loading="loading"
     :confirm-text="t('Save interface language')"
     show-close-button :title="t('Select the interface language')"
+    no-scroll
     @confirm="submit"
   >
     <template #header>

@@ -7,6 +7,8 @@ import { SubscriptionStatus } from '~~/db/schema'
 definePageMeta({
   layout: 'site',
   validate(route) {
+    if (!route.params.locale)
+      return true
     return getConfig().locales.includes(route.params.locale as string)
   },
 })

@@ -1,5 +1,8 @@
+import type { LocationQueryRaw } from 'vue-router'
+import { stringifyQuery } from '~/utils/vue'
+
 function useAutoRedirect(options?: {
-  query?: Record<string, string | string[]>
+  query?: LocationQueryRaw
 }) {
   const url = useRedirectUrl()
 
@@ -8,9 +11,7 @@ function useAutoRedirect(options?: {
     let path = route.path
 
     if (options?.query) {
-      const query = Object.entries(options.query)
-        .map(([key, value]) => `${key}=${value}`)
-        .join('&')
+      const query = stringifyQuery(options.query)
       path += `?${query}`
     }
 

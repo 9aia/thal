@@ -50,7 +50,10 @@ const emptyMessage = computed(() => {
 
 <template>
   <div class="flex flex-col h-dvh justify-between w-full absolute">
-    <Navbar :title="t('New chat')" @close="sidebar.back()" />
+    <Navbar
+      :title="t('New chat')"
+      opener="sidebar"
+    />
 
     <div class="pt-2 pb-4 flex-1 overflow-y-auto bg-white space-y-4">
       <form class="px-6">

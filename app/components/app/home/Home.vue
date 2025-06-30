@@ -12,7 +12,12 @@ async function goToDiscover() {
 
 <template>
   <div class="flex flex-col w-full h-dvh bg-white absolute">
-    <Navbar class="bg-gray-800" hide-back="on-lg" hide-title>
+    <Navbar
+      class="bg-gray-800"
+      hide-back="on-lg"
+      hide-title
+      opener="router"
+    >
       <div class="flex gap-1 items-center -translate-x-1.5 z-50">
         <Button
           class="btn btn-neutral btn-circle btn-ghost lg:hidden"
@@ -44,7 +49,7 @@ async function goToDiscover() {
           @click="goToDiscover()"
         />
 
-        <CommonMenuButton hide-home />
+        <CommonMenuButton />
       </div>
     </Navbar>
 

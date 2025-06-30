@@ -21,7 +21,7 @@ onMounted(() => {
 <template>
   <AppLayout>
     <div class="flex w-full">
-      <div class="flex flex-col h-dvh justify-between w-full sm:w-96 relative overflow-hidden">
+      <div class="flex flex-col h-dvh justify-between w-full sm:w-96 relative overflow-hidden bg-white">
         <Transition
           :name="navigationDirection === 'forward' ? 'slide-right' : 'slide-left'"
           @after-leave="navigationDirection = 'forward'"

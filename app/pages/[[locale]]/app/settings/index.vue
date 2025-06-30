@@ -5,31 +5,26 @@ import { SETTINGS } from '~/constants/settings'
 
 definePageMeta({
   layout: 'settings',
+  middleware: 'premium',
 })
 
 useAutoRedirect()
 
 const logout = useLogout()
-const router = useRouter()
-const { isExternalEntry } = useSpaReferrer()
 
 const isLocaleModalOpen = ref(false)
-
-function handleClose() {
-  if (isExternalEntry.value) {
-    navigateTo('/app/')
-    return
-  }
-
-  router.back()
-}
 </script>
 
 <template>
   <div class="flex flex-col h-dvh justify-between w-full absolute">
-    <Navbar :title="t('Settings')" @close="handleClose" />
+    <Navbar
+      :title="t('Settings')"
+      opener="router"
+    />
 
-    <div class="flex-1 overflow-y-auto bg-white mt-2">
+    <div class="h-2 bg-white" />
+
+    <div class="flex-1 overflow-y-auto bg-white">
       <ProfilePanel />
 
       <div class="space-y-4 py-6">

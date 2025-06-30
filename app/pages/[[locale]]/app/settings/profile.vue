@@ -1,18 +1,21 @@
 <script lang="ts" setup>
 definePageMeta({
   layout: 'settings',
+  middleware: 'premium',
 })
 
 useAutoRedirect()
 
 const { t } = useI18nExperimental()
 const user = useUser()
-const router = useRouter()
 </script>
 
 <template>
-  <div class="flex flex-col h-dvh justify-between">
-    <Navbar :title="t('Profile')" @close="router.back()" />
+  <div class="flex flex-col h-dvh justify-between w-full absolute">
+    <Navbar
+      :title="t('Profile')"
+      opener="router"
+    />
 
     <div class="flex-1 overflow-y-auto bg-white pt-4">
       <ProfileHeader @edit="navigateTo('/app/settings/account')" />

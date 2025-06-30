@@ -12,7 +12,7 @@ export const isWhatsNewModalOpen = ref(false)
 
 // #region Drawers
 
-export const isChatListDrawerOpen = ref(false)
+export const isChatListDrawerOpen = ref(true)
 
 export const rightDrawer = ref(false)
 export const rightDrawers = reactive({
@@ -70,7 +70,7 @@ export const edition = reactive<Edition>({})
 export const inReplyTos = reactive<InReplyTos>({})
 export const chatListSearch = ref('')
 
-export const currentPlayingMessage = ref<string | null>(null)
+export const currentPlayingMessageId = ref<number | null>(null)
 
 // #endregion
 
