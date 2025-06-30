@@ -31,29 +31,29 @@ const support: MenuItemType[] = [
   {
     id: 'whats-new',
     icon: 'material-symbols:news-outline-rounded',
-    name: 'What\'s New',
+    name: t('What\'s New'),
     onClick: () => isWhatsNewModalOpen.value = true,
     type: 'accordion',
   },
   {
-    id: 'feedback',
-    icon: 'material-symbols:feedback-outline-rounded',
-    name: 'Give us feedback',
+    id: 'rate-thal',
+    icon: 'material-symbols:star-outline-rounded',
+    name: t('Rate Thal'),
     type: 'external',
     href: 'https://forms.gle/5ePvXjrebyWGUrM26',
     newTab: true,
     localize: false,
   },
   {
-    id: 'bug_report',
-    icon: 'material-symbols:bug-report-outline-rounded',
-    name: 'Report an issue',
+    id: 'submit-problem-or-suggestion',
+    icon: 'material-symbols:feedback-outline-rounded',
+    name: t('Submit a problem or suggestion'),
     type: 'external',
     href: 'https://forms.gle/ANMv7qnwTHva1k7L8',
     newTab: true,
     localize: false,
   },
-  // TODO
+  // TODO: add About Thal and Help Center
   // {
   //   id: 'about-thal',
   //   icon: 'info',
@@ -71,10 +71,12 @@ const support: MenuItemType[] = [
 ]
 
 const legal: MenuItemType[] = [
-  // { id: 'guidelines', icon: 'gavel', name: 'Guidelines'/* , href: '/guidelines' */ },
-  // { id: 'reports', icon: 'flag', name: 'Reports'/* , href: '/reports' */ },
-  { id: 'terms', icon: 'material-symbols:gavel-rounded', name: 'Terms of Service', href: '/terms', type: 'external', newTab: true },
-  { id: 'privacy', icon: 'material-symbols:policy-outline-rounded', name: 'Privacy Policy', href: '/privacy', type: 'external', newTab: true },
+  // TODO: add Guidelines and Reports
+  // { id: 'guidelines', icon: 'gavel', name: t('Guidelines')/* , href: '/guidelines' */ },
+  // { id: 'reports', icon: 'flag', name: t('Reports')/* , href: '/reports' */ },
+
+  { id: 'terms', icon: 'material-symbols:gavel-rounded', name: t('Terms of Service'), href: '/terms', type: 'external', newTab: true },
+  { id: 'privacy', icon: 'material-symbols:policy-outline-rounded', name: t('Privacy Policy'), href: '/privacy', type: 'external', newTab: true },
 ]
 
 export const SETTINGS = {

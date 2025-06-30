@@ -53,12 +53,23 @@ const logout = useLogout()
 
       <div class="max-w-[800px] mx-auto px-4 pb-4 mt-2 flex flex-col md:flex-row flex-wrap md:flex-nowrap gap-2 justify-between items-center">
         <div class="flex gap-4 w-full items-center flex-wrap">
-          <Link :href="t('https://forms.gle/5ePvXjrebyWGUrM26')" :localize="false" target="_blank" class="flex items-center gap-1 !text-black border-b-2 border-transparent focus:border-blue-500 focus:outline-none">
-            {{ t('Give us feedback') }}
+          <Link
+            v-if="user"
+            :href="t('https://forms.gle/5ePvXjrebyWGUrM26')"
+            :localize="false"
+            target="_blank"
+            class="flex items-center gap-1 !text-black border-b-2 border-transparent focus:border-blue-500 focus:outline-none"
+          >
+            {{ t('Rate Thal') }}
           </Link>
 
-          <Link :href="t('https://forms.gle/ANMv7qnwTHva1k7L8')" :localize="false" target="_blank" class="flex items-center gap-1 !text-black border-b-2 border-transparent focus:border-blue-500 focus:outline-none">
-            {{ t('Report a problem') }}
+          <Link
+            :href="t('https://forms.gle/ANMv7qnwTHva1k7L8')"
+            :localize="false"
+            target="_blank"
+            class="flex items-center gap-1 !text-black border-b-2 border-transparent focus:border-blue-500 focus:outline-none"
+          >
+            {{ t('Submit a problem or suggestion') }}
           </Link>
         </div>
 

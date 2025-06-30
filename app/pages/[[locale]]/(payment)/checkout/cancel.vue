@@ -19,8 +19,8 @@ definePageMeta({
       </p>
 
       <div class="flex items-center justify-center h-fit mt-4 gap-2">
-        <A class="btn btn-primary" :href="t('https://forms.gle/SvTVuoT2YswmGEQF7')">
-          {{ t('Give feedback') }}
+        <A class="btn btn-primary" :href="t('https://forms.gle/ANMv7qnwTHva1k7L8')">
+          {{ t('Submit a problem or suggestion') }}
         </A>
 
         <A href="/pricing" class="btn btn-soft btn-primary">
