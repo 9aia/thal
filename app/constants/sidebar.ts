@@ -1,10 +1,11 @@
 import type { AsyncComponentOptions } from 'vue'
 import { hydrateOnVisible } from 'vue'
+import SidebarErrorComponent from '~/components/app/sidebar/SidebarErrorComponent.vue'
 
 const config: Partial<AsyncComponentOptions> = {
   hydrate: hydrateOnVisible(),
   delay: 0,
-  // errorComponent // TODO: Add error component
+  errorComponent: SidebarErrorComponent,
 }
 
 const Chats = defineAsyncComponent({
@@ -20,11 +21,7 @@ const ManageContact = defineAsyncComponent({
   ...config,
 })
 const NewChat = defineAsyncComponent({
-  loader: () => new Promise<any>((resolve) => {
-    setTimeout(async () => {
-      resolve(await import(`~/components/app/sidebar/new-chat.vue`))
-    }, 1000)
-  }),
+  loader: () => import(`~/components/app/sidebar/new-chat.vue`),
   ...config,
 })
 

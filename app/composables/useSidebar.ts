@@ -84,7 +84,7 @@ function useSidebar() {
     view,
     push,
     back,
-    navigationDirection: readonly(navigationDirection),
+    navigationDirection,
     clear,
     history: readonly(history),
   }

@@ -5,7 +5,18 @@ description: Tasks and items for the release.
 # TODO
 
 - Facilitate issue reporting (for e.g, on toast errors).
-- Fix the sidebar loading component not rendering
+- Fix the sidebar go back button not working
+- Improve sidebar error handling using:
+   ```ts
+    onError(error, retry, fail, attempts) {
+    if (attempts <= 3) {
+      // Retry after a delay
+      setTimeout(() => retry(), 1000)
+    } else {
+      fail()
+    }
+  },
+  ```
 - Fix chat opening auto-opening when character creation (shouldn't open)
 - Fix forgetting sidebar state after navigating to a route
 - Fix translations of items

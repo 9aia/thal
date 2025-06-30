@@ -24,6 +24,18 @@ onMounted(() => {
 onUnmounted(() => {
   sidebar.clear()
 })
+
+const isSidebarAnimationEnabled = ref(true)
+
+const RESOLVED_SIDEBAR_ANIMATION_NAME = 'fade-in-out-fast'
+
+const sidebarAnimationName = computed(() => {
+  if (!isSidebarAnimationEnabled.value) {
+    return RESOLVED_SIDEBAR_ANIMATION_NAME
+  }
+
+  return sidebar.navigationDirection.value === 'forward' ? 'slide-right' : 'slide-left'
+})
 </script>
 
 <template>
@@ -56,11 +68,17 @@ onUnmounted(() => {
       <div class="drawer-side z-50">
         <label for="chats-drawer" aria-label="close sidebar" class="drawer-overlay" />
 
-        <div class="flex flex-col h-dvh justify-between w-96 overflow-hidden relative">
+        <div class="flex flex-col h-dvh justify-between w-96 overflow-hidden relative bg-white">
           <Transition
-            :name="sidebar.navigationDirection.value === 'forward' ? 'slide-right' : 'slide-left'"
+            :css="isSidebarAnimationEnabled || sidebarAnimationName === RESOLVED_SIDEBAR_ANIMATION_NAME"
+            :name="sidebarAnimationName"
           >
-            <Suspense>
+            <Suspense
+              timeout="0"
+              @fallback="isSidebarAnimationEnabled = false"
+              @pending="isSidebarAnimationEnabled = false"
+              @resolve="isSidebarAnimationEnabled = true"
+            >
               <component :is="View" />
 
               <template #fallback>

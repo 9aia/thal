@@ -104,11 +104,21 @@ watch(route, () => {
 
 .fade-in-out-enter-active,
 .fade-in-out-leave-active {
-  @apply transition-opacity duration-900 ease-in-out;
+  @apply transition-opacity duration-500 ease-in-out;
 }
 
 .fade-in-out-enter-from,
 .fade-in-out-leave-to {
+  opacity: 0;
+}
+
+.fade-in-out-fast-enter-active,
+.fade-in-out-fast-leave-active {
+  @apply transition-opacity duration-300 ease-in-out;
+}
+
+.fade-in-out-fast-enter-from,
+.fade-in-out-fast-leave-to {
   opacity: 0;
 }
 </style>
