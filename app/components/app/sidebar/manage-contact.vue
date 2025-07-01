@@ -223,7 +223,6 @@ const submit = form.handleSubmit(() => isEditing.value
             :loading="isLoading"
             class="btn btn-primary float-right mt-2"
             icon="material-symbols:person-add-outline-rounded"
-
             :disabled="hasErrors"
           >
             {{ t('Save contact') }}

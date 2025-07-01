@@ -8,12 +8,12 @@ const general: MenuItemType[] = [
   {
     id: 'account',
     icon: 'material-symbols:person-outline-rounded',
-    name: t('Account'),
+    name: t('Manage account'),
     onClick: () => navigateTo('/app/settings/account'),
   },
   {
     id: 'plan',
-    name: t('Subscription'),
+    name: t('Manage subscription'),
     action: '/api/payment/stripe/create-portal-session',
     method: 'post',
     icon: 'material-symbols:subscriptions-outline-rounded',
@@ -47,7 +47,8 @@ const support: MenuItemType[] = [
   {
     id: 'submit-problem-or-suggestion',
     icon: 'material-symbols:feedback-outline-rounded',
-    name: t('Submit a problem or suggestion'),
+    name: t('Send feedback'),
+    description: t('Report a problem or send us suggestions'),
     type: 'external',
     href: 'https://forms.gle/ANMv7qnwTHva1k7L8',
     newTab: true,

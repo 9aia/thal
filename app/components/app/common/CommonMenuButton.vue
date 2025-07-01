@@ -8,6 +8,7 @@ const props = defineProps<{
 }>()
 
 const logout = useLogout()
+const sidebar = useSidebar()
 
 async function goToDiscover() {
   isChatListDrawerOpen.value = false
@@ -15,27 +16,28 @@ async function goToDiscover() {
 }
 
 const items = computed(() => ([
-  { id: 'profile', name: t('Profile'), icon: 'material-symbols:face', onClick: () => navigateTo('/app/settings/profile') },
-  {
-    id: 'plan',
-    name: t('Subscription'),
-    action: '/api/payment/stripe/create-portal-session',
-    method: 'post',
-    icon: 'material-symbols:subscriptions-outline-rounded',
-    type: 'external',
-  },
+  { id: 'new-character', name: t('New character'), icon: 'material-symbols:frame-person-outline-rounded', onClick: () => sidebar.push('build-character') },
   !props.hideDiscover && { id: 'discover-characters', name: t('Discover characters'), icon: 'material-symbols:person-search-outline-rounded', onClick: () => goToDiscover() },
   { id: 'my-characters', name: t('My characters'), icon: 'material-symbols:manage-accounts-outline-rounded', onClick: () => navigateTo('/app/settings/my-characters') },
   {
-    id: 'submit-problem-or-suggestion',
+    id: 'feedback',
     icon: 'material-symbols:feedback-outline-rounded',
-    name: t('Submit a problem or suggestion'),
+    name: t('Send feedback'),
     type: 'external',
     href: 'https://forms.gle/ANMv7qnwTHva1k7L8',
     newTab: true,
     localize: false,
   },
-  { id: 'settings', name: t('Settings'), icon: 'material-symbols:settings-outline-rounded', onClick: () => navigateTo('/app/settings') },
+  {
+    id: 'manage-subscription',
+    name: t('Manage subscription'),
+    description: t(''),
+    action: '/api/payment/stripe/create-portal-session',
+    method: 'post',
+    icon: 'material-symbols:subscriptions-outline-rounded',
+    type: 'external',
+  },
+  { id: 'settings-help', name: t('Settings & Help'), icon: 'material-symbols:settings-outline-rounded', onClick: () => navigateTo('/app/settings') },
   {
     id: 'logout',
     name: t('Logout'),

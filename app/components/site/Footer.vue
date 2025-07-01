@@ -69,7 +69,7 @@ const logout = useLogout()
             target="_blank"
             class="flex items-center gap-1 !text-black border-b-2 border-transparent focus:border-blue-500 focus:outline-none"
           >
-            {{ t('Submit a problem or suggestion') }}
+            {{ t('Send feedback') }}
           </Link>
         </div>
 

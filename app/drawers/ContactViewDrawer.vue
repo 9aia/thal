@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import type { MenuItemType, MenuItemTypeOrFalse } from '~/components/ui/navigation/types'
 import { categories } from '~/constants/discover'
-import { closeContactView, contactViewUsername, manageContact } from '~/store'
+import { buildCharacter, closeContactView, contactViewUsername, manageContact } from '~/store'
 
 const { t } = useI18nExperimental()
 const toast = useToast()
 const copyUrl = useCopyUrl()
+const user = useUser()
 
 const contactDeleteModalState = ref(false)
 
@@ -64,6 +65,9 @@ const categoryName = computed(() => {
   const category = categories.find(cat => cat.id === characterQuery.data.value?.categoryId)
   return category?.name
 })
+const isCharacterFromLoggedUser = computed(() => {
+  return characterQuery.data.value?.creatorId === user.value?.id
+})
 
 function goToChat() {
   navigateTo(`/app/chat/${username.value}`)
@@ -82,7 +86,24 @@ function editContact() {
   closeContactView()
 }
 
+function editCharacter() {
+  buildCharacter(characterQuery.data.value?.id)
+  closeContactView()
+}
+
 const items = computed(() => ([
+  isCharacterFromLoggedUser.value && {
+    id: 'edit-character',
+    name: t('Edit character'),
+    icon: 'material-symbols:frame-person-outline-rounded',
+    onClick: () => editCharacter(),
+  },
+  !isCharacterDeleted.value && {
+    id: 'share-character',
+    name: t('Share character'),
+    icon: 'material-symbols:ios-share-rounded',
+    onClick: () => copyUrl(),
+  },
   isContact.value && {
     id: 'edit-contact',
     name: t('Edit contact'),
@@ -102,12 +123,6 @@ const items = computed(() => ([
         icon: 'material-symbols:person-add-outline-rounded',
         onClick: () => saveContact(),
       },
-  !isCharacterDeleted.value && {
-    id: 'share-character',
-    name: t('Share character'),
-    icon: 'material-symbols:ios-share-rounded',
-    onClick: () => copyUrl(),
-  },
 ] satisfies MenuItemTypeOrFalse[]).filter(Boolean) as MenuItemType[])
 </script>
 
@@ -147,12 +162,12 @@ const items = computed(() => ([
           refetch,
         }"
       >
-        <section class="w-full px-6 pb-4 mt-2 flex flex-col justify-center">
+        <section class="w-full px-6 pb-4 mt-2 flex flex-col justify-center items-center">
           <ContactViewIdentifier
             :username="username"
             :avatar-name="contactNames.avatarName"
             :display-name="contactNames.displayName"
-            actions-class="gap-8"
+            actions-class="gap-8 px-4"
           >
             <template #actions>
               <LabeledIconButton
@@ -167,6 +182,13 @@ const items = computed(() => ([
                 icon="material-symbols:person-add-outline-rounded"
                 :label="t('Save')"
                 @click="saveContact()"
+              />
+
+              <LabeledIconButton
+                v-if="isCharacterFromLoggedUser"
+                icon="material-symbols:frame-person-outline-rounded"
+                :label="t('Edit')"
+                @click="editCharacter()"
               />
 
               <LabeledIconButton

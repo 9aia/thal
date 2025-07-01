@@ -23,8 +23,10 @@ const contactNames = computed(() => getContactName({
   contactName: contactQuery.data.value?.name,
   characterName: characterQuery.data.value?.name,
 }))
-
 const hasMessages = computed(() => !!historyQuery.data.value?.length)
+const isCharacterFromLoggedUser = computed(() => {
+  return characterQuery.data.value?.creatorId === user.value?.id
+})
 
 const items = computed(() => ([
   {
@@ -32,6 +34,12 @@ const items = computed(() => ([
     name: t('View contact'),
     icon: 'material-symbols:contact-page-outline-rounded',
     onClick: () => openContactView(username.value),
+  },
+  isCharacterFromLoggedUser.value && {
+    id: 'build-character',
+    name: t('Edit character'),
+    icon: 'material-symbols:frame-person-outline-rounded',
+    onClick: () => buildCharacter(characterQuery.data.value?.id),
   },
   {
     id: 'share-character',
@@ -58,15 +66,6 @@ const items = computed(() => ([
         icon: 'material-symbols:person-add-outline-rounded',
         onClick: () => manageContact(username.value, characterQuery.data.value?.name),
       },
-  {
-    id: 'submit-problem-or-suggestion',
-    icon: 'material-symbols:feedback-outline-rounded',
-    name: t('Submit a problem or suggestion'),
-    type: 'external',
-    href: 'https://forms.gle/ANMv7qnwTHva1k7L8',
-    newTab: true,
-    localize: false,
-  },
   hasMessages.value && {
     id: 'clear-chat',
     name: t('Clear chat'),
@@ -75,10 +74,6 @@ const items = computed(() => ([
     onClick: () => clearHistoryMutation.mutate(),
   },
 ] satisfies MenuItemTypeOrFalse[]).filter(Boolean) as MenuItemType[])
-
-const isCharacterFromLoggedUser = computed(() => {
-  return characterQuery.data.value?.creatorId === user.value?.id
-})
 </script>
 
 <template>
@@ -112,13 +107,6 @@ const isCharacterFromLoggedUser = computed(() => {
       </div>
 
       <div v-if="!receiverUsernameNotFound" class="flex gap-1">
-        <Button
-          v-if="isCharacterFromLoggedUser"
-          class="btn btn-neutral btn-circle btn-md btn-ghost"
-          icon="material-symbols:frame-person-outline-rounded"
-          @click.stop="buildCharacter(characterQuery.data.value?.id)"
-        />
-
         <Dropdown class="dropdown-end">
           <Button
             class="btn btn-neutral btn-circle btn-md btn-ghost"

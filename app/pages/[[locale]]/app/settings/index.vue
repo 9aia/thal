@@ -36,7 +36,7 @@ const isLocaleModalOpen = ref(false)
           <ItemList
             :items="[...SETTINGS.general, {
               id: 'change-locale',
-              name: t('Language'),
+              name: t('Interface language'),
               icon: 'material-symbols:globe',
               type: 'accordion',
               onClick: () => isLocaleModalOpen = true,
