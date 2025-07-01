@@ -3,6 +3,8 @@ import { t } from '@psitta/vue'
 
 definePageMeta({
   layout: 'site',
+  layoutTransition: false,
+  pageTransition: false,
 })
 </script>
 

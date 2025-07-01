@@ -5,6 +5,8 @@ const locale = useLocale()
 
 definePageMeta({
   layout: 'site',
+  layoutTransition: false,
+  pageTransition: false,
 })
 
 useAutoRedirect()

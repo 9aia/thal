@@ -7,6 +7,8 @@ definePageMeta({
   title: 'Your free trial is being processed',
   middleware: 'plan',
   layout: 'site',
+  layoutTransition: false,
+  pageTransition: false,
 })
 
 useAutoRedirect()

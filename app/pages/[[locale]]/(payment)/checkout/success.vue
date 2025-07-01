@@ -7,6 +7,8 @@ definePageMeta({
   title: 'Checkout success',
   middleware: 'checkout-success',
   layout: 'site',
+  layoutTransition: false,
+  pageTransition: false,
 })
 
 onMounted(() => {

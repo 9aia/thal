@@ -5,6 +5,8 @@ definePageMeta({
   layout: 'site',
   title: 'Checkout canceled',
   middleware: 'canceled',
+  layoutTransition: false,
+  pageTransition: false,
 })
 </script>
 
