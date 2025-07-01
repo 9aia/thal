@@ -63,6 +63,7 @@ const audiableTextRef = ref<AudibleTextType | null>(null)
 
       <ChatBubbleMiddle
         v-model:audiable-text="audiableTextRef"
+        :message-id="id"
         :message-time="time"
         :message-status="status"
         :message-content="content"

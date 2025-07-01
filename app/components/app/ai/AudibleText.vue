@@ -2,9 +2,10 @@
 import { useMutation } from '@tanstack/vue-query'
 import { RateLimitError } from '~/composables/useSpeech'
 import remarkSpanWords from '~/plugins/remark/remark-span-words'
-import { currentPlayingMessage } from '~/store'
+import { currentPlayingMessageId } from '~/store'
 
 const props = defineProps<{
+  id: number
   text: string
 }>()
 const { t } = useI18nExperimental()
@@ -38,7 +39,7 @@ const playMutation = useMutation({
     }
 
     speech.play()
-    currentPlayingMessage.value = props.text
+    currentPlayingMessageId.value = props.id
   },
   onError: async (e) => {
     if (e instanceof RateLimitError) {
@@ -50,8 +51,8 @@ const playMutation = useMutation({
   },
 })
 
-watch(currentPlayingMessage, (value) => {
-  if (value !== props.text) {
+watch(currentPlayingMessageId, (value) => {
+  if (value !== props.id) {
     speech.stop()
   }
 })

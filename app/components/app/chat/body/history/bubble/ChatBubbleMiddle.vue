@@ -6,6 +6,7 @@ import type { MessageStatus } from '~~/db/schema'
 const props = defineProps<{
   right: boolean
   isEditing: boolean
+  messageId: number
   messageContent: string
   messageStatus: MessageStatus
   messageTime: number
@@ -30,6 +31,7 @@ const time = computed(() => new Intl.DateTimeFormat(locale.value, {
     <div class="px-2">
       <AudibleText
         v-if="!isEditing"
+        :id="messageId"
         ref="audiableTextRef"
         :text="messageContent"
       />
