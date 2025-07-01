@@ -53,7 +53,9 @@ function handleGoBack() {
         @click="handleGoBack()"
       />
 
-      {{ title }}
+      <slot name="title">
+        {{ title }}
+      </slot>
     </h1>
 
     <slot />

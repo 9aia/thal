@@ -272,6 +272,10 @@
   @apply font-normal; 
 }
 
+@utility skeleton {
+  @apply bg-neutral-100;
+}
+
 @utility menu {
   li > * {
     @apply rounded-2xl;

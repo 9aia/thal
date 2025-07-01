@@ -20,6 +20,9 @@ High priority:
 - Handle invalid sessions
 - Use only name instead of name and last name
 
+Medium priority:
+- Add respective loading states for sidebar (using the skeletons) and respective headers for each view
+
 Low priority:
 
 - Fix DB on build pre-render

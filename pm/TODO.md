@@ -6,6 +6,7 @@ description: Tasks and items for the release.
 
 - Fix forgetting sidebar state after navigating to a route
 - Fix the sidebar go back button not working
+- Generate a new changelog and compare
 
 - ---
 
