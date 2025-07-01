@@ -8,17 +8,16 @@ import { buildCharacter, manageContact } from '~/store'
 useAutoRedirect()
 
 const { t } = useI18nExperimental()
-const sidebar = useSidebar()
 const localeWithDefaultRegion = useLocaleWithDefaultRegion()
 
-const generalItems: MenuItemType[] = [
+const generalItems = computed<MenuItemType[]>(() => [
   { id: 'create-character', icon: 'material-symbols:frame-person-outline-rounded', name: t('Build character'), onClick: () => buildCharacter(null) },
   { id: 'new-contact', icon: 'material-symbols:person-add-outline-rounded', name: t('New contact'), onClick: () => manageContact(null) },
-]
+])
 
-const discoverItems: MenuItemType[] = [
+const discoverItems = computed<MenuItemType[]>(() => [
   { id: 'discover-characters', icon: 'material-symbols:person-search-outline-rounded', name: t('Characters'), onClick: () => navigateTo('/app/discover') },
-]
+])
 
 const form = useForm({
   initialValues: {

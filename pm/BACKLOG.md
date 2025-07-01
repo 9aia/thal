@@ -26,7 +26,7 @@ Low priority:
 
 ## Features
 
-- Move Pronouns field into About me textarea
+- Add "About me" textarea
 - Add a "My Characters" section/accordion in the "New Chat"
 - Implement basic analytics to track user engagement and app performance
 - Implement soft-deletes for characters to enable translation/listening in chats with deleted characters
@@ -67,6 +67,7 @@ Low priority:
 - Pass user name to Stripe from Google account
 - Hide contact list and discover search (or other search fields) when there are no results like in the chat list
 - ---
+- Improve toast animations
 - Add loading splashscreen for hydration, data loading, etc
 - Improve error handling
 - Improve loading handling

@@ -9,18 +9,30 @@ description: A detailed, chronological record of all changes made to a project, 
 ### Added
 
 - Added feedback button to header menus
+- Added action to error toast
+- Added action to home and chats menu options
 
 ### Enhanced
 
 - Added sidebar and settings animation
 - Added route transition animation
-- Improve "My Characters" right padding
+- Improved content/types of menu items
+- Improved "My Characters" right padding
 - Enhanced settings header padding
 - Enhanced dropdown menu styling
+- Enhanced app notes styling
 - Enhanced locale modal height
+
+### Changed
+
+- Simplified toast animations
 
 ### Fixed
 
+- Fixed updating username in the URL after character edition
+- Fixed appearance of character builder buttons
+- Fixed avatar focus outline overflow in "Discover Characters"
+- Fixed toast position
 - Fixed auto redirect on free trial
 - Fixed logout button not working
 - Allowed only character owners to edit character in the chat header
@@ -29,8 +41,7 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ### Performance
 
-- Improved sidebar code splitting
-- Improved code splitting for chat, settings, discover and home routes
+- Improved code splitting
 
 ## [0.1.0-10] - 2025-06-26
 

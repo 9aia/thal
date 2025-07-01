@@ -24,12 +24,12 @@ const category = computed(() => {
 
 const copyUsername = useCopyUsername(toRef(() => props.username))
 
-const items: MenuItemType[] = [
-  { id: 'edit-character', name: 'Edit character', icon: 'material-symbols:frame-person-outline-rounded', onClick: () => emit('edit') },
-  { id: 'share-character', name: 'Share character', icon: 'material-symbols:ios-share-rounded', onClick: () => copyUsername() },
-  { id: 'chat', name: 'Message character', icon: 'material-symbols:chat-outline-rounded', onClick: () => emit('chat') },
-  { id: 'delete-character', name: 'Delete character', icon: 'material-symbols:delete-outline-rounded', onClick: () => emit('delete'), meaning: 'danger' },
-]
+const items = computed<MenuItemType[]>(() => [
+  { id: 'edit-character', name: t('Edit character'), icon: 'material-symbols:frame-person-outline-rounded', onClick: () => emit('edit') },
+  { id: 'share-character', name: t('Share character'), icon: 'material-symbols:ios-share-rounded', onClick: () => copyUsername() },
+  { id: 'chat', name: t('Message character'), icon: 'material-symbols:chat-outline-rounded', onClick: () => emit('chat') },
+  { id: 'delete-character', name: t('Delete character'), icon: 'material-symbols:delete-outline-rounded', onClick: () => emit('delete'), meaning: 'danger' },
+])
 </script>
 
 <template>

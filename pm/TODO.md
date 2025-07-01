@@ -4,8 +4,19 @@ description: Tasks and items for the release.
 
 # TODO
 
-- Facilitate issue reporting (for e.g, on toast errors).
+- Fix forgetting sidebar state after navigating to a route
 - Fix the sidebar go back button not working
+
+- ---
+
+## 0.1.0-12
+
+- Improve URL sharing adding support to query and query values, eg. `/app/?build-character=motoko`
+- Fix character edition error when the edition was approved and the user try to approve again without changes
+- Add audio pause/resume button to chat messages
+- Fixed speech missing speech stop on chat route leave
+
+- Add confirmation modal on chat clear
 - Improve sidebar error handling using:
    ```ts
     onError(error, retry, fail, attempts) {
@@ -17,16 +28,6 @@ description: Tasks and items for the release.
     }
   },
   ```
-- Fix chat opening auto-opening when character creation (shouldn't open)
-- Fix forgetting sidebar state after navigating to a route
-- Fix translations of items
-- Add confirmation modal on chat clear
-
-- Add audio pause/resume button to chat messages
-- Fixed speech missing speech stop on chat route leave
-
-## 0.1.0-12
-
 - Implement soft-deletes
 - Revise Backlog (above `---`) and TODO
 - Look for TODOS inside the codebase
@@ -36,7 +37,6 @@ description: Tasks and items for the release.
 - Add high traffic UI alert
 
 - Revision and adjust
-  - Improve the design system and UI
   - Pre-create and refine default characters
   - Revise character content
   - Revise What's New
@@ -51,3 +51,9 @@ description: Tasks and items for the release.
 - Deploy to production
   - Set the GCP OAuth screen to production instead of testing (requires app verification).
   - Set Stripe to production instead of testing.
+
+## 0.2.0 - Language Assistance Improvements
+
+- Add text input correction confirmation popover
+  - Diffing
+  - Actions: "Regenerate", "Explain", "Apply", "Ignore"

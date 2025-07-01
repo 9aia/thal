@@ -31,10 +31,10 @@ description: A timeline of key milestones and upcoming features or releases.
 - User Accounts (Sign in, Manage Account, Subscribe)
 - Character Management (Discover, Manage)
 - Chats
-- Basic Language Assistance (Message Translation, Input Translation, Listen to Message)
+- Basic Language Assistance (Message Translation, Input Fix, Listen to Message)
 - Contacts
 - Basic Moderation
-- Basic Support & Legal (Issue Report, Terms & Privacy)
+- Basic Support & Legal (Feedback Form, Terms & Privacy)
 - Site (Landing Page)
 
 ### Expansion
@@ -66,11 +66,14 @@ description: A timeline of key milestones and upcoming features or releases.
 - Add report button (open modal) to contact options
 - Add intuitive placeholders to fields
 - Add length indicator to fields
-- Add tooltip to icon buttons
 - Add help center
+  - Add FAQ
+  - Add troubleshooting tips
+  - Add contact us info
+  - Add onboarding guide
+  - Add "About Thal" in help section in settings
+  - Add "App Info" (app name, icon, version, author, licenses)
 - Add a warning for renaming character usernames
-- Add "About Thal" in help section in settings
-- Add "App Info" (app name, icon, version, author, licenses)
 - Open character info by clicking on the AI warning item in the contact view
 - Add "Export account data"
 - Delete account data

@@ -52,7 +52,7 @@ const submit = form.handleSubmit(async (data) => {
   })
 })
 
-const items: MenuItemType[] = [
+const items = computed<MenuItemType[]>(() => [
   {
     id: 'manage-billing',
     icon: 'material-symbols:subscriptions-outline-rounded',
@@ -75,7 +75,7 @@ const items: MenuItemType[] = [
     meaning: 'danger',
     onClick: () => { isDeactivateModalOpen.value = true },
   },
-]
+])
 </script>
 
 <template>

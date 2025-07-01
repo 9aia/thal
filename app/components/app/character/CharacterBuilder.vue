@@ -165,10 +165,10 @@ const isPastDueVisible = computed(() => {
 
 const viewMode = ref<CharacterBuilderEditViewMode>('preview')
 
-const items: MenuItemType[] = [
+const items = computed<MenuItemType[]>(() => [
   { id: 'preview', name: t('Preview'), icon: 'material-symbols:history-edu-outline-rounded', description: t('How it will look after approval'), onClick: () => viewMode.value = 'preview' },
   { id: 'original', name: t('Original'), icon: 'material-symbols:history-edu-rounded', description: t('How it looked before editing'), onClick: () => viewMode.value = 'original' },
-]
+])
 
 const hasChanges = computed(() => {
   const d = buildQuery.data.value?.draft
