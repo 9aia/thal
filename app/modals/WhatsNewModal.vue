@@ -42,7 +42,7 @@ watch(modelValue, async (value) => {
             {{ ARTICLE_TYPES.find((type) => type.id === article.type)?.name }}
           </Badge>
 
-          <ContentRendererMarkdown :value="article" class="prose prose-slate prose-sm" />
+          <ContentRendererMarkdown :value="article" class="prose" />
 
           <div v-if="i !== list.length - 1" class="b-1 w-full border border-gray-400/50 my-6" />
         </div>

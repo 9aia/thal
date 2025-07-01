@@ -15,7 +15,9 @@ const props = withDefaults(
 
     // footer
     confirmText?: string
+    confirmIcon?: string
     cancelText?: string
+    cancelIcon?: string
     hideConfirm?: boolean
     showCancel?: boolean
     confirmLoading?: boolean
@@ -96,6 +98,7 @@ watch([visible, dialog], () => {
                 v-if="props.showCancel"
                 value="false"
                 class="btn btn-neutral"
+                :icon="props.cancelIcon"
                 @click.prevent="visible = false"
               >
                 {{ props.cancelText }}
@@ -106,6 +109,7 @@ watch([visible, dialog], () => {
                 value="true"
                 class="btn btn-primary"
                 :loading="confirmLoading"
+                :icon="props.confirmIcon"
                 @click.prevent="emit('confirm')"
               >
                 {{ props.confirmText }}

@@ -11,7 +11,7 @@ async function goToDiscover() {
 </script>
 
 <template>
-  <div class="flex flex-col w-full h-dvh bg-white absolute">
+  <div class="flex flex-col w-full h-dvh bg-white absolute overflow-y-auto">
     <Navbar
       class="bg-gray-800"
       hide-back="on-lg"

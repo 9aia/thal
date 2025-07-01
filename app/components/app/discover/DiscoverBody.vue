@@ -41,10 +41,10 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
 </script>
 
 <template>
-  <div class="flex flex-col w-full h-dvh bg-white absolute">
+  <div class="flex flex-col w-full h-dvh bg-white absolute overflow-y-auto">
     <div class="sticky top-0 z-1">
       <Navbar
-        :title="t('Characters')"
+        :title="t('Discover Characters')"
         hide-back="on-lg"
         back-icon="material-symbols:menu-rounded"
         opener="main"
@@ -69,7 +69,7 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
 
       <div class="top-0 z-1 bg-white">
         <SettingSection
-          body-class="px-6"
+          class="px-6"
         >
           <form class="w-full sm:w-[500px] lg:w-[600px] mx-auto">
             <SearchField
@@ -100,12 +100,11 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
     <main class="bg-white flex-1 flex w-full items-start pt-4">
       <div class="flex flex-col pb-4 w-full">
         <SettingSection
-          class="sm:w-auto sm:mx-auto"
+          class="sm:w-auto sm:mx-auto px-5"
           :title="t('Characters')"
-          title-class="px-6"
-          body-class="px-6 space-y-2"
+          title-class="px-1"
         >
-          <div class="pb-2 overflow-y-auto flex flex-col items-center w-full sm:w-[500px] lg:w-[600px]">
+          <div class="pb-2 px-1 overflow-y-auto flex flex-col items-center w-full sm:w-[500px] lg:w-[600px]">
             <Suspense>
               <template #fallback>
                 <div class="py-4 w-full flex justify-center">

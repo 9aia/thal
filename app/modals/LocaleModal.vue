@@ -56,6 +56,7 @@ const submit = form.handleSubmit(async (data) => {
     v-model="isOpen"
     :confirm-loading="loading"
     :confirm-text="t('Save interface language')"
+    confirm-icon="material-symbols:save-outline-rounded"
     show-close-button :title="t('Select the interface language')"
     no-scroll
     @confirm="submit"
