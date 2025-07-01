@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useEventListener } from '@vueuse/core'
-import { isPastDueModalOpen, openContactView } from '~/store'
+import { hydrateOnIdle } from 'vue'
+import { isPastDueModalOpen, isWhatsNewModalOpen, openContactView } from '~/store'
 import { usernameSchema } from '~~/db/schema'
 
 useInternetConnectionIndicator()
@@ -55,6 +56,31 @@ watch(route, () => {
 })
 
 // #endregion
+
+const WhatsNewModal = defineAsyncComponent({
+  loader: () => import('~/modals/WhatsNewModal.vue'),
+  hydrate: hydrateOnIdle(),
+})
+
+const LocaleModal = defineAsyncComponent({
+  loader: () => import('~/modals/LocaleModal.vue'),
+  hydrate: hydrateOnIdle(),
+})
+
+const PastDuePlanModal = defineAsyncComponent({
+  loader: () => import('~/modals/PastDuePlanModal.vue'),
+  hydrate: hydrateOnIdle(),
+})
+
+const AccountReactivatedModal = defineAsyncComponent({
+  loader: () => import('~/modals/AccountReactivatedModal.vue'),
+  hydrate: hydrateOnIdle(),
+})
+
+const CommonToast = defineAsyncComponent({
+  loader: () => import('~/components/app/common/CommonToast.vue'),
+  hydrate: hydrateOnIdle(),
+})
 </script>
 
 <template>
@@ -71,10 +97,11 @@ watch(route, () => {
     </NuxtLayout>
   </div>
 
-  <Toast />
+  <CommonToast />
 
   <LocaleModal v-model="localeModalState" />
   <PastDuePlanModal v-model="isPastDueModalOpen" />
+  <WhatsNewModal v-model="isWhatsNewModalOpen" />
   <AccountReactivatedModal />
 </template>
 

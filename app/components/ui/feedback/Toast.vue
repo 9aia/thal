@@ -4,7 +4,7 @@ import { computed, effect, ref } from 'vue'
 import Icon from '../display/Icon.vue'
 
 const styles = tv({
-  base: 'alert border-0 flex justify-between w-full',
+  base: 'alert border-0 flex justify-between w-full relative',
   variants: {
     type: {
       info: 'bg-radial-[at_top] from-[var(--color-blue-100)] to-[var(--color-gray-50)]',
@@ -16,7 +16,7 @@ const styles = tv({
 })
 
 const actionStyles = tv({
-  base: 'btn btn-sm btn-soft btn-neutral text-black',
+  base: 'btn btn-xs btn-soft btn-neutral text-black',
 })
 
 const toastStyles = tv({
@@ -75,57 +75,63 @@ watch(toast.update, () => {
 </script>
 
 <template>
-  <Transition>
-    <div
-      v-if="toast.visible.value"
-      class="overflow-hidden"
-      :class="toastStyles({ position: toast.position.value })"
-    >
-      <div class="relative overflow-hidden" :class="styles({ type: toast.type.value })">
-        <div class="flex items-center justify-center gap-2">
-          <Icon :name="icon" class="text-gray-800" />
+  <div class="fixed top-0 w-full h-dvh pointer-events-none">
+    <div class="relative max-w-[1700px] mx-auto w-full h-full pointer-events-none">
+      <Transition name="fade-in-out">
+        <div
+          v-if="toast.visible.value"
+          class="overflow-hidden absolute"
+          :class="toastStyles({ position: toast.position.value })"
+        >
+          <div :class="styles({ type: toast.type.value })">
+            <Icon v-if="icon" :name="icon" class="text-gray-800" />
+            <div>
+              <h3>
+                {{ toast.message.value }}
+              </h3>
+            </div>
+            <div class="flex items-center justify-center gap-1">
+              <template v-if="toast.actions.value.length">
+                <button
+                  v-for="action, index in toast.actions.value"
+                  :key="`action-${index}`"
+                  :class="actionStyles()"
+                  @click="action.onClick"
+                >
+                  {{ action.title }}
+                </button>
+              </template>
 
-          <h3 class="text-gray-800 text-wrap text-left">
-            {{ toast.message.value }}
-          </h3>
-        </div>
+              <slot name="actions" />
 
-        <div class="flex items-center justify-center gap-4">
-          <div v-if="toast.actions.value.length">
-            <button
-              v-for="action, index in toast.actions.value"
-              :key="`action-${index}`"
-              :class="actionStyles()"
-              @click="action.onClick()"
-            >
-              {{ action.title }}
-            </button>
+              <Button
+                class="cursor-pointer rounded-full p-1 hover:text-gray-700 flex focus:outline-neutral focus:outline-2 focus:outline-offset-2"
+                icon="material-symbols:close-rounded"
+                icon-class="text-lg"
+                @click="toast.close()"
+              />
+            </div>
+
+            <div class="absolute overflow-hidden w-full h-full flex items-end pointer-events-none left-0 px-4">
+              <div
+                v-if="toast.duration.value > 0"
+                ref="el"
+                class="animate-progress h-[2px] bg-gray-800 rounded-full"
+                :style="{
+                  'animation-duration': `${toast.duration.value}ms`,
+                }"
+              />
+            </div>
           </div>
-
-          <Button
-            class="w-5 h-5 flex items-center justify-center cursor-pointer"
-            icon="material-symbols:close-rounded"
-
-            @click="toast.close()"
-          />
         </div>
-
-        <div class="absolute overflow-hidden w-full h-full flex items-end pointer-events-none">
-          <div
-            v-if="toast.duration.value > 0"
-            ref="el"
-            class="animate-progress h-[2px] bg-gray-800"
-            :style="{
-              'animation-duration': `${toast.duration.value}ms`,
-            }"
-          />
-        </div>
-      </div>
+      </Transition>
     </div>
-  </Transition>
+  </div>
 </template>
 
 <style scoped>
+@reference '~/assets/css/main.css';
+
 .animate-progress {
   animation: fill-progress linear;
   animation-play-state: paused;
@@ -140,13 +146,13 @@ watch(toast.update, () => {
   }
 }
 
-.v-enter-active, .v-leave-active {
-  transition: all 300ms ease-in-out;
+.fade-in-out-enter-active,
+.fade-in-out-leave-active {
+  @apply transition-all duration-300 ease-in-out;
 }
 
-.v-enter-from,
-.v-leave-to {
-  transform: translateX(50%) translateY(200px);
-  opacity: 0;
+.fade-in-out-enter-from,
+.fade-in-out-leave-to {
+  @apply opacity-0;
 }
 </style>
