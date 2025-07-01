@@ -6,12 +6,10 @@ withDefaults(defineProps<{
 }>(), {
   iconColor: 'text-gray-800',
 })
-
-const modelValue = defineModel<boolean>()
 </script>
 
 <template>
-  <div v-if="modelValue" class="bg-white px-2 py-2 flex flex-col items-start justify-between w-min-full">
+  <div class="bg-white px-2 py-2 flex flex-col items-start justify-between w-min-full">
     <div class="flex items-center gap-2 w-full">
       <div v-if="iconName">
         <div class="p-2 flex items-center justify-center">

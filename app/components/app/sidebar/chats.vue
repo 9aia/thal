@@ -2,7 +2,12 @@
 import { t } from '@psitta/vue'
 import { watchDebounced } from '@vueuse/core'
 import { useForm } from 'vee-validate'
-import { chatListSearch, isChatListDrawerOpen, isWhatsNewModalOpen } from '~/store'
+import { chatListSearch, isChatListDrawerOpen } from '~/store'
+
+const user = useUser()
+const sidebar = useSidebar()
+const chatsQuery = useChatsQuery()
+const isPastDueVisible = computed(() => isPlanPastDue(user.value!))
 
 const form = useForm({
   initialValues: {
@@ -13,24 +18,6 @@ const form = useForm({
 watchDebounced(toRef(() => form.values.search), () => {
   chatListSearch.value = form.values.search
 }, { debounce: 500 })
-
-const sidebar = useSidebar()
-const chatsQuery = useChatsQuery()
-
-// function goToDiscover() {
-//   isChatListDrawerOpen.value = false
-//   navigateTo('/app/discover/')
-// }
-
-// const generalItems: MenuItemType[] = [
-//   { id: 'create-character', icon: 'material-symbols:frame-person-outline-rounded', name: t('Build character'), onClick: () => handleBuildCharacter(null) },
-//   { id: 'new-contact', icon: 'material-symbols:person-add-outline-rounded', name: t('New contact'), onClick: () => manageContact(null) },
-//   // { id: 'my-characters', icon: 'material-symbols:manage-accounts-outline-rounded', name: t('My characters'), onClick: () => navigateTo('/app/settings/my-characters') },
-// ]
-
-// const discoverItems: MenuItemType[] = [
-//   { id: 'discover-characters', icon: 'material-symbols:person-search-outline-rounded', name: t('Characters'), onClick: () => goToDiscover() },
-// ]
 
 onMounted(() => {
   sidebar.clear()
@@ -72,36 +59,28 @@ function handleGoHome() {
       </div>
     </Navbar>
 
-    <div class="pt-2 flex-1 space-y-4 overflow-y-auto">
-      <ChatListPastDueAppNote />
+    <div class="flex-1 overflow-y-auto">
+      <ChatListFeedbackAppNote v-if="!isPastDueVisible" />
 
-      <form v-if="(chatsQuery.data.value && chatsQuery.data.value.length > 1 || chatListSearch?.trim() !== '') || (chatsQuery.isLoading.value)" class="px-6">
-        <SearchField
-          v-model="form.values.search"
-          :placeholder="t('Search name or username...')"
-          path="search"
-          autofocus
-          input-class="input-lg input-primary w-full"
-        />
-      </form>
-      <!--
-      <SettingSection
-        title-class="px-6"
-        body-class="px-4"
-      >
-        <ItemList :items="generalItems" />
-      </SettingSection>
+      <div class="pb-1 sticky top-0 bg-white z-10 space-y-2">
+        <ChatListPastDueAppNote v-if="isPastDueVisible" />
 
-      <SettingSection
-        :title="t('Discover')"
-        title-class="px-6"
-        body-class="px-4"
-      >
-        <ItemList :items="discoverItems" />
-      </SettingSection> -->
+        <form
+          v-if="(chatsQuery.data.value && chatsQuery.data.value.length > 1 || chatListSearch?.trim() !== '') || (chatsQuery.isLoading.value)"
+          class="px-6"
+        >
+          <SearchField
+            v-model="form.values.search"
+            :placeholder="t('Search name or username...')"
+            path="search"
+            autofocus
+            input-class="input-lg input-primary w-full"
+          />
+        </form>
+      </div>
 
       <SettingSection
-        body-class="px-4 space-y-1"
+        body-class="px-4 space-y-1 pt-1"
       >
         <ChatItemList />
       </SettingSection>
@@ -114,7 +93,5 @@ function handleGoHome() {
         />
       </div>
     </div>
-
-    <WhatsNewModal v-model="isWhatsNewModalOpen" />
   </div>
 </template>

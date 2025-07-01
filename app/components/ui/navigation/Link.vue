@@ -1,10 +1,14 @@
 <script setup lang="ts">
+import { tv } from 'tailwind-variants'
+
 interface Props {
+  class?: string
+  spanClass?: string
   activeClass?: string
   href?: string
   localize?: boolean | undefined
   locale?: string
-  disableColor?: boolean
+  iconClass?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -18,6 +22,16 @@ const isExternal = computed(() => {
   const regex = /^(?:http|https|mailto):\/\//i
   return regex.test(props.href)
 })
+
+const baseStyles = tv({
+  slots: {
+    base: 'flex items-center gap-1 group',
+    span: 'group-hover:underline',
+    icon: 'text-base rotate-90',
+  },
+})
+
+const styles = baseStyles()
 </script>
 
 <template>
@@ -26,13 +40,12 @@ const isExternal = computed(() => {
     :active-class="activeClass"
     :locale="locale"
     :localize="localize"
-    class="flex items-center gap-1  group"
+    :class="styles.base({ class: props.class })"
     :target="isExternal ? '_blank' : undefined"
-    :class="{ 'text-cyan-500': !disableColor }"
   >
-    <span class="group-hover:underline">
+    <span :class="styles.span({ class: spanClass })">
       <slot />
     </span>
-    <Icon v-if="isExternal" name="material-symbols:north-west-rounded" class="text-base rotate-90" />
+    <Icon v-if="isExternal" name="material-symbols:north-west-rounded" :class="styles.icon({ class: iconClass })" />
   </A>
 </template>

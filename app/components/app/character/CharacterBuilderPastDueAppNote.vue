@@ -18,7 +18,7 @@ const isPastDueVisible = computed(() => {
 
 <template>
   <AppNote
-    v-model="isPastDueVisible"
+    v-if="isPastDueVisible"
     hide-close
   >
     <div class="px-4 flex justify-between items-center gap-3 w-full">
