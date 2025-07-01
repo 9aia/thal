@@ -1,3 +1,3 @@
 <template>
-  <CharacterBuilder />
+  <CharacterBuilder opener="sidebar" />
 </template>

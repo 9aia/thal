@@ -1,8 +1,14 @@
 import { SIDEBAR_COMPONENTS, SIDEBAR_DEFAULT_VIEW, type SidebarView } from '~/constants/sidebar'
 import { stringifyQuery } from '~/utils/vue'
 
-const history = ref<SidebarView[]>([])
+const history = ref<SidebarView[]>([SIDEBAR_DEFAULT_VIEW])
 const navigationDirection = ref<'forward' | 'backward'>('forward')
+
+watch(history, (newHistory) => {
+  console.log('history', newHistory)
+}, { deep: true, immediate: true })
+
+// TODO: on route init with query, push it to sidebar history
 
 function useSidebar() {
   const router = useRouter()
@@ -23,19 +29,29 @@ function useSidebar() {
     return view
   })
 
-  const activate = (view: keyof typeof SIDEBAR_COMPONENTS) => {
-    const active = view === SIDEBAR_DEFAULT_VIEW ? undefined : null
+  const updateUrl = (view: keyof typeof SIDEBAR_COMPONENTS) => {
+    const ACTIVE = view === SIDEBAR_DEFAULT_VIEW ? undefined : null
 
     router.replace({
       query: {
-        [view]: active,
+        [view]: ACTIVE,
       },
       hash: route.hash,
     })
   }
 
+  // watch(route, () => {
+  //   history.value.push(view.value)
+  // }, { immediate: true, once: true })
+
   const refreshViewQuery = () => {
-    activate(view.value)
+    const route = useRoute()
+    console.log('refreshViewQuery', route.query)
+
+    if (view.value !== history.value[history.value.length - 1])
+      history.value.push(view.value)
+
+    updateUrl(view.value)
   }
 
   const updateAutoRedirect = (view: keyof typeof SIDEBAR_COMPONENTS) => {
@@ -55,27 +71,27 @@ function useSidebar() {
 
     navigationDirection.value = 'forward'
     history.value.push(newView)
-    activate(newView)
+    updateUrl(newView)
     updateAutoRedirect(newView)
   }
 
   const back = () => {
+    if (history.value.length <= 1)
+      return
+
     navigationDirection.value = 'backward'
+    history.value.pop()
 
-    if (history.value.length === 0)
-      history.value = [SIDEBAR_DEFAULT_VIEW]
-    else
-      history.value.pop()
-
-    const lastView = history.value[history.value.length - 1]
-    activate(lastView || SIDEBAR_DEFAULT_VIEW)
-    updateAutoRedirect(lastView)
+    const prevView = history.value[history.value.length - 1]
+    console.log('prevView', prevView, history.value, history.value.length)
+    updateUrl(prevView)
+    updateAutoRedirect(prevView)
   }
 
   const clear = () => {
-    navigationDirection.value = 'backward'
+    navigationDirection.value = 'forward'
     history.value = [SIDEBAR_DEFAULT_VIEW]
-    activate(SIDEBAR_DEFAULT_VIEW)
+    updateUrl(SIDEBAR_DEFAULT_VIEW)
     updateAutoRedirect(SIDEBAR_DEFAULT_VIEW)
   }
 

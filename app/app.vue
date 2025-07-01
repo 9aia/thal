@@ -53,7 +53,7 @@ onMounted(() => {
 
 watch(route, () => {
   sidebar.refreshViewQuery()
-})
+}, { immediate: true })
 
 // #endregion
 
