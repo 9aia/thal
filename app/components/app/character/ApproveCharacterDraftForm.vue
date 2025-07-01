@@ -8,7 +8,7 @@ import { CONFLICT_STATUS_CODE } from '~/utils/web'
 
 const props = defineProps<{
   discoverable?: boolean
-  username: string
+  previousUsername?: string
   isEditing: boolean
 }>()
 
@@ -33,7 +33,8 @@ watch(initialValues, () => form.setValues(initialValues.value))
 
 const toast = useToast()
 const user = useUser()
-const { params } = useRoute()
+const route = useRoute()
+const router = useRouter()
 const queryClient = useQueryClient()
 const localWithDefaultRegion = useLocaleWithDefaultRegion()
 
@@ -76,13 +77,17 @@ const approveMutation = useMutation({
       queryKey: queryKeys.characterDraftEdit(localWithDefaultRegion.value, characterBuildId.value),
     })
 
-    // refresh chat route and contact info view if open
-    const usernameQuery = params.username
+    // refresh chat route and contact info view if they are open
+    if (route.path === `/app/chat/${props.previousUsername}`) {
+      router.replace({
+        hash: route.hash,
+        query: route.query,
+        path: `/app/chat/${data.username}`,
+        replace: true,
+      })
+    }
 
-    if (props.username !== usernameQuery)
-      navigateTo(`/app/chat/${data.username}`)
-
-    if (props.username === contactViewUsername.value)
+    if (props.previousUsername === contactViewUsername.value)
       contactViewUsername.value = data.username
 
     toast.success(t('Character has been approved successfully.'))

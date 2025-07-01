@@ -35,7 +35,7 @@ const discardMutation = useMutation({
 
 <template>
   <Button
-    class="btn btn-sm btn-warning btn-outline"
+    class="btn btn-xs btn-warning btn-outline"
     icon="material-symbols:cancel-outline-rounded"
     icon-class="text-xl"
     icon-position="right"

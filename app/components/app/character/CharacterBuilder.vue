@@ -193,7 +193,7 @@ function handleGoToChat() {
     isChatListDrawerOpen.value = false
   }
 
-  navigateTo(`/app/chat/${editingUsername.value}`)
+  navigateTo(`/app/chat/${editingUsername.value}?build-character`)
 }
 
 const route = useRoute()
@@ -212,7 +212,7 @@ const isAlreadyChatting = computed(() => {
     />
 
     <CharacterBuilderPastDueAppNote
-      v-model="isPastDueVisible"
+      v-if="isPastDueVisible"
       :editing="isEditing"
     />
 
@@ -225,7 +225,7 @@ const isAlreadyChatting = computed(() => {
           >
             <template #characterName>
               <br>
-              <button class="text-blue-500" @click="navigateTo(`/app/chat/${buildQuery.data.value?.character!.username}`)">
+              <button class="text-blue-500 focus:outline-primary focus:outline-offset-4 focus:outline-2 rounded-full" @click="navigateTo(`/app/chat/${buildQuery.data.value?.character!.username}?build-character`)">
                 {{ buildQuery.data.value?.character!.name }}
               </button>
             </template>
@@ -296,7 +296,7 @@ const isAlreadyChatting = computed(() => {
           >
             <div class="text-sm w-full h-full relative">
               <Menu.Root v-if="hasChanges">
-                <Menu.Trigger class="absolute z-10 left-2 top-2 btn btn-primary btn-xs bg-transparent" @click.stop.prevent>
+                <Menu.Trigger class="absolute z-10 left-2 top-2 btn btn-primary btn-outline btn-xs" @click.stop.prevent>
                   {{ viewMode === "preview" ? t('Preview') : t('Original') }}
                   <Icon class="rotate-180 text-base" name="material-symbols:keyboard-arrow-up-rounded" />
                 </Menu.Trigger>
@@ -323,7 +323,7 @@ const isAlreadyChatting = computed(() => {
 
               <ApproveCharacterDraftForm
                 :is-editing="isEditing"
-                :username="buildQuery.data.value?.draft?.username!"
+                :previous-username="buildQuery.data.value?.character?.username"
                 :discoverable="buildQuery.data.value?.character?.discoverable"
                 @approved="characterBuildId = $event"
               />
