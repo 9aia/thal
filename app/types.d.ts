@@ -67,7 +67,7 @@ export interface InReplyTos {
 }
 
 export interface MessageSend {
-  id?: number // NOTE: when it's editing, it's the message id and it means retrying
+  id?: number // When it's editing, it's the message id and it means retrying
   content: string
   time: number
   inReplyTo?: InReplyTo

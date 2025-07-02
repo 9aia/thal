@@ -12,6 +12,9 @@ description: Tasks and items for the release.
 
 ## 0.1.0-12
 
+- Fix deletion of dependent data when renaming columns using `drizzle-kit + D1` (drizzle-kit deletes the table to create another one with the new name, so the dependent data because of onDelete hook)
+  - Remove hooks and implement the delete in runtime (using soft-deletes ideally)
+- Add a backup database
 - Improve URL sharing adding support to query and query values, eg. `/app/?build-character=motoko`
 - Fix character edition error when the edition was approved and the user try to approve again without changes
 - Add audio pause/resume button to chat messages

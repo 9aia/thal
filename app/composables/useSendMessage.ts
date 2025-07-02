@@ -165,7 +165,7 @@ function useSendMessage(username: MaybeRef<string>, options: UseSendMessageOptio
 
   function retryMutate() {
     sendMessageMutation.mutate({
-      id: edition.messageId!, // NOTE: it's the message id and it means retrying
+      id: edition.messageId!, // It's the message id and it means retrying
       time: now().getTime(),
       content: edition.content!,
       inReplyTo: edition.inReplyTo,

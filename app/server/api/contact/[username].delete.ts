@@ -21,8 +21,7 @@ export default eventHandler(async (event) => {
 
   const [deletedContact] = await orm
     .delete(contacts)
-    // TODO: rename column to adderUserId
-    .where(and(eq(contacts.userId /* adderUserId */, user.id), eq(contacts.id, contact.id)))
+    .where(and(eq(contacts.userId, user.id), eq(contacts.id, contact.id)))
     .returning()
 
   const deletedContactDto = {

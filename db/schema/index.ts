@@ -330,10 +330,10 @@ export const characterDraftLocalizationsRelations = relations(characterDraftLoca
 export const contacts = table('Contact', {
   id: int('id').primaryKey({ autoIncrement: true }),
   name: text('name').notNull(),
-  usernameId: int('username_id')
+  usernameId: int('username_id') // added
     .notNull()
     .references(() => usernames.id, { onDelete: 'no action' }),
-  userId: text('user_id')
+  userId: text('user_id') // adder
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
   ...timestamps,
@@ -432,8 +432,7 @@ export type LastMessageInsert = z.infer<typeof insertLastMessageSchema>
 
 export const chats = table('Chat', {
   id: int('id').primaryKey({ autoIncrement: true }),
-  // TODO: rename field to usernameId
-  usernameId: int('character_username_id')
+  usernameId: int('username_id')
     .notNull()
     .references(() => usernames.id, { onDelete: 'no action' }),
   userId: text('user_id')
