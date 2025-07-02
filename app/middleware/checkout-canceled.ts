@@ -4,8 +4,8 @@ export default defineNuxtRouteMiddleware((event) => {
   const user = useUser()
 
   if (!user.value)
-    return sendBackRedirect(event, '/sign-in')
+    return saveRouteAndNavigateTo(event, '/sign-in')
 
   if (user.value.subscriptionStatus !== SubscriptionStatus.canceled)
-    return sendBackRedirect(event, '/pricing')
+    return saveRouteAndNavigateTo(event, '/pricing')
 })

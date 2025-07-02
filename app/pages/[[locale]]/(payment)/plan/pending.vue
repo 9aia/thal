@@ -11,8 +11,6 @@ definePageMeta({
   pageTransition: false,
 })
 
-useAutoRedirect()
-
 const toast = useToast()
 const { t } = useI18nExperimental()
 
