@@ -33,7 +33,7 @@ onMounted(() => {
       <div class="flex items-center justify-center h-fit mt-4">
         <form action="/api/payment/stripe/create-portal-session" method="post" class="flex gap-2">
           <A href="/app" class="btn btn-primary">
-            {{ t('Go to app') }}
+            {{ t('Check access to the app') }}
           </A>
 
           <Button type="submit" class="btn btn-soft btn-primary">
