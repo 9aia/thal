@@ -1,3 +1,4 @@
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import type { InReplyTos } from '~/types'
 import type { InReplyTo } from '~~/db/schema'
 
@@ -42,12 +43,16 @@ export function closeContactView() {
 export const manageContactUsername = ref<string | null>(null)
 export const manageContactName = ref<string>()
 
-export async function manageContact(username?: string | null, name?: string | null, options?: { animate?: boolean }) {
+export async function manageContact(username?: string | null, name?: string | null) {
   manageContactUsername.value = username ?? null
   manageContactName.value = name ?? undefined
 
+  const breakpoints = useBreakpoints(breakpointsTailwind)
+  const isMobile = computed(() => breakpoints.smaller('lg').value)
+
   const sidebar = useSidebar()
-  sidebar.push('manage-contact', { animate: options?.animate })
+  sidebar.push('manage-contact')
+  sidebar.animate.value = !isMobile.value || sidebar.open.value
   sidebar.open.value = true
 }
 
@@ -78,12 +83,16 @@ export const currentPlayingMessageId = ref<number | null>(null)
 export const characterBuildId = ref<number | null>(null)
 export const characterBuildPrompt = ref<string>()
 
-export async function buildCharacter(characterId?: number | null, prompt?: string, options?: { animate?: boolean }) {
+export async function buildCharacter(characterId?: number | null, prompt?: string) {
   characterBuildId.value = characterId ?? null
   characterBuildPrompt.value = prompt
 
+  const breakpoints = useBreakpoints(breakpointsTailwind)
+  const isMobile = computed(() => breakpoints.smaller('lg').value)
+
   const sidebar = useSidebar()
-  sidebar.push('build-character', { animate: options?.animate })
+  sidebar.push('build-character')
+  sidebar.animate.value = !isMobile.value || sidebar.open.value
   sidebar.open.value = true
 }
 

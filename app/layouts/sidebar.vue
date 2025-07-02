@@ -26,8 +26,16 @@ const sidebarAnimationName = computed(() => {
   return sidebar.navigationDirection.value === 'forward' ? 'slide-right' : 'slide-left'
 })
 const animationEnabled = computed(() => {
-  return sidebar.animate.value && (isSidebarAnimationEnabled.value || sidebarAnimationName.value === RESOLVED_SIDEBAR_ANIMATION_NAME)
+  if (!sidebar.animate.value)
+    return false
+
+  return (isSidebarAnimationEnabled.value || sidebarAnimationName.value === RESOLVED_SIDEBAR_ANIMATION_NAME)
 })
+
+function handleSidebarAnimationResolve() {
+  isSidebarAnimationEnabled.value = true
+  sidebar.animate.value = true
+}
 
 onMounted(() => {
   const isPastDue = user.value?.subscriptionStatus === SubscriptionStatus.past_due
@@ -95,7 +103,7 @@ const router = useRouter()
               timeout="0"
               @fallback="isSidebarAnimationEnabled = false"
               @pending="isSidebarAnimationEnabled = false"
-              @resolve="isSidebarAnimationEnabled = true"
+              @resolve="handleSidebarAnimationResolve"
             >
               <component :is="View" v-if="View" />
 
