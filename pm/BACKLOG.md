@@ -89,6 +89,7 @@ Low priority:
 - Rewrite Daisy dropdowns using ArkUI components (should fix the closing on click on padding bug as well)
 - Fix speech highlighting breaking lines
 - Fix emoji color rendering in translations
+- Add a guard to checkout cancel page when the user hasn't actually canceled
 - Avoid breaking layout in chat item when last message is too long
 - Replace web modal API
 - Improve HTML rendering/TTS

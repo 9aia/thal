@@ -5,7 +5,7 @@ import Link from '~/components/ui/navigation/Link.vue'
 
 definePageMeta({
   title: 'Your free trial is being processed',
-  middleware: 'plan',
+  middleware: 'plan-pending',
   layout: 'site',
   layoutTransition: false,
   pageTransition: false,

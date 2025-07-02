@@ -5,7 +5,7 @@ import Link from '~/components/ui/navigation/Link.vue'
 
 definePageMeta({
   title: 'Checkout success',
-  middleware: 'checkout-success',
+  middleware: 'plan-non-active',
   layout: 'site',
   layoutTransition: false,
   pageTransition: false,
