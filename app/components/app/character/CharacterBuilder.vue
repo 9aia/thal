@@ -7,7 +7,7 @@ import type { FetchError } from 'ofetch'
 import { useForm } from 'vee-validate'
 import type { MenuItemType } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
-import { characterBuildId, characterBuildPrompt, isChatListDrawerOpen } from '~/store'
+import { characterBuildId, characterBuildPrompt } from '~/store'
 import type { CharacterBuildApiData, CharacterBuilderEditViewMode } from '~/types'
 import { promptSchema, promptSchemaChecks } from '~~/db/schema'
 
@@ -77,6 +77,7 @@ watch(buildQuery.data, () => {
 })
 
 const user = useUser()
+const sidebar = useSidebar()
 
 const hasErrors = useHasFormErrors(form)
 const loading = ref(false)
@@ -187,7 +188,7 @@ const isMobile = computed(() => breakpoints.smaller('lg').value)
 
 function handleGoToChat() {
   if (isMobile.value) {
-    isChatListDrawerOpen.value = false
+    sidebar.open.value = false
   }
 
   navigateTo(`/app/chat/${editingUsername.value}?build-character`)

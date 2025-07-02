@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
-import { isChatListDrawerOpen } from '~/store'
 import type { MenuItemType, MenuItemTypeOrFalse } from '~/components/ui/navigation/types'
 
 const props = defineProps<{
@@ -11,7 +10,7 @@ const logout = useLogout()
 const sidebar = useSidebar()
 
 async function goToDiscover() {
-  isChatListDrawerOpen.value = false
+  sidebar.open.value = false
   await navigateTo('/app/discover')
 }
 

@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { useDebounceFn } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import queryKeys from '~/queryKeys'
-import { isChatListDrawerOpen, manageContactName, manageContactUsername } from '~/store'
+import { manageContactName, manageContactUsername } from '~/store'
 import type { Contact } from '~/types'
 import yupify from '~/utils/yupify'
 import { nameSchema, nameSchemaChecks, usernameSchema, usernameSchemaChecks } from '~~/db/schema'
@@ -12,6 +12,7 @@ const { t } = useI18nExperimental()
 const toast = useToast()
 const queryClient = useQueryClient()
 const localeDefaultRegion = useLocaleWithDefaultRegion()
+const sidebar = useSidebar()
 
 const contactQuery = useServerQuery({
   queryKey: queryKeys.contact(computed(() => manageContactUsername.value!)),
@@ -68,7 +69,7 @@ watch(() => form.values.username, debouncedValidateUsername)
 const isEditing = computed(() => !!contactQuery.data.value?.id)
 
 function handleGoToChat(username: string) {
-  isChatListDrawerOpen.value = false
+  sidebar.open.value = false
 
   navigateTo(`/app/chat/${username}`)
   toast.close()

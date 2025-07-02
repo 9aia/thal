@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
 import { categories } from '~/constants/discover'
-import { isChatListDrawerOpen, openContactView } from '~/store'
+import { openContactView } from '~/store'
 
 const props = defineProps<{
   name: string
@@ -12,8 +12,10 @@ const props = defineProps<{
   showSendMessage?: boolean
 }>()
 
+const sidebar = useSidebar()
+
 async function goToChat() {
-  isChatListDrawerOpen.value = false
+  sidebar.open.value = false
   await navigateTo(`/app/chat/${props.username}`)
 }
 

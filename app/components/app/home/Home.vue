@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
-import { buildCharacter, isChatListDrawerOpen, isWhatsNewModalOpen, manageContact } from '~/store'
+import { buildCharacter, isWhatsNewModalOpen, manageContact } from '~/store'
 
 const whatsNew = useWhatsNew()
+const sidebar = useSidebar()
 
 async function goToDiscover() {
-  isChatListDrawerOpen.value = false
+  sidebar.open.value = false
   await navigateTo('/app/discover')
 }
 </script>
@@ -23,7 +24,7 @@ async function goToDiscover() {
           class="btn btn-neutral btn-circle btn-ghost lg:hidden"
           icon="material-symbols:menu-rounded"
 
-          @click="isChatListDrawerOpen = true"
+          @click="sidebar.open.value = true"
         />
       </div>
 

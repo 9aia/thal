@@ -4,8 +4,9 @@ import { refDebounced } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import { useRouteQuery } from '@vueuse/router'
 import { type CategorySlug, categories } from '~/constants/discover'
-import { buildCharacter, isChatListDrawerOpen, isWhatsNewModalOpen } from '~/store'
+import { buildCharacter, isWhatsNewModalOpen } from '~/store'
 
+const sidebar = useSidebar()
 const toast = useToast()
 const whatsNew = useWhatsNew()
 const searchRouteQuery = useRouteQuery<string>('search', '')
@@ -48,7 +49,7 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
         hide-back="on-lg"
         back-icon="material-symbols:menu-rounded"
         opener="main"
-        @close="isChatListDrawerOpen = true"
+        @close="sidebar.open.value = true"
       >
         <div class="flex gap-1 items-center translate-x-1.5 z-50">
           <Button

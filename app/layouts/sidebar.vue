@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AppLayout from './app.vue'
 import { SIDEBAR_COMPONENTS } from '~/constants/sidebar'
-import { isChatListDrawerOpen, isPastDueModalAlreadyShown, isPastDueModalOpen, rightDrawer } from '~/store'
+import { isPastDueModalAlreadyShown, isPastDueModalOpen, rightDrawer } from '~/store'
 import { SubscriptionStatus } from '~~/db/schema'
 
 const user = useUser()
@@ -39,8 +39,8 @@ onMounted(() => {
   isPastDueModalAlreadyShown.value = isPastDue
 })
 
+// TODO: Prevent the view when the path changes
 const router = useRouter()
-
 // Prevent the view when the path changes
 // router.beforeEach((to, from) => {
 //   const SIDEBAR_KEYS = Object.keys(SIDEBAR_COMPONENTS)
@@ -58,7 +58,7 @@ const router = useRouter()
 <template>
   <AppLayout>
     <div class="drawer lg:drawer-open">
-      <input id="chats-drawer" v-model="isChatListDrawerOpen" type="checkbox" class="drawer-toggle">
+      <input id="sidebar-drawer" v-model="sidebar.open.value" type="checkbox" class="drawer-toggle">
 
       <div class="drawer-content flex flex-col h-dvh bg-white overflow-auto items-justify justify-center">
         <!-- #region Right Drawer -->
@@ -72,7 +72,7 @@ const router = useRouter()
           </div>
 
           <div class="drawer-side z-[100]">
-            <label for="right-drawer" aria-label="close sidebar" class="drawer-overlay" />
+            <label for="right-drawer" aria-label="close sidebar" class="drawer-overlay" @click="rightDrawer = false" />
 
             <div class="flex flex-col h-dvh items-end justify-center w-full sm:w-96">
               <ContactViewDrawer v-if="rightDrawer" />
@@ -83,7 +83,7 @@ const router = useRouter()
       </div>
 
       <div class="drawer-side z-50">
-        <label for="chats-drawer" aria-label="close sidebar" class="drawer-overlay" />
+        <label for="sidebar-drawer" aria-label="close sidebar" class="drawer-overlay" />
 
         <div class="flex flex-col h-dvh justify-between w-96 overflow-hidden relative bg-white">
           <Transition

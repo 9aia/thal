@@ -2,7 +2,7 @@
 import { t } from '@psitta/vue'
 import { watchDebounced } from '@vueuse/core'
 import { useForm } from 'vee-validate'
-import { chatListSearch, isChatListDrawerOpen } from '~/store'
+import { chatListSearch } from '~/store'
 
 const user = useUser()
 const sidebar = useSidebar()
@@ -20,7 +20,7 @@ watchDebounced(toRef(() => form.values.search), () => {
 }, { debounce: 500 })
 
 function handleGoHome() {
-  isChatListDrawerOpen.value = false
+  sidebar.open.value = false
   navigateTo('/app/')
 }
 </script>
@@ -50,7 +50,7 @@ function handleGoHome() {
           class="btn btn-neutral btn-circle btn-ghost lg:hidden"
           no-disable-on-loading
           icon="material-symbols:arrow-menu-close-rounded"
-          @click="isChatListDrawerOpen = false"
+          @click="sidebar.open.value = false"
         />
       </div>
     </Navbar>

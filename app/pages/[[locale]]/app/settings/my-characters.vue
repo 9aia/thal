@@ -2,7 +2,7 @@
 import { t } from '@psitta/vue'
 import { useQuery } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
-import { buildCharacter, isChatListDrawerOpen } from '~/store'
+import { buildCharacter } from '~/store'
 import type { Character } from '~/types'
 
 definePageMeta({
@@ -12,6 +12,7 @@ definePageMeta({
 
 useAutoRedirect()
 
+const sidebar = useSidebar()
 const localWithDefaultRegion = useLocaleWithDefaultRegion()
 
 const myCharactersQuery = useQuery({
@@ -32,7 +33,7 @@ function handleDeleteCharacter(character: Character) {
 }
 
 async function handleGoToChat(username: string) {
-  isChatListDrawerOpen.value = false
+  sidebar.open.value = false
   await navigateTo(`/app/chat/${username}`)
 }
 

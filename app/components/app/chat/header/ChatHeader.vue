@@ -1,11 +1,12 @@
 <script lang="ts" setup>
 import type { MenuItemType, MenuItemTypeOrFalse } from '~/components/ui/navigation/types'
-import { buildCharacter, isChatListDrawerOpen, manageContact, openContactView } from '~/store'
+import { buildCharacter, manageContact, openContactView } from '~/store'
 
 const { t } = useI18nExperimental()
 const copyUrl = useCopyUrl()
 const route = useRoute()
 const user = useUser()
+const sidebar = useSidebar()
 const contactDeleteModalState = ref()
 
 const username = computed(() => route.params.username as string)
@@ -86,10 +87,10 @@ const items = computed(() => ([
   >
     <Button
       as="label"
-      for="my-drawer"
+      for="sidebar-drawer"
       class="lg:hidden btn btn-neutral btn-md btn-ghost btn-circle drawer-button"
       icon="material-symbols:arrow-back-rounded"
-      @click.stop="isChatListDrawerOpen = true"
+      @click.stop="sidebar.open.value = true"
     />
 
     <Avatar

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
 import queryKeys from '~/queryKeys'
-import { isChatListDrawerOpen, openContactView } from '~/store'
+import { openContactView } from '~/store'
 import { MessageStatus } from '~~/db/schema'
 
 const props = defineProps<{
@@ -13,6 +13,7 @@ const props = defineProps<{
   }
 }>()
 
+const sidebar = useSidebar()
 const characterQuery = useCharacterQuery(toRef(props, 'username'))
 
 const headers = useRequestHeaders(['cookie'])
@@ -34,7 +35,7 @@ const content = computed(() => {
 })
 
 async function handleGoToChat(username: string) {
-  isChatListDrawerOpen.value = false
+  sidebar.open.value = false
   await navigateTo(`/app/chat/${username}`)
 }
 </script>

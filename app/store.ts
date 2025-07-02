@@ -12,8 +12,6 @@ export const isWhatsNewModalOpen = ref(false)
 
 // #region Drawers
 
-export const isChatListDrawerOpen = ref(true)
-
 export const rightDrawer = ref(false)
 export const rightDrawers = reactive({
   contactView: true,
@@ -50,8 +48,7 @@ export async function manageContact(username?: string | null, name?: string | nu
 
   const sidebar = useSidebar()
   sidebar.push('manage-contact', { animate: options?.animate })
-
-  isChatListDrawerOpen.value = true
+  sidebar.open.value = true
 }
 
 // #endregion
@@ -87,8 +84,7 @@ export async function buildCharacter(characterId?: number | null, prompt?: strin
 
   const sidebar = useSidebar()
   sidebar.push('build-character', { animate: options?.animate })
-
-  isChatListDrawerOpen.value = true
+  sidebar.open.value = true
 }
 
 // #endregion
