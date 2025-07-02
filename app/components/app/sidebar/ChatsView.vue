@@ -19,10 +19,6 @@ watchDebounced(toRef(() => form.values.search), () => {
   chatListSearch.value = form.values.search
 }, { debounce: 500 })
 
-onMounted(() => {
-  sidebar.clear()
-})
-
 function handleGoHome() {
   isChatListDrawerOpen.value = false
   navigateTo('/app/')

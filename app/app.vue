@@ -21,6 +21,8 @@ useEventListener(window, 'popstate', () => {
   navigationDirection.value = 'back'
 })
 
+sidebar.initHistoryBasedOnInitialRoute()
+
 // #endregion
 
 // #region Drawers
@@ -46,14 +48,6 @@ function openContactViewByQuery() {
 onMounted(() => {
   openContactViewByQuery()
 })
-
-// #endregion
-
-// #region Sidebar
-
-watch(route, () => {
-  sidebar.refreshViewQuery()
-}, { immediate: true })
 
 // #endregion
 

@@ -8,21 +8,10 @@ const user = useUser()
 const sidebar = useSidebar()
 
 const View = computed(() => {
+  if (!sidebar.view.value)
+    return null
+
   return SIDEBAR_COMPONENTS[sidebar.view.value]
-})
-
-onMounted(() => {
-  const isPastDue = user.value?.subscriptionStatus === SubscriptionStatus.past_due
-
-  if (isPastDue && !isPastDueModalAlreadyShown.value) {
-    isPastDueModalOpen.value = true
-  }
-
-  isPastDueModalAlreadyShown.value = isPastDue
-})
-
-onUnmounted(() => {
-  sidebar.clear()
 })
 
 const isSidebarAnimationEnabled = ref(true)
@@ -35,6 +24,16 @@ const sidebarAnimationName = computed(() => {
   }
 
   return sidebar.navigationDirection.value === 'forward' ? 'slide-right' : 'slide-left'
+})
+
+onMounted(() => {
+  const isPastDue = user.value?.subscriptionStatus === SubscriptionStatus.past_due
+
+  if (isPastDue && !isPastDueModalAlreadyShown.value) {
+    isPastDueModalOpen.value = true
+  }
+
+  isPastDueModalAlreadyShown.value = isPastDue
 })
 </script>
 
@@ -73,13 +72,14 @@ const sidebarAnimationName = computed(() => {
             :css="isSidebarAnimationEnabled || sidebarAnimationName === RESOLVED_SIDEBAR_ANIMATION_NAME"
             :name="sidebarAnimationName"
           >
+            <!-- TODO: add view not found handling -->
             <Suspense
               timeout="0"
               @fallback="isSidebarAnimationEnabled = false"
               @pending="isSidebarAnimationEnabled = false"
               @resolve="isSidebarAnimationEnabled = true"
             >
-              <component :is="View" />
+              <component :is="View" v-if="View" />
 
               <template #fallback>
                 <SidebarLoadingComponent />

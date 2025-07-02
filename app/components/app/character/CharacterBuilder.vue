@@ -12,6 +12,7 @@ import type { CharacterBuildApiData, CharacterBuilderEditViewMode } from '~/type
 import { promptSchema, promptSchemaChecks } from '~~/db/schema'
 
 const props = withDefaults(defineProps<{
+  characterUsername?: string
   opener?: 'router' | 'sidebar' | 'main'
 }>(), {
   opener: 'router',
@@ -20,10 +21,6 @@ const props = withDefaults(defineProps<{
 const { t } = useI18nExperimental()
 const localWithDefaultRegion = useLocaleWithDefaultRegion()
 const toast = useToast()
-
-useAutoRedirect({
-  query: { 'build-character': props.opener },
-})
 
 interface FormValues {
   prompt: string

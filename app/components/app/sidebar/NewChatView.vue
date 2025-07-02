@@ -5,8 +5,6 @@ import type { MenuItemType } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
 import { buildCharacter, manageContact } from '~/store'
 
-useAutoRedirect()
-
 const { t } = useI18nExperimental()
 const localeWithDefaultRegion = useLocaleWithDefaultRegion()
 

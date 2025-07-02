@@ -8,11 +8,6 @@ import type { Contact } from '~/types'
 import yupify from '~/utils/yupify'
 import { nameSchema, nameSchemaChecks, usernameSchema, usernameSchemaChecks } from '~~/db/schema'
 
-useAutoRedirect({
-  query: { drawer: ['save'] },
-})
-
-const sidebar = useSidebar()
 const { t } = useI18nExperimental()
 const toast = useToast()
 const queryClient = useQueryClient()

@@ -6,6 +6,8 @@ function useAutoRedirect(options?: {
 }) {
   const url = useRedirectUrl()
 
+  console.trace('useAutoRedirect')
+
   onMounted(() => {
     const route = useRoute()
     let path = route.path

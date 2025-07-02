@@ -9,19 +9,19 @@ const config: Partial<AsyncComponentOptions> = {
 }
 
 const Chats = defineAsyncComponent({
-  loader: () => import(`~/components/app/sidebar/chats.vue`),
+  loader: () => import(`~/components/app/sidebar/ChatsView.vue`),
   ...config,
 })
 const BuildCharacter = defineAsyncComponent({
-  loader: () => import(`~/components/app/sidebar/build-character.vue`),
+  loader: () => import(`~/components/app/sidebar/BuildCharacterView.vue`),
   ...config,
 })
 const ManageContact = defineAsyncComponent({
-  loader: () => import(`~/components/app/sidebar/manage-contact.vue`),
+  loader: () => import(`~/components/app/sidebar/ManageContactView.vue`),
   ...config,
 })
 const NewChat = defineAsyncComponent({
-  loader: () => import(`~/components/app/sidebar/new-chat.vue`),
+  loader: () => import(`~/components/app/sidebar/NewChatView.vue`),
   ...config,
 })
 
@@ -34,4 +34,6 @@ export const SIDEBAR_COMPONENTS = {
 
 export type SidebarView = keyof typeof SIDEBAR_COMPONENTS
 
-export const SIDEBAR_DEFAULT_VIEW: SidebarView = 'chats'
+export const SIDEBAR_ROOT_STATE: SidebarState = {
+  view: 'chats',
+}
