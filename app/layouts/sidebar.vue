@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { routerKey } from 'vue-router'
 import AppLayout from './app.vue'
 import { SIDEBAR_COMPONENTS } from '~/constants/sidebar'
 import { isChatListDrawerOpen, isPastDueModalAlreadyShown, isPastDueModalOpen, rightDrawer } from '~/store'
@@ -25,6 +24,9 @@ const sidebarAnimationName = computed(() => {
   }
 
   return sidebar.navigationDirection.value === 'forward' ? 'slide-right' : 'slide-left'
+})
+const animationEnabled = computed(() => {
+  return sidebar.animate.value && (isSidebarAnimationEnabled.value || sidebarAnimationName.value === RESOLVED_SIDEBAR_ANIMATION_NAME)
 })
 
 onMounted(() => {
@@ -85,7 +87,7 @@ const router = useRouter()
 
         <div class="flex flex-col h-dvh justify-between w-96 overflow-hidden relative bg-white">
           <Transition
-            :css="isSidebarAnimationEnabled || sidebarAnimationName === RESOLVED_SIDEBAR_ANIMATION_NAME"
+            :css="animationEnabled"
             :name="sidebarAnimationName"
           >
             <!-- TODO: add view not found handling -->

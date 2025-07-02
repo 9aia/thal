@@ -65,6 +65,7 @@ Low priority:
 ## Enhancements
 
 - Set meta tags for each page
+- Apply slide-right animations to settings routes
 - Inform deleted character action such as translate, using tooltip
 - Save cookie for "Continue Your Access" after once logged
 - Pass user name to Stripe from Google account

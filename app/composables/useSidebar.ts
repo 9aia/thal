@@ -9,6 +9,7 @@ export interface SidebarState {
 export interface SidebarNavigateOptions {
   param?: string
   autoRedirect?: boolean
+  animate?: boolean
 }
 
 export type SidebarPathWithParam = `${SidebarView}=${string}`
@@ -16,6 +17,7 @@ export type SidebarFullPath = SidebarView | SidebarPathWithParam
 
 const history = ref<SidebarFullPath[]>([sidebarStateToFullPath(SIDEBAR_ROOT_STATE)])
 const navigationDirection = ref<'forward' | 'backward'>('forward')
+const animate = ref(true)
 
 const state = ref<SidebarState>(SIDEBAR_ROOT_STATE)
 const view = computed(() => state.value.view)
@@ -108,6 +110,7 @@ function useSidebar() {
     if (newView === view.value)
       return
 
+    animate.value = options?.animate ?? true
     navigationDirection.value = 'forward'
 
     const newState: SidebarState = {
@@ -126,6 +129,7 @@ function useSidebar() {
     if (history.value.length <= 1)
       return
 
+    animate.value = options?.animate ?? true
     navigationDirection.value = 'backward'
     history.value.pop()
 
@@ -142,6 +146,7 @@ function useSidebar() {
   }
 
   const clear = (options?: SidebarNavigateOptions) => {
+    animate.value = options?.animate ?? true
     navigationDirection.value = 'forward'
 
     const rootState: SidebarState = {
@@ -165,6 +170,7 @@ function useSidebar() {
     back,
     navigationDirection,
     clear,
+    animate,
     history: readonly(history),
   }
 }

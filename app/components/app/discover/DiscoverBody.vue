@@ -133,7 +133,7 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
                 class="btn btn-soft btn-primary rounded-full"
                 icon="material-symbols:frame-person-outline-rounded"
 
-                @click="buildCharacter(null, search)"
+                @click="buildCharacter(null, search, { animate: false })"
               >
                 {{ t("Create character") }}
               </Button>

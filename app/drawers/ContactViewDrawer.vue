@@ -76,18 +76,18 @@ function goToChat() {
 }
 
 function saveContact() {
-  manageContact(username.value, contactNames.value.displayName)
+  manageContact(username.value, contactNames.value.displayName, { animate: false })
   closeContactView()
   toast.close()
 }
 
 function editContact() {
-  manageContact(username.value)
+  manageContact(username.value, undefined, { animate: false })
   closeContactView()
 }
 
 function editCharacter() {
-  buildCharacter(characterQuery.data.value?.id)
+  buildCharacter(characterQuery.data.value?.id, undefined, { animate: false })
   closeContactView()
 }
 

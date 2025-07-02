@@ -5,13 +5,13 @@ description: Tasks and items for the release.
 # TODO
 
 - Prevent the view when the path changes
-- Implement character builder and contact manager to use sidebar param
 - Generate a new changelog and compare
 
 - ---
 
 ## 0.1.0-12
 
+- Implement character builder and contact manager to use sidebar param
 - Fix deletion of dependent data when renaming columns using `drizzle-kit + D1` (drizzle-kit deletes the table to create another one with the new name, so the dependent data because of onDelete hook)
   - Remove hooks and implement the delete in runtime (using soft-deletes ideally)
 - Add a backup database

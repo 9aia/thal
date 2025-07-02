@@ -44,12 +44,14 @@ export function closeContactView() {
 export const manageContactUsername = ref<string | null>(null)
 export const manageContactName = ref<string>()
 
-export async function manageContact(username?: string | null, name?: string | null) {
+export async function manageContact(username?: string | null, name?: string | null, options?: { animate?: boolean }) {
   manageContactUsername.value = username ?? null
   manageContactName.value = name ?? undefined
 
   const sidebar = useSidebar()
-  sidebar.push('manage-contact')
+  sidebar.push('manage-contact', { animate: options?.animate })
+
+  isChatListDrawerOpen.value = true
 }
 
 // #endregion
@@ -79,12 +81,14 @@ export const currentPlayingMessageId = ref<number | null>(null)
 export const characterBuildId = ref<number | null>(null)
 export const characterBuildPrompt = ref<string>()
 
-export async function buildCharacter(characterId?: number | null, prompt?: string) {
+export async function buildCharacter(characterId?: number | null, prompt?: string, options?: { animate?: boolean }) {
   characterBuildId.value = characterId ?? null
   characterBuildPrompt.value = prompt
 
   const sidebar = useSidebar()
-  sidebar.push('build-character')
+  sidebar.push('build-character', { animate: options?.animate })
+
+  isChatListDrawerOpen.value = true
 }
 
 // #endregion

@@ -39,7 +39,7 @@ const items = computed(() => ([
     id: 'build-character',
     name: t('Edit character'),
     icon: 'material-symbols:frame-person-outline-rounded',
-    onClick: () => buildCharacter(characterQuery.data.value?.id),
+    onClick: () => buildCharacter(characterQuery.data.value?.id, undefined, { animate: false }),
   },
   {
     id: 'share-character',
@@ -51,7 +51,7 @@ const items = computed(() => ([
     id: 'edit-contact',
     name: t('Edit contact'),
     icon: 'material-symbols:person-edit-outline-rounded',
-    onClick: () => manageContact(username.value),
+    onClick: () => manageContact(username.value, undefined, { animate: false }),
   },
   isContact.value
     ? {
@@ -64,7 +64,7 @@ const items = computed(() => ([
         id: 'add-contact',
         name: t('Add to contacts'),
         icon: 'material-symbols:person-add-outline-rounded',
-        onClick: () => manageContact(username.value, characterQuery.data.value?.name),
+        onClick: () => manageContact(username.value, characterQuery.data.value?.name, { animate: false }),
       },
   hasMessages.value && {
     id: 'clear-chat',
