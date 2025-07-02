@@ -1,3 +1,4 @@
+import type { LocationQuery } from 'vue-router'
 import { SIDEBAR_COMPONENTS, SIDEBAR_ROOT_STATE, type SidebarView } from '~/constants/sidebar'
 
 export interface SidebarState {
@@ -16,55 +17,44 @@ export type SidebarFullPath = SidebarView | SidebarPathWithParam
 const history = ref<SidebarFullPath[]>([sidebarStateToFullPath(SIDEBAR_ROOT_STATE)])
 const navigationDirection = ref<'forward' | 'backward'>('forward')
 
+const state = ref<SidebarState>(SIDEBAR_ROOT_STATE)
+const view = computed(() => state.value.view)
+const param = computed(() => state.value.param)
+
+function getQueryViewAndParam(newQuery: LocationQuery) {
+  const queryKeys = Object.keys(newQuery) as SidebarView[]
+
+  let view: SidebarView = SIDEBAR_ROOT_STATE.view
+  let param = SIDEBAR_ROOT_STATE.param
+
+  for (const key of queryKeys) {
+    if (SIDEBAR_COMPONENTS[key]) {
+      view = key
+      param = newQuery[key] as string | undefined
+      break
+    }
+  }
+
+  return { view, param }
+}
+
+function updateState(newQuery: LocationQuery) {
+  const { view, param } = getQueryViewAndParam(newQuery)
+
+  state.value = {
+    view,
+    param,
+  }
+}
+
 function useSidebar() {
   const router = useRouter()
   const route = useRoute()
 
-  const state = computed(() => {
-    const queryKeys = Object.keys(route.query) as SidebarView[]
-
-    let view: SidebarView = SIDEBAR_ROOT_STATE.view
-    let param = SIDEBAR_ROOT_STATE.param
-
-    for (const key of queryKeys) {
-      if (SIDEBAR_COMPONENTS[key]) {
-        view = key
-        param = route.query[key] as string | undefined
-        break
-      }
-    }
-
-    return {
-      view,
-      param,
-    }
-  })
-  const view = computed(() => state.value.view)
-  const param = computed(() => state.value.param)
-
-  // TODO: test this
   const updateAutoRedirect = (state: SidebarState) => {
-    // const ACTIVE = state.view === SIDEBAR_ROOT_STATE.view ? undefined : null
     const redirectUrl = useCookie('redirect_url', { path: '/' })
 
-    // const queryParams = new URLSearchParams()
-
-    // Object.entries(route.query).forEach(([key, value]) => {
-    //   if (value === undefined)
-    //     return
-
-    //   if (value === null)
-    //     queryParams.set(key, 'a')
-
-    //   queryParams.set(key, value as string)
-    // })
-
-    // if (state.param) {
-    //   queryParams.set(state.view, state.param)
-    // }
-    // else {
-    //   queryParams.set(state.view, '')
-    // }
+    // TODO: keep the original query params, just change the current view and param
     let queryString = state.param ? `${state.view}=${state.param}` : state.view
 
     if (state.view === SIDEBAR_ROOT_STATE.view && !state.param)
@@ -73,8 +63,6 @@ function useSidebar() {
     const newUrl = queryString.length > 0 ? `${route.path}?${queryString}` : route.path
 
     redirectUrl.value = newUrl
-    console.log('newUrl', newUrl)
-    // TODO: fix cookie update (look like there's something overwriting it after the first update)
   }
 
   const replaceRouterQuery = (state: SidebarState) => {
@@ -88,22 +76,32 @@ function useSidebar() {
     })
   }
 
-  const initHistoryBasedOnInitialRoute = () => {
-    // We assume that the initial route is ONLY the root state
+  const init = () => {
+    // Set the state based on the query when it's loaded for the first time, eg. when the user access the build-character view directly via the URL
+    watch(() => route.query, (newQuery) => {
+      updateState(newQuery)
 
-    watch(() => route.query, () => {
       if (!view.value)
         return
+
+      // We assume that the initial route is ONLY the root state
 
       if (view.value !== SIDEBAR_ROOT_STATE.view || param.value !== SIDEBAR_ROOT_STATE.param) {
         const state: SidebarState = {
           view: view.value,
           param: param.value,
         }
+
+        navigationDirection.value = 'backward'
         history.value.push(sidebarStateToFullPath(state))
         updateAutoRedirect(state)
       }
     }, { immediate: true, once: true })
+
+    // Update the sidebar state when the route query changes
+    watch(() => route.query, (newQuery) => {
+      updateState(newQuery)
+    })
   }
 
   const push = (newView: SidebarView, options?: SidebarNavigateOptions) => {
@@ -141,8 +139,6 @@ function useSidebar() {
 
     if (options?.autoRedirect ?? true)
       updateAutoRedirect(lastState)
-
-    console.log('back', lastState)
   }
 
   const clear = (options?: SidebarNavigateOptions) => {
@@ -162,7 +158,7 @@ function useSidebar() {
   }
 
   return {
-    initHistoryBasedOnInitialRoute,
+    init,
     view,
     param,
     push,
@@ -187,7 +183,10 @@ export function sidebarFullPathToState(fullPath: SidebarFullPath) {
 
 export default useSidebar
 
-// TODO: remove this
 watch(history, (newHistory) => {
   console.log('history', newHistory)
 }, { deep: true, immediate: true })
+
+watch(view, (newView) => {
+  console.log('view', newView)
+})

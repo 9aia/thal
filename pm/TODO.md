@@ -4,8 +4,8 @@ description: Tasks and items for the release.
 
 # TODO
 
-- Fix forgetting sidebar state after navigating to a route
-- Fix the sidebar go back button not working
+- Prevent the view when the path changes
+- Implement character builder and contact manager to use sidebar param
 - Generate a new changelog and compare
 
 - ---

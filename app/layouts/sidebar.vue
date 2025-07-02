@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { routerKey } from 'vue-router'
 import AppLayout from './app.vue'
 import { SIDEBAR_COMPONENTS } from '~/constants/sidebar'
 import { isChatListDrawerOpen, isPastDueModalAlreadyShown, isPastDueModalOpen, rightDrawer } from '~/store'
@@ -35,6 +36,21 @@ onMounted(() => {
 
   isPastDueModalAlreadyShown.value = isPastDue
 })
+
+const router = useRouter()
+
+// Prevent the view when the path changes
+// router.beforeEach((to, from) => {
+//   const SIDEBAR_KEYS = Object.keys(SIDEBAR_COMPONENTS)
+
+//   console.log('to', to.fullPath, 'from', from.fullPath)
+
+//   for (const key of SIDEBAR_KEYS) {
+//     if (from.query[key] !== undefined && to.query[key] === undefined) {
+//       // to.query[key] = from.query[key]
+//     }
+//   }
+// })
 </script>
 
 <template>

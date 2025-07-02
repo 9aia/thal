@@ -21,7 +21,7 @@ useEventListener(window, 'popstate', () => {
   navigationDirection.value = 'back'
 })
 
-sidebar.initHistoryBasedOnInitialRoute()
+sidebar.init()
 
 // #endregion
 
