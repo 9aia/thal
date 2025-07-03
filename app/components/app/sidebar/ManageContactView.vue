@@ -3,7 +3,6 @@ import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { useDebounceFn } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import queryKeys from '~/queryKeys'
-import { manageContactName, manageContactUsername } from '~/store'
 import type { Contact } from '~/types'
 import yupify from '~/utils/yupify'
 import { nameSchema, nameSchemaChecks, usernameSchema, usernameSchemaChecks } from '~~/db/schema'
@@ -169,7 +168,7 @@ const submit = form.handleSubmit(() => isEditing.value
   <div class="flex flex-col h-dvh justify-between w-full absolute">
     <Navbar
       :title="isEditing ? t('Edit Contact') : t('New Contact')"
-      opener="sidebar"
+      @back="sidebar.back()"
     />
 
     <div

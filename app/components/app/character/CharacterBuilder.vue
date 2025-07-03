@@ -2,7 +2,6 @@
 import { Menu } from '@ark-ui/vue'
 import { T } from '@psitta/vue'
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
-import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import type { FetchError } from 'ofetch'
 import { useForm } from 'vee-validate'
 import type { MenuItemType } from '~/components/ui/navigation/types'
@@ -11,12 +10,13 @@ import { characterBuildId, characterBuildPrompt } from '~/store'
 import type { CharacterBuildApiData, CharacterBuilderEditViewMode } from '~/types'
 import { promptSchema, promptSchemaChecks } from '~~/db/schema'
 
-withDefaults(defineProps<{
+defineProps<{
   characterUsername?: string
-  opener?: 'router' | 'sidebar' | 'main'
-}>(), {
-  opener: 'router',
-})
+}>()
+
+const emit = defineEmits<{
+  (e: 'back'): void
+}>()
 
 const { t } = useI18nExperimental()
 const localWithDefaultRegion = useLocaleWithDefaultRegion()
@@ -77,7 +77,6 @@ watch(buildQuery.data, () => {
 })
 
 const user = useUser()
-const sidebar = useSidebar()
 
 const hasErrors = useHasFormErrors(form)
 const loading = ref(false)
@@ -183,13 +182,15 @@ const hasChanges = computed(() => {
     && d.categoryName === c.categoryName)
 })
 
-const breakpoints = useBreakpoints(breakpointsTailwind)
-const isMobile = computed(() => breakpoints.smaller('lg').value)
+// TODO: fix this, but test it
+// const breakpoints = useBreakpoints(breakpointsTailwind)
+// const isMobile = computed(() => breakpoints.smaller('lg').value)
 
 function handleGoToChat() {
-  if (isMobile.value) {
-    sidebar.open.value = false
-  }
+  // TODO: fix this, but test it
+  // if (isMobile.value) {
+  //   sidebar.open.value = false
+  // }
 
   navigateTo(`/app/chat/${editingUsername.value}?build-character`)
 }
@@ -200,13 +201,17 @@ const isAlreadyChatting = computed(() => {
   // check if username is in the url matches with the character username
   return username.value === editingUsername.value
 })
+
+function handleApproved(characterId: number) {
+  characterBuildId.value = characterId
+}
 </script>
 
 <template>
   <div class="flex flex-col h-dvh justify-between w-full absolute">
     <Navbar
       :title="isEditing ? t('Edit Character') : t('Create Character')"
-      :opener="opener"
+      @back="emit('back')"
     />
 
     <CharacterBuilderPastDueAppNote
@@ -247,8 +252,6 @@ const isAlreadyChatting = computed(() => {
         body-class="px-6"
       >
         <form class="flex flex-col gap-2" @submit="submit">
-          <!-- TODO: remove below -->
-          {{ opener }}
           <TextareaField
             autofocus
             path="prompt"
@@ -321,11 +324,12 @@ const isAlreadyChatting = computed(() => {
               <CharacterShowcase v-if="viewMode === 'preview'" :data="buildQuery.data.value?.draft!" />
               <CharacterShowcase v-if="viewMode === 'original'" :data="buildQuery.data.value?.character!" />
 
+              <!-- FIXME: characterBuildId = $event -->
               <ApproveCharacterDraftForm
                 :is-editing="isEditing"
                 :previous-username="buildQuery.data.value?.character?.username"
                 :discoverable="buildQuery.data.value?.character?.discoverable"
-                @approved="characterBuildId = $event"
+                @approved="handleApproved"
               />
             </div>
           </div>

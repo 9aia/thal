@@ -1,5 +1,22 @@
-import type { LocationQuery } from 'vue-router'
-import { SIDEBAR_COMPONENTS, SIDEBAR_ROOT_STATE, type SidebarView } from '~/constants/sidebar'
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
+import { SIDEBAR_ROOT_STATE, type SidebarView } from '~/constants/sidebar'
+
+export const sidebarInjectionKey = Symbol('sidebar')
+
+export interface SidebarStore {
+  open: Ref<boolean>
+  history: Ref<SidebarFullPath[]>
+  navigationDirection: Ref<'forward' | 'backward'>
+  animate: Ref<boolean>
+  state: Ref<SidebarState>
+  view: ComputedRef<SidebarView>
+  param: ComputedRef<string | undefined>
+
+  disableAnimation: () => void
+  handleSidebarAnimationResolve: () => void
+  animationEnabled: ComputedRef<boolean>
+  sidebarAnimationName: ComputedRef<string>
+}
 
 export interface SidebarState {
   view: SidebarView
@@ -9,48 +26,13 @@ export interface SidebarState {
 export interface SidebarNavigateOptions {
   param?: string
   autoRedirect?: boolean
+  open?: boolean
 }
 
 export type SidebarPathWithParam = `${SidebarView}=${string}`
 export type SidebarFullPath = SidebarView | SidebarPathWithParam
 
-const open = ref(true)
-const history = ref<SidebarFullPath[]>([sidebarStateToFullPath(SIDEBAR_ROOT_STATE)])
-const navigationDirection = ref<'forward' | 'backward'>('forward')
-const animate = ref(true)
-
-const state = ref<SidebarState>(SIDEBAR_ROOT_STATE)
-const view = computed(() => state.value.view)
-const param = computed(() => state.value.param)
-
-function getQueryViewAndParam(newQuery: LocationQuery) {
-  const queryKeys = Object.keys(newQuery) as SidebarView[]
-
-  let view: SidebarView = SIDEBAR_ROOT_STATE.view
-  let param = SIDEBAR_ROOT_STATE.param
-
-  for (const key of queryKeys) {
-    if (SIDEBAR_COMPONENTS[key]) {
-      view = key
-      param = newQuery[key] as string | undefined
-      break
-    }
-  }
-
-  return { view, param }
-}
-
-function updateState(newQuery: LocationQuery) {
-  const { view, param } = getQueryViewAndParam(newQuery)
-
-  state.value = {
-    view,
-    param,
-  }
-}
-
-function useSidebar() {
-  const router = useRouter()
+export function useUpdateAutoRedirect() {
   const route = useRoute()
 
   const updateAutoRedirect = (state: SidebarState) => {
@@ -67,9 +49,26 @@ function useSidebar() {
     redirectUrl.value = newUrl
   }
 
+  return updateAutoRedirect
+}
+
+function useSidebar() {
+  const router = useRouter()
+  const route = useRoute()
+  const updateAutoRedirect = useUpdateAutoRedirect()
+  const sidebar = inject<SidebarStore>(sidebarInjectionKey)
+  const breakpoints = useBreakpoints(breakpointsTailwind)
+  const isMobile = computed(() => breakpoints.smaller('lg').value)
+
+  if (!sidebar)
+    throw new Error('useSidebar must be used inside a Sidebar component')
+
+  const { open, history, navigationDirection, animate, view, param, disableAnimation, handleSidebarAnimationResolve, animationEnabled, sidebarAnimationName } = sidebar
+
   const replaceRouterQuery = (state: SidebarState) => {
     const ACTIVE = state.view === SIDEBAR_ROOT_STATE.view ? undefined : null
 
+    // TODO: keep the original query params, just change the current view and param
     router.replace({
       query: {
         [state.view]: state.param || ACTIVE,
@@ -78,32 +77,21 @@ function useSidebar() {
     })
   }
 
-  const init = () => {
-    // Set the state based on the query when it's loaded for the first time, eg. when the user access the build-character view directly via the URL
-    watch(() => route.query, (newQuery) => {
-      updateState(newQuery)
+  const activate = (newState: SidebarState, options?: SidebarNavigateOptions) => {
+    replaceRouterQuery(newState)
 
-      if (!view.value)
-        return
+    if (options?.autoRedirect ?? true)
+      updateAutoRedirect(newState)
 
-      // We assume that the initial route is ONLY the root state
+    if (isMobile.value && !sidebar.open.value) {
+      sidebar.animate.value = false
+    }
+    if (!isMobile.value) {
+      sidebar.animate.value = true
+    }
 
-      if (view.value !== SIDEBAR_ROOT_STATE.view || param.value !== SIDEBAR_ROOT_STATE.param) {
-        const state: SidebarState = {
-          view: view.value,
-          param: param.value,
-        }
-
-        navigationDirection.value = 'backward'
-        history.value.push(sidebarStateToFullPath(state))
-        updateAutoRedirect(state)
-      }
-    }, { immediate: true, once: true })
-
-    // Update the sidebar state when the route query changes
-    watch(() => route.query, (newQuery) => {
-      updateState(newQuery)
-    })
+    if (options?.open ?? true)
+      sidebar.open.value = true
   }
 
   const push = (newView: SidebarView, options?: SidebarNavigateOptions) => {
@@ -116,22 +104,16 @@ function useSidebar() {
       view: newView,
       param: options?.param,
     }
-
     history.value.push(sidebarStateToFullPath(newState))
-    replaceRouterQuery(newState)
-
-    if (options?.autoRedirect ?? true)
-      updateAutoRedirect(newState)
+    activate(newState, options)
   }
 
   const back = (options?: SidebarNavigateOptions) => {
-    console.log('back', history.value)
     if (history.value.length <= 1)
       return
 
     navigationDirection.value = 'backward'
     history.value.pop()
-    console.log('pop', history.value)
 
     const lastFullPath = history.value[history.value.length - 1]
     const lastState = sidebarFullPathToState(lastFullPath)
@@ -139,10 +121,7 @@ function useSidebar() {
     if (options?.param)
       lastState.param = options.param
 
-    replaceRouterQuery(lastState)
-
-    if (options?.autoRedirect ?? true)
-      updateAutoRedirect(lastState)
+    activate(lastState, options)
   }
 
   const clear = (options?: SidebarNavigateOptions) => {
@@ -155,10 +134,7 @@ function useSidebar() {
 
     history.value = [sidebarStateToFullPath(rootState)]
 
-    replaceRouterQuery(rootState)
-
-    if (options?.autoRedirect ?? true)
-      updateAutoRedirect(rootState)
+    activate(rootState, options)
   }
 
   const toggle = () => {
@@ -166,7 +142,6 @@ function useSidebar() {
   }
 
   return {
-    init,
     open,
     toggle,
     view,
@@ -177,6 +152,10 @@ function useSidebar() {
     clear,
     animate,
     history: readonly(history),
+    disableAnimation,
+    handleSidebarAnimationResolve,
+    animationEnabled,
+    sidebarAnimationName,
   }
 }
 

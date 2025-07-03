@@ -3,10 +3,12 @@
 // const route = useRoute()
 // const characterUsername = computed(() => route.query['build-character'] as string | undefined)
 // console.log('build-character', characterUsername.value)
+
+const sidebar = useSidebar()
 </script>
 
 <template>
   <CharacterBuilder
-    opener="sidebar"
+    @back="sidebar.back()"
   />
 </template>

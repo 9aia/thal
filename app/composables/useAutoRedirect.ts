@@ -5,13 +5,13 @@ function useAutoRedirect(options?: {
   query?: LocationQueryRaw
 }) {
   const url = useRedirectUrl()
-  const sidebar = useSidebar()
 
   onMounted(() => {
     const route = useRoute()
 
-    if (sidebar.view.value && sidebar.navigationDirection.value === 'forward')
-      return
+    // TODO: fix this (can't use sidebar here)
+    // if (sidebar.view.value && sidebar.navigationDirection.value === 'forward')
+    //   return
 
     let path = route.path
 

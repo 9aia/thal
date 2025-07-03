@@ -10,6 +10,7 @@ definePageMeta({
 
 useAutoRedirect()
 
+const router = useRouter()
 const logout = useLogout()
 
 const isLocaleModalOpen = ref(false)
@@ -19,7 +20,7 @@ const isLocaleModalOpen = ref(false)
   <div class="flex flex-col h-dvh justify-between w-full absolute">
     <Navbar
       :title="t('Settings')"
-      opener="router"
+      @back="router.back()"
     />
 
     <div class="h-2 bg-white" />

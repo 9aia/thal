@@ -7,10 +7,21 @@ import { buildCharacter, manageContact } from '~/store'
 
 const { t } = useI18nExperimental()
 const localeWithDefaultRegion = useLocaleWithDefaultRegion()
+const sidebar = useSidebar()
+
+function createCharacter() {
+  buildCharacter(null)
+  sidebar.push('build-character')
+}
+
+function addContact() {
+  manageContact(null)
+  sidebar.push('manage-contact')
+}
 
 const generalItems = computed<MenuItemType[]>(() => [
-  { id: 'create-character', icon: 'material-symbols:frame-person-outline-rounded', name: t('Build character'), onClick: () => buildCharacter(null) },
-  { id: 'new-contact', icon: 'material-symbols:person-add-outline-rounded', name: t('New contact'), onClick: () => manageContact(null) },
+  { id: 'create-character', icon: 'material-symbols:frame-person-outline-rounded', name: t('Build character'), onClick: () => createCharacter() },
+  { id: 'new-contact', icon: 'material-symbols:person-add-outline-rounded', name: t('New contact'), onClick: () => addContact() },
 ])
 
 const discoverItems = computed<MenuItemType[]>(() => [
@@ -49,7 +60,7 @@ const emptyMessage = computed(() => {
   <div class="flex flex-col h-dvh justify-between w-full absolute">
     <Navbar
       :title="t('New chat')"
-      opener="sidebar"
+      @back="sidebar.back()"
     />
 
     <div class="pt-2 pb-4 flex-1 overflow-y-auto bg-white space-y-4">

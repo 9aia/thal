@@ -1,6 +1,6 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: 'sidebar',
+  layout: 'common-sidebar-left',
   middleware: 'premium',
 })
 

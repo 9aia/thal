@@ -9,12 +9,19 @@ const props = defineProps<{
   username: string
 }>()
 
+const sidebar = useSidebar()
+
 const truncatedDescription = computed(() => {
   if (!props.description)
     return null
 
   return props.description.length > 100 ? `${props.description.slice(0, 64)}...` : props.description
 })
+
+function addContact() {
+  manageContact(props.username, props.displayName)
+  sidebar.push('manage-contact')
+}
 </script>
 
 <template>
@@ -51,7 +58,7 @@ const truncatedDescription = computed(() => {
         <Button
           class="btn btn-soft btn-primary"
           icon="material-symbols:person-add-outline-rounded"
-          @click="manageContact(username, displayName)"
+          @click="addContact()"
         >
           {{ t('Add') }}
         </Button>

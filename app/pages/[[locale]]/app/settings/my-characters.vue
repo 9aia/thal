@@ -14,6 +14,7 @@ useAutoRedirect()
 
 const sidebar = useSidebar()
 const localWithDefaultRegion = useLocaleWithDefaultRegion()
+const router = useRouter()
 
 const myCharactersQuery = useQuery({
   queryKey: queryKeys.myCharacters,
@@ -47,7 +48,7 @@ function handleCreateCharacter(characterId?: number | null) {
   <div class="flex flex-col h-dvh justify-between w-full absolute">
     <Navbar
       :title="t('My Characters')"
-      opener="router"
+      @back="router.back()"
     />
 
     <div class="pt-2 flex-1 pb-4 overflow-y-auto bg-white">

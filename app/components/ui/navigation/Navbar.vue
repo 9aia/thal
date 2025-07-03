@@ -1,34 +1,14 @@
 <script setup lang="ts">
-const props = withDefaults(defineProps<{
+defineProps<{
   title?: string
   hideBack?: 'always' | 'on-lg' | 'never'
   hideTitle?: boolean
   backIcon?: string
-  opener?: 'router' | 'sidebar' | 'main'
-}>(), {
-  opener: 'router',
-})
+}>()
 
 const emit = defineEmits<({
-  (e: 'close'): void
+  (e: 'back'): void
 })>()
-
-const sidebar = useSidebar()
-const router = useRouter()
-
-function handleGoBack() {
-  if (props.opener === 'main') {
-    emit('close')
-    return
-  }
-
-  if (props.opener === 'router') {
-    router.back()
-  }
-  else if (props.opener === 'sidebar') {
-    sidebar.back()
-  }
-}
 </script>
 
 <template>
@@ -43,13 +23,11 @@ function handleGoBack() {
           'lg:hidden': hideBack === 'on-lg',
         }"
         :icon="backIcon || 'material-symbols:arrow-back-rounded'"
-        @click="handleGoBack()"
+        @click="emit('back')"
       />
 
       <slot name="title">
         {{ title }}
-        <!-- TODO: remove below -->
-        {{ opener }}
       </slot>
     </h1>
 

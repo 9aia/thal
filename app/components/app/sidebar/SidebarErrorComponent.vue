@@ -5,7 +5,9 @@ sidebar.navigationDirection.value = 'backward'
 
 <template>
   <div class="bg-white flex flex-col h-dvh w-full absolute">
-    <Navbar opener="main" @click="navigateTo('/app')" />
+    <Navbar
+      @click="navigateTo('/app')"
+    />
 
     <CommonErrorFallback />
   </div>

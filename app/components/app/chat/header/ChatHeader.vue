@@ -29,6 +29,21 @@ const isCharacterFromLoggedUser = computed(() => {
   return characterQuery.data.value?.creatorId === user.value?.id
 })
 
+function editCharacter() {
+  buildCharacter(characterQuery.data.value?.id)
+  sidebar.push('build-character')
+}
+
+function editContact() {
+  manageContact(username.value)
+  sidebar.push('manage-contact')
+}
+
+function addContact() {
+  manageContact(username.value, characterQuery.data.value?.name)
+  sidebar.push('manage-contact')
+}
+
 const items = computed(() => ([
   {
     id: 'view-contact',
@@ -40,7 +55,7 @@ const items = computed(() => ([
     id: 'build-character',
     name: t('Edit character'),
     icon: 'material-symbols:frame-person-outline-rounded',
-    onClick: () => buildCharacter(characterQuery.data.value?.id),
+    onClick: () => editCharacter(),
   },
   {
     id: 'share-character',
@@ -52,7 +67,7 @@ const items = computed(() => ([
     id: 'edit-contact',
     name: t('Edit contact'),
     icon: 'material-symbols:person-edit-outline-rounded',
-    onClick: () => manageContact(username.value),
+    onClick: () => editContact(),
   },
   isContact.value
     ? {
@@ -65,7 +80,7 @@ const items = computed(() => ([
         id: 'add-contact',
         name: t('Add to contacts'),
         icon: 'material-symbols:person-add-outline-rounded',
-        onClick: () => manageContact(username.value, characterQuery.data.value?.name),
+        onClick: () => addContact(),
       },
   hasMessages.value && {
     id: 'clear-chat',

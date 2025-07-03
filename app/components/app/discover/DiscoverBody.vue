@@ -39,6 +39,11 @@ onMounted(() => {
 const search = refDebounced(toRef(() => form.values.search), 500)
 
 const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)?.id)
+
+function createCharacter() {
+  buildCharacter(null, search.value)
+  sidebar.push('build-character')
+}
 </script>
 
 <template>
@@ -48,8 +53,7 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
         :title="t('Discover Characters')"
         hide-back="on-lg"
         back-icon="material-symbols:menu-rounded"
-        opener="main"
-        @close="sidebar.open.value = true"
+        @back="sidebar.open.value = true"
       >
         <div class="flex gap-1 items-center translate-x-1.5 z-50">
           <Button
@@ -134,7 +138,7 @@ const categoryId = ref(categories.find(c => c.slug === categoryRouteQuery.value)
                 class="btn btn-soft btn-primary rounded-full"
                 icon="material-symbols:frame-person-outline-rounded"
 
-                @click="buildCharacter(null, search)"
+                @click="createCharacter()"
               >
                 {{ t("Create character") }}
               </Button>

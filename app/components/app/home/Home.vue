@@ -4,10 +4,21 @@ import { buildCharacter, isWhatsNewModalOpen, manageContact } from '~/store'
 
 const whatsNew = useWhatsNew()
 const sidebar = useSidebar()
+const router = useRouter()
 
 async function goToDiscover() {
   sidebar.open.value = false
   await navigateTo('/app/discover')
+}
+
+function createCharacter() {
+  buildCharacter(null)
+  sidebar.push('build-character')
+}
+
+function addContact() {
+  manageContact(null)
+  sidebar.push('manage-contact')
 }
 </script>
 
@@ -17,7 +28,7 @@ async function goToDiscover() {
       class="bg-gray-800"
       hide-back="on-lg"
       hide-title
-      opener="router"
+      @back="router.back()"
     >
       <div class="flex gap-1 items-center -translate-x-1.5 z-50">
         <Button
@@ -89,7 +100,7 @@ async function goToDiscover() {
             class="btn sm:btn-lg btn-neutral text-blue-500"
             icon="material-symbols:frame-person-outline-rounded"
 
-            @click="buildCharacter(null)"
+            @click="createCharacter()"
           >
             {{ t("Create character") }}
           </Button>
@@ -98,7 +109,7 @@ async function goToDiscover() {
             class="btn sm:btn-lg btn-neutral text-orange-500"
             icon="material-symbols:person-add-outline-rounded"
 
-            @click="manageContact(null)"
+            @click="addContact()"
           >
             {{ t("Add contact") }}
           </Button>

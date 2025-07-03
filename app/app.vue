@@ -9,7 +9,6 @@ useInternetConnectionIndicator()
 const { state: localeModalState } = useLocaleModal()
 const route = useRoute()
 const toast = useToast()
-const sidebar = useSidebar()
 
 // #region Navigation
 
@@ -18,8 +17,6 @@ const navigationDirection = useNavigationDirection()
 useEventListener(window, 'popstate', () => {
   navigationDirection.value = 'back'
 })
-
-sidebar.init()
 
 // #endregion
 

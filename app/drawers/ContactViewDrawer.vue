@@ -7,6 +7,7 @@ const { t } = useI18nExperimental()
 const toast = useToast()
 const copyUrl = useCopyUrl()
 const user = useUser()
+const sidebar = useSidebar()
 
 const contactDeleteModalState = ref(false)
 
@@ -88,6 +89,7 @@ function editContact() {
 
 function editCharacter() {
   buildCharacter(characterQuery.data.value?.id)
+  sidebar.push('build-character')
   closeContactView()
 }
 
