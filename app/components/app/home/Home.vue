@@ -89,7 +89,7 @@ async function goToDiscover() {
             class="btn sm:btn-lg btn-neutral text-blue-500"
             icon="material-symbols:frame-person-outline-rounded"
 
-            @click="buildCharacter(null, undefined, { animate: false })"
+            @click="buildCharacter(null)"
           >
             {{ t("Create character") }}
           </Button>
@@ -98,7 +98,7 @@ async function goToDiscover() {
             class="btn sm:btn-lg btn-neutral text-orange-500"
             icon="material-symbols:person-add-outline-rounded"
 
-            @click="manageContact(null, undefined, { animate: false })"
+            @click="manageContact(null)"
           >
             {{ t("Add contact") }}
           </Button>

@@ -11,7 +11,7 @@ import { characterBuildId, characterBuildPrompt } from '~/store'
 import type { CharacterBuildApiData, CharacterBuilderEditViewMode } from '~/types'
 import { promptSchema, promptSchemaChecks } from '~~/db/schema'
 
-const props = withDefaults(defineProps<{
+withDefaults(defineProps<{
   characterUsername?: string
   opener?: 'router' | 'sidebar' | 'main'
 }>(), {
@@ -247,6 +247,8 @@ const isAlreadyChatting = computed(() => {
         body-class="px-6"
       >
         <form class="flex flex-col gap-2" @submit="submit">
+          <!-- TODO: remove below -->
+          {{ opener }}
           <TextareaField
             autofocus
             path="prompt"

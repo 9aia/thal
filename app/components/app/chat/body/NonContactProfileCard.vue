@@ -51,7 +51,7 @@ const truncatedDescription = computed(() => {
         <Button
           class="btn btn-soft btn-primary"
           icon="material-symbols:person-add-outline-rounded"
-          @click="manageContact(username, displayName, { animate: false })"
+          @click="manageContact(username, displayName)"
         >
           {{ t('Add') }}
         </Button>

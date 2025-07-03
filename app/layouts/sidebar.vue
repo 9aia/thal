@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import AppLayout from './app.vue'
+import SidebarRight from './sidebar-right.vue'
 import { SIDEBAR_COMPONENTS } from '~/constants/sidebar'
-import { isPastDueModalAlreadyShown, isPastDueModalOpen, rightDrawer } from '~/store'
+import { isPastDueModalAlreadyShown, isPastDueModalOpen } from '~/store'
 import { SubscriptionStatus } from '~~/db/schema'
 
 const user = useUser()
@@ -69,25 +70,11 @@ const router = useRouter()
       <input id="sidebar-drawer" v-model="sidebar.open.value" type="checkbox" class="drawer-toggle">
 
       <div class="drawer-content flex flex-col h-dvh bg-white overflow-auto items-justify justify-center">
-        <!-- #region Right Drawer -->
-        <div class="drawer drawer-end">
-          <input id="right-drawer" v-model="rightDrawer" type="checkbox" class="drawer-toggle">
-
-          <div class="drawer-content flex flex-col h-dvh bg-white overflow-hidden relative">
-            <Transition name="fade-up">
-              <slot />
-            </Transition>
-          </div>
-
-          <div class="drawer-side z-[100]">
-            <label for="right-drawer" aria-label="close sidebar" class="drawer-overlay" @click="rightDrawer = false" />
-
-            <div class="flex flex-col h-dvh items-end justify-center w-full sm:w-96">
-              <ContactViewDrawer v-if="rightDrawer" />
-            </div>
-          </div>
-        </div>
-        <!-- #endregion -->
+        <SidebarRight>
+          <Transition name="fade-up">
+            <slot />
+          </Transition>
+        </SidebarRight>
       </div>
 
       <div class="drawer-side z-50">

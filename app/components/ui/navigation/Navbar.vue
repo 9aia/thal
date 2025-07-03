@@ -13,18 +13,12 @@ const emit = defineEmits<({
   (e: 'close'): void
 })>()
 
-const { isExternalEntry } = useSpaReferrer()
 const sidebar = useSidebar()
 const router = useRouter()
 
 function handleGoBack() {
   if (props.opener === 'main') {
     emit('close')
-    return
-  }
-
-  if (isExternalEntry.value) {
-    navigateTo('/app')
     return
   }
 
@@ -54,6 +48,8 @@ function handleGoBack() {
 
       <slot name="title">
         {{ title }}
+        <!-- TODO: remove below -->
+        {{ opener }}
       </slot>
     </h1>
 

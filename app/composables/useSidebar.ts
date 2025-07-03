@@ -125,11 +125,13 @@ function useSidebar() {
   }
 
   const back = (options?: SidebarNavigateOptions) => {
+    console.log('back', history.value)
     if (history.value.length <= 1)
       return
 
     navigationDirection.value = 'backward'
     history.value.pop()
+    console.log('pop', history.value)
 
     const lastFullPath = history.value[history.value.length - 1]
     const lastState = sidebarFullPathToState(lastFullPath)

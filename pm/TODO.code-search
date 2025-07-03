@@ -1,85 +1,51 @@
 # Query: (TODO|FIXME):
 # Flags: CaseSensitive RegExp
-# Excluding: *-lock.yaml, db/migrations, db-client, api-client, worker-configuration.d.ts
-# ContextLines: 1
 
-17 results - 13 files
+19 results - 14 files
 
 app/psitta.d.ts:
   1: // TODO: remove this file after psitta is updated
-  2  
 
 app/queryKeys.ts:
-  1  export default {
   2:   contacts: ['contacts'], // TODO: remove this (instead use contactsSearch with empty search)
-  3    contactsSearch: (search: MaybeRef<string>) => ['contacts', search],
-
-  8    myCharacters: ['my-characters'],
   9:   discoverCharacters: (locale: MaybeRef<string>) => [locale, 'discover-characters'], // TODO: remove this (instead use discoverCharactersSearch with empty search)
-  10    discoverCharactersSearch: (locale: MaybeRef<string>, search?: MaybeRef<string | undefined>, categoryId?: MaybeRef<number | undefined>) => [locale, 'discover-characters', search, categoryId],
 
 app/components/app/character/ApproveCharacterDraftForm.vue:
-  59    onSuccess: (data) => {
   60:     // TODO: optimize invalidations (use queryClient.setQueryData)
-  61      queryClient.resetQueries({
 
 app/components/app/settings/AccountSettingsForm.vue:
-  129  
   130:       <!-- TODO: Move pronouns to the profile page -> About me -->
-  131        <!-- <TextField
+
+app/components/app/sidebar/BuildCharacterView.vue:
+  2: // TODO: implement this
 
 app/composables/useI18nExperimental.ts:
-  2  
   3: // TODO: remove this after Psitta API is updated
-  4  export default function useI18nExperimental() {
 
 app/composables/useLocaleWithDefaultRegion.ts:
-  3  
   4: // TODO: remove this after Psitta API is updated
-  5  export default function useLocaleWithDefaultRegion() {
 
 app/composables/useSidebar.ts:
-  56  
-  57:     // TODO: keep the original query params, just change the current view and param
-  58      let queryString = state.param ? `${state.view}=${state.param}` : state.view
+  59:     // TODO: keep the original query params, just change the current view and param
 
 app/constants/settings.ts:
-  56    },
   57:   // TODO: add About Thal and Help Center
-  58    // {
-
-  74  const legal: MenuItemType[] = [
   75:   // TODO: add Guidelines and Reports
-  76    // { id: 'guidelines', icon: 'gavel', name: t('Guidelines')/* , href: '/guidelines' */ },
 
 app/layouts/sidebar.vue:
-  90            >
-  91:             <!-- TODO: add view not found handling -->
-  92              <Suspense
+   50: // TODO: Prevent the view when the path changes
+  101:             <!-- TODO: add view not found handling -->
 
 app/modals/AccountDeactivateModal.vue:
-  36  <template>
   37:   <!-- TODO: is it possible to implement loading? -->
-  38    <form
 
 app/plugins/vite/ignoreTailwindSourceMapBroken.ts:
   1: // TODO: remove this plugin once tailwindcss fixes this issue
-  2  // https://github.com/tailwindlabs/tailwindcss/discussions/16119
 
 codeshare/open.sh:
-  10  
   11: # TODO: read from .env
-  12  
 
 db/schema/index.ts:
-   70  export enum PlanType {
    71:   // TODO: change to INDIVIDUAL
-   72    ALL_IN_ONE = 0,
-
-  485    status: z.nativeEnum(MessageStatus),
   486:   from: z.enum(['user', 'bot']), // TODO: change to username
-  487  })
-
-  504    inReplyToId: int('in_reply_to_id'),
   505:   isBot: int('is_bot', { mode: 'boolean' }).default(false).notNull(), // TODO: change to speaker username (user or bot)
-  506  

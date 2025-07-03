@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import BuildCharacter from '~/components/app/character/CharacterBuilder.vue'
-
 definePageMeta({
   layout: 'settings',
   middleware: 'premium',
@@ -14,7 +12,7 @@ const characterId = computed(() => route.params.username as string)
 </script>
 
 <template>
-  <BuildCharacter
+  <CharacterBuilder
     :character-id="characterId"
     opener="router"
     @close="router.back()"

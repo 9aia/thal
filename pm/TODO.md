@@ -5,6 +5,8 @@ description: Tasks and items for the release.
 # TODO
 
 - Prevent the view when the path changes
+- Only auto-open the chat list sidebar on mobile when the URL include a query that is not the chat list with param
+- Look for TODOS inside the codebase
 - Generate a new changelog and compare
 
 - ---

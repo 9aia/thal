@@ -52,7 +52,14 @@ export async function manageContact(username?: string | null, name?: string | nu
 
   const sidebar = useSidebar()
   sidebar.push('manage-contact')
-  sidebar.animate.value = !isMobile.value || sidebar.open.value
+
+  if (isMobile.value && !sidebar.open.value) {
+    sidebar.animate.value = false
+  }
+  if (!isMobile.value) {
+    sidebar.animate.value = true
+  }
+
   sidebar.open.value = true
 }
 

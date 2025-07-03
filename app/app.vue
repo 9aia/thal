@@ -5,8 +5,6 @@ import { isPastDueModalOpen, isWhatsNewModalOpen, openContactView } from '~/stor
 import { usernameSchema } from '~~/db/schema'
 
 useInternetConnectionIndicator()
-const spaReferrer = useSpaReferrer()
-spaReferrer.install()
 
 const { state: localeModalState } = useLocaleModal()
 const route = useRoute()

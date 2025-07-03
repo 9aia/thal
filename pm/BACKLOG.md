@@ -131,7 +131,7 @@ Low priority:
 - Implement infinite scrolls
 - Improve data fetching (specially waterfalls)
 - Paginate contact and chat search
-- Lazy load drawers
+- Create a lazy sidebar for the right sidebar similar to the left sidebar
 
 ## Design
 
