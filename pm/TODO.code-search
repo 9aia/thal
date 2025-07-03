@@ -1,7 +1,7 @@
 # Query: (TODO|FIXME):
 # Flags: CaseSensitive RegExp
 
-19 results - 14 files
+21 results - 16 files
 
 app/psitta.d.ts:
   1: // TODO: remove this file after psitta is updated
@@ -13,11 +13,20 @@ app/queryKeys.ts:
 app/components/app/character/ApproveCharacterDraftForm.vue:
   60:     // TODO: optimize invalidations (use queryClient.setQueryData)
 
+app/components/app/character/CharacterBuilder.vue:
+  320:               <!-- FIXME: characterBuildId = $event -->
+
+app/components/app/common/CommonLeftSidebar.vue:
+  28:         <!-- TODO: add not found handling -->
+
 app/components/app/settings/AccountSettingsForm.vue:
   130:       <!-- TODO: Move pronouns to the profile page -> About me -->
 
 app/components/app/sidebar/BuildCharacterView.vue:
   2: // TODO: implement this
+
+app/components/ui/layout/SidebarSide.vue:
+  31:     <!-- TODO: add view not found handling -->
 
 app/composables/useI18nExperimental.ts:
   3: // TODO: remove this after Psitta API is updated
@@ -26,15 +35,12 @@ app/composables/useLocaleWithDefaultRegion.ts:
   4: // TODO: remove this after Psitta API is updated
 
 app/composables/useSidebar.ts:
-  59:     // TODO: keep the original query params, just change the current view and param
+  24:     // TODO: keep the original query params, just change the current view and param
+  38:     // TODO: keep the original query params, just change the current view and param
 
 app/constants/settings.ts:
   57:   // TODO: add About Thal and Help Center
   75:   // TODO: add Guidelines and Reports
-
-app/layouts/sidebar.vue:
-   50: // TODO: Prevent the view when the path changes
-  101:             <!-- TODO: add view not found handling -->
 
 app/modals/AccountDeactivateModal.vue:
   37:   <!-- TODO: is it possible to implement loading? -->

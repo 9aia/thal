@@ -11,40 +11,21 @@ description: Tasks and items for the release.
 
 ## 0.1.0-12
 
+- Lower every username comparison
 - Fix not redirecting to manage-contact after logout and rejoining
 - Open contact view from query
 - Look for TODOS inside the codebase
 - Remove the Home page on mobile (Welcome modal will be better)
 - Add a welcome modal and add a link to it in the settings page
-
-- Fix animation glitch on opening the CharacterBuilder from the chat route using the "Edit character" options
 - Implement character builder and contact manager to use sidebar param
 - Fix deletion of dependent data when renaming columns using `drizzle-kit + D1` (drizzle-kit deletes the table to create another one with the new name, so the dependent data because of onDelete hook)
   - Remove hooks and implement the delete in runtime (using soft-deletes ideally)
 - Add a backup database
 - Improve URL sharing adding support to query and query values, eg. `/app/?build-character=motoko`
 - Fix character edition error when the edition was approved and the user try to approve again without changes
-- Add audio pause/resume button to chat messages
 - Fixed speech missing speech stop on chat route leave
-
 - Add confirmation modal on chat clear
-- Improve sidebar error handling using:
-   ```ts
-    onError(error, retry, fail, attempts) {
-    if (attempts <= 3) {
-      // Retry after a delay
-      setTimeout(() => retry(), 1000)
-    } else {
-      fail()
-    }
-  },
-  ```
 - Implement soft-deletes
-- Revise Backlog (above `---`) and TODO
-- Look for TODOS inside the codebase
-- Fix error handling in the API endpoints fetched using form
-- Create "about me" field in the profile page
-- Enhance toast style widths
 - Add high traffic UI alert
 
 - Revision and adjust
@@ -62,6 +43,10 @@ description: Tasks and items for the release.
 - Deploy to production
   - Set the GCP OAuth screen to production instead of testing (requires app verification).
   - Set Stripe to production instead of testing.
+
+## 0.1.0-13
+
+- Revise Backlog (above `---`) and TODO
 
 ## 0.2.0 - Language Assistance Improvements
 

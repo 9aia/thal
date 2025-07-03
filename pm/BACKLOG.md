@@ -13,8 +13,6 @@ High priority:
 - Deal with long history on translate
 - Fix listening to long messages
 - Handle longer contexts
-- Drawer isn't opening in front of all drawers after it's already open behind them
-- Lower every username comparison
 - Rewrite left joins using Query API
 - Allow users to use only one session
 - Handle invalid sessions
@@ -29,7 +27,8 @@ Low priority:
 
 ## Features
 
-- Add "About me" textarea
+- Create "about me" textarea in the profile page
+- Add audio pause/resume button to chat messages
 - Add a "My Characters" section/accordion in the "New Chat"
 - Implement basic analytics to track user engagement and app performance
 - Implement soft-deletes for characters to enable translation/listening in chats with deleted characters
@@ -57,26 +56,45 @@ Low priority:
 - Add multiple message TTS player
 - Add character knowledge
 - Add media messages support, such as audio and picture
+
+Medium priority:
+
 - Add calls
 
 Low priority:
+
 - Add `read` status and add unread badge to chat item
 
 ## Enhancements
 
 - Set meta tags for each page
+- Fix input autofocuses on navigate
 - Apply slide-right animations to settings routes
 - Inform deleted character action such as translate, using tooltip
 - Save cookie for "Continue Your Access" after once logged
 - Pass user name to Stripe from Google account
 - Hide contact list and discover search (or other search fields) when there are no results like in the chat list
-- ---
-- Improve toast animations
+
+Low priority:
+
+- Improve toast animations and width
 - Add loading splashscreen for hydration, data loading, etc
 - Improve error handling
 - Improve loading handling
   - Improve chat loading by rendering the skeleton on the backend and the message on the client
   - Improve chat loading and error state fallbacks
+- Fix error handling in the API endpoints fetched using form
+- Improve sidebar error handling using:
+   ```ts
+    onError(error, retry, fail, attempts) {
+    if (attempts <= 3) {
+      // Retry after a delay
+      setTimeout(() => retry(), 1000)
+    } else {
+      fail()
+    }
+  },
+  ```
 
 ---
 
@@ -86,7 +104,7 @@ Low priority:
 
 Low priority:
 
-- Fix input autofocuses on navigate
+- Fix animation glitch on opening the CharacterBuilder from the chat route using the "Edit character" options
 - Rewrite Daisy dropdowns using ArkUI components (should fix the closing on click on padding bug as well)
 - Fix speech highlighting breaking lines
 - Fix emoji color rendering in translations
