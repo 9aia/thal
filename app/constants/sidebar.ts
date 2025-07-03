@@ -1,11 +1,12 @@
 import type { AsyncComponentOptions } from 'vue'
 import { hydrateOnVisible } from 'vue'
-import SidebarErrorComponent from '~/components/app/sidebar/SidebarErrorComponent.vue'
+import CommonSidebarError from '~/components/app/common/CommonSidebarError.vue'
+import type { SidebarState } from '~/types'
 
 const config: Partial<AsyncComponentOptions> = {
   hydrate: hydrateOnVisible(),
   delay: 0,
-  errorComponent: SidebarErrorComponent,
+  errorComponent: CommonSidebarError,
 }
 
 const Chats = defineAsyncComponent({
@@ -25,15 +26,15 @@ const NewChat = defineAsyncComponent({
   ...config,
 })
 
-export const SIDEBAR_COMPONENTS = {
+export const LEFT_SIDEBAR_COMPONENTS = {
   'chats': Chats,
   'build-character': BuildCharacter,
   'manage-contact': ManageContact,
   'new-chat': NewChat,
 } as const
 
-export type SidebarView = keyof typeof SIDEBAR_COMPONENTS
+export type LeftSidebarView = keyof typeof LEFT_SIDEBAR_COMPONENTS
 
-export const SIDEBAR_ROOT_STATE: SidebarState = {
+export const LEFT_SIDEBAR_ROOT_STATE: SidebarState<LeftSidebarView> = {
   view: 'chats',
 }

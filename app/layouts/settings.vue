@@ -24,7 +24,6 @@ onMounted(() => {
       <div class="flex flex-col h-dvh justify-between w-full sm:w-96 relative overflow-hidden bg-white">
         <Transition
           :name="navigationDirection === 'forward' ? 'slide-right' : 'slide-left'"
-          @after-leave="navigationDirection = 'forward'"
         >
           <slot />
         </Transition>
@@ -41,20 +40,3 @@ onMounted(() => {
     </div>
   </AppLayout>
 </template>
-
-<style scoped>
-@reference '~/assets/css/main.css';
-
-.slide-right-leave-from, .slide-left-leave-from, .slide-left-enter-to, .slide-right-enter-to {
-  transform: translateX(0);
-}
-.slide-right-leave-active, .slide-left-enter-active, .slide-right-enter-active, .slide-left-leave-active {
-  @apply transition-transform duration-200 ease-linear;
-}
-.slide-right-leave-to, .slide-left-enter-from {
-  transform: translateX(-100%);
-}
-.slide-left-leave-to, .slide-right-enter-from {
-  transform: translateX(100%);
-}
-</style>

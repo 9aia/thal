@@ -7,6 +7,37 @@ import type { InReplyTo, UserSelect } from '~~/db/schema'
 export interface SafeProps<T extends HTMLAttributes> extends /* @vue-ignore */ T {}
 export interface SafeVariantProps<T extends VariantProps> extends /* @vue-ignore */ T {}
 
+// #region Sidebar
+
+export interface SidebarStore {
+  open: Ref<boolean>
+  ROOT_STATE: SidebarState
+  COMPONENT_KEYS: string[]
+  history: Ref<SidebarFullPath[]>
+  state: ComputedRef<SidebarState>
+  view: ComputedRef<string>
+  param: ComputedRef<string | undefined>
+  navigationDirection: Ref<'forward' | 'backward'>
+  animate: Ref<boolean>
+}
+
+export interface SidebarState<T extends SidebarView = SidebarView> {
+  view: T
+  param?: string
+}
+
+export interface SidebarNavigateOptions {
+  param?: string
+  autoRedirect?: boolean
+  open?: boolean
+}
+
+export type SidebarView = string
+export type SidebarPathWithParam<T extends SidebarView = SidebarView> = `${SidebarView<T>}=${string}`
+export type SidebarFullPath<T extends SidebarView = SidebarView> = SidebarView<T> | SidebarPathWithParam<T>
+
+// #endregion
+
 // #region Settings
 
 export interface Item { id: keyof UserSelect, icon: string, label: string }

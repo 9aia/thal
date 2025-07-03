@@ -16,6 +16,7 @@ defineProps<{
 
 const emit = defineEmits<{
   (e: 'back'): void
+  (e: 'chat'): void
 }>()
 
 const { t } = useI18nExperimental()
@@ -182,16 +183,8 @@ const hasChanges = computed(() => {
     && d.categoryName === c.categoryName)
 })
 
-// TODO: fix this, but test it
-// const breakpoints = useBreakpoints(breakpointsTailwind)
-// const isMobile = computed(() => breakpoints.smaller('lg').value)
-
 function handleGoToChat() {
-  // TODO: fix this, but test it
-  // if (isMobile.value) {
-  //   sidebar.open.value = false
-  // }
-
+  emit('chat')
   navigateTo(`/app/chat/${editingUsername.value}?build-character`)
 }
 

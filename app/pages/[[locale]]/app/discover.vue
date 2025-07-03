@@ -3,8 +3,6 @@ definePageMeta({
   layout: 'common-sidebar-left',
   middleware: 'premium',
 })
-
-useAutoRedirect()
 </script>
 
 <template>

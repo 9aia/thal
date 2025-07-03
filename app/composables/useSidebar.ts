@@ -1,47 +1,30 @@
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
-import { SIDEBAR_ROOT_STATE, type SidebarView } from '~/constants/sidebar'
+import { LEFT_SIDEBAR_COMPONENTS } from '~/constants/sidebar'
+import type { SidebarNavigateOptions, SidebarState, SidebarStore, SidebarView } from '~/types'
 
 export const sidebarInjectionKey = Symbol('sidebar')
 
-export interface SidebarStore {
-  open: Ref<boolean>
-  history: Ref<SidebarFullPath[]>
-  navigationDirection: Ref<'forward' | 'backward'>
-  animate: Ref<boolean>
-  state: Ref<SidebarState>
-  view: ComputedRef<SidebarView>
-  param: ComputedRef<string | undefined>
+function useSidebar() {
+  const sidebar = inject<SidebarStore>(sidebarInjectionKey)
+  if (!sidebar)
+    throw new Error('useSidebar must be used inside a Sidebar component')
 
-  disableAnimation: () => void
-  handleSidebarAnimationResolve: () => void
-  animationEnabled: ComputedRef<boolean>
-  sidebarAnimationName: ComputedRef<string>
-}
-
-export interface SidebarState {
-  view: SidebarView
-  param?: string
-}
-
-export interface SidebarNavigateOptions {
-  param?: string
-  autoRedirect?: boolean
-  open?: boolean
-}
-
-export type SidebarPathWithParam = `${SidebarView}=${string}`
-export type SidebarFullPath = SidebarView | SidebarPathWithParam
-
-export function useUpdateAutoRedirect() {
+  const router = useRouter()
   const route = useRoute()
+  const breakpoints = useBreakpoints(breakpointsTailwind)
+  const isMobile = computed(() => breakpoints.smaller('lg').value)
 
-  const updateAutoRedirect = (state: SidebarState) => {
+  const { open, history, navigationDirection, animate, view, param, state, ROOT_STATE, COMPONENT_KEYS } = sidebar
+
+  const updateAutoRedirect = (state?: SidebarState) => {
+    state = state || getSidebarStateFromQuery(route.query, ROOT_STATE, COMPONENT_KEYS)
+
     const redirectUrl = useCookie('redirect_url', { path: '/' })
 
     // TODO: keep the original query params, just change the current view and param
     let queryString = state.param ? `${state.view}=${state.param}` : state.view
 
-    if (state.view === SIDEBAR_ROOT_STATE.view && !state.param)
+    if (state.view === ROOT_STATE.view && !state.param)
       queryString = ''
 
     const newUrl = queryString.length > 0 ? `${route.path}?${queryString}` : route.path
@@ -49,24 +32,8 @@ export function useUpdateAutoRedirect() {
     redirectUrl.value = newUrl
   }
 
-  return updateAutoRedirect
-}
-
-function useSidebar() {
-  const router = useRouter()
-  const route = useRoute()
-  const updateAutoRedirect = useUpdateAutoRedirect()
-  const sidebar = inject<SidebarStore>(sidebarInjectionKey)
-  const breakpoints = useBreakpoints(breakpointsTailwind)
-  const isMobile = computed(() => breakpoints.smaller('lg').value)
-
-  if (!sidebar)
-    throw new Error('useSidebar must be used inside a Sidebar component')
-
-  const { open, history, navigationDirection, animate, view, param, disableAnimation, handleSidebarAnimationResolve, animationEnabled, sidebarAnimationName } = sidebar
-
   const replaceRouterQuery = (state: SidebarState) => {
-    const ACTIVE = state.view === SIDEBAR_ROOT_STATE.view ? undefined : null
+    const ACTIVE = state.view === ROOT_STATE.view ? undefined : null
 
     // TODO: keep the original query params, just change the current view and param
     router.replace({
@@ -83,22 +50,25 @@ function useSidebar() {
     if (options?.autoRedirect ?? true)
       updateAutoRedirect(newState)
 
-    if (isMobile.value && !sidebar.open.value) {
-      sidebar.animate.value = false
-    }
-    if (!isMobile.value) {
-      sidebar.animate.value = true
-    }
+    const open = options?.open ?? true
 
-    if (options?.open ?? true)
-      sidebar.open.value = true
-  }
-
-  const push = (newView: SidebarView, options?: SidebarNavigateOptions) => {
-    if (newView === view.value)
+    if (!open)
       return
 
+    sidebar.animate.value = !isMobile.value || (isMobile.value && sidebar.open.value)
+    sidebar.open.value = true
+  }
+
+  const push = async (newView: SidebarView, options?: SidebarNavigateOptions) => {
+    if (newView === view.value) {
+      if (options?.open ?? true)
+        sidebar.open.value = true
+
+      return
+    }
+
     navigationDirection.value = 'forward'
+    await nextTick()
 
     const newState: SidebarState = {
       view: newView,
@@ -108,11 +78,16 @@ function useSidebar() {
     activate(newState, options)
   }
 
-  const back = (options?: SidebarNavigateOptions) => {
-    if (history.value.length <= 1)
+  const back = async (options?: SidebarNavigateOptions) => {
+    if (history.value.length <= 1) {
+      if (options?.open ?? true)
+        sidebar.open.value = true
+
       return
+    }
 
     navigationDirection.value = 'backward'
+    await nextTick()
     history.value.pop()
 
     const lastFullPath = history.value[history.value.length - 1]
@@ -128,8 +103,8 @@ function useSidebar() {
     navigationDirection.value = 'forward'
 
     const rootState: SidebarState = {
-      view: SIDEBAR_ROOT_STATE.view,
-      param: options?.param || SIDEBAR_ROOT_STATE.param,
+      view: ROOT_STATE.view,
+      param: options?.param || ROOT_STATE.param,
     }
 
     history.value = [sidebarStateToFullPath(rootState)]
@@ -144,31 +119,17 @@ function useSidebar() {
   return {
     open,
     toggle,
+    history: readonly(history),
     view,
     param,
+    state,
     push,
     back,
-    navigationDirection,
     clear,
+    navigationDirection,
     animate,
-    history: readonly(history),
-    disableAnimation,
-    handleSidebarAnimationResolve,
-    animationEnabled,
-    sidebarAnimationName,
+    updateAutoRedirect,
   }
-}
-
-export function sidebarStateToFullPath(state: SidebarState) {
-  if (state.param)
-    return `${state.view}=${state.param}` satisfies SidebarPathWithParam
-
-  return state.view satisfies SidebarView
-}
-
-export function sidebarFullPathToState(fullPath: SidebarFullPath) {
-  const [view, param] = fullPath.split('=') as [SidebarView, string | undefined]
-  return { view, param } satisfies SidebarState
 }
 
 export default useSidebar

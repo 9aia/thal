@@ -1,14 +1,32 @@
 <script setup lang="ts">
-import { SIDEBAR_COMPONENTS, SIDEBAR_ROOT_STATE } from '~/constants/sidebar'
+import { LEFT_SIDEBAR_COMPONENTS } from '~/constants/sidebar'
+import CommonSidebarRight from '~/layouts/common-sidebar-right.vue'
+
+const sidebar = useSidebar()
 </script>
 
 <template>
-  <Sidebar
-    :root-state="SIDEBAR_ROOT_STATE"
-    :component-keys="Object.keys(SIDEBAR_COMPONENTS)"
+  <Drawer
+    v-model="sidebar.open.value"
+    class="lg:drawer-open"
+    drawer-id="sidebar-drawer"
   >
-    <CommonLeftSidebarContent>
-      <slot />
-    </CommonLeftSidebarContent>
-  </Sidebar>
+    <template #content>
+      <CommonSidebarRight>
+        <Transition name="fade-up">
+          <slot />
+        </Transition>
+      </CommonSidebarRight>
+    </template>
+
+    <template #side>
+      <SidebarSide :components="LEFT_SIDEBAR_COMPONENTS">
+        <template #loading>
+          <CommonSidebarLoading />
+        </template>
+
+        <!-- TODO: add not found handling -->
+      </SidebarSide>
+    </template>
+  </Drawer>
 </template>

@@ -4,8 +4,6 @@ definePageMeta({
   middleware: 'premium',
 })
 
-useAutoRedirect()
-
 const route = useRoute()
 const username = computed(() => route.params.username as string)
 

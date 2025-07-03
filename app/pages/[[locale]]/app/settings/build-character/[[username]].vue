@@ -14,6 +14,6 @@ const characterId = computed(() => route.params.username as string)
 <template>
   <CharacterBuilder
     :character-id="characterId"
-    @close="router.back()"
+    @back="router.back()"
   />
 </template>

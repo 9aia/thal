@@ -4,15 +4,20 @@ description: Tasks and items for the release.
 
 # TODO
 
-- Prevent the view when the path changes
-- Only auto-open the chat list sidebar on mobile when the URL include a query that is not the chat list with param
-- Look for TODOS inside the codebase
+- Fix page and layout transitions
 - Generate a new changelog and compare
 
 - ---
 
 ## 0.1.0-12
 
+- Fix not redirecting to manage-contact after logout and rejoining
+- Open contact view from query
+- Look for TODOS inside the codebase
+- Remove the Home page on mobile (Welcome modal will be better)
+- Add a welcome modal and add a link to it in the settings page
+
+- Fix animation glitch on opening the CharacterBuilder from the chat route using the "Edit character" options
 - Implement character builder and contact manager to use sidebar param
 - Fix deletion of dependent data when renaming columns using `drizzle-kit + D1` (drizzle-kit deletes the table to create another one with the new name, so the dependent data because of onDelete hook)
   - Remove hooks and implement the delete in runtime (using soft-deletes ideally)

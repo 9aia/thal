@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
 import type { MenuItemType, MenuItemTypeOrFalse } from '~/components/ui/navigation/types'
+import { buildCharacter } from '~/store'
 
 const props = defineProps<{
   hideDiscover?: boolean
@@ -14,8 +15,13 @@ async function goToDiscover() {
   await navigateTo('/app/discover')
 }
 
+function createCharacter() {
+  buildCharacter(null)
+  sidebar.push('build-character')
+}
+
 const items = computed(() => ([
-  { id: 'new-character', name: t('New character'), icon: 'material-symbols:frame-person-outline-rounded', onClick: () => sidebar.push('build-character') },
+  { id: 'new-character', name: t('New character'), icon: 'material-symbols:frame-person-outline-rounded', onClick: () => createCharacter() },
   !props.hideDiscover && { id: 'discover-characters', name: t('Discover characters'), icon: 'material-symbols:person-search-outline-rounded', onClick: () => goToDiscover() },
   { id: 'my-characters', name: t('My characters'), icon: 'material-symbols:manage-accounts-outline-rounded', onClick: () => navigateTo('/app/settings/my-characters') },
   {

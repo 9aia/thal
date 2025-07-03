@@ -12,7 +12,6 @@ definePageMeta({
 
 useAutoRedirect()
 
-const sidebar = useSidebar()
 const localWithDefaultRegion = useLocaleWithDefaultRegion()
 const router = useRouter()
 
@@ -34,7 +33,6 @@ function handleDeleteCharacter(character: Character) {
 }
 
 async function handleGoToChat(username: string) {
-  sidebar.open.value = false
   await navigateTo(`/app/chat/${username}`)
 }
 

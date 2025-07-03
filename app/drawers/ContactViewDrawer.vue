@@ -73,13 +73,12 @@ const isCharacterFromLoggedUser = computed(() => {
 function goToChat() {
   navigateTo(`/app/chat/${username.value}`)
   closeContactView()
-  toast.close()
 }
 
 function saveContact() {
   manageContact(username.value, contactNames.value.displayName)
+  sidebar.push('manage-contact')
   closeContactView()
-  toast.close()
 }
 
 function editContact() {
