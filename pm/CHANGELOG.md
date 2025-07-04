@@ -6,6 +6,8 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+## [0.1.0-11] - 2025-07-04
+
 ### Added
 
 - Added a new section for feedback within the chat list
