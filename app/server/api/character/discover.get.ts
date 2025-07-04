@@ -24,6 +24,7 @@ export default eventHandler(async (event) => {
 
   const result = await orm
     .select({
+      id: characters.id,
       categoryId: characters.categoryId,
       createdAt: characters.createdAt,
       creatorId: characters.creatorId,

@@ -1,30 +1,12 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
-import queryKeys from '~/queryKeys'
 
 const props = defineProps<{
   search: string
   categoryId?: number
 }>()
 
-const localeWithDefaultRegion = useLocaleWithDefaultRegion()
-
-const headers = useRequestHeaders(['cookie'])
-const discoverQuery = usePaginationQuery({
-  queryKey: queryKeys.discoverCharactersSearch(localeWithDefaultRegion, toRef(() => props.search), toRef(() => props.categoryId)),
-  queryFn: ({ query }) => $fetch('/api/character/discover', {
-    params: {
-      ...query,
-      search: props.search,
-      categoryId: props.categoryId,
-      locale: localeWithDefaultRegion.value,
-    },
-    headers,
-  }),
-  perPage: 10,
-})
-
-onServerPrefetch(discoverQuery.suspense)
+const discoverQuery = useDiscoveryInfiniteQuery(toRef(() => props.search), toRef(() => props.categoryId))
 
 const emptyMessage = computed(() => {
   if (props.search) {
@@ -49,10 +31,10 @@ const emptyMessage = computed(() => {
     <DiscoverCharacterItem
       v-for="character in discoverQuery.data.value?.pages"
       :key="`character-${character.id}`"
-      :name="character.name"
-      :description="character.description"
+      :name="character.name!"
+      :description="character.description!"
       :category-id="character.categoryId"
-      :username="character.username"
+      :username="character.username!"
       show-copy
       show-send-message
       class="w-full"

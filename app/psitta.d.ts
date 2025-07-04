@@ -5,3 +5,5 @@ declare module '@psitta/core' {
     messages: any
   }
 }
+
+export {}
