@@ -23,8 +23,6 @@ export default eventHandler(async (event) => {
 
   const user = event.context.user
 
-  // throw unauthorized()
-
   if (!user)
     throw unauthorized()
 

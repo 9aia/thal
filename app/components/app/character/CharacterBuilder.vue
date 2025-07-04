@@ -153,13 +153,7 @@ const submit = form.handleSubmit(async (data) => {
   loading.value = false
 })
 
-const isPastDueVisible = computed(() => {
-  if (!user.value) {
-    return false
-  }
-
-  return isPlanPastDue(user.value)
-})
+const isPastDueVisible = computed(() => isPlanPastDue(user.value))
 
 const viewMode = ref<CharacterBuilderEditViewMode>('preview')
 

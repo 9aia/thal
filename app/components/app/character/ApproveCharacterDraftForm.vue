@@ -98,13 +98,7 @@ const approveMutation = useMutation({
 
 const submit = form.handleSubmit(values => approveMutation.mutate(values))
 
-const isPastDueVisible = computed(() => {
-  if (!user.value) {
-    return false
-  }
-
-  return isPlanPastDue(user.value)
-})
+const isPastDueVisible = computed(() => isPlanPastDue(user.value))
 </script>
 
 <template>
