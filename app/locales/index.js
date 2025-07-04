@@ -320,9 +320,6 @@
   "Sign in": {
     "pt": "Entrar"
   },
-  "Thal is in preview! We are not charging for access. Expect bugs and unfinished features.": {
-    "pt": "Thal está em pré-visualização! Não estamos cobrando pelo acesso. Espere por bugs e recursos inacabados."
-  },
   "Talk to Learn. Learn to Talk.": {
     "pt": "Converse para Aprender. Aprenda para conversar."
   },
@@ -451,9 +448,6 @@
   },
   "You will receive an email with your invoice. Thank you for chosing our app!": {
     "pt": "Você receberá um e-mail com sua fatura. Obrigado por escolher nosso aplicativo!"
-  },
-  "Go to app": {
-    "pt": "Ir para o aplicativo"
   },
   "Manage your billing information": {
     "pt": "Gerenciar suas informações de cobrança"
@@ -920,9 +914,6 @@
   "Save Your Favorite.": {
     "pt": "Salve o seu favorito."
   },
-  "App": {
-    "pt": "App"
-  },
   "Rate Thal": {
     "pt": "Avaliar Thal"
   },
@@ -934,5 +925,59 @@
   },
   "Reports": {
     "pt": "Relatórios"
+  },
+  "Edit character": {
+    "pt": "Editar personagem"
+  },
+  "Edit": {
+    "pt": "Editar"
+  },
+  "Access the app": {
+    "pt": "Acessar o aplicativo"
+  },
+  "Account settings": {
+    "pt": "Configurações da conta"
+  },
+  "Send feedback": {
+    "pt": "Enviar feedback"
+  },
+  "Message character": {
+    "pt": "Mensagem para o personagem"
+  },
+  "New character": {
+    "pt": "Novo personagem"
+  },
+  "Manage subscription": {
+    "pt": "Gerenciar assinatura"
+  },
+  "Settings & Help": {
+    "pt": "Configurações e Ajuda"
+  },
+  "Report issue": {
+    "pt": "Reportar problema"
+  },
+  "Discover Characters": {
+    "pt": "Descobrir personagens"
+  },
+  "Check access to the app": {
+    "pt": "Verificar acesso ao aplicativo"
+  },
+  "Interface language": {
+    "pt": "Idioma da interface"
+  },
+  "Notice a bug or want to suggest something?": {
+    "pt": "Notou um bug ou quer sugerir algo?"
+  },
+  "Release": {
+    "pt": "Lançamento"
+  },
+  "Announcement": {
+    "pt": "Anúncio"
+  },
+  "Manage account": {
+    "pt": "Gerenciar conta"
+  },
+  "Report a problem or send us suggestions": {
+    "pt": "Reportar um problema ou enviar sugestões"
   }
 }
