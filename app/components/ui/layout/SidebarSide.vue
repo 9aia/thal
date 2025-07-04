@@ -54,18 +54,4 @@ watch(sidebar.open, (open) => {
 
 <style scoped>
 @reference '~/assets/css/main.css';
-
-.slide-tr-leave-active, .slide-tl-enter-active, .slide-tr-enter-active, .slide-tl-leave-active {
-  @apply transition-transform duration-200 ease-linear;
-}
-
-.slide-tl-enter-from { transform: translateX(100%); }
-.slide-tl-enter-to { transform: translateX(0%); }
-.slide-tl-leave-from { transform: translateX(0%); }
-.slide-tl-leave-to { transform: translateX(-100%); }
-
-.slide-tr-enter-from { transform: translateX(-100%); }
-.slide-tr-enter-to { transform: translateX(0%); }
-.slide-tr-leave-from { transform: translateX(0%); }
-.slide-tr-leave-to { transform: translateX(100%); }
 </style>

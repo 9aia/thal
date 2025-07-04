@@ -7,7 +7,6 @@ import { SubscriptionStatus } from '~~/db/schema'
 definePageMeta({
   layout: 'site',
   layoutTransition: false,
-  pageTransition: false,
   validate(route) {
     if (!route.params.locale)
       return true

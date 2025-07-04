@@ -2,6 +2,7 @@
 definePageMeta({
   layout: 'settings',
   middleware: 'premium',
+  pageTransitionType: 'slide',
 })
 
 useAutoRedirect()

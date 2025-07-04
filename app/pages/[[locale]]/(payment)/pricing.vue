@@ -7,7 +7,6 @@ definePageMeta({
   title: 'Pricing',
   layout: 'site',
   layoutTransition: false,
-  pageTransition: false,
 })
 
 const headers = useRequestHeaders(['cookie'])

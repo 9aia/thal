@@ -6,7 +6,6 @@ definePageMeta({
   title: 'Checkout canceled',
   middleware: 'plan-non-active',
   layoutTransition: false,
-  pageTransition: false,
 })
 </script>
 

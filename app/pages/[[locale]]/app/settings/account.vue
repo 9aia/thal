@@ -4,6 +4,7 @@ import { t } from '@psitta/vue'
 definePageMeta({
   layout: 'settings',
   middleware: 'premium',
+  pageTransitionType: 'slide',
 })
 
 useAutoRedirect()

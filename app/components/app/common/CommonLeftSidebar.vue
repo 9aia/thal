@@ -13,9 +13,9 @@ const sidebar = useSidebar()
   >
     <template #content>
       <CommonSidebarRight>
-        <Transition name="fade-up">
+        <div name="fade-up">
           <slot />
-        </Transition>
+        </div>
       </CommonSidebarRight>
     </template>
 

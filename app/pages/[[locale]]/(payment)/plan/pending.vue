@@ -8,7 +8,6 @@ definePageMeta({
   middleware: 'plan-pending',
   layout: 'site',
   layoutTransition: false,
-  pageTransition: false,
 })
 
 const toast = useToast()

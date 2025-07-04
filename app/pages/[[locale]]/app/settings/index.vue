@@ -6,6 +6,7 @@ import { SETTINGS } from '~/constants/settings'
 definePageMeta({
   layout: 'settings',
   middleware: 'premium',
+  pageTransitionType: 'slide',
 })
 
 useAutoRedirect()

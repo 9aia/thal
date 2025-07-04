@@ -2,6 +2,7 @@
 definePageMeta({
   layout: 'common-sidebar-left',
   middleware: 'premium',
+  pageTransitionType: 'fade-in-out',
 })
 
 const route = useRoute()

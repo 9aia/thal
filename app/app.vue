@@ -14,6 +14,10 @@ const toast = useToast()
 
 const navigationDirection = useNavigationDirection()
 
+watch(route, () => {
+  navigationDirection.value = 'forward'
+}, { immediate: true })
+
 useEventListener(window, 'popstate', () => {
   navigationDirection.value = 'back'
 })
@@ -70,6 +74,18 @@ const CommonToast = defineAsyncComponent({
   loader: () => import('~/components/app/common/CommonToast.vue'),
   hydrate: hydrateOnIdle(),
 })
+
+const pageAnimation = computed(() => {
+  if (route.meta.pageTransitionType === 'fade-in-out') {
+    return 'fade-in-out'
+  }
+
+  if (route.meta.pageTransitionType === 'slide') {
+    return navigationDirection.value === 'forward' ? 'slide-tl' : 'slide-tr'
+  }
+
+  return undefined
+})
 </script>
 
 <template>
@@ -81,7 +97,7 @@ const CommonToast = defineAsyncComponent({
   <div class="relative">
     <NuxtLayout>
       <div class="overflow-hidden">
-        <NuxtPage />
+        <NuxtPage :transition="{ name: pageAnimation }" />
       </div>
     </NuxtLayout>
   </div>
@@ -97,18 +113,19 @@ const CommonToast = defineAsyncComponent({
 <style>
 @reference '~/assets/css/main.css';
 
-.slide-right-leave-from, .slide-left-leave-from, .slide-left-enter-to, .slide-right-enter-to {
-  transform: translateX(0);
-}
-.slide-right-leave-active, .slide-left-enter-active, .slide-right-enter-active, .slide-left-leave-active {
+.slide-tr-leave-active, .slide-tl-enter-active, .slide-tr-enter-active, .slide-tl-leave-active {
   @apply transition-transform duration-200 ease-linear;
 }
-.slide-right-leave-to, .slide-left-enter-from {
-  transform: translateX(-100%);
-}
-.slide-left-leave-to, .slide-right-enter-from {
-  transform: translateX(100%);
-}
+
+.slide-tl-enter-from { transform: translateX(100%); }
+.slide-tl-enter-to { transform: translateX(0%); }
+.slide-tl-leave-from { transform: translateX(0%); }
+.slide-tl-leave-to { transform: translateX(-100%); }
+
+.slide-tr-enter-from { transform: translateX(-100%); }
+.slide-tr-enter-to { transform: translateX(0%); }
+.slide-tr-leave-from { transform: translateX(0%); }
+.slide-tr-leave-to { transform: translateX(100%); }
 
 .fade-up-enter-from, .fade-up-leave-to {
   opacity: 0;

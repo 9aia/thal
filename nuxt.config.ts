@@ -58,7 +58,6 @@ export default defineNuxtConfig({
   },
 
   app: {
-    pageTransition: { name: 'fade-up' },
     layoutTransition: { name: 'fade-in-out' },
     head: {
       title: 'Thal - Talk to Learn. Learn to Talk.',

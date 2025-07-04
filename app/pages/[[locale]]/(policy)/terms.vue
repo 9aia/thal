@@ -6,17 +6,18 @@ const locale = useLocale()
 definePageMeta({
   layout: 'site',
   layoutTransition: false,
-  pageTransition: false,
 })
 
 useAutoRedirect()
 </script>
 
 <template>
-  <ContentDoc
-    class="prose prose-slate max-w-full"
-    tag="article"
-    path="policy"
-    :where="{ _path: { $regex: `^/policy/${locale}/terms.*$` } }"
-  />
+  <div>
+    <ContentDoc
+      class="prose prose-slate max-w-full"
+      tag="article"
+      path="policy"
+      :where="{ _path: { $regex: `^/policy/${locale}/terms.*$` } }"
+    />
+  </div>
 </template>

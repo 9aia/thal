@@ -4,8 +4,6 @@ import { t } from '@psitta/vue'
 definePageMeta({
   middleware: 'auth',
   layout: 'site',
-  layoutTransition: false,
-  pageTransition: false,
 })
 
 useAutoRedirect()

@@ -8,7 +8,6 @@ definePageMeta({
   middleware: 'plan-non-active',
   layout: 'site',
   layoutTransition: false,
-  pageTransition: false,
 })
 
 onMounted(() => {
