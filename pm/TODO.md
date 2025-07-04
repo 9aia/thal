@@ -11,6 +11,7 @@ description: Tasks and items for the release.
 
 ## 0.1.0-12
 
+- Locale change should replace the current locale in the URL (not push)
 - Fix chat bubble animation glitch
 - Lower every username comparison
 - Fix not redirecting to manage-contact after logout and rejoining

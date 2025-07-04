@@ -6,6 +6,10 @@ withDefaults(defineProps<{
 }>(), {
   iconColor: 'text-gray-800',
 })
+
+const emit = defineEmits<{
+  (e: 'close'): void
+}>()
 </script>
 
 <template>
@@ -28,7 +32,7 @@ withDefaults(defineProps<{
         <Button
           class="btn btn-md btn-ghost btn-circle"
           icon="material-symbols:close-rounded"
-          @click="modelValue = false"
+          @click="emit('close')"
         />
       </div>
     </div>
