@@ -4,13 +4,14 @@ description: Tasks and items for the release.
 
 # TODO
 
-- Fix page and layout transitions
 - Generate a new changelog and compare
+- Run psitta
 
 - ---
 
 ## 0.1.0-12
 
+- Fix chat bubble animation glitch
 - Lower every username comparison
 - Fix not redirecting to manage-contact after logout and rejoining
 - Open contact view from query

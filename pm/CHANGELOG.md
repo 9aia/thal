@@ -8,40 +8,46 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ### Added
 
-- Added feedback button to header menus
-- Added action to error toast
-- Added action to home and chats menu options
-
-### Enhanced
-
-- Added sidebar and settings animation
-- Added route transition animation
-- Improved content/types of menu items
-- Improved "My Characters" right padding
-- Enhanced settings header padding
-- Enhanced dropdown menu styling
-- Enhanced app notes styling
-- Enhanced locale modal height
-
-### Changed
-
-- Simplified toast animations
+- Added a new section for feedback within the chat list
+- Added automatic character prompting from search queries on the Discover route
+- Added new "New character" and "Send feedback" options to the main application menu
+- Added an "Edit character" action in the contact information view and chat header menu, visible to character owners
+- Added a "Report issue" action to the error toast notifications
 
 ### Fixed
 
-- Fixed updating username in the URL after character edition
-- Fixed appearance of character builder buttons
-- Fixed avatar focus outline overflow in "Discover Characters"
-- Fixed toast position
-- Fixed auto redirect on free trial
 - Fixed logout button not working
-- Allowed only character owners to edit character in the chat header
-- Fixed Contact View not closing when clicking on some menu items
-- Fixed locale validation on press page
+- Fixed automatic redirect on checkout
+- Fixed Contact View menu not closing when clicking on some menu items
+
+### Enhanced
+
+- Fixed toast position on large screens
+
+### Changed
+
+- Moved "Edit character" button from the chat header to the chat header menu
+- Renamed the section from "Language" to "Interface language" in the settings page
+- Renamed the common menu items to "Discover characters," "Manage subscription," and "Settings & Help"
+- Changed support footer links to "Rate Thal" and "Send feedback"
 
 ### Performance
 
-- Improved code splitting
+- Implemented new, dedicated sidebar views for Chats, Building Characters, Managing Contacts, and Starting New Chats, streamlining overall application navigation
+- Launched new, dedicated pages for Account settings, My Characters, Profile, Settings & Help, and Character Builder, replacing previous pop-up drawer views for improved navigation flow
+- Improved initial loading times and overall app responsiveness by dynamically loading modal and toast components
+
+### Beautified
+
+- Added a relevant icon to the "Renew subscription" button for better clarity
+- Widened dropdown menus for character actions and general options for enhanced readability
+- Added subtle fade-in and fade-out animations to messages in chat history for a more natural feel
+- Improved navigation with a new sidebar system and smooth page and layout transition animations
+- Applied subtle visual refinements to various interactive elements, including buttons and dropdowns, for a more polished look
+- Introduced improved visual cues, such as enhanced focus outlines
+- Simplified toast animations
+- Made the locale modal height smaller
+- Changed the app notes to a more compact and readable style
 
 ## [0.1.0-10] - 2025-06-26
 
