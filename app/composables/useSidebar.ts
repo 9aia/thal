@@ -1,5 +1,4 @@
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
-import { LEFT_SIDEBAR_COMPONENTS } from '~/constants/sidebar'
 import type { SidebarNavigateOptions, SidebarState, SidebarStore, SidebarView } from '~/types'
 
 export const sidebarInjectionKey = Symbol('sidebar')

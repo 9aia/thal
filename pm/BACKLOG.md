@@ -84,17 +84,7 @@ Low priority:
   - Improve chat loading by rendering the skeleton on the backend and the message on the client
   - Improve chat loading and error state fallbacks
 - Fix error handling in the API endpoints fetched using form
-- Improve sidebar error handling using:
-   ```ts
-    onError(error, retry, fail, attempts) {
-    if (attempts <= 3) {
-      // Retry after a delay
-      setTimeout(() => retry(), 1000)
-    } else {
-      fail()
-    }
-  },
-  ```
+- Improve sidebar error handling using `AsyncComponentOptions.onError`
 
 ---
 
