@@ -10,10 +10,10 @@ const user = useUser()
 const sidebar = useSidebar()
 
 const contactDeleteModalState = ref(false)
+const chatClearModalState = ref()
 
 const username = computed(() => contactViewUsername.value!)
 const copyUsername = useCopyUsername(username)
-const clearHistoryMutation = useClearHistoryMutation(username)
 
 const historyQuery = useHistoryQuery(username)
 const contactQuery = useContactQuery(username)
@@ -281,7 +281,7 @@ const items = computed(() => ([
               name: t('Clear chat'),
               icon: 'material-symbols:mop-outline',
               meaning: 'danger',
-              onClick: () => clearHistoryMutation.mutate(),
+              onClick: () => chatClearModalState = true,
             }"
             v-if="hasMessages"
             class="px-2 py-2 rounded-2xl focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
@@ -295,6 +295,12 @@ const items = computed(() => ([
       v-model="contactDeleteModalState"
       :contact-username="username"
       :contact-name="contactQuery.data.value?.name!"
+    />
+
+    <LazyHistoryClearModal
+      v-if="hasMessages"
+      v-model="chatClearModalState"
+      :username="username"
     />
   </div>
 </template>

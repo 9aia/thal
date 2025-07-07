@@ -14,7 +14,6 @@ description: Tasks and items for the release.
 - Fix deletion of dependent data when renaming columns using `drizzle-kit + D1` (drizzle-kit deletes the table to create another one with the new name, so the dependent data because of onDelete hook)
   - Remove hooks and implement the delete in runtime (using soft-deletes ideally)
   - Implement soft-deletes
-- Add confirmation modal on chat clear
 - Add high traffic UI alert
 - Add a backup database
 

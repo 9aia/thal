@@ -8,10 +8,10 @@ const route = useRoute()
 const user = useUser()
 const sidebar = useSidebar()
 const contactDeleteModalState = ref()
+const chatClearModalState = ref()
 
 const username = computed(() => route.params.username as string)
 
-const clearHistoryMutation = useClearHistoryMutation(username)
 const receiverUsernameNotFound = useReceiverUsernameNotFound()
 
 const characterQuery = useCharacterQuery(username)
@@ -87,7 +87,7 @@ const items = computed(() => ([
     name: t('Clear chat'),
     icon: 'material-symbols:mop-outline',
     meaning: 'danger',
-    onClick: () => clearHistoryMutation.mutate(),
+    onClick: () => chatClearModalState.value = true,
   },
 ] satisfies MenuItemTypeOrFalse[]).filter(Boolean) as MenuItemType[])
 </script>
@@ -140,6 +140,12 @@ const items = computed(() => ([
       v-model="contactDeleteModalState"
       :contact-name="contactQuery.data.value?.name!"
       :contact-username="username"
+    />
+
+    <LazyHistoryClearModal
+      v-if="hasMessages"
+      v-model="chatClearModalState"
+      :username="username"
     />
   </header>
 </template>

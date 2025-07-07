@@ -6,6 +6,10 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Added
+
+- Added a confirmation modal on chat history clear
+
 ### Enhanced
 
 - Improved SEO meta tags for chat pages

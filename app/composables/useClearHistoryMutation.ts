@@ -4,7 +4,10 @@ import queryKeys from '~/queryKeys'
 import { edition, inReplyTos } from '~/store'
 import { MessageStatus } from '~~/db/schema'
 
-export default function useClearHistoryMutation(username: MaybeRef<string>) {
+export default function useClearHistoryMutation(username: MaybeRef<string>, options?: {
+  onSuccess?: () => void
+  onError?: () => void
+}) {
   const toast = useToast()
   const { t } = useI18nExperimental()
   const { updateScrollable } = useChatMainScroll()
@@ -31,7 +34,9 @@ export default function useClearHistoryMutation(username: MaybeRef<string>) {
       return await $fetch(`/api/chat/history/${_username}`, { method: 'DELETE' })
     },
     onError: () => {
-      toast.error(t('Failed to clear chat'))
+      toast.error(t('An error occurred while clearing chat history.'))
+
+      options?.onError?.()
     },
     onSuccess: () => {
       const _username = toValue(username) as string
@@ -57,9 +62,11 @@ export default function useClearHistoryMutation(username: MaybeRef<string>) {
         queryClient.getMutationCache().remove(mutation)
       })
 
-      toast.success(t('Chat has been cleared'))
+      toast.success(t('Chat history has been cleared.'))
 
       updateScrollable()
+
+      options?.onSuccess?.()
     },
   })
 }

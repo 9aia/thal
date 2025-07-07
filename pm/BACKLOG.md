@@ -97,6 +97,7 @@ Low priority:
 
 Low priority:
 
+- Fix locale change animation glitch
 - Fix chat bubble animation glitch
 - Fix animation glitch on opening the CharacterBuilder from the chat route using the "Edit character" options
 - Rewrite Daisy dropdowns using ArkUI components (should fix the closing on click on padding bug as well)
@@ -135,6 +136,7 @@ Low priority:
 
 Low priority:
 
+- Load lazily the modals
 - Optimize invalidations (use queryClient.setQueryData)
 - Implement `<NuxtImg>`
 - Clean up current playing message on message stop
