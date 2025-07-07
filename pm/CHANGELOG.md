@@ -6,11 +6,16 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Enhanced
+
+- Improved SEO meta tags for chat pages
+
 ### Fixed
 
 - Fixed "Manage contact" sidebar opening without username on page load
 - Fixed hydration errors on lazy components at the home page
 - Fixed "Start Chatting" redirect to take users to the app after checkout
+- Fixed locale change not replacing the current locale in the URL
 
 ## [0.1.0-11] - 2025-07-04
 
@@ -21,10 +26,6 @@ description: A detailed, chronological record of all changes made to a project, 
 - Added new "New character" and "Send feedback" options to the main application menu
 - Added an "Edit character" action in the contact information view and chat header menu, visible to character owners
 - Added a "Report issue" action to the error toast notifications
-
-### Enhanced
-
-- Improved SEO meta tags for chat pages
 
 ### Fixed
 

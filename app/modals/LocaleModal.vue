@@ -34,9 +34,9 @@ const submit = form.handleSubmit(async (data) => {
   const scrollY = window.scrollY
 
   if (locale === defaultLocale)
-    await navigateTo(urlWithoutLocale)
+    await navigateTo(urlWithoutLocale, { replace: true })
   else
-    await navigateTo(`/${locale}${urlWithoutLocale}`)
+    await navigateTo(`/${locale}${urlWithoutLocale}`, { replace: true })
 
   requestAnimationFrame(() => {
     setTimeout(() => {

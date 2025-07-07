@@ -71,6 +71,7 @@ Low priority:
 
 - Set meta tags for each page
 - Remove approve button from character builder after already approved
+  - Fix character edition error when the edition was approved and the user try to approve again without changes
 - Fix input autofocuses on navigate
 - Inform deleted character action such as translate, using tooltip
 - Save cookie for "Continue Your Access" after once logged
