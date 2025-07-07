@@ -8,6 +8,8 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ### Fixed
 
+- Fixed "Manage contact" sidebar opening without username on page load
+- Fixed hydration errors on lazy components at the home page
 - Fixed "Start Chatting" redirect to take users to the app after checkout
 
 ## [0.1.0-11] - 2025-07-04
