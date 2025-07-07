@@ -6,6 +6,10 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed "Start Chatting" redirect to take users to the app after checkout
+
 ## [0.1.0-11] - 2025-07-04
 
 ### Added

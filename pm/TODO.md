@@ -4,11 +4,6 @@ description: Tasks and items for the release.
 
 # TODO
 
-- Generate a new changelog and compare
-- Run psitta
-
-- ---
-
 ## 0.1.0-12
 
 - Locale change should replace the current locale in the URL (not push)

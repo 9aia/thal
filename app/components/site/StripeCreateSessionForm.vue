@@ -10,8 +10,11 @@ const props = defineProps<{
 }>()
 
 const user = useUser()
+const redirectUrl = useRedirectUrl()
 
 function onSubmit(event: Event) {
+  redirectUrl.value = '/app'
+
   if (!user.value) {
     return
   }
@@ -19,8 +22,8 @@ function onSubmit(event: Event) {
   if (props.subscriptionStatus === SubscriptionStatus.trialing
     || props.subscriptionStatus === SubscriptionStatus.active
     || props.subscriptionStatus === SubscriptionStatus.past_due) {
-    navigateTo('/app')
     event.preventDefault()
+    navigateTo('/app')
   }
 }
 </script>
