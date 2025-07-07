@@ -16,6 +16,10 @@ description: A detailed, chronological record of all changes made to a project, 
 - Added an "Edit character" action in the contact information view and chat header menu, visible to character owners
 - Added a "Report issue" action to the error toast notifications
 
+### Enhanced
+
+- Improved SEO meta tags for chat pages
+
 ### Fixed
 
 - Fixed logout button not working

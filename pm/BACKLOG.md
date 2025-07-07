@@ -23,6 +23,7 @@ Medium priority:
 
 Low priority:
 
+- Fixed speech missing speech stop on chat route leave
 - Fix DB on build pre-render
 
 ## Features
@@ -68,8 +69,8 @@ Low priority:
 ## Enhancements
 
 - Set meta tags for each page
+- Remove approve button from character builder after already approved
 - Fix input autofocuses on navigate
-- Apply slide-right animations to settings routes
 - Inform deleted character action such as translate, using tooltip
 - Save cookie for "Continue Your Access" after once logged
 - Pass user name to Stripe from Google account

@@ -25,7 +25,6 @@ description: Tasks and items for the release.
 - Add a backup database
 - Improve URL sharing adding support to query and query values, eg. `/app/?build-character=motoko`
 - Fix character edition error when the edition was approved and the user try to approve again without changes
-- Fixed speech missing speech stop on chat route leave
 - Add confirmation modal on chat clear
 - Implement soft-deletes
 - Add high traffic UI alert
