@@ -2,23 +2,20 @@
 import { t } from '@psitta/vue'
 
 const userReactivatedCookie = useCookie('user_reactivated')
-const isOpen = ref(!!userReactivatedCookie.value)
 
-onMounted(() => {
-  if (userReactivatedCookie) {
-    userReactivatedCookie.value = ''
-  }
-})
+function close() {
+  userReactivatedCookie.value = ''
+}
 </script>
 
 <template>
   <Modal
-    v-model="isOpen"
     show-close-button
     :confirm-text="t('Continue')"
     :title="t('Account Reactivated')"
     no-scroll
-    @confirm="isOpen = false"
+    @confirm="close"
+    @update:model-value="(val) => !val && close()"
   >
     <p class="px-8 font-gray-600 mb-4">
       {{ t("Your account is active again — great to have you back! 🎉") }}

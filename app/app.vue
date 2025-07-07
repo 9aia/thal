@@ -50,31 +50,6 @@ onMounted(() => {
 
 // #endregion
 
-const WhatsNewModal = defineAsyncComponent({
-  loader: () => import('~/modals/WhatsNewModal.vue'),
-  hydrate: hydrateOnIdle(),
-})
-
-const LocaleModal = defineAsyncComponent({
-  loader: () => import('~/modals/LocaleModal.vue'),
-  hydrate: hydrateOnIdle(),
-})
-
-const PastDuePlanModal = defineAsyncComponent({
-  loader: () => import('~/modals/PastDuePlanModal.vue'),
-  hydrate: hydrateOnIdle(),
-})
-
-const AccountReactivatedModal = defineAsyncComponent({
-  loader: () => import('~/modals/AccountReactivatedModal.vue'),
-  hydrate: hydrateOnIdle(),
-})
-
-const CommonToast = defineAsyncComponent({
-  loader: () => import('~/components/app/common/CommonToast.vue'),
-  hydrate: hydrateOnIdle(),
-})
-
 const pageAnimation = computed(() => {
   if (route.meta.pageTransitionType === 'fade-in-out') {
     return 'fade-in-out'
@@ -86,6 +61,8 @@ const pageAnimation = computed(() => {
 
   return undefined
 })
+
+const userReactivatedCookie = useCookie('user_reactivated')
 </script>
 
 <template>
@@ -102,12 +79,27 @@ const pageAnimation = computed(() => {
     </NuxtLayout>
   </div>
 
-  <CommonToast />
+  <LazyWhatsNewModal
+    v-if="isWhatsNewModalOpen"
+    v-model="isWhatsNewModalOpen"
+  />
 
-  <LocaleModal v-model="localeModalState" />
-  <PastDuePlanModal v-model="isPastDueModalOpen" />
-  <WhatsNewModal v-model="isWhatsNewModalOpen" />
-  <AccountReactivatedModal />
+  <LazyLocaleModal
+    v-if="localeModalState"
+    v-model="localeModalState"
+  />
+
+  <LazyPastDuePlanModal
+    v-if="isPastDueModalOpen"
+    v-model="isPastDueModalOpen"
+  />
+
+  <LazyCommonToast v-if="toast.visible.value" />
+
+  <LazyAccountReactivatedModal
+    v-if="userReactivatedCookie"
+    :model-value="userReactivatedCookie"
+  />
 </template>
 
 <style>
