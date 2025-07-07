@@ -4,18 +4,10 @@ description: Tasks and items for the release.
 
 # TODO
 
-- Generate a new changelog and compare
-- Run psitta
-
-- ---
-
 ## 0.1.0-12
 
 - Locale change should replace the current locale in the URL (not push)
-- Fix chat bubble animation glitch
 - Lower every username comparison
-- Fix not redirecting to manage-contact after logout and rejoining
-- Open contact view from query
 - Look for TODOS inside the codebase
 - Remove the Home page on mobile (Welcome modal will be better)
 - Add a welcome modal and add a link to it in the settings page

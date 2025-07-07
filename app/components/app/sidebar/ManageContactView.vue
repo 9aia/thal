@@ -11,14 +11,9 @@ import { nameSchema, nameSchemaChecks, usernameSchema, usernameSchemaChecks } fr
 const { t } = useI18nExperimental()
 const toast = useToast()
 const queryClient = useQueryClient()
-const localeDefaultRegion = useLocaleWithDefaultRegion()
 const sidebar = useSidebar()
 
-const contactQuery = useServerQuery({
-  queryKey: queryKeys.contact(computed(() => manageContactUsername.value!)),
-  queryFn: () => $fetch(`/api/contact/${manageContactUsername.value!}` as `/api/contact/:username`),
-  enabled: computed(() => !!manageContactUsername.value),
-})
+const contactQuery = useContactQuery(manageContactUsername)
 
 const form = useForm<{ name: string, username: string }>({
   initialValues: {
@@ -28,13 +23,7 @@ const form = useForm<{ name: string, username: string }>({
 })
 const hasErrors = useHasFormErrors(form)
 
-const characterQuery = useServerQuery({
-  queryKey: queryKeys.character(localeDefaultRegion, toRef(() => form.values.username)),
-  queryFn: () => $fetch(`/api/character/${form.values.username}` as `/api/character/:username`, {
-    params: { locale: localeDefaultRegion.value },
-  }),
-  enabled: computed(() => !!form.values.username),
-})
+const characterQuery = useCharacterQuery(toRef(form.values, 'username'))
 
 async function validateUsername(suggestedUsername: string) {
   if (!suggestedUsername || suggestedUsername === manageContactUsername.value)

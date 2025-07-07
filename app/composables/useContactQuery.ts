@@ -1,15 +1,27 @@
-import { useQueryClient } from '@tanstack/vue-query'
+import { useQuery, useQueryClient } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
 
-function useContactQuery(username: MaybeRef<string>) {
+function useContactQuery(username?: MaybeRef<string | null>) {
   const headers = useRequestHeaders(['cookie'])
 
-  return useServerQuery({
-    queryKey: queryKeys.contact(username),
+  const isQueryEnabled = computed(() => !!unref(username))
+
+  const {
+    suspense,
+    ...query
+  } = useQuery({
+    queryKey: queryKeys.contact(username!),
     queryFn: () => $fetch(`/api/contact/${toValue(username)}` as `/api/contact/:username`, {
       headers,
     }),
+    enabled: isQueryEnabled,
   })
+
+  if (isQueryEnabled.value) {
+    onServerPrefetch(suspense)
+  }
+
+  return query
 }
 
 export function prefetchContactQuery(username: MaybeRef<string>) {

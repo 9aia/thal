@@ -29,6 +29,7 @@ Low priority:
 ## Features
 
 - Create "about me" textarea in the profile page
+- Open contact view from query
 - Add audio pause/resume button to chat messages
 - Add a "My Characters" section/accordion in the "New Chat"
 - Implement basic analytics to track user engagement and app performance
@@ -95,6 +96,7 @@ Low priority:
 
 Low priority:
 
+- Fix chat bubble animation glitch
 - Fix animation glitch on opening the CharacterBuilder from the chat route using the "Edit character" options
 - Rewrite Daisy dropdowns using ArkUI components (should fix the closing on click on padding bug as well)
 - Fix speech highlighting breaking lines
@@ -117,6 +119,7 @@ Low priority:
 
 Low priority:
 
+- Inform Thal changed (specially terms or privacy) via email
 - Handle Gemini safety errors
   - Provide feedback indicating that the sending message is not allowed.
   - Provide feedback indicating that the receiving message is not allowed, and allow users to request a safer regeneration from the model.
@@ -126,7 +129,6 @@ Low priority:
 - Add safety inflation flags and strikes
   - Assigning each user a unique ID and imposing a limit on the volume of user queries that can be submitted in a given period
 - Add character rating (unrated, teen, mature, everyone)
-- Inform Thal changed (specially terms or privacy)
 
 ## Performance
 
