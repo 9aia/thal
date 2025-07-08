@@ -69,25 +69,27 @@ Low priority:
 
 ## Enhancements
 
-- Set meta tags for each page
+- Add a welcome modal and add a link to it in the settings page
+- Remove the Home page on mobile (Welcome modal will be better)
 - Remove approve button from character builder after already approved
   - Fix character edition error when the edition was approved and the user try to approve again without changes
 - Fix input autofocuses on navigate
 - Inform deleted character action such as translate, using tooltip
 - Save cookie for "Continue Your Access" after once logged
 - Pass user name to Stripe from Google account
-- Hide contact list and discover search (or other search fields) when there are no results like in the chat list
 
 Low priority:
 
-- Improve toast animations and width
-- Add loading splashscreen for hydration, data loading, etc
 - Improve error handling
 - Improve loading handling
   - Improve chat loading by rendering the skeleton on the backend and the message on the client
   - Improve chat loading and error state fallbacks
 - Fix error handling in the API endpoints fetched using form
 - Improve sidebar error handling using `AsyncComponentOptions.onError`
+- Hide contact list and discover search (or other search fields) when there are no results like in the chat list
+- Set meta tags for each page
+- Improve toast animations and width
+- Add loading splashscreen for hydration, data loading, etc
 
 ---
 
@@ -122,6 +124,7 @@ Low priority:
 Low priority:
 
 - Inform Thal changed (specially terms or privacy) via email
+- Improve prompt engineering for the character builder
 - Handle Gemini safety errors
   - Provide feedback indicating that the sending message is not allowed.
   - Provide feedback indicating that the receiving message is not allowed, and allow users to request a safer regeneration from the model.

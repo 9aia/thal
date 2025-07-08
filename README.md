@@ -1,10 +1,14 @@
 # Thal
 
-🧪 **Preview v0.1.0-10**: [preview.thal.9aia.com](https://preview.thal.9aia.com) • 🚀 **Production v0.1 (planned)**: [thal.9aia.com](https://thal.9aia.com)
+> **Status**: Preview before first production release
+> <br>
+> [🧪 **Preview v0.1.0-11**](https://preview.thal.9aia.com) | [🚀 **Production v0.1.0 (planned)**](https://thal.9aia.com)
 
 > [!WARNING]
-> We're in active development and this is a work-in-progress. Expect potential bugs, incomplete or not yet implemented features. We are in preview, looking for feedback and open to contributions.
-> 📌 Read more about the project status in [Roadmap](./pm/ROADMAP.md).
+> We're in active development and this is a work-in-progress. Expect potential bugs, incomplete or not yet implemented features. Read more about the project status in [Roadmap](./pm/ROADMAP.md).
+
+> [!NOTE]
+> We have a preview version running at [preview.thal.9aia.com](https://preview.thal.9aia.com) where you can take a look at the app and provide feedback. We are open to contributions. Read more about how preview works in [Roadmap](./pm/ROADMAP.md#contract).
 
 Thal is a chat-based, AI-powered English learning app designed to help users practice English through dynamic, interactive conversations with personalized characters. Inspired by messaging apps, Thal provides a unique and engaging approach to language learning, simulating real-world dialogues to make the process both intuitive and enjoyable.
 

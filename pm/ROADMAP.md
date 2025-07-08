@@ -20,7 +20,7 @@ description: A timeline of key milestones and upcoming features or releases.
 
 - **Public Releases (`vx.x.x`)**:
   - Examples: `v0.1.0`
-  - Releases can be accessed at [thal.9aia.com](https://thal.9aia.com) (planned)
+  - Releases can be accessed at [thal.9aia.com](https://thal.9aia.com)
   - Released on the main domain for broader public access
   - Payment systems will be fully operational (no sandbox mode)
 

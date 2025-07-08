@@ -2,6 +2,11 @@
 
 version="$1"
 
+echo "Updating version in README..."
+bash ./update-readme-version.sh "$version"
+
+echo "Building and deploying..."
+
 if echo "$version" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+-[0-9]+$'; then
   echo "Version is a pre-release version, deploying to preview."
   pnpm run build:preview && pnpm run deploy:preview

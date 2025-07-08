@@ -14,7 +14,7 @@ app/components/app/character/ApproveCharacterDraftForm.vue:
   60:     // TODO: optimize invalidations (use queryClient.setQueryData)
 
 app/components/app/character/CharacterBuilder.vue:
-  320:               <!-- FIXME: characterBuildId = $event -->
+  314:               <!-- FIXME: characterBuildId = $event -->
 
 app/components/app/common/CommonLeftSidebar.vue:
   28:         <!-- TODO: add not found handling -->
@@ -35,8 +35,8 @@ app/composables/useLocaleWithDefaultRegion.ts:
   4: // TODO: remove this after Psitta API is updated
 
 app/composables/useSidebar.ts:
-  24:     // TODO: keep the original query params, just change the current view and param
-  38:     // TODO: keep the original query params, just change the current view and param
+  23:     // TODO: keep the original query params, just change the current view and param
+  37:     // TODO: keep the original query params, just change the current view and param
 
 app/constants/settings.ts:
   57:   // TODO: add About Thal and Help Center
