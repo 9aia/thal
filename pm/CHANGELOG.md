@@ -13,6 +13,7 @@ description: A detailed, chronological record of all changes made to a project, 
 ### Enhanced
 
 - Improved SEO meta tags for chat pages
+- Improved What's New content
 
 ### Fixed
 
