@@ -6,6 +6,8 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+## [0.1.0-12] - 2025-07-08
+
 ### Added
 
 - Added a confirmation modal on chat history clear
