@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useEventListener } from '@vueuse/core'
-import { hydrateOnIdle } from 'vue'
 import { isPastDueModalOpen, isWhatsNewModalOpen, openContactView } from '~/store'
 import { usernameSchema } from '~~/db/schema'
 
