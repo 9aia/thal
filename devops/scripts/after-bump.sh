@@ -3,7 +3,7 @@
 version="$1"
 
 echo "Updating version in README..."
-bash ./update-readme-version.sh "$version"
+bash ./devops/scripts/update-version-in-readme.sh "$version"
 
 echo "Building and deploying..."
 
