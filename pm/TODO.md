@@ -6,13 +6,13 @@ description: Tasks and items for the release.
 
 ## 0.1.0-13
 
+- Implement soft-deletes
+
+- Fix character builder go to chat not keeping the sidebar state after navigating to chat with the buttons
 - Fix hydration errors on deleted characters route
 - Fix blocked (shouldn't) chats with deleted characters
 - Fix head tags on authed pages
-- Add updatedAt
-- Fix psitta not finding account deactivate modal
 
-- Implement soft-deletes
 - Pre-create and refine default characters
 - Revise content of policy pages
 - Revise landpage content
@@ -20,7 +20,6 @@ description: Tasks and items for the release.
 - Translate all content using Psitta
 - Inform to user about the project status
 - Lower every username comparison
-- Revise What's New
 - Revise translations
 - Deploy to production
   - Set the GCP OAuth screen to production instead of testing (requires app verification).
