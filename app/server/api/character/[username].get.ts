@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm'
+import { and, eq, isNull } from 'drizzle-orm'
 import { z } from 'zod'
 import { getValidated } from '~/utils/h3'
 import { notFound, unauthorized } from '~/utils/nuxt'
@@ -32,7 +32,10 @@ export default eventHandler(async (event) => {
         },
         with: {
           characterLocalizations: {
-            where: eq(characterLocalizations.locale, locale),
+            where: and(
+              eq(characterLocalizations.locale, locale),
+              isNull(characterLocalizations.deletedAt),
+            ),
             columns: {
               name: true,
               description: true,

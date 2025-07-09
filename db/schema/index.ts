@@ -3,7 +3,7 @@ import { relations, sql } from 'drizzle-orm'
 import { foreignKey, int, sqliteTable as table, text } from 'drizzle-orm/sqlite-core'
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
 import { z } from 'zod'
-import { timestampOmits, timestamps } from '../columns.helpers'
+import { createdAt, timestampOmits, timestamps, updatedAt } from '../columns.helpers'
 
 // #region Usernames
 
@@ -23,19 +23,21 @@ export const usernames = table('Username', {
   userId: text('user_id')
     .references(() => users.id, { onDelete: 'set null' }),
   text: text('text').notNull(),
-  ...timestamps,
+  createdAt,
+  updatedAt,
 })
 
 export const usernameUpdateSchema = createInsertSchema(usernames, {
   text: usernameSchema,
 })
-  .omit({ ...timestampOmits })
+  .omit({ createdAt: true, updatedAt: true })
 
 export const usernameInsertSchema = createInsertSchema(usernames, {
   text: usernameSchema,
 }).omit({
   id: true,
-  ...timestampOmits,
+  createdAt: true,
+  updatedAt: true,
 })
 
 export const usernameRelations = relations(usernames, ({ one, many }) => ({
@@ -53,7 +55,7 @@ export const usernameRelations = relations(usernames, ({ one, many }) => ({
 
 // #endregion
 
-// #region Users
+// #region Subscriptions
 
 export enum SubscriptionStatus {
   not_subscribed = 0,
@@ -71,6 +73,10 @@ export enum PlanType {
   // TODO: change to INDIVIDUAL
   ALL_IN_ONE = 0,
 }
+
+// #endregion
+
+// #region Users
 
 export const users = table('User', {
   id: text('id').primaryKey(),
@@ -97,31 +103,6 @@ export const userRelations = relations(users, ({ one }) => ({
     references: [usernames.userId],
   }),
 }))
-
-export const sessions = table('Session', {
-  id: text('id').primaryKey(),
-  userId: text('user_id')
-    .notNull()
-    .references(() => users.id, { onDelete: 'cascade' }),
-  expiresAt: int('expires_at', { mode: 'timestamp_ms' }).notNull(),
-  ...timestamps,
-})
-
-export const sessionRelations = relations(sessions, ({ one }) => ({
-  user: one(users, {
-    fields: [sessions.userId],
-    references: [users.id],
-  }),
-}))
-
-export const oAuthAccounts = table('OAuthAccount', {
-  providerId: text('provider_id').notNull(),
-  providerUserId: text('provider_user_id').notNull(),
-  userId: text('user_id')
-    .notNull()
-    .references(() => users.id, { onDelete: 'cascade' }),
-  ...timestamps,
-})
 
 export const nameSchema = z.string().min(1).max(64)
 export const nameSchemaChecks = {
@@ -165,7 +146,40 @@ export type UserSelect = z.infer<typeof userSelectSchema>
 export type UserInsert = z.infer<typeof userInsertSchema>
 export type User = UserSelect
 
-export const sessionSelectSchema = createSelectSchema(sessions).omit(timestampOmits)
+// #endregion
+
+// #region Sessions
+
+export const sessions = table('Session', {
+  id: text('id').primaryKey(),
+  userId: text('user_id')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  expiresAt: int('expires_at', { mode: 'timestamp_ms' }).notNull(),
+  createdAt,
+  updatedAt,
+})
+
+export const sessionRelations = relations(sessions, ({ one }) => ({
+  user: one(users, {
+    fields: [sessions.userId],
+    references: [users.id],
+  }),
+}))
+
+export const oAuthAccounts = table('OAuthAccount', {
+  providerId: text('provider_id').notNull(),
+  providerUserId: text('provider_user_id').notNull(),
+  userId: text('user_id')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+})
+
+export const sessionSelectSchema = createSelectSchema(sessions)
+  .omit({
+    createdAt: true,
+    updatedAt: true,
+  })
 
 export type SessionSelect = z.infer<typeof sessionSelectSchema>
 export type Session = SessionSelect
@@ -203,6 +217,8 @@ export const profileUpdateSchema = createInsertSchema(users, {
 
 export type ProfileUpdate = z.infer<typeof profileUpdateSchema>
 
+// #endregion
+
 // #region Characters
 
 export const descriptionSchema = z.string().min(1).max(300)
@@ -222,7 +238,7 @@ export const characters = table('Character', {
   discoverable: int('discoverable', { mode: 'boolean' }).default(true).notNull(),
   prompt: text('prompt').notNull(),
   creatorId: text('creator_id')
-    .references(() => users.id, { onDelete: 'no action' }),
+    .references(() => users.id, { onDelete: 'set null' }),
   ...timestamps,
 })
 
@@ -346,7 +362,8 @@ export const contacts = table('Contact', {
   userId: text('user_id') // adder
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
-  ...timestamps,
+  createdAt,
+  updatedAt,
 })
 
 export const contactsRelations = relations(contacts, ({ one }) => ({
@@ -379,7 +396,8 @@ export const contactInsertSchema = createInsertSchema(contacts)
     id: true,
     userId: true,
     usernameId: true,
-    ...timestampOmits,
+    createdAt: true,
+    updatedAt: true,
   })
   .extend({
     username: usernameSchema,
@@ -394,7 +412,6 @@ export const contactUpdateSchema = createInsertSchema(contacts, {
     usernameId: true,
     createdAt: true,
     updatedAt: true,
-    deletedAt: true,
   })
   .partial()
 
@@ -417,7 +434,8 @@ export const lastMessages = table('LastMessage', {
   datetime: int('datetime', { mode: 'timestamp_ms' })
     .default(sql`(unixepoch() * 1000)`)
     .notNull(),
-  ...timestamps,
+  createdAt,
+  updatedAt,
 })
 
 export const lastMessageRelations = relations(lastMessages, ({ one }) => ({
@@ -429,7 +447,10 @@ export const lastMessageRelations = relations(lastMessages, ({ one }) => ({
 
 export const selectLastMessageSchema = createSelectSchema(lastMessages)
 export const insertLastMessageSchema = createInsertSchema(lastMessages)
-  .omit({ ...timestampOmits })
+  .omit({
+    createdAt: true,
+    updatedAt: true,
+  })
 
 export type LastMessageSelect = z.infer<typeof selectLastMessageSchema>
 export type LastMessageInsert = z.infer<typeof insertLastMessageSchema>
@@ -448,7 +469,8 @@ export const chats = table('Chat', {
     .references(() => users.id, { onDelete: 'cascade' }),
   contactId: int('contact_id')
     .references(() => contacts.id, { onDelete: 'set null' }),
-  ...timestamps,
+  createdAt,
+  updatedAt,
 })
 
 export const chatsRelations = relations(chats, ({ one, many }) => ({

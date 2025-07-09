@@ -1,4 +1,4 @@
-import { eq, sql } from 'drizzle-orm'
+import { eq, isNull, sql } from 'drizzle-orm'
 import type { H3EventContext } from 'h3'
 import { notFound } from '~/utils/nuxt'
 import type { User } from '~~/db/schema'
@@ -21,6 +21,7 @@ export async function getHistory(
               content: true,
               status: true,
             },
+            where: isNull(messages.deletedAt),
             with: {
               inReplyTo: {
                 columns: {

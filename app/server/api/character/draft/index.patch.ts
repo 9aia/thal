@@ -38,10 +38,14 @@ export default eventHandler(async (event) => {
       characterId
         ? eq(characterDrafts.characterId, characterId)
         : isNull(characterDrafts.characterId),
+      isNull(characterDrafts.deletedAt),
     ),
     with: {
       characterDraftLocalizations: {
-        where: eq(characterDraftLocalizations.locale, 'en-US'),
+        where: and(
+          eq(characterDraftLocalizations.locale, 'en-US'),
+          isNull(characterDraftLocalizations.deletedAt),
+        ),
       },
       character: !characterId
         ? undefined

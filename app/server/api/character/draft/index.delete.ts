@@ -26,10 +26,14 @@ export default eventHandler(async (event) => {
       characterId
         ? eq(characterDrafts.characterId, characterId)
         : isNull(characterDrafts.characterId),
+      isNull(characterDrafts.deletedAt),
     ),
     with: {
       characterDraftLocalizations: {
-        where: eq(characterDraftLocalizations.locale, 'en-US'),
+        where: and(
+          eq(characterDraftLocalizations.locale, 'en-US'),
+          isNull(characterDraftLocalizations.deletedAt),
+        ),
       },
       character: !characterId
         ? undefined
@@ -100,8 +104,16 @@ export default eventHandler(async (event) => {
   }
   else {
     await orm.batch([
-      orm.delete(characterDrafts).where(eq(characterDrafts.id, existingDraft.id)),
-      orm.delete(characterDraftLocalizations).where(eq(characterDraftLocalizations.characterDraftId, existingDraft.id)),
+      orm.update(characterDrafts)
+        .set({
+          deletedAt: now(),
+        })
+        .where(eq(characterDrafts.id, existingDraft.id)),
+      orm.update(characterDraftLocalizations)
+        .set({
+          deletedAt: now(),
+        })
+        .where(eq(characterDraftLocalizations.characterDraftId, existingDraft.id)),
     ])
   }
 })

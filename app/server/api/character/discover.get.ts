@@ -47,6 +47,7 @@ export default eventHandler(async (event) => {
           ? like(characterLocalizations.name, `%${query.search}%`)
           : undefined,
         isNull(characters.deletedAt),
+        isNull(characterLocalizations.deletedAt),
       ),
     )
     .limit(limit)

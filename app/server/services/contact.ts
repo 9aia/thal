@@ -13,14 +13,12 @@ export async function getContactByUsername(
     where: eq(usernames.text, username),
     with: {
       contacts: {
-        where: and(
-          eq(contacts.userId, user.id!),
-          isNull(contacts.deletedAt),
-        ),
+        where: eq(contacts.userId, user.id!),
         columns: {
           id: true,
           name: true,
           createdAt: true,
+          updatedAt: true,
         },
       },
     },
@@ -34,6 +32,7 @@ export async function getContactByUsername(
       id: null,
       name: null,
       createdAt: null,
+      updatedAt: null,
       username,
     }
   }
@@ -42,6 +41,7 @@ export async function getContactByUsername(
     id: result.contacts[0].id,
     name: result.contacts[0].name,
     createdAt: result.contacts[0].createdAt,
+    updatedAt: result.contacts[0].updatedAt,
     username,
   }
 }
@@ -56,6 +56,7 @@ export async function getContactByUser(
       id: contacts.id,
       name: contacts.name,
       createdAt: contacts.createdAt,
+      updatedAt: contacts.updatedAt,
       username: usernames.text,
       usernameId: usernames.id,
     })
@@ -64,7 +65,6 @@ export async function getContactByUser(
     .where(and(
       eq(contacts.userId, user.id!),
       eq(usernames.text, username),
-      isNull(contacts.deletedAt),
     ))
 
   if (!contact)
@@ -102,7 +102,6 @@ export async function getContactsWithCharacterByUser(
         }
         AND ${characterLocalizations.locale} = ${locale}
         AND ${characters.deletedAt} IS NULL
-        AND ${contacts.deletedAt} IS NULL
         AND ${characterLocalizations.deletedAt} IS NULL
     `)
 

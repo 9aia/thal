@@ -30,7 +30,11 @@ export default eventHandler(async (event) => {
     throw paymentRequired()
 
   const [existingDraft] = await orm.select().from(characterDrafts).where(
-    and(eq(characterDrafts.creatorId, user.id), isNull(characterDrafts.characterId)),
+    and(
+      eq(characterDrafts.creatorId, user.id),
+      isNull(characterDrafts.characterId),
+      isNull(characterDrafts.deletedAt),
+    ),
   )
 
   if (existingDraft)

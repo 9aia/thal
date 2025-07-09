@@ -4,7 +4,7 @@ import { getValidated } from '~/utils/h3'
 import { badRequest, conflict, paymentRequired, unauthorized } from '~/utils/nuxt'
 import { isPlanPastDue } from '~/utils/plan'
 import type { CharacterGet } from '~~/db/schema'
-import { characterDraftInsertSchema, characterDrafts, characterLocalizations, characters, usernames } from '~~/db/schema'
+import { characterDraftInsertSchema, characterDraftLocalizations, characterDrafts, characterLocalizations, characters, usernames } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const data = await getValidated(event, 'body', characterDraftInsertSchema)
@@ -24,9 +24,11 @@ export default eventHandler(async (event) => {
     where: and(
       eq(characterDrafts.creatorId, user.id),
       isEdition ? eq(characterDrafts.characterId, data.characterId!) : isNull(characterDrafts.characterId),
+      isNull(characterDrafts.deletedAt),
     ),
     with: {
       characterDraftLocalizations: {
+        where: isNull(characterDraftLocalizations.deletedAt),
         columns: {
           name: true,
           description: true,

@@ -28,6 +28,7 @@ export default eventHandler(async (event) => {
       characterId
         ? eq(characterDrafts.characterId, characterId)
         : isNull(characterDrafts.characterId),
+      isNull(characterDrafts.deletedAt),
     ),
     columns: {
       data: true,
@@ -35,7 +36,10 @@ export default eventHandler(async (event) => {
     },
     with: {
       characterDraftLocalizations: {
-        where: eq(characterDraftLocalizations.locale, locale),
+        where: and(
+          eq(characterDraftLocalizations.locale, locale),
+          isNull(characterDraftLocalizations.deletedAt),
+        ),
       },
       character: {
         columns: {
@@ -55,7 +59,10 @@ export default eventHandler(async (event) => {
               description: true,
               instructions: true,
             },
-            where: eq(characterLocalizations.locale, locale),
+            where: and(
+              eq(characterLocalizations.locale, locale),
+              isNull(characterLocalizations.deletedAt),
+            ),
           },
         },
       },

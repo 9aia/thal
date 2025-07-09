@@ -1,4 +1,4 @@
-import { and, eq, isNull } from 'drizzle-orm'
+import { and, eq } from 'drizzle-orm'
 import { now } from '~/utils/date'
 import { getValidated } from '~/utils/h3'
 import { badRequest, notFound, unauthorized } from '~/utils/nuxt'
@@ -20,10 +20,7 @@ export default eventHandler(async (event) => {
         columns: {
           id: true,
         },
-        where: and(
-          eq(contacts.userId, user.id),
-          isNull(contacts.deletedAt),
-        ),
+        where: eq(contacts.userId, user.id),
       },
     },
   })

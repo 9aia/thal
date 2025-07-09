@@ -40,9 +40,6 @@ export default eventHandler(async (event) => {
     where: (usernames, { eq }) => eq(usernames.id, existingUsername.id),
     with: {
       contacts: {
-        columns: {
-          deletedAt: true,
-        },
         where: (contacts, { eq }) => and(
           eq(contacts.userId, user.id),
           eq(contacts.usernameId, existingUsername.id),
@@ -63,7 +60,7 @@ export default eventHandler(async (event) => {
 
   return {
     characterNotFound: character == null || character?.deletedAt != null,
-    alreadyAdded: !!contact && contact?.deletedAt == null,
+    alreadyAdded: !!contact,
     discoverable: (character?.discoverable || character?.creatorId === user.id) && character?.deletedAt == null,
     isUsernameValid: true,
   }

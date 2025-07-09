@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm'
+import { and, eq, isNull } from 'drizzle-orm'
 import { z } from 'zod'
 import { getHistory } from '~/server/services/messages'
 import { now } from '~/utils/date'
@@ -56,7 +56,10 @@ export default eventHandler(async (event) => {
               description: true,
               instructions: true,
             },
-            where: eq(characterLocalizations.locale, 'en-US'),
+            where: and(
+              eq(characterLocalizations.locale, 'en-US'),
+              isNull(characterLocalizations.deletedAt),
+            ),
           },
         },
       },
@@ -85,7 +88,7 @@ export default eventHandler(async (event) => {
 
   // #region Create chat if it doesn't exist
 
-  if (!chat || chat.deletedAt) {
+  if (!chat) {
     const [newChat] = await orm
       .insert(chats)
       .values({

@@ -2,6 +2,8 @@ import type { H3Event } from 'h3'
 import type Stripe from 'stripe'
 import { createSubscription, deletedSubscription, updateSubscription } from '../services/plan'
 
+// TODO: refactor this. Move to the webhook directly
+
 export async function handleSubscriptionCreated(
   event: H3Event,
   subscriptionCreated: Stripe.CustomerSubscriptionCreatedEvent,

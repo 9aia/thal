@@ -2,7 +2,7 @@ import { eq } from 'drizzle-orm'
 import { z } from 'zod'
 import { now } from '~/utils/date'
 import { getValidated } from '~/utils/h3'
-import { badRequest, forbidden, unauthorized } from '~/utils/nuxt'
+import { badRequest, unauthorized } from '~/utils/nuxt'
 import { chats, lastMessages, messages, usernameSchema, usernames } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
@@ -41,10 +41,7 @@ export default eventHandler(async (event) => {
   if (!deletedMessages.length)
     throw badRequest('Messages not found')
 
-  await orm.update(lastMessages)
-    .set({
-      deletedAt: now(),
-    })
+  await orm.delete(lastMessages)
     .where(eq(lastMessages.chatId, chatId))
 
   return deletedMessages

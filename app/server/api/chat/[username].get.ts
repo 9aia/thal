@@ -29,7 +29,6 @@ export default defineEventHandler(async (event) => {
     return {
       id: null,
       createdAt: null,
-      deletedAt: null,
       updatedAt: null,
       usernameId: null,
       userId: null,

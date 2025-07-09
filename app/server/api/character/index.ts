@@ -31,7 +31,10 @@ export default eventHandler(async (event) => {
         },
       },
       characterLocalizations: {
-        where: eq(characterLocalizations.locale, locale),
+        where: and(
+          eq(characterLocalizations.locale, locale),
+          isNull(characterLocalizations.deletedAt),
+        ),
       },
     },
   })
