@@ -2,6 +2,7 @@
 import { Menu } from '@ark-ui/vue'
 import { T } from '@psitta/vue'
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import type { FetchError } from 'ofetch'
 import { useForm } from 'vee-validate'
 import type { MenuItemType } from '~/components/ui/navigation/types'
@@ -16,7 +17,6 @@ defineProps<{
 
 const emit = defineEmits<{
   (e: 'back'): void
-  (e: 'chat'): void
 }>()
 
 const { t } = useI18nExperimental()
@@ -177,8 +177,16 @@ const hasChanges = computed(() => {
     && d.categoryName === c.categoryName)
 })
 
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const isMobile = computed(() => breakpoints.smaller('lg').value)
+
 function handleGoToChat() {
-  emit('chat')
+  if (isMobile.value) {
+    navigateTo(`/app/chat/${editingUsername.value}`)
+
+    return
+  }
+
   navigateTo(`/app/chat/${editingUsername.value}?build-character`)
 }
 
@@ -224,7 +232,6 @@ function handleApproved(characterId: number) {
           <Button
             v-if="isEditing && !isAlreadyChatting"
             class="btn btn-xs btn-dash btn-secondary"
-
             icon="material-symbols:chat-paste-go-outline-rounded"
             icon-class="text-xl"
             :disabled="loading"

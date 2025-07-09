@@ -1,10 +1,7 @@
 <script setup lang="ts">
-// TODO: implement this
-// const route = useRoute()
-// const characterUsername = computed(() => route.query['build-character'] as string | undefined)
-// console.log('build-character', characterUsername.value)
+import { LEFT_SIDEBAR_PROVIDE_KEY } from '~/constants/sidebar'
 
-const sidebar = useSidebar()
+const sidebar = useSidebar(LEFT_SIDEBAR_PROVIDE_KEY)
 </script>
 
 <template>

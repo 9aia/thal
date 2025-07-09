@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
 import { categories } from '~/constants/discover'
+import { LEFT_SIDEBAR_PROVIDE_KEY } from '~/constants/sidebar'
 import { openContactView } from '~/store'
 
 const props = defineProps<{
@@ -12,7 +13,7 @@ const props = defineProps<{
   showSendMessage?: boolean
 }>()
 
-const sidebar = useSidebar()
+const sidebar = useSidebar(LEFT_SIDEBAR_PROVIDE_KEY)
 
 async function goToChat() {
   sidebar.open.value = false

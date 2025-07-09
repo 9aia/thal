@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { LEFT_SIDEBAR_COMPONENTS } from '~/constants/sidebar'
+import { LEFT_SIDEBAR_COMPONENTS, LEFT_SIDEBAR_PROVIDE_KEY } from '~/constants/sidebar'
 import CommonSidebarRight from '~/layouts/common-sidebar-right.vue'
 
-const sidebar = useSidebar()
+const sidebar = useSidebar(LEFT_SIDEBAR_PROVIDE_KEY)
 </script>
 
 <template>

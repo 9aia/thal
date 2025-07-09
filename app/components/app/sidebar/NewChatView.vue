@@ -2,12 +2,13 @@
 import { refDebounced } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import type { MenuItemType } from '~/components/ui/navigation/types'
+import { LEFT_SIDEBAR_PROVIDE_KEY } from '~/constants/sidebar'
 import queryKeys from '~/queryKeys'
 import { buildCharacter, manageContact } from '~/store'
 
 const { t } = useI18nExperimental()
 const localeWithDefaultRegion = useLocaleWithDefaultRegion()
-const sidebar = useSidebar()
+const sidebar = useSidebar(LEFT_SIDEBAR_PROVIDE_KEY)
 
 function createCharacter() {
   buildCharacter(null)

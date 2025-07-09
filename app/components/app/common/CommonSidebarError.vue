@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const sidebar = useSidebar()
+import { LEFT_SIDEBAR_PROVIDE_KEY } from '~/constants/sidebar'
+
+const sidebar = useSidebar(LEFT_SIDEBAR_PROVIDE_KEY)
 sidebar.navigationDirection.value = 'backward'
 </script>
 

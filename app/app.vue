@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useEventListener } from '@vueuse/core'
+import { LEFT_SIDEBAR_COMPONENTS, LEFT_SIDEBAR_PROVIDE_KEY, LEFT_SIDEBAR_ROOT_STATE } from './constants/sidebar'
 import { isPastDueModalOpen, isWhatsNewModalOpen, openContactView } from '~/store'
 import { usernameSchema } from '~~/db/schema'
 
@@ -65,40 +66,46 @@ const userReactivatedCookie = useCookie('user_reactivated')
 </script>
 
 <template>
-  <NuxtLoadingIndicator
-    color="repeating-linear-gradient(to right, #00ffff 0%, #0000ff 100%)"
-    error-color="repeating-linear-gradient(to right, #ff0000 0%, #ff6600 100%)"
-  />
+  <Sidebar
+    :provide-key="LEFT_SIDEBAR_PROVIDE_KEY"
+    :root-state="LEFT_SIDEBAR_ROOT_STATE"
+    :component-keys="Object.keys(LEFT_SIDEBAR_COMPONENTS)"
+  >
+    <NuxtLoadingIndicator
+      color="repeating-linear-gradient(to right, #00ffff 0%, #0000ff 100%)"
+      error-color="repeating-linear-gradient(to right, #ff0000 0%, #ff6600 100%)"
+    />
 
-  <div class="relative">
-    <NuxtLayout>
-      <div class="overflow-hidden">
-        <NuxtPage :transition="{ name: pageAnimation }" />
-      </div>
-    </NuxtLayout>
-  </div>
+    <div class="relative">
+      <NuxtLayout>
+        <div class="overflow-hidden">
+          <NuxtPage :transition="{ name: pageAnimation }" />
+        </div>
+      </NuxtLayout>
+    </div>
 
-  <LazyWhatsNewModal
-    v-if="isWhatsNewModalOpen"
-    v-model="isWhatsNewModalOpen"
-  />
+    <LazyWhatsNewModal
+      v-if="isWhatsNewModalOpen"
+      v-model="isWhatsNewModalOpen"
+    />
 
-  <LazyLocaleModal
-    v-if="localeModalState"
-    v-model="localeModalState"
-  />
+    <LazyLocaleModal
+      v-if="localeModalState"
+      v-model="localeModalState"
+    />
 
-  <LazyPastDuePlanModal
-    v-if="isPastDueModalOpen"
-    v-model="isPastDueModalOpen"
-  />
+    <LazyPastDuePlanModal
+      v-if="isPastDueModalOpen"
+      v-model="isPastDueModalOpen"
+    />
 
-  <LazyCommonToast v-if="toast.visible.value" />
+    <LazyCommonToast v-if="toast.visible.value" />
 
-  <LazyAccountReactivatedModal
-    v-if="userReactivatedCookie"
-    :model-value="userReactivatedCookie"
-  />
+    <LazyAccountReactivatedModal
+      v-if="userReactivatedCookie"
+      :model-value="userReactivatedCookie"
+    />
+  </Sidebar>
 </template>
 
 <style>

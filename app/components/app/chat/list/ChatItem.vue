@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
+import { LEFT_SIDEBAR_PROVIDE_KEY } from '~/constants/sidebar'
 import queryKeys from '~/queryKeys'
 import { openContactView } from '~/store'
 import { MessageStatus } from '~~/db/schema'
@@ -13,7 +14,7 @@ const props = defineProps<{
   }
 }>()
 
-const sidebar = useSidebar()
+const sidebar = useSidebar(LEFT_SIDEBAR_PROVIDE_KEY)
 const characterQuery = useCharacterQuery(toRef(props, 'username'))
 
 const headers = useRequestHeaders(['cookie'])

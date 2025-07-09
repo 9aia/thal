@@ -5,8 +5,9 @@ import { useForm } from 'vee-validate'
 import { useRouteQuery } from '@vueuse/router'
 import { type CategorySlug, categories } from '~/constants/discover'
 import { buildCharacter, isWhatsNewModalOpen } from '~/store'
+import { LEFT_SIDEBAR_PROVIDE_KEY } from '~/constants/sidebar'
 
-const sidebar = useSidebar()
+const sidebar = useSidebar(LEFT_SIDEBAR_PROVIDE_KEY)
 const toast = useToast()
 const whatsNew = useWhatsNew()
 const searchRouteQuery = useRouteQuery<string>('search', '')
