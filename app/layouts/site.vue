@@ -42,7 +42,7 @@ const redirectUrl = useRedirectUrl()
               <Dropdown class="dropdown-end">
                 <Avatar
                   type="button"
-                  size="md"
+                  size="sm"
                   wrapper-class="bg-neutral text-neutral-content"
                 />
 

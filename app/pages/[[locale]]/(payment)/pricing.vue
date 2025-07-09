@@ -32,7 +32,6 @@ const pricingQuery = useServerQuery({
         <StripeCreateSessionForm
           :checkout-status="pricingQuery.data.value?.checkoutStatus || null"
           :subscription-status="pricingQuery.data.value?.subscriptionStatus || SubscriptionStatus.not_subscribed"
-          no-info
         />
       </div>
     </div>

@@ -8,7 +8,17 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ### Fixed
 
-- Fixed page not respecting redirectUrl cookie on account creation
+- Fixed automatic redirect on first sign-in
+- Replaced What's New icon with a campaign icon in the settings and app home screen.
+- Added subscription info below the checkout form.
+
+### Added
+
+- Added What's New button to the site layout footer
+
+### Enhanced
+
+- Enhanced footer layout for better responsiveness and visual consistency.
 
 ## [0.1.0-12] - 2025-07-08
 

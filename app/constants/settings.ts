@@ -30,7 +30,7 @@ const general: MenuItemType[] = [
 const support: MenuItemType[] = [
   {
     id: 'whats-new',
-    icon: 'material-symbols:news-outline-rounded',
+    icon: 'material-symbols:campaign-outline-rounded',
     name: t('What\'s New'),
     onClick: () => isWhatsNewModalOpen.value = true,
     type: 'accordion',

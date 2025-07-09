@@ -116,7 +116,7 @@ function addContact() {
 
           <Button
             class="btn sm:btn-lg btn-neutral text-red-500"
-            icon="material-symbols:news-outline-rounded"
+            icon="material-symbols:campaign-outline-rounded"
 
             @click="isWhatsNewModalOpen = true"
           >
