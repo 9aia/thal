@@ -65,6 +65,10 @@ export async function invalidateSession(orm: H3EventContext['orm'], sessionId: s
   await orm.delete(sessions).where(eq(sessions.id, sessionId))
 }
 
+export async function invalidateSessions(orm: H3EventContext['orm'], userId: string): Promise<void> {
+  await orm.delete(sessions).where(eq(sessions.userId, userId))
+}
+
 export function setSessionTokenCookie(event: H3Event, token: string, expiresAt: Date): void {
   setCookie(event, 'session', token, {
     httpOnly: true,

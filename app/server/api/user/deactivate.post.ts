@@ -1,5 +1,5 @@
 import { eq } from 'drizzle-orm'
-import { invalidateSession } from '~/server/services/auth'
+import { invalidateSessions } from '~/server/services/auth'
 import { pauseStripeSubscription } from '~/server/services/plan'
 import { now } from '~/utils/date'
 import { internal, unauthorized } from '~/utils/nuxt'
@@ -32,7 +32,7 @@ export default defineEventHandler(async (event) => {
     updatedAt: now(),
   }).where(eq(users.id, user.id!))
 
-  await invalidateSession(orm, session.id)
+  await invalidateSessions(orm, user.id)
 
   return sendRedirect(event, '/deactivated-account')
 })
