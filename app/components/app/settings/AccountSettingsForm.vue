@@ -15,7 +15,7 @@ const queryClient = useQueryClient()
 const form = useForm<User>({
   initialValues: toValue(user),
 })
-useUsernameValidation(form)
+const { usernameRules } = useUsernameValidation(form)
 const hasErrors = useHasFormErrors(form)
 
 const isDeactivateModalOpen = ref(false)
@@ -112,10 +112,7 @@ const items = computed<MenuItemType[]>(() => [
         autocomplete="off"
         :label="t('Username')"
         class="w-full"
-        :rules="yupify(usernameSchema, t(
-          'Username can only contain letters, numbers, and underscores. Min {min} character, max {max} characters.',
-          usernameSchemaChecks,
-        ))"
+        :rules="usernameRules"
         input-class="input-lg input-primary w-full"
         icon-position="right"
       >

@@ -1,0 +1,21 @@
+@inexistentUsername = motoko2
+@takenUsername = motoko
+@invalidSyntaxUsername = motoko$
+
+### Validate invalid - Should return { invalidSyntax: true, taken: false }
+
+GET {{baseUrl}}/username/validate/{{invalidSyntaxUsername}}
+Content-Type: application/json
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
+
+### Validate valid + inexistent - Should return { invalidSyntax: false, taken: false }
+
+GET {{baseUrl}}/username/validate/{{inexistentUsername}}
+Content-Type: application/json
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
+
+### Validate valid + taken - Should return { invalidSyntax: false, taken: true }
+
+GET {{baseUrl}}/username/validate/{{takenUsername}}
+Content-Type: application/json
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};

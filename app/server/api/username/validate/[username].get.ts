@@ -6,7 +6,6 @@ import { usernameSchema, usernames } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const { username } = await getValidated(event, 'params', z.object({ username: z.string() }))
-  const { editingUsername } = await getValidated(event, 'query', z.object({ editingUsername: z.string().optional() }))
 
   const orm = event.context.orm
   const user = event.context.user
@@ -15,16 +14,17 @@ export default eventHandler(async (event) => {
     throw unauthorized()
 
   if (!usernameSchema.safeParse(username).success)
-    return { valid: false }
+    return { invalidSyntax: true, taken: false }
 
   const [existingUsername] = await orm
     .select()
     .from(usernames)
     .where(eq(usernames.text, username))
 
-  const isUsernameTaken = existingUsername && (existingUsername.characterId !== null || existingUsername.userId !== user.id)
+  const isUsernameTaken = !!existingUsername && existingUsername.characterId !== null
 
   return {
-    valid: username === editingUsername || !isUsernameTaken,
+    invalidSyntax: false,
+    taken: isUsernameTaken,
   }
 })

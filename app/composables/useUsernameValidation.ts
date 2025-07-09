@@ -1,16 +1,23 @@
 import { useDebounceFn } from '@vueuse/core'
 import type { useForm } from 'vee-validate'
+import { usernameSchema, usernameSchemaChecks } from '~~/db/schema'
 
 function useUsernameValidation(form: ReturnType<typeof useForm>, options?: {
   fieldName?: string
 }) {
   const { fieldName = 'username' } = options ?? {}
 
-  const toast = useToast()
   const { t } = useI18nExperimental()
   const user = useUser()
 
   const isUsernameInvalid = ref(false)
+
+  const invalidSyntaxErrorMessage = t(
+    'Username can only contain letters, numbers, and underscores. Min {min} character, max {max} characters.',
+    usernameSchemaChecks,
+  )
+
+  const usernameRules = yupify(usernameSchema, invalidSyntaxErrorMessage)
 
   const validateUsername = async (username: string) => {
     if (!username)
@@ -18,28 +25,49 @@ function useUsernameValidation(form: ReturnType<typeof useForm>, options?: {
 
     const currentUsername = user.value?.username
 
-    let invalid = false
+    let invalidSyntax = false
+    let taken = false
+    const isMine = currentUsername === username
 
     try {
-      const { valid } = await $fetch(`/api/character/validate-username/${username}`)
+      const result = await $fetch(`/api/username/validate/${username}`)
 
-      invalid = !valid && currentUsername !== username
+      invalidSyntax = result.invalidSyntax
+      taken = result.taken
     }
     catch (e) {
       const _ = e
 
-      toast.error(t(
-        'An error occurred while validating username.',
-      ))
-      invalid = false
+      form.setFieldError(
+        fieldName,
+        t('An error occurred while validating username.'),
+      )
+
+      isUsernameInvalid.value = true
+      return
     }
 
-    isUsernameInvalid.value = invalid
+    if (invalidSyntax) {
+      form.setFieldError(
+        fieldName,
+        invalidSyntaxErrorMessage,
+      )
+      isUsernameInvalid.value = true
+      return
+    }
 
-    form.setFieldError(
-      fieldName,
-      invalid ? t('Username is invalid.') : undefined,
-    )
+    if (isMine) {
+      isUsernameInvalid.value = false
+      return
+    }
+
+    if (taken) {
+      form.setFieldError(
+        fieldName,
+        t('Username is already taken.'),
+      )
+      isUsernameInvalid.value = true
+    }
   }
 
   const debouncedValidateUsername = useDebounceFn(validateUsername, 500)
@@ -47,6 +75,7 @@ function useUsernameValidation(form: ReturnType<typeof useForm>, options?: {
 
   return {
     isUsernameInvalid,
+    usernameRules,
   }
 }
 
