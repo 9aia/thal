@@ -6,6 +6,7 @@ import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import type { FetchError } from 'ofetch'
 import { useForm } from 'vee-validate'
 import type { MenuItemType } from '~/components/ui/navigation/types'
+import { LEFT_SIDEBAR_PROVIDE_KEY } from '~/constants/sidebar'
 import queryKeys from '~/queryKeys'
 import { characterBuildId, characterBuildPrompt } from '~/store'
 import type { CharacterBuildApiData, CharacterBuilderEditViewMode } from '~/types'
@@ -177,16 +178,10 @@ const hasChanges = computed(() => {
     && d.categoryName === c.categoryName)
 })
 
-const breakpoints = useBreakpoints(breakpointsTailwind)
-const isMobile = computed(() => breakpoints.smaller('lg').value)
+const sidebar = useSidebar(LEFT_SIDEBAR_PROVIDE_KEY)
 
 function handleGoToChat() {
-  if (isMobile.value) {
-    navigateTo(`/app/chat/${editingUsername.value}`)
-
-    return
-  }
-
+  sidebar.open.value = false
   navigateTo(`/app/chat/${editingUsername.value}?build-character`)
 }
 
@@ -223,7 +218,10 @@ function handleApproved(characterId: number) {
           >
             <template #characterName>
               <br>
-              <button class="text-blue-500 focus:outline-primary focus:outline-offset-4 focus:outline-2 rounded-full" @click="navigateTo(`/app/chat/${buildQuery.data.value?.character!.username}?build-character`)">
+              <button
+                class="text-blue-500 focus:outline-primary focus:outline-offset-4 focus:outline-2 rounded-full"
+                @click="handleGoToChat"
+              >
                 {{ buildQuery.data.value?.character!.name }}
               </button>
             </template>
