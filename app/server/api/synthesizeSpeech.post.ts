@@ -21,9 +21,8 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  if (user.subscriptionStatus === SubscriptionStatus.past_due) {
+  if (user.subscriptionStatus === SubscriptionStatus.past_due)
     throw paymentRequired()
-  }
 
   const listenRateLimit = await event.context.cloudflare.env.LISTEN_RATE_LIMIT.limit({ key: `listen-${user.id}` })
 

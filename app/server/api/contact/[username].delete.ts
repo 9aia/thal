@@ -1,6 +1,7 @@
 import { and, eq } from 'drizzle-orm'
 import { z } from 'zod'
 import { getContactByUsername } from '~/server/services/contact'
+import { now } from '~/utils/date'
 import { getValidated } from '~/utils/h3'
 import { notFound, unauthorized } from '~/utils/nuxt'
 import { contacts, usernameSchema } from '~~/db/schema'
@@ -20,7 +21,10 @@ export default eventHandler(async (event) => {
     throw notFound('Contact not found')
 
   const [deletedContact] = await orm
-    .delete(contacts)
+    .update(contacts)
+    .set({
+      deletedAt: now(),
+    })
     .where(and(eq(contacts.userId, user.id), eq(contacts.id, contact.id)))
     .returning()
 
@@ -28,7 +32,10 @@ export default eventHandler(async (event) => {
     id: deletedContact.id,
     name: deletedContact.name,
     createdAt: deletedContact.createdAt,
+    deletedAt: deletedContact.deletedAt,
+    updatedAt: deletedContact.updatedAt,
     username,
+    userId: deletedContact.userId,
   }
 
   return deletedContactDto

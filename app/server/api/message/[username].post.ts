@@ -46,7 +46,9 @@ export default eventHandler(async (event) => {
     },
     with: {
       character: {
-        columns: {},
+        columns: {
+          deletedAt: true,
+        },
         with: {
           characterLocalizations: {
             columns: {
@@ -75,12 +77,15 @@ export default eventHandler(async (event) => {
   if (!character)
     throw notFound('Character not found')
 
+  if (character.deletedAt)
+    throw notFound('Character not found')
+
   const contact = result.contacts[0]
   let chat = result.chats[0]
 
   // #region Create chat if it doesn't exist
 
-  if (!chat) {
+  if (!chat || chat.deletedAt) {
     const [newChat] = await orm
       .insert(chats)
       .values({

@@ -1,10 +1,10 @@
-import { z } from 'zod'
 import { eq } from 'drizzle-orm'
+import { z } from 'zod'
 import { getHistory } from '../services/messages'
-import { getValidated } from '~/utils/h3'
-import { internal, notFound, notImplemented, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
-import { SubscriptionStatus, characterLocalizations, messages, usernames } from '~~/db/schema'
 import { promptGeminiText } from '~/utils/gemini'
+import { getValidated } from '~/utils/h3'
+import { forbidden, internal, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
+import { SubscriptionStatus, characterLocalizations, messages, usernames } from '~~/db/schema'
 
 export default defineEventHandler(async (event) => {
   const { GEMINI_API_KEY, GEMINI_MODEL } = useRuntimeConfig(event)
@@ -29,9 +29,8 @@ export default defineEventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  if (user.subscriptionStatus === SubscriptionStatus.past_due) {
+  if (user.subscriptionStatus === SubscriptionStatus.past_due)
     throw paymentRequired()
-  }
 
   const translateRateLimit = await event.context.cloudflare.env.TRANSLATE_RATE_LIMIT.limit({ key: `translate-${user.id}` })
 
@@ -44,6 +43,7 @@ export default defineEventHandler(async (event) => {
       character: {
         columns: {
           discoverable: true,
+          deletedAt: true,
         },
         with: {
           characterLocalizations: {
@@ -59,14 +59,11 @@ export default defineEventHandler(async (event) => {
   })
 
   if (!username)
-    throw notFound('Username not found')
+    throw forbidden('Username not found')
 
-  if (!username.character)
-    throw notImplemented('Character not found')
+  const localization = username.character?.characterLocalizations?.[0]
 
-  if (!username.character.characterLocalizations
-    || !username.character.characterLocalizations[0]
-  ) {
+  if (username.character && !username.character.deletedAt && !localization) {
     throw internal('Character localization not found')
   }
 
@@ -79,14 +76,14 @@ export default defineEventHandler(async (event) => {
     return `Character 2: ${message.content}`
   }).join('\n')
 
-  const localization = username.character.characterLocalizations[0]
-
-  const character = {
-    username: username.text,
-    discoverable: username.character.discoverable,
-    name: localization.name,
-    description: localization.description,
-  }
+  const character = username.character && !username.character.deletedAt && localization
+    ? {
+        username: username.text,
+        discoverable: username.character.discoverable,
+        name: localization.name,
+        description: localization.description,
+      }
+    : null
 
   let replyMessage = ''
 
@@ -147,11 +144,15 @@ export default defineEventHandler(async (event) => {
         })}
       </user-data>
 
-      <bot-data>
-        ${character.name} (@${data.chatUsername}) 
+      ${character
+        ? `
+          <bot-data>
+            ${character.name} (@${data.chatUsername}) 
 
-        ${character.description}
-      </bot-data>
+            ${character.description}
+          </bot-data>
+      `
+        : ''}
 
       ${historyContext}
     </context>

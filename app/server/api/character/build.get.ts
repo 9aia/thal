@@ -4,8 +4,8 @@ import { getCharacterCategoryName } from '~/server/services/character'
 import { getValidated } from '~/utils/h3'
 import { noContent, paymentRequired, unauthorized } from '~/utils/nuxt'
 import { isPlanPastDue } from '~/utils/plan'
-import { characterDraftLocalizations, characterDrafts, characterLocalizations } from '~~/db/schema'
 import { numericString } from '~/utils/zod'
+import { characterDraftLocalizations, characterDrafts, characterLocalizations } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const { characterId, locale } = await getValidated(event, 'query', z.object({

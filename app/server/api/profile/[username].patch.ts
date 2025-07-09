@@ -1,9 +1,9 @@
 import { and, eq, isNotNull } from 'drizzle-orm'
 import { z } from 'zod'
-import { userUpdateSchema, usernames, users } from '~~/db/schema'
+import { now } from '~/utils/date'
 import { getValidated } from '~/utils/h3'
 import { forbidden, unauthorized } from '~/utils/nuxt'
-import { now } from '~/utils/date'
+import { userUpdateSchema, usernames, users } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const { username } = await getValidated(event, 'params', z.object({ username: z.string() }))

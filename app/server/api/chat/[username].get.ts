@@ -17,10 +17,6 @@ export default defineEventHandler(async (event) => {
   const result = await orm.query.usernames.findFirst({
     with: {
       chats: {
-        columns: {
-          id: true,
-          createdAt: true,
-        },
         where: (chats, { eq }) => eq(chats.userId, user.id!),
       },
     },
@@ -33,11 +29,13 @@ export default defineEventHandler(async (event) => {
     return {
       id: null,
       createdAt: null,
+      deletedAt: null,
+      updatedAt: null,
+      usernameId: null,
+      userId: null,
+      contactId: null,
     }
   }
 
-  return {
-    id: chat?.id,
-    createdAt: chat?.createdAt,
-  }
+  return chat
 })

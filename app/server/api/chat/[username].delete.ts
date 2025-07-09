@@ -1,5 +1,6 @@
 import { and, eq } from 'drizzle-orm'
 import { z } from 'zod'
+import { now } from '~/utils/date'
 import { getValidated } from '~/utils/h3'
 import { badRequest, notFound, unauthorized } from '~/utils/nuxt'
 import { chats, usernameSchema } from '~~/db/schema'
@@ -23,13 +24,17 @@ export default defineEventHandler(async (event) => {
     throw notFound()
 
   const [deletedChat] = await orm
-    .delete(chats)
+    .update(chats)
+    .set({
+      deletedAt: now(),
+    })
     .where(
       and(
         eq(chats.usernameId, usernameResult.id),
         eq(chats.userId, user.id),
       ),
-    ).returning()
+    )
+    .returning()
 
   if (!deletedChat)
     throw badRequest(`Chat not found for username: ${username}`)

@@ -27,7 +27,7 @@ export default eventHandler(async (event) => {
     .from(usernames)
     .where(eq(usernames.text, username))
 
-  if (!existingUsername || existingUsername.characterId == null) {
+  if (!existingUsername) {
     return {
       characterNotFound: true,
       alreadyAdded: false,
@@ -36,33 +36,35 @@ export default eventHandler(async (event) => {
     }
   }
 
-  const character = await orm.query.characters.findFirst({
-    where: (characters, { eq }) => eq(characters.id, Number(existingUsername.characterId)),
-    columns: {
-      discoverable: true,
-      creatorId: true,
-    },
+  const result = await orm.query.usernames.findFirst({
+    where: (usernames, { eq }) => eq(usernames.id, existingUsername.id),
     with: {
-      usernames: {
+      contacts: {
         columns: {
-          id: true,
+          deletedAt: true,
         },
-        with: {
-          contacts: {
-            where: (contacts, { eq }) => and(eq(contacts.userId, user.id), eq(contacts.usernameId, existingUsername.id)),
-            columns: {
-              id: true,
-            },
-          },
+        where: (contacts, { eq }) => and(
+          eq(contacts.userId, user.id),
+          eq(contacts.usernameId, existingUsername.id),
+        ),
+      },
+      character: {
+        columns: {
+          discoverable: true,
+          creatorId: true,
+          deletedAt: true,
         },
       },
     },
   })
 
+  const character = result?.character
+  const contact = result?.contacts?.[0]
+
   return {
-    characterNotFound: false,
-    alreadyAdded: !!character?.usernames?.contacts?.length,
-    discoverable: character?.discoverable || character?.creatorId === user.id,
+    characterNotFound: character == null || character?.deletedAt != null,
+    alreadyAdded: !!contact && contact?.deletedAt == null,
+    discoverable: (character?.discoverable || character?.creatorId === user.id) && character?.deletedAt == null,
     isUsernameValid: true,
   }
 })

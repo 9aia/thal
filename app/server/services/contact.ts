@@ -1,4 +1,4 @@
-import { and, eq, sql } from 'drizzle-orm'
+import { and, eq, isNull, sql } from 'drizzle-orm'
 import type { H3EventContext } from 'h3'
 import { notFound } from '~/utils/nuxt'
 import type { User } from '~~/db/schema'
@@ -13,7 +13,10 @@ export async function getContactByUsername(
     where: eq(usernames.text, username),
     with: {
       contacts: {
-        where: eq(contacts.userId, user.id!),
+        where: and(
+          eq(contacts.userId, user.id!),
+          isNull(contacts.deletedAt),
+        ),
         columns: {
           id: true,
           name: true,
@@ -43,7 +46,7 @@ export async function getContactByUsername(
   }
 }
 
-export async function getContactWithCharacterByUser(
+export async function getContactByUser(
   orm: H3EventContext['orm'],
   user: User,
   username: string,
@@ -58,8 +61,11 @@ export async function getContactWithCharacterByUser(
     })
     .from(contacts)
     .leftJoin(usernames, eq(usernames.id, contacts.usernameId))
-    .leftJoin(characters, eq(characters.id, usernames.characterId))
-    .where(and(eq(contacts.userId, user.id!), eq(usernames.text, username)))
+    .where(and(
+      eq(contacts.userId, user.id!),
+      eq(usernames.text, username),
+      isNull(contacts.deletedAt),
+    ))
 
   if (!contact)
     throw notFound('Contact not found')
@@ -95,12 +101,15 @@ export async function getContactsWithCharacterByUser(
             : sql``
         }
         AND ${characterLocalizations.locale} = ${locale}
+        AND ${characters.deletedAt} IS NULL
+        AND ${contacts.deletedAt} IS NULL
+        AND ${characterLocalizations.deletedAt} IS NULL
     `)
 
   return results as {
     contactId: number
     contactName: string
     username: string
-    characterDescription: string
+    characterDescription: string | null
   }[]
 }

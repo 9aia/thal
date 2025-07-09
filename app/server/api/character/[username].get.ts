@@ -28,6 +28,7 @@ export default eventHandler(async (event) => {
           categoryId: true,
           discoverable: true,
           creatorId: true,
+          deletedAt: true,
         },
         with: {
           characterLocalizations: {
@@ -46,6 +47,9 @@ export default eventHandler(async (event) => {
     throw notFound('Username not found')
 
   const character = result.character
+
+  if (character?.deletedAt)
+    throw notFound('Character not found')
 
   return {
     id: character?.id || null,

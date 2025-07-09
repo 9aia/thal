@@ -1,10 +1,10 @@
+import { and, eq, isNull, like } from 'drizzle-orm'
 import z from 'zod'
-import { and, eq, like } from 'drizzle-orm'
+import { paginationSchema } from '~/schemas/data'
 import { calculatePagination, getPaginatedDto } from '~/utils/data'
 import { getValidated } from '~/utils/h3'
 import { unauthorized } from '~/utils/nuxt'
 import { numericString } from '~/utils/zod'
-import { paginationSchema } from '~/schemas/data'
 import { characterLocalizations, characters, usernames } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
@@ -46,6 +46,7 @@ export default eventHandler(async (event) => {
         query.search
           ? like(characterLocalizations.name, `%${query.search}%`)
           : undefined,
+        isNull(characters.deletedAt),
       ),
     )
     .limit(limit)
