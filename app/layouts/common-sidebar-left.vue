@@ -8,13 +8,8 @@ route.meta.ignoreAutoRedirect = true
 
 <template>
   <AppLayout>
-    <Sidebar
-      :root-state="LEFT_SIDEBAR_ROOT_STATE"
-      :component-keys="Object.keys(LEFT_SIDEBAR_COMPONENTS)"
-    >
-      <CommonLeftSidebar>
-        <slot />
-      </CommonLeftSidebar>
-    </Sidebar>
+    <CommonLeftSidebar>
+      <slot />
+    </CommonLeftSidebar>
   </AppLayout>
 </template>

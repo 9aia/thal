@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 import type { MenuItemType, MenuItemTypeOrFalse } from '~/components/ui/navigation/types'
+import { LEFT_SIDEBAR_PROVIDE_KEY } from '~/constants/sidebar'
 import { buildCharacter, manageContact, openContactView } from '~/store'
 
 const { t } = useI18nExperimental()
 const copyUrl = useCopyUrl()
 const route = useRoute()
 const user = useUser()
-const sidebar = useSidebar()
+const sidebar = useSidebar(LEFT_SIDEBAR_PROVIDE_KEY)
 const contactDeleteModalState = ref()
 const chatClearModalState = ref()
 

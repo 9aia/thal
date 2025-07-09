@@ -2,6 +2,7 @@
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { useDebounceFn } from '@vueuse/core'
 import { useForm } from 'vee-validate'
+import { LEFT_SIDEBAR_PROVIDE_KEY } from '~/constants/sidebar'
 import queryKeys from '~/queryKeys'
 import { manageContactName, manageContactUsername } from '~/store'
 import type { Contact } from '~/types'
@@ -11,7 +12,7 @@ import { nameSchema, nameSchemaChecks, usernameSchema, usernameSchemaChecks } fr
 const { t } = useI18nExperimental()
 const toast = useToast()
 const queryClient = useQueryClient()
-const sidebar = useSidebar()
+const sidebar = useSidebar(LEFT_SIDEBAR_PROVIDE_KEY)
 
 const contactQuery = useContactQuery(manageContactUsername)
 

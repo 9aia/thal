@@ -115,5 +115,13 @@
 		"wrangler.json": "jsonc",
     "**/app/content/**/*.md": "mdc",
     "**/*.md": "markdown"
-	}
+  },
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "database": "${workspaceFolder:thal}/.wrangler/state/v3/d1/miniflare-D1DatabaseObject/a350649cc7205b513479a99032b7dbd3f942fc734fcac8d418cf22b98ce570a4.sqlite",
+      "name": "thal"
+    }
+  ]
 }

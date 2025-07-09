@@ -38,3 +38,5 @@ export type LeftSidebarView = keyof typeof LEFT_SIDEBAR_COMPONENTS
 export const LEFT_SIDEBAR_ROOT_STATE: SidebarState<LeftSidebarView> = {
   view: 'chats',
 }
+
+export const LEFT_SIDEBAR_PROVIDE_KEY = 'LEFT_SIDEBAR' as const

@@ -2,10 +2,11 @@
 import { t } from '@psitta/vue'
 import { watchDebounced } from '@vueuse/core'
 import { useForm } from 'vee-validate'
+import { LEFT_SIDEBAR_PROVIDE_KEY } from '~/constants/sidebar'
 import { chatListSearch } from '~/store'
 
 const user = useUser()
-const sidebar = useSidebar()
+const sidebar = useSidebar(LEFT_SIDEBAR_PROVIDE_KEY)
 const chatsQuery = useChatsQuery()
 const isPastDueVisible = computed(() => isPlanPastDue(user.value))
 

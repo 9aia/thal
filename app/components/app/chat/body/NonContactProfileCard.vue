@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
+import { LEFT_SIDEBAR_PROVIDE_KEY } from '~/constants/sidebar'
 import { manageContact, openContactView } from '~/store'
 
 const props = defineProps<{
@@ -9,7 +10,7 @@ const props = defineProps<{
   username: string
 }>()
 
-const sidebar = useSidebar()
+const sidebar = useSidebar(LEFT_SIDEBAR_PROVIDE_KEY)
 
 const truncatedDescription = computed(() => {
   if (!props.description)

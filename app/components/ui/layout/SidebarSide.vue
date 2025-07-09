@@ -1,11 +1,13 @@
 <script setup lang="ts">
+import { LEFT_SIDEBAR_PROVIDE_KEY } from '~/constants/sidebar'
+
 const props = defineProps<{
   components: Record<string, Component>
 }>()
 
 const SIDEBAR_LOADING_TO_COMPONENT_ANIMATION_NAME = 'fade-in-out-fast'
 
-const sidebar = useSidebar()
+const sidebar = useSidebar(LEFT_SIDEBAR_PROVIDE_KEY)
 
 const component = computed(() => props.components[sidebar.view.value])
 const isLoading = ref(true)

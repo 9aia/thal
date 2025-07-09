@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
+import { LEFT_SIDEBAR_PROVIDE_KEY } from '~/constants/sidebar'
 import { buildCharacter, isWhatsNewModalOpen, manageContact } from '~/store'
 
 const whatsNew = useWhatsNew()
-const sidebar = useSidebar()
+const sidebar = useSidebar(LEFT_SIDEBAR_PROVIDE_KEY)
 const router = useRouter()
 
 async function goToDiscover() {
