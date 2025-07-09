@@ -9,7 +9,7 @@ description: A collection of ideas and feedback from stakeholders or team member
 - Add official characters
 - Add conversation starters
 - Add male voice
-- Implement translations on deleted characters
+- Implement translation mechanism fallback on deleted characters and inform bad performance
 - Add a "My Characters" link in Discover Characters
 - Add different plans: (individual), family, business and school
 - Add personal vocabulary lists that the chatbot can incorporate into the convo

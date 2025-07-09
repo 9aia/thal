@@ -985,5 +985,29 @@
   },
   "Talk to \"{name}\" thal. Learn English.": {
     "pt": "Fale com o thal de \"{name}\". Aprenda inglês."
+  },
+  "Clearing Chat History": {
+    "pt": "Apagando histórico de conversas"
+  },
+  "Clear history": {
+    "pt": "Apagar histórico"
+  },
+  "You are about to clear all chat history with {inlineContact}. This action cannot be undone. Are you sure you want to continue?": {
+    "pt": "Você está prestes a apagar todo o histórico de conversas com {inlineContact}. Esta ação não pode ser desfeita. Tem certeza que deseja continuar?"
+  },
+  "What's new": {
+    "pt": "Novidades"
+  },
+  "": {
+    "pt": ""
+  },
+  "An error occurred while clearing chat history.": {
+    "pt": "Ocorreu um erro ao apagar o histórico de conversas."
+  },
+  "Chat history has been cleared.": {
+    "pt": "O histórico de conversas foi apagado."
+  },
+  "Your account and all associated data will be hidden, and your subscription paused. You'll also be logged out of all devices. You can reactivate your account at any time.": {
+    "pt": "Sua conta e todos os dados associados serão ocultados, e sua assinatura será pausada. Você também será desconectado de todos os dispositivos. Você pode reativar sua conta a qualquer momento."
   }
 }

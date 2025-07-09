@@ -33,7 +33,6 @@ Low priority:
 - Add audio pause/resume button to chat messages
 - Add a "My Characters" section/accordion in the "New Chat"
 - Implement basic analytics to track user engagement and app performance
-- Implement soft-deletes for characters to enable translation/listening in chats with deleted characters
 - Add rate limit details to the pricing page
 - Add language drawer containing UI language and translation settings
 - Add English locale preference (eg. US or UK)

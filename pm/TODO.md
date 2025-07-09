@@ -6,6 +6,12 @@ description: Tasks and items for the release.
 
 ## 0.1.0-13
 
+- Fix hydration errors on deleted characters route
+- Fix blocked (shouldn't) chats with deleted characters
+- Fix head tags on authed pages
+- Add updatedAt
+- Fix psitta not finding account deactivate modal
+
 - Implement soft-deletes
 - Pre-create and refine default characters
 - Revise content of policy pages

@@ -53,13 +53,10 @@ const isUsernameInvalid = computed(() => {
       <div role="alert" class="px-8 flex items-center gap-3 bg-transparent">
         <Icon class="text-warning" name="material-symbols:warning-outline-rounded" />
 
-        <T
-          text="This action will {hide} your account and all associated data. You can reactivate it anytime."
-          :values="{ hide: 'hide' }"
-        >
-          <template #hide="slotProps">
+        <T text="Your account and all associated data will be hidden, and your subscription paused. You'll also be logged out of all devices. You can reactivate your account at any time." :values="{ hidden: true }">
+          <template #hidden="slotProps">
             <span class="font-bold">
-              {{ slotProps.hide }} {{ ' ' }}
+              {{ slotProps.hidden }}
             </span>
           </template>
         </T>

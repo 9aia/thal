@@ -15,6 +15,7 @@ description: A detailed, chronological record of all changes made to a project, 
 ### Added
 
 - Added What's New button to the site layout footer
+- Added translation fallback on deleted characters
 
 ### Enhanced
 
