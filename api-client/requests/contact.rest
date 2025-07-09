@@ -1,16 +1,16 @@
 @username = motoko
 
-### Find all contacts
+### Get all contacts
 
-GET {{baseUrl}}/contact
+GET {{baseUrl}}/contact?locale=en-US
 Content-Type: application/json
 Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
 
 ### Search contacts
 
-@query = beet
+@query = spoo
 
-GET {{baseUrl}}/contact?search={{query}}
+GET {{baseUrl}}/contact?search={{query}}&locale=en-US
 Content-Type: application/json
 Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
 
@@ -20,7 +20,7 @@ GET {{baseUrl}}/contact/{{username}}
 Content-Type: application/json
 Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
 
-### Create contact
+### Add contact
 
 POST {{baseUrl}}/contact
 Content-Type: application/json
@@ -31,7 +31,7 @@ Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
   "name": "Motoko"
 }
 
-### Update contact
+### Edit contact
 
 PATCH {{baseUrl}}/contact/{{username}}
 Content-Type: application/json
@@ -41,7 +41,7 @@ Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
   "name": "Motoko Kusanagi"
 }
 
-### Delete contact
+### Remove contact
 
 DELETE {{baseUrl}}/contact/{{username}}
 Content-Type: application/json

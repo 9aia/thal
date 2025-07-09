@@ -1,0 +1,62 @@
+### Get data
+
+GET {{baseUrl}}/character/build?locale=en-US
+Content-Type: application/json
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
+
+### Create draft
+
+POST {{baseUrl}}/character/draft
+Content-Type: application/json
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
+
+{
+  "locale": "en-US",
+  "prompt": "Batou from Ghost in the Shell"
+}
+
+#### Should return a 400 "You already have a pending character draft" if this was called before
+
+### Discard current draft
+
+DELETE {{baseUrl}}/character/draft
+Content-Type: application/json
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
+
+{}
+
+### Discard a specific draft
+
+@characterId = 1
+
+DELETE {{baseUrl}}/character/draft
+Content-Type: application/json
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
+
+{
+  "characterId": {{characterId}}
+}
+
+### Edit draft
+
+PATCH {{baseUrl}}/character/draft
+Content-Type: application/json
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
+
+{
+  "locale": "en-US",
+  "prompt": "Make Batou from Ghost in the Shell more like a cat"
+}
+
+### Edit a specific draft
+
+PATCH {{baseUrl}}/character/draft
+Content-Type: application/json
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
+
+{
+  "locale": "en-US",
+  "prompt": "Make Batou from Ghost in the Shell more like a cat",
+  "characterId": {{characterId}}
+}
+

@@ -54,16 +54,6 @@ block('Toggle character discoverability', {
   },
 })
 
-// ------------------ CharacterDraft ------------------
-
-block('List all drafts', {
-  query: db => db.select().from(characterDrafts),
-})
-
-block('List all draft localizations', {
-  query: db => db.select().from(characterDraftLocalizations),
-})
-
 // -- @block List characters left joined with name
 
 // SELECT c.id, cl.locale, cl.name, cl.description, cl.instructions
@@ -84,12 +74,4 @@ block('List characters left joined with name', {
       .leftJoin(characterLocalizations, eq(characters.id, characterLocalizations.characterId))
       .where(eq(characterLocalizations.locale, 'en-US'))
   ),
-})
-
-block('Delete all character drafts', {
-  danger: true,
-  run: db => db.batch([
-    db.delete(characterDrafts),
-    db.delete(characterDraftLocalizations),
-  ]),
 })

@@ -2,29 +2,15 @@
 
 ### Find all characters
 
-GET {{baseUrl}}/character
+GET {{baseUrl}}/character?locale=en-US
 Content-Type: application/json
 Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
 
 ### Get character
 
-GET {{baseUrl}}/character/{{username}}
+GET {{baseUrl}}/character/{{username}}?locale=en-US
 Content-Type: application/json
 Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
-
-### Create character
-
-POST {{baseUrl}}/character
-Content-Type: application/json
-Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
-
-{
-  "username": "ishikawa",
-  "name": "Ishikawa",
-  "description": "A seasoned intelligence expert and a member of Public Security Section 9 in 'Ghost in the Shell.' He is known for his exceptional hacking skills, extensive knowledge of global intelligence networks, and a laid-back yet insightful demeanor that often provides valuable support to his team's operations.",
-  "instructions": "Behave like Ishikawa",
-  "conversationStarters": ["Hey, Ishikawa!", "Hi, veteran."]
-}
 
 ### Update character
 
