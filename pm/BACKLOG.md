@@ -8,78 +8,82 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## Bugs
 
-High priority:
+### High priority
 
+- Remove approve button from character builder after already approved
+- Fix character edition error when the edition was approved and the user try to approve again without changes
 - Deal with long history on translate
 - Fix listening to long messages
 - Handle longer contexts
-- Rewrite left joins using Query API
-- Allow users to use only one session
-- Handle invalid sessions
 - Use only name instead of name and last name
 
-Medium priority:
-- Add respective loading states for sidebar (using the skeletons) and respective headers for each view
+### Medium priority
 
-Low priority:
+- Allow users to use only one session
+- Handle invalid sessions
+
+### Low priority
 
 - Fixed speech missing speech stop on chat route leave
 - Fix DB on build pre-render
 
 ## Features
 
-- Create "about me" textarea in the profile page
-- Open contact view from query
-- Add audio pause/resume button to chat messages
-- Add a "My Characters" section/accordion in the "New Chat"
+### High priority
+
 - Implement basic analytics to track user engagement and app performance
-- Add rate limit details to the pricing page
+
+### Medium priority
+
+- Create "about me" textarea in the profile page
 - Add language drawer containing UI language and translation settings
-- Add English locale preference (eg. US or UK)
 - Add native language preference (eg. BR or PT)
-- Add config for time
+- Add English locale preference (eg. US or UK)
+- Add time zone preference
 - Add character unique voices
-- Add pause icon button to message listen button
+- Add calls
+- Add a "My Characters" section/accordion in the "New Chat"
 - ---
+- Add pause icon button to message listen button
+- Add audio pause/resume button to chat messages
+- Open contact view from query
 - Add chat item option "Delete chat"
 - Add "Create another character" button for faster multiple creation on preview env
 - Add button to create character in the discover characters page (aside of search field)
 - Add character search to new-chat view search
 - Add "Delete character" and "Edit character" actions to chat header options and contact view if you're the owner
 - Add query param to add contact from URL (eg. /app/chat/username?add=true and /app?add-contact=username) and others
-- ---
+- Add drawer search query params when opening drawers
+- Add `read` status and add unread badge to chat item
+
+### Low priority
+
+- Add character search results to chat and contact search
+- Add multiple message TTS player
 - Save message input state and other fields in local storage
 - Add date stamps in chat
 - Add dark theme
 - Add a deleted/non-existent section in contacts
-- Add character search results to chat and contact search
-- Add drawer search query params when opening drawers
-- Add multiple message TTS player
+- Add localized forms for feedback, etc
 - Add character knowledge
 - Add media messages support, such as audio and picture
 
-Medium priority:
-
-- Add calls
-
-Low priority:
-
-- Add `read` status and add unread badge to chat item
-- Add localized forms for feedback, etc
-
 ## Enhancements
+
+### High priority
 
 - Add a welcome modal and add a link to it in the settings page
 - Remove the Home page on mobile (Welcome modal will be better)
-- Remove approve button from character builder after already approved
-  - Fix character edition error when the edition was approved and the user try to approve again without changes
-- Fix input autofocuses on navigate
 - Inform deleted character action such as translate, using tooltip
-- Save cookie for "Continue Your Access" after once logged
+
+### Medium priority
+
+- Fix input autofocuses on navigate
+
+### Low priority
+
 - Pass user name to Stripe from Google account
-
-Low priority:
-
+- Save cookie for "Continue Your Access" after once logged
 - Improve error handling
 - Improve loading handling
   - Improve chat loading by rendering the skeleton on the backend and the message on the client
@@ -97,7 +101,7 @@ Low priority:
 
 ## Glitches
 
-Low priority:
+### Low priority
 
 - Fix locale change animation glitch
 - Fix chat bubble animation glitch
@@ -113,18 +117,18 @@ Low priority:
 
 ## Accessibility
 
-High priority:
+### High priority
 
 - Add tooltip to all actionable icons
 - Add `aria-label` and `title` to all buttons (add `title` prop to Button component)
 
-Low priority:
+### Low priority
 
 - Improve a11y for avatars
 
 ## Legal
 
-Low priority:
+### Low priority
 
 - Add automatic informing Thal changed (specially terms or privacy) via email
 - Improve prompt engineering for the character builder
@@ -140,7 +144,7 @@ Low priority:
 
 ## Performance
 
-Low priority:
+### Low priority
 
 - Load lazily the modals
 - Optimize invalidations (use queryClient.setQueryData)
@@ -155,25 +159,27 @@ Low priority:
 
 ## Design
 
-Medium priority:
+### Medium priority
 
 - Add setting item type for modal openers
 - Improve scroll look and feel
 
-Low priority:
+### Low priority
 
+- Add respective loading states for sidebar (using the skeletons) and respective headers for each view
 - Add custom payment pages
 
 ## DX
 
-Medium priority:
+### Medium priority
+
 - Refactor translate endpoint into `/api/message/translate` with `messageId` param
 - Refactor synthesizeSpeech endpoint into `/api/message/synthesize-speech` with `messageId` param
 - Refactor right sidebar into its own sidebar like the left sidebar
 - Improve logging
 - Add auto-migration for the database on deploy
 
-Low priority:
+### Low priority
 
 - Remove unnecessary `contact` from chat table?
 - Add client-side error tracking

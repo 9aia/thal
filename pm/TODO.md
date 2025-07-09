@@ -14,6 +14,7 @@ description: Tasks and items for the release.
 
 ## 0.1.0-14
 
+- Add rate limit details to the pricing page
 - Remove English help forms
 - Fix head tags on authed pages
 - Lower every username comparison
@@ -37,11 +38,12 @@ description: Tasks and items for the release.
 
 - Implement character builder and contact manager to use sidebar param, eg. `/app/?build-character=motoko`
 - Add high traffic UI alert
-- Continue backlog
-- Look for TODOS inside the codebase
 
 ## 0.2.0 - Language Assistance Improvements
 
 - Add text input correction confirmation popover
   - Diffing
   - Actions: "Regenerate", "Explain", "Apply", "Ignore"
+
+- Continue backlog
+- Look for TODOS inside the codebase
