@@ -77,7 +77,6 @@ export const users = table('User', {
 
   name: text('name').notNull(),
   lastName: text('last_name').notNull(),
-  pronouns: text('pronouns'),
   picture: text('picture'),
   email: text('email'),
 
@@ -130,11 +129,6 @@ export const nameSchemaChecks = {
   max: nameSchema._def.checks.find(check => check.kind === 'max')?.value,
 }
 
-export const pronounsSchema = z.string().min(0).max(20).nullish()
-export const pronounsSchemaChecks = {
-  max: pronounsSchema._def.innerType._def.innerType._def.checks.find(check => check.kind === 'max')?.value,
-}
-
 export const userNameSchema = z.string().min(1).max(32)
 export const userNameSchemaChecks = {
   min: userNameSchema._def.checks.find(check => check.kind === 'min')?.value,
@@ -150,7 +144,6 @@ export const userLastNameSchemaChecks = {
 export const userSelectSchema = createSelectSchema(users, {
   name: userNameSchema,
   lastName: userLastNameSchema,
-  pronouns: pronounsSchema,
   email: z.string().email().optional().nullable(),
 })
   .extend({
@@ -161,29 +154,15 @@ export const userInsertSchema = createInsertSchema(users, {
   id: id => id.optional(),
   name: userNameSchema,
   lastName: userLastNameSchema,
-  pronouns: pronounsSchema,
   email: z.string().email(),
 })
   .omit({ ...timestampOmits })
   .extend({
     username: usernameSchema,
   })
-
-export const userUpdateSchema = createInsertSchema(users, {
-  name: userNameSchema,
-  lastName: userLastNameSchema,
-  pronouns: pronounsSchema,
-  email: z.string().email(),
-})
-  .omit({ ...timestampOmits })
-  .extend({
-    username: usernameSchema,
-  })
-  .partial()
 
 export type UserSelect = z.infer<typeof userSelectSchema>
 export type UserInsert = z.infer<typeof userInsertSchema>
-export type UserUpdate = z.infer<typeof userUpdateSchema>
 export type User = UserSelect
 
 export const sessionSelectSchema = createSelectSchema(sessions).omit(timestampOmits)
@@ -192,6 +171,37 @@ export type SessionSelect = z.infer<typeof sessionSelectSchema>
 export type Session = SessionSelect
 
 // #endregion
+
+// #region Profile
+
+export const profileUpdateSchema = createInsertSchema(users, {
+  name: userNameSchema,
+  lastName: userLastNameSchema,
+  email: z.string().email(),
+})
+  .omit({
+    ...timestampOmits,
+    id: true,
+
+    email: true,
+    picture: true,
+
+    // For security reasons, we don't want to update these fields
+    deactivatedAt: true,
+
+    checkoutId: true,
+    subscriptionId: true,
+    stripeCustomerId: true,
+    plan: true,
+    freeTrialUsed: true,
+    subscriptionStatus: true,
+  })
+  .extend({
+    username: usernameSchema,
+  })
+  .partial()
+
+export type ProfileUpdate = z.infer<typeof profileUpdateSchema>
 
 // #region Characters
 

@@ -4,7 +4,7 @@ import { useForm } from 'vee-validate'
 import type { MenuItemType } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
 import type { User } from '~~/db/schema'
-import { userLastNameSchema, userLastNameSchemaChecks, userNameSchema, userNameSchemaChecks, usernameSchema, usernameSchemaChecks } from '~~/db/schema'
+import { userLastNameSchema, userLastNameSchemaChecks, userNameSchema, userNameSchemaChecks } from '~~/db/schema'
 
 const { t } = useI18nExperimental()
 const toast = useToast()
@@ -21,10 +21,10 @@ const hasErrors = useHasFormErrors(form)
 const isDeactivateModalOpen = ref(false)
 
 const editAccountMutation = useMutation({
-  mutationFn: async ({ username, formData }: { username: string, formData: User }) => {
-    return await $fetch(`/api/profile/${username}`, {
+  mutationFn: async (data: User) => {
+    return await $fetch(`/api/profile`, {
       method: 'patch',
-      body: formData,
+      body: data,
     })
   },
   onError: () => {
@@ -44,12 +44,7 @@ const editAccountMutation = useMutation({
 })
 
 const submit = form.handleSubmit(async (data) => {
-  const username = user.value!.username!
-
-  editAccountMutation.mutate({
-    username,
-    formData: data,
-  })
+  editAccountMutation.mutate(data)
 })
 
 const items = computed<MenuItemType[]>(() => [
@@ -123,18 +118,6 @@ const items = computed<MenuItemType[]>(() => [
           />
         </template>
       </TextField>
-
-      <!-- TODO: Move pronouns to the profile page -> About me -->
-      <!-- <TextField
-        path="pronouns"
-        :label="t('Pronouns')"
-        class="w-full"
-        input-class="input-lg input-primary w-full"
-        :rules="yupify(pronounsSchema, t(
-          'Pronouns must be up to {max} characters long.',
-          pronounsSchemaChecks,
-        ))"
-      /> -->
 
       <Button
         :loading="editAccountMutation.isPending.value"

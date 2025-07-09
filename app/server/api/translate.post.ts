@@ -138,7 +138,6 @@ export default defineEventHandler(async (event) => {
         ${JSON.stringify({
           name: user.name,
           lastName: user.lastName,
-          pronouns: user.pronouns,
           username: user.username,
         }, null, 2)}
         })}
