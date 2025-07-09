@@ -1,24 +1,6 @@
 @username = motoko
-
-### Get all contacts
-
-GET {{baseUrl}}/contact?locale=en-US
-Content-Type: application/json
-Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
-
-### Search contacts
-
-@query = spoo
-
-GET {{baseUrl}}/contact?search={{query}}&locale=en-US
-Content-Type: application/json
-Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
-
-### Get contact
-
-GET {{baseUrl}}/contact/{{username}}
-Content-Type: application/json
-Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
+@inexistentUsername = motoko2
+@existingButNotContact = batou
 
 ### Add contact
 

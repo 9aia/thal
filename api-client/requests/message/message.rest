@@ -1,0 +1,24 @@
+@existingUsername = motoko
+@inexistentUsername = motoko2
+
+### Send message to inexistent username
+
+POST {{baseUrl}}/message/{{inexistentUsername}}
+Content-Type: application/json
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
+
+{
+  "content": "Hello, how are you?"
+}
+
+#### - Should return 404 "Username not found"
+
+### Send message to existing username
+
+POST {{baseUrl}}/message/{{existingUsername}}
+Content-Type: application/json
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
+
+{
+  "content": "Hello, how are you?"
+}

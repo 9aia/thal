@@ -1,0 +1,25 @@
+@username = motoko
+@inexistentUsername = motoko2
+@existingButNotContact = batou
+
+### Get a existing contact
+
+GET {{baseUrl}}/contact/{{username}}
+Content-Type: application/json
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
+
+### Try to get a inexistent contact from a inexistent username
+
+GET {{baseUrl}}/contact/{{inexistentUsername}}
+Content-Type: application/json
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
+
+#### - Should return 404 "Username not found"
+
+### Try to get a inexistent contact from a existing username
+
+GET {{baseUrl}}/contact/{{existingButNotContact}}
+Content-Type: application/json
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
+
+#### - Should return 404 "Contact not found"

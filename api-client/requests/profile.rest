@@ -1,27 +1,8 @@
-### Get 400 for invalid username
-
-@invalidUsername = test.username
-
-GET {{baseUrl}}/profile/{{invalidUsername}}
-Content-Type: application/json
-
-### Get 404 for non-existing profile
-
-@notFoundUsername = __NOTFOUND__
-
-GET {{baseUrl}}/profile/{{notFoundUsername}}
-Content-Type: application/json
-
-### Get a existing profile
-
-GET {{baseUrl}}/profile/{{$dotenv APICLIENT_USERNAME}}
-Content-Type: application/json
-
 ### Update profile
 
-PATCH {{baseUrl}}/profile/{{$dotenv APICLIENT_USERNAME}}
+PATCH {{baseUrl}}/profile
 Content-Type: application/json
 
 {
-  "lastName": "Emidio"
+  "lastName": "Test2"
 }

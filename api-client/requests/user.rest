@@ -1,0 +1,11 @@
+### Get user
+
+GET {{baseUrl}}/user
+Content-Type: application/json
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
+
+### Deactivate user
+
+POST {{baseUrl}}/user/deactivate
+Content-Type: application/json
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};

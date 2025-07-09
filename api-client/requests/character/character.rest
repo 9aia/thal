@@ -12,29 +12,8 @@ GET {{baseUrl}}/character/{{username}}?locale=en-US
 Content-Type: application/json
 Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
 
-### Update character
-
-PATCH {{baseUrl}}/character/ishikawa
-Content-Type: application/json
-Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
-
-{
-  "name": "Ishikawa"
-}
-
 ### Delete character
 
 DELETE {{baseUrl}}/character/{{username}}
 Content-Type: application/json
 Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
-
-### Create character
-
-POST {{baseUrl}}/character/draft
-Content-Type: application/json
-Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
-
-{
-  "prompt": "Batou from Ghost in the Shell",
-  "discoverable": true
-}

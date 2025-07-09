@@ -1,0 +1,8 @@
+### Get history
+
+@username = motoko
+
+GET {{baseUrl}}/chat/history/{{username}}
+Content-Type: application/json
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
+

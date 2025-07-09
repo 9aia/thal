@@ -1,0 +1,11 @@
+### Discover characters
+
+GET {{baseUrl}}/character/discover
+Content-Type: application/json
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
+
+### Discover characters with search
+
+GET {{baseUrl}}/character/discover?search=motoko
+Content-Type: application/json
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};

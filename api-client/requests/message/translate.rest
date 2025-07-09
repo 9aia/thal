@@ -1,0 +1,21 @@
+### Translate a message to the native language of the chat
+
+POST {{baseUrl}}/translate
+Content-Type: application/json
+
+{
+    "messageText": "Thanks, I was invited.",
+    "chatUsername": "motoko",
+    "toNative": true
+}
+
+### Translate a message to the learning language of the chat
+
+POST {{baseUrl}}/translate
+Content-Type: application/json
+
+{
+    "messageText": "Obrigado, fui convidado.",
+    "chatUsername": "motoko",
+    "toNative": false
+}

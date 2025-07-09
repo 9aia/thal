@@ -60,3 +60,23 @@ Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
   "characterId": {{characterId}}
 }
 
+### Approve draft
+
+POST {{baseUrl}}/character/draft/approve
+Content-Type: application/json
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
+
+{
+  "discoverable": true
+}
+
+### Approve a specific draft
+
+POST {{baseUrl}}/character/draft/approve
+Content-Type: application/json
+Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
+
+{
+  "discoverable": true,
+  "characterId": {{characterId}}
+}
