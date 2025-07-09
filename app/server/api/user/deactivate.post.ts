@@ -1,3 +1,4 @@
+import process from 'node:process'
 import { eq } from 'drizzle-orm'
 import { invalidateSessions } from '~/server/services/auth'
 import { pauseStripeSubscription } from '~/server/services/plan'
@@ -22,10 +23,15 @@ export default defineEventHandler(async (event) => {
   const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY! })
   const subscriptionId = user.subscriptionId
 
-  if (!subscriptionId)
-    throw internal('User does not have a subscription')
+  if (!subscriptionId) {
+    if (process.env.RUNTIME_ENV === 'dev')
+      console.warn('User does not have a subscription. Skipping stripe subscription pause in dev environment')
+    else
+      throw internal('User does not have a subscription')
+  }
 
-  await pauseStripeSubscription(stripe, subscriptionId)
+  if (subscriptionId)
+    await pauseStripeSubscription(stripe, subscriptionId)
 
   await orm.update(users).set({
     deactivatedAt: now(),
