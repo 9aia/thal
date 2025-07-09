@@ -1,6 +1,6 @@
 /* eslint-disable ts/no-use-before-define */
 import { relations, sql } from 'drizzle-orm'
-import { foreignKey, int, sqliteTable as table, text, unique } from 'drizzle-orm/sqlite-core'
+import { foreignKey, int, sqliteTable as table, text } from 'drizzle-orm/sqlite-core'
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
 import { z } from 'zod'
 import { timestampOmits, timestamps } from '../columns.helpers'
@@ -22,7 +22,7 @@ export const usernames = table('Username', {
     .references(() => characters.id, { onDelete: 'set null' }),
   userId: text('user_id')
     .references(() => users.id, { onDelete: 'set null' }),
-  text: text('text').unique().notNull(),
+  text: text('text').notNull(),
   ...timestamps,
 })
 
@@ -337,9 +337,7 @@ export const contacts = table('Contact', {
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
   ...timestamps,
-}, t => ([
-  unique().on(t.userId, t.usernameId),
-]))
+})
 
 export const contactsRelations = relations(contacts, ({ one }) => ({
   chat: one(chats, {
@@ -441,9 +439,7 @@ export const chats = table('Chat', {
   contactId: int('contact_id')
     .references(() => contacts.id, { onDelete: 'set null' }),
   ...timestamps,
-}, chats => ([
-  unique().on(chats.userId, chats.usernameId),
-]))
+})
 
 export const chatsRelations = relations(chats, ({ one, many }) => ({
   contact: one(contacts, {

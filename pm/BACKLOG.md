@@ -65,6 +65,7 @@ Medium priority:
 Low priority:
 
 - Add `read` status and add unread badge to chat item
+- Add localized forms for feedback, etc
 
 ## Enhancements
 
@@ -112,17 +113,20 @@ Low priority:
 
 ## Accessibility
 
+High priority:
+
+- Add tooltip to all actionable icons
+- Add `aria-label` and `title` to all buttons (add `title` prop to Button component)
+
 Low priority:
 
-- Add `aria-label` and `title` to all buttons (add `title` prop to Button component)
-- Add tooltip to all actionable icons
 - Improve a11y for avatars
 
 ## Legal
 
 Low priority:
 
-- Inform Thal changed (specially terms or privacy) via email
+- Add automatic informing Thal changed (specially terms or privacy) via email
 - Improve prompt engineering for the character builder
 - Handle Gemini safety errors
   - Provide feedback indicating that the sending message is not allowed.
@@ -162,19 +166,23 @@ Low priority:
 
 ## DX
 
+Medium priority:
+- Refactor translate endpoint into `/api/message/translate` with `messageId` param
+- Refactor synthesizeSpeech endpoint into `/api/message/synthesize-speech` with `messageId` param
+- Refactor right sidebar into its own sidebar like the left sidebar
+- Improve logging
+- Add auto-migration for the database on deploy
+
 Low priority:
 
-- Add auto-migration for the database on deploy
-- Improve logging
+- Remove unnecessary `contact` from chat table?
 - Add client-side error tracking
-- Change forms to another platform that supports localization
-- Remove unused files/code
-- Use inferred schemas as DTOs
-- Refactor drawers
 - Refactor menu components into reusable components instead of JS array
 - Refactor Link component to support icon props and rewrite all `<A>` using it
 - Refactor toast
 - Refactor menu (items, dropdown, etc)
+- Use inferred schemas as DTOs
+- Remove unused files/code
 - Improve docs
   - Add docs for the difference between roadmap, changelog and "What's New"
 - Add nuxt devserver to codeshare container

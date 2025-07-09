@@ -7,6 +7,7 @@ description: Tasks and items for the release.
 ## 0.1.0-13
 
 - Implement soft-deletes
+- Remove English help forms
 
 - Fix character builder go to chat not keeping the sidebar state after navigating to chat with the buttons
 - Fix hydration errors on deleted characters route

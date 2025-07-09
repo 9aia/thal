@@ -31,6 +31,7 @@ export default eventHandler(async (event) => {
     id: updatedContact.id,
     name: updatedContact.name,
     createdAt: updatedContact.createdAt,
+    updatedAt: updatedContact.updatedAt,
     username,
   }
 
