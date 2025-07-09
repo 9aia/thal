@@ -6,6 +6,10 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed page not respecting redirectUrl cookie on account creation
+
 ## [0.1.0-12] - 2025-07-08
 
 ### Added

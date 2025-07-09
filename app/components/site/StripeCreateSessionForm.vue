@@ -9,11 +9,13 @@ const props = defineProps<{
   noInfo?: boolean
 }>()
 
+const emit = defineEmits<{
+  (e: 'submit'): void
+}>()
 const user = useUser()
-const redirectUrl = useRedirectUrl()
 
 function onSubmit(event: Event) {
-  redirectUrl.value = '/app'
+  emit('submit')
 
   if (!user.value) {
     return

@@ -25,6 +25,8 @@ const pricingQuery = useServerQuery({
   staleTime: 0,
 })
 
+const redirectUrl = useRedirectUrl()
+
 const locale = useLocale()
 </script>
 
@@ -61,6 +63,7 @@ const locale = useLocale()
               :checkout-status="pricingQuery.data.value?.checkoutStatus || null"
               :subscription-status="pricingQuery.data.value?.subscriptionStatus || SubscriptionStatus.not_subscribed"
               class="flex items-center justify-center"
+              @submit="() => redirectUrl = '/app'"
             />
           </CommonResource>
         </div>
