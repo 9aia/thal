@@ -9,7 +9,7 @@ import { CONFLICT_STATUS_CODE } from '~/utils/web'
 const props = defineProps<{
   discoverable?: boolean
   previousUsername?: string
-  isEditing: boolean
+  hasChanges?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -99,6 +99,10 @@ const approveMutation = useMutation({
 const submit = form.handleSubmit(values => approveMutation.mutate(values))
 
 const isPastDueVisible = computed(() => isPlanPastDue(user.value))
+
+const hasDiscoverableChanges = computed(() => {
+  return form.values.discoverable !== props.discoverable
+})
 </script>
 
 <template>
@@ -113,16 +117,16 @@ const isPastDueVisible = computed(() => isPlanPastDue(user.value))
 
     <div class="flex items-center space-x-2">
       <Button
+        v-show="hasChanges || hasDiscoverableChanges"
         type="submit"
         class="btn btn-sm btn-primary"
-
         icon="material-symbols:order-approve-outline-rounded"
         icon-class="text-xl"
         icon-position="right"
         :loading="approveMutation.isPending.value"
         :disabled="isPastDueVisible"
       >
-        {{ isEditing ? t("Approve") : t("Approve") }}
+        {{ t("Approve") }}
       </Button>
     </div>
   </form>

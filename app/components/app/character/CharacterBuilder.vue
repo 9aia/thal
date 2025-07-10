@@ -287,7 +287,7 @@ function handleApproved(characterId: number) {
           body-class="px-6 pt-2"
         >
           <div
-            class="bg-radial-[at_bottom] from-yellow-50 to-gray-50 rounded-2xl p-4 mb-4"
+            class="bg-radial-[at_bottom] from-blue-50 to-gray-50 rounded-2xl p-4 mb-4"
           >
             <div class="text-sm w-full h-full relative">
               <Menu.Root v-if="hasChanges">
@@ -297,7 +297,7 @@ function handleApproved(characterId: number) {
                 </Menu.Trigger>
 
                 <Menu.Positioner>
-                  <Menu.Content class="focus:outline-hidden shadow-xs bg-base-100 rounded-box w-64 z-40 p-2">
+                  <Menu.Content class="focus:outline-hidden shadow-2xl bg-base-100 rounded-box w-64 z-40 p-2">
                     <Menu.Item v-for="item in items" :id="item.id" :key="item.id" :value="item.id" class="cursor-pointer py-2 px-3 hover:bg-base-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-primary" tabindex="0" @click.stop.prevent="item.onClick">
                       <MenuItem :is="item" />
                     </Menu.Item>
@@ -316,11 +316,11 @@ function handleApproved(characterId: number) {
               <CharacterShowcase v-if="viewMode === 'preview'" :data="buildQuery.data.value?.draft!" />
               <CharacterShowcase v-if="viewMode === 'original'" :data="buildQuery.data.value?.character!" />
 
-              <!-- FIXME: characterBuildId = $event -->
               <ApproveCharacterDraftForm
                 :is-editing="isEditing"
                 :previous-username="buildQuery.data.value?.character?.username"
                 :discoverable="buildQuery.data.value?.character?.discoverable"
+                :has-changes="hasChanges"
                 @approved="handleApproved"
               />
             </div>
