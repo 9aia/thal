@@ -389,12 +389,6 @@
   "Home": {
     "pt": "Início"
   },
-  "Terms": {
-    "pt": "Termos"
-  },
-  "Privacy": {
-    "pt": "Privacidade"
-  },
   "https://forms.gle/5ePvXjrebyWGUrM26": {
     "pt": "https://forms.gle/yHaiExzsQvv1mTdM8"
   },
@@ -584,9 +578,6 @@
   "Last name": {
     "pt": "Sobrenome"
   },
-  "Pronouns": {
-    "pt": "Pronomes"
-  },
   "Save account settings": {
     "pt": "Salvar configurações da conta"
   },
@@ -667,12 +658,6 @@
   },
   "Clearing chat...": {
     "pt": "Limpando o chat..."
-  },
-  "Failed to clear chat": {
-    "pt": "Falha ao limpar o chat"
-  },
-  "Chat has been cleared": {
-    "pt": "O chat foi limpo"
   },
   "You are sending messages too fast. Please wait a moment.": {
     "pt": "Você está enviando mensagens muito rápido. Por favor, aguarde um momento."
@@ -845,12 +830,6 @@
   "You are about to delete {inlineContact}  from your contacts. Are you sure you want to delete it?": {
     "pt": "Você está prestes a excluir {inlineContact} dos seus contatos. Tem certeza de que deseja excluí-lo?"
   },
-  "This action {cannot} be undone. This will permanently delete the character.": {
-    "pt": "Esta ação {cannot} não pode ser desfeita. Isso excluirá permanentemente o personagem."
-  },
-  "This action will {hide} your account and all associated data. You can reactivate it anytime.": {
-    "pt": "Esta ação {hide} ocultará sua conta e todos os dados associados. Você pode reativá-la a qualquer momento."
-  },
   "Prompt must contain between {min} and {max} characters.": {
     "pt": "O prompt deve conter entre {min} e {max} caracteres."
   },
@@ -871,9 +850,6 @@
   },
   "Last name must contain between {min} and {max} characters.": {
     "pt": "O sobrenome deve conter entre {min} e {max} caracteres."
-  },
-  "Pronouns must be up to {max} characters long.": {
-    "pt": "Os pronomes devem ter no máximo {max} caracteres."
   },
   "If you have any problem, you can contact us at: {link}": {
     "pt": "Se você tiver algum problema, pode entrar em contato conosco em: {link}"
@@ -998,9 +974,6 @@
   "What's new": {
     "pt": "Novidades"
   },
-  "": {
-    "pt": ""
-  },
   "An error occurred while clearing chat history.": {
     "pt": "Ocorreu um erro ao apagar o histórico de conversas."
   },
@@ -1009,5 +982,11 @@
   },
   "Your account and all associated data will be hidden, and your subscription paused. You'll also be logged out of all devices. You can reactivate your account at any time.": {
     "pt": "Sua conta e todos os dados associados serão ocultados, e sua assinatura será pausada. Você também será desconectado de todos os dispositivos. Você pode reativar sua conta a qualquer momento."
+  },
+  "This will delete the character. Its username will become available for a new character, and it will no longer be discoverable within the app. While your and other users' existing conversations with them will remain, sending, receiving, or translating messages with this deleted character will no longer be possible to function.": {
+    "pt": "Isso excluirá o personagem. Seu nome de usuário estará disponível para um novo personagem e ele não poderá mais ser descoberto no aplicativo. Embora suas conversas existentes com eles e as de outros usuários permaneçam, o envio, recebimento ou tradução de mensagens com este personagem excluído não será mais possível de funcionar."
+  },
+  "Username is already taken.": {
+    "pt": "O nome de usuário já está em uso."
   }
 }
