@@ -85,12 +85,13 @@ const isUsernameInvalid = computed(() => {
     no-scroll
   >
     <template #default>
-      <div role="alert" class="px-8 flex items-center gap-3 bg-transparent">
-        <Icon class="text-warning" name="material-symbols:warning-outline-rounded" />
+      <div role="alert" class="px-8 flex flex-col items-center gap-3 bg-transparent">
+        <Icon class="text-error text-4xl" name="material-symbols:warning-outline-rounded" />
 
         <T
-          text="This action {cannot} be undone. This will permanently delete the character."
+          text="This will delete the character. Its username will become available for a new character, and it will no longer be discoverable within the app. While your and other users' existing conversations with them will remain, sending, receiving, or translating messages with this deleted character will no longer be possible to function."
           :values="{ cannot: 'cannot' }"
+          class="text-error"
         >
           <template #cannot="slotProps">
             <span class="font-bold">
