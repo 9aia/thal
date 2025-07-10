@@ -6,6 +6,8 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+## [0.1.0-13] - 2025-07-10
+
 ### Added
 
 - Added What's New button to the site layout footer
