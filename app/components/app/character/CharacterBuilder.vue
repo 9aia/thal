@@ -218,8 +218,12 @@ function handleApproved(characterId: number) {
           >
             <template #characterName>
               <br>
+              <span v-if="isAlreadyChatting" class="text-blue-500">
+                {{ buildQuery.data.value?.character!.name }}
+              </span>
               <button
-                class="text-blue-500 focus:outline-primary focus:outline-offset-4 focus:outline-2 rounded-full"
+                v-else
+                class="text-blue-500 focus:outline-primary focus:outline-offset-4 focus:outline-2 rounded-full cursor-pointer"
                 @click="handleGoToChat"
               >
                 {{ buildQuery.data.value?.character!.name }}
