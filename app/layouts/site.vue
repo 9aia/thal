@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { t } from '@psitta/vue'
 import type { MenuItemType } from '~/components/ui/navigation/types'
 
 const user = useUser()
 const logout = useLogout()
+const { t } = useI18nExperimental()
 
 const localeModal = useLocaleModal()
 

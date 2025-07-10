@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Menu } from '@ark-ui/vue/menu'
-import { t } from '@psitta/vue'
 import type { MenuItemType } from '~/components/ui/navigation/types'
 import { categories } from '~/constants/discover'
 
@@ -22,6 +21,7 @@ const category = computed(() => {
   return categories.find(category => category.id === props.categoryId)
 })
 
+const { t } = useI18nExperimental()
 const copyUsername = useCopyUsername(toRef(() => props.username))
 
 const items = computed<MenuItemType[]>(() => [

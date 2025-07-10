@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { t } from '@psitta/vue'
-
 const props = defineProps<{
   search: string
   categoryId?: number
 }>()
 
+const { t } = useI18nExperimental()
 const discoverQuery = useDiscoveryInfiniteQuery(toRef(() => props.search), toRef(() => props.categoryId))
 
 const emptyMessage = computed(() => {

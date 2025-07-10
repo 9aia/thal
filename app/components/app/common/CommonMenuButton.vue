@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { t } from '@psitta/vue'
 import type { MenuItemType, MenuItemTypeOrFalse } from '~/components/ui/navigation/types'
 import { LEFT_SIDEBAR_PROVIDE_KEY } from '~/constants/sidebar'
 import { buildCharacter } from '~/store'
@@ -8,6 +7,7 @@ const props = defineProps<{
   hideDiscover?: boolean
 }>()
 
+const { t } = useI18nExperimental()
 const logout = useLogout()
 const sidebar = useSidebar(LEFT_SIDEBAR_PROVIDE_KEY)
 

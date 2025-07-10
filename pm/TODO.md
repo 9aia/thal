@@ -6,6 +6,7 @@ description: Tasks and items for the release.
 
 ## 0.1.0-14
 
+- Fix router not pushing `/app` for some reason, so the settings navbar back button is not working properly
 - Remove English help forms
 - Lower every username comparison
 - Inform to user about the project stage

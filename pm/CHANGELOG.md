@@ -6,20 +6,43 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
-### Fixed
-
-- Fixed automatic redirect on first sign-in
-- Replaced What's New icon with a campaign icon in the settings and app home screen.
-- Added subscription info below the checkout form.
-
 ### Added
 
 - Added What's New button to the site layout footer
 - Added translation fallback on deleted characters
 
+### Changed
+
+- Updated "Terms" and "Privacy" links in the footer to "Terms of Service" and "Privacy Policy"
+
 ### Enhanced
 
-- Enhanced footer layout for better responsiveness and visual consistency.
+- Renamed "Preview" to "After" and "Original" to "Before" in Portuguese in the Character Builder for improved clarity
+- Enhanced confirmation modals for clearing chat history, deactivating accounts, and deleting characters for a clearer understanding of the action's consequences
+- Enhanced the overall reliability and consistency of the sidebar navigation system
+- Improved the validation messages for usernames in account settings and character builder for clearer feedback
+
+### Fixed
+
+- Fixed localization in route title and description, and in character item, common menu button, discover character list, site layout, 
+- Fixed chat route title and description when character is not found/invalid and before sign-in
+- Improved navigation within the Character Builder: going to chat after approval now automatically closes the sidebar
+- Enhanced account security by ensuring all active user sessions are invalidated upon account deactivation
+- Added subscription info below the checkout form.
+- Fixed automatic redirect on first sign-in
+- Fixed the "Message" button in the contact view that was hidden
+- Addressed an issue where chat pages might not display chat and character information correctly if the character username or character was not found
+
+### Beautified
+
+- Enhanced footer layout for better responsiveness and visual consistency
+- The "Rate Thal" and "Send feedback" links are now more prominently displayed in the footer
+- Refined the save button logic in account settings, ensuring it's only enabled when actual changes are made
+- Updated the color scheme and shadow style in the Character Builder for a more polished look
+- Subtly adjusted the color scheme of the loading indicator for a softer visual experience
+- Replaced the "What's New" icon with a more descriptive "campaign" icon in the app home screen and settings
+- Reduced the size of the avatar in the site footer for better visual balance
+- Applied subtle visual refinements to some footer links for a cleaner appearance
 
 ## [0.1.0-12] - 2025-07-08
 
@@ -29,7 +52,7 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ### Enhanced
 
-- Improved SEO meta tags for chat pages
+- Fixed SEO meta tags for chat pages when character is not found/invalid
 - Improved What's New content
 
 ### Fixed
