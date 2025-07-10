@@ -6,9 +6,7 @@ description: Tasks and items for the release.
 
 ## 0.1.0-14
 
-- Fix character builder go to chat not keeping the sidebar state after navigating to chat with the buttons
 - Remove English help forms
-- Fix head tags on authed pages
 - Lower every username comparison
 - Inform to user about the project stage
 
