@@ -956,12 +956,6 @@
   "Report a problem or send us suggestions": {
     "pt": "Reportar um problema ou enviar sugestões"
   },
-  "Get translations, corrections, and listening while chatting. Try it for free to level up your English.": {
-    "pt": "Obtenha traduções, correções e escuta enquanto conversa. Experimente grátis para aprimorar seu inglês."
-  },
-  "Talk to \"{name}\" thal. Learn English.": {
-    "pt": "Fale com o thal de \"{name}\". Aprenda inglês."
-  },
   "Clearing Chat History": {
     "pt": "Apagando histórico de conversas"
   },
@@ -988,5 +982,8 @@
   },
   "Username is already taken.": {
     "pt": "O nome de usuário já está em uso."
+  },
+  "": {
+    "pt": ""
   }
 }
