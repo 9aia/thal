@@ -1,7 +1,7 @@
 import { block } from '@9aia/castor'
-import { sql } from 'drizzle-orm'
-import { usernames } from '~~/db/schema'
+import { isNotNull, isNull, sql } from 'drizzle-orm'
 import { now } from '~~/app/utils/date'
+import { usernames } from '~~/db/schema'
 
 block('List all usernames', {
   query: db => db.select().from(usernames),
@@ -16,4 +16,14 @@ block('Update all usernames to lowercase', {
       })
       .returning()
   ),
+})
+
+block('Delete all character usernames', {
+  danger: true,
+  query: db => db.delete(usernames).where(isNotNull(usernames.characterId)),
+})
+
+block('Delete all character usernames that has no `userId`', {
+  danger: true,
+  query: db => db.delete(usernames).where(isNull(usernames.userId)),
 })
