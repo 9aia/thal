@@ -71,6 +71,10 @@ const items = computed<MenuItemType[]>(() => [
     onClick: () => { isDeactivateModalOpen.value = true },
   },
 ])
+
+const hasChanges = computed(() => {
+  return form.values.name !== user.value?.name || form.values.lastName !== user.value?.lastName || form.values.username !== user.value?.username
+})
 </script>
 
 <template>
@@ -123,7 +127,7 @@ const items = computed<MenuItemType[]>(() => [
         :loading="editAccountMutation.isPending.value"
         class="btn btn-primary mt-2 mb-4"
         icon="material-symbols:save-outline-rounded"
-        :disabled="hasErrors"
+        :disabled="hasErrors || !hasChanges"
       >
         {{ t('Save account settings') }}
       </Button>
