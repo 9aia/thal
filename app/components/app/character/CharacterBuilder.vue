@@ -2,7 +2,6 @@
 import { Menu } from '@ark-ui/vue'
 import { T } from '@psitta/vue'
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
-import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import type { FetchError } from 'ofetch'
 import { useForm } from 'vee-validate'
 import type { MenuItemType } from '~/components/ui/navigation/types'

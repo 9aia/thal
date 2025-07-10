@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SidebarFullPath, SidebarState, SidebarStore } from '~/types'
+import type { SidebarState } from '~/types'
 
 const props = defineProps<{
   provideKey: string

@@ -1,7 +1,7 @@
 import { and, eq, isNull } from 'drizzle-orm'
 import { z } from 'zod'
 import { getValidated } from '~/utils/h3'
-import { notFound, unauthorized } from '~/utils/nuxt'
+import { unauthorized } from '~/utils/nuxt'
 import { characterLocalizations, usernameSchema, usernames } from '~~/db/schema'
 
 export default eventHandler(async (event) => {

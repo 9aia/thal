@@ -1,7 +1,7 @@
 <script setup lang="ts">
 defineProps<{
   name: string
-  description: string
+  description: string | null
   avatar?: string
   showEdit?: boolean
   showDelete?: boolean
@@ -25,10 +25,7 @@ const emit = defineEmits<{
       <div class="flex flex-col justify-between">
         <a class="block text-base text-gray-800">{{ name }}</a>
 
-        <div
-          class="text-xs text-gray-600 line-clamp-2"
-          :title="description"
-        >
+        <div class="text-xs text-gray-600 line-clamp-2">
           {{ description }}
         </div>
       </div>

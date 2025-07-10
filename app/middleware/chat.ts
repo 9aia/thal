@@ -1,6 +1,3 @@
-import { useQueryClient } from '@tanstack/vue-query'
-import queryKeys from '~/queryKeys'
-
 export default defineNuxtRouteMiddleware(async (event) => {
   const user = useUser()
   const { t } = useI18nExperimental()
