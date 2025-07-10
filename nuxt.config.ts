@@ -60,11 +60,7 @@ export default defineNuxtConfig({
   app: {
     layoutTransition: { name: 'fade-in-out' },
     head: {
-      title: 'Thal - Talk to Learn. Learn to Talk.',
       meta: [
-        { name: 'description', content: 'Improve your English through conversations with personalized AI characters and real-time UI assistance!' },
-        { name: 'keywords', content: 'English learning, AI tutor, Language practice, Conversation practice, Real-time assistance, Personalized learning, AI chatbot, Interactive English, Speaking practice, Fluency improvement' },
-        { name: 'author', content: 'Gaia Team' },
         { name: 'viewport', content: 'width=device-width,initial-scale=1,shrink-to-fit=yes,user-scalable=0' },
       ],
     },

@@ -985,5 +985,23 @@
   },
   "": {
     "pt": ""
+  },
+  "Thal - Talk to Learn. Learn to Talk.": {
+    "pt": "Thal - Converse para Aprender. Aprenda para Conversar."
+  },
+  "Improve your English through conversations with personalized AI characters and real-time UI assistance!": {
+    "pt": "Melhore seu inglês através de conversas com personagens de IA personalizados e assistência de interface de usuário em tempo real!"
+  },
+  "Gaia Team": {
+    "pt": "Equipe Gaia"
+  },
+  "Talk to \"{name}\" thal. Learn English.": {
+    "pt": "Fale com o thal de \"{name}\". Aprenda inglês."
+  },
+  "Thal | {username} not found": {
+    "pt": "Thal | {username} não encontrado"
+  },
+  "Get translations, corrections, and listening while chatting. Try it for free to level up your English.": {
+    "pt": "Obtenha traduções, correções e escuta enquanto conversa. Experimente gratuitamente para aprimorar seu inglês."
   }
 }

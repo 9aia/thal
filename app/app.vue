@@ -5,6 +5,7 @@ import { isPastDueModalOpen, isWhatsNewModalOpen, openContactView } from '~/stor
 import { usernameSchema } from '~~/db/schema'
 
 useInternetConnectionIndicator()
+useAppSeo()
 
 const { state: localeModalState } = useLocaleModal()
 const route = useRoute()
