@@ -46,17 +46,18 @@ export default eventHandler(async (event) => {
     },
   })
 
-  if (!result)
-    throw notFound('Username not found')
+  let character = result?.character
+  const isDeleted = character?.deletedAt || !result
 
-  const character = result.character
-
-  if (character?.deletedAt)
-    throw notFound('Character not found')
+  if (isDeleted) {
+    character = null
+  }
 
   return {
-    id: character?.id || null,
     username,
+    usernameId: result?.id || null,
+
+    id: character?.id || null,
     creatorId: character?.creatorId || null,
     name: character?.characterLocalizations[0]?.name || null,
     description: character?.characterLocalizations[0]?.description || null,

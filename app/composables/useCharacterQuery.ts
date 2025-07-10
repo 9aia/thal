@@ -1,12 +1,7 @@
 import { useQuery } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
 
-export function useReceiverUsernameNotFound() {
-  return useState<boolean>('receiverUsernameNotFound', () => false)
-}
-
-function useCharacterFetchFn(username?: MaybeRef<string | null>) {
-  const receiverUsernameNotFound = useReceiverUsernameNotFound()
+export function useCharacterFetchFn(username?: MaybeRef<string | null>) {
   const headers = useRequestHeaders(['cookie'])
   const localeWithDefaultRegion = useLocaleWithDefaultRegion()
 
@@ -15,16 +10,10 @@ function useCharacterFetchFn(username?: MaybeRef<string | null>) {
       locale: localeWithDefaultRegion.value,
     },
     headers,
-    onResponse({ response }) {
-      if (response.status === 404) {
-        receiverUsernameNotFound.value = true
-      }
-    },
-    ignoreResponseError: true,
   })
 }
 
-function useCharacterQuery(username?: MaybeRef<string | null>) {
+function useCharacterQuery(username?: MaybeRef<string | null>, options?: { initialData?: any }) {
   const localeWithDefaultRegion = useLocaleWithDefaultRegion()
   const fetchFn = useCharacterFetchFn(username)
 
@@ -37,6 +26,7 @@ function useCharacterQuery(username?: MaybeRef<string | null>) {
     queryKey: queryKeys.character(localeWithDefaultRegion.value, toValue(username!)),
     queryFn: fetchFn,
     enabled: isQueryEnabled,
+    initialData: options?.initialData,
   })
 
   if (isQueryEnabled.value) {

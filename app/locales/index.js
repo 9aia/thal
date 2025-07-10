@@ -177,13 +177,13 @@
     "pt": "Algo deu errado ao gerar o personagem. Tente novamente."
   },
   "Preview": {
-    "pt": "Visualizar"
+    "pt": "Depois"
   },
   "How it will look after approval": {
     "pt": "Como ficará após a aprovação"
   },
   "Original": {
-    "pt": "Original"
+    "pt": "Antes"
   },
   "How it looked before editing": {
     "pt": "Como era antes de editar"
@@ -516,7 +516,7 @@
     "pt": "Personagem foi aprovado com sucesso."
   },
   "Discoverable": {
-    "pt": "Descobríve"
+    "pt": "Descobrível"
   },
   "Approve": {
     "pt": "Aprovar"

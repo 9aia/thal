@@ -1,6 +1,6 @@
 ### Discover characters
 
-GET {{baseUrl}}/character/discover
+GET {{baseUrl}}/character/discover?locale=en-US
 Content-Type: application/json
 Cookie: session={{$dotenv APICLIENT_SESSION_COOKIE}};
 

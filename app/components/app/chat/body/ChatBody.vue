@@ -8,7 +8,7 @@ const username = computed(() => route.params.username as string)
 const { updateScrollable, scrollBottom } = useChatMainScroll()
 
 const characterQuery = useCharacterQuery(username)
-const receiverUsernameNotFound = useReceiverUsernameNotFound()
+const usernameNotFound = computed(() => !characterQuery.data.value?.usernameId)
 
 // prefetch queries before character is loaded
 prefetchHistoryQuery(username)
@@ -55,7 +55,7 @@ onMounted(() => {
       :for="characterQuery"
       centered-error-fallback
     >
-      <template v-if="receiverUsernameNotFound">
+      <template v-if="usernameNotFound">
         <CharacterDoesNotExist :username="username" />
       </template>
 

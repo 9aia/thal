@@ -40,6 +40,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Add native language preference (eg. BR or PT)
 - Add English locale preference (eg. US or UK)
 - Add time zone preference
+- Implement character builder and contact manager to use sidebar param, eg. `/app/?build-character=motoko`
 - Add character unique voices
 - Add calls
 - Add a "My Characters" section/accordion in the "New Chat"
@@ -82,6 +83,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Low priority
 
+- Add high traffic UI alert
 - Pass user name to Stripe from Google account
 - Save cookie for "Continue Your Access" after once logged
 - Improve error handling

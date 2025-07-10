@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { now } from '~/utils/date'
 import { getValidated } from '~/utils/h3'
 import { forbidden, notFound, unauthorized } from '~/utils/nuxt'
-import { characters, usernameSchema, usernames } from '~~/db/schema'
+import { characterLocalizations, characters, usernameSchema, usernames } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const { username } = await getValidated(event, 'params', z.object({ username: usernameSchema }))
@@ -26,6 +26,12 @@ export default eventHandler(async (event) => {
 
   if (result.character.creatorId !== user.id)
     throw forbidden()
+
+  await orm.update(characterLocalizations)
+    .set({
+      deletedAt: now(),
+    })
+    .where(eq(characterLocalizations.characterId, result?.character.id))
 
   const deletedCharacter = await orm
     .update(characters)

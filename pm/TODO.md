@@ -4,24 +4,17 @@ description: Tasks and items for the release.
 
 # TODO
 
-## 0.1.0-13
-
-- Translate all content using Psitta
-
-- Fix character builder go to chat not keeping the sidebar state after navigating to chat with the buttons
-- Fix hydration errors on deleted characters route
-- Fix blocked (shouldn't) chats with deleted characters
-
 ## 0.1.0-14
 
-- Add rate limit details to the pricing page
+- Fix character builder go to chat not keeping the sidebar state after navigating to chat with the buttons
 - Remove English help forms
 - Fix head tags on authed pages
 - Lower every username comparison
-- Inform to user about the project status
+- Inform to user about the project stage
 
 - Pre-create and refine default characters
 - Revise content of policy pages
+- Add rate limit details to the pricing page
 - Revise landpage content
 - Revise screenshots
 - Translate all content using Psitta
@@ -35,9 +28,6 @@ description: Tasks and items for the release.
 - Remove hooks and implement the delete in runtime
 - Fix deletion of dependent data when renaming columns using `drizzle-kit + D1` (drizzle-kit deletes the table to create another one with the new name, so the dependent data because of onDelete hook)
 - Add a backup database
-
-- Implement character builder and contact manager to use sidebar param, eg. `/app/?build-character=motoko`
-- Add high traffic UI alert
 
 ## 0.2.0 - Language Assistance Improvements
 

@@ -85,7 +85,11 @@ export async function getContactsWithCharacterByUser(
         ${contacts.id} AS contactId,
         ${contacts.name} AS contactName,
         ${usernames.text} AS username,
-        ${characterLocalizations.description} AS characterDescription
+        CASE 
+          WHEN ${characters.deletedAt} IS NULL AND ${characterLocalizations.deletedAt} IS NULL
+            THEN ${characterLocalizations.description}
+          ELSE NULL
+        END AS characterDescription
       FROM 
         ${contacts}
       LEFT JOIN 
@@ -101,9 +105,9 @@ export async function getContactsWithCharacterByUser(
             : sql``
         }
         AND ${characterLocalizations.locale} = ${locale}
-        AND ${characters.deletedAt} IS NULL
-        AND ${characterLocalizations.deletedAt} IS NULL
     `)
+
+  console.log(results)
 
   return results as {
     contactId: number

@@ -46,13 +46,20 @@ export default eventHandler(async (event) => {
 
   const draftData = existingDraft.data
 
-  // Check if username is already taken
-  const [existingUsername] = await orm
-    .select()
-    .from(usernames)
-    .where(eq(usernames.text, draftData.username))
+  // Check if username is already taken and has character associated (except for edition)
+  const existingUsername = await orm.query.usernames.findFirst({
+    where: eq(usernames.text, draftData.username),
+    with: {
+      character: {
+        columns: {
+          deletedAt: true,
+        },
+      },
+    },
+  })
+  const isCharacterDeleted = existingUsername?.characterId === null || existingUsername?.character?.deletedAt
 
-  if (existingUsername && existingUsername.characterId !== null && existingUsername.characterId !== data.characterId)
+  if (existingUsername && !isCharacterDeleted && existingUsername.characterId !== data.characterId)
     throw conflict('Username already taken')
 
   let character: CharacterGet

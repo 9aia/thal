@@ -13,12 +13,11 @@ const chatClearModalState = ref()
 
 const username = computed(() => route.params.username as string)
 
-const receiverUsernameNotFound = useReceiverUsernameNotFound()
-
 const characterQuery = useCharacterQuery(username)
 const contactQuery = useContactQuery(username)
 const historyQuery = useHistoryQuery(username)
 
+const usernameNotFound = computed(() => !characterQuery.data.value?.usernameId)
 const isContact = computed(() => !!contactQuery.data.value?.id)
 const contactNames = computed(() => getContactName({
   username: username.value,
@@ -97,9 +96,9 @@ const items = computed(() => ([
   <header
     class="p-4 bg-white flex gap-3 w-full"
     :class="{
-      'cursor-pointer': !receiverUsernameNotFound,
+      'cursor-pointer': !usernameNotFound,
     }"
-    @click="!receiverUsernameNotFound && openContactView(username)"
+    @click="!usernameNotFound && openContactView(username)"
   >
     <Button
       as="label"
@@ -123,7 +122,7 @@ const items = computed(() => ([
         </span>
       </div>
 
-      <div v-if="!receiverUsernameNotFound" class="flex gap-1">
+      <div v-if="!usernameNotFound" class="flex gap-1">
         <Dropdown class="dropdown-end">
           <Button
             class="btn btn-neutral btn-circle btn-md btn-ghost"
