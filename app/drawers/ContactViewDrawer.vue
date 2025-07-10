@@ -84,6 +84,7 @@ function saveContact() {
 
 function editContact() {
   manageContact(username.value)
+  sidebar.push('manage-contact')
   closeContactView()
 }
 
@@ -173,7 +174,7 @@ const items = computed(() => ([
           >
             <template #actions>
               <LabeledIconButton
-                v-if="!isContact && !isCharacterDeleted"
+                v-if="!isCharacterDeleted"
                 icon="material-symbols:chat-outline-rounded"
                 :label="t('Message')"
                 @click="goToChat()"

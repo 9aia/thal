@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { T, t } from '@psitta/vue'
+import { T } from '@psitta/vue'
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
 import type { Contact } from '~/types'
@@ -11,6 +11,7 @@ const props = defineProps<{
 const isOpen = defineModel({ default: false })
 
 const toast = useToast()
+const { t } = useI18nExperimental()
 const queryClient = useQueryClient()
 const localeDefaultRegion = useLocaleWithDefaultRegion()
 

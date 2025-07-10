@@ -24,6 +24,13 @@ const form = useForm<{ name: string, username: string }>({
 })
 const hasErrors = useHasFormErrors(form)
 
+watch([manageContactName, manageContactUsername], () => {
+  form.setValues({
+    name: manageContactName.value ?? contactQuery.data.value?.name ?? '',
+    username: manageContactUsername.value ?? '',
+  })
+})
+
 const characterQuery = useCharacterQuery(toRef(form.values, 'username'))
 
 async function validateUsername(suggestedUsername: string) {
@@ -57,6 +64,10 @@ const debouncedValidateUsername = useDebounceFn(validateUsername, 500)
 watch(() => form.values.username, debouncedValidateUsername)
 
 const isEditing = computed(() => !!contactQuery.data.value?.id)
+
+const hasFormChanged = computed(() => {
+  return form.values.name !== contactQuery.data.value?.name
+})
 
 function handleGoToChat(username: string) {
   sidebar.open.value = false
@@ -209,7 +220,7 @@ const submit = form.handleSubmit(() => isEditing.value
             :loading="isLoading"
             class="btn btn-primary float-right mt-2"
             icon="material-symbols:person-add-outline-rounded"
-            :disabled="hasErrors"
+            :disabled="hasErrors || (isEditing && !hasFormChanged)"
           >
             {{ t('Save contact') }}
           </Button>
