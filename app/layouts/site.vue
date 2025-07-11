@@ -6,6 +6,7 @@ const logout = useLogout()
 const { t } = useI18nExperimental()
 
 const localeModal = useLocaleModal()
+const toast = useToast()
 
 const menuItems = computed<MenuItemType[]>(() => {
   return [
@@ -65,5 +66,7 @@ const redirectUrl = useRedirectUrl()
     </main>
 
     <Footer />
+
+    <LazyCommonToast v-if="toast.visible.value" />
   </div>
 </template>

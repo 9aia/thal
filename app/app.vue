@@ -100,8 +100,6 @@ const userReactivatedCookie = useCookie('user_reactivated')
       v-model="isPastDueModalOpen"
     />
 
-    <LazyCommonToast v-if="toast.visible.value" />
-
     <LazyAccountReactivatedModal
       v-if="userReactivatedCookie"
       :model-value="userReactivatedCookie"

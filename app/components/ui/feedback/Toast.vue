@@ -23,15 +23,15 @@ const toastStyles = tv({
   base: 'toast rounded-2xl z-[999]',
   variants: {
     position: {
-      'start-top': 'toast-start toast-top',
-      'start-middle': 'toast-start toast-middle',
-      'start-bottom': 'toast-start toast-bottom',
-      'center-top': 'toast-center toast-top',
-      'center-middle': 'toast-center toast-middle',
-      'center-bottom': 'toast-center toast-bottom',
-      'end-top': 'toast-end toast-top',
-      'end-middle': 'toast-end toast-middle',
-      'end-bottom': 'toast-end toast-bottom',
+      'start-top': 'left-4 top-4',
+      'start-middle': 'left-4 top-1/2 -translate-y-1/2',
+      'start-bottom': 'left-4 bottom-4',
+      'center-top': 'left-1/2 -translate-x-1/2 top-4',
+      'center-middle': 'left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2',
+      'center-bottom': 'left-1/2 -translate-x-1/2 bottom-4',
+      'end-top': 'right-4 top-4',
+      'end-middle': 'right-4 top-1/2 -translate-y-1/2',
+      'end-bottom': 'right-4 bottom-4',
     },
   },
 })
@@ -75,58 +75,54 @@ watch(toast.update, () => {
 </script>
 
 <template>
-  <div class="fixed top-0 w-full h-dvh">
-    <div class="relative max-w-[1700px] mx-auto w-full h-full">
-      <Transition name="fade-in-out">
-        <div
-          v-if="toast.visible.value"
-          class="overflow-hidden absolute"
-          :class="toastStyles({ position: toast.position.value })"
-        >
-          <div :class="styles({ type: toast.type.value })">
-            <Icon v-if="icon" :name="icon" class="text-gray-800" />
-            <div>
-              <h3>
-                {{ toast.message.value }}
-              </h3>
-            </div>
-            <div class="flex items-center justify-center gap-1">
-              <template v-if="toast.actions.value.length">
-                <button
-                  v-for="action, index in toast.actions.value"
-                  :key="`action-${index}`"
-                  :class="actionStyles()"
-                  @click="action.onClick"
-                >
-                  {{ action.title }}
-                </button>
-              </template>
-
-              <slot name="actions" />
-
-              <Button
-                class="cursor-pointer rounded-full p-1 hover:text-gray-700 flex focus:outline-neutral focus:outline-2 focus:outline-offset-2"
-                icon="material-symbols:close-rounded"
-                icon-class="text-lg"
-                @click="toast.close()"
-              />
-            </div>
-
-            <div class="absolute overflow-hidden w-full h-full flex items-end pointer-events-none left-0 px-4">
-              <div
-                v-if="toast.duration.value > 0"
-                ref="el"
-                class="animate-progress h-[2px] bg-gray-800 rounded-full"
-                :style="{
-                  'animation-duration': `${toast.duration.value}ms`,
-                }"
-              />
-            </div>
-          </div>
+  <Transition name="fade-in-out">
+    <div
+      v-if="toast.visible.value"
+      class="overflow-hidden fixed shadow-2xl h-max flex items-center justify-center z-[99999]"
+      :class="toastStyles({ position: toast.position.value })"
+    >
+      <div :class="styles({ type: toast.type.value })">
+        <Icon v-if="icon" :name="icon" class="text-gray-800" />
+        <div>
+          <h3>
+            {{ toast.message.value }}
+          </h3>
         </div>
-      </Transition>
+        <div class="flex items-center justify-center gap-1">
+          <template v-if="toast.actions.value.length">
+            <button
+              v-for="action, index in toast.actions.value"
+              :key="`action-${index}`"
+              :class="actionStyles()"
+              @click="action.onClick"
+            >
+              {{ action.title }}
+            </button>
+          </template>
+
+          <slot name="actions" />
+
+          <Button
+            class="cursor-pointer rounded-full p-1 hover:text-gray-700 flex focus:outline-neutral focus:outline-2 focus:outline-offset-2"
+            icon="material-symbols:close-rounded"
+            icon-class="text-lg"
+            @click="toast.close()"
+          />
+        </div>
+
+        <div class="absolute overflow-hidden w-full h-full flex items-end pointer-events-none left-0 px-4">
+          <div
+            v-if="toast.duration.value > 0"
+            ref="el"
+            class="animate-progress h-[2px] bg-gray-800 rounded-full"
+            :style="{
+              'animation-duration': `${toast.duration.value}ms`,
+            }"
+          />
+        </div>
+      </div>
     </div>
-  </div>
+  </Transition>
 </template>
 
 <style scoped>

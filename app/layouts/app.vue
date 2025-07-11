@@ -3,6 +3,7 @@ import { isPastDueModalAlreadyShown, isPastDueModalOpen } from '~/store'
 import { SubscriptionStatus } from '~~/db/schema'
 
 const user = useUser()
+const toast = useToast()
 
 onMounted(() => {
   const isPastDue = user.value?.subscriptionStatus === SubscriptionStatus.past_due
@@ -16,7 +17,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="w-full max-w-[1700px] h-full bg-white absolute left-1/2 -translate-x-1/2">
+  <div class="w-full max-w-[1700px] h-full bg-white relative left-1/2 -translate-x-1/2">
+    <LazyCommonToast v-if="toast.visible.value" />
+
     <slot />
   </div>
 </template>
