@@ -330,7 +330,7 @@ We use [Cloudflare](https://www.cloudflare.com/) to manage the infrastructure.
 
 1. **Update the Changelog**
    - Manually update the changelog sections following the standard described here: [Keep a Changelog](https://www.npmjs.com/package/@release-it/keep-a-changelog).
-   - Do **not** specify the next version in the changelog. Leave it as `## [Unreleased]`, which will be automatically updated with the version and release date.
+   - Do **not** specify the next version in the changelog. Leave it as `## [Unreleased]`, which will be automatically updated with the version and release date. This also applies to the README file.
    - For more details, refer to the [Conventional Changelog documentation](https://github.com/release-it/conventional-changelog).
 
 2. **Ensure your logged in to Cloudflare**
