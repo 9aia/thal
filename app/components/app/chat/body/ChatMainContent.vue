@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { useOnline } from '@vueuse/core'
-
-const isOnline = useOnline()
 const route = useRoute()
 const username = computed(() => route.params.username as string)
 const { isScrollDownButtonVisible } = useChatMainScroll()
@@ -9,12 +6,6 @@ const { isScrollDownButtonVisible } = useChatMainScroll()
 const historyQuery = useHistoryQuery(username)
 const characterQuery = useCharacterQuery(username)
 const contactQuery = useContactQuery(username)
-
-const sendMessageMutation = useSendMessage(username)
-
-const showShowChatBubbleLoading = computed(() => {
-  return sendMessageMutation.isPending.value && isOnline.value
-})
 
 const isContact = computed(() => !!contactQuery.data.value?.id)
 const contactNames = computed(() => getContactName({
@@ -40,7 +31,6 @@ const hasMessages = computed(() => !!historyQuery.data.value?.length)
 
     <div v-if="hasMessages" class="mt-6">
       <History />
-      <ChatBubbleLoading v-if="showShowChatBubbleLoading" />
     </div>
 
     <div class="sticky bottom-0 z-50 w-fit float-right" :class="{ 'pointer-events-none': !isScrollDownButtonVisible }">

@@ -97,21 +97,18 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Improve toast animations and width
 - Add loading splashscreen for hydration, data loading, etc
 
----
-
 ## Changes
 
 ## Glitches
 
 ### Low priority
 
+- Fix go bottom button showing after clearing the chat
 - Fix locale change animation glitch
 - Fix chat bubble animation glitch
-- Fix animation glitch on opening the CharacterBuilder from the chat route using the "Edit character" options
+- Fix animation glitch on opening the CharacterBuilder from the chat route using the "Edit character" options for the first time
 - Rewrite Daisy dropdowns using ArkUI components (should fix the closing on click on padding bug as well)
 - Fix speech highlighting breaking lines
-- Fix emoji color rendering in translations
-- Add a guard to checkout cancel page when the user hasn't actually canceled
 - Avoid breaking layout in chat item when last message is too long
 - Replace web modal API
 - Improve HTML rendering/TTS

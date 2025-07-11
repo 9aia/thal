@@ -55,12 +55,14 @@ onMounted(() => {
       :for="characterQuery"
       centered-error-fallback
     >
-      <template v-if="usernameNotFound">
-        <CharacterDoesNotExist :username="username" />
-      </template>
+      <template #default>
+        <template v-if="usernameNotFound">
+          <CharacterDoesNotExist :username="username" />
+        </template>
 
-      <template v-else>
-        <ChatMainContent />
+        <template v-else>
+          <ChatMainContent />
+        </template>
       </template>
     </CommonResource>
   </main>

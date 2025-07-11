@@ -1,5 +1,11 @@
 <script setup lang="ts">
-const { isScrollDownButtonVisible, scrollBottom } = useChatMainScroll()
+import { useEventListener } from '@vueuse/core'
+
+const { isScrollDownButtonVisible, scrollBottom, updateScrollable } = useChatMainScroll()
+
+useEventListener('resize', () => {
+  updateScrollable()
+})
 </script>
 
 <template>
@@ -8,6 +14,6 @@ const { isScrollDownButtonVisible, scrollBottom } = useChatMainScroll()
     :class="{ 'opacity-100': isScrollDownButtonVisible, 'pointer-events-none': !isScrollDownButtonVisible }"
     icon="material-symbols:keyboard-arrow-down-rounded"
     :tabindex="isScrollDownButtonVisible ? 0 : -1"
-    @click="scrollBottom"
+    @click="scrollBottom()"
   />
 </template>

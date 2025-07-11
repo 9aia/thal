@@ -37,7 +37,7 @@ const audiableTextRef = ref<AudibleTextType | null>(null)
 <template>
   <div
     :id="`bubble-container-${id}`"
-    class="w-full group scroll-m-4"
+    class="w-full group"
     :class="{
       'chat-start': !right,
       'chat-end': right,

@@ -6,6 +6,12 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed page animations
+- Fixed chat bubble animations
+- Fixed chat automatic scroll to bottom
+
 ## [0.1.0-13] - 2025-07-10
 
 ### Added

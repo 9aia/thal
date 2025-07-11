@@ -2,7 +2,7 @@
 definePageMeta({
   layout: 'common-sidebar-left',
   middleware: 'chat',
-  pageTransitionType: 'fade-in-out',
+  pageTransitionType: 'fade-up',
 })
 
 const route = useRoute()

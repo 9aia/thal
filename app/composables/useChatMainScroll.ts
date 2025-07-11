@@ -22,13 +22,12 @@ function useChatMainScroll() {
     isScrollable.value = element.scrollHeight > element.clientHeight
   }
 
-  const scrollBottom = async () => {
-    await nextTick()
-
-    if (!chatMainRef.value)
-      return
-
-    mainScroll.y.value = chatMainRef.value.scrollHeight
+  const scrollBottom = () => {
+    setTimeout(() => {
+      if (!chatMainRef.value)
+        return
+      mainScroll.y.value = chatMainRef.value.scrollHeight
+    }, 0)
   }
 
   return {

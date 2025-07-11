@@ -13,9 +13,7 @@ const sidebar = useSidebar(LEFT_SIDEBAR_PROVIDE_KEY)
   >
     <template #content>
       <CommonSidebarRight>
-        <div name="fade-up">
-          <slot />
-        </div>
+        <slot />
       </CommonSidebarRight>
     </template>
 

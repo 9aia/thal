@@ -5,7 +5,7 @@ const props = defineProps<{
   components: Record<string, Component>
 }>()
 
-const SIDEBAR_LOADING_TO_COMPONENT_ANIMATION_NAME = 'fade-in-out-fast'
+const SIDEBAR_LOADING_TO_COMPONENT_ANIMATION_NAME = 'fade'
 
 const sidebar = useSidebar(LEFT_SIDEBAR_PROVIDE_KEY)
 
