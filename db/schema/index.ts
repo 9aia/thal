@@ -525,8 +525,6 @@ export const messages = table('Message', {
   chatId: int('chat_id')
     .notNull()
     .references(() => chats.id, { onDelete: 'cascade' }),
-  senderUsernameId: int('sender_username_id')
-    .references(() => usernames.id, { onDelete: 'no action' }),
   content: text('content').notNull(),
   status: int('status').notNull().$type<MessageStatus>(),
   inReplyToId: int('in_reply_to_id'),
