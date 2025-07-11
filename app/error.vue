@@ -38,7 +38,7 @@ console.error(`${error.value?.statusCode} - ${error.value?.message}`)
           <T text="If you think this is a mistake, {reportIssue}  We’ll take a look and get it fixed." :values="{ reportIssue: 'true' }">
             <template #reportIssue>
               <A
-                target="_blank" :localize="false" :href="t('https://forms.gle/ANMv7qnwTHva1k7L8')"
+                target="_blank" :localize="false" href="https://forms.gle/UyGBzPrBeNfFgwLD6"
                 class="text-warning underline"
               >{{ t('let us know here.') }}</A>
             </template>
@@ -59,7 +59,7 @@ console.error(`${error.value?.statusCode} - ${error.value?.message}`)
           <T text="If the problem persists, {reportIssue}. We’ll check it out and get things back on track." :values="{ reportIssue: 'true' }">
             <template #reportIssue>
               <A
-                target="_blank" :localize="false" :href="t('https://forms.gle/ANMv7qnwTHva1k7L8')"
+                target="_blank" :localize="false" href="https://forms.gle/UyGBzPrBeNfFgwLD6"
                 class="text-warning underline"
               >{{ t('let us know here') }}</A>
             </template>

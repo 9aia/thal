@@ -21,7 +21,7 @@ definePageMeta({
       </p>
 
       <div class="flex items-center justify-center h-fit mt-4 gap-2">
-        <A class="btn btn-primary" :href="t('https://forms.gle/ANMv7qnwTHva1k7L8')">
+        <A class="btn btn-primary" href="https://forms.gle/UyGBzPrBeNfFgwLD6">
           {{ t('Submit a problem or suggestion') }}
         </A>
 

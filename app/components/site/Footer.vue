@@ -45,7 +45,7 @@ const logout = useLogout()
       <div class="flex gap-2 items-center justify-between w-full">
         <div class="flex gap-4">
           <Link
-            :href="t('https://forms.gle/ANMv7qnwTHva1k7L8')"
+            href="https://forms.gle/UyGBzPrBeNfFgwLD6"
             :localize="false"
             target="_blank"
             class="flex items-center gap-1 !text-black border-y-2 border-transparent focus:border-b-blue-500 focus:outline-none w-fit"
@@ -55,7 +55,7 @@ const logout = useLogout()
 
           <Link
             v-if="user"
-            :href="t('https://forms.gle/5ePvXjrebyWGUrM26')"
+            href="https://forms.gle/yHaiExzsQvv1mTdM8"
             :localize="false"
             target="_blank"
             class="flex items-center gap-1 !text-black border-y-2 border-transparent focus:border-b-blue-500 focus:outline-none w-fit"

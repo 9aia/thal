@@ -17,7 +17,7 @@ import Link from '~/components/ui/navigation/Link.vue'
       <Link
         class="btn btn-xs btn-neutral"
         span-class="group-hover:no-underline"
-        href="https://forms.gle/ANMv7qnwTHva1k7L8"
+        href="https://forms.gle/UyGBzPrBeNfFgwLD6"
         :localize="false"
       >
         {{ t("Send feedback") }}

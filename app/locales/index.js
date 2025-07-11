@@ -11,9 +11,6 @@
   "If you think this is a mistake, {reportIssue}  We’ll take a look and get it fixed.": {
     "pt": "Se você acha que isso é um engano, {reportIssue}. Vamos dar uma olhada e corrigir."
   },
-  "https://forms.gle/ANMv7qnwTHva1k7L8": {
-    "pt": "https://forms.gle/UyGBzPrBeNfFgwLD6"
-  },
   "let us know here.": {
     "pt": "avise-nos aqui."
   },
@@ -388,9 +385,6 @@
   },
   "Home": {
     "pt": "Início"
-  },
-  "https://forms.gle/5ePvXjrebyWGUrM26": {
-    "pt": "https://forms.gle/yHaiExzsQvv1mTdM8"
   },
   "Start chatting": {
     "pt": "Começar a conversar"

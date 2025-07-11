@@ -48,7 +48,7 @@ const { t } = useI18nExperimental()
       <T text="If the problem persists, please {reportIssue}." :values="{ reportIssue: 'true' }">
         <template #reportIssue>
           <A
-            target="_blank" :localize="false" :href="t('https://forms.gle/ANMv7qnwTHva1k7L8')"
+            target="_blank" :localize="false" href="https://forms.gle/UyGBzPrBeNfFgwLD6"
             class="text-warning underline"
           >
             {{ t('report the issue here') }}

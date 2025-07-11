@@ -30,7 +30,7 @@ const items = computed(() => ([
     icon: 'material-symbols:feedback-outline-rounded',
     name: t('Send feedback'),
     type: 'external',
-    href: 'https://forms.gle/ANMv7qnwTHva1k7L8',
+    href: 'https://forms.gle/UyGBzPrBeNfFgwLD6',
     newTab: true,
     localize: false,
   },
