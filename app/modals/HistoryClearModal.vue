@@ -6,6 +6,7 @@ const props = defineProps<{
 }>()
 const isOpen = defineModel({ default: false })
 
+const { updateScrollable } = useChatMainScroll()
 const contactQuery = useContactQuery(toRef(() => props.username))
 const characterQuery = useCharacterQuery(toRef(() => props.username))
 
@@ -18,6 +19,7 @@ const contactNames = computed(() => getContactName({
 const clearHistoryMutation = useClearHistoryMutation(toRef(() => props.username), {
   onSuccess: () => {
     isOpen.value = false
+    updateScrollable()
   },
 })
 </script>

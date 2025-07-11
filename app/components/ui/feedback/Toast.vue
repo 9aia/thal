@@ -75,7 +75,7 @@ watch(toast.update, () => {
 </script>
 
 <template>
-  <Transition name="fade-in-out">
+  <Transition name="fade">
     <div
       v-if="toast.visible.value"
       class="overflow-hidden fixed shadow-2xl h-max flex items-center justify-center z-[99999]"
@@ -140,15 +140,5 @@ watch(toast.update, () => {
   to {
     width: 0;
   }
-}
-
-.fade-in-out-enter-active,
-.fade-in-out-leave-active {
-  @apply transition-all duration-300 ease-in-out;
-}
-
-.fade-in-out-enter-from,
-.fade-in-out-leave-to {
-  @apply opacity-0;
 }
 </style>

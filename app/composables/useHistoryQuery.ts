@@ -46,10 +46,7 @@ export function useHistoryQueryUtils(username: MaybeRef<string>) {
   })
 
   const predictMessageId = computed(() => {
-    if (!historyQuery.data.value || historyQuery.data.value.length === 0) {
-      return 1
-    }
-    return historyQuery.data.value.length + 1
+    return -1
   })
 
   return {

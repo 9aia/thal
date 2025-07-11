@@ -52,6 +52,10 @@ onMounted(() => {
 // #endregion
 
 const pageAnimation = computed(() => {
+  if (route.meta.pageTransitionType === 'fade-up') {
+    return 'fade-up'
+  }
+
   if (route.meta.pageTransitionType === 'fade-in-out') {
     return 'fade-in-out'
   }

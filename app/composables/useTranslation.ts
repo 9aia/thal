@@ -33,7 +33,7 @@ function useTranslation({ messageIsBot, message, replyMessageId, chatUsername, t
   })
 
   const onTranslate = () => {
-    open.value = true
+    open.value = !open.value
 
     enabled.value && toValue(refetchOnTranslate)
       ? translationQuery.refetch()

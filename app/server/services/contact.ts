@@ -107,8 +107,6 @@ export async function getContactsWithCharacterByUser(
         AND ${characterLocalizations.locale} = ${locale}
     `)
 
-  console.log(results)
-
   return results as {
     contactId: number
     contactName: string

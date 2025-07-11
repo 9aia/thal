@@ -20,6 +20,10 @@ description: Tasks and items for the release.
   - Set the GCP OAuth screen to production instead of testing (requires app verification).
   - Set Stripe to production instead of testing.
 
+## 0.1.0
+
+- Create more characters
+
 ## 0.2.0 - Language Assistance Improvements
 
 - Add text input correction confirmation popover
