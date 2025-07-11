@@ -26,6 +26,7 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ### Fixed
 
+- Removed pointer events none on toast component it now allows interaction with the toast content
 - Fixed localization in route title and description, and in character item, common menu button, discover character list, site layout, 
 - Fixed chat route title and description when character is not found/invalid and before sign-in
 - Improved navigation within the Character Builder: going to chat after approval now automatically closes the sidebar

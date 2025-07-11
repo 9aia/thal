@@ -75,8 +75,8 @@ watch(toast.update, () => {
 </script>
 
 <template>
-  <div class="fixed top-0 w-full h-dvh pointer-events-none">
-    <div class="relative max-w-[1700px] mx-auto w-full h-full pointer-events-none">
+  <div class="fixed top-0 w-full h-dvh">
+    <div class="relative max-w-[1700px] mx-auto w-full h-full">
       <Transition name="fade-in-out">
         <div
           v-if="toast.visible.value"
