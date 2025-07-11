@@ -58,7 +58,7 @@ export default defineNuxtConfig({
   },
 
   app: {
-    layoutTransition: { name: 'fade' },
+    layoutTransition: { name: 'fade-in-out' },
     head: {
       meta: [
         { name: 'viewport', content: 'width=device-width,initial-scale=1,shrink-to-fit=yes,user-scalable=0' },
