@@ -56,8 +56,8 @@ const pageAnimation = computed(() => {
     return 'fade-up'
   }
 
-  if (route.meta.pageTransitionType === 'fade-in-out') {
-    return 'fade-in-out'
+  if (route.meta.pageTransitionType === 'fade') {
+    return 'fade'
   }
 
   if (route.meta.pageTransitionType === 'slide') {
@@ -81,13 +81,11 @@ const userReactivatedCookie = useCookie('user_reactivated')
       error-color="repeating-linear-gradient(to right, #ff0000 0%, #ff6600 100%)"
     />
 
-    <div class="relative">
-      <NuxtLayout>
-        <div class="overflow-hidden">
-          <NuxtPage :transition="{ name: pageAnimation }" />
-        </div>
-      </NuxtLayout>
-    </div>
+    <NuxtLayout>
+      <div class="overflow-hidden">
+        <NuxtPage :transition="{ name: pageAnimation }" />
+      </div>
+    </NuxtLayout>
 
     <LazyWhatsNewModal
       v-if="isWhatsNewModalOpen"
@@ -136,23 +134,35 @@ const userReactivatedCookie = useCookie('user_reactivated')
   @apply transition-all duration-200 ease-in-out;
 }
 
-.fade-in-out-enter-active,
-.fade-in-out-leave-active {
-  @apply transition-opacity duration-500 ease-in-out;
-}
+/* Define the fade transition classes */
 
-.fade-in-out-enter-from,
-.fade-in-out-leave-to {
+/* State when element is entering, before it starts animating */
+.fade-enter-from {
   opacity: 0;
 }
 
-.fade-in-out-fast-enter-active,
-.fade-in-out-fast-leave-active {
-  @apply transition-opacity duration-300 ease-in-out;
+/* State during the entering animation */
+.fade-enter-active {
+  transition: opacity 300ms ease-out; /* Smooth transition over 0.5 seconds */
 }
 
-.fade-in-out-fast-enter-from,
-.fade-in-out-fast-leave-to {
+/* State when element has finished entering (optional, often not needed for simple fades) */
+.fade-enter-to {
+  opacity: 1;
+}
+
+/* State when element is leaving, before it starts animating (optional, often not needed for simple fades) */
+.fade-leave-from {
+  opacity: 1;
+}
+
+/* State during the leaving animation */
+.fade-leave-active {
+  transition: opacity 300ms ease-in; /* Smooth transition over 0.5 seconds */
+}
+
+/* State when element is leaving, just before it is removed from the DOM */
+.fade-leave-to {
   opacity: 0;
 }
 </style>
