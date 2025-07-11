@@ -6,7 +6,6 @@ description: Tasks and items for the release.
 
 ## 0.1.0-14
 
-- Remove English help forms
 - Lower every username comparison
 - Inform to user about the project stage
 
@@ -20,12 +19,6 @@ description: Tasks and items for the release.
 - Deploy to production
   - Set the GCP OAuth screen to production instead of testing (requires app verification).
   - Set Stripe to production instead of testing.
-
-## 0.1.0-15
-
-- Remove hooks and implement the delete in runtime
-- Fix deletion of dependent data when renaming columns using `drizzle-kit + D1` (drizzle-kit deletes the table to create another one with the new name, so the dependent data because of onDelete hook)
-- Add a backup database
 
 ## 0.2.0 - Language Assistance Improvements
 

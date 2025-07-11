@@ -173,6 +173,10 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## DX
 
+### High priority
+
+- Fix https://github.com/drizzle-team/drizzle-orm/issues/4640
+
 ### Medium priority
 
 - Refactor translate endpoint into `/api/message/translate` with `messageId` param
