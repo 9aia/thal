@@ -35,6 +35,8 @@ description: A collection of ideas and feedback from stakeholders or team member
 - Add activities like minigames
 - Add actions (simulations), such as payment
 - Add Spanish and/or other languages
+- Add short exercises or quizzes to reinforce learning inside conversations
+- Add basic analytics on user performance, such as words learned, conversation topics covered, and improvement over time
 - ---
 - Create a character from saved text or from translated text
 - Saving text for later
