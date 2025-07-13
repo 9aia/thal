@@ -11,6 +11,7 @@ description: A detailed, chronological record of all changes made to a project, 
 - Fixed page animations
 - Fixed chat bubble animations
 - Fixed chat automatic scroll to bottom
+- Fixed chat SEO
 
 ## [0.1.0-13] - 2025-07-10
 

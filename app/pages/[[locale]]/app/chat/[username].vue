@@ -1,7 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
   layout: 'common-sidebar-left',
-  middleware: 'chat',
+  middleware: ['chat', 'premium'],
   pageTransitionType: 'fade-up',
 })
 

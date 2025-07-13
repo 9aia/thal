@@ -1,5 +1,4 @@
 export default defineNuxtRouteMiddleware(async (event) => {
-  const user = useUser()
   const { t } = useI18nExperimental()
 
   const username = event.params.username as string
@@ -14,22 +13,8 @@ export default defineNuxtRouteMiddleware(async (event) => {
   const title = name ? t('Talk to "{name}" thal. Learn English.', { name }) : t('Thal | {username} not found', { username: `@${username}` })
   const description = t('Get translations, corrections, and listening while chatting. Try it for free to level up your English.')
 
-  useSeoMeta({
-    // HTML tags
+  useSeoTags({
     title,
     description,
-    // Facebook tags
-    ogTitle: title,
-    ogDescription: description,
-    // Twitter tags
-    twitterTitle: title,
-    twitterDescription: description,
   })
-
-  if (!user.value)
-    return saveRouteAndNavigateTo(event, '/sign-in')
-
-  if (!isPlanActive(user.value)) {
-    return saveRouteAndNavigateTo(event, '/pricing')
-  }
 })

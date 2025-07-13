@@ -1,7 +1,7 @@
 import { and, eq, isNull } from 'drizzle-orm'
 import { z } from 'zod'
 import { getValidated } from '~/utils/h3'
-import { unauthorized } from '~/utils/nuxt'
+import { badRequest, forbidden, unauthorized } from '~/utils/nuxt'
 import { characterLocalizations, usernameSchema, usernames } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
@@ -13,10 +13,6 @@ export default eventHandler(async (event) => {
   }))
 
   const orm = event.context.orm
-  const user = event.context.user
-
-  if (!user)
-    throw unauthorized()
 
   const result = await orm.query.usernames.findFirst({
     where: eq(usernames.text, username),
@@ -46,7 +42,23 @@ export default eventHandler(async (event) => {
     },
   })
 
-  let character = result?.character
+  if (!result) {
+    return {
+      username,
+      usernameId: null,
+      id: null,
+      creatorId: null,
+      name: null,
+      description: null,
+      createdAt: null,
+      categoryId: null,
+    }
+  }
+
+  if (result.character && !result.character.discoverable)
+    throw forbidden()
+
+  let character: typeof result.character | null | undefined = result?.character
   const isDeleted = character?.deletedAt || !result
 
   if (isDeleted) {
@@ -56,7 +68,6 @@ export default eventHandler(async (event) => {
   return {
     username,
     usernameId: result?.id || null,
-
     id: character?.id || null,
     creatorId: character?.creatorId || null,
     name: character?.characterLocalizations[0]?.name || null,
