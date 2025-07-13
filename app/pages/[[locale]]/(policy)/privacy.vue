@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { useLocale } from '@psitta/vue'
 
-const locale = useLocale()
-
 definePageMeta({
   layout: 'site',
   layoutTransition: false,
 })
 
 useAutoRedirect()
+
+// const locale = useLocale()
+const locale = 'pt'
 </script>
 
 <template>

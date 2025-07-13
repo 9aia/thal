@@ -10,7 +10,6 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### High priority
 
-- Remove approve button from character builder after already approved
 - Fix character edition error when the edition was approved and the user try to approve again without changes
 - Deal with long history on translate
 - Fix listening to long messages
