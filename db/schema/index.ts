@@ -7,14 +7,22 @@ import { createdAt, timestampOmits, timestamps, updatedAt } from '../columns.hel
 
 // #region Usernames
 
-export const usernameSchema = z.string().min(1).max(32)
+export const usernameSchemaBase = z.string().min(1).max(32)
   .regex(/^\w+$/, {
     message: 'Username can only contain letters, numbers, and underscores',
   })
+
 export const usernameSchemaChecks = {
-  min: usernameSchema._def.checks.find(check => check.kind === 'min')?.value,
-  max: usernameSchema._def.checks.find(check => check.kind === 'max')?.value,
+  min: usernameSchemaBase._def.checks.find(check => check.kind === 'min')?.value,
+  max: usernameSchemaBase._def.checks.find(check => check.kind === 'max')?.value,
 }
+
+export const usernameSchema = usernameSchemaBase.refine(
+  value => value === value.toLowerCase(),
+  {
+    message: 'Username should have only lowercase letters',
+  },
+)
 
 export const usernames = table('Username', {
   id: int('id').primaryKey({ autoIncrement: true }),

@@ -12,6 +12,7 @@ description: A detailed, chronological record of all changes made to a project, 
 - Fixed chat bubble animations
 - Fixed chat automatic scroll to bottom
 - Fixed chat SEO
+- Fixed username validation to accept only lowercase letters
 
 ## [0.1.0-13] - 2025-07-10
 

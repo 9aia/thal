@@ -6,7 +6,6 @@ description: Tasks and items for the release.
 
 ## 0.1.0-14
 
-- Lower every username comparison
 - Inform to user about the project stage
 
 - Pre-create and refine default characters

@@ -13,7 +13,7 @@ function useUsernameValidation(form: ReturnType<typeof useForm>, options?: {
   const isUsernameInvalid = ref(false)
 
   const invalidSyntaxErrorMessage = t(
-    'Username can only contain letters, numbers, and underscores. Min {min} character, max {max} characters.',
+    'Username can only contain lowercase letters, numbers, and underscores. Min {min} character, max {max} characters.',
     usernameSchemaChecks,
   )
 
