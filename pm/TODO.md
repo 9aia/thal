@@ -7,7 +7,7 @@ description: Tasks and items for the release.
 ## 0.1.0-14
 
 - Inform to user about the project stage
-
+- Update support email
 - Revise content of policy pages
 - Add rate limit details to the pricing page
 - Revise landpage content
