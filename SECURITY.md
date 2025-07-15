@@ -6,7 +6,7 @@ If you discover a security vulnerability in this project, please report it as so
 
 To report a vulnerability, please follow these steps:
 
-1. **Do not create a public issue**. Instead, send a private email to [luisfuturist+9aia@gmail.com](mailto:luisfuturist+9aia@gmail.com).
+1. **Do not create a public issue**. Instead, send a private email to [luisfuturist+thal@gmail.com](mailto:luisfuturist+thal@gmail.com).
 2. Provide a detailed description of the vulnerability, including steps to reproduce and any relevant information.
 3. If you're able to provide a patch or a suggested fix, it will be greatly appreciated but is not required.
 
