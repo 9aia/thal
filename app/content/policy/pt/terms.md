@@ -2,11 +2,9 @@
 
 **Data Efetiva**: :policy-effective-date{:id="_file"}
 
-Estes Termos de Serviço ("Termos") regem seu acesso e uso do Thal, incluindo todo o seu conteúdo, recursos e serviços oferecidos pela **Gaia** (referida como "nós" ou "nosso").
+Estes Termos de Serviço do Thal ("Termos") regem seu acesso e uso do Thal, incluindo todo o seu conteúdo, recursos e serviços oferecidos pelo Thal, a Gaia, seus contribuidores ou qualquer outra pessoa associada ao Thal ou à Gaia (referida como "nós" ou "nosso").
 
-Ao acessar, navegar ou usar o Thal, você ("Usuário" ou "você") reconhece que leu, compreendeu e concorda em estar vinculado a estes Termos, bem como à nossa :content-a{href="/privacy"}[Política de Privacidade], que é incorporada a este documento por referência. Se você não concordar com qualquer parte destes Termos ou da :content-a{href="/privacy"}[Política de Privacidade], você não deve usar o Thal.
-
-Podemos atualizar estes Termos periodicamente. Iremos notificá-lo sobre quaisquer alterações significativas publicando os novos Termos nesta página, através de avisos proeminentes dentro do aplicativo ou por outros canais de comunicação apropriados. Seu uso continuado do Thal após tais alterações constitui sua aceitação dos Termos revisados.
+Ao acessar, navegar ou usar o Thal, você ("Usuário" ou "você") concorda em aceitar estes Termos de Serviço do Thal ("Termos"), bem como à nossa :content-a{href="/privacy"}[Política de Privacidade] e :content-a{href="/security"}[Política de Segurança], que são incorporadas a este documento por referência. Se você não concordar com qualquer parte destes termos ou da :content-a{href="/privacy"}[Política de Privacidade do Thal], você não deve usar o Thal.
 
 ---
 
@@ -16,9 +14,9 @@ Podemos atualizar estes Termos periodicamente. Iremos notificá-lo sobre quaisqu
 
 1.2. **Segurança da Conta:** Você é o único responsável por manter a confidencialidade da sua conta e por todas as atividades que ocorrerem sob sua conta. Você concorda em nos notificar imediatamente sobre qualquer uso não autorizado da sua conta. Não podemos e não seremos responsáveis por qualquer perda ou dano decorrente da sua falha em cumprir esta obrigação de segurança.
 
-1.3. **Restrição de Idade:** O Thal é destinado a usuários com idade mínima de 13 anos. Se você tiver menos de 13 anos, não poderá criar uma conta ou usar o Thal. Se você tiver entre 13 e 18 anos, você declara que seu responsável legal revisou e concordou com estes Termos. Reservamo-nos o direito de encerrar contas que forem consideradas em violação destes requisitos de idade.
+1.3. **Restrição de Idade:** O Thal é destinado a usuários com idade mínima de 18 anos. Se você tiver menos de 18 anos, não poderá criar uma conta ou usar o Thal. Reservamo-nos o direito de encerrar contas que violem estes requisitos de idade.
 
-1.4. **Encerramento de Conta pela Gaia:** Reservamo-nos o direito de suspender ou encerrar sua conta e acesso ao Thal a nosso exclusivo critério, sem aviso prévio ou responsabilidade, por qualquer motivo, incluindo, mas não se limitando a:
+1.4. **Encerramento de Conta por Nós:** Reservamo-nos o direito de suspender ou encerrar sua conta e acesso ao Thal a nosso exclusivo critério, sem aviso prévio ou responsabilidade, por qualquer motivo, incluindo, mas não se limitando a:
     * Violação destes Termos.
     * Envolvimento em qualquer atividade que possa prejudicar o Thal, seus usuários ou terceiros.
     * Períodos prolongados de inatividade.
@@ -29,11 +27,11 @@ Podemos atualizar estes Termos periodicamente. Iremos notificá-lo sobre quaisqu
 
 ### 2. Uso do Serviço
 
-2.1. **Uso Permitido:** O Thal é fornecido apenas para seus propósitos pessoais ou comerciais de aprendizado da língua inglesa. Você pode usar o Thal para interagir com personagens de IA, descobrir conteúdo e utilizar recursos de assistência linguística conforme desenvolvido.
+2.1. **Uso Permitido:** O Thal é fornecido para seu uso lícito e geral, em especial de aprendizado da língua inglesa, exploração de conteúdo e interação com a inteligência artificial. Você está livre para utilizar o Thal para qualquer finalidade lícita, conforme permitido por estes Termos e pela legislação aplicável.
 
 2.2. **Conduta Proibida:** Você concorda em não usar o Thal para qualquer finalidade que seja ilegal ou proibida por estes Termos. A conduta proibida inclui, mas não se limita a:
 
-  * **Atividades Ilegais:** Envolver-se ou promover quaisquer atividades ilegais.
+  * **Atividades Ilegais:** Envolver-se ou promover quaisquer atividades que violem leis e regulamentos do Brasil ou de sua jurisdição.
   * **Conteúdo Nocivo:** Publicar, transmitir ou compartilhar qualquer conteúdo que seja abusivo, assediante, difamatório, vulgar, obsceno, odioso, discriminatório ou de outra forma questionável (por exemplo, incitação à violência, discurso de ódio, desinformação grave, pornografia infantil, terrorismo, crimes contra a honra).
   * **Falsa Identidade:** Falsificar a identidade de qualquer pessoa ou entidade, ou declarar falsamente ou deturpar sua afiliação com uma pessoa ou entidade.
   * **Acesso Não Autorizado:** Tentar obter acesso não autorizado a qualquer parte do Thal, outras contas de usuário ou sistemas de computador conectados ao Thal.
@@ -63,13 +61,13 @@ Podemos atualizar estes Termos periodicamente. Iremos notificá-lo sobre quaisqu
 
 3.5. **Cancelamento da Assinatura:** Você pode cancelar sua assinatura a qualquer momento através das configurações da sua conta no **Thal**. O cancelamento entrará em vigor ao final do seu período de faturamento atual, e você continuará a ter acesso aos recursos pagos até lá. Não serão concedidos reembolsos por períodos de assinatura parcialmente utilizados.
 
-3.6. **Reembolsos:** Regra geral, as taxas de assinatura não são reembolsáveis, exceto quando exigido por lei ou a nosso exclusivo critério.
+3.6. **Reembolsos:** Regra geral, as taxas de assinatura não são reembolsáveis, exceto a nosso exclusivo critério ou exigido por lei, como previsto no Código de Defesa do Consumidor para compras online, que se aplica à primeira contratação do serviço.
 
 ---
 
 ### 4. Direitos de Conteúdo e Propriedade Intelectual
 
-4.1. **Nosso Conteúdo:** Todo o conteúdo, recursos e funcionalidade do Thal, incluindo, mas não se limitando a texto, gráficos, logotipos, imagens, modelos de IA, software, código-fonte e o design, seleção e arranjo dos mesmos pode ser utilizado por você, mas concorda em não usá-lo para cometer crimes, violar direitos de terceiros ou qualquer lei aplicável. Você é responsável por garantir que seu uso esteja em conformidade com a lei.
+4.1. **Nosso Conteúdo:** nós temos o direito de usar todo o conteúdo, recursos e funcionalidade do Thal, incluindo, mas não se limitando a texto, gráficos, logotipos, imagens, modelos de IA, software, código-fonte e o design, seleção e arranjo dos mesmos. Você concorda em não usá-lo para cometer crimes, violar direitos de terceiros ou qualquer lei aplicável. Você é responsável por garantir que seu uso esteja em conformidade com a lei.
 
 4.2. **Conteúdo Gerado pelo Usuário:** Você retém todos os direitos e é o único responsável pelo conteúdo que cria, envia ou armazena no Thal, incluindo, mas não se limitando a, mensagens de chat e personagens personalizados ("Conteúdo Gerado pelo Usuário"). Ao usar o Thal, você nos concede uma licença mundial, não exclusiva, livre de royalties, transferível e sublicenciável para usar, reproduzir, distribuir, preparar trabalhos derivados, exibir e executar seu Conteúdo Gerado pelo Usuário em conexão com a operação e promoção do Thal e de nossos negócios. Você declara e garante que possui ou tem as licenças e direitos necessários para conceder a licença acima e que seu Conteúdo Gerado pelo Usuário não viola quaisquer direitos de terceiros ou leis aplicáveis.
 
@@ -79,10 +77,11 @@ Podemos atualizar estes Termos periodicamente. Iremos notificá-lo sobre quaisqu
 
 ### 5. Recursos e Limitações de IA
 
-5.1. **Respostas Geradas por IA:** O Thal utiliza inteligência artificial para gerar respostas conversacionais, fornecer assistência linguística, criar personagens e mais. Você reconhece que a tecnologia de IA está em contínua evolução e, portanto:
-    * As respostas geradas por IA podem nem sempre ser precisas, completas ou livres de erros.
-    * A IA pode ocasionalmente produzir conteúdo ofensivo, tendencioso ou inapropriado, apesar de nossos esforços para mitigar tais ocorrências.
-    * O Thal é projetado para o aprendizado de idiomas e não fornece aconselhamento profissional (por exemplo, médico, legal, financeiro ou psicológico). Você não deve confiar nas respostas geradas por IA como um substituto para aconselhamento profissional.
+5.1. **Conteúdo Gerado por IA:** O Thal utiliza modelos de inteligência artificial, incluindo tecnologias fornecidas pelo Google, como o Gemini, para gerar respostas conversacionais, fornecer assistência linguística, criar personagens e mais. Você reconhece que a tecnologia de IA está em contínua evolução e, portanto:
+
+  * As respostas geradas por IA podem nem sempre ser precisas, completas ou livres de erros.
+  * A IA pode ocasionalmente produzir conteúdo ofensivo, tendencioso ou inapropriado, apesar de nossos esforços para mitigar tais ocorrências.
+  * O Thal é projetado para o aprendizado de idiomas e não fornece aconselhamento profissional (por exemplo, médico, legal, financeiro ou psicológico). Você não deve confiar nas respostas geradas por IA como um substituto para aconselhamento profissional.
 
 5.2. **Sem Garantias:** Não garantimos a qualidade, precisão ou adequação do conteúdo gerado por IA ou os resultados de aprendizado do uso do Thal. Seu uso dos recursos de IA é por sua conta e risco.
 
@@ -92,9 +91,9 @@ Podemos atualizar estes Termos periodicamente. Iremos notificá-lo sobre quaisqu
 
 6.1. **Base "Como Está":** O Thal é fornecido "COMO ESTÁ" e "CONFORME DISPONÍVEL", sem quaisquer garantias de qualquer tipo, expressas ou implícitas, incluindo, mas não se limitando a garantias implícitas de comercialização, adequação a uma finalidade específica, não infração ou curso de desempenho.
 
-6.2. **Sem Garantias:** Não garantimos que o Thal será ininterrupto, seguro, livre de erros, preciso, confiável ou disponível em qualquer momento ou local específico; que quaisquer defeitos ou erros serão corrigidos; ou que o Thal está livre de vírus ou outros componentes nocivos.
+6.2. **Sem Garantias:** Não garantimos que o Thal será ininterrupto, seguro, livre de erros, preciso, confiável ou disponível em qualquer momento ou local específico; que quaisquer defeitos ou erros serão corrigidos; ou que o Thal está livre de vírus ou outros componentes nocivos; ou que atenderá a todas as suas expectativas de proficiência no idioma.
 
-6.3. **Limitação de Responsabilidade:** Na extensão máxima permitida pela lei brasileira aplicável, em nenhum caso a Gaia, seus diretores, funcionários, parceiros, agentes, fornecedores ou afiliados, serão responsáveis por quaisquer danos indiretos, incidentais, especiais, consequenciais ou punitivos, incluindo, sem limitação, perda de lucros, dados, uso, boa vontade ou outras perdas intangíveis, resultantes de:
+6.3. **Limitação de Responsabilidade:** Na extensão máxima permitida pela lei brasileira aplicável, em nenhum caso nós seremos responsáveis por quaisquer danos diretos, indiretos, incidentais, especiais, consequenciais, exemplares ou punitivos, incluindo, sem limitação, perda de lucros cessantes, dados, boa vontade ou outras perdas intangíveis, resultantes de:
     * Seu acesso ou uso ou incapacidade de acessar ou usar o Thal;
     * Qualquer conduta ou conteúdo de terceiros no Thal;
     * Qualquer conteúdo obtido do Thal; e
@@ -106,7 +105,7 @@ Podemos atualizar estes Termos periodicamente. Iremos notificá-lo sobre quaisqu
 
 ### 7. Indenização
 
-Você concorda em defender, indenizar e isentar a Gaia e seus licenciados e licenciadores, e seus funcionários, contratados, agentes, diretores e conselheiros, de e contra todas e quaisquer reivindicações, danos, obrigações, perdas, responsabilidades, custos ou dívidas e despesas (incluindo, mas não se limitando a honorários advocatícios), resultantes ou decorrentes de:
+Você concorda em defender, indenizar e isentar-nos de e contra todas e quaisquer reivindicações, danos, obrigações, perdas, responsabilidades, custos ou dívidas e despesas (incluindo, mas não se limitando a honorários advocatícios), resultantes ou decorrentes de:
     * Seu uso e acesso ao Thal, por você ou por qualquer pessoa usando sua conta;
     * Uma violação destes Termos;
     * Seu Conteúdo de Usuário; ou
@@ -116,7 +115,7 @@ Você concorda em defender, indenizar e isentar a Gaia e seus licenciados e lice
 
 ### 8. Links para Outros Sites
 
-O Thal pode conter links para sites ou serviços de terceiros que não são de propriedade ou controlados pela Gaia. Não temos controle e não assumimos responsabilidade pelo conteúdo, políticas de privacidade ou práticas de quaisquer sites ou serviços de terceiros. Você ainda reconhece e concorda que a Gaia não será responsável, direta ou indiretamente, por qualquer dano ou perda causada ou alegadamente causada por ou em conexão com o uso ou dependência de qualquer conteúdo, bens ou serviços disponíveis em ou através de tais sites ou serviços. Aconselhamos vivamente que você leia os termos e condições e as políticas de privacidade de quaisquer sites ou serviços de terceiros que você visitar.
+O Thal pode conter links para sites ou serviços de terceiros que não são de propriedade ou controlados por nós. Não temos controle e não assumimos responsabilidade pelo conteúdo, políticas de privacidade ou práticas de quaisquer sites ou serviços de terceiros. Você ainda reconhece e concorda que nós não seremos responsáveis, direta ou indiretamente, por qualquer dano ou perda causada ou alegadamente causada por ou em conexão com o uso ou dependência de qualquer conteúdo, bens ou serviços disponíveis em ou através de tais sites ou serviços. Aconselhamos vivamente que você leia os termos e condições e as políticas de privacidade de quaisquer sites ou serviços de terceiros que você visitar.
 
 ---
 
@@ -124,31 +123,37 @@ O Thal pode conter links para sites ou serviços de terceiros que não são de p
 
 Seu uso do Thal também é regido por nossa :content-a{href="/privacy"}[Política de Privacidade], que detalha como coletamos, usamos, armazenamos e divulgamos seus dados pessoais. Por favor, revise nossa :content-a{href="/privacy"}[Política de Privacidade] para obter informações sobre nossas práticas de dados e seus direitos sob a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018).
 
----
+### 10. Política de Segurança
 
-### 10. Lei Aplicável e Resolução de Disputas
-
-10.1. **Lei Aplicável:** Estes Termos serão regidos e interpretados de acordo com as leis da República Federativa do Brasil, sem considerar suas disposições sobre conflitos de leis.
-
-10.2. **Resolução de Disputas:** Qualquer disputa, controvérsia ou reivindicação decorrente ou relacionada a estes Termos ou ao Thal será resolvida por negociação entre as partes. Se a negociação direta falhar, as partes concordam em primeiro lugar tentar resolver a disputa por meio de mediação em São Paulo, Brasil, administrada por um mediador mutuamente acordado. Se a mediação não for bem-sucedida, a disputa será submetida à jurisdição exclusiva dos tribunais localizados em São Paulo, Brasil.
+Você concorda em não expor publicamente vulnerabilidades de segurança descobertas no Thal. Quaisquer vulnerabilidades devem ser reportadas de forma responsável, seguindo os procedimentos detalhados em nossa :content-a{href="/security"}[Política de Segurança].
 
 ---
 
-### 11. Disposições Diversas
+### 11. Lei Aplicável e Resolução de Disputas
 
-11.1. **Separação:** Se qualquer disposição destes Termos for considerada inválida ou inexequível por um tribunal, as demais disposições destes Termos permanecerão em vigor.
+11.1. **Lei Aplicável:** Estes Termos serão regidos e interpretados de acordo com as leis da República Federativa do Brasil, sem considerar suas disposições sobre conflitos de leis.
 
-11.2. **Renúncia:** Nenhuma renúncia de qualquer termo destes Termos será considerada uma renúncia adicional ou contínua de tal termo ou de qualquer outro termo, e nossa falha em afirmar qualquer direito ou disposição sob estes Termos não constituirá uma renúncia de tal direito ou disposição.
-
-11.3. **Acordo Integral:** Estes Termos, juntamente com a :content-a{href="/privacy"}[Política de Privacidade], constituem o acordo integral entre você e a Gaia em relação ao Thal.
+11.2. **Resolução de Disputas:** Quaisquer disputas, controvérsias ou reivindicações decorrentes ou relacionadas a estes Termos ou ao Thal serão resolvidas por negociação entre as partes. Se a negociação direta falhar, as partes concordam em primeiro lugar tentar resolver a disputa por meio de mediação no Brasil, administrada por um mediador mutuamente acordado. Se a mediação não for bem-sucedida, a disputa será submetida à jurisdição exclusiva dos tribunais localizados no Brasil.
 
 ---
 
-### 12. Alterações no Serviço e nos Termos
+### 12. Disposições Diversas
+
+12.1. **Separação:** Se qualquer disposição destes Termos for considerada inválida ou inexequível por um tribunal, as demais disposições destes Termos permanecerão em vigor.
+
+12.2. **Renúncia:** Nenhuma renúncia de qualquer termo destes Termos será considerada uma renúncia adicional ou contínua de tal termo ou de qualquer outro termo, e nossa falha em afirmar qualquer direito ou disposição sob estes Termos não constituirá uma renúncia de tal direito ou disposição.
+
+12.3. **Acordo Integral:** Estes Termos, juntamente com a :content-a{href="/privacy"}[Política de Privacidade], constituem o acordo integral entre você e nós em relação ao Thal.
+
+---
+
+### 13. Alterações no Serviço e nos Termos
 
 Reservamo-nos o direito de modificar, suspender ou descontinuar qualquer aspecto do Thal, incluindo estes Termos, a qualquer momento. Informaremos você sobre quaisquer alterações significativas no Serviço por meio do aplicativo ou outros canais de comunicação. Recomendamos que você revise periodicamente esta política para se manter informado sobre os Termos. Ao continuar a usar o Thal após essas alterações, você aceita e concorda com os Termos atualizados.
 
-### 13. Informações de Contato
+---
+
+### 14. Informações de Contato
 
 Se você tiver alguma dúvida sobre estes Termos, entre em contato conosco em:
 
