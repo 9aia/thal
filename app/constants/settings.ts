@@ -78,6 +78,7 @@ const legal: MenuItemType[] = [
 
   { id: 'terms', icon: 'material-symbols:gavel-rounded', name: t('Terms of Service'), href: '/terms', type: 'external', newTab: true },
   { id: 'privacy', icon: 'material-symbols:policy-outline-rounded', name: t('Privacy Policy'), href: '/privacy', type: 'external', newTab: true },
+  { id: 'security', icon: 'material-symbols:security-rounded', name: t('Security Policy'), href: '/security', type: 'external', newTab: true },
 ]
 
 export const SETTINGS = {

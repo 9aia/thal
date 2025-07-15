@@ -29,7 +29,7 @@ const logout = useLogout()
             active-class="text-gray-200"
             class="flex items-center gap-1 text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit"
           >
-            {{ t('Terms of Service') }}
+            {{ t('Terms') }}
           </Link>
 
           <Link
@@ -37,7 +37,15 @@ const logout = useLogout()
             active-class="text-gray-200"
             class="flex items-center gap-1 text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit"
           >
-            {{ t('Privacy Policy') }}
+            {{ t('Privacy') }}
+          </Link>
+
+          <Link
+            href="/security"
+            active-class="text-gray-200"
+            class="flex items-center gap-1 text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit"
+          >
+            {{ t('Security') }}
           </Link>
         </div>
       </div>
@@ -142,8 +150,8 @@ const logout = useLogout()
       </div> -->
         <div class="flex items-center gap-1">
           <T
-            text="{year} - Developed by {teamName}"
-            :values="{ year: [new Date(), { year: 'numeric' }], teamName: 'Gaia' }"
+            text="{year} - Developed at {orgName}"
+            :values="{ year: [new Date(), { year: 'numeric' }], orgName: '9aia' }"
             class="flex items-center justify-center gap-1"
           >
             <template #year="slotProps">
@@ -152,9 +160,9 @@ const logout = useLogout()
               </span>
             </template>
 
-            <template #teamName="slotProps">
-              <Link href="https://9aia.github.io/" disable class="!text-blue-500 flex items-center gap-1 border-y-2 border-transparent focus:border-b-blue-500 focus:outline-none">
-                {{ slotProps.teamName }}
+            <template #orgName="slotProps">
+              <Link href="https://9aia.com" disable class="!text-blue-500 flex items-center gap-1 border-y-2 border-transparent focus:border-b-blue-500 focus:outline-none">
+                {{ slotProps.orgName }}
               </Link>
             </template>
           </T>
