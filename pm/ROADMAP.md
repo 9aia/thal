@@ -6,23 +6,35 @@ description: A timeline of key milestones and upcoming features or releases.
 
 ## Contract
 
-- **`vx.x.x-x`**:
+**`vx.x.x-x`**:
 
-- **Pre-releases (`vx.x.x-x`)**:
-  - Examples: `v0.1.0-0`
-  - Pre-releases can be accessed at [preview.thal.9aia.com](https://preview.thal.9aia.com)
-  - The preview may break or change often
-  - Used for testing ideas and polishing UX before release
-  - Used for gathering feedback
-  - Data may be deleted without warning
-  - Deployed on temporary environments
-  - Free to try
+### Preview Releases
 
-- **Public Releases (`vx.x.x`)**:
-  - Examples: `v0.1.0`
-  - Releases can be accessed at [thal.9aia.com](https://thal.9aia.com)
-  - Released on the main domain for broader public access
-  - Payment systems will be fully operational (no sandbox mode)
+- Template: `vx.x.x-x`
+- Example: `v0.1.0-0`
+- Can be accessed at [preview.thal.9aia.com](https://preview.thal.9aia.com)
+- The preview may break or change often
+- Used for testing ideas and polishing UX before release
+- Used for gathering feedback
+- Data may be deleted without warning
+- Deployed on temporary environments
+- Free to try
+
+### Early Access Releases
+
+- Template: `vx.x.x` below `v1.0.0`
+- Example: `v0.2.0`
+- Can be accessed at [thal.9aia.com](https://thal.9aia.com)
+- Released on the main domain for broader public access
+- Payment systems will be fully operational (no sandbox mode)
+
+### Public Releases
+
+- Template: `vx.x.x`
+- Example: `v1.0.0`
+- Can be accessed at [thal.9aia.com](https://thal.9aia.com)
+- Released on the main domain for broader public access
+- Payment systems will be fully operational (no sandbox mode)
 
 ## Phases
 
