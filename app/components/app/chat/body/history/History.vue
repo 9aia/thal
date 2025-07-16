@@ -24,6 +24,8 @@ watch(showShowChatBubbleLoading, (value) => {
 <template>
   <CommonResource
     :for="historyQuery"
+    common-error-fallback-class="px-6 mt-8"
+    centered-error-fallback
   >
     <template #empty>
       <span />

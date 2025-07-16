@@ -9,6 +9,7 @@ const props = withDefaults(defineProps<{
   emptyMessage?: string
   notFoundMessage?: string
   centeredErrorFallback?: boolean
+  commonErrorFallbackClass?: string
 }>(), {
   emptyCondition: undefined,
   notFoundCondition: undefined,
@@ -33,6 +34,7 @@ const props = withDefaults(defineProps<{
         :disabled="disabled"
         :loading="loading"
         :is-retry-available="isRetryAvailable"
+        :class="commonErrorFallbackClass"
         @retry="onRetry"
       />
     </template>

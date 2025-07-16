@@ -44,6 +44,7 @@ const trialPeriodDays = PLANS.allInOne.trialPeriodDays
       refetch: pricingQuery.refetch,
     }"
     centered-error-fallback
+    common-error-fallback-class="pb-4"
   >
     <div>
       <div class="flex flex-col items-center pt-2 gap-1 text-2xl">

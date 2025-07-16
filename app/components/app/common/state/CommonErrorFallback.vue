@@ -17,7 +17,7 @@ const { t } = useI18nExperimental()
 
 <template>
   <div
-    class="w-full sm:w-auto sm:h-auto p-6"
+    class="w-full sm:w-auto sm:h-auto"
     :class="centered ? 'flex flex-col items-center justify-center text-center' : ''"
   >
     <h1 class="text-error text-sm mb-2">

@@ -13,7 +13,10 @@ function openChat(username: string) {
 </script>
 
 <template>
-  <CommonResource :for="chatsQuery">
+  <CommonResource
+    :for="chatsQuery"
+    common-error-fallback-class="px-2 mt-4"
+  >
     <template #empty>
       <p v-if="!chatListSearch?.trim()" class="text-gray-500 text-xs px-2 py-2">
         {{ t('You have no chats yet.') }}

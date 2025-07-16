@@ -279,6 +279,7 @@ function handleApproved(characterId: number) {
           isError,
           refetch: buildQuery.refetch,
         }"
+        common-error-fallback-class="px-6 mt-8"
       >
         <template #not-found>
           <span aria-hidden="true" class="hidden">

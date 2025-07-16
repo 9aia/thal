@@ -98,6 +98,7 @@ const emptyMessage = computed(() => {
         <CommonResource
           :for="contactsQuery"
           :empty-message="emptyMessage"
+          common-error-fallback-class="px-2"
         >
           <ContactItem
             v-for="contact in contactsQuery.data.value"

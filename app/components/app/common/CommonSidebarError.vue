@@ -11,6 +11,8 @@ sidebar.navigationDirection.value = 'backward'
       @click="navigateTo('/app')"
     />
 
-    <CommonErrorFallback />
+    <div class="flex-1 overflow-y-auto bg-white pt-4 px-6">
+      <CommonErrorFallback />
+    </div>
   </div>
 </template>

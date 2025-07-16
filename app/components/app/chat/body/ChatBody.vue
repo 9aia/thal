@@ -53,6 +53,7 @@ onMounted(() => {
   >
     <CommonResource
       :for="characterQuery"
+      common-error-fallback-class="px-6 mt-8"
       centered-error-fallback
     >
       <template #default>

@@ -67,6 +67,7 @@ function handleCreateCharacter(characterId?: number | null) {
         >
           <CommonResource
             :for="myCharactersQuery"
+            common-error-fallback-class="px-2 mt-4 mb-8"
             :empty-message="t('You have no characters yet.')"
           >
             <div class="h-full px-2">

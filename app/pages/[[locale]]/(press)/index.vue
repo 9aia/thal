@@ -58,7 +58,10 @@ const locale = useLocale()
             </T>
           </p>
 
-          <CommonResource :for="pricingQuery" centered-error-fallback>
+          <CommonResource
+            :for="pricingQuery"
+            centered-error-fallback
+          >
             <StripeCreateSessionForm
               :checkout-status="pricingQuery.data.value?.checkoutStatus || null"
               :subscription-status="pricingQuery.data.value?.subscriptionStatus || SubscriptionStatus.not_subscribed"
@@ -69,9 +72,10 @@ const locale = useLocale()
         </div>
       </div>
 
-      <div class="absolute bottom-4 right-1/2 translate-x-1/2 text-black z-30">
-        <a
+      <div class="absolute bottom-8 right-1/2 translate-x-1/2 text-black z-30">
+        <A
           href="#features"
+          :localize="false"
           class="no-underline flex flex-col gap-2 items-center px-6 py-2 rounded-3xl focus:outline-2 focus:outline-offset-2 focus:outline-primary"
         >
           {{ t("Learn more") }}
@@ -79,7 +83,7 @@ const locale = useLocale()
             name="material-symbols:arrow-downward-rounded"
             class="flex items-center justify-center text-4xl"
           />
-        </a>
+        </A>
       </div>
     </div>
 

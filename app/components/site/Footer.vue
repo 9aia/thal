@@ -118,7 +118,7 @@ const logout = useLogout()
 
           <Button
             v-if="user"
-            class="flex items-center !text-warning border-y-2 border-transparent focus:border-b-blue-500 focus:outline-none w-fit cursor-pointer"
+            class="ml-1 flex items-center !text-warning border-y-2 border-transparent focus:border-b-blue-500 focus:outline-none w-fit cursor-pointer"
             icon="material-symbols:logout-rounded"
             @click="logout()"
           >
@@ -151,7 +151,7 @@ const logout = useLogout()
         <div class="flex items-center gap-1">
           <T
             text="{year} - Developed at {orgName}"
-            :values="{ year: [new Date(), { year: 'numeric' }], orgName: '9aia' }"
+            :values="{ year: [new Date(), { year: 'numeric' }], orgName: 'Gaia' }"
             class="flex items-center justify-center gap-1"
           >
             <template #year="slotProps">

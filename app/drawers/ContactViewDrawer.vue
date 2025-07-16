@@ -164,6 +164,7 @@ const items = computed(() => ([
           isError,
           refetch,
         }"
+        common-error-fallback-class="px-6 mt-4"
       >
         <section class="w-full px-6 pb-4 mt-2 flex flex-col justify-center items-center">
           <ContactViewIdentifier
