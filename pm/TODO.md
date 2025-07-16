@@ -16,8 +16,8 @@ description: Tasks and items for the release.
 
 ## 0.1.0
 
-- Set the GCP OAuth screen to production instead of testing (requires app verification).
-- Set Stripe to production instead of testing.
+- Configure GCP OAuth screen and set it to production instead of testing (requires app verification)
+- Configure Stripe to production instead of testing
 - Deploy to production
 - Create characters
 

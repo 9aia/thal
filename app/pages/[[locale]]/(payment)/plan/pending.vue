@@ -64,7 +64,7 @@ async function goToApp() {
           class="flex flex-col items-center justify-center"
           text="If you have any problem, you can contact us at: {link}"
           :values="{
-            link: 'thal@9aia.com',
+            link: t('support@thal.9aia.com'),
           }"
         >
           <template #link="{ link }">

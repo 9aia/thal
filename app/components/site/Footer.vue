@@ -74,11 +74,11 @@ const logout = useLogout()
 
         <div class="flex items-center gap-4 justify-center">
           <Link
-            href="mailto:thal@9aia.com"
+            :href="`mailto:${t('support@thal.9aia.com')}`"
             active-class="text-gray-200"
             class="flex items-center gap-1 text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit"
           >
-            thal@9aia.com
+            {{ t('support@thal.9aia.com') }}
           </Link>
         </div>
       </div>

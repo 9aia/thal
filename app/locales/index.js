@@ -836,9 +836,6 @@
   "Username can only contain letters, numbers, and underscores. Min {min} character, max {max} characters.": {
     "pt": "O nome de usuário só pode conter letras, números e sublinhados. Mínimo {min} caractere, máximo {max} caracteres."
   },
-  "{year} - Developed by {teamName}": {
-    "pt": "{year} - Desenvolvido por {teamName}"
-  },
   "{price} {discountPrice} for the first {x} (day|days)": {
     "pt": "{price} {discountPrice} nos primeiros {x} (dia|dias)"
   },
@@ -938,9 +935,6 @@
   "Notice a bug or want to suggest something?": {
     "pt": "Notou um bug ou quer sugerir algo?"
   },
-  "Release": {
-    "pt": "Lançamento"
-  },
   "Announcement": {
     "pt": "Anúncio"
   },
@@ -997,5 +991,32 @@
   },
   "Get translations, corrections, and listening while chatting. Try it for free to level up your English.": {
     "pt": "Obtenha traduções, correções e escuta enquanto conversa. Experimente gratuitamente para aprimorar seu inglês."
+  },
+  "Terms": {
+    "pt": "Termos"
+  },
+  "Privacy": {
+    "pt": "Privacidade"
+  },
+  "Security": {
+    "pt": "Segurança"
+  },
+  "{year} - Developed at {orgName}": {
+    "pt": "{year} - Desenvolvido em {orgName}"
+  },
+  "Username can only contain lowercase letters, numbers, and underscores. Min {min} character, max {max} characters.": {
+    "pt": "O nome de usuário só pode conter letras minúsculas, números e sublinhados. Mínimo {min} caracteres, máximo {max} caracteres."
+  },
+  "Security Policy": {
+    "pt": "Política de Segurança"
+  },
+  "support@thal.9aia.com": {
+    "pt": "suporte@thal.9aia.com"
+  },
+  "Public Release": {
+    "pt": "Lançamento Público"
+  },
+  "Early Access Release": {
+    "pt": "Lançamento de Acesso Antecipado"
   }
 }

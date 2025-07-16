@@ -85,6 +85,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Add high traffic UI alert
 - Pass user name to Stripe from Google account
 - Save cookie for "Continue Your Access" after once logged
+- Improve common error fallback to be more customizable, eg. contact fetching error
 - Improve error handling
 - Improve loading handling
   - Improve chat loading by rendering the skeleton on the backend and the message on the client

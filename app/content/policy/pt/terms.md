@@ -21,7 +21,7 @@ Ao acessar, navegar ou usar o Thal, você ("Usuário" ou "você") concorda em ac
     * Envolvimento em qualquer atividade que possa prejudicar o Thal, seus usuários ou terceiros.
     * Períodos prolongados de inatividade.
 
-1.5. **Encerramento de Conta pelo Usuário:** Você pode encerrar sua conta a qualquer momento entrando em contato conosco através do nosso e-mail: :content-a{href="mailto:thal@9aia.com"}[thal@9aia.com].
+1.5. **Encerramento de Conta pelo Usuário:** Você pode encerrar sua conta a qualquer momento entrando em contato conosco através do nosso e-mail: :content-a{href="mailto:suporte@thal.9aia.com"}[suporte@thal.9aia.com].
 
 ---
 
@@ -157,4 +157,4 @@ Reservamo-nos o direito de modificar, suspender ou descontinuar qualquer aspecto
 
 Se você tiver alguma dúvida sobre estes Termos, entre em contato conosco em:
 
-:content-a{href="mailto:thal@9aia.com"}[thal@9aia.com]
+:content-a{href="mailto:juridico@thal.9aia.com"}[juridico@thal.9aia.com]
