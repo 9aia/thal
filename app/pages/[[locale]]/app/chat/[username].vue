@@ -17,6 +17,7 @@ const usernameNotFound = computed(() => !characterQuery.data.value?.usernameId)
 <template>
   <div class="flex flex-col h-dvh justify-center items-center bg-white absolute w-full">
     <ChatHeader />
+    <ReleaseBanner />
 
     <ChatBody />
 

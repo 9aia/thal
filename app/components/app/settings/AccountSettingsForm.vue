@@ -143,6 +143,6 @@ const hasChanges = computed(() => {
   >
     <ItemList :items="items" />
 
-    <AccountDeactivateModal v-model="isDeactivateModalOpen" />
+    <LazyAccountDeactivateModal v-model="isDeactivateModalOpen" />
   </SettingSection>
 </template>

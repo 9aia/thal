@@ -467,9 +467,6 @@
   "Forget waiting for perfection. Dive into dialogue, make mistakes, be human — and let learning happen along the way.": {
     "pt": "Esqueça esperar pela perfeição. Mergulhe no diálogo, cometa erros, seja humano - e deixe a aprendizagem acontecer ao longo do caminho."
   },
-  "Talk to thals to practice, learn, and have fun.": {
-    "pt": "Converse com thals para praticar, aprender e se divertir."
-  },
   "Discover characters": {
     "pt": "Descobrir personagens"
   },
@@ -480,7 +477,7 @@
     "pt": "Novidades"
   },
   "Thal messages are powered by generative AI.": {
-    "pt": "As mensagens Thal são alimentadas por IA generativa."
+    "pt": "As mensagens de thals são geradas por IA generativa."
   },
   "An error occurred while discarding character.": {
     "pt": "Ocorreu um erro ao descartar o personagem."
@@ -1025,15 +1022,6 @@
   "Terms apply.": {
     "pt": "Aplicam-se termos."
   },
-  "This Thal version (v{version}) is running on an early and experimental environment. Expect frequent changes, potential bugs, and data resets. It's free to use and helps us test and polish upcoming features.": {
-    "pt": "Esta versão do Thal (v{version}) está rodando em um ambiente inicial e experimental. Espere mudanças frequentes, possíveis bugs e redefinições de dados. É grátis para usar e nos ajuda a testar e aprimorar os próximos recursos."
-  },
-  "This Thal version (v{version}) is running on an early environment. It includes core features and fully operational payment. Your feedback will directly shape the future of Thal!": {
-    "pt": "Esta versão do Thal (v{version}) está rodando em um ambiente inicial. Ele inclui recursos principais e pagamento totalmente operacional. Seu feedback moldará diretamente o futuro do Thal!"
-  },
-  "This Thal version (v{version}) is running on an early stable environment. It represents a foundation with the core features and fully operational payment. Updates will primarily focus on critical patches to ensure reliability.": {
-    "pt": "Esta versão Thal (v{version}) está rodando em um ambiente estável inicial. Ela representa uma base com as funcionalidades principais e pagamento totalmente operacional. As atualizações focarão principalmente em correções críticas para garantir a confiabilidade."
-  },
   "This Thal version (v{version}) is running on a stable environment. It includes core features and fully operational payment.": {
     "pt": "Esta versão Thal (v{version}) está rodando em um ambiente estável. Ela inclui as funcionalidades principais e pagamento totalmente operacional."
   },
@@ -1051,5 +1039,20 @@
   },
   "This Thal version (v{version}) is running on an early, public and stable environment. It includes a foundation with the core features and a fully operational payment integration. Updates will primarily focus on critical patches to ensure reliability.": {
     "pt": "Esta versão do Thal (v{version}) está rodando em um ambiente inicial, público e estável. Ele inclui uma base com os recursos principais e uma integração de pagamento totalmente operacional. As atualizações se concentrarão principalmente em correções críticas para garantir a confiabilidade."
+  },
+  "Development: Testing upcoming features. Expect frequent changes, bugs, and data resets.": {
+    "pt": "Desenvolvimento: Testando recursos futuros. Espere mudanças frequentes, bugs e reinicializações de dados."
+  },
+  "Preview: Testing upcoming features. Expect frequent changes, bugs, and data resets.": {
+    "pt": "Pré-visualização: Testando recursos futuros. Espere mudanças frequentes, bugs e reinicializações de dados."
+  },
+  "Early Access: Core functionality implemented, more updates soon.": {
+    "pt": "Acesso Antecipado: Funcionalidade principal implementada, mais atualizações em breve."
+  },
+  "Early Stable: Core functionality is set; updates will be critical patches.": {
+    "pt": "Primeira Versão Estável: Funcionalidade principal definida; as atualizações serão correções críticas."
+  },
+  "Close": {
+    "pt": "Fechar"
   }
 }
