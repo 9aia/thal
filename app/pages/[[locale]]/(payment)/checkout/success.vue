@@ -50,7 +50,7 @@ onMounted(() => {
           class="flex flex-col items-center justify-center"
           text="If you have any problem, you can contact us at: {link}"
           :values="{
-            link: t('support@thal.9aia.com'),
+            link: 'suporte@thal.9aia.com',
           }"
         >
           <template #link="{ link }">

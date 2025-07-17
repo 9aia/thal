@@ -7,165 +7,194 @@ import { isWhatsNewModalOpen } from '~/store'
 const user = useUser()
 const localeModal = useLocaleModal()
 const logout = useLogout()
+
+const isReleaseModalOpen = ref(false)
+
+const releaseType = useReleaseType()
 </script>
 
 <template>
-  <footer class="sticky top-[100vh] bg-white">
-    <div class="z-20 text-black w-full py-4 flex flex-col gap-1 max-w-[800px] mx-auto px-4">
-      <div class="flex gap-2 items-center justify-between w-full">
-        <div class="flex items-center gap-4 justify-center">
-          <A href="/" active-class="text-gray-200" class="flex items-center gap-1 text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit">
-            {{ t('Home') }}
-          </A>
+  <footer class="sticky top-[100vh] bg-white pt-4">
+    <LazyReleaseModal v-model="isReleaseModalOpen" />
 
-          <A v-if="!user?.plan == null" href="/pricing" active-class="text-gray-200" class="flex items-center gap-1 text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit">
-            {{ t('Pricing') }}
-          </A>
+    <div class="z-20 text-black w-full py-4 max-w-[800px] mx-auto px-4 ">
+      <!-- Main Footer Content -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        <!-- Product Section -->
+        <div class="space-y-4">
+          <h3 class="text-gray-500">
+            {{ t('Product') }}
+          </h3>
+          <div class="space-y-2">
+            <A href="/" active-class="text-gray-700" class="flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm">
+              {{ t('Home') }}
+            </A>
+
+            <A href="/pricing" active-class="text-gray-700" class="flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm">
+              {{ t('Pricing') }}
+            </A>
+
+            <A
+              href="/app"
+              class="flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm"
+            >
+              {{ t('Access app') }}
+            </A>
+
+            <Button
+              v-if="releaseType !== 'stable' && releaseType !== 'dev'"
+              class="flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm"
+              @click="isReleaseModalOpen = true"
+            >
+              <template v-if="releaseType === 'preview'">
+                {{ t('About preview') }}
+              </template>
+              <template v-if="releaseType === 'early-access'">
+                {{ t('About early access') }}
+              </template>
+              <template v-if="releaseType === 'early-stable'">
+                {{ t('About early stable') }}
+              </template>
+            </Button>
+
+            <Button
+              class="flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit cursor-pointer text-sm"
+              @click="isWhatsNewModalOpen = true"
+            >
+              {{ t('What\'s new') }}
+            </Button>
+          </div>
         </div>
 
-        <div class="flex gap-4">
-          <Link
-            href="/terms"
-            active-class="text-gray-200"
-            class="flex items-center gap-1 text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit"
-          >
-            {{ t('Terms') }}
-          </Link>
+        <!-- Support Section -->
+        <div class="space-y-4">
+          <h3 class="text-gray-500">
+            {{ t('Support') }}
+          </h3>
+          <div class="space-y-2">
+            <Link
+              href="mailto:suporte@thal.9aia.com"
+              active-class="text-gray-700"
+              class="flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm"
+            >
+              suporte@thal.9aia.com
+            </Link>
+            <Link
+              href="https://forms.gle/UyGBzPrBeNfFgwLD6"
+              :localize="false"
+              target="_blank"
+              class="flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm"
+            >
+              {{ t('Send feedback') }}
+            </Link>
+            <Link
+              v-if="user"
+              href="https://forms.gle/yHaiExzsQvv1mTdM8"
+              :localize="false"
+              target="_blank"
+              class="flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm"
+            >
+              {{ t('Rate Thal') }}
+            </Link>
+          </div>
+        </div>
 
-          <Link
-            href="/privacy"
-            active-class="text-gray-200"
-            class="flex items-center gap-1 text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit"
-          >
-            {{ t('Privacy') }}
-          </Link>
+        <!-- Legal Section -->
+        <div class="space-y-4">
+          <h3 class="text-gray-500">
+            {{ t('Legal') }}
+          </h3>
+          <div class="space-y-2">
+            <Link
+              href="/legal/terms"
+              active-class="text-gray-700"
+              class="flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm"
+            >
+              {{ t('Terms of Service') }}
+            </Link>
+            <Link
+              href="/legal/privacy"
+              active-class="text-gray-700"
+              class="flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm"
+            >
+              {{ t('Privacy Policy') }}
+            </Link>
+            <Link
+              href="/legal/security"
+              active-class="text-gray-700"
+              class="flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm"
+            >
+              {{ t('Security Policy') }}
+            </Link>
+          </div>
+        </div>
 
-          <Link
-            href="/security"
-            active-class="text-gray-200"
-            class="flex items-center gap-1 text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit"
-          >
-            {{ t('Security') }}
-          </Link>
+        <!-- Account Section -->
+        <div class="space-y-4">
+          <h3 class="text-gray-500">
+            {{ t('Account') }}
+          </h3>
+          <div class="space-y-2">
+            <A
+              v-if="user"
+              href="/settings/account"
+              class="flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm"
+            >
+              {{ t('Manage account') }}
+            </A>
+            <form v-if="user" action="/api/payment/stripe/create-portal-session" method="post">
+              <Button
+                type="submit"
+                class="cursor-pointer text-left flex items-center gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm"
+              >
+                {{ t('Manage billing information') }}
+              </Button>
+            </form>
+
+            <Button
+              v-if="user"
+              class="flex text-left gap-1 text-black hover:text-black hover:underline border-y-2 border-transparent focus:border-b-blue-500 focus:outline-none w-fit cursor-pointer text-sm"
+              @click="logout()"
+            >
+              {{ t('Logout') }}
+            </Button>
+          </div>
         </div>
       </div>
 
-      <div class="flex gap-2 items-center justify-between w-full">
-        <div class="flex gap-4">
-          <Link
-            href="https://forms.gle/UyGBzPrBeNfFgwLD6"
-            :localize="false"
-            target="_blank"
-            class="flex items-center gap-1 !text-black border-y-2 border-transparent focus:border-b-blue-500 focus:outline-none w-fit"
-          >
-            {{ t('Send feedback') }}
-          </Link>
+      <!-- Bottom Bar -->
+      <div class="pt-6">
+        <div class="flex flex-row gap-4 items-center justify-between">
+          <!-- Copyright -->
+          <div class="flex items-center gap-1">
+            <T
+              text="{year} - Developed at {orgName}"
+              :values="{ year: [new Date(), { year: 'numeric' }], orgName: 'Gaia' }"
+              class="flex items-center justify-center gap-1 text-sm text-black"
+            >
+              <template #year="slotProps">
+                <span class="text-black">
+                  {{ formatValue(slotProps.year as Value) }}
+                </span>
+              </template>
 
-          <Link
-            v-if="user"
-            href="https://forms.gle/yHaiExzsQvv1mTdM8"
-            :localize="false"
-            target="_blank"
-            class="flex items-center gap-1 !text-black border-y-2 border-transparent focus:border-b-blue-500 focus:outline-none w-fit"
-          >
-            {{ t('Rate Thal') }}
-          </Link>
-        </div>
+              <template #orgName="slotProps">
+                <Link href="https://9aia.com" disable class="!text-blue-500 flex items-center gap-1 border-y-2 border-transparent focus:border-b-blue-500 focus:outline-none">
+                  {{ slotProps.orgName }}
+                </Link>
+              </template>
+            </T>
+          </div>
 
-        <div class="flex items-center gap-4 justify-center">
-          <Link
-            :href="`mailto:${t('support@thal.9aia.com')}`"
-            active-class="text-gray-200"
-            class="flex items-center gap-1 text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit"
-          >
-            {{ t('support@thal.9aia.com') }}
-          </Link>
-        </div>
-      </div>
-
-      <div class="flex gap-2 items-center justify-between w-full">
-        <div>
-          <Button
-            class="flex items-center gap-1 text-black border-y-2 border-transparent focus:border-b-blue-500 focus:outline-none w-fit cursor-pointer"
-            icon="material-symbols:campaign-outline-rounded"
-            @click="isWhatsNewModalOpen = true"
-          >
-            {{ t('What\'s new') }}
-          </Button>
-        </div>
-
-        <div class="flex items-center gap-1 justify-center">
-          <A
-            href="/app"
-            class="cursor-pointer rounded-full p-1 hover:text-gray-700 flex focus:outline-primary focus:outline-2 focus:outline-offset-2"
-          >
-            <Icon name="material-symbols:chat-outline-rounded" />
-          </A>
-
-          <A
-            v-if="user"
-            class="cursor-pointer rounded-full p-1 hover:text-gray-700 flex focus:outline-primary focus:outline-2 focus:outline-offset-2"
-            href="/settings/account"
-          >
-            <Icon name="material-symbols:settings-outline-rounded" />
-          </A>
-
-          <Button
-            class="cursor-pointer rounded-full p-1 hover:text-gray-700 flex focus:outline-primary focus:outline-2 focus:outline-offset-2"
-            icon="material-symbols:language"
-            @click="localeModal.open()"
-          />
-
-          <Button
-            v-if="user"
-            class="ml-1 flex items-center !text-warning border-y-2 border-transparent focus:border-b-blue-500 focus:outline-none w-fit cursor-pointer"
-            icon="material-symbols:logout-rounded"
-            @click="logout()"
-          >
-            {{ t('Logout') }}
-          </Button>
-        </div>
-      </div>
-
-      <div class="flex gap-4 items-center justify-between w-full mt-4">
-        <!-- Social icons -->
-        <!-- <div class="flex items-center gap-1">
-        <Button
-          as="a"
-          href="https://www.instagram.com/thal.app"
-          target="_blank"
-          icon="logos:instagram-icon"
-          class="cursor-pointer rounded-full p-1 hover:text-gray-700 flex focus:outline-primary focus:outline-2 focus:outline-offset-2"
-          icon-class="fill-black text-xl"
-        />
-
-        <Button
-          as="a"
-          href="https://www.twitter.com/thal.app"
-          target="_blank"
-          icon="logos:x"
-          class="cursor-pointer rounded-full p-1 hover:text-gray-700 flex focus:outline-primary focus:outline-2 focus:outline-offset-2"
-          icon-class="fill-black text-xl"
-        />
-      </div> -->
-        <div class="flex items-center gap-1">
-          <T
-            text="{year} - Developed at {orgName}"
-            :values="{ year: [new Date(), { year: 'numeric' }], orgName: 'Gaia' }"
-            class="flex items-center justify-center gap-1"
-          >
-            <template #year="slotProps">
-              <span class="text-gray-500">
-                {{ formatValue(slotProps.year as Value) }}
-              </span>
-            </template>
-
-            <template #orgName="slotProps">
-              <Link href="https://9aia.com" disable class="!text-blue-500 flex items-center gap-1 border-y-2 border-transparent focus:border-b-blue-500 focus:outline-none">
-                {{ slotProps.orgName }}
-              </Link>
-            </template>
-          </T>
+          <!-- Action Icons -->
+          <div class="flex items-center gap-2">
+            <Button
+              class="btn btn-neutral btn-ghost btn-circle"
+              icon="material-symbols:language"
+              icon-class="text-black"
+              @click="localeModal.open()"
+            />
+          </div>
         </div>
       </div>
     </div>

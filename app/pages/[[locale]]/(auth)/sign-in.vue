@@ -30,10 +30,10 @@ definePageMeta({
       <p class="mt-4 text-sm text-black">
         <T text="By signing in, you agree to our {terms} and {privacy}." :values="{ terms: 'true', privacy: 'true' }">
           <template #terms>
-            <A href="/terms" class="link text-brown-500 mr-1">{{ t('Terms of Service') }}</A>
+            <A href="/legal/terms" class="link text-brown-500 mr-1">{{ t('Terms of Service') }}</A>
           </template>
           <template #privacy>
-            <A href="/privacy" class="link text-brown-500">{{ t('Privacy Policy') }}</A>
+            <A href="/legal/privacy" class="link text-brown-500">{{ t('Privacy Policy') }}</A>
           </template>
         </T>
       </p>

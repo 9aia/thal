@@ -33,14 +33,15 @@ function handleGoHome() {
       hide-back="always"
     >
       <div class="flex gap-2 items-center">
-        <h1>
+        <h1 class="flex items-center gap-2">
           <button
-            class="flex items-center gap-2 justify-center text-lg font-medium text-black cursor-pointer border-b-2 border-b-transparent focus:border-b-primary focus:outline-hidden"
+            class="text-lg text-black cursor-pointer border-y-2 border-y-transparent focus:border-b-primary focus:outline-hidden"
             @click="handleGoHome()"
           >
             {{ t('Thal') }}
-            <ExperimentalBadge />
           </button>
+
+          <ReleaseBadge />
         </h1>
       </div>
 

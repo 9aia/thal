@@ -22,7 +22,7 @@ const modelValue = defineModel<boolean>()
           class="flexitems-start justify-start flex-col gap-1"
           text="Having trouble or need help? Reach out to us at {email}  — we’re here for you."
           :values="{
-            email: t('support@thal.9aia.com'),
+            email: 'suporte@thal.9aia.com',
           }"
         >
           <template #email="{ email }">

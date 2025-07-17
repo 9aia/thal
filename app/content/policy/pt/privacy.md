@@ -47,8 +47,8 @@ Você tem os seguintes direitos em relação às suas informações pessoais:
 
 - **Acessar e Atualizar**: Você pode visualizar e atualizar suas informações pessoais a qualquer momento através das configurações do aplicativo.
 - **Desativar Sua Conta**: Você pode desativar sua conta diretamente através das configurações do aplicativo.
-- **Excluir Sua Conta**: Se desejar excluir sua conta e dados pessoais, pode solicitar a exclusão da conta entrando em contato conosco pelo e-mail :content-a{href="mailto:suporte@thal.9aia.com"}[suporte@thal.9aia.com].
-- **Cancelar Inscrição**: Para parar de receber e-mails de marketing, basta entrar em contato conosco pelo e-mail :content-a{href="mailto:suporte@thal.9aia.com"}[suporte@thal.9aia.com].
+- **Excluir Sua Conta**: Se desejar excluir sua conta e dados pessoais, pode solicitar a exclusão da conta entrando em contato conosco pelo e-mail [suporte@thal.9aia.com](mailto:suporte@thal.9aia.com).
+- **Cancelar Inscrição**: Para parar de receber e-mails de marketing, basta entrar em contato conosco pelo e-mail [suporte@thal.9aia.com](mailto:suporte@thal.9aia.com).
 
 ## 6. Privacidade das Crianças
 
@@ -72,7 +72,7 @@ Podemos atualizar esta Política de Privacidade periodicamente para refletir mud
 
 Se você tiver alguma dúvida ou preocupação sobre esta Política de Privacidade ou nossas práticas de dados, entre em contato conosco:
 
-:content-a{href="mailto:juridico@thal.9aia.com"}[juridico@thal.9aia.com]
+[juridico@thal.9aia.com](mailto:juridico@thal.9aia.com)
 
 ---
 

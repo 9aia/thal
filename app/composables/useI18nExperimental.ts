@@ -6,6 +6,7 @@ export default function useI18nExperimental() {
 
   const t: typeof tLocale = (text, context, options) => {
     const locale = localeRef.value
+
     return tLocale(text, context, options || { locale })
   }
 

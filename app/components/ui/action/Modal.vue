@@ -75,7 +75,7 @@ watch([visible, dialog], () => {
             <div
               class="px-4 pb-6 my-6 focus:outline-2 focus:outline-primary"
               :class="{
-                'h-128 overflow-auto': !noScroll,
+                'max-h-128 overflow-auto': !noScroll,
               }"
             >
               <header class="sticky top-0 px-8 pt-6 pb-4 bg-white z-10">

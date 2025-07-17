@@ -78,6 +78,8 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Medium priority
 
+- Move emails to a third-party email service like Zoho Mail, Mailjet, etc. Some of them let you set branding for outgoing emails, even if it's sent programmatically.
+- Add email signature to all emails
 - Fix input autofocuses on navigate
 
 ### Low priority

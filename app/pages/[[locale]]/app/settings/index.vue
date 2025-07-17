@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { t } from '@psitta/vue'
 import { ref } from 'vue'
+import type { MenuItemType, MenuItemTypeOrFalse } from '~/components/ui/navigation/types'
 import { SETTINGS } from '~/constants/settings'
+import { isWhatsNewModalOpen } from '~/store'
+// import { dummyT as t } from '@psitta/vue'
 
 definePageMeta({
   layout: 'settings',
@@ -11,10 +13,89 @@ definePageMeta({
 
 useAutoRedirect()
 
+const { t } = useI18nExperimental()
 const router = useRouter()
 const logout = useLogout()
+const releaseType = useReleaseType()
 
 const isLocaleModalOpen = ref(false)
+const isReleaseModalOpen = ref(false)
+
+const support = computed(() => {
+  const t = (x: string) => x
+
+  return ([
+    (releaseType.value === 'dev' || releaseType.value === 'stable') && {
+      id: 'about-thal',
+      icon: 'material-symbols:info-outline-rounded',
+      name: t('About Thal'),
+      onClick: () => isReleaseModalOpen.value = true,
+      type: 'accordion',
+    },
+    releaseType.value === 'preview' && {
+      id: 'about-preview',
+      icon: 'material-symbols:info-outline-rounded',
+      name: t('About preview'),
+      onClick: () => isReleaseModalOpen.value = true,
+      type: 'accordion',
+    },
+    releaseType.value === 'early-access' && {
+      id: 'about-early-access',
+      icon: 'material-symbols:info-outline-rounded',
+      name: t('About early access'),
+      onClick: () => isReleaseModalOpen.value = true,
+      type: 'accordion',
+    },
+    releaseType.value === 'early-stable' && {
+      id: 'about-early-stable',
+      icon: 'material-symbols:info-outline-rounded',
+      name: t('About early stable'),
+      onClick: () => isReleaseModalOpen.value = true,
+      type: 'accordion',
+    },
+    {
+      id: 'whats-new',
+      icon: 'material-symbols:campaign-outline-rounded',
+      name: t('What\'s New'),
+      onClick: () => isWhatsNewModalOpen.value = true,
+      type: 'accordion',
+    },
+    {
+      id: 'rate-thal',
+      icon: 'material-symbols:star-outline-rounded',
+      name: t('Rate Thal'),
+      type: 'external',
+      href: 'https://forms.gle/yHaiExzsQvv1mTdM8',
+      newTab: true,
+      localize: false,
+    },
+    {
+      id: 'submit-problem-or-suggestion',
+      icon: 'material-symbols:feedback-outline-rounded',
+      name: t('Send feedback'),
+      description: t('Report a problem or send us suggestions'),
+      type: 'external',
+      href: 'https://forms.gle/UyGBzPrBeNfFgwLD6',
+      newTab: true,
+      localize: false,
+    },
+    // TODO: add About Thal and Help Center
+    // {
+    //   id: 'about-thal',
+    //   icon: 'info',
+    //   name: 'About Thal',
+    //   // onClick: () => openAboutThalModal(),
+    //   type: 'accordion',
+    // },
+    // {
+    //   id: 'help-center',
+    //   icon: 'help_center',
+    //   name: 'Help Center',
+    //   href: '/help',
+    //   type: 'external',
+    // },
+  ] satisfies MenuItemTypeOrFalse[]).filter(Boolean) as MenuItemType[]
+})
 </script>
 
 <template>
@@ -45,7 +126,7 @@ const isLocaleModalOpen = ref(false)
             }]"
           />
 
-          <LocaleModal v-model="isLocaleModalOpen" />
+          <LazyLocaleModal v-model="isLocaleModalOpen" />
         </SettingSection>
 
         <SettingSection
@@ -53,7 +134,7 @@ const isLocaleModalOpen = ref(false)
           title-class="px-6"
           body-class="px-4"
         >
-          <ItemList :items="SETTINGS.support" />
+          <ItemList :items="support" />
         </SettingSection>
 
         <SettingSection
@@ -79,6 +160,8 @@ const isLocaleModalOpen = ref(false)
             ]"
           />
         </SettingSection>
+
+        <LazyReleaseModal v-model="isReleaseModalOpen" />
       </div>
     </div>
   </div>

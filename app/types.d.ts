@@ -7,6 +7,12 @@ import type { InReplyTo, UserSelect } from '~~/db/schema'
 export interface SafeProps<T extends HTMLAttributes> extends /* @vue-ignore */ T {}
 export interface SafeVariantProps<T extends VariantProps> extends /* @vue-ignore */ T {}
 
+// #region Release
+
+export type Release = 'preview' | 'early-access' | 'early-stable' | 'stable' | 'dev'
+
+// #endregion
+
 // #region Sidebar
 
 export interface SidebarStore {

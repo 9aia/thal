@@ -303,7 +303,7 @@
     "pt": "Novo contato"
   },
   "General Information": {
-    "pt": "Informação geral"
+    "pt": "Informações gerais"
   },
   "John Doe": {
     "pt": "João da Silva"
@@ -422,9 +422,6 @@
   "No hidden fees. Cancel or pause anytime.": {
     "pt": "Sem taxas ocultas. Cancele ou pause a qualquer momento."
   },
-  "Terms apply": {
-    "pt": "Termos se aplicam"
-  },
   "Curious to see how chatting can boost your English?": {
     "pt": "Curioso para ver como conversar pode impulsionar seu inglês?"
   },
@@ -530,9 +527,6 @@
   "Error synthesizing voice.": {
     "pt": "Erro ao sintetizar a voz."
   },
-  "Experimental": {
-    "pt": "Experimental"
-  },
   "View all": {
     "pt": "Ver tudo"
   },
@@ -555,7 +549,7 @@
     "pt": "Entrou com o Google"
   },
   "Connected with Stripe": {
-    "pt": "Conectado com o Stripe"
+    "pt": "Conectado com a Stripe"
   },
   "An error occurred while updating personal data.": {
     "pt": "Ocorreu um erro ao atualizar os dados pessoais."
@@ -837,7 +831,7 @@
     "pt": "O nome de usuário só pode conter letras, números e sublinhados. Mínimo {min} caractere, máximo {max} caracteres."
   },
   "{price} {discountPrice} for the first {x} (day|days)": {
-    "pt": "{price} {discountPrice} nos primeiros {x} (dia|dias)"
+    "pt": "{price} {discountPrice} no primeiro {x} (dia|dias)"
   },
   "Last name must contain between {min} and {max} characters.": {
     "pt": "O sobrenome deve conter entre {min} e {max} caracteres."
@@ -898,12 +892,6 @@
   },
   "Edit": {
     "pt": "Editar"
-  },
-  "Access the app": {
-    "pt": "Acessar o aplicativo"
-  },
-  "Account settings": {
-    "pt": "Configurações da conta"
   },
   "Send feedback": {
     "pt": "Enviar feedback"
@@ -992,15 +980,6 @@
   "Get translations, corrections, and listening while chatting. Try it for free to level up your English.": {
     "pt": "Obtenha traduções, correções e escuta enquanto conversa. Experimente gratuitamente para aprimorar seu inglês."
   },
-  "Terms": {
-    "pt": "Termos"
-  },
-  "Privacy": {
-    "pt": "Privacidade"
-  },
-  "Security": {
-    "pt": "Segurança"
-  },
   "{year} - Developed at {orgName}": {
     "pt": "{year} - Desenvolvido em {orgName}"
   },
@@ -1010,13 +989,67 @@
   "Security Policy": {
     "pt": "Política de Segurança"
   },
-  "support@thal.9aia.com": {
-    "pt": "suporte@thal.9aia.com"
-  },
   "Public Release": {
     "pt": "Lançamento Público"
   },
   "Early Access Release": {
     "pt": "Lançamento de Acesso Antecipado"
+  },
+  "Product": {
+    "pt": "Produto"
+  },
+  "Development": {
+    "pt": "Desenvolvimento"
+  },
+  "Preview ::status::": {
+    "pt": "Preview ::status::"
+  },
+  "Early Access": {
+    "pt": "Acesso Antecipado"
+  },
+  "Early Stable": {
+    "pt": "Early Stable"
+  },
+  "About preview": {
+    "pt": "Sobre o preview"
+  },
+  "About early access": {
+    "pt": "Sobre o acesso antecipado"
+  },
+  "About early stable": {
+    "pt": "Sobre a versão estável inicial"
+  },
+  "Access app": {
+    "pt": "Acessar app"
+  },
+  "Terms apply.": {
+    "pt": "Aplicam-se termos."
+  },
+  "This Thal version (v{version}) is running on an early and experimental environment. Expect frequent changes, potential bugs, and data resets. It's free to use and helps us test and polish upcoming features.": {
+    "pt": "Esta versão do Thal (v{version}) está rodando em um ambiente inicial e experimental. Espere mudanças frequentes, possíveis bugs e redefinições de dados. É grátis para usar e nos ajuda a testar e aprimorar os próximos recursos."
+  },
+  "This Thal version (v{version}) is running on an early environment. It includes core features and fully operational payment. Your feedback will directly shape the future of Thal!": {
+    "pt": "Esta versão do Thal (v{version}) está rodando em um ambiente inicial. Ele inclui recursos principais e pagamento totalmente operacional. Seu feedback moldará diretamente o futuro do Thal!"
+  },
+  "This Thal version (v{version}) is running on an early stable environment. It represents a foundation with the core features and fully operational payment. Updates will primarily focus on critical patches to ensure reliability.": {
+    "pt": "Esta versão Thal (v{version}) está rodando em um ambiente estável inicial. Ela representa uma base com as funcionalidades principais e pagamento totalmente operacional. As atualizações focarão principalmente em correções críticas para garantir a confiabilidade."
+  },
+  "This Thal version (v{version}) is running on a stable environment. It includes core features and fully operational payment.": {
+    "pt": "Esta versão Thal (v{version}) está rodando em um ambiente estável. Ela inclui as funcionalidades principais e pagamento totalmente operacional."
+  },
+  "About Thal": {
+    "pt": "Sobre Thal"
+  },
+  "About development environment": {
+    "pt": "Sobre o ambiente de desenvolvimento"
+  },
+  "This Thal version (v{version}) is running on an early, private and experimental environment built for testing and polishing upcoming features and improvements. Expect frequent changes, potential bugs, incomplete features, data resets and more.": {
+    "pt": "Esta versão do Thal (v{version}) está rodando em um ambiente inicial, privado e experimental, construído para testar e aprimorar os próximos recursos e melhorias. Espere mudanças frequentes, possíveis bugs, recursos incompletos, redefinições de dados e muito mais."
+  },
+  "This Thal version (v{version}) is running on an early, public and growing environment. It includes core features, a fully operational payment integration and will be updated with new features and improvements. Your feedback will directly shape the future of Thal!": {
+    "pt": "Esta versão do Thal (v{version}) está rodando em um ambiente inicial, público e crescente. Ele inclui recursos principais, uma integração de pagamento totalmente operacional e será atualizado com novos recursos e melhorias. Seu feedback moldará diretamente o futuro do Thal!"
+  },
+  "This Thal version (v{version}) is running on an early, public and stable environment. It includes a foundation with the core features and a fully operational payment integration. Updates will primarily focus on critical patches to ensure reliability.": {
+    "pt": "Esta versão do Thal (v{version}) está rodando em um ambiente inicial, público e estável. Ele inclui uma base com os recursos principais e uma integração de pagamento totalmente operacional. As atualizações se concentrarão principalmente em correções críticas para garantir a confiabilidade."
   }
 }

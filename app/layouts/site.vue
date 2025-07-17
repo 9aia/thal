@@ -10,8 +10,8 @@ const toast = useToast()
 
 const menuItems = computed<MenuItemType[]>(() => {
   return [
-    { id: 'app', name: t('Access the app'), icon: 'material-symbols:chat-outline-rounded', href: '/app' },
-    { id: 'settings', name: t('Account settings'), icon: 'material-symbols:settings-outline-rounded', href: '/settings/account' },
+    { id: 'app', name: t('Access app'), icon: 'material-symbols:chat-outline-rounded', href: '/app' },
+    { id: 'settings', name: t('Manage account'), icon: 'material-symbols:settings-outline-rounded', href: '/settings/account' },
     {
       id: 'language',
       name: t('Language'),

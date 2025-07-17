@@ -6,35 +6,47 @@ description: A timeline of key milestones and upcoming features or releases.
 
 ## Contract
 
-**`vx.x.x-x`**:
+**`vMAJOR.MINOR.PATCH-PRERELEASE`**:
 
 ### Preview Releases
 
-- Template: `vx.x.x-x`
-- Example: `v0.1.0-0`
+- Template: `vMAJOR.MINOR.PATCH-PRERELEASE`
+- Example: `v0.1.0-0` (pre-release)
 - Can be accessed at [preview.thal.9aia.com](https://preview.thal.9aia.com)
 - The preview may break or change often
-- Used for testing ideas and polishing UX before release
-- Used for gathering feedback
-- Data may be deleted without warning
+- Used for testing or polishing upcoming features or improvements remotely
+- Used for the first remote feedback gathering
 - Deployed on temporary environments
+- Data may be deleted without warning
 - Free to try
 
 ### Early Access Releases
 
-- Template: `vx.x.x` below `v1.0.0`
+- Template: `vMAJOR.MINOR.PATCH` below `v1.0.0`
 - Example: `v0.2.0`
 - Can be accessed at [thal.9aia.com](https://thal.9aia.com)
 - Released on the main domain for broader public access
 - Payment systems will be fully operational (no sandbox mode)
+- Includes core mechanics and features
+- Will include new features and improvements based on feedback
 
-### Public Releases
+### Early Stable Releases
 
-- Template: `vx.x.x`
-- Example: `v1.0.0`
+- Template: `vMAJOR.MINOR.PATCH` below `v1.1.0`
+- Example: `v1.0.2`
 - Can be accessed at [thal.9aia.com](https://thal.9aia.com)
 - Released on the main domain for broader public access
 - Payment systems will be fully operational (no sandbox mode)
+- Will include only critical patches if needed
+
+### Stable Releases
+
+- Template: `vMAJOR.MINOR.PATCH` equals or above `v1.1.0`
+- Example: `v1.2.0`
+- Can be accessed at [thal.9aia.com](https://thal.9aia.com)
+- Released on the main domain for broader public access
+- Payment systems will be fully operational (no sandbox mode)
+- Will include stable functionality
 
 ## Phases
 
