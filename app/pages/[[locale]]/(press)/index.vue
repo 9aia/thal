@@ -49,6 +49,13 @@ const quotes = computed(() => [
     icon: 'logos:x',
   },
 ])
+
+function scrollToFeatures() {
+  const features = document.getElementById('features')
+  if (features) {
+    features.scrollIntoView({ behavior: 'smooth' })
+  }
+}
 </script>
 
 <template>
@@ -63,31 +70,12 @@ const quotes = computed(() => [
         <div class="flex gap-4 flex-col md:flex-row">
           <div class="mx-auto flex flex-col items-center md:items-start">
             <h2 class="text-5xl sm:text-4xl md:text-6xl max-w-lg lg:text-6xl text-black mb-6 flex flex-wrap justify-center md:justify-start items-center gap-1">
-              <T
-                text="Learn {English} Like You’re Texting a Friend—Not Studying for a Test"
-                :values="{
-                  English: true,
-                  JustChat: true,
-                }"
-              >
-                <template #English>
-                  <span class="text-blue-500">
-                    {{ t('English') }}
-                    <span class="mr-[0.2ch]" />
-                  </span>
-                </template>
-
-                <template #JustChat>
-                  <span class="text-blue-500">
-                    {{ t('Just Chat') }}
-                  </span>
-                </template>
-              </T>
+              Thal
             </h2>
 
             <p class="text-black max-w-3xl text-2xl mb-6">
               <T
-                text="Learn {English} Like You’re Texting a Friend—Not Studying for a Test"
+                text="Learn {English} like you’re texting a friend—not studying for a test."
                 :values="{
                   English: true,
                   JustChat: true,
@@ -96,7 +84,7 @@ const quotes = computed(() => [
                 <template #English>
                   <span class="text-blue-500">
                     {{ t('English') }}
-                    <span class="mr-[0.2ch]" />
+                    <span class="mr-[0.1ch]" />
                   </span>
                 </template>
 
@@ -150,55 +138,45 @@ const quotes = computed(() => [
 
     <section id="features" class="bg-white px-4 py-12 space-y-8 max-w-[800px] mx-auto">
       <h2 class="text-4xl text-gradient bg-radial-[at_bottom] to-black from-red-500 mb-6 flex flex-wrap sm:justify-center items-center gap-1 pb-2">
-        {{ t("Let's Be Honest. Language Apps Are Broken.") }}
+        {{ t("Let's Be Honest. The Old Way of Learning English Is Broken.") }}
       </h2>
 
       <p class="text-black mb-6">
-        {{ t('You\'ve tried them all.') }}
+        {{ t('Courses, apps, and tutors... You\'ve been there.') }}
       </p>
 
       <ul class="flex flex-col gap-2 mb-6">
         <li class="flex gap-2 items-center justify-left">
           <Icon name="material-symbols:check-rounded" class="text-red-500" />
-          {{ t('Memorizing vocabulary lists you instantly forget.') }}
+          {{ t('Memorizing vocab you forget by lunch.') }}
         </li>
 
         <li class="flex gap-2 items-center justify-left">
           <Icon name="material-symbols:check-rounded" class="text-red-500" />
-          {{ t('Awkward, scripted dialogues with emotionless robots.') }}
+          {{ t('Chatting robots with the charm of a toaster.') }}
         </li>
 
         <li class="flex gap-2 items-center justify-left">
           <Icon name="material-symbols:check-rounded" class="text-red-500" />
-          {{ t('The constant fear of sounding stupid in a real conversation.') }}
-        </li>
-
-        <li class="flex gap-2 items-center justify-left">
-          <Icon name="material-symbols:check-rounded" class="text-red-500" />
-          {{ t('Translating every single sentence in your head, word by painful word.') }}
+          {{ t('Freezing up, scared to sound like an idiot.') }}
         </li>
       </ul>
 
       <p class="text-black">
-        {{ t('It\'s not you. It\'s the method. You\'re trying to learn a river by studying a glass of water.') }}
+        {{ t('It\'s not you. It\'s the missing method. You\'re trying to learn a river by studying a glass of water.') }}
       </p>
     </section>
 
     <section class="bg-white px-4 py-12 space-y-8 max-w-[800px] mx-auto">
       <div class="bg-radial-[at_bottom] from-blue-50 to-gray-50 rounded-3xl p-12 max-w-3xl mx-auto">
         <h2 class="text-2xl sm:text-4xl text-black mb-6 flex flex-wrap justify-center md:justify-start items-center gap-1">
-          {{ t("What if fluency wasn't just studied, but practiced and acquired?") }}
+          {{ t("What Makes Thal Different?") }}
         </h2>
 
         <ul class="flex flex-col gap-2 mb-6">
           <li class="flex gap-2 items-center justify-left">
             <Icon name="material-symbols:check-rounded" class="text-blue-500" />
-            {{ t('Imagine learning flows as naturally as texting a friend.') }}
-          </li>
-
-          <li class="flex gap-2 items-center justify-left">
-            <Icon name="material-symbols:check-rounded" class="text-blue-500" />
-            {{ t('Where you can make mistakes without judgment, get corrected without shame, and have conversations so engaging you forget you\'re even learning.') }}
+            {{ t('You\'re not embarrassing yourself. You\'re improving your confidence.') }}
           </li>
 
           <li class="flex gap-2 items-center justify-left">
@@ -208,12 +186,17 @@ const quotes = computed(() => [
 
           <li class="flex gap-2 items-center justify-left">
             <Icon name="material-symbols:check-rounded" class="text-blue-500" />
-            {{ t('You\'re not practicing dialogues. You\'re having conversations.') }}
+            {{ t('You\'re not practicing boring exercises. You\'re having conversations.') }}
+          </li>
+
+          <li class="flex gap-2 items-center justify-left">
+            <Icon name="material-symbols:check-rounded" class="text-blue-500" />
+            {{ t('You\'re not nervous. You\'re relaxed and having fun.') }}
           </li>
         </ul>
 
-        <p class="text-black text-center">
-          {{ t('This isn\'t an app. It\'s your new English-speaking reality.') }}
+        <p class="text-black">
+          {{ t('More than an app. This is your new way to learn English.') }}
         </p>
       </div>
     </section>
@@ -231,12 +214,12 @@ const quotes = computed(() => [
           <template #header>
             <Icon name="material-symbols:auto-awesome-outline-rounded" />
             <div class="flex flex-col gap-1 items-start">
-              {{ t('Find Your Vibe') }}
+              {{ t('Find Your Interests') }}
             </div>
           </template>
 
           <p class="text-sm text-black mb-6">
-            {{ t('Discover or create AI characters—from sarcastic philosophers to expert space engineers. Your perfect conversation partner is waiting.') }}
+            {{ t('Discover AI characters—from sarcastic philosophers to expert space engineers. Your perfect conversation partner is waiting for you.') }}
           </p>
 
           <div class="drop-shadow-2xl w-full relative z-[10] max-w-[800px] mx-auto">
@@ -260,7 +243,7 @@ const quotes = computed(() => [
           </template>
 
           <p class="text-sm text-black mb-6">
-            {{ t('Start a conversation about anything. The AI listens, understands, and responds. It\'s spontaneous, unpredictable, and real.') }}
+            {{ t('Start a conversation about anything. The character listens, understands, and responds. It\'s spontaneous, unpredictable, and real.') }}
           </p>
 
           <div class="drop-shadow-2xl w-full relative z-[10] mx-auto">
@@ -284,14 +267,14 @@ const quotes = computed(() => [
           </template>
 
           <p class="text-sm text-black">
-            {{ t("Get instant, in-chat help: translations, suggestions, and gentle fixes. Your brain absorbs the patterns naturally, just like a child does.") }}
+            {{ t("Get instant, in-chat help: translations, suggestions, and gentle fixes. Your brain absorbs the patterns naturally as you chat.") }}
           </p>
 
           <!-- TODO: add image for corrector -->
         </Accordion>
 
         <p class="text-sm text-black">
-          {{ t('And that\'s it. Repeat. Repeat. Repeat. And you\'ll be speaking English!') }}
+          {{ t('And that\'s it. Repeat. Repeat. Repeat. And your English will improve naturally!') }}
         </p>
       </AccordionRoot>
     </section>
@@ -302,7 +285,7 @@ const quotes = computed(() => [
       </h2>
 
       <p class="text-sm text-black">
-        {{ t('Standard apps recite scripts. Thal\'s AI is different. It remembers your conversations, understands you, and pushes you just enough to grow. It\’s designed not to test your memory, but to build your conversational muscle. We\'re using AI to create something beautifully human.') }}
+        {{ t('Thal is different. It understands you and pushes you just enough to grow. It\'s designed not to test your memory, but to build your conversational muscle. We\'re using AI to create something beautifully human.') }}
       </p>
 
       <p class="text-sm text-black">

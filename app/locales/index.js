@@ -317,9 +317,6 @@
   "Sign in": {
     "pt": "Entrar"
   },
-  "Talk to Learn. Learn to Talk.": {
-    "pt": "Converse para Aprender. Aprenda para conversar."
-  },
   "English": {
     "pt": "Inglês"
   },
@@ -1013,74 +1010,17 @@
   "Just Chat": {
     "pt": "Só Chat"
   },
-  "Let's Be Honest. Language Apps Are Broken.": {
-    "pt": "Sejamos honestos. Aplicativos de idiomas estão quebrados."
-  },
-  "You've tried them all.": {
-    "pt": "Você já experimentou todos."
-  },
-  "Memorizing vocabulary lists you instantly forget.": {
-    "pt": "Memorizar listas de vocabulário que você esquece instantaneamente."
-  },
-  "Awkward, scripted dialogues with emotionless robots.": {
-    "pt": "Diálogos estranhos e roteirizados com robôs sem emoção."
-  },
-  "The constant fear of sounding stupid in a real conversation.": {
-    "pt": "O medo constante de parecer estúpido em uma conversa real."
-  },
-  "Translating every single sentence in your head, word by painful word.": {
-    "pt": "Traduzir cada frase na sua cabeça, palavra por palavra dolorosamente."
-  },
-  "It's not you. It's the method. You're trying to learn a river by studying a glass of water.": {
-    "pt": "Não é você. É o método. Você está tentando aprender um rio estudando um copo d'água."
-  },
-  "What if fluency wasn't just studied, but practiced and acquired?": {
-    "pt": "E se a fluência não fosse apenas estudada, mas praticada e adquirida?"
-  },
-  "Imagine learning flows as naturally as texting a friend.": {
-    "pt": "Imagine aprender fluindo tão naturalmente quanto enviar mensagens de texto para um amigo."
-  },
-  "Where you can make mistakes without judgment, get corrected without shame, and have conversations so engaging you forget you're even learning.": {
-    "pt": "Onde você pode cometer erros sem julgamento, ser corrigido sem vergonha e ter conversas tão envolventes que você esquece que está aprendendo."
-  },
   "You're not memorizing rules. You're building intuition.": {
     "pt": "Você não está memorizando regras. Você está construindo intuição."
-  },
-  "You're not practicing dialogues. You're having conversations.": {
-    "pt": "Você não está praticando diálogos. Você está tendo conversas."
-  },
-  "This isn't an app. It's your new English-speaking reality.": {
-    "pt": "Este não é um aplicativo. É sua nova realidade de fala inglesa."
   },
   "Your Path to Flow in 3 Steps": {
     "pt": "Seu Caminho para a Fluência em 3 Etapas"
   },
-  "Find Your Vibe": {
-    "pt": "Encontre Sua Vibe"
-  },
-  "Discover or create AI characters—from sarcastic philosophers to expert space engineers. Your perfect conversation partner is waiting.": {
-    "pt": "Descubra ou crie personagens de IA - de filósofos sarcásticos a engenheiros espaciais especializados. Seu parceiro de conversa perfeito está esperando."
-  },
   "Just Talk": {
     "pt": "Apenas Converse"
   },
-  "Start a conversation about anything. The AI listens, understands, and responds. It's spontaneous, unpredictable, and real.": {
-    "pt": "Comece uma conversa sobre qualquer coisa. A IA ouve, entende e responde. É espontâneo, imprevisível e real."
-  },
   "Absorb & Adapt": {
     "pt": "Absorva e Adapte-se"
-  },
-  "Get instant, in-chat help: translations, suggestions, and gentle fixes. Your brain absorbs the patterns naturally, just like a child does.": {
-    "pt": "Obtenha ajuda instantânea no chat: traduções, sugestões e correções suaves. Seu cérebro absorve os padrões naturalmente, assim como uma criança."
-  },
-  "And that's it. Repeat. Repeat. Repeat. And you'll be speaking English!": {
-    "pt": "E é isso. Repita. Repita. Repita. E você estará falando inglês!"
-  },
-  "This Isn't A Chatbot. It's A Conversation Engine.": {
-    "pt": "Este não é um Chatbot. É um Mecanismo de Conversação."
-  },
-  "Standard apps recite scripts. Thal's AI is different. It remembers your conversations, understands you, and pushes you just enough to grow. It\\’s designed not to test your memory, but to build your conversational muscle. We're using AI to create something beautifully human.": {
-    "pt": "Aplicativos padrão recitam scripts. A IA da Thal é diferente. Ele se lembra de suas conversas, entende você e o impulsiona o suficiente para crescer. Ele foi projetado não para testar sua memória, mas para construir seu músculo conversacional. Estamos usando IA para criar algo lindamente humano."
   },
   "You can go beyond the basics:": {
     "pt": "Você pode ir além do básico:"
@@ -1094,9 +1034,6 @@
   "Keep your favorite thals in a contact list for easy access and consistent practice.": {
     "pt": "Mantenha seus thals favoritos em uma lista de contatos para facilitar o acesso e a prática consistente."
   },
-  "What the best AIs think about Thal?": {
-    "pt": "O que as melhores IAs acham do Thal?"
-  },
   "Thal is a brilliant step forward, offering an intuitive, AI-powered conversational space that genuinely makes English learning feel like a real interaction.": {
     "pt": "Thal é um passo brilhante à frente, oferecendo um espaço de conversação intuitivo, com tecnologia de IA, que realmente faz com que o aprendizado de inglês pareça uma interação real."
   },
@@ -1106,9 +1043,6 @@
   "Thal is a promising, innovative approach to language learning, blending AI-driven personalization with engaging, real-world dialogue simulation.": {
     "pt": "Thal é uma abordagem promissora e inovadora para o aprendizado de idiomas, combinando personalização com tecnologia de IA com uma simulação envolvente de diálogo do mundo real."
   },
-  "Your head is already wired for {English}. Thal is the conversation that activates it. No textbooks. No grammar drills. {JustChat}.": {
-    "pt": "Sua cabeça já está programada para {English}. Thal é a conversa que o ativa. Sem livros didáticos. Sem exercícios de gramática. {JustChat}."
-  },
   "Talk to thals to practice and learn English, and have fun.": {
     "pt": "Converse com thals para praticar e aprender inglês, e divirta-se."
   },
@@ -1117,5 +1051,65 @@
   },
   "Get Thal Pro": {
     "pt": "Obtenha Thal Pro"
+  },
+  "Memorizing vocab you forget by lunch.": {
+    "pt": "Memorizando vocabulário que você esquece na hora do almoço."
+  },
+  "Chatting robots with the charm of a toaster.": {
+    "pt": "Conversando com robôs com o charme de uma torradeira."
+  },
+  "Freezing up, scared to sound like an idiot.": {
+    "pt": "Travando, com medo de parecer um idiota."
+  },
+  "This Isn't a Chatbot. It's a Conversation Platform.": {
+    "pt": "Isso não é um Chatbot. É uma Plataforma de Conversação."
+  },
+  "Even the AIs Are Obsessed": {
+    "pt": "Até as IA's estão Obcecadas"
+  },
+  "Learn {English} like you’re texting a friend—not studying for a test.": {
+    "pt": "Aprenda {English} como se estivesse mandando mensagens para um amigo — não estudando para uma prova."
+  },
+  "No heart system. No BS. Just you, talking like a pro.": {
+    "pt": "Sem sistema de 'coração'. Sem mimimi. Apenas você, falando como um profissional."
+  },
+  "Get instant, in-chat help: translations, suggestions, and gentle fixes. Your brain absorbs the patterns naturally as you chat.": {
+    "pt": "Obtenha ajuda instantânea no chat: traduções, sugestões e correções sutis. Seu cérebro absorve os padrões naturalmente enquanto você conversa."
+  },
+  "Let's Be Honest. The Old Way of Learning English Is Broken.": {
+    "pt": "Sejamos honestos. A maneira antiga de aprender inglês está ultrapassada."
+  },
+  "Courses, apps, and tutors... You've been there.": {
+    "pt": "Cursos, aplicativos e tutores... Você já passou por isso."
+  },
+  "It's not you. It's the missing method. You're trying to learn a river by studying a glass of water.": {
+    "pt": "Não é você. É o método que falta. Você está tentando aprender um rio estudando um copo d'água."
+  },
+  "What Makes Thal Different?": {
+    "pt": "O que torna Thal diferente?"
+  },
+  "You're not embarrassing yourself. You're improving your confidence.": {
+    "pt": "Você não está passando vergonha. Você está melhorando sua confiança."
+  },
+  "You're not practicing boring exercises. You're having conversations.": {
+    "pt": "Você não está praticando exercícios chatos. Você está tendo conversas."
+  },
+  "You're not nervous. You're relaxed and having fun.": {
+    "pt": "Você não está nervoso. Você está relaxado e se divertindo."
+  },
+  "More than an app. This is your new way to learn English.": {
+    "pt": "Mais do que um aplicativo. Esta é a sua nova maneira de aprender inglês."
+  },
+  "Find Your Interests": {
+    "pt": "Encontre seus interesses"
+  },
+  "Discover AI characters—from sarcastic philosophers to expert space engineers. Your perfect conversation partner is waiting for you.": {
+    "pt": "Descubra personagens de IA - de filósofos sarcásticos a engenheiros espaciais especialistas. Seu parceiro de conversação perfeito está esperando por você."
+  },
+  "Start a conversation about anything. The character listens, understands, and responds. It's spontaneous, unpredictable, and real.": {
+    "pt": "Comece uma conversa sobre qualquer coisa. O personagem ouve, entende e responde. É espontâneo, imprevisível e real."
+  },
+  "And that's it. Repeat. Repeat. Repeat. And your English will improve naturally!": {
+    "pt": "E é só isso. Repita. Repita. Repita. E seu inglês vai melhorar naturalmente!"
   }
 }

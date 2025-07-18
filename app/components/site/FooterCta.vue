@@ -16,8 +16,12 @@ const pricingQuery = useServerQuery({
 </script>
 
 <template>
-  <p class="text-black text-2xl mb-4 text-center">
+  <h2 class="text-black text-2xl mb-4 text-center">
     {{ t('Curious to see how chatting can boost your English?') }}
+  </h2>
+
+  <p class="text-black text-base mb-4 text-center">
+    {{ t('No heart system. No BS. Just you, talking like a pro.') }}
   </p>
 
   <div class="flex flex-col items-center justify-center h-fit mt-4 gap-2">
