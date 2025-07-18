@@ -45,7 +45,7 @@ onMounted(() => {
         {{ t('You will be able to access the app as soon as possible.') }}
       </p>
 
-      <p class="text-sm text-gray-600 mt-4 w-full flex items-center justify-center">
+      <p class="text-xs text-gray-600 mt-4 w-full flex items-center justify-center">
         <T
           class="flex flex-col items-center justify-center"
           text="If you have any problem, you can contact us at: {link}"

@@ -43,7 +43,7 @@ const releaseType = useReleaseType()
 
             <Button
               v-if="releaseType !== 'stable' && releaseType !== 'dev'"
-              class="flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm"
+              class="cursor-pointer flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm"
               @click="isReleaseModalOpen = true"
             >
               <template v-if="releaseType === 'preview'">

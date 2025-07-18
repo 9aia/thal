@@ -332,9 +332,6 @@
   "Pricing": {
     "pt": "Preços"
   },
-  "What’s included:": {
-    "pt": "O que está incluído:"
-  },
   "Engaging Conversations:": {
     "pt": "Conversas envolventes:"
   },
@@ -380,9 +377,6 @@
   "Account Settings": {
     "pt": "Configurações da Conta"
   },
-  "Subscription": {
-    "pt": "Assinatura"
-  },
   "Home": {
     "pt": "Início"
   },
@@ -399,7 +393,7 @@
     "pt": "Sem taxas ocultas. Cancele ou pause a qualquer momento."
   },
   "Curious to see how chatting can boost your English?": {
-    "pt": "Curioso para ver como conversar pode impulsionar seu inglês?"
+    "pt": "Curioso para ver como chats podem impulsionar seu inglês?"
   },
   "Thal is in preview. We're not actually charging for access.": {
     "pt": "Thal está em pré-visualização. Na verdade, não estamos cobrando pelo acesso."
@@ -803,9 +797,6 @@
   "Username can only contain letters, numbers, and underscores. Min {min} character, max {max} characters.": {
     "pt": "O nome de usuário só pode conter letras, números e sublinhados. Mínimo {min} caractere, máximo {max} caracteres."
   },
-  "{price} {discountPrice} for the first {x} (day|days)": {
-    "pt": "{price} {discountPrice} no primeiro {x} (dia|dias)"
-  },
   "Last name must contain between {min} and {max} characters.": {
     "pt": "O sobrenome deve conter entre {min} e {max} caracteres."
   },
@@ -814,9 +805,6 @@
   },
   "The character {username} does not exist.": {
     "pt": "O personagem {username} não existe."
-  },
-  "Simple. Transparent. Powerful.": {
-    "pt": "Simples. Transparente. Poderoso."
   },
   "Rate Thal": {
     "pt": "Avaliar Thal"
@@ -1068,7 +1056,7 @@
     "pt": "Seu Caminho para a Fluência em 3 Etapas"
   },
   "Find Your Vibe": {
-    "pt": "Encontre Sua Vibração"
+    "pt": "Encontre Sua Vibe"
   },
   "Discover or create AI characters—from sarcastic philosophers to expert space engineers. Your perfect conversation partner is waiting.": {
     "pt": "Descubra ou crie personagens de IA - de filósofos sarcásticos a engenheiros espaciais especializados. Seu parceiro de conversa perfeito está esperando."
@@ -1107,7 +1095,7 @@
     "pt": "Mantenha seus thals favoritos em uma lista de contatos para facilitar o acesso e a prática consistente."
   },
   "What the best AIs think about Thal?": {
-    "pt": "O que as melhores IAs pensam sobre Thal?"
+    "pt": "O que as melhores IAs acham do Thal?"
   },
   "Thal is a brilliant step forward, offering an intuitive, AI-powered conversational space that genuinely makes English learning feel like a real interaction.": {
     "pt": "Thal é um passo brilhante à frente, oferecendo um espaço de conversação intuitivo, com tecnologia de IA, que realmente faz com que o aprendizado de inglês pareça uma interação real."
@@ -1123,5 +1111,11 @@
   },
   "Talk to thals to practice and learn English, and have fun.": {
     "pt": "Converse com thals para praticar e aprender inglês, e divirta-se."
+  },
+  "{price} {discountPrice} for the first {x} (day|days),": {
+    "pt": "{price} {discountPrice} no primeiro {x} (dia|dias),"
+  },
+  "Get Thal Pro": {
+    "pt": "Obtenha Thal Pro"
   }
 }

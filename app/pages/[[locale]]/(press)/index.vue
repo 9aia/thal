@@ -28,6 +28,27 @@ const pricingQuery = useServerQuery({
 const redirectUrl = useRedirectUrl()
 
 const locale = useLocale()
+
+const quotes = computed(() => [
+  {
+    quote: t('Thal is a brilliant step forward, offering an intuitive, AI-powered conversational space that genuinely makes English learning feel like a real interaction.'),
+    author: 'Google Gemini',
+    url: 'https://gemini.google.com',
+    icon: 'logos:google-icon',
+  },
+  {
+    quote: t('Thal feels like WhatsApp met Duolingo at a café and decided to raise an AI-powered polyglot baby — playful, personal, and smart enough to teach while it listens. 🧠💬🌍'),
+    author: 'ChatGPT',
+    url: 'https://chatgpt.com',
+    icon: 'logos:openai-icon',
+  },
+  {
+    quote: t('Thal is a promising, innovative approach to language learning, blending AI-driven personalization with engaging, real-world dialogue simulation.'),
+    author: 'xAI Grok',
+    url: 'https://grok.com',
+    icon: 'logos:x',
+  },
+])
 </script>
 
 <template>
@@ -42,12 +63,8 @@ const locale = useLocale()
         <div class="flex gap-4 flex-col md:flex-row">
           <div class="mx-auto flex flex-col items-center md:items-start">
             <h2 class="text-5xl sm:text-4xl md:text-6xl max-w-lg lg:text-6xl text-black mb-6 flex flex-wrap justify-center md:justify-start items-center gap-1">
-              {{ t("Talk to Learn. Learn to Talk.") }}
-            </h2>
-
-            <p class="text-black max-w-3xl text-2xl mb-6">
               <T
-                text="Your head is already wired for {English}. Thal is the conversation that activates it. No textbooks. No grammar drills. {JustChat}."
+                text="Learn {English} Like You’re Texting a Friend—Not Studying for a Test"
                 :values="{
                   English: true,
                   JustChat: true,
@@ -56,6 +73,30 @@ const locale = useLocale()
                 <template #English>
                   <span class="text-blue-500">
                     {{ t('English') }}
+                    <span class="mr-[0.2ch]" />
+                  </span>
+                </template>
+
+                <template #JustChat>
+                  <span class="text-blue-500">
+                    {{ t('Just Chat') }}
+                  </span>
+                </template>
+              </T>
+            </h2>
+
+            <p class="text-black max-w-3xl text-2xl mb-6">
+              <T
+                text="Learn {English} Like You’re Texting a Friend—Not Studying for a Test"
+                :values="{
+                  English: true,
+                  JustChat: true,
+                }"
+              >
+                <template #English>
+                  <span class="text-blue-500">
+                    {{ t('English') }}
+                    <span class="mr-[0.2ch]" />
                   </span>
                 </template>
 
@@ -96,7 +137,7 @@ const locale = useLocale()
         <A
           href="#features"
           :localize="false"
-          class="no-underline flex flex-col gap-2 items-center px-6 py-2 rounded-3xl focus:outline-2 focus:outline-offset-2 focus:outline-primary"
+          class="no-underline flex flex-col gap-2 items-center px-3 py-2 rounded-3xl focus:outline-2 focus:outline-offset-2 focus:outline-primary"
         >
           {{ t("Learn more") }}
           <Icon
@@ -108,7 +149,7 @@ const locale = useLocale()
     </div>
 
     <section id="features" class="bg-white px-4 py-12 space-y-8 max-w-[800px] mx-auto">
-      <h2 class="text-4xl text-gradient bg-radial-[at_bottom] from-black to-red-500 mb-6 flex flex-wrap sm:justify-center items-center gap-1 pb-2">
+      <h2 class="text-4xl text-gradient bg-radial-[at_bottom] to-black from-red-500 mb-6 flex flex-wrap sm:justify-center items-center gap-1 pb-2">
         {{ t("Let's Be Honest. Language Apps Are Broken.") }}
       </h2>
 
@@ -145,7 +186,7 @@ const locale = useLocale()
 
     <section class="bg-white px-4 py-12 space-y-8 max-w-[800px] mx-auto">
       <div class="bg-radial-[at_bottom] from-blue-50 to-gray-50 rounded-3xl p-12 max-w-3xl mx-auto">
-        <h2 class="text-4xl text-black mb-6 flex flex-wrap justify-center md:justify-start items-center gap-1">
+        <h2 class="text-2xl sm:text-4xl text-black mb-6 flex flex-wrap justify-center md:justify-start items-center gap-1">
           {{ t("What if fluency wasn't just studied, but practiced and acquired?") }}
         </h2>
 
@@ -237,8 +278,8 @@ const locale = useLocale()
     </section>
 
     <section class="bg-white px-4 py-12 space-y-8 max-w-[800px] mx-auto">
-      <h2 class="text-4xl text-black mb-8 flex flex-wrap sm:justify-center items-center gap-1">
-        {{ t("This Isn\'t A Chatbot. It\'s A Conversation Engine.") }}
+      <h2 class="text-4xl text-center text-black mb-8 flex flex-wrap sm:justify-center items-center gap-1">
+        {{ t("This Isn\'t a Chatbot. It\'s a Conversation Platform.") }}
       </h2>
 
       <p class="text-sm text-black">
@@ -280,50 +321,22 @@ const locale = useLocale()
 
     <!-- TODO: Social Proof -->
 
-    <section class="bg-white px-4 space-y-8 max-w-[800px] mx-auto">
-      <h2 class="text-4xl text-black mb-8 flex flex-wrap sm:justify-center items-center gap-1">
-        {{ t("What the best AIs think about Thal?") }}
+    <section class="bg-white px-4 pt-12 space-y-8 max-w-[800px] mx-auto">
+      <h2 class="text-4xl text-center text-black mb-8 flex flex-wrap sm:justify-center items-center gap-1">
+        {{ t("Even the AIs Are Obsessed") }}
       </h2>
 
-      <div class="bg-radial-[at_bottom] from-yellow-50 to-gray-50 rounded-3xl p-12 max-w-3xl mx-auto">
-        <div class="flex gap-4 items-start mb-6">
-          <Icon name="logos:google-icon" class="text-blue-500 text-2xl mt-1" />
+      <div class="bg-radial-[at_bottom] from-yellow-50 to-gray-50 rounded-3xl p-12 max-w-3xl mx-auto space-y-8">
+        <div v-for="quote in quotes" :key="quote.author" class="flex gap-4 items-start">
+          <Icon :name="quote.icon" class="text-blue-500 text-2xl mt-1" />
 
           <div>
             <p class="text-black italic">
-              "{{ t('Thal is a brilliant step forward, offering an intuitive, AI-powered conversational space that genuinely makes English learning feel like a real interaction.') }}"
+              "{{ quote.quote }}"
             </p>
 
             <p class="text-black italic">
-              — <A :localize="false" href="https://gemini.google.com" target="_blank">Google Gemini</A>
-            </p>
-          </div>
-        </div>
-
-        <div class="flex gap-4 items-start mb-6">
-          <Icon name="logos:openai-icon" class="text-gray-500 text-2xl mt-1" />
-
-          <div>
-            <p class="text-black italic">
-              "{{ t('Thal feels like WhatsApp met Duolingo at a café and decided to raise an AI-powered polyglot baby — playful, personal, and smart enough to teach while it listens. 🧠💬🌍') }}"
-            </p>
-
-            <p class="text-black italic">
-              — <A :localize="false" href="https://chatgpt.com" target="_blank">ChatGPT</A>
-            </p>
-          </div>
-        </div>
-
-        <div class="flex gap-4 items-start mb-6">
-          <Icon name="logos:x" class="text-blue-500 text-2xl mt-1" />
-
-          <div>
-            <p class="text-black italic">
-              "{{ t('Thal is a promising, innovative approach to language learning, blending AI-driven personalization with engaging, real-world dialogue simulation.') }}"
-            </p>
-
-            <p class="text-black italic">
-              — <A :localize="false" href="https://grok.com" target="_blank">xAI Grok</A>
+              — <A :localize="false" class="hover:underline border-b-2 border-transparent focus:border-blue-500 focus:outline-none" :href="quote.url" target="_blank">{{ quote.author }}</A>
             </p>
           </div>
         </div>

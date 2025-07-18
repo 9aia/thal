@@ -48,9 +48,9 @@ const trialPeriodDays = PLANS.allInOne.trialPeriodDays
   >
     <div>
       <div class="flex flex-col items-center pt-2 gap-1 text-2xl">
-        <div class="text-gray-800">
+        <div class="text-brown-500">
           <T
-            text="{price} {discountPrice} for the first {x} (day|days)"
+            text="{price} {discountPrice} for the first {x} (day|days),"
             :values="{ price, discountPrice, x: trialPeriodDays }"
             class="flex flex-wrap items-center justify-center gap-x-1"
           >
@@ -61,7 +61,7 @@ const trialPeriodDays = PLANS.allInOne.trialPeriodDays
             </template>
 
             <template #discountPrice>
-              <span class="text-gradient bg-linear-[12deg] from-magenta-500 to-blue-500">
+              <span class="text-brown-500">
                 {{ discountPrice }}
               </span>
             </template>
@@ -72,14 +72,9 @@ const trialPeriodDays = PLANS.allInOne.trialPeriodDays
           </T>
         </div>
 
-        <div class="text-gray-500 text-base text-center">
+        <div class="text-brown-500 text-base text-center">
           {{ t('{price}/month after', { price }) }}
         </div>
-      </div>
-
-      <div class="text-gray-500 text-xs text-center mt-2">
-        {{ t('No hidden fees. Cancel or pause anytime.') }}
-        <A class="underline text-brown-500 border-b-2 border-transparent focus:border-blue-500 focus:outline-none" href="/legal/terms">{{ t('Terms apply.') }}</A>
       </div>
     </div>
   </CommonResource>

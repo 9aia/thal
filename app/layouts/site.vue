@@ -59,7 +59,7 @@ const redirectUrl = useRedirectUrl()
       </template>
     </Header>
 
-    <main class="bg-white flex flex-col" style="min-height: calc(100vh)">
+    <main class="bg-white flex flex-col" style="min-height: calc(100vh - 64px)">
       <slot />
     </main>
 

@@ -31,6 +31,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 ### High priority
 
 - Implement basic analytics to track user engagement and app performance
+- Add "Create another character" button for faster multiple creation
 
 ### Medium priority
 
@@ -48,7 +49,6 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Add audio pause/resume button to chat messages
 - Open contact view from query
 - Add chat item option "Delete chat"
-- Add "Create another character" button for faster multiple creation on preview env
 - Add button to create character in the discover characters page (aside of search field)
 - Add character search to new-chat view search
 - Add "Delete character" and "Edit character" actions to chat header options and contact view if you're the owner
@@ -77,6 +77,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Medium priority
 
+- Add social proof section to the landing page
 - Inform deleted character action such as translate, using tooltip
 - Improve SEO, robots.txt, meta tags, etc
 - Move emails to a third-party email service like Zoho Mail, Mailjet, etc. Some of them let you set branding for outgoing emails, even if it's sent programmatically.

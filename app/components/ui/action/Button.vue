@@ -73,9 +73,10 @@ useEventListener(buttonElement, 'click', handleClick)
 </script>
 
 <template>
-  <button
+  <component
+    :is="as"
     ref="buttonElement"
-    :disabled="isDisabled"
+    :disabled="as === 'a' ? undefined : isDisabled"
     class="flex items-center justify-center gap-2"
     :class="{ 'flex-row-reverse': iconPosition === 'right' }"
   >
@@ -88,5 +89,5 @@ useEventListener(buttonElement, 'click', handleClick)
     <span v-if="countdown.remaining.value > 0 && countdown.isActive.value">
       ({{ remainingFormatted }})
     </span>
-  </button>
+  </component>
 </template>
