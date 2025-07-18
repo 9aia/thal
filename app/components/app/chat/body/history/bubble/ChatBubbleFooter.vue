@@ -96,12 +96,12 @@ function handleDelete() {
 </script>
 
 <template>
-  <div class="chat-footer opacity-90 flex items-center mt-1">
+  <div class="chat-footer opacity-100 flex items-center mt-1">
     <div class="flex items-center min-h-8">
       <Button
         v-if="(messageFrom === 'user') && isLast && isLastMessageError && !isEditing"
-        class="btn btn-sm btn-circle btn-ghost btn-primary group-hover:opacity-100 group-focus-within:opacity-100"
-        :class="{ 'sm:opacity-0': !isLast }"
+        class="btn btn-sm btn-circle btn-ghost btn-primary group-hover:opacity-100! group-focus-within:opacity-100"
+        :class="{ 'fine:opacity-0': !isLast }"
         icon="material-symbols:edit-outline-rounded"
         icon-class="text-xl"
         @click="handleEdit"
@@ -109,8 +109,8 @@ function handleDelete() {
 
       <Button
         v-if="(messageFrom === 'user') && isLast && isLastMessageError && !isEditing"
-        class="btn btn-sm btn-circle btn-ghost btn-secondary group-hover:opacity-100 group-focus-within:opacity-100"
-        :class="{ 'sm:opacity-0': !isLast }"
+        class="btn btn-sm btn-circle btn-ghost btn-secondary group-hover:opacity-100! group-focus-within:opacity-100"
+        :class="{ 'fine:opacity-0': !isLast }"
         icon="material-symbols:refresh-rounded"
         icon-class="text-xl"
         @click="handleResend"
@@ -118,8 +118,8 @@ function handleDelete() {
 
       <Button
         v-if="!isEditing"
-        class="btn btn-sm btn-circle btn-ghost btn-neutral group-hover:opacity-100 group-focus-within:opacity-100"
-        :class="{ 'sm:opacity-0': !isLast }"
+        class="btn btn-sm btn-circle btn-ghost btn-neutral group-hover:opacity-100! group-focus-within:opacity-100"
+        :class="{ 'fine:opacity-0': !isLast }"
         icon="material-symbols:content-copy-outline-rounded"
         icon-class="text-xl"
         @click="copyToClipboard"
@@ -127,10 +127,10 @@ function handleDelete() {
 
       <Button
         v-if="!isEditing && messageStatus !== MessageStatus.error"
-        class="btn btn-sm btn-circle btn-ghost btn-neutral group-hover:opacity-100 group-focus-within:opacity-100"
+        class="btn btn-sm btn-circle btn-ghost btn-neutral group-hover:opacity-100! group-focus-within:opacity-100"
         no-disable-on-loading
         :loading="audiableTextRef?.playMutation.isPending.value"
-        :class="{ 'sm:opacity-0': !isLast }"
+        :class="{ 'fine:opacity-0': !isLast }"
         icon="material-symbols:volume-up-outline-rounded"
         icon-class="text-xl"
         @click="audiableTextRef?.playMutation.mutate()"
@@ -138,10 +138,10 @@ function handleDelete() {
 
       <Button
         v-if="!isEditing && messageStatus !== MessageStatus.error"
-        class="btn btn-circle btn-sm btn-ghost btn-neutral group-hover:opacity-100 group-focus-within:opacity-100"
+        class="btn btn-circle btn-sm btn-ghost btn-neutral group-hover:opacity-100! group-focus-within:opacity-100"
         :loading="translation.isLoading.value"
         :disabled="isCharacterDeleted"
-        :class="{ 'sm:opacity-0': !isLast }"
+        :class="{ 'fine:opacity-0': !isLast }"
         icon="material-symbols:translate-rounded"
         icon-class="text-xl"
         @click="translation.onTranslate()"
@@ -149,8 +149,8 @@ function handleDelete() {
 
       <Button
         v-if="(messageFrom === 'user') && isLast && isLastMessageError"
-        class="btn btn-sm btn-circle btn-ghost btn-error group-hover:opacity-100 group-focus-within:opacity-100"
-        :class="{ 'sm:opacity-0': !isLast }"
+        class="btn btn-sm btn-circle btn-ghost btn-error group-hover:opacity-100! group-focus-within:opacity-100"
+        :class="{ 'fine:opacity-0': !isLast }"
         icon="material-symbols:delete-outline-rounded"
         icon-class="text-xl"
         @click="handleDelete"
@@ -158,3 +158,13 @@ function handleDelete() {
     </div>
   </div>
 </template>
+
+<style lang="css" scoped>
+@reference '~/assets/css/main.css';
+
+@media (pointer: fine) {
+  .fine\:opacity-0 {
+    opacity: 0;
+  }
+}
+</style>
