@@ -60,9 +60,7 @@ const redirectUrl = useRedirectUrl()
     </Header>
 
     <main class="bg-white flex flex-col" style="min-height: calc(100vh)">
-      <div class="w-full max-w-[800px] mx-auto py-12 px-4 bg-white">
-        <slot />
-      </div>
+      <slot />
     </main>
 
     <Footer />

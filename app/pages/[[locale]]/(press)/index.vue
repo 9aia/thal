@@ -33,42 +33,62 @@ const locale = useLocale()
 <template>
   <div class="w-full">
     <div
-      class="hero relative"
-      style="height: calc(100dvh - 64px - 32px);"
+      class="hero relative bg-white overflow-hidden"
+      style="height: calc(100dvh - 64px);"
     >
-      <div class="hero-content z-30">
-        <div class="max-w-2xl flex flex-col justify-center text-center text-black">
-          <h1 class="text-4xl mb-6 sm:text-6xl lg:text-7xl max-w-xl mx-auto tracking-wide">
-            {{ t("Talk to Learn. Learn to Talk.") }}
-          </h1>
+      <div
+        class="px-4 py-12 text-center md:text-left w-full max-w-[800px] mx-auto"
+      >
+        <div class="flex gap-4 flex-col md:flex-row">
+          <div class="mx-auto flex flex-col items-center md:items-start">
+            <h2 class="text-5xl sm:text-4xl md:text-6xl max-w-lg lg:text-6xl text-black mb-6 flex flex-wrap justify-center md:justify-start items-center gap-1">
+              {{ t("Talk to Learn. Learn to Talk.") }}
+            </h2>
 
-          <p class="mb-8 text-lg sm:text-2xl mx-auto max-w-2xl ">
-            <T
-              text="Chat, laugh, learn, and LEVEL UP your {English} with AI characters who never get tired, never judge, and always keep it 💯."
-              :values="{
-                English: true,
-              }"
+            <p class="text-black max-w-3xl text-2xl mb-6">
+              <T
+                text="Your head is already wired for {English}. Thal is the conversation that activates it. No textbooks. No grammar drills. {JustChat}."
+                :values="{
+                  English: true,
+                  JustChat: true,
+                }"
+              >
+                <template #English>
+                  <span class="text-blue-500">
+                    {{ t('English') }}
+                  </span>
+                </template>
+
+                <template #JustChat>
+                  <span class="text-blue-500">
+                    {{ t('Just Chat') }}
+                  </span>
+                </template>
+              </T>
+            </p>
+
+            <CommonResource
+              :for="pricingQuery"
+              centered-error-fallback
             >
-              <template #English>
-                <span class="text-gradient bg-linear-[12deg] from-blue-500 to-magenta-500">
-                  {{ t('English') }}
-                  <span class="mr-[0.5ch]" />
-                </span>
-              </template>
-            </T>
-          </p>
+              <StripeCreateSessionForm
+                :checkout-status="pricingQuery.data.value?.checkoutStatus || null"
+                :subscription-status="pricingQuery.data.value?.subscriptionStatus || SubscriptionStatus.not_subscribed"
+                class="flex items-center justify-center"
+                @submit="() => redirectUrl = '/app'"
+              />
+            </CommonResource>
+          </div>
 
-          <CommonResource
-            :for="pricingQuery"
-            centered-error-fallback
-          >
-            <StripeCreateSessionForm
-              :checkout-status="pricingQuery.data.value?.checkoutStatus || null"
-              :subscription-status="pricingQuery.data.value?.subscriptionStatus || SubscriptionStatus.not_subscribed"
-              class="flex items-center justify-center"
-              @submit="() => redirectUrl = '/app'"
-            />
-          </CommonResource>
+          <div class="relative w-full hidden md:block">
+            <div class="drop-shadow-2xl z-[10] mx-auto absolute md:translate-y-1/2 right-1/2 translate-x-1/2 md:right-0 md:bottom-1/2 md:translate-x-0">
+              <div class="mockup-phone border-white rounded-4xl p-2 bg-white">
+                <div class="mockup-phone-display w-[317.2px] h-[687.7px] bg-white rounded-2xl">
+                  <img :src="`/screenshots/chat_${locale}.png`" alt="Discover" class="w-[317.2px] h-[687.7px]">
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -87,175 +107,230 @@ const locale = useLocale()
       </div>
     </div>
 
-    <section
-      id="features"
-      class="bg-white px-4 py-12 text-center"
-    >
-      <div class="max-w-lg mx-auto">
-        <h2 class="text-4xl text-gray-800 mb-6 flex flex-col items-center gap-1">
-          <Icon name="material-symbols:chat-rounded" class="text-6xl text-gray-100" />
-          {{ t("Practice real English with interactive chats.") }}
+    <section id="features" class="bg-white px-4 py-12 space-y-8 max-w-[800px] mx-auto">
+      <h2 class="text-4xl text-gradient bg-radial-[at_bottom] from-black to-red-500 mb-6 flex flex-wrap sm:justify-center items-center gap-1 pb-2">
+        {{ t("Let's Be Honest. Language Apps Are Broken.") }}
+      </h2>
+
+      <p class="text-black mb-6">
+        {{ t('You\'ve tried them all.') }}
+      </p>
+
+      <ul class="flex flex-col gap-2 mb-6">
+        <li class="flex gap-2 items-center justify-left">
+          <Icon name="material-symbols:check-rounded" class="text-red-500" />
+          {{ t('Memorizing vocabulary lists you instantly forget.') }}
+        </li>
+
+        <li class="flex gap-2 items-center justify-left">
+          <Icon name="material-symbols:check-rounded" class="text-red-500" />
+          {{ t('Awkward, scripted dialogues with emotionless robots.') }}
+        </li>
+
+        <li class="flex gap-2 items-center justify-left">
+          <Icon name="material-symbols:check-rounded" class="text-red-500" />
+          {{ t('The constant fear of sounding stupid in a real conversation.') }}
+        </li>
+
+        <li class="flex gap-2 items-center justify-left">
+          <Icon name="material-symbols:check-rounded" class="text-red-500" />
+          {{ t('Translating every single sentence in your head, word by painful word.') }}
+        </li>
+      </ul>
+
+      <p class="text-black">
+        {{ t('It\'s not you. It\'s the method. You\'re trying to learn a river by studying a glass of water.') }}
+      </p>
+    </section>
+
+    <section class="bg-white px-4 py-12 space-y-8 max-w-[800px] mx-auto">
+      <div class="bg-radial-[at_bottom] from-blue-50 to-gray-50 rounded-3xl p-12 max-w-3xl mx-auto">
+        <h2 class="text-4xl text-black mb-6 flex flex-wrap justify-center md:justify-start items-center gap-1">
+          {{ t("What if fluency wasn't just studied, but practiced and acquired?") }}
         </h2>
 
-        <p class="text-gray-800">
-          {{
-            t(
-              "Practice real English with interactive chats that feel natural and immersive. Thals adapt to your goals while the smart UI helps you with translations and grammar corrections as you go.",
-            )
-          }}
+        <ul class="flex flex-col gap-2 mb-6">
+          <li class="flex gap-2 items-center justify-left">
+            <Icon name="material-symbols:check-rounded" class="text-blue-500" />
+            {{ t('Imagine learning flows as naturally as texting a friend.') }}
+          </li>
+
+          <li class="flex gap-2 items-center justify-left">
+            <Icon name="material-symbols:check-rounded" class="text-blue-500" />
+            {{ t('Where you can make mistakes without judgment, get corrected without shame, and have conversations so engaging you forget you\'re even learning.') }}
+          </li>
+
+          <li class="flex gap-2 items-center justify-left">
+            <Icon name="material-symbols:check-rounded" class="text-blue-500" />
+            {{ t('You\'re not memorizing rules. You\'re building intuition.') }}
+          </li>
+
+          <li class="flex gap-2 items-center justify-left">
+            <Icon name="material-symbols:check-rounded" class="text-blue-500" />
+            {{ t('You\'re not practicing dialogues. You\'re having conversations.') }}
+          </li>
+        </ul>
+
+        <p class="text-black text-center">
+          {{ t('This isn\'t an app. It\'s your new English-speaking reality.') }}
         </p>
       </div>
     </section>
 
-    <section class="bg-white overflow-y-hidden">
-      <div
-        class="mx-auto px-4 py-12 max-w-[800px] max-h-[755px] md:max-h-[423px] text-center md:text-left"
-      >
-        <div class="flex gap-12 flex-col md:flex-row">
-          <div class="mx-auto flex flex-col items-center md:items-start">
-            <h2 class="text-4xl text-gray-800 mb-6 flex flex-wrap justify-center sm:justify-start items-center gap-1">
-              <Icon name="material-symbols:translate-rounded" class="text-6xl text-gray-100" />
-              {{ t("Get instant help while you chat.") }}
-            </h2>
+    <section class="bg-white px-4 py-12 space-y-8 max-w-[800px] mx-auto">
+      <h2 class="text-4xl text-black mb-8 flex flex-wrap sm:justify-center items-center gap-1">
+        {{ t("Your Path to Flow in 3 Steps") }}
+      </h2>
 
-            <p class="text-gray-800 max-w-sm">
-              {{ t("Real-time translations, message fixing, listening tools and more — all built in. Learn while keeping the conversation flowing.") }}
-            </p>
-          </div>
+      <AccordionRoot class="mx-auto max-w-3xl space-y-6" collapsible>
+        <Accordion value="engaging-conversations">
+          <template #header>
+            <Icon name="material-symbols:auto-awesome-outline-rounded" />
+            <div class="flex flex-col gap-1 items-start">
+              {{ t('Find Your Vibe') }}
+            </div>
+          </template>
 
-          <div class="relative w-full h-[568px]">
-            <div class="drop-shadow-2xl z-[10] mx-auto absolute right-1/2 translate-x-1/2">
-              <div class="mockup-phone border-cyan-500">
-                <div class="mockup-phone-camera" />
-                <div class="mockup-phone-display w-[320px] h-[568px] bg-white">
-                  <div class="mt-10">
-                    <img :src="`/screenshots/chat_${locale}.png`" alt="Discover" class="w-full h-auto">
-                  </div>
-                </div>
+          <p class="text-sm text-black mb-6">
+            {{ t('Discover or create AI characters—from sarcastic philosophers to expert space engineers. Your perfect conversation partner is waiting.') }}
+          </p>
+
+          <div class="drop-shadow-2xl w-full relative z-[10] max-w-[800px] mx-auto">
+            <div class="mockup-window rounded-3xl border-none bg-white text-black">
+              <div class="flex justify-center bg-cyan-950">
+                <img :src="`/screenshots/discover_${locale}.png`" alt="Discover" class="w-full h-auto">
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
+        </Accordion>
 
-    <section class="mx-auto text-black text-center">
-      <div class="px-4 py-12 mx-auto flex flex-col items-center justify-center">
-        <h2 class="text-4xl text-gray-800 mb-6 max-w-lg flex flex-wrap justify-center items-center gap-1">
-          <Icon name="material-symbols:person-search-rounded" class="text-6xl text-gray-100" />
-          {{ t("Discover characters.") }}
-        </h2>
-
-        <p class="mb-8 max-w-lg">
-          {{
-            t(
-              "Whether you're into casual chats, professional scenarios, or full-on RPG, there's always a Thal ready to talk.",
-            )
-          }}
-        </p>
-
-        <div class="drop-shadow-2xl w-full max-w-[800px] mx-auto relative z-[10] ">
-          <div class="mockup-window rounded-3xl border-none bg-white text-black">
-            <div class="flex justify-center bg-cyan-950">
-              <img :src="`/screenshots/discover_${locale}.png`" alt="Discover" class="w-full h-auto">
+        <Accordion value="instant-help">
+          <template #header>
+            <Icon name="material-symbols:chat-outline-rounded" />
+            <div class="flex flex-col gap-1 items-start">
+              {{ t('Just Talk') }}
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
+          </template>
 
-    <section class="bg-white overflow-y-hidden">
-      <div
-        class="mx-auto px-4 py-12 max-w-[800px] max-h-[755px] md:max-h-[423px] text-center md:text-left"
-      >
-        <div class="flex gap-12 flex-col md:flex-row">
-          <div class="mx-auto flex flex-col items-center md:items-start">
-            <h2 class="text-4xl text-gray-800 mb-6 flex flex-wrap justify-center sm:justify-start items-center gap-1">
-              <Icon name="material-symbols:engineering-rounded" class="text-6xl text-gray-100" />
-              {{ t("Create your own.") }}
-            </h2>
+          <p class="text-sm text-black">
+            {{ t('Start a conversation about anything. The AI listens, understands, and responds. It\'s spontaneous, unpredictable, and real.') }}
+          </p>
+        </Accordion>
 
-            <p class="text-gray-800 max-w-sm">
-              {{
-                t(
-                  "Just describe their personality and behavior in a short prompt — our AI will instantly bring them to life in seconds, ready for dynamic and engaging conversations.",
-                )
-              }}
-            </p>
-          </div>
+        <Accordion value="discover-characters">
+          <template #header>
+            <Icon name="material-symbols:person-search-outline-rounded" />
+            <div class="flex flex-col gap-1 items-start">
+              {{ t('Absorb & Adapt') }}
+            </div>
+          </template>
 
-          <div class="drop-shadow-2xl relative z-[10] mx-auto w-1/2" />
-        </div>
-      </div>
-    </section>
+          <p class="text-sm text-black">
+            {{ t("Get instant, in-chat help: translations, suggestions, and gentle fixes. Your brain absorbs the patterns naturally, just like a child does.") }}
+          </p>
+        </Accordion>
 
-    <section class="w-full mx-auto text-center">
-      <div class="px-4 py-12 flex flex-col items-center justify-center">
-        <h2 class="text-4xl text-gray-800 mb-6 max-w-lg flex flex-wrap justify-center items-center gap-1">
-          <Icon name="material-symbols:person-add-rounded" class="text-6xl text-gray-100" />
-          {{ t("Save Your Favorite.") }}
-        </h2>
-
-        <p class="text-gray-800 max-w-lg mx-auto mb-8">
-          {{
-            t(
-              "Keep your favorite Thals in a contact list for easy access and consistent practice.",
-            )
-          }}
+        <p class="text-sm text-black">
+          {{ t('And that\'s it. Repeat. Repeat. Repeat. And you\'ll be speaking English!') }}
         </p>
-      </div>
+      </AccordionRoot>
     </section>
 
-    <section class="w-full relative">
-      <h2 class="mx-auto text-4xl text-gray-800 max-w-lg flex flex-wrap justify-center items-center gap-1">
-        <Icon name="material-symbols:subscriptions-rounded" class="text-6xl text-gray-100" />
-        {{ t('Pricing') }}
+    <section class="bg-white px-4 py-12 space-y-8 max-w-[800px] mx-auto">
+      <h2 class="text-4xl text-black mb-8 flex flex-wrap sm:justify-center items-center gap-1">
+        {{ t("This Isn\'t A Chatbot. It\'s A Conversation Engine.") }}
       </h2>
 
-      <p class="text-gray-800 max-w-lg mx-auto px-4 mb-8 mt-6 text-center">
-        {{ t('Simple. Transparent. Powerful.') }}
+      <p class="text-sm text-black">
+        {{ t('Standard apps recite scripts. Thal\'s AI is different. It remembers your conversations, understands you, and pushes you just enough to grow. It\’s designed not to test your memory, but to build your conversational muscle. We\'re using AI to create something beautifully human.') }}
       </p>
 
-      <div class="w-full px-4">
-        <div class="max-w-2xl mx-auto">
-          <Price />
+      <p class="text-sm text-black">
+        {{ t('You can go beyond the basics:') }}
+      </p>
 
-          <div class="w-full mx-auto max-w-sm mt-6">
-            <p class="text-gray-500 text-sm mb-2 mt-4 text-center">
-              {{ t('What’s included:') }}
+      <AccordionRoot class="mx-auto max-w-3xl space-y-6" collapsible>
+        <Accordion value="create-your-own">
+          <template #header>
+            <Icon name="material-symbols:person-add-outline-rounded" />
+            <div class="flex flex-col gap-1 items-start">
+              {{ t('Create Your Own Characters') }}
+            </div>
+          </template>
+
+          <p class="text-sm text-black">
+            {{ t('Just describe their personality and behavior in a short prompt — our AI will instantly bring them to life in seconds, ready for dynamic and engaging conversations.') }}
+          </p>
+        </Accordion>
+
+        <Accordion value="save-your-favorite">
+          <template #header>
+            <Icon name="material-symbols:person-add-outline-rounded" />
+            <div class="flex flex-col gap-1 items-start">
+              {{ t('Save Your Favorite Characters') }}
+            </div>
+          </template>
+
+          <p class="text-sm text-black">
+            {{ t('Keep your favorite thals in a contact list for easy access and consistent practice.') }}
+          </p>
+        </Accordion>
+      </AccordionRoot>
+    </section>
+
+    <!-- TODO: Social Proof -->
+
+    <section class="bg-white px-4 space-y-8 max-w-[800px] mx-auto">
+      <h2 class="text-4xl text-black mb-8 flex flex-wrap sm:justify-center items-center gap-1">
+        {{ t("What the best AIs think about Thal?") }}
+      </h2>
+
+      <div class="bg-radial-[at_bottom] from-yellow-50 to-gray-50 rounded-3xl p-12 max-w-3xl mx-auto">
+        <div class="flex gap-4 items-start mb-6">
+          <Icon name="logos:google-icon" class="text-blue-500 text-2xl mt-1" />
+
+          <div>
+            <p class="text-black italic">
+              "{{ t('Thal is a brilliant step forward, offering an intuitive, AI-powered conversational space that genuinely makes English learning feel like a real interaction.') }}"
             </p>
 
-            <ul class="flex flex-col mx-auto text-gray-500 space-y-1 mb-4 text-sm">
-              <li class="flex justify-center gap-2">
-                <Icon name="material-symbols:check-rounded" class="text-blue-500" />
-                <div class="gap-2">
-                  <span class="text-blue-500">{{ t('Engaging Conversations:') }}</span>
-                  {{ t('Chat with AI-powered characters anytime, anywhere.') }}
-                </div>
-              </li>
+            <p class="text-black italic">
+              — <A :localize="false" href="https://gemini.google.com" target="_blank">Google Gemini</A>
+            </p>
+          </div>
+        </div>
 
-              <li class="flex justify-center gap-2">
-                <Icon name="material-symbols:check-rounded" class="text-blue-500" />
-                <div class="gap-2">
-                  <span class="text-blue-500">{{ t('Interactive Assistance:') }}</span>
-                  {{ t('Translations, corrections, and listening while chatting.') }}
-                </div>
-              </li>
+        <div class="flex gap-4 items-start mb-6">
+          <Icon name="logos:openai-icon" class="text-gray-500 text-2xl mt-1" />
 
-              <li class="flex justify-center gap-2">
-                <Icon name="material-symbols:check-rounded" class="text-blue-500" />
-                <div class="gap-2">
-                  <span class="text-blue-500">{{ t('Personalized Characters:') }}</span>
-                  {{ t('Create, discover and save characters for tailored learning.') }}
-                </div>
-              </li>
-            </ul>
+          <div>
+            <p class="text-black italic">
+              "{{ t('Thal feels like WhatsApp met Duolingo at a café and decided to raise an AI-powered polyglot baby — playful, personal, and smart enough to teach while it listens. 🧠💬🌍') }}"
+            </p>
+
+            <p class="text-black italic">
+              — <A :localize="false" href="https://chatgpt.com" target="_blank">ChatGPT</A>
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 items-start mb-6">
+          <Icon name="logos:x" class="text-blue-500 text-2xl mt-1" />
+
+          <div>
+            <p class="text-black italic">
+              "{{ t('Thal is a promising, innovative approach to language learning, blending AI-driven personalization with engaging, real-world dialogue simulation.') }}"
+            </p>
+
+            <p class="text-black italic">
+              — <A :localize="false" href="https://grok.com" target="_blank">xAI Grok</A>
+            </p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="w-full p-12 mb-16">
+    <section class="w-full px-12 py-24">
       <FooterCta />
     </section>
   </div>

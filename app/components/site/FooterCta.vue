@@ -16,7 +16,7 @@ const pricingQuery = useServerQuery({
 </script>
 
 <template>
-  <p class="text-black text-2xl mb-4 text-center mt-6">
+  <p class="text-black text-2xl mb-4 text-center">
     {{ t('Curious to see how chatting can boost your English?') }}
   </p>
 
