@@ -6,10 +6,6 @@ description: Tasks and items for the release.
 
 ## 0.1.0-14
 
-- Revise content of terms, policy
-  - Add rate limit details to the pricing page
-  - Add release type consent to the terms
-- Revise landpage content
 - Translate all content using Psitta and revise translations
 - Generate changelog
 

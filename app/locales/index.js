@@ -1111,5 +1111,8 @@
   },
   "And that's it. Repeat. Repeat. Repeat. And your English will improve naturally!": {
     "pt": "E é só isso. Repita. Repita. Repita. E seu inglês vai melhorar naturalmente!"
+  },
+  "Thal is different. It understands you and pushes you just enough to grow. It's designed not to test your memory, but to build your conversational muscle. We're using AI to create something beautifully human.": {
+    "pt": "Thal \nsurgiu para ser diferente. Ele entende você e te incentiva na medida certa para que você se desenvolva. Foi projetado não para testar sua memória, mas sim para construir sua capacidade de conversar. Estamos usando IA para criar algo incrivelmente humano."
   }
 }
