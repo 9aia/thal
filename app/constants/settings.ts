@@ -1,5 +1,4 @@
 import type { MenuItemType } from '~/components/ui/navigation/types'
-import { isWhatsNewModalOpen } from '~/store'
 // import { dummyT as t } from '@psitta/vue'
 
 const t = (x: string) => x

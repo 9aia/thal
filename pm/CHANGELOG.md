@@ -6,6 +6,8 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+## [0.1.0-14] - 2025-07-18
+
 ### Added
 
 - Displayed a new banner on the Home, Discover, and Chat screens, providing information about the current release version
