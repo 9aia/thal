@@ -308,6 +308,10 @@ menu li > * {
   background-clip: content-box, border-box;
 }
 
+@utility site-container {
+  @apply px-4 py-12 max-w-[800px] mx-auto;
+}
+
 /* reset */
 
 * {

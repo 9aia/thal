@@ -13,7 +13,7 @@ const locale = 'pt'
 </script>
 
 <template>
-  <div>
+  <div class="site-container">
     <ContentDoc
       class="prose prose-slate max-w-full"
       tag="article"

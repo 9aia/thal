@@ -20,7 +20,7 @@ const pricingQuery = useServerQuery({
 </script>
 
 <template>
-  <div class="w-full min-h-screen bg-white flex items-center justify-center px-4 py-12">
+  <div class="site-container w-full min-h-screen bg-white flex items-center justify-center px-4 py-12">
     <div class="max-w-4xl mx-auto text-center">
       <!-- Main Headline -->
       <h1 class="text-4xl md:text-5xl lg:text-6xl font-normal text-black mb-6">

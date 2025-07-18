@@ -177,13 +177,16 @@ const locale = useLocale()
       </div>
     </section>
 
-    <section class="bg-white px-4 py-12 space-y-8 max-w-[800px] mx-auto">
+    <section class="site-container bg-white space-y-8">
       <h2 class="text-4xl text-black mb-8 flex flex-wrap sm:justify-center items-center gap-1">
         {{ t("Your Path to Flow in 3 Steps") }}
       </h2>
 
       <AccordionRoot class="mx-auto max-w-3xl space-y-6" collapsible>
-        <Accordion value="engaging-conversations">
+        <Accordion
+          value="engaging-conversations"
+          class="overflow-visible relative z-0"
+        >
           <template #header>
             <Icon name="material-symbols:auto-awesome-outline-rounded" />
             <div class="flex flex-col gap-1 items-start">
@@ -204,7 +207,10 @@ const locale = useLocale()
           </div>
         </Accordion>
 
-        <Accordion value="instant-help">
+        <Accordion
+          value="instant-help"
+          class="overflow-visible relative z-0"
+        >
           <template #header>
             <Icon name="material-symbols:chat-outline-rounded" />
             <div class="flex flex-col gap-1 items-start">
@@ -212,12 +218,23 @@ const locale = useLocale()
             </div>
           </template>
 
-          <p class="text-sm text-black">
+          <p class="text-sm text-black mb-6">
             {{ t('Start a conversation about anything. The AI listens, understands, and responds. It\'s spontaneous, unpredictable, and real.') }}
           </p>
+
+          <div class="drop-shadow-2xl w-full relative z-[10] mx-auto">
+            <div class="mockup-window rounded-3xl border-none bg-white text-black">
+              <div class="flex justify-center bg-cyan-950">
+                <img :src="`/screenshots/chat_desktop_${locale}.png`" alt="Discover" class="w-full h-auto">
+              </div>
+            </div>
+          </div>
         </Accordion>
 
-        <Accordion value="discover-characters">
+        <Accordion
+          value="discover-characters"
+          class="overflow-visible relative z-0"
+        >
           <template #header>
             <Icon name="material-symbols:person-search-outline-rounded" />
             <div class="flex flex-col gap-1 items-start">
@@ -228,6 +245,8 @@ const locale = useLocale()
           <p class="text-sm text-black">
             {{ t("Get instant, in-chat help: translations, suggestions, and gentle fixes. Your brain absorbs the patterns naturally, just like a child does.") }}
           </p>
+
+          <!-- TODO: add image for corrector -->
         </Accordion>
 
         <p class="text-sm text-black">

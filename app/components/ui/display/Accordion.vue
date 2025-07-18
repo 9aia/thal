@@ -19,7 +19,7 @@ const value = defineModel<string>('value', { required: true })
       </Accordion.ItemIndicator>
     </Accordion.ItemTrigger>
 
-    <Accordion.ItemContent class="collapse-content">
+    <Accordion.ItemContent class="collapse-content pt-4">
       <slot />
     </Accordion.ItemContent>
   </Accordion.Item>
