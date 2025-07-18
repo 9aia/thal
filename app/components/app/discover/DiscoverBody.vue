@@ -73,6 +73,8 @@ function createCharacter() {
         </div>
       </Navbar>
 
+      <ReleaseBanner />
+
       <div class="top-0 z-1 bg-white">
         <SettingSection
           class="px-6"

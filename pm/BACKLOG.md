@@ -73,11 +73,12 @@ description: A prioritized list of tasks, features, and ideas for future develop
 ### High priority
 
 - Add a welcome modal and add a link to it in the settings page
-- Remove the Home page on mobile (Welcome modal will be better)
-- Inform deleted character action such as translate, using tooltip
+  - Remove the Home page on mobile (Welcome modal will be better)
 
 ### Medium priority
 
+- Inform deleted character action such as translate, using tooltip
+- Improve SEO, robots.txt, meta tags, etc
 - Move emails to a third-party email service like Zoho Mail, Mailjet, etc. Some of them let you set branding for outgoing emails, even if it's sent programmatically.
 - Add email signature to all emails
 - Fix input autofocuses on navigate
@@ -95,7 +96,6 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Fix error handling in the API endpoints fetched using form
 - Improve sidebar error handling using `AsyncComponentOptions.onError`
 - Hide contact list and discover search (or other search fields) when there are no results like in the chat list
-- Set meta tags for each page
 - Improve toast animations and width
 - Add loading splashscreen for hydration, data loading, etc
 
@@ -105,7 +105,6 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Low priority
 
-- Fix go bottom button showing after clearing the chat
 - Fix locale change animation glitch
 - Fix chat bubble animation glitch
 - Fix animation glitch on opening the CharacterBuilder from the chat route using the "Edit character" options for the first time
@@ -131,6 +130,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Low priority
 
+- List open source licenses
 - Add automatic informing Thal changed (specially terms or privacy) via email
 - Improve prompt engineering for the character builder
 - Handle Gemini safety errors
@@ -147,16 +147,15 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Low priority
 
-- Load lazily the modals
 - Optimize invalidations (use queryClient.setQueryData)
-- Implement `<NuxtImg>`
-- Clean up current playing message on message stop
-- Pregenerate site pages
 - Skip categorization on discoverability change
 - Implement infinite scrolls
-- Improve data fetching (specially waterfalls)
 - Paginate contact and chat search
+- Implement `<NuxtImg>`
+- Improve data fetching (specially waterfalls)
 - Create a lazy sidebar for the right sidebar similar to the left sidebar
+- Clean up current playing message on message stop
+- Pregenerate site pages
 
 ## Design
 

@@ -14,7 +14,7 @@ const releaseType = useReleaseType()
 </script>
 
 <template>
-  <footer class="sticky top-[100vh] bg-white pt-4">
+  <footer class="sticky top-[100vh] bg-radial-[at_bottom] from-green-50 to-gray-50 pt-6">
     <LazyReleaseModal v-model="isReleaseModalOpen" />
 
     <div class="z-20 text-black w-full py-4 max-w-[800px] mx-auto px-4 ">

@@ -264,7 +264,7 @@ function handleApproved(characterId: number) {
             :loading="loading"
             class="btn btn-dash btn-primary w-fit"
 
-            icon="material-symbols:wand-stars-outline-rounded"
+            icon="material-symbols:auto-awesome-outline-rounded"
             :disabled="!form.values.prompt || hasErrors || isPastDueVisible"
           >
             {{ !!buildQuery.data.value ? t("Regenerate") : t("Generate") }}

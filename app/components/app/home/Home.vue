@@ -66,6 +66,8 @@ function addContact() {
       </div>
     </Navbar>
 
+    <ReleaseBanner />
+
     <main class="flex-1 px-4 py-4 w-full sm:w-[500px] lg:w-[600px] sm:mx-auto">
       <div class="flex flex-col h-full items-center justify-center">
         <Icon
@@ -83,7 +85,7 @@ function addContact() {
           </p>
 
           <p class="text-gray-500 text-sm mt-4">
-            {{ t('Talk to thals to practice, learn, and have fun.') }}
+            {{ t('Talk to thals to practice and learn English, and have fun.') }}
           </p>
         </div>
 
@@ -129,7 +131,7 @@ function addContact() {
 
     <footer class="flex px-4 py-4">
       <div class="sm:max-w-5xl md:max-w-6xl lg:max-w-9xl mx-auto flex gap-2 items-center justify-center">
-        <Icon name="material-symbols:science-outline" class="text-xl" />
+        <Icon name="material-symbols:auto-awesome-outline-rounded" class="text-xl" />
 
         <p class="text-xs">
           {{ t('Thal messages are powered by generative AI.') }}

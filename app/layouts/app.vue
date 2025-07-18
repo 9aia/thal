@@ -20,7 +20,7 @@ onMounted(() => {
   <div class="w-full max-w-[1700px] h-full bg-white absolute left-1/2 -translate-x-1/2">
     <slot />
 
-    <div class="relative bottom-0 left-1/2 -translate-x-1/2">
+    <div class="relative bottom-0 left-1/2 -translate-x-1/2 z-[1000]">
       <LazyCommonToast v-if="toast.visible.value" />
     </div>
   </div>

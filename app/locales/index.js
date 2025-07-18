@@ -392,30 +392,6 @@
   "Try 1 Day Free – No Credit Card Needed": {
     "pt": "Experimente 1 dia grátis – Nenhum cartão de crédito necessário"
   },
-  "Continue your checkout.": {
-    "pt": "Continue sua compra."
-  },
-  "Continue your access.": {
-    "pt": "Continue seu acesso."
-  },
-  "Continue your free trial.": {
-    "pt": "Continue seu teste gratuito."
-  },
-  "Continue chatting.": {
-    "pt": "Continuar conversando."
-  },
-  "Renew your subscription now.": {
-    "pt": "Renove sua assinatura agora."
-  },
-  "Check your subscription now.": {
-    "pt": "Verifique sua assinatura agora."
-  },
-  "Go to app.": {
-    "pt": "Ir para o aplicativo."
-  },
-  "Resume your subscription now.": {
-    "pt": "Retome sua assinatura agora."
-  },
   "{price}/month after": {
     "pt": "{price}/mês após"
   },
@@ -467,9 +443,6 @@
   "Forget waiting for perfection. Dive into dialogue, make mistakes, be human — and let learning happen along the way.": {
     "pt": "Esqueça esperar pela perfeição. Mergulhe no diálogo, cometa erros, seja humano - e deixe a aprendizagem acontecer ao longo do caminho."
   },
-  "Talk to thals to practice, learn, and have fun.": {
-    "pt": "Converse com thals para praticar, aprender e se divertir."
-  },
   "Discover characters": {
     "pt": "Descobrir personagens"
   },
@@ -480,7 +453,7 @@
     "pt": "Novidades"
   },
   "Thal messages are powered by generative AI.": {
-    "pt": "As mensagens Thal são alimentadas por IA generativa."
+    "pt": "As mensagens de thals são geradas por IA generativa."
   },
   "An error occurred while discarding character.": {
     "pt": "Ocorreu um erro ao descartar o personagem."
@@ -842,38 +815,8 @@
   "The character {username} does not exist.": {
     "pt": "O personagem {username} não existe."
   },
-  "Chat, laugh, learn, and LEVEL UP your {English} with AI characters who never get tired, never judge, and always keep it 💯.": {
-    "pt": "Converse, ria, aprenda e AUMENTE o seu {English} com personagens de IA que nunca se cansam, nunca julgam e sempre são 💯."
-  },
-  "Practice real English with interactive chats that feel natural and immersive. Thals adapt to your goals while the smart UI helps you with translations and grammar corrections as you go.": {
-    "pt": "Pratique inglês real com bate-papos interativos que parecem naturais e imersivos. Os Thals se adaptam aos seus objetivos, enquanto a interface inteligente ajuda você com traduções e correções gramaticais conforme você avança."
-  },
-  "Real-time translations, message fixing, listening tools and more — all built in. Learn while keeping the conversation flowing.": {
-    "pt": "Traduções em tempo real, correção de mensagens, ferramentas de escuta e muito mais - tudo integrado. Aprenda enquanto mantém a conversa fluindo."
-  },
-  "Whether you're into casual chats, professional scenarios, or full-on RPG, there's always a Thal ready to talk.": {
-    "pt": "Se você gosta de bate-papos casuais, cenários profissionais ou RPG completo, sempre há um Thal pronto para conversar."
-  },
-  "Keep your favorite Thals in a contact list for easy access and consistent practice.": {
-    "pt": "Mantenha seus Thals favoritos em uma lista de contatos para facilitar o acesso e a prática consistente."
-  },
   "Simple. Transparent. Powerful.": {
     "pt": "Simples. Transparente. Poderoso."
-  },
-  "Discover characters.": {
-    "pt": "Descubra personagens."
-  },
-  "Practice real English with interactive chats.": {
-    "pt": "Pratique inglês real com chats interativos."
-  },
-  "Get instant help while you chat.": {
-    "pt": "Obtenha ajuda instantânea enquanto você conversa."
-  },
-  "Create your own.": {
-    "pt": "Crie o seu próprio."
-  },
-  "Save Your Favorite.": {
-    "pt": "Salve o seu favorito."
   },
   "Rate Thal": {
     "pt": "Avaliar Thal"
@@ -1025,15 +968,6 @@
   "Terms apply.": {
     "pt": "Aplicam-se termos."
   },
-  "This Thal version (v{version}) is running on an early and experimental environment. Expect frequent changes, potential bugs, and data resets. It's free to use and helps us test and polish upcoming features.": {
-    "pt": "Esta versão do Thal (v{version}) está rodando em um ambiente inicial e experimental. Espere mudanças frequentes, possíveis bugs e redefinições de dados. É grátis para usar e nos ajuda a testar e aprimorar os próximos recursos."
-  },
-  "This Thal version (v{version}) is running on an early environment. It includes core features and fully operational payment. Your feedback will directly shape the future of Thal!": {
-    "pt": "Esta versão do Thal (v{version}) está rodando em um ambiente inicial. Ele inclui recursos principais e pagamento totalmente operacional. Seu feedback moldará diretamente o futuro do Thal!"
-  },
-  "This Thal version (v{version}) is running on an early stable environment. It represents a foundation with the core features and fully operational payment. Updates will primarily focus on critical patches to ensure reliability.": {
-    "pt": "Esta versão Thal (v{version}) está rodando em um ambiente estável inicial. Ela representa uma base com as funcionalidades principais e pagamento totalmente operacional. As atualizações focarão principalmente em correções críticas para garantir a confiabilidade."
-  },
   "This Thal version (v{version}) is running on a stable environment. It includes core features and fully operational payment.": {
     "pt": "Esta versão Thal (v{version}) está rodando em um ambiente estável. Ela inclui as funcionalidades principais e pagamento totalmente operacional."
   },
@@ -1051,5 +985,143 @@
   },
   "This Thal version (v{version}) is running on an early, public and stable environment. It includes a foundation with the core features and a fully operational payment integration. Updates will primarily focus on critical patches to ensure reliability.": {
     "pt": "Esta versão do Thal (v{version}) está rodando em um ambiente inicial, público e estável. Ele inclui uma base com os recursos principais e uma integração de pagamento totalmente operacional. As atualizações se concentrarão principalmente em correções críticas para garantir a confiabilidade."
+  },
+  "Development: Testing upcoming features. Expect frequent changes, bugs, and data resets.": {
+    "pt": "Desenvolvimento: Testando recursos futuros. Espere mudanças frequentes, bugs e reinicializações de dados."
+  },
+  "Preview: Testing upcoming features. Expect frequent changes, bugs, and data resets.": {
+    "pt": "Pré-visualização: Testando recursos futuros. Espere mudanças frequentes, bugs e reinicializações de dados."
+  },
+  "Early Access: Core functionality implemented, more updates soon.": {
+    "pt": "Acesso Antecipado: Funcionalidade principal implementada, mais atualizações em breve."
+  },
+  "Early Stable: Core functionality is set; updates will be critical patches.": {
+    "pt": "Primeira Versão Estável: Funcionalidade principal definida; as atualizações serão correções críticas."
+  },
+  "Close": {
+    "pt": "Fechar"
+  },
+  "Continue your checkout": {
+    "pt": "Continue seu checkout"
+  },
+  "Continue your access": {
+    "pt": "Continue seu acesso"
+  },
+  "Continue your free trial": {
+    "pt": "Continue seu teste gratuito"
+  },
+  "Continue chatting": {
+    "pt": "Continue conversando"
+  },
+  "Renew your subscription now": {
+    "pt": "Renove sua assinatura agora"
+  },
+  "Check your subscription now": {
+    "pt": "Verifique sua assinatura agora"
+  },
+  "Resume your subscription now": {
+    "pt": "Retome sua assinatura agora"
+  },
+  "Just Chat": {
+    "pt": "Só Chat"
+  },
+  "Let's Be Honest. Language Apps Are Broken.": {
+    "pt": "Sejamos honestos. Aplicativos de idiomas estão quebrados."
+  },
+  "You've tried them all.": {
+    "pt": "Você já experimentou todos."
+  },
+  "Memorizing vocabulary lists you instantly forget.": {
+    "pt": "Memorizar listas de vocabulário que você esquece instantaneamente."
+  },
+  "Awkward, scripted dialogues with emotionless robots.": {
+    "pt": "Diálogos estranhos e roteirizados com robôs sem emoção."
+  },
+  "The constant fear of sounding stupid in a real conversation.": {
+    "pt": "O medo constante de parecer estúpido em uma conversa real."
+  },
+  "Translating every single sentence in your head, word by painful word.": {
+    "pt": "Traduzir cada frase na sua cabeça, palavra por palavra dolorosamente."
+  },
+  "It's not you. It's the method. You're trying to learn a river by studying a glass of water.": {
+    "pt": "Não é você. É o método. Você está tentando aprender um rio estudando um copo d'água."
+  },
+  "What if fluency wasn't just studied, but practiced and acquired?": {
+    "pt": "E se a fluência não fosse apenas estudada, mas praticada e adquirida?"
+  },
+  "Imagine learning flows as naturally as texting a friend.": {
+    "pt": "Imagine aprender fluindo tão naturalmente quanto enviar mensagens de texto para um amigo."
+  },
+  "Where you can make mistakes without judgment, get corrected without shame, and have conversations so engaging you forget you're even learning.": {
+    "pt": "Onde você pode cometer erros sem julgamento, ser corrigido sem vergonha e ter conversas tão envolventes que você esquece que está aprendendo."
+  },
+  "You're not memorizing rules. You're building intuition.": {
+    "pt": "Você não está memorizando regras. Você está construindo intuição."
+  },
+  "You're not practicing dialogues. You're having conversations.": {
+    "pt": "Você não está praticando diálogos. Você está tendo conversas."
+  },
+  "This isn't an app. It's your new English-speaking reality.": {
+    "pt": "Este não é um aplicativo. É sua nova realidade de fala inglesa."
+  },
+  "Your Path to Flow in 3 Steps": {
+    "pt": "Seu Caminho para a Fluência em 3 Etapas"
+  },
+  "Find Your Vibe": {
+    "pt": "Encontre Sua Vibração"
+  },
+  "Discover or create AI characters—from sarcastic philosophers to expert space engineers. Your perfect conversation partner is waiting.": {
+    "pt": "Descubra ou crie personagens de IA - de filósofos sarcásticos a engenheiros espaciais especializados. Seu parceiro de conversa perfeito está esperando."
+  },
+  "Just Talk": {
+    "pt": "Apenas Converse"
+  },
+  "Start a conversation about anything. The AI listens, understands, and responds. It's spontaneous, unpredictable, and real.": {
+    "pt": "Comece uma conversa sobre qualquer coisa. A IA ouve, entende e responde. É espontâneo, imprevisível e real."
+  },
+  "Absorb & Adapt": {
+    "pt": "Absorva e Adapte-se"
+  },
+  "Get instant, in-chat help: translations, suggestions, and gentle fixes. Your brain absorbs the patterns naturally, just like a child does.": {
+    "pt": "Obtenha ajuda instantânea no chat: traduções, sugestões e correções suaves. Seu cérebro absorve os padrões naturalmente, assim como uma criança."
+  },
+  "And that's it. Repeat. Repeat. Repeat. And you'll be speaking English!": {
+    "pt": "E é isso. Repita. Repita. Repita. E você estará falando inglês!"
+  },
+  "This Isn't A Chatbot. It's A Conversation Engine.": {
+    "pt": "Este não é um Chatbot. É um Mecanismo de Conversação."
+  },
+  "Standard apps recite scripts. Thal's AI is different. It remembers your conversations, understands you, and pushes you just enough to grow. It\\’s designed not to test your memory, but to build your conversational muscle. We're using AI to create something beautifully human.": {
+    "pt": "Aplicativos padrão recitam scripts. A IA da Thal é diferente. Ele se lembra de suas conversas, entende você e o impulsiona o suficiente para crescer. Ele foi projetado não para testar sua memória, mas para construir seu músculo conversacional. Estamos usando IA para criar algo lindamente humano."
+  },
+  "You can go beyond the basics:": {
+    "pt": "Você pode ir além do básico:"
+  },
+  "Create Your Own Characters": {
+    "pt": "Crie Seus Próprios Personagens"
+  },
+  "Save Your Favorite Characters": {
+    "pt": "Salve Seus Personagens Favoritos"
+  },
+  "Keep your favorite thals in a contact list for easy access and consistent practice.": {
+    "pt": "Mantenha seus thals favoritos em uma lista de contatos para facilitar o acesso e a prática consistente."
+  },
+  "What the best AIs think about Thal?": {
+    "pt": "O que as melhores IAs pensam sobre Thal?"
+  },
+  "Thal is a brilliant step forward, offering an intuitive, AI-powered conversational space that genuinely makes English learning feel like a real interaction.": {
+    "pt": "Thal é um passo brilhante à frente, oferecendo um espaço de conversação intuitivo, com tecnologia de IA, que realmente faz com que o aprendizado de inglês pareça uma interação real."
+  },
+  "Thal feels like WhatsApp met Duolingo at a café and decided to raise an AI-powered polyglot baby — playful, personal, and smart enough to teach while it listens. 🧠💬🌍": {
+    "pt": "Thal parece que o WhatsApp encontrou o Duolingo em um café e decidiu criar um bebê poliglota com tecnologia de IA - brincalhão, pessoal e inteligente o suficiente para ensinar enquanto ouve. 🧠💬🌍"
+  },
+  "Thal is a promising, innovative approach to language learning, blending AI-driven personalization with engaging, real-world dialogue simulation.": {
+    "pt": "Thal é uma abordagem promissora e inovadora para o aprendizado de idiomas, combinando personalização com tecnologia de IA com uma simulação envolvente de diálogo do mundo real."
+  },
+  "Your head is already wired for {English}. Thal is the conversation that activates it. No textbooks. No grammar drills. {JustChat}.": {
+    "pt": "Sua cabeça já está programada para {English}. Thal é a conversa que o ativa. Sem livros didáticos. Sem exercícios de gramática. {JustChat}."
+  },
+  "Talk to thals to practice and learn English, and have fun.": {
+    "pt": "Converse com thals para praticar e aprender inglês, e divirta-se."
   }
 }
