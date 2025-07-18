@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { t, useLocale } from '@psitta/vue'
 import { isWhatsNewModalOpen } from '~/store'
 import { version } from '~~/package.json'
 
 const modelValue = defineModel<boolean>()
+const { t } = useI18nExperimental()
 
 const releaseType = useReleaseType()
 
