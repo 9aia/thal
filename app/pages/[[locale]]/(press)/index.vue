@@ -49,13 +49,6 @@ const quotes = computed(() => [
     icon: 'logos:x',
   },
 ])
-
-function scrollToFeatures() {
-  const features = document.getElementById('features')
-  if (features) {
-    features.scrollIntoView({ behavior: 'smooth' })
-  }
-}
 </script>
 
 <template>

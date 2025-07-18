@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { T } from '@psitta/vue'
 import queryKeys from '~/queryKeys'
 import { SubscriptionStatus } from '~~/db/schema'
 
