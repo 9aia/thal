@@ -86,6 +86,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Low priority
 
+- Improve branding and marketing
 - Add high traffic UI alert
 - Pass user name to Stripe from Google account
 - Save cookie for "Continue Your Access" after once logged

@@ -6,13 +6,42 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Added
+
+- Displayed a new banner on the Home, Discover, and Chat screens, providing information about the current release version
+- Displayed a new badge showing the release status (e.g., Development, Preview, Early Access, Early Stable), which, when clicked, opens a modal with more details
+- Made a new Security Policy document available, detailing how your data and the platform are protected
+- Dynamically displayed "About Thal" options in the "Support" section in settings based on the app's release version
+
+### Enhanced
+
+- Improved landing page content and design
+  - Clarified the purpose of talking to Thals to explicitly mention practicing and learning English
+  - Added a new tagline to the website's main call-to-action section, highlighting the app's direct and no-nonsense approach to learning
+  - Redesigned the main website homepage, the pricing page, and the overall website footer for a clearer, more organized, and visually appealing presentation
+
 ### Fixed
 
-- Fixed page animations
+- Adapted modals better to different screen sizes and content lengths
+- Made chat action buttons (edit, resend, copy, translate, delete) always visible on the last message, improving accessibility and ease of use
+- Improved translation display toggle behavior and updated styling for better readability
+- Fixed page transition effects for a smoother experience across the app and within the sidebar
 - Fixed chat bubble animations
 - Fixed chat automatic scroll to bottom
 - Fixed chat SEO
-- Fixed username validation to accept only lowercase letters
+- Fixed username validation to accept only lowercase letters with clearer validation messages during account creation and character editing
+
+### Changed
+
+- Updated links for sending feedback, reporting issues, and support emails
+- Replaced the "Experimental" badge in the app header and sidebar with a "Release" badge, providing more accurate information about the app's development status
+- Updated Terms of Service and Privacy Policy links to a new structure, aligning with the new Security Policy
+
+### Beautified
+
+- Updated the icon related to AI-powered messages in the footer for a more intuitive visual
+- The positioning and display of toast notifications have been improved for a cleaner look
+- The color scheme for pricing information has been updated for better visual appeal
 
 ## [0.1.0-13] - 2025-07-10
 
