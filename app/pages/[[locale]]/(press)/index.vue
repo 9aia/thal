@@ -266,7 +266,7 @@ function scrollToFeatures() {
             </div>
           </template>
 
-          <p class="text-sm text-black">
+          <p class="text-sm text-black mb-6">
             {{ t("Get instant, in-chat help: translations, suggestions, and gentle fixes. Your brain absorbs the patterns naturally as you chat.") }}
           </p>
 
@@ -293,7 +293,10 @@ function scrollToFeatures() {
       </p>
 
       <AccordionRoot class="mx-auto max-w-3xl space-y-6" collapsible>
-        <Accordion value="create-your-own">
+        <Accordion
+          value="create-your-own"
+          class="overflow-visible relative z-0"
+        >
           <template #header>
             <Icon name="material-symbols:person-add-outline-rounded" />
             <div class="flex flex-col gap-1 items-start">
@@ -301,12 +304,29 @@ function scrollToFeatures() {
             </div>
           </template>
 
-          <p class="text-sm text-black">
+          <p class="text-sm text-black mb-6">
             {{ t('Just describe their personality and behavior in a short prompt — our AI will instantly bring them to life in seconds, ready for dynamic and engaging conversations.') }}
           </p>
+
+          <div class="flex gap-4 drop-shadow-2xl w-full relative z-[10] mx-auto">
+            <div class="mockup-window rounded-3xl border-none bg-white text-black">
+              <div class="flex justify-center bg-cyan-950">
+                <img :src="`/screenshots/build_character_before_${locale}.png`" alt="Discover" class="w-full h-auto">
+              </div>
+            </div>
+
+            <div class="mockup-window rounded-3xl border-none bg-white text-black">
+              <div class="flex justify-center bg-cyan-950">
+                <img :src="`/screenshots/build_character_after_${locale}.png`" alt="Discover" class="w-full h-auto">
+              </div>
+            </div>
+          </div>
         </Accordion>
 
-        <Accordion value="save-your-favorite">
+        <Accordion
+          value="save-your-favorite"
+          class="overflow-visible relative z-0"
+        >
           <template #header>
             <Icon name="material-symbols:person-add-outline-rounded" />
             <div class="flex flex-col gap-1 items-start">
@@ -314,9 +334,17 @@ function scrollToFeatures() {
             </div>
           </template>
 
-          <p class="text-sm text-black">
+          <p class="text-sm text-black mb-6">
             {{ t('Keep your favorite thals in a contact list for easy access and consistent practice.') }}
           </p>
+
+          <div class="drop-shadow-2xl w-full relative z-[10] mx-auto">
+            <div class="mockup-window rounded-3xl border-none bg-white text-black">
+              <div class="flex justify-center bg-cyan-950">
+                <img :src="`/screenshots/contact_${locale}.png`" alt="Discover" class="w-full h-auto">
+              </div>
+            </div>
+          </div>
         </Accordion>
       </AccordionRoot>
     </section>
