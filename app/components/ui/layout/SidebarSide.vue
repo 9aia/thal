@@ -53,7 +53,3 @@ watch(sidebar.open, (open) => {
     </Suspense>
   </Transition>
 </template>
-
-<style scoped>
-@reference '~/assets/css/main.css';
-</style>

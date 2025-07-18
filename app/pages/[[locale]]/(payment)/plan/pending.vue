@@ -35,7 +35,7 @@ async function goToApp() {
 </script>
 
 <template>
-  <div class="w-full relative" style="height: calc(100vh - 64px)">
+  <div class="site-container w-full relative" style="height: calc(100vh - 64px)">
     <div class="text-center w-full max-w-2xl absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 p-4">
       <h1 class="text-3xl text-black text-center mb-4">
         {{ t('Your free trial is being processed.') }}

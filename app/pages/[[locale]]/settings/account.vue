@@ -10,7 +10,7 @@ useAutoRedirect()
 </script>
 
 <template>
-  <div class="flex flex-col justify-between">
+  <div class="flex flex-col justify-between site-container">
     <h1 class="text-4xl mb-4">
       {{ t("Account Settings") }}
     </h1>
