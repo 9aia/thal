@@ -12,6 +12,10 @@ function useChatClient(username: MaybeRef<string>) {
 
   function createIfNotExists(data: { messageContent: string, messageDatetime: number, messageStatus: MessageStatus }) {
     queryClient.setQueryData(queryKeys.chatsSearch(localeWithDefaultRegion.value, chatListSearch.value), (oldChats: Chats) => {
+      if (!oldChats) {
+        return []
+      }
+
       const _username = toValue(username)
       const newChats = [...oldChats]
       const chatIndex = newChats.findIndex(chat => chat.username === _username)
@@ -34,6 +38,10 @@ function useChatClient(username: MaybeRef<string>) {
 
   function setLastMessage(lastMessage: { content: string, time: number, status: MessageStatus }) {
     queryClient.setQueryData(queryKeys.chatsSearch(localeWithDefaultRegion.value, chatListSearch.value), (oldChats: Chats) => {
+      if (!oldChats) {
+        return []
+      }
+
       const _username = toValue(username)
       const newChats = [...oldChats]
       const chatIndex = newChats.findIndex(chat => chat.username === _username)
@@ -53,6 +61,10 @@ function useChatClient(username: MaybeRef<string>) {
 
   function deleteLastMessage() {
     queryClient.setQueryData(queryKeys.chatsSearch(localeWithDefaultRegion.value, chatListSearch.value), (oldChats: Chats) => {
+      if (!oldChats) {
+        return []
+      }
+
       const _username = toValue(username)
       const newChats = [...oldChats]
       const chatIndex = newChats.findIndex(chat => chat.username === _username)

@@ -7,7 +7,6 @@ description: Tasks and items for the release.
 ## 0.1.0-15
 
 - Fix Accordion on SSR
-- Fix error when opening a character with this URL: http://localhost:3000/pt/app/chat/zarina_galaxy?build-character=
 - Ensure tooltip not appears behind the drawer when adding a contact
 - Make the "Try Again" button work after an error when adding a character with no character draft, without requiring a page refresh
 

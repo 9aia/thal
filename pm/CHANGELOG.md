@@ -6,6 +6,10 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Fixed
+
+- Avoided updating the chat query when the chat is not loaded, preventing errors.
+
 ## [0.1.0-14] - 2025-07-18
 
 ### Added
