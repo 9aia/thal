@@ -11,7 +11,7 @@ export default defineNuxtConfig({
 
   srcDir: './app',
   devtools: { enabled: true },
-  modules: ['nitro-cloudflare-dev', '@nuxt/eslint', '@nuxtjs/mdc', '@nuxt/image', '@nuxt/fonts', '@nuxt/content', '@nuxt/icon'],
+  modules: ['nitro-cloudflare-dev', '@nuxt/eslint', '@nuxtjs/mdc', '@nuxt/image', '@nuxt/fonts', '@nuxt/content', '@nuxt/icon', 'reka-ui/nuxt'],
   css: ['~/assets/css/main.css'],
 
   icon: {

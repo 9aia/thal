@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
+import { tv } from 'tailwind-variants'
 import type { CheckoutStatus } from '~/types'
 import { SubscriptionStatus } from '~~/db/schema'
 
 const props = defineProps<{
   checkoutStatus: CheckoutStatus
   subscriptionStatus: SubscriptionStatus
+  buttonClass?: string
 }>()
 
 const emit = defineEmits<{
@@ -27,6 +29,10 @@ function onSubmit(event: Event) {
     navigateTo('/app')
   }
 }
+
+const buttonStyles = tv({
+  base: 'btn btn-primary btn-lg w-fit mx-auto',
+})
 </script>
 
 <template>
@@ -39,7 +45,7 @@ function onSubmit(event: Event) {
     <Button
       id="checkout-and-portal-button"
       type="submit"
-      class="btn btn-primary btn-lg w-fit mx-auto"
+      :class="buttonStyles({ class: buttonClass })"
     >
       <template v-if="(!user || (checkoutStatus === null && subscriptionStatus === SubscriptionStatus.not_subscribed))">
         {{ t('Start chatting') }}
