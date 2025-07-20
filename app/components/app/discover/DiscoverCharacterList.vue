@@ -6,6 +6,7 @@ const props = defineProps<{
 
 const { t } = useI18nExperimental()
 const discoverQuery = useDiscoveryInfiniteQuery(toRef(() => props.search), toRef(() => props.categoryId))
+await discoverQuery.suspense()
 
 const emptyMessage = computed(() => {
   if (props.search) {

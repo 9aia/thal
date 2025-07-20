@@ -11,7 +11,7 @@ watch(modelValue, async (value) => {
   if (value) {
     whatsNew.seeContent()
   }
-})
+}, { immediate: true })
 </script>
 
 <template>

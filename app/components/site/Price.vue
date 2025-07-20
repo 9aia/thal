@@ -1,18 +1,11 @@
 <script setup lang="ts">
 import { T, t, useLocale } from '@psitta/vue'
 import { PLANS } from '~/constants/payment'
-import queryKeys from '~/queryKeys'
 
 const locale = useLocale()
 
-const headers = useRequestHeaders(['cookie'])
-const pricingQuery = useServerQuery({
-  queryFn: () => $fetch('/api/payment/stripe/pricing-data', {
-    headers,
-  }),
-  queryKey: queryKeys.pricingData,
-  staleTime: 0,
-})
+const pricingQuery = usePricingQuery()
+await pricingQuery.suspense()
 
 const price = computed(() => {
   return new Intl.NumberFormat(locale.value, {

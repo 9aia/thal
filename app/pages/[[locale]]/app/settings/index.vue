@@ -17,6 +17,7 @@ const { t } = useI18nExperimental()
 const router = useRouter()
 const logout = useLogout()
 const releaseType = useReleaseType()
+const whatsNew = useWhatsNew()
 
 const isLocaleModalOpen = ref(false)
 const isReleaseModalOpen = ref(false)
@@ -57,6 +58,7 @@ const support = computed(() => {
       id: 'whats-new',
       icon: 'material-symbols:campaign-outline-rounded',
       name: t('What\'s New'),
+      indicator: whatsNew.hasUnreadContent.value ? 'warning' : undefined,
       onClick: () => isWhatsNewModalOpen.value = true,
       type: 'accordion',
     },

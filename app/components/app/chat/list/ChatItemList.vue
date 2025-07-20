@@ -4,6 +4,8 @@ import { LEFT_SIDEBAR_PROVIDE_KEY } from '~/constants/sidebar'
 import { chatListSearch } from '~/store'
 
 const chatsQuery = useChatsQuery()
+await chatsQuery.suspense()
+
 const sidebar = useSidebar(LEFT_SIDEBAR_PROVIDE_KEY)
 
 function openChat(username: string) {

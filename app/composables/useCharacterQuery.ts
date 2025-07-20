@@ -19,19 +19,12 @@ function useCharacterQuery(username?: MaybeRef<string | null>, options?: { initi
 
   const isQueryEnabled = computed(() => !!unref(username))
 
-  const {
-    suspense,
-    ...query
-  } = useQuery({
+  const query = useQuery({
     queryKey: queryKeys.character(localeWithDefaultRegion.value, toValue(username!)),
     queryFn: fetchFn,
     enabled: isQueryEnabled,
     initialData: options?.initialData,
   })
-
-  if (isQueryEnabled.value) {
-    onServerPrefetch(suspense)
-  }
 
   return query
 }

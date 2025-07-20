@@ -10,6 +10,7 @@ import { LEFT_SIDEBAR_PROVIDE_KEY } from '~/constants/sidebar'
 const sidebar = useSidebar(LEFT_SIDEBAR_PROVIDE_KEY)
 const toast = useToast()
 const whatsNew = useWhatsNew()
+
 const searchRouteQuery = useRouteQuery<string>('search', '')
 const categoryRouteQuery = useRouteQuery<CategorySlug>('category', '')
 
@@ -57,17 +58,27 @@ function createCharacter() {
         @back="sidebar.open.value = true"
       >
         <div class="flex gap-1 items-center translate-x-1.5 z-50">
-          <Button
-            class="btn btn-neutral btn-circle btn-ghost"
-            no-disable-on-loading
-            :class="{
-              'text-orange-500': whatsNew.hasUnreadContent.value,
-              'text-black': !whatsNew.hasUnreadContent.value,
-            }"
-            :loading="whatsNew.countQuery.isLoading.value"
-            icon="material-symbols:campaign-outline-rounded"
-            @click="isWhatsNewModalOpen = true"
-          />
+          <ClientOnly>
+            <template #fallback>
+              <Button
+                class="btn btn-neutral btn-circle btn-ghost text-black"
+                no-disable-on-loading
+                :loading="true"
+              />
+            </template>
+
+            <Button
+              class="btn btn-neutral btn-circle btn-ghost"
+              no-disable-on-loading
+              :class="{
+                'text-orange-500': whatsNew.hasUnreadContent.value,
+                'text-black': !whatsNew.hasUnreadContent.value,
+              }"
+              :loading="whatsNew.countQuery.isLoading.value"
+              icon="material-symbols:campaign-outline-rounded"
+              @click="isWhatsNewModalOpen = true"
+            />
+          </ClientOnly>
 
           <CommonMenuButton hide-discover />
         </div>

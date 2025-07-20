@@ -8,6 +8,8 @@ const username = computed(() => route.params.username as string)
 const { updateScrollable, scrollBottom } = useChatMainScroll()
 
 const characterQuery = useCharacterQuery(username)
+await characterQuery.suspense()
+
 const usernameNotFound = computed(() => !characterQuery.data.value?.usernameId)
 
 // prefetch queries before character is loaded

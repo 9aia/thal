@@ -23,7 +23,6 @@ function useDiscoveryInfiniteQuery(search: MaybeRef<string>, categoryId: MaybeRe
     getNextPageParam: lastPage => (lastPage as any).nextPage,
     select: data => unwrapInfiniteData(data),
   })
-  onServerPrefetch(query.suspense)
 
   return query
 }

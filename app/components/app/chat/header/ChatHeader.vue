@@ -17,6 +17,14 @@ const characterQuery = useCharacterQuery(username)
 const contactQuery = useContactQuery(username)
 const historyQuery = useHistoryQuery(username)
 
+const queryPromises = [
+  characterQuery.suspense(),
+  contactQuery.suspense(),
+  historyQuery.suspense(),
+]
+
+await Promise.all(queryPromises)
+
 const usernameNotFound = computed(() => !characterQuery.data.value?.usernameId)
 const isContact = computed(() => !!contactQuery.data.value?.id)
 const contactNames = computed(() => getContactName({

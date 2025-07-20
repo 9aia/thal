@@ -11,6 +11,11 @@ const username = computed(() => route.params.username as string)
 const characterQuery = useCharacterQuery(username, {
   initialData: route.meta.character,
 })
+
+await Promise.all([
+  characterQuery.suspense(),
+])
+
 const usernameNotFound = computed(() => !characterQuery.data.value?.usernameId)
 </script>
 

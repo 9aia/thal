@@ -6,22 +6,13 @@ function useContactQuery(username?: MaybeRef<string | null>) {
 
   const isQueryEnabled = computed(() => !!unref(username))
 
-  const {
-    suspense,
-    ...query
-  } = useQuery({
+  return useQuery({
     queryKey: queryKeys.contact(username!),
     queryFn: () => $fetch(`/api/contact/${toValue(username)}` as `/api/contact/:username`, {
       headers,
     }),
     enabled: isQueryEnabled,
   })
-
-  if (isQueryEnabled.value) {
-    onServerPrefetch(suspense)
-  }
-
-  return query
 }
 
 export function prefetchContactQuery(username: MaybeRef<string>) {

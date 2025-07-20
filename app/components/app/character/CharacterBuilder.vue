@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Menu } from '@ark-ui/vue'
 import { T } from '@psitta/vue'
-import { useMutation, useQueryClient } from '@tanstack/vue-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 import type { FetchError } from 'ofetch'
 import { useForm } from 'vee-validate'
 import type { MenuItemType } from '~/components/ui/navigation/types'
@@ -54,10 +54,16 @@ function fetchBuild() {
   })
 }
 
-const buildQuery = useServerQuery({
+const buildQuery = useQuery({
   queryKey: queryKeys.characterDraftEdit(localWithDefaultRegion, characterBuildId),
-  queryFn: fetchBuild,
+  queryFn: async () => {
+    const t = await fetchBuild()
+
+    return t
+  },
 })
+
+await buildQuery.suspense()
 
 const initialValuesFromData = computed(() => {
   return {
@@ -79,7 +85,7 @@ watch(buildQuery.data, () => {
 
 const user = useUser()
 
-const hasErrors = useHasFormErrors(form)
+const hasFormErrors = useHasFormErrors(form)
 const loading = ref(false)
 const queryClient = useQueryClient()
 
@@ -109,7 +115,7 @@ const updateCharacterDraft = useMutation({
 })
 
 const isError = computed(() => {
-  return createCharacterDraft.isError || updateCharacterDraft.isError
+  return createCharacterDraft.isError.value || updateCharacterDraft.isError.value || buildQuery.isError.value
 })
 
 const isEditing = computed(() => !!characterBuildId.value)
@@ -194,6 +200,18 @@ const isAlreadyChatting = computed(() => {
 function handleApproved(characterId: number) {
   characterBuildId.value = characterId
 }
+
+const isSubmitButtonDisabled = computed(() => !form.values.prompt || hasFormErrors.value || isPastDueVisible.value)
+
+function onResourceFetch() {
+  if (buildQuery.isError.value) {
+    buildQuery.refetch()
+  }
+
+  if (!isSubmitButtonDisabled.value) {
+    submit()
+  }
+}
 </script>
 
 <template>
@@ -263,9 +281,8 @@ function handleApproved(characterId: number) {
           <Button
             :loading="loading"
             class="btn btn-dash btn-primary w-fit"
-
             icon="material-symbols:auto-awesome-outline-rounded"
-            :disabled="!form.values.prompt || hasErrors || isPastDueVisible"
+            :disabled="isSubmitButtonDisabled"
           >
             {{ !!buildQuery.data.value ? t("Regenerate") : t("Generate") }}
           </Button>
@@ -277,7 +294,7 @@ function handleApproved(characterId: number) {
           data: buildQuery.data,
           isLoading: buildQuery.isLoading,
           isError,
-          refetch: buildQuery.refetch,
+          refetch: onResourceFetch,
         }"
         common-error-fallback-class="px-6 mt-8"
       >

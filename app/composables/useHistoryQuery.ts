@@ -1,4 +1,4 @@
-import { useQueryClient } from '@tanstack/vue-query'
+import { useQuery, useQueryClient } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
 
 function useHistoryQuery(username: MaybeRef<string>) {
@@ -6,7 +6,7 @@ function useHistoryQuery(username: MaybeRef<string>) {
 
   const sendMessageMutationStatus = useSendMessageMutationStatus(username)
 
-  return useServerQuery({
+  return useQuery({
     queryKey: queryKeys.history(username),
     queryFn: () => $fetch(`/api/chat/history/${toValue(username)}` as any as `/api/chat/history/:username`, {
       headers,

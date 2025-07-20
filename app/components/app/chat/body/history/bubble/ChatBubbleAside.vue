@@ -15,6 +15,8 @@ const route = useRoute()
 const username = computed(() => route.params.username as string)
 
 const characterQuery = useCharacterQuery(username)
+await characterQuery.suspense()
+
 const isCharacterDeleted = computed(() => !characterQuery.data.value?.id)
 
 function handleReply() {

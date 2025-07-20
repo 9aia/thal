@@ -49,6 +49,18 @@ const descriptionStyles = tv({
 const wrapperStyles = tv({
   base: 'flex justify-between items-center gap-2',
 })
+
+const indicatorStyles = tv({
+  base: 'absolute -right-1.5 w-1.5 h-1.5 bg-orange-500 rounded-full',
+  variants: {
+    type: {
+      warning: 'bg-warning',
+      danger: 'bg-error',
+      info: 'bg-info',
+      none: 'hidden',
+    },
+  },
+})
 </script>
 
 <template>
@@ -61,12 +73,16 @@ const wrapperStyles = tv({
       </Icon>
 
       <div class="flex flex-col w-full items-start">
-        <div class="text-sm flex items-center justify-center gap-1" :class="titleStyles({ color: is.meaning || 'normal' })">
-          <template v-if="is.name">
-            {{ t(is.name) }}
-          </template>
+        <div class="relative w-fit">
+          <span v-if="is.indicator" :class="indicatorStyles({ type: is.indicator || 'none' })" />
 
-          <slot name="title" />
+          <div class="text-sm flex items-center justify-center gap-1" :class="titleStyles({ color: is.meaning || 'normal' })">
+            <template v-if="is.name">
+              {{ t(is.name) }}
+            </template>
+
+            <slot name="title" />
+          </div>
         </div>
 
         <div v-if="is.description" :class="descriptionStyles({ color: is.meaning || 'normal' })">

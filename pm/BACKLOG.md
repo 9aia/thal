@@ -188,6 +188,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Low priority
 
+- Refactor ArkUI to RekaUI
 - Remove unnecessary `contact` from chat table?
 - Add client-side error tracking
 - Refactor menu components into reusable components instead of JS array

@@ -8,6 +8,8 @@ import { chatListSearch } from '~/store'
 const user = useUser()
 const sidebar = useSidebar(LEFT_SIDEBAR_PROVIDE_KEY)
 const chatsQuery = useChatsQuery()
+await chatsQuery.suspense()
+
 const isPastDueVisible = computed(() => isPlanPastDue(user.value))
 
 const form = useForm({

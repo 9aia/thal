@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import queryKeys from '~/queryKeys'
 import { SubscriptionStatus } from '~~/db/schema'
 
 definePageMeta({
@@ -9,14 +8,8 @@ definePageMeta({
 })
 
 const { t } = useI18nExperimental()
-const headers = useRequestHeaders(['cookie'])
-const pricingQuery = useServerQuery({
-  queryFn: () => $fetch('/api/payment/stripe/pricing-data', {
-    headers,
-  }),
-  queryKey: queryKeys.pricingData,
-  staleTime: 0,
-})
+const pricingQuery = usePricingQuery()
+await pricingQuery.suspense()
 
 const featureList = computed(() => [
   { title: t('Engaging Conversations:'), description: t('Chat with AI-powered characters anytime, anywhere.') },

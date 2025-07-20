@@ -22,12 +22,20 @@ const route = useRoute()
 const username = computed(() => route.params.username as string)
 
 const queryClient = useQueryClient()
+
 const characterQuery = useCharacterQuery(username)
 const historyQuery = useHistoryQuery(username)
 
+const queryPromises = [
+  historyQuery.suspense(),
+  characterQuery.suspense(),
+]
+
+await Promise.all(queryPromises)
+
 const sendMessageMutation = useSendMessage(username)
 const historyClient = useHistoryClient(username)
-const chatClient = useChatClient(username)
+const chatClient = await useChatClient(username)
 const copyToClipboard = useClipboard(toRef(() => props.messageContent))
 const isCharacterDeleted = computed(() => !characterQuery.data.value?.id)
 

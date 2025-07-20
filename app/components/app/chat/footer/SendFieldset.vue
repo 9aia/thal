@@ -16,6 +16,13 @@ const isEmpty = useIsTextEmpty(text)
 const chatQuery = useChatQuery(username)
 const characterQuery = useCharacterQuery(username)
 
+const queryPromises = [
+  chatQuery.suspense(),
+  characterQuery.suspense(),
+]
+
+await Promise.all(queryPromises)
+
 const chatId = computed(() => chatQuery.data.value?.id || OPTIMISTIC_CHAT_ID)
 const inReplyTo = computed(() => inReplyTos[username.value])
 const isCharacterDeleted = computed(() => !characterQuery.data.value?.id)

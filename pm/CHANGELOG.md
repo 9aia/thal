@@ -9,6 +9,9 @@ description: A detailed, chronological record of all changes made to a project, 
 ### Fixed
 
 - Avoided updating the chat query when the chat is not loaded, preventing errors.
+- Fixed the Accordion on SSR
+- Fixed "Try Again" button to work after an error when adding a character with no character draft, without requiring a page refresh.
+- Fixed problem with queries on server-side rendering.
 
 ## [0.1.0-14] - 2025-07-18
 

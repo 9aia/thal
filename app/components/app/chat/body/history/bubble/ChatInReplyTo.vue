@@ -11,6 +11,13 @@ const { t } = useI18nExperimental()
 const contactQuery = useContactQuery(toRef(props, 'username'))
 const characterQuery = useCharacterQuery(toRef(props, 'username'))
 
+const promises = [
+  contactQuery.suspense(),
+  characterQuery.suspense(),
+]
+
+await Promise.all(promises)
+
 const contactNames = computed(() => getContactName({
   username: props.username,
   contactName: contactQuery.data.value?.name,

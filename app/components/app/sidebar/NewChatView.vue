@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useQuery } from '@tanstack/vue-query'
 import { refDebounced } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import type { MenuItemType } from '~/components/ui/navigation/types'
@@ -37,7 +38,7 @@ const form = useForm({
 const search = refDebounced(toRef(() => form.values.search), 500)
 
 const headers = useRequestHeaders(['cookie'])
-const contactsQuery = useServerQuery({
+const contactsQuery = useQuery({
   queryKey: queryKeys.contactsSearch(search),
   queryFn: () => $fetch('/api/contact', {
     headers,
@@ -47,6 +48,8 @@ const contactsQuery = useServerQuery({
     },
   }),
 })
+
+await contactsQuery.suspense()
 
 const emptyMessage = computed(() => {
   if (search.value) {

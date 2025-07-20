@@ -9,6 +9,7 @@ const isOnline = useOnline()
 const sendMessageMutation = useSendMessage(username)
 
 const historyQuery = useHistoryQuery(username)
+await historyQuery.suspense()
 
 const showShowChatBubbleLoading = computed(() => {
   return sendMessageMutation.isPending.value && isOnline.value

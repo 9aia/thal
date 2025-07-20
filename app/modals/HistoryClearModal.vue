@@ -10,6 +10,13 @@ const { updateScrollable } = useChatMainScroll()
 const contactQuery = useContactQuery(toRef(() => props.username))
 const characterQuery = useCharacterQuery(toRef(() => props.username))
 
+const queryPromises = [
+  contactQuery.suspense(),
+  characterQuery.suspense(),
+]
+
+await Promise.all(queryPromises)
+
 const contactNames = computed(() => getContactName({
   username: props.username,
   contactName: contactQuery.data.value?.name,

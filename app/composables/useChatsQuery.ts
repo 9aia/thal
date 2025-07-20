@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
 import { chatListSearch } from '~/store'
 
@@ -5,7 +6,7 @@ function useChatsQuery() {
   const localWithDefaultRegion = useLocaleWithDefaultRegion()
   const headers = useRequestHeaders(['cookie'])
 
-  return useServerQuery({
+  return useQuery({
     queryKey: queryKeys.chatsSearch(localWithDefaultRegion.value, chatListSearch),
     queryFn: () => $fetch('/api/chat', {
       params: {

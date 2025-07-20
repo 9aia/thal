@@ -1,18 +1,11 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
-import queryKeys from '~/queryKeys'
 import { SubscriptionStatus } from '~~/db/schema'
 
 const RUNTIME_ENV = useRuntimeConfig().public.RUNTIME_ENV
 
-const headers = useRequestHeaders(['cookie'])
-const pricingQuery = useServerQuery({
-  queryFn: () => $fetch('/api/payment/stripe/pricing-data', {
-    headers,
-  }),
-  queryKey: queryKeys.pricingData,
-  staleTime: 0,
-})
+const pricingQuery = usePricingQuery()
+await pricingQuery.suspense()
 </script>
 
 <template>

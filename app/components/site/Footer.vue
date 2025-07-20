@@ -7,6 +7,7 @@ import { isWhatsNewModalOpen } from '~/store'
 const user = useUser()
 const localeModal = useLocaleModal()
 const logout = useLogout()
+const whatsNew = useWhatsNew()
 
 const isReleaseModalOpen = ref(false)
 
@@ -14,7 +15,7 @@ const releaseType = useReleaseType()
 </script>
 
 <template>
-  <footer class="sticky top-[100vh] bg-radial-[at_bottom] from-green-50 to-gray-50 pt-6">
+  <footer class="sticky top-[100vh] bg-white pt-6">
     <LazyReleaseModal v-model="isReleaseModalOpen" />
 
     <div class="z-20 text-black w-full py-4 max-w-[800px] mx-auto px-4 ">
@@ -57,12 +58,16 @@ const releaseType = useReleaseType()
               </template>
             </Button>
 
-            <Button
-              class="flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit cursor-pointer text-sm"
-              @click="isWhatsNewModalOpen = true"
-            >
-              {{ t('What\'s new') }}
-            </Button>
+            <div class="relative w-fit">
+              <span v-if="whatsNew.hasUnreadContent.value" class="absolute -right-1.5 w-1.5 h-1.5 bg-orange-500 rounded-full" />
+
+              <Button
+                class="flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit cursor-pointer text-sm"
+                @click="isWhatsNewModalOpen = true"
+              >
+                {{ t('What\'s new') }}
+              </Button>
+            </div>
           </div>
         </div>
 

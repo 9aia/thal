@@ -17,6 +17,7 @@ export interface MenuItemType {
   onSubmit?: (e: Event) => MaybePromise<void>
   onClick?: (e: Event) => MaybePromise<void>
   closeMenu?: boolean
+  indicator?: 'warning' | 'danger' | 'info' | 'normal'
 }
 
 export type MenuItemTypeOrFalse = MenuItemType | false

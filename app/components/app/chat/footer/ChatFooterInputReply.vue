@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import queryKeys from '~/queryKeys'
 import { inReplyTos } from '~/store'
 
 const route = useRoute()
@@ -8,15 +7,15 @@ const { t } = useI18nExperimental()
 const username = computed(() => route.params.username as string)
 const inReplyTo = computed(() => inReplyTos[username.value])
 
-const headers = useRequestHeaders(['cookie'])
-const contactQuery = useServerQuery({
-  queryKey: queryKeys.contact(username),
-  queryFn: () => $fetch(`/api/contact/${username.value}` as `/api/contact/:username`, {
-    headers,
-  }),
-})
-
+const contactQuery = useContactQuery(username)
 const characterQuery = useCharacterQuery(username)
+
+const queryPromises = [
+  contactQuery.suspense(),
+  characterQuery.suspense(),
+]
+
+await Promise.all(queryPromises)
 
 const contactNames = computed(() => getContactName({
   username: username.value,

@@ -20,6 +20,14 @@ const historyQuery = useHistoryQuery(username)
 const contactQuery = useContactQuery(username)
 const characterQuery = useCharacterQuery(username)
 
+const queryPromises = [
+  contactQuery.suspense(),
+  characterQuery.suspense(),
+  historyQuery.suspense(),
+]
+
+await Promise.all(queryPromises)
+
 const hasMessages = computed(() => !!historyQuery.data.value?.length)
 
 watch(contactQuery.error, (error) => {

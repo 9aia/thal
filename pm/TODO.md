@@ -6,9 +6,7 @@ description: Tasks and items for the release.
 
 ## 0.1.0-15
 
-- Fix Accordion on SSR
 - Ensure tooltip not appears behind the drawer when adding a contact
-- Make the "Try Again" button work after an error when adding a character with no character draft, without requiring a page refresh
 
 ## 0.1.0
 

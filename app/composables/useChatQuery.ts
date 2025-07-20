@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
 import { inReplyTos } from '~/store'
 import type { History } from '~/types'
@@ -6,7 +7,7 @@ import type { MessageStatus } from '~~/db/schema'
 function useChatQuery(username: MaybeRef<string>) {
   const headers = useRequestHeaders(['cookie'])
 
-  return useServerQuery({
+  return useQuery({
     queryKey: queryKeys.chat(username),
     queryFn: () => $fetch(`/api/chat/${toValue(username)}` as `/api/chat/:username`, {
       headers,
