@@ -6,6 +6,8 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+## [0.1.0-16] - 2025-07-21
+
 ### Enhanced
 
 - Chat now smoothly scrolls to the bottom when an AI response starts loading, ensuring you always see the latest content without sudden jumps
