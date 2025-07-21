@@ -49,9 +49,8 @@ function addContact() {
             'text-orange-500': whatsNew.hasUnreadContent.value,
             'text-black': !whatsNew.hasUnreadContent.value,
           }"
-          :loading="whatsNew.countQuery.isLoading.value"
+          :loading="whatsNew.countQuery.pending.value"
           icon="material-symbols:campaign-outline-rounded"
-
           @click="isWhatsNewModalOpen = true"
         />
 
@@ -59,7 +58,6 @@ function addContact() {
           class="btn btn-neutral btn-circle btn-ghost"
           no-disable-on-loading
           icon="material-symbols:person-search-outline-rounded"
-
           @click="goToDiscover()"
         />
 

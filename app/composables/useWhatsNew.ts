@@ -1,15 +1,9 @@
 import { useLocale } from '@psitta/vue'
-import { useQuery } from '@tanstack/vue-query'
-import queryKeys from '~/queryKeys'
 
 function useWhatsNew() {
   const locale = useLocale()
 
-  const countQuery = useQuery({
-    queryKey: queryKeys.contentCount(locale.value, 'whats-new'),
-    queryFn: () => queryContent('whats-new', locale.value).count(),
-    enabled: import.meta.client,
-  })
+  const countQuery = useAsyncData('whats-new', () => queryContent('whats-new', locale.value).count())
 
   const lastSavedContentCount = useCookie('lastSavedContentCount', {
     default: () => 0,

@@ -74,7 +74,7 @@ function createCharacter() {
                 'text-orange-500': whatsNew.hasUnreadContent.value,
                 'text-black': !whatsNew.hasUnreadContent.value,
               }"
-              :loading="whatsNew.countQuery.isLoading.value"
+              :loading="whatsNew.countQuery.pending.value"
               icon="material-symbols:campaign-outline-rounded"
               @click="isWhatsNewModalOpen = true"
             />
