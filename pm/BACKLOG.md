@@ -135,7 +135,6 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - List open source licenses
 - Improve policy content
 - Add automatic informing Thal changed (specially terms or privacy) via email
-- Improve prompt engineering for the character builder
 - Handle Gemini safety errors
   - Provide feedback indicating that the sending message is not allowed.
   - Provide feedback indicating that the receiving message is not allowed, and allow users to request a safer regeneration from the model.
