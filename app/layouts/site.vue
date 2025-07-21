@@ -51,7 +51,7 @@ const redirectUrl = useRedirectUrl()
               </Dropdown>
             </div>
 
-            <A v-else class="link link-red-500" href="/sign-in" @click="redirectUrl = '/app'">
+            <A v-else class="flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm" href="/sign-in" @click="redirectUrl = '/app'">
               {{ t("Sign in") }}
             </A>
           </div>
