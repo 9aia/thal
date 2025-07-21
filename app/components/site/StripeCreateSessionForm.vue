@@ -46,6 +46,7 @@ const buttonStyles = tv({
       id="checkout-and-portal-button"
       type="submit"
       :class="buttonStyles({ class: buttonClass })"
+      @click="redirectUrl = '/app'"
     >
       <template v-if="(!user || (checkoutStatus === null && subscriptionStatus === SubscriptionStatus.not_subscribed))">
         {{ t('Start chatting') }}
