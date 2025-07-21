@@ -22,6 +22,22 @@ await pricingQuery.suspense()
 const redirectUrl = useRedirectUrl()
 const locale = useLocale()
 
+const flowAccordion = ref<string[]>([])
+const beyondAccordion = ref<string[]>([])
+
+function scrollToLastItem(value: string[]) {
+  if (value.length === 0)
+    return
+  const lastItem = value[value.length - 1]
+  const item = document.getElementById(lastItem)
+  if (item) {
+    item.scrollIntoView({ behavior: 'smooth' })
+  }
+}
+
+watch(flowAccordion, scrollToLastItem)
+watch(beyondAccordion, scrollToLastItem)
+
 const quotes = computed(() => [
   {
     quote: t('Thal is a brilliant step forward, offering an intuitive, AI-powered conversational space that genuinely makes English learning feel like a real interaction.'),
@@ -214,9 +230,11 @@ const quotes = computed(() => [
         {{ t("Your Path to Flow in 3 Steps") }}
       </h2>
 
-      <AccordionRoot class="space-y-2" collapsible>
+      <AccordionRoot v-model="flowAccordion" class="space-y-2" collapsible>
         <AccordionItem
+          id="engaging-conversations"
           value="engaging-conversations"
+          class="scroll-mt-14"
         >
           <template #header>
             <Icon name="material-symbols:auto-awesome-outline-rounded" />
@@ -243,7 +261,9 @@ const quotes = computed(() => [
         </AccordionItem>
 
         <AccordionItem
+          id="instant-help"
           value="instant-help"
+          class="scroll-mt-14"
         >
           <template #header>
             <Icon name="material-symbols:chat-outline-rounded" />
@@ -270,7 +290,9 @@ const quotes = computed(() => [
         </AccordionItem>
 
         <AccordionItem
+          id="discover-characters"
           value="discover-characters"
+          class="scroll-mt-14"
         >
           <template #header>
             <Icon name="material-symbols:person-search-outline-rounded" />
@@ -305,9 +327,11 @@ const quotes = computed(() => [
         {{ t('You can go beyond the basics:') }}
       </p>
 
-      <AccordionRoot class="space-y-2" collapsible>
+      <AccordionRoot v-model="beyondAccordion" class="space-y-2" collapsible>
         <AccordionItem
+          id="create-your-own"
           value="create-your-own"
+          class="scroll-mt-16"
         >
           <template #header>
             <Icon name="material-symbols:person-add-outline-rounded" />
@@ -344,7 +368,9 @@ const quotes = computed(() => [
         </AccordionItem>
 
         <AccordionItem
+          id="save-your-favorite"
           value="save-your-favorite"
+          class="scroll-mt-16"
         >
           <template #header>
             <Icon name="material-symbols:person-add-outline-rounded" />
