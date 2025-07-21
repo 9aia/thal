@@ -1114,5 +1114,23 @@
   },
   "Thal is different. It understands you and pushes you just enough to grow. It's designed not to test your memory, but to build your conversational muscle. We're using AI to create something beautifully human.": {
     "pt": "Thal \nsurgiu para ser diferente. Ele entende você e te incentiva na medida certa para que você se desenvolva. Foi projetado não para testar sua memória, mas sim para construir sua capacidade de conversar. Estamos usando IA para criar algo incrivelmente humano."
+  },
+  "Screenshot of a chat interface with a character named 'Zarina\\": {
+    "pt": "Captura de tela de uma interface de bate-papo com um personagem chamado 'Zarina'"
+  },
+  "Screenshot of the 'Discover Characters' screen, showing a search bar, character categories, and a list of AI characters with their names and short descriptions.": {
+    "pt": "Captura de tela da tela 'Descobrir Personagens', mostrando uma barra de pesquisa, categorias de personagens e uma lista de personagens de IA com seus nomes e descrições curtas."
+  },
+  "Screenshot of the Thal app's chat interface, showing a list of recent conversations on the left and an active chat with 'Supergirl' on the right, featuring conversational exchanges and AI interaction.": {
+    "pt": "Captura de tela da interface de bate-papo do aplicativo Thal, mostrando uma lista de conversas recentes à esquerda e um bate-papo ativo com 'Supergirl' à direita, com trocas de conversas e interação de IA."
+  },
+  "Screenshot showing an 'Edit Character' screen for 'Bruce J.\\": {
+    "pt": "Captura de tela mostrando uma tela 'Editar Personagem' para 'Bruce J.'"
+  },
+  "Screenshot of an 'Edit Character' screen, showing the character 'Batman (Cynical)' with a description of a disillusioned hero and instructions for interaction.": {
+    "pt": "Captura de tela de uma tela 'Editar Personagem', mostrando o personagem 'Batman (Cínico)' com uma descrição de um herói desiludido e instruções para interação."
+  },
+  "Screenshot showing a 'New Contact' form for 'Water Bottle' and the chat interface with the same character.": {
+    "pt": "Captura de tela mostrando um formulário 'Novo Contato' para 'Garrafa de Água' e a interface de bate-papo com o mesmo personagem."
   }
 }
