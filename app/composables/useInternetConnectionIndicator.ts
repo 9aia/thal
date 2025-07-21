@@ -18,6 +18,7 @@ export default function useInternetConnectionIndicator() {
       toast.error(t('No internet'), 0, {
         position: 'center-top',
         icon: 'material-symbols:signal-wifi-off-outline-rounded',
+        meta: { disableReport: true },
       })
     }
   })

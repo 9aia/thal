@@ -9,7 +9,7 @@ const toast = useToast()
   <Toast>
     <template #actions>
       <Link
-        v-if="toast.type.value === 'error'"
+        v-if="toast.type.value === 'error' && !toast.meta.value.disableReport"
         class="btn btn-xs btn-neutral"
         span-class="group-hover:no-underline"
         href="https://forms.gle/UyGBzPrBeNfFgwLD6"

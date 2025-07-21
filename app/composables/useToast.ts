@@ -11,6 +11,7 @@ const duration = ref(3000)
 const visible = ref(false)
 const icon = ref<string>()
 const position = ref<Position>('end-bottom')
+const meta = ref<Record<string, any>>({})
 
 const actions = ref<ToastAction[]>([])
 const update = ref(false)
@@ -22,6 +23,7 @@ export interface ToastOptions {
   actions?: ToastAction[]
   position?: Position
   icon?: string
+  meta?: Record<string, any>
 }
 
 export interface ToastAction {
@@ -33,6 +35,7 @@ export interface ToastMoreOptions {
   actions?: ToastAction[]
   position?: Position
   icon?: string
+  meta?: Record<string, any>
 }
 
 export function useToast() {
@@ -47,6 +50,7 @@ export function useToast() {
     actions.value = options.actions ?? []
     update.value = !update.value
     icon.value = options.icon
+    meta.value = options.meta ?? {}
 
     if (timer)
       clearTimeout(timer)
@@ -83,5 +87,6 @@ export function useToast() {
     icon,
     actions,
     update,
+    meta,
   }
 }
