@@ -887,12 +887,6 @@
   "Username is already taken.": {
     "pt": "O nome de usuário já está em uso."
   },
-  "": {
-    "pt": ""
-  },
-  "Thal - Talk to Learn. Learn to Talk.": {
-    "pt": "Thal - Converse para Aprender. Aprenda para Conversar."
-  },
   "Improve your English through conversations with personalized AI characters and real-time UI assistance!": {
     "pt": "Melhore seu inglês através de conversas com personagens de IA personalizados e assistência de interface de usuário em tempo real!"
   },

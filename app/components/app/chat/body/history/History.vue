@@ -4,7 +4,6 @@ import { useOnline } from '@vueuse/core'
 const route = useRoute()
 const username = computed(() => route.params.username as string)
 
-const { scrollBottom } = useChatMainScroll()
 const isOnline = useOnline()
 const sendMessageMutation = useSendMessage(username)
 
@@ -15,10 +14,12 @@ const showShowChatBubbleLoading = computed(() => {
   return sendMessageMutation.isPending.value && isOnline.value
 })
 
-watch(showShowChatBubbleLoading, (value) => {
-  if (value) {
+const { scrollBottom } = useChatMainScroll()
+
+watch(showShowChatBubbleLoading, () => {
+  setTimeout(() => {
     scrollBottom()
-  }
+  }, 300)
 })
 </script>
 

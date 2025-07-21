@@ -8,7 +8,7 @@ export default defineNuxtRouteMiddleware(async () => {
   const redirectedFromTitle = seoMeta?.title as string | undefined
   const redirectedFromDescription = seoMeta?.description as string | undefined
 
-  const title = t('Thal - Talk to Learn. Learn to Talk.')
+  const title = t('Thal - Learn English like you’re texting a friend—not studying for a test.')
   const description = t('Improve your English through conversations with personalized AI characters and real-time UI assistance!')
 
   useSeoMeta({
