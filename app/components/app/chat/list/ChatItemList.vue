@@ -34,6 +34,8 @@ function openChat(username: string) {
         v-for="chat in chatsQuery.data.value"
         :key="chat.chatId"
         :username="chat.username"
+        :character-name="chat.characterName"
+        :contact-name="chat.contactName"
         :last-message="chat.lastMessageDatetime ? {
           datetime: chat.lastMessageDatetime!,
           status: chat.lastMessageStatus!,

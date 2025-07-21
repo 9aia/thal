@@ -6,6 +6,8 @@ import { MessageStatus } from '~~/db/schema'
 
 const props = defineProps<{
   username: string
+  characterName?: string
+  contactName?: string
   lastMessage?: {
     datetime: number
     status: MessageStatus
@@ -14,20 +16,11 @@ const props = defineProps<{
 }>()
 
 const sidebar = useSidebar(LEFT_SIDEBAR_PROVIDE_KEY)
-const characterQuery = useCharacterQuery(toRef(props, 'username'))
-const contactQuery = useContactQuery(props.username)
-
-const queryPromises = [
-  characterQuery.suspense(),
-  contactQuery.suspense(),
-]
-
-await Promise.all(queryPromises)
 
 const contactNames = computed(() => getContactName({
   username: props.username,
-  contactName: contactQuery.data.value?.name,
-  characterName: characterQuery.data.value?.name,
+  contactName: props.contactName,
+  characterName: props.characterName,
 }))
 
 const content = computed(() => {
