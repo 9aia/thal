@@ -4,10 +4,6 @@ description: Tasks and items for the release.
 
 # TODO
 
-## 0.1.0-15
-
-- Ensure tooltip not appears behind the drawer when adding a contact
-
 ## 0.1.0
 
 - Configure GCP OAuth screen and set it to production instead of testing (requires app verification)

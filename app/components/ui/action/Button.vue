@@ -70,13 +70,23 @@ const iconStyles = tv({
 })
 
 useEventListener(buttonElement, 'click', handleClick)
+
+const binds = computed(() => {
+  const binds: Record<string, any> = {}
+
+  if (isDisabled.value) {
+    binds.disabled = true
+  }
+
+  return binds
+})
 </script>
 
 <template>
   <component
     :is="as"
     ref="buttonElement"
-    :disabled="as === 'a' ? undefined : isDisabled"
+    v-bind="binds"
     class="flex items-center justify-center gap-2"
     :class="{ 'flex-row-reverse': iconPosition === 'right' }"
   >
