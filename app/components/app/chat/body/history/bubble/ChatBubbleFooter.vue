@@ -136,7 +136,7 @@ function handleDelete() {
       <Button
         v-if="!isEditing && messageStatus !== MessageStatus.error"
         class="btn btn-sm btn-circle btn-ghost btn-neutral group-hover:opacity-100! group-focus-within:opacity-100"
-        no-disable-on-loading
+        :no-disable-on-loading="audiableTextRef?.speech.hasDataFetched.value"
         :loading="audiableTextRef?.playMutation.isPending.value"
         :class="{ 'fine:opacity-0': !isLast }"
         icon="material-symbols:volume-up-outline-rounded"

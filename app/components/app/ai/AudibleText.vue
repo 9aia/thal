@@ -76,6 +76,7 @@ watch(currentWord, () => {
 
 defineExpose({
   playMutation,
+  speech,
 })
 
 const { data: ast } = await useAsyncData(
