@@ -13,17 +13,10 @@ definePageMeta({
 
 useAutoRedirect()
 
-const localWithDefaultRegion = useLocaleWithDefaultRegion()
 const router = useRouter()
 
-const myCharactersQuery = useQuery({
-  queryKey: queryKeys.myCharacters,
-  queryFn: () => $fetch('/api/character', {
-    query: {
-      locale: localWithDefaultRegion.value,
-    },
-  }),
-})
+const myCharactersQuery = useCharacterListQuery()
+await myCharactersQuery.suspense()
 
 const deleteCharacter = ref(false)
 const characterToDelete = ref<Character>()
