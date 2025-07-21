@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
-import { useQuery } from '@tanstack/vue-query'
-import queryKeys from '~/queryKeys'
 import { buildCharacter } from '~/store'
 import type { Character } from '~/types'
 

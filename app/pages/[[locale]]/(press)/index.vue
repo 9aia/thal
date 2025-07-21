@@ -324,7 +324,6 @@ const quotes = computed(() => [
             <div class="mockup-window rounded-3xl border-none bg-white text-black">
               <div class="flex justify-center bg-cyan-950">
                 <img
-                  ref="img"
                   :src="`/screenshots/build_character_before_${locale}.png`"
                   :alt="t('Screenshot showing an \'Edit Character\' screen for \'Bruce J.\', displaying a character description, AI-generated persona, and chat instructions.')"
                   class="w-[800px] sm:w-[calc(400px-var(--spacing)*4)] h-auto aspect-[215/477]"
