@@ -23,6 +23,7 @@ description: A detailed, chronological record of all changes made to a project, 
 ### Fixed
 
 - Fixed how 'What's New' content is loaded, ensuring quicker display
+- Fixed redirect to app after checkout
 
 ## [0.1.0-15] - 2025-07-21
 
