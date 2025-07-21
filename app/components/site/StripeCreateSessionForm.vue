@@ -14,6 +14,7 @@ const emit = defineEmits<{
   (e: 'submit'): void
 }>()
 const user = useUser()
+const redirectUrl = useRedirectUrl()
 
 function onSubmit(event: Event) {
   emit('submit')
