@@ -10,7 +10,6 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### High priority
 
-- Fix character edition error when the edition was approved and the user try to approve again without changes
 - Deal with long history on translate
 - Fix listening to long messages
 - Handle longer contexts
@@ -31,7 +30,6 @@ description: A prioritized list of tasks, features, and ideas for future develop
 ### High priority
 
 - Implement basic analytics to track user engagement and app performance
-- Add "Create another character" button for faster multiple creation
 
 ### Medium priority
 

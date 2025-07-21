@@ -81,8 +81,6 @@ function useSendMessage(username: MaybeRef<string>, options: UseSendMessageOptio
         time: message.time,
         status: MessageStatus.sending,
       })
-
-      scrollBottom()
     },
     onError: async (e: unknown, message: MessageSend) => {
       const error = e as FetchError
