@@ -6,6 +6,8 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+## [0.1.0-15] - 2025-07-21
+
 ### Added
 
 - Displayed visual indicators (small dots) on "What's New" menu items in the footer and settings to easily spot unread content
