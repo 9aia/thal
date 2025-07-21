@@ -6,6 +6,24 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Enhanced
+
+- Chat now smoothly scrolls to the bottom when an AI response starts loading, ensuring you always see the latest content without sudden jumps
+- Accordion sections on the landing page automatically scroll into view when expanded, improving navigation and content visibility
+- Added more descriptive alternative text for images on the landing page, enhancing accessibility for screen readers and improving search engine visibility
+
+### Performance
+
+- Optimized the display of your chat list, resulting in quicker loading times and a more responsive interface
+
+### Changed
+
+- Updated the main website title and tagline to "Thal - Learn English like you’re texting a friend—not studying for a test" for a clearer description of the app's approach
+
+### Fixed
+
+- Fixed how 'What's New' content is loaded, ensuring quicker display
+
 ## [0.1.0-15] - 2025-07-21
 
 ### Added

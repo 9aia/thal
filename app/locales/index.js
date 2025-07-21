@@ -1126,5 +1126,8 @@
   },
   "Screenshot showing a 'New Contact' form for 'Water Bottle' and the chat interface with the same character.": {
     "pt": "Captura de tela mostrando um formulário 'Novo Contato' para 'Garrafa de Água' e a interface de bate-papo com o mesmo personagem."
+  },
+  "Thal - Learn English like you’re texting a friend—not studying for a test.": {
+    "pt": "Thal - Aprenda inglês como se estivesse mandando mensagem para um amigo — não estudando para uma prova."
   }
 }
