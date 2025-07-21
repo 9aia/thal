@@ -6,12 +6,43 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Added
+
+- Displayed visual indicators (small dots) on "What's New" menu items in the footer and settings to easily spot unread content
+- Included a "Sign in" link in the website footer for users who are not logged in
+
+### Enhanced
+
+- Improved AI character behavior: characters now stick to their established knowledge and traits, and will indicate when they don't know an answer unless it goes against their persona
+- Updated the website landing page design, including refreshed layouts for key sections and visual improvements to mockups
+
+### Performance
+
+- Significantly improved loading and display times for various app screens and components, including:
+  - Chat screens (body, history, headers, footers, and individual messages)
+  - Character Builder
+  - Discover and Home screens
+  - Sidebar navigation and chat lists
+  - Pricing and "My Characters" pages
+
 ### Fixed
 
-- Avoided updating the chat query when the chat is not loaded, preventing errors.
-- Fixed the Accordion on SSR
-- Fixed "Try Again" button to work after an error when adding a character with no character draft, without requiring a page refresh.
-- Fixed problem with queries on server-side rendering.
+- Made animations for expandable content sections (accordions) across the website, particularly on the landing page, much smoother
+- Added more descriptive alternative text for images on the landing page for better accessibility
+- Ensured toast notifications now appear instantly, even when offline, for better responsiveness
+- Resolved issues with chat list updates, improving the reliability and consistency of your chat history
+- Ensured "What's New" content is now correctly marked as read immediately upon opening the modal
+- Improved the play button interaction for audible text playback in chat
+- Removed the "Report issue" option for "No internet" notifications, as these are expected occurrences
+- Enhanced the handling of deleted contacts to prevent potential display issues
+- Prevented errors by ensuring the chat query is only updated after the chat has fully loaded
+- Fixed an issue where the "Try Again" button did not work after an error when adding a character without a draft; it now works correctly without needing to refresh the page
+
+### Beautified
+
+- Updated the website footer background for a cleaner appearance
+- Standardized the styling of links across the website, including those for signing in, terms of service, and privacy policy
+- Applied minor spacing adjustments for expandable sections on the website
 
 ## [0.1.0-14] - 2025-07-18
 
