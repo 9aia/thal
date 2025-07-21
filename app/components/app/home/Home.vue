@@ -3,7 +3,6 @@ import { LEFT_SIDEBAR_PROVIDE_KEY } from '~/constants/sidebar'
 import { buildCharacter, isWhatsNewModalOpen, manageContact } from '~/store'
 
 const whatsNew = useWhatsNew()
-await whatsNew.countQuery.suspense()
 
 const { t } = useI18nExperimental()
 const sidebar = useSidebar(LEFT_SIDEBAR_PROVIDE_KEY)
