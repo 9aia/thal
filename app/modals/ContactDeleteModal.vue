@@ -28,7 +28,13 @@ const deleteContactMutation = useMutation({
   onSuccess: () => {
     queryClient.setQueryData(
       queryKeys.contact(props.contactUsername),
-      null,
+      {
+        id: null,
+        name: null,
+        createdAt: null,
+        updatedAt: null,
+        username: props.contactUsername,
+      },
     )
     queryClient.setQueryData(
       queryKeys.contacts,
