@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { MenuItemType, MenuItemTypeOrFalse } from '~/components/ui/navigation/types'
-import { SETTINGS } from '~/constants/settings'
 import { isWhatsNewModalOpen } from '~/store'
 // import { dummyT as t } from '@psitta/vue'
 
@@ -21,6 +20,48 @@ const whatsNew = useWhatsNew()
 
 const isLocaleModalOpen = ref(false)
 const isReleaseModalOpen = ref(false)
+
+const general = computed(() => {
+  const t = (x: string) => x
+
+  return ([
+    {
+      id: 'account',
+      icon: 'material-symbols:person-outline-rounded',
+      name: t('Manage account'),
+      onClick: () => navigateTo('/app/settings/account'),
+    },
+    {
+      id: 'plan',
+      name: t('Manage subscription'),
+      action: '/api/payment/stripe/create-portal-session',
+      method: 'post',
+      icon: 'material-symbols:subscriptions-outline-rounded',
+      type: 'external',
+    },
+    {
+      id: 'my-characters',
+      icon: 'material-symbols:manage-accounts-outline-rounded',
+      name: t('My characters'),
+      onClick: () => navigateTo('/app/settings/my-characters'),
+    },
+    {
+      id: 'whats-new',
+      icon: 'material-symbols:campaign-outline-rounded',
+      name: t('What\'s New'),
+      indicator: whatsNew.hasUnreadContent.value ? 'warning' : undefined,
+      onClick: () => isWhatsNewModalOpen.value = true,
+      type: 'accordion',
+    },
+    {
+      id: 'change-locale',
+      name: t('Interface language'),
+      icon: 'material-symbols:globe',
+      type: 'accordion',
+      onClick: () => isLocaleModalOpen.value = true,
+    },
+  ] satisfies MenuItemTypeOrFalse[]).filter(Boolean) as MenuItemType[]
+})
 
 const support = computed(() => {
   const t = (x: string) => x
@@ -55,14 +96,6 @@ const support = computed(() => {
       type: 'accordion',
     },
     {
-      id: 'whats-new',
-      icon: 'material-symbols:campaign-outline-rounded',
-      name: t('What\'s New'),
-      indicator: whatsNew.hasUnreadContent.value ? 'warning' : undefined,
-      onClick: () => isWhatsNewModalOpen.value = true,
-      type: 'accordion',
-    },
-    {
       id: 'rate-thal',
       icon: 'material-symbols:star-outline-rounded',
       name: t('Rate Thal'),
@@ -81,6 +114,14 @@ const support = computed(() => {
       newTab: true,
       localize: false,
     },
+    {
+      id: 'contact',
+      icon: 'material-symbols:contact-support-outline-rounded',
+      name: t('Contact Us'),
+      href: '/contact',
+      type: 'external',
+      newTab: true,
+    },
     // TODO: add About Thal and Help Center
     // {
     //   id: 'about-thal',
@@ -96,6 +137,20 @@ const support = computed(() => {
     //   href: '/help',
     //   type: 'external',
     // },
+  ] satisfies MenuItemTypeOrFalse[]).filter(Boolean) as MenuItemType[]
+})
+
+const legal = computed(() => {
+  const t = (x: string) => x
+
+  return ([
+    // TODO: add Guidelines and Reports
+    // { id: 'guidelines', icon: 'gavel', name: t('Guidelines')/* , href: '/guidelines' */ },
+    // { id: 'reports', icon: 'flag', name: t('Reports')/* , href: '/reports' */ },
+
+    { id: 'terms', icon: 'material-symbols:gavel-rounded', name: t('Terms of Service'), href: '/legal/terms', type: 'external', newTab: true },
+    { id: 'privacy', icon: 'material-symbols:policy-outline-rounded', name: t('Privacy Policy'), href: '/legal/privacy', type: 'external', newTab: true },
+    { id: 'security', icon: 'material-symbols:security-rounded', name: t('Security Policy'), href: '/legal/security', type: 'external', newTab: true },
   ] satisfies MenuItemTypeOrFalse[]).filter(Boolean) as MenuItemType[]
 })
 </script>
@@ -118,15 +173,7 @@ const support = computed(() => {
           title-class="px-6"
           body-class="px-4"
         >
-          <ItemList
-            :items="[...SETTINGS.general, {
-              id: 'change-locale',
-              name: t('Interface language'),
-              icon: 'material-symbols:globe',
-              type: 'accordion',
-              onClick: () => isLocaleModalOpen = true,
-            }]"
-          />
+          <ItemList :items="general" />
 
           <LazyLocaleModal v-model="isLocaleModalOpen" />
         </SettingSection>
@@ -144,7 +191,7 @@ const support = computed(() => {
           title-class="px-6"
           body-class="px-4"
         >
-          <ItemList :items="SETTINGS.legal" />
+          <ItemList :items="legal" />
         </SettingSection>
 
         <SettingSection

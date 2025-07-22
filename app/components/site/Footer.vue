@@ -27,24 +27,33 @@ const releaseType = useReleaseType()
             {{ t('Product') }}
           </h3>
           <div class="space-y-2">
-            <A href="/" active-class="text-gray-700" class="flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm">
+            <Link
+              href="/"
+              class="text-left gap-1 text-black w-fit text-sm"
+              active-class="text-gray-600"
+            >
               {{ t('Home') }}
-            </A>
+            </Link>
 
-            <A href="/pricing" active-class="text-gray-700" class="flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm">
+            <Link
+              href="/pricing"
+              class="text-left gap-1 text-black w-fit text-sm"
+              active-class="text-gray-600"
+            >
               {{ t('Pricing') }}
-            </A>
+            </Link>
 
-            <A
+            <Link
               href="/app"
-              class="flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm"
+              class="text-left gap-1 text-black w-fit text-sm"
+              active-class="text-gray-600"
             >
               {{ t('Access app') }}
-            </A>
+            </Link>
 
             <Button
               v-if="releaseType !== 'stable' && releaseType !== 'dev'"
-              class="cursor-pointer flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm"
+              class="cursor-pointer flex text-left gap-1 text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm"
               @click="isReleaseModalOpen = true"
             >
               <template v-if="releaseType === 'preview'">
@@ -78,17 +87,17 @@ const releaseType = useReleaseType()
           </h3>
           <div class="space-y-2">
             <Link
-              href="mailto:suporte@thal.9aia.com"
+              href="/contact"
+              class="text-left gap-1 text-black w-fit text-sm"
               active-class="text-gray-700"
-              class="flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm"
             >
-              suporte@thal.9aia.com
+              {{ t('Contact Us') }}
             </Link>
             <Link
               href="https://forms.gle/UyGBzPrBeNfFgwLD6"
               :localize="false"
               target="_blank"
-              class="flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm"
+              class="text-left gap-1 text-black w-fit text-sm"
             >
               {{ t('Send feedback') }}
             </Link>
@@ -97,7 +106,7 @@ const releaseType = useReleaseType()
               href="https://forms.gle/yHaiExzsQvv1mTdM8"
               :localize="false"
               target="_blank"
-              class="flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm"
+              class="text-left gap-1 text-black w-fit text-sm"
             >
               {{ t('Rate Thal') }}
             </Link>
@@ -112,22 +121,22 @@ const releaseType = useReleaseType()
           <div class="space-y-2">
             <Link
               href="/legal/terms"
-              active-class="text-gray-700"
-              class="flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm"
+              class="text-left gap-1 text-black w-fit text-sm"
+              active-class="text-gray-600"
             >
               {{ t('Terms of Service') }}
             </Link>
             <Link
               href="/legal/privacy"
-              active-class="text-gray-700"
-              class="flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm"
+              class="text-left gap-1 text-black w-fit text-sm"
+              active-class="text-gray-600"
             >
               {{ t('Privacy Policy') }}
             </Link>
             <Link
               href="/legal/security"
-              active-class="text-gray-700"
-              class="flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm"
+              class="text-left gap-1 text-black w-fit text-sm"
+              active-class="text-gray-600"
             >
               {{ t('Security Policy') }}
             </Link>
@@ -140,25 +149,28 @@ const releaseType = useReleaseType()
             {{ t('Account') }}
           </h3>
           <div class="space-y-2">
-            <A
+            <Link
               v-if="!user"
               href="/sign-in"
-              class="flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm"
+              class="text-left gap-1 text-black w-fit text-sm"
+              active-class="text-gray-600"
             >
               {{ t('Sign in') }}
-            </A>
+            </Link>
 
-            <A
+            <Link
               v-if="user"
               href="/settings/account"
-              class="flex text-left gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm"
+              class="text-left gap-1 text-black w-fit text-sm"
+              active-class="text-gray-600"
             >
               {{ t('Manage account') }}
-            </A>
+            </Link>
+
             <form v-if="user" action="/api/payment/stripe/create-portal-session" method="post">
               <Button
                 type="submit"
-                class="cursor-pointer text-left flex items-center gap-1 text-black hover:text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm"
+                class="cursor-pointer text-left flex items-center gap-1 text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm"
               >
                 {{ t('Manage billing information') }}
               </Button>
@@ -192,7 +204,10 @@ const releaseType = useReleaseType()
               </template>
 
               <template #orgName="slotProps">
-                <Link href="https://9aia.com" disable class="!text-blue-500 flex items-center gap-1 border-y-2 border-transparent focus:border-b-blue-500 focus:outline-none">
+                <Link
+                  href="https://9aia.com"
+                  class="text-blue-500"
+                >
                   {{ slotProps.orgName }}
                 </Link>
               </template>
