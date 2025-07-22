@@ -6,6 +6,8 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+## [0.1.0-17] - 2025-07-22
+
 ### Added
 
 - Introduced a "Contact Us" page, providing clear ways to reach out for support, legal, or security inquiries
