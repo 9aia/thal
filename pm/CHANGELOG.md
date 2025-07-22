@@ -6,6 +6,27 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Added
+
+- Introduced a "Contact Us" page, providing clear ways to reach out for support, legal, or security inquiries
+- Added a "Contact Us" option to the "Settings & Help" menu and site footer, linking directly to the new contact page
+
+### Changed
+
+- Updated the revised Privacy Policy, Security Policy, and Terms of Service to reflect current practices and provide clearer information
+- Reorganized the "Settings" menu, moving "What's New" and "Interface Language" into the "General" section
+
+### Fixed
+
+- Ensured legal document pages show consistent and helpful error messages if content is not found
+
+### Beautified
+
+- Improved the display of error messages throughout the app, making them consistently centered and more user-friendly
+- Updated how navigation links behave across the app for a more consistent and accessible experience, including their active and focus states
+- Refined the visual style of links within text content for better readability
+- Improved the responsive layout of the landing page to provide a smoother experience on various screen sizes
+
 ## [0.1.0-16] - 2025-07-21
 
 ### Enhanced
