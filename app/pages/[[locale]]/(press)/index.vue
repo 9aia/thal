@@ -68,7 +68,7 @@ const quotes = computed(() => [
           <A
             href="#learn-more-1"
             :localize="false"
-            class="flex sm:hidden no-underline flex-col gap-2 items-center px-3 py-2 rounded-3xl focus:outline-2 focus:outline-offset-2 focus:outline-primary"
+            class="flex md:hidden no-underline flex-col gap-2 items-center px-3 py-2 rounded-3xl focus:outline-2 focus:outline-offset-2 focus:outline-primary"
           >
             {{ t("Learn more") }}
             <Icon
@@ -79,7 +79,7 @@ const quotes = computed(() => [
           <A
             href="#learn-more-2"
             :localize="false"
-            class="hidden sm:flex no-underline flex-col gap-2 items-center px-3 py-2 rounded-3xl focus:outline-2 focus:outline-offset-2 focus:outline-primary"
+            class="hidden md:flex no-underline flex-col gap-2 items-center px-3 py-2 rounded-3xl focus:outline-2 focus:outline-offset-2 focus:outline-primary"
           >
             {{ t("Learn more") }}
             <Icon
@@ -92,19 +92,19 @@ const quotes = computed(() => [
     </div>
 
     <section
-      class="relative flex gap-4 items-center justify-center mx-auto max-w-[800px] sm:py-0 flex flex-col sm:flex-row items-center justify-between sm:justify-center"
+      class="relative flex gap-4 items-center justify-center flex-col md:flex-row mx-auto max-w-[800px] md:py-0"
       style="min-height: calc(100dvh - 64px);"
     >
       <div
-        class="px-4 w-full sm:w-1/2 h-full flex flex-col justify-center items-center overflow-hidden bg-white"
+        class="md:w-1/2 px-4 w-full h-full flex flex-col justify-center items-center overflow-hidden bg-white"
         style="height: calc(100dvh - 64px);"
       >
-        <div class="z-10">
-          <h2 class="text-5xl sm:text-4xl md:text-6xl max-w-lg lg:text-6xl text-black mb-6 flex flex-wrap justify-center md:justify-start items-center gap-1">
+        <div class="z-10 flex flex-col justify-center items-center md:items-start">
+          <h2 class="text-5xl max-w-lg text-black mb-6">
             Thal
           </h2>
 
-          <p class="text-black text-center sm:text-left max-w-3xl text-2xl mb-6">
+          <p class="text-black text-center md:text-left max-w-3xl text-2xl mb-6">
             <T
               text="Learn {English} like you’re texting a friend—not studying for a test."
               :values="{
@@ -130,27 +130,27 @@ const quotes = computed(() => [
 
         <CommonResource
           :for="pricingQuery"
-          centered-error-fallback
+          common-error-fallback-class="*:justify-center *:items-center"
         >
           <StripeCreateSessionForm
             :checkout-status="pricingQuery.data.value?.checkoutStatus || null"
             :subscription-status="pricingQuery.data.value?.subscriptionStatus || SubscriptionStatus.not_subscribed"
-            class="flex w-full items-center sm:items-start justify-center z-10"
-            button-class="sm:mx-0"
+            class="flex w-full items-center md:items-start justify-center z-10"
+            button-class="md:mx-0"
             @submit="() => redirectUrl = '/app'"
           />
         </CommonResource>
       </div>
 
-      <div class="sm:w-1/2" />
+      <div class="md:w-1/2" />
 
-      <div id="learn-more-1" class="scroll-mt-12 static sm:absolute drop-shadow-2xl z-1 p-4 sm:w-full sm:flex sm:items-center sm:justify-end">
-        <div class="mockup-phone border-white rounded-4xl p-2 bg-white w-full sm:w-fit left-1/2">
+      <div id="learn-more-1" class="scroll-mt-12 static md:absolute md:right-0 p-4 md:p-0 md:pr-4 drop-shadow-2xl z-1 md:w-fit md:flex md:items-center md:justify-end">
+        <div class="mockup-phone border-white rounded-4xl p-2 bg-white w-full md:w-fit left-1/2">
           <div class="mockup-phone-display bg-white rounded-2xl w-fit h-min">
             <img
               :src="`/screenshots/chat_${locale}.png`"
               :alt="t('Screenshot of a chat interface with a character named \'Zarina\', displaying a conversation with both English and Portuguese messages.')"
-              class="w-full sm:w-[317.2px] h-auto aspect-[195/422]"
+              class="w-full md:w-[317.2px] h-auto aspect-[195/422]"
             >
           </div>
         </div>
