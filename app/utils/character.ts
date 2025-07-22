@@ -27,12 +27,38 @@ export function getCharacterDraftPrompt() {
     example: category.example,
   }))
 
+  const descriptions = {
+    username: `
+      Unique username for the character.
+    
+      - If provided by the user, it must precisely match the username from the prompt and not be altered unless it violates the safety guidelines or schema.
+    
+      Schema: Min ${usernameSchemaChecks.min} character, max ${usernameSchemaChecks.max} characters. Username can only contain letters, numbers, and underscores. Only lowercase letters.
+    `,
+    name: `Character name. It must match the user prompt. Min ${nameSchemaChecks.min} character, max ${nameSchemaChecks.max} characters.`,
+    description: `
+      Short description of the character.
+      
+      - YOU MUST NOT INCLUDE THE CHARACTER'S NAME.
+      - Avoid long descriptions.
+      
+      Schema: Min ${descriptionSchemaChecks.min} character, max ${descriptionSchemaChecks.max} characters.
+    `,
+    instructions: `
+      Instructions for the character. 
+      
+      - Use bullet list.
+
+      Schema: Min ${instructionsSchemaChecks.min} character, max ${instructionsSchemaChecks.max} characters.
+    `,
+  }
+
   const responseSchema: ResponseSchema = {
     type: SchemaType.OBJECT,
     properties: {
       username: {
         type: SchemaType.STRING,
-        description: `Unique username for the character. If provided by the user, it must precisely match the username from the prompt and not be altered. Min ${usernameSchemaChecks.min} character, max ${usernameSchemaChecks.max} characters. Username can only contain letters, numbers, and underscores. Only lowercase letters.`,
+        description: descriptions.username,
         example: 'ironman',
       },
       localizations: {
@@ -43,17 +69,17 @@ export function getCharacterDraftPrompt() {
             properties: {
               name: {
                 type: SchemaType.STRING,
-                description: `Character name. It must match the user prompt. Min ${nameSchemaChecks.min} character, max ${nameSchemaChecks.max} characters.`,
+                description: descriptions.name,
                 example: 'Iron Man',
               },
               description: {
                 type: SchemaType.STRING,
-                description: `Character description. Min ${descriptionSchemaChecks.min} character, max ${descriptionSchemaChecks.max} characters.`,
+                description: descriptions.description,
                 example: 'Superhero who fights for justice and uses his advanced technology to protect the world.',
               },
               instructions: {
                 type: SchemaType.STRING,
-                description: `Instructions for the character. Use bullet list. Min ${instructionsSchemaChecks.min} character, max ${instructionsSchemaChecks.max} characters.`,
+                description: descriptions.instructions,
                 example: `
                   * Confident, charismatic, and witty with a sharp sense of humor.
                   * Brilliant inventor and engineer with a genius-level intellect.
@@ -74,17 +100,17 @@ export function getCharacterDraftPrompt() {
             properties: {
               name: {
                 type: SchemaType.STRING,
-                description: `Character name. Min ${nameSchemaChecks.min} character, max ${nameSchemaChecks.max} characters.`,
+                description: descriptions.name,
                 example: 'Homem de Ferro',
               },
               description: {
                 type: SchemaType.STRING,
-                description: `Character description. Min ${descriptionSchemaChecks.min} character, max ${descriptionSchemaChecks.max} characters.`,
+                description: descriptions.description,
                 example: 'Super-herói que luta pela justiça e usa sua tecnologia avançada para proteger o mundo.',
               },
               instructions: {
                 type: SchemaType.STRING,
-                description: `Instructions for the character. Use bullet list. Min ${instructionsSchemaChecks.min} character, max ${instructionsSchemaChecks.max} characters.`,
+                description: descriptions.instructions,
                 example: `
                   * Confidente, charismático e sarcástico com um senso de humor aguçado.
                   * Inventor e engenheiro com um nível de inteligência geniônica.
