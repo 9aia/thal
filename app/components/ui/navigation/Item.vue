@@ -105,7 +105,8 @@ const styles = baseStyles()
     <A
       :href="is.href ? t(is.href as any) : undefined"
       :class="styles.a({ class: props.class })"
-      :target="is.newTab ? '_blank' : undefined" :localize="is.localize ?? true"
+      :target="is.newTab ? '_blank' : undefined"
+      :localize="is.localize ?? true"
     >
       <MenuItem :is="is">
         <template #title>

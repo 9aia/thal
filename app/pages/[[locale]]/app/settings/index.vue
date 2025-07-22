@@ -29,7 +29,7 @@ const general = computed(() => {
       id: 'account',
       icon: 'material-symbols:person-outline-rounded',
       name: t('Manage account'),
-      onClick: () => navigateTo('/app/settings/account'),
+      href: '/app/settings/account',
     },
     {
       id: 'plan',
@@ -43,7 +43,7 @@ const general = computed(() => {
       id: 'my-characters',
       icon: 'material-symbols:manage-accounts-outline-rounded',
       name: t('My characters'),
-      onClick: () => navigateTo('/app/settings/my-characters'),
+      href: '/app/settings/my-characters',
     },
     {
       id: 'whats-new',

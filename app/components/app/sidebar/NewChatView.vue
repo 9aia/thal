@@ -27,7 +27,12 @@ const generalItems = computed<MenuItemType[]>(() => [
 ])
 
 const discoverItems = computed<MenuItemType[]>(() => [
-  { id: 'discover-characters', icon: 'material-symbols:person-search-outline-rounded', name: t('Characters'), onClick: () => navigateTo('/app/discover') },
+  {
+    id: 'discover-characters',
+    icon: 'material-symbols:person-search-outline-rounded',
+    name: t('Characters'),
+    href: '/app/discover',
+  },
 ])
 
 const form = useForm({
