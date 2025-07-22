@@ -44,7 +44,7 @@ Utilizamos as informações coletadas para as seguintes finalidades:
 
 Não vendemos nem alugamos suas informações pessoais para terceiros. No entanto, podemos compartilhar suas informações nas seguintes circunstâncias:
 
-* **Provedores de Serviços:** Com terceiros que prestam serviços em nosso nome, como processadores de pagamento, provedores de hospedagem, serviços de análise de dados e provedores de IA (como o Google, para os modelos Gemini). Esses provedores são obrigados a proteger suas informações e usá-las apenas para os fins para os quais foram contratados.
+* **Provedores de Serviços:** Com terceiros que prestam serviços em nosso nome, como autenticação (como [Google](https://policies.google.com/privacy)), processadores de pagamento (como [Stripe](https://stripe.com/br/privacy)), provedores de hospedagem (como [Cloudflare](https://www.cloudflare.com/privacypolicy/)), serviços de análise de dados e provedores de IA (como o [Google](https://policies.google.com/privacy), para os modelos Gemini). Esses provedores são obrigados a proteger suas informações e usá-las apenas para os fins para os quais foram contratados.
 * **Para Cumprimento da Lei e Proteção de Direitos:** Se exigido por lei ou em resposta a uma ordem judicial válida, intimação ou outro processo legal. Também podemos divulgar informações para proteger nossos direitos, propriedade ou segurança, ou os direitos, propriedade ou segurança de nossos usuários ou terceiros.
 * **Transações Comerciais:** Em caso de fusão, aquisição, venda de ativos ou insolvência, suas informações podem ser transferidas como parte da transação.
 * **Com Seu Consentimento:** Podemos compartilhar suas informações para qualquer outra finalidade com seu consentimento explícito.
