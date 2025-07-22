@@ -19,7 +19,7 @@ Esta política se aplica a todos os dados, sistemas, infraestrutura e processos 
 A colaboração da comunidade é essencial para a nossa segurança.
 Agradecemos imensamente sua divulgação responsável e valorizamos as contribuições de pesquisadores de segurança, hackers éticos e entusiastas de tecnologia.
 
-Se você descobrir uma vulnerabilidade de segurança em qualquer parte do projeto Thal, por favor **não crie um issue público**, ao invés disso, **relate-a imediatamente** para o email [securanca@thal.9aia.com](mailto:securanca@thal.9aia.com).
+Se você descobrir uma vulnerabilidade de segurança em qualquer parte do projeto Thal, por favor **não crie um issue público**, ao invés disso, **relate-a imediatamente** para o email [security@thal.9aia.com](mailto:security@thal.9aia.com).
 
 No email, inclua as seguintes informações:
 
@@ -71,7 +71,7 @@ Implementamos uma série de medidas robustas para proteger seus dados e a infrae
 ### 6. Responsabilidades dos Usuários
 
 Os usuários também desempenham um papel crucial na segurança do Thal. Para ajudar a manter a plataforma segura, solicitamos que você:
-- **Provedor de autenticação protegido**: Mantenha suas credenciais de login seguras e não compartilhe sua senha com ninguém.
+- **Proteção de Credenciais**: Mantenha seu provedor de autenticação (como [Google](https://policies.google.com/privacy)) com suas credenciais de login seguras e não compartilhe suas credenciais, como senha, com ninguém.
 - **Relate Problemas de Segurança**: Se você suspeitar de qualquer atividade suspeita ou vulnerabilidade, relate-a imediatamente conforme descrito na seção "Reportando uma Vulnerabilidade".
 - **Use Dispositivos Seguros**: Utilize dispositivos confiáveis e mantenha-os atualizados com as últimas atualizações de segurança.
 

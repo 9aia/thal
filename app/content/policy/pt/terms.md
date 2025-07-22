@@ -27,7 +27,7 @@ Ao acessar, navegar ou usar o Thal, você ("Usuário" ou "você") concorda em ac
 
 ### 2. Uso do Serviço
 
-2.1. **Uso Permitido:** O Thal é fornecido para seu uso lícito e geral, em especial de aprendizado da língua inglesa, exploração de conteúdo e interação com a inteligência artificial. Você está livre para utilizar o Thal para qualquer finalidade lícita, conforme permitido por estes Termos e pela legislação aplicável.
+2.1. **Uso Permitido:** O Thal é fornecido para seu uso lícito e geral, com o objetivo de aprendizado da língua inglesa, exploração de conteúdo e interação com a inteligência artificial. Você concorda em utilizá-lo apenas para finalidades permitidas por estes Termos e pela legislação aplicável.
 
 2.2. **Conduta Proibida:** Você concorda em não usar o Thal para qualquer finalidade que seja ilegal ou proibida por estes Termos. A conduta proibida inclui, mas não se limita a:
 
@@ -67,7 +67,7 @@ Ao acessar, navegar ou usar o Thal, você ("Usuário" ou "você") concorda em ac
 
 ### 4. Direitos de Conteúdo e Propriedade Intelectual
 
-4.1. **Nosso Conteúdo:** Nós temos o direito de usar todo o conteúdo, recursos e funcionalidade do Thal, incluindo, mas não se limitando a texto, gráficos, logotipos, imagens, modelos de IA, software, código-fonte e o design, seleção e arranjo dos mesmos. Você concorda em não usá-lo para cometer crimes, violar direitos de terceiros ou qualquer lei aplicável. Você é responsável por garantir que seu uso esteja em conformidade com a lei.
+4.1. **Nosso Conteúdo:** Nós temos o direito de usar todo o conteúdo, recursos e funcionalidade do Thal, incluindo, mas não se limitando a texto, gráficos, logotipos, imagens, modelos de IA, software, código-fonte e o design, seleção e arranjo dos mesmos. Você não tem direito em usá-lo para cometer crimes, violar direitos de terceiros ou qualquer lei aplicável. Você é responsável por garantir que seu uso esteja em conformidade com a lei.
 
 4.2. **Conteúdo Gerado pelo Usuário:** Você garante que retém todos os direitos e é o único responsável pelo conteúdo que cria, envia ou armazena no Thal, incluindo, mas não se limitando a, mensagens de chat e personagens personalizados ("Conteúdo Gerado pelo Usuário"). Ao usar o Thal, você nos concede uma licença mundial, não exclusiva, livre de royalties, transferível e sublicenciável para usar, reproduzir, distribuir, preparar trabalhos derivados, exibir e executar seu Conteúdo Gerado pelo Usuário em conexão com a operação e promoção do Thal e de nossos negócios. Você declara e garante que possui ou tem as licenças e direitos necessários para conceder a licença acima e que seu Conteúdo Gerado pelo Usuário não viola quaisquer direitos de terceiros ou leis aplicáveis.
 

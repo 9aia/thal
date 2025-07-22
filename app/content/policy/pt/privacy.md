@@ -22,7 +22,7 @@ Coletamos informações para fornecer e melhorar o serviço do Thal. As informa�
 
 * **Dados de Uso:** Podemos coletar automaticamente informações sobre como você interage com o Thal, como **páginas visitadas, tempo gasto no Serviço, recursos utilizados**, **interações com a interface** e outras estatísticas de uso.
 * **Informações Técnicas:** Podemos coletar **endereço IP**, **tipo de navegador**, **sistema operacional**, **identificadores de dispositivo** e **dados de log do servidor**.
-* **Cookies e Tecnologias Semelhantes:** Podemos utilizar cookies e tecnologias de rastreamento para **autenticação, lembrar suas preferências, analisar tendências e administrar o serviço**. Você pode gerenciar suas preferências de cookies através das configurações do seu navegador, porém isso .
+* **Cookies e Tecnologias Semelhantes:** Podemos utilizar cookies e tecnologias de rastreamento para **autenticação, lembrar suas preferências, analisar tendências e administrar o serviço**. Você pode gerenciar suas preferências de cookies através das configurações do seu navegador, porém isso pode afetar a funcionalidade do Thal.
 * **Dados de IA**: Podemos coletar o conteúdo das mensagens geradas pela IA dentro do Thal, incluindo mas não se limitando a quaisquer correções, traduções ou sugestões que você solicitar.
 
 ---
@@ -32,7 +32,7 @@ Coletamos informações para fornecer e melhorar o serviço do Thal. As informa�
 Utilizamos as informações coletadas para as seguintes finalidades:
 
 * **Fornecimento do Serviço:** Para operar, manter e fornecer os recursos do Thal, incluindo a capacidade de conversar com personagens de IA e gerenciar sua conta.
-* **Melhoria do Serviço:** Para entender como o Thal é usado, analisar padrões de uso e desenvolver novos recursos e funcionalidades. Isso inclui o uso do conteúdo das conversas para treinar e aprimorar os modelos de IA, tornando as interações mais eficazes e precisas.
+* **Melhoria do Serviço:** Para entender como o Thal é usado, analisar padrões de uso e desenvolver novos recursos e funcionalidades. Isso pode incluir o uso dos dados fornecidos por você (de forma anônima ou pseudônima sempre que possível) para treinar e aprimorar os modelos de IA, tornando as interações mais eficazes e precisas.
 * **Personalização da Experiência:** Para adaptar o conteúdo e os recursos do Thal às suas preferências, como personagens sugeridos ou tópicos de aprendizado.
 * **Suporte ao Usuário:** Para responder às suas perguntas, resolver problemas técnicos e fornecer assistência.
 * **Comunicações:** Para enviar atualizações sobre o serviço, notificações importantes, informações sobre sua assinatura e promoções (com seu consentimento, quando exigido por lei).

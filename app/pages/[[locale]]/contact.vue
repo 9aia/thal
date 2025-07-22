@@ -40,11 +40,11 @@ const { t } = useI18nExperimental()
           <T
             text="To report security vulnerabilities, please email {email} following the procedures detailed on this page."
             :values="{
-              email: 'securanca@thal.9aia.com',
+              email: 'security@thal.9aia.com',
             }"
           >
             <template #email>
-              <a href="mailto:securanca@thal.9aia.com" class="text-primary-500">securanca@thal.9aia.com</a>
+              <a href="mailto:security@thal.9aia.com" class="text-primary-500">security@thal.9aia.com</a>
             </template>
           </T>
         </p>
