@@ -14,7 +14,7 @@ Ao acessar, navegar ou usar o Thal, você ("Usuário" ou "você") concorda em ac
 
 1.2. **Segurança da Conta:** Você é o único responsável por manter a confidencialidade da sua conta e por todas as atividades que ocorrerem sob sua conta. Você concorda em nos notificar imediatamente sobre qualquer uso não autorizado da sua conta. Não podemos e não seremos responsáveis por qualquer perda ou dano decorrente da sua falha em cumprir esta obrigação de segurança.
 
-1.3. **Restrição de Idade:** O Thal é destinado a usuários com idade mínima de 18 anos. Se você tiver menos de 18 anos, não poderá criar uma conta ou usar o Thal. Reservamo-nos o direito de encerrar contas que violem estes requisitos de idade.
+1.3. **Restrição de Idade:** O Thal é destinado a usuários com idade mínima de 13 anos. Se você tiver menos de 13 anos, não poderá criar uma conta ou usar o Thal. Se você tiver entre 13 e 18 anos, você declara que seu responsável legal concordou com estes Termos.
 
 1.4. **Encerramento de Conta por Nós:** Reservamo-nos o direito de suspender ou encerrar sua conta e acesso ao Thal a nosso exclusivo critério, sem aviso prévio ou responsabilidade, por qualquer motivo, incluindo, mas não se limitando a:
     * Violação destes Termos.
@@ -51,11 +51,11 @@ Ao acessar, navegar ou usar o Thal, você ("Usuário" ou "você") concorda em ac
 
 ### 3. Assinatura e Pagamentos
 
-3.1. **Modelo de Assinatura:** O acesso total ao **Thal** é oferecido por meio de um modelo de assinatura paga. Os detalhes da assinatura, incluindo o **preço mensal de R$20,00** e a duração de qualquer período de teste gratuito, serão claramente apresentados no momento da sua inscrição e na página de preços do aplicativo.
+3.1. **Modelo de Assinatura:** O acesso total ao **Thal** é oferecido por meio de um modelo de assinatura paga. Os detalhes da assinatura, incluindo o **preço mensal de R$20,00** e a duração de qualquer período de teste gratuito, serão claramente apresentados no momento da sua inscrição e na página de preços do Thal.
 
 3.2. **Período de Teste Gratuito:** Poderemos oferecer um período de teste gratuito (atualmente de **1 dia**) para novos usuários. Ao final do período de teste, sua assinatura será automaticamente convertida em uma assinatura paga, a menos que você a cancele antes que o período de teste termine. Para evitar cobranças, você deve cancelar sua assinatura antes do término do período de teste gratuito.
 
-3.3. **Alterações de Preço e Período de Teste:** O valor da assinatura e a duração do período de teste gratuito **podem ser alterados no futuro**. Iremos notificá-lo sobre quaisquer alterações de preço com antecedência razoável, geralmente com pelo menos 30 (trinta) dias de aviso prévio, por meio de comunicação dentro do aplicativo, por e-mail ou outros meios apropriados. Seu uso continuado do **Thal** após a entrada em vigor de tais alterações constituirá sua aceitação dos novos preços e termos. Se você não concordar com as alterações, poderá cancelar sua assinatura antes que elas entrem em vigor.
+3.3. **Alterações de Preço e Período de Teste:** O valor da assinatura e a duração do período de teste gratuito **podem ser alterados no futuro**. Iremos notificá-lo sobre quaisquer alterações de preço com antecedência razoável, geralmente com pelo menos 30 (trinta) dias de aviso prévio, por meio de comunicação dentro do site, por e-mail ou outros meios apropriados. Seu uso continuado do **Thal** após a entrada em vigor de tais alterações constituirá sua aceitação dos novos preços e termos. Se você não concordar com as alterações, poderá cancelar sua assinatura antes que elas entrem em vigor.
 
 3.4. **Ciclo de Cobrança e Renovação:** As assinaturas são cobradas em uma base mensal recorrente. O pagamento será processado automaticamente usando o método de pagamento que você forneceu. Sua assinatura será **renovada automaticamente** ao final de cada período de faturamento, a menos que você a cancele.
 
@@ -67,9 +67,9 @@ Ao acessar, navegar ou usar o Thal, você ("Usuário" ou "você") concorda em ac
 
 ### 4. Direitos de Conteúdo e Propriedade Intelectual
 
-4.1. **Nosso Conteúdo:** nós temos o direito de usar todo o conteúdo, recursos e funcionalidade do Thal, incluindo, mas não se limitando a texto, gráficos, logotipos, imagens, modelos de IA, software, código-fonte e o design, seleção e arranjo dos mesmos. Você concorda em não usá-lo para cometer crimes, violar direitos de terceiros ou qualquer lei aplicável. Você é responsável por garantir que seu uso esteja em conformidade com a lei.
+4.1. **Nosso Conteúdo:** Nós temos o direito de usar todo o conteúdo, recursos e funcionalidade do Thal, incluindo, mas não se limitando a texto, gráficos, logotipos, imagens, modelos de IA, software, código-fonte e o design, seleção e arranjo dos mesmos. Você concorda em não usá-lo para cometer crimes, violar direitos de terceiros ou qualquer lei aplicável. Você é responsável por garantir que seu uso esteja em conformidade com a lei.
 
-4.2. **Conteúdo Gerado pelo Usuário:** Você retém todos os direitos e é o único responsável pelo conteúdo que cria, envia ou armazena no Thal, incluindo, mas não se limitando a, mensagens de chat e personagens personalizados ("Conteúdo Gerado pelo Usuário"). Ao usar o Thal, você nos concede uma licença mundial, não exclusiva, livre de royalties, transferível e sublicenciável para usar, reproduzir, distribuir, preparar trabalhos derivados, exibir e executar seu Conteúdo Gerado pelo Usuário em conexão com a operação e promoção do Thal e de nossos negócios. Você declara e garante que possui ou tem as licenças e direitos necessários para conceder a licença acima e que seu Conteúdo Gerado pelo Usuário não viola quaisquer direitos de terceiros ou leis aplicáveis.
+4.2. **Conteúdo Gerado pelo Usuário:** Você garante que retém todos os direitos e é o único responsável pelo conteúdo que cria, envia ou armazena no Thal, incluindo, mas não se limitando a, mensagens de chat e personagens personalizados ("Conteúdo Gerado pelo Usuário"). Ao usar o Thal, você nos concede uma licença mundial, não exclusiva, livre de royalties, transferível e sublicenciável para usar, reproduzir, distribuir, preparar trabalhos derivados, exibir e executar seu Conteúdo Gerado pelo Usuário em conexão com a operação e promoção do Thal e de nossos negócios. Você declara e garante que possui ou tem as licenças e direitos necessários para conceder a licença acima e que seu Conteúdo Gerado pelo Usuário não viola quaisquer direitos de terceiros ou leis aplicáveis.
 
 4.3. **Feedback:** Se você nos fornecer quaisquer sugestões, ideias, feedback ou recomendações relacionadas ao Thal ("Feedback"), você nos dá o direito perpétuo, irrevogável e isento de royalties para usar e incorporar tal Feedback ao Thal sem qualquer obrigação ou compensação a você.
 
@@ -123,6 +123,8 @@ O Thal pode conter links para sites ou serviços de terceiros que não são de p
 
 Seu uso do Thal também é regido por nossa :content-a{href="/legal/privacy"}[Política de Privacidade], que detalha como coletamos, usamos, armazenamos e divulgamos seus dados pessoais. Por favor, revise nossa :content-a{href="/legal/privacy"}[Política de Privacidade] para obter informações sobre nossas práticas de dados e seus direitos sob a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018).
 
+---
+
 ### 10. Política de Segurança
 
 Você concorda em não expor publicamente vulnerabilidades de segurança descobertas no Thal. Quaisquer vulnerabilidades devem ser reportadas de forma responsável, seguindo os procedimentos detalhados em nossa :content-a{href="/legal/security"}[Política de Segurança].
@@ -149,12 +151,16 @@ Você concorda em não expor publicamente vulnerabilidades de segurança descobe
 
 ### 13. Alterações no Serviço e nos Termos
 
-Reservamo-nos o direito de modificar, suspender ou descontinuar qualquer aspecto do Thal, incluindo estes Termos, a qualquer momento. Informaremos você sobre quaisquer alterações significativas no Serviço por meio do aplicativo ou outros canais de comunicação. Recomendamos que você revise periodicamente esta política para se manter informado sobre os Termos. Ao continuar a usar o Thal após essas alterações, você aceita e concorda com os Termos atualizados.
+Reservamo-nos o direito de modificar, suspender ou descontinuar qualquer aspecto do Thal, incluindo estes Termos, a qualquer momento. Informaremos você sobre quaisquer alterações significativas no Serviço por meio do site ou outros canais de comunicação. Recomendamos que você revise periodicamente esta política para se manter informado sobre os Termos. Ao continuar a usar o Thal após essas alterações, você aceita e concorda com os Termos atualizados.
 
 ---
 
-### 14. Informações de Contato
+### 14. Atendimento e Suporte ao Usuário
 
-Se você tiver alguma dúvida sobre estes Termos, entre em contato conosco em:
+Para dúvidas, problemas técnicos, solicitações de suporte ou outras comunicações gerais relacionadas ao Thal, você pode nos contatar através do e-mail [suporte@thal.9aia.com](mailto:suporte@thal.9aia.com). Nos esforçaremos para responder o mais rápido possível, geralmente em até 48 horas úteis. Embora nos dediquemos a responder prontamente, não podemos garantir um prazo de resposta fixo.
 
-[juridico@thal.9aia.com](mailto:juridico@thal.9aia.com)
+---
+
+### 15. Informações de Contato
+
+Para tratar sobre alguma dúvida sobre estes Termos, questões jurídicas ou denúncias de violação, por favor, use o e-mail [juridico@thal.9aia.com](mailto:juridico@thal.9aia.com).
