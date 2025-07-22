@@ -1129,5 +1129,35 @@
   },
   "Thal - Learn English like you’re texting a friend—not studying for a test.": {
     "pt": "Thal - Aprenda inglês como se estivesse mandando mensagem para um amigo — não estudando para uma prova."
+  },
+  "Contact Information": {
+    "pt": "Informações de Contato"
+  },
+  "For Legal Issues": {
+    "pt": "Para Questões Legais"
+  },
+  "For Security Issues": {
+    "pt": "Para Questões de Segurança"
+  },
+  "For Support or Any Other Communication": {
+    "pt": "Para Suporte ou Qualquer Outra Comunicação"
+  },
+  "We will strive to respond as quickly as possible, usually within 48 business hours. While we strive to respond promptly, we cannot guarantee a fixed response time.": {
+    "pt": "Faremos o possível para responder o mais rápido possível, geralmente em até 48 horas úteis. Embora nos esforcemos para responder prontamente, não podemos garantir um tempo de resposta fixo."
+  },
+  "To address any questions about this Security Policy, legal matters, or reports of violations, please email {email}.": {
+    "pt": "Para responder a quaisquer perguntas sobre esta Política de Segurança, questões legais ou relatos de violações, envie um e-mail para {email}."
+  },
+  "To report security vulnerabilities, please email {email} following the procedures detailed on this page.": {
+    "pt": "Para relatar vulnerabilidades de segurança, envie um e-mail para {email} seguindo os procedimentos detalhados nesta página."
+  },
+  "For any other questions, technical issues, support requests, or other communications related to Thal, you can contact us via email {email}.": {
+    "pt": "Para quaisquer outras perguntas, problemas técnicos, solicitações de suporte ou outras comunicações relacionadas ao Thal, você pode entrar em contato conosco por e-mail {email}."
+  },
+  "": {
+    "pt": ""
+  },
+  "Contact Us": {
+    "pt": "Fale Conosco"
   }
 }
