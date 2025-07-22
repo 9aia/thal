@@ -1,31 +1,44 @@
 # Security Policy
 
-## Reporting a Vulnerability
+At Thal, the security of your data and the integrity of our platform are absolute priorities. We are deeply committed to protecting your information and providing a secure online environment for all our users.
 
-If you discover a security vulnerability in this project, please report it as soon as possible. We take security seriously and appreciate your responsible disclosure.
+This `SECURITY.md` file outlines the process for reporting security vulnerabilities and details our supported versions.
 
-To report a vulnerability, please follow these steps:
+## 1. Reporting a Vulnerability
 
-1. **Do not create a public issue**. Instead, send a private email to [luisfuturist+thal@gmail.com](mailto:luisfuturist+thal@gmail.com).
-2. Provide a detailed description of the vulnerability, including steps to reproduce and any relevant information.
-3. If you're able to provide a patch or a suggested fix, it will be greatly appreciated but is not required.
+Community collaboration is essential for our security. We greatly appreciate your responsible disclosure and value the contributions of security researchers, ethical hackers, and technology enthusiasts.
 
-We will review your report and work with you to fix the issue as soon as possible.
+If you discover a security vulnerability in any part of the Thal project, please **do not create a public issue**. Instead, **report it immediately** to the email [security@thal.9aia.com](mailto:security@thal.9aia.com).
 
-## Supported Versions
+In your email, please include the following information:
 
-We actively maintain the most recent minor versions of the last major release.
+* A detailed description of the vulnerability.
+* Clear steps to reproduce the issue.
+* Any relevant screenshots, logs, or proof-of-concept code.
+* An assessment of the potential impact.
+* Your contact information for follow-up.
+* If you can provide a patch or a suggested fix, it will be greatly appreciated, but it is not mandatory.
 
-Older versions may no longer be supported. We encourage you to update to the latest version.
+We value the contributions of the security community to keep Thal secure. All legitimate reports will be thoroughly investigated and addressed with appropriate urgency.
 
-## Security Updates
+## 2. Supported Versions
 
-We release security updates on a regular basis. Ensure that you’re always using the latest stable release by checking the repository for updates.
+To ensure maximum security, only the **latest production version** of Thal is officially supported and receives continuous security updates.
 
-## Security Best Practices
+* **Preview and Older Versions**: Pre-release versions and versions older than the latest production release may contain known vulnerabilities and are not actively maintained for security purposes. We will try our best to support them, but we cannot guarantee it. We encourage you to update to the latest version.
+
+## 3. Security Updates
+
+We will try our best to release security updates regularly to fix vulnerabilities, enhance protections, and implement new security measures.
+
+## 4. Security Best Practices
 
 To ensure the security of this project, we recommend reviewing the [OWASP Top Ten](https://owasp.org/www-project-top-ten/) and other trusted security resources.
 
-## Acknowledgements
+## 5. Our Commitment and Acknowledgements to You
 
-We appreciate your contributions to improving the security of this project. If you report a vulnerability, we will acknowledge your contribution (with your permission) in a dedicated contributors' page.
+Our commitment to you:
+
+* **Prompt Acknowledgment**: We commit to acknowledging receipt of your report as soon as possible, generally within **1 business day**.
+* **Collaboration and Resolution**: We will work with you to validate and resolve the issue with appropriate urgency. We will keep you informed of our progress.
+* **Recognition**: We will grant due credit for your contribution, if desired and after the vulnerability has been fixed, in a dedicated contributors section of the project.

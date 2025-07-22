@@ -10,6 +10,7 @@ Esta política de segurança detalha as práticas, procedimentos e responsabilid
 ---
 
 ### 2. Abrangência
+
 Esta política se aplica a todos os dados, sistemas, infraestrutura e processos envolvidos na operação do Thal, incluindo desenvolvedores, usuários finais, qualquer pessoa envolvida e quaisquer terceiros que tenham acesso aos nossos recursos.
 
 ---
@@ -44,24 +45,28 @@ Valorizamos as contribuições da comunidade de segurança para manter o Thal se
 
 Para garantir a máxima segurança, apenas a versão de produção mais recente do Thal é oficialmente suportada e recebe atualizações de segurança contínuas.
 
-- **Versões de Preview e Anteriores**: Versões de pré-lançamento e versões anteriores à última de produção podem conter vulnerabilidades conhecidas e não são ativamente mantidas para fins de segurança.
-- **Atualizações Contínuas**: Lançamos **atualizações de segurança regularmente** para corrigir vulnerabilidades, aprimorar proteções e implementar novas medidas de segurança.
+- **Versões de Preview e Anteriores**: Versões de pré-lançamento e versões anteriores à última de produção podem conter vulnerabilidades conhecidas e não são ativamente mantidas para fins de segurança. Nós tentaremos nos esforçar para suportá-las, mas não podemos garantir isso.
+- **Atualizações Contínuas**: Fazemos o nosso melhor para lançar **atualizações de segurança regularmente** para corrigir vulnerabilidades, aprimorar proteções e implementar novas medidas de segurança.
 
 ---
 
 ### 5. Nossas Práticas de Segurança Detalhadas
+
 Implementamos uma série de medidas robustas para proteger seus dados e a infraestrutura do Thal:
 
 #### 5.1. Proteção de Dados
+
 - **Criptografia em Trânsito**: Todos os dados transmitidos entre seu dispositivo e nossos servidores são **criptografados usando TLS (Transport Layer Security)**, garantindo a confidencialidade e integridade das comunicações.
 - Coletamos apenas informações essenciais do usuário, aderindo aos **princípios de minimização de dados**.
 - **Armazenamento Seguro**: Os dados do usuário são armazenados de forma segura em ambientes controlados, protegidos por **controles de acesso rigorosos**.
 
 #### 5.2. Autenticação e Gerenciamento de Sessão
+
 - **Protocolos Padrão da Indústria**: Utilizamos **protocolos de autenticação robustos e padrão da indústria** para proteger o acesso às contas de usuário.
 - **Gerenciamento de Sessão Seguro**: Implementamos **gerenciamento de sessão seguro** para proteger suas interações e garantir que o acesso não autorizado seja prevenido.
 
 #### 5.3. Segurança da Infraestrutura
+
 - **Auditorias e Avaliações Regulares**: Realizamos **auditorias e avaliações de segurança** periódicas em toda a nossa infraestrutura para identificar e mitigar potenciais vulnerabilidades.
 - **Gerenciamento de Patches**: Aplicamos **atualizações e patches de segurança** de forma consistente e rápida para proteger nossos sistemas contra as ameaças mais recentes.
 - **Monitoramento Ativo**: Nossos sistemas são **monitorados ativamente** 24 horas por dia, 7 dias por semana, para detectar e responder a qualquer atividade suspeita ou anômala.
@@ -71,6 +76,7 @@ Implementamos uma série de medidas robustas para proteger seus dados e a infrae
 ### 6. Responsabilidades dos Usuários
 
 Os usuários também desempenham um papel crucial na segurança do Thal. Para ajudar a manter a plataforma segura, solicitamos que você:
+
 - **Proteção de Credenciais**: Mantenha seu provedor de autenticação (como [Google](https://policies.google.com/privacy)) com suas credenciais de login seguras e não compartilhe suas credenciais, como senha, com ninguém.
 - **Relate Problemas de Segurança**: Se você suspeitar de qualquer atividade suspeita ou vulnerabilidade, relate-a imediatamente conforme descrito na seção "Reportando uma Vulnerabilidade".
 - **Use Dispositivos Seguros**: Utilize dispositivos confiáveis e mantenha-os atualizados com as últimas atualizações de segurança.
@@ -80,3 +86,9 @@ Os usuários também desempenham um papel crucial na segurança do Thal. Para aj
 ### 7. Revisão e Atualização da Política
 
 Esta política poderá ser revisada e atualizada periodicamente para garantir sua relevância e eficácia diante de novas ameaças, tecnologias e requisitos regulatórios.
+
+---
+
+### 8. Informações de Contato
+
+Para tratar sobre alguma dúvida sobre esta Política de Segurança, por favor, use o e-mail [security@thal.9aia.com](mailto:security@thal.9aia.com).
