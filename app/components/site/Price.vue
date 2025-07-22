@@ -36,8 +36,7 @@ const trialPeriodDays = PLANS.allInOne.trialPeriodDays
       isError: pricingQuery.isError.value || pricingQuery.data.value?.price == null,
       refetch: pricingQuery.refetch,
     }"
-    centered-error-fallback
-    common-error-fallback-class="pb-4"
+    common-error-fallback-class="pb-4 flex flex-col items-center justify-center text-center"
   >
     <div>
       <div class="flex flex-col items-center pt-2 gap-1 text-2xl">

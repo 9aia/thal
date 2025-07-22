@@ -14,6 +14,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Fix listening to long messages
 - Handle longer contexts
 - Use only name instead of name and last name
+- Fix error page not showing translation
 
 ### Medium priority
 
@@ -29,6 +30,8 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### High priority
 
+- Add conversation starters
+- Add follow up message suggestions
 - Implement basic analytics to track user engagement and app performance
 
 ### Medium priority

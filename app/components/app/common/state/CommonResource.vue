@@ -8,7 +8,6 @@ const props = withDefaults(defineProps<{
   notFoundCondition?: boolean
   emptyMessage?: string
   notFoundMessage?: string
-  centeredErrorFallback?: boolean
   commonErrorFallbackClass?: string
 }>(), {
   emptyCondition: undefined,
@@ -30,7 +29,6 @@ const props = withDefaults(defineProps<{
 
     <template #error="{ disabled, loading, isRetryAvailable, onRetry }">
       <CommonErrorFallback
-        :centered="centeredErrorFallback"
         :disabled="disabled"
         :loading="loading"
         :is-retry-available="isRetryAvailable"

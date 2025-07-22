@@ -27,7 +27,7 @@ const emptyMessage = computed(() => {
     :for="discoverQuery"
     :empty-condition="!discoverQuery.data.value?.pages?.length"
     :empty-message="emptyMessage"
-    centered-error-fallback
+    common-error-fallback-class="flex flex-col items-center justify-center text-center"
   >
     <DiscoverCharacterItem
       v-for="character in discoverQuery.data.value?.pages"

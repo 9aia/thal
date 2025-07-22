@@ -130,7 +130,7 @@ const quotes = computed(() => [
 
         <CommonResource
           :for="pricingQuery"
-          common-error-fallback-class="*:justify-center *:items-center"
+          common-error-fallback-class="text-center md:text-left **:mx-auto md:**:mx-0"
         >
           <StripeCreateSessionForm
             :checkout-status="pricingQuery.data.value?.checkoutStatus || null"

@@ -8,7 +8,6 @@ description: A collection of ideas and feedback from stakeholders or team member
 
 - Add "Create another character" button for faster multiple creation
 - Add official characters
-- Add conversation starters
 - Add male voice
 - Implement translation mechanism fallback on deleted characters and inform bad performance
 - Add a "My Characters" link in Discover Characters

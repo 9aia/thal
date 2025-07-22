@@ -55,8 +55,7 @@ onMounted(() => {
   >
     <CommonResource
       :for="characterQuery"
-      common-error-fallback-class="px-6 mt-8"
-      centered-error-fallback
+      common-error-fallback-class="px-6 mt-8 flex flex-col items-center justify-center text-center"
     >
       <template #default>
         <template v-if="usernameNotFound">
