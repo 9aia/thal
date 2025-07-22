@@ -15,13 +15,17 @@ const locale = 'pt'
 <template>
   <div class="site-container">
     <ContentDoc
-      class="prose prose-slate max-w-full"
       tag="article"
+      class="prose prose-slate max-w-full"
       path="policy"
       :where="{ _path: { $regex: `^/policy/${locale}/${route.params.document}.*$` } }"
     >
       <template #not-found>
-        <CommonErrorFallback centered />
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full">
+          <CommonRouteError
+            :error="404"
+          />
+        </div>
       </template>
     </ContentDoc>
   </div>
