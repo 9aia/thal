@@ -3,7 +3,7 @@ import type { DrizzleD1Database } from 'drizzle-orm/d1'
 import type Stripe from 'stripe'
 import type { CheckoutStatus, PlanSettings } from '~/types'
 import { now } from '~/utils/date'
-import { internal } from '~/utils/nuxt'
+import { badRequest, internal } from '~/utils/nuxt'
 import type { User, UserSelect } from '~~/db/schema'
 import { PlanType, SubscriptionStatus, users } from '~~/db/schema'
 
@@ -55,6 +55,19 @@ export async function createSubscription(
 
   if (subscription.status === 'trialing') {
     subscriptionData.freeTrialUsed = true
+  }
+
+  const [user] = await orm.select()
+    .from(users)
+    .where(eq(users.id, userId))
+
+  if (!user) {
+    throw badRequest('User not found')
+  }
+
+  if (user.subscriptionId && user.subscriptionId === subscription.id) {
+    console.log(`Subscription ${subscription.id} already exists, skipping`)
+    return
   }
 
   await orm

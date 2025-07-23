@@ -1,7 +1,7 @@
 import Stripe from 'stripe'
-import * as stripeHandlers from '../../../handlers/stripe'
-import { getStripe } from '~/utils/stripe'
+import { createSubscription, deletedSubscription, updateSubscription } from '~/server/services/plan'
 import { badRequest, internal } from '~/utils/nuxt'
+import { getStripe } from '~/utils/stripe'
 
 export default eventHandler(async (event) => {
   const { STRIPE_ENDPOINT_SECRET, STRIPE_SECRET_KEY } = useRuntimeConfig(event)
@@ -33,18 +33,24 @@ export default eventHandler(async (event) => {
     throw badRequest(errorMessage)
   }
 
+  const orm = event.context.orm
+
   const eventsOptions: Partial<Record<typeof stripeEvent.type, () => Promise<void>>> = {
     'customer.subscription.created': async () => {
-      await stripeHandlers.handleSubscriptionCreated(event, stripeEvent as Stripe.CustomerSubscriptionCreatedEvent)
+      const subscription = stripeEvent.data.object as Stripe.Subscription
+      await createSubscription(orm, subscription as Stripe.Subscription)
     },
     'customer.subscription.updated': async () => {
-      await stripeHandlers.handleSubscriptionUpdated(event, stripeEvent as Stripe.CustomerSubscriptionUpdatedEvent)
+      const subscription = stripeEvent.data.object as Stripe.Subscription
+      await updateSubscription(orm, subscription as Stripe.Subscription)
     },
     'customer.subscription.trial_will_end': async () => {
-      await stripeHandlers.handleSubscriptionTrialWillEnd(event, stripeEvent as Stripe.CustomerSubscriptionTrialWillEndEvent)
+      const subscription = stripeEvent.data.object as Stripe.Subscription
+      await updateSubscription(orm, subscription as Stripe.Subscription)
     },
     'customer.subscription.deleted': async () => {
-      await stripeHandlers.handleSubscriptionDeleted(event, stripeEvent as Stripe.CustomerSubscriptionDeletedEvent)
+      const subscription = stripeEvent.data.object as Stripe.Subscription
+      await deletedSubscription(orm, subscription as Stripe.Subscription)
     },
   }
 
