@@ -35,7 +35,7 @@ definePageMeta({
       </div>
 
       <p class="max-w-lg mx-auto text-xs text-gray-600 mt-4 w-full flex items-center justify-center">
-        {{ t('We’d love to know why you decided not to cancel. Please share your feedback with us. Your input helps us improve!') }}
+        {{ t('We’d love to know why you decided to cancel. Please share your feedback with us. Your input helps us improve!') }}
       </p>
     </div>
   </div>

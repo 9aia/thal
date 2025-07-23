@@ -416,9 +416,6 @@
   "Go to pricing": {
     "pt": "Ir para preços"
   },
-  "We’d love to know why you decided not to cancel. Please share your feedback with us. Your input helps us improve!": {
-    "pt": "Adoraríamos saber por que você decidiu não cancelar. Por favor, compartilhe seu feedback conosco. Sua contribuição nos ajuda a melhorar!"
-  },
   "Your subscription is being processed yet.": {
     "pt": "Sua assinatura ainda está sendo processada."
   },
@@ -476,15 +473,6 @@
   "Approve": {
     "pt": "Aprovar"
   },
-  "Renew your overdue subscription to edit characters.": {
-    "pt": "Renove sua assinatura atrasada para editar personagens."
-  },
-  "Renew your overdue subscription to create new characters.": {
-    "pt": "Renove sua assinatura atrasada para criar novos personagens."
-  },
-  "Renew Thal": {
-    "pt": "Renovar Thal"
-  },
   "You are requesting speech synthesis too much. Please wait a moment.": {
     "pt": "Você está solicitando a síntese de fala demais. Por favor, aguarde um momento."
   },
@@ -521,8 +509,8 @@
   "Personal data has been updated successfully.": {
     "pt": "Os dados pessoais foram atualizados com sucesso."
   },
-  "Manage billing information": {
-    "pt": "Gerenciar informações de cobrança"
+  "Manage subscription": {
+    "pt": "Gerenciar assinatura"
   },
   "Deactivate account": {
     "pt": "Desativar conta"
@@ -586,9 +574,6 @@
   },
   "Typing...": {
     "pt": "Digitando..."
-  },
-  "Renew your overdue subscription to keep talking to thals.": {
-    "pt": "Renove sua assinatura em atraso para continuar conversando com thals."
   },
   "Character Does Not Exist": {
     "pt": "Personagem Não Existe"
@@ -829,9 +814,6 @@
   },
   "New character": {
     "pt": "Novo personagem"
-  },
-  "Manage subscription": {
-    "pt": "Gerenciar assinatura"
   },
   "Settings & Help": {
     "pt": "Configurações e Ajuda"
@@ -1154,10 +1136,61 @@
   "For any other questions, technical issues, support requests, or other communications related to Thal, you can contact us via email {email}.": {
     "pt": "Para quaisquer outras perguntas, problemas técnicos, solicitações de suporte ou outras comunicações relacionadas ao Thal, você pode entrar em contato conosco por e-mail {email}."
   },
-  "": {
-    "pt": ""
-  },
   "Contact Us": {
     "pt": "Fale Conosco"
+  },
+  "Unlock creating and editing characters, and all core features.": {
+    "pt": "Desbloqueie a criação e edição de personagens e todos os recursos principais."
+  },
+  "Complete payment to unlock character creation and editing, and all core features.": {
+    "pt": "Conclua o pagamento para desbloquear a criação e edição de personagens e todos os recursos principais."
+  },
+  "Your last subscription attempt expired.": {
+    "pt": "Sua última tentativa de assinatura expirou."
+  },
+  "Resume your subscription to continue creating and editing characters, and all core features.": {
+    "pt": "Retome sua assinatura para continuar criando e editando personagens e todos os recursos principais."
+  },
+  "Your subscription is canceled.": {
+    "pt": "Sua assinatura foi cancelada."
+  },
+  "Your subscription has an unpaid balance. Access might be limited.": {
+    "pt": "Sua assinatura tem um saldo não pago. O acesso pode ser limitado."
+  },
+  "Your last payment failed. Please update your payment details.": {
+    "pt": "Seu último pagamento falhou. Atualize os detalhes do seu pagamento."
+  },
+  "Start Trial": {
+    "pt": "Iniciar teste"
+  },
+  "Complete": {
+    "pt": "Concluir"
+  },
+  "Try Again": {
+    "pt": "Tentar novamente"
+  },
+  "Resume": {
+    "pt": "Retomar"
+  },
+  "Resubscribe": {
+    "pt": "Reinscrever-se"
+  },
+  "Pay Now": {
+    "pt": "Pagar agora"
+  },
+  "Update Payment": {
+    "pt": "Atualizar pagamento"
+  },
+  "We’d love to know why you decided to cancel. Please share your feedback with us. Your input helps us improve!": {
+    "pt": "Adoraríamos saber por que você decidiu cancelar. Compartilhe seus comentários conosco. Sua contribuição nos ajuda a melhorar!"
+  },
+  "Unlock chatting with thals and all core features.": {
+    "pt": "Desbloqueie o bate-papo com thals e todos os recursos principais."
+  },
+  "Complete payment to unlock chatting with thals and all core features.": {
+    "pt": "Conclua o pagamento para desbloquear o bate-papo com thals e todos os recursos principais."
+  },
+  "Resume your subscription to continue chatting with thals and all core features.": {
+    "pt": "Retome sua assinatura para continuar conversando com thals e todos os recursos principais."
   }
 }
