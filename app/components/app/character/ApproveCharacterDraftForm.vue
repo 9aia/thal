@@ -98,7 +98,7 @@ const approveMutation = useMutation({
 
 const submit = form.handleSubmit(values => approveMutation.mutate(values))
 
-const isPastDueVisible = computed(() => isPlanPastDue(user.value))
+const canManageCharacter = computed(() => canUseAIFeatures(user.value))
 
 const hasDiscoverableChanges = computed(() => {
   return form.values.discoverable !== props.discoverable
@@ -111,7 +111,7 @@ const hasDiscoverableChanges = computed(() => {
       path="discoverable"
       input-class="checkbox-primary"
       class="mb-0"
-      :disabled="isPastDueVisible"
+      :disabled="!canManageCharacter"
       :label="t('Discoverable')"
     />
 
@@ -124,7 +124,7 @@ const hasDiscoverableChanges = computed(() => {
         icon-class="text-xl"
         icon-position="right"
         :loading="approveMutation.isPending.value"
-        :disabled="isPastDueVisible"
+        :disabled="!canManageCharacter"
       >
         {{ t("Approve") }}
       </Button>

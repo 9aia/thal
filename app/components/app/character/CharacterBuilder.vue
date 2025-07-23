@@ -159,7 +159,7 @@ const submit = form.handleSubmit(async (data) => {
   loading.value = false
 })
 
-const canManageCharacter = computed(() => isPlanActive(user.value))
+const canManageCharacter = computed(() => canUseAIFeatures(user.value))
 
 const viewMode = ref<CharacterBuilderEditViewMode>('preview')
 

@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { now } from '~/utils/date'
 import { getValidated } from '~/utils/h3'
 import { badRequest, paymentRequired, unauthorized } from '~/utils/nuxt'
-import { isPlanPastDue } from '~/utils/plan'
+import { canUseAIFeatures } from '~/utils/plan'
 import { characterDraftLocalizations, characterDrafts, characters } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
@@ -17,7 +17,7 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  if (isPlanPastDue(user))
+  if (!canUseAIFeatures(user))
     throw paymentRequired()
 
   const existingDraft = await orm.query.characterDrafts.findFirst({

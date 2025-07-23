@@ -4,7 +4,8 @@ import { getHistory } from '../services/messages'
 import { promptGeminiText } from '~/utils/gemini'
 import { getValidated } from '~/utils/h3'
 import { forbidden, internal, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
-import { SubscriptionStatus, characterLocalizations, messages, usernames } from '~~/db/schema'
+import { characterLocalizations, messages, usernames } from '~~/db/schema'
+import { canUseAIFeatures } from '~/utils/plan'
 
 export default defineEventHandler(async (event) => {
   const { GEMINI_API_KEY, GEMINI_MODEL } = useRuntimeConfig(event)
@@ -29,7 +30,7 @@ export default defineEventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  if (user.subscriptionStatus === SubscriptionStatus.past_due)
+  if (!canUseAIFeatures(user))
     throw paymentRequired()
 
   const translateRateLimit = await event.context.cloudflare.env.TRANSLATE_RATE_LIMIT.limit({ key: `translate-${user.id}` })

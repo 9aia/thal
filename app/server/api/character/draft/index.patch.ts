@@ -6,7 +6,7 @@ import { now } from '~/utils/date'
 import { promptGeminiJson } from '~/utils/gemini'
 import { getValidated } from '~/utils/h3'
 import { badRequest, internal, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
-import { isPlanPastDue } from '~/utils/plan'
+import { canUseAIFeatures } from '~/utils/plan'
 import type { CharacterDraftData } from '~~/db/schema'
 import { characterDraftLocalizations, characterDraftSchema, characterDrafts } from '~~/db/schema'
 
@@ -29,7 +29,7 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  if (isPlanPastDue(user))
+  if (!canUseAIFeatures(user))
     throw paymentRequired()
 
   const existingDraft = await orm.query.characterDrafts.findFirst({

@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { getCharacterCategoryName } from '~/server/services/character'
 import { getValidated } from '~/utils/h3'
 import { noContent, paymentRequired, unauthorized } from '~/utils/nuxt'
-import { isPlanPastDue } from '~/utils/plan'
+import { canUseAIFeatures } from '~/utils/plan'
 import { numericString } from '~/utils/zod'
 import { characterDraftLocalizations, characterDrafts, characterLocalizations } from '~~/db/schema'
 
@@ -19,7 +19,7 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  if (isPlanPastDue(user))
+  if (!canUseAIFeatures(user))
     throw paymentRequired()
 
   const draftCharacter = await orm.query.characterDrafts.findFirst({

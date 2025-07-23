@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { getTts } from '~/utils/gcp'
 import { getValidated } from '~/utils/h3'
 import { internal, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
-import { SubscriptionStatus } from '~~/db/schema'
+import { canUseAIFeatures } from '~/utils/plan'
 
 export default eventHandler(async (event) => {
   const { GCP_CLOUD_TTS_API_KEY } = useRuntimeConfig(event)
@@ -21,7 +21,7 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  if (user.subscriptionStatus === SubscriptionStatus.past_due)
+  if (!canUseAIFeatures(user))
     throw paymentRequired()
 
   const listenRateLimit = await event.context.cloudflare.env.LISTEN_RATE_LIMIT.limit({ key: `listen-${user.id}` })
