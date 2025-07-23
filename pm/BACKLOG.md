@@ -36,6 +36,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Medium priority
 
+- Remove need to sign-in to access the app?
 - Create "about me" textarea in the profile page
 - Add language drawer containing UI language and translation settings
 - Add native language preference (eg. BR or PT)
@@ -150,6 +151,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Low priority
 
+- Reduce the bundle size with valibot
 - Optimize invalidations (use queryClient.setQueryData)
 - Skip categorization on discoverability change
 - Implement infinite scrolls
@@ -188,6 +190,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Low priority
 
+- Rename `preview` to `sandbox`
 - Refactor ArkUI to RekaUI
 - Remove unnecessary `contact` from chat table?
 - Add client-side error tracking
@@ -203,3 +206,4 @@ description: A prioritized list of tasks, features, and ideas for future develop
   - Pass IS_CODESHARE env var to nuxt devserver and fix sign-in redirect
 - Fix codeshare perms
 - Fix codeshare checking of multiple co-authors already included in the commit message
+- Migrate to Vue Vapor when it's ready

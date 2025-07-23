@@ -4,13 +4,14 @@ import { watchDebounced } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import { LEFT_SIDEBAR_PROVIDE_KEY } from '~/constants/sidebar'
 import { chatListSearch } from '~/store'
+import { SubscriptionStatus } from '~~/db/schema'
 
 const user = useUser()
 const sidebar = useSidebar(LEFT_SIDEBAR_PROVIDE_KEY)
 const chatsQuery = useChatsQuery()
 await chatsQuery.suspense()
 
-const isPastDueVisible = computed(() => isPlanPastDue(user.value))
+const displayNotice = computed(() => user.value?.subscriptionStatus === SubscriptionStatus.active || user.value?.subscriptionStatus === SubscriptionStatus.trialing)
 
 const form = useForm({
   initialValues: {
@@ -60,10 +61,10 @@ function handleGoHome() {
     </Navbar>
 
     <div class="flex-1 overflow-y-auto">
-      <ChatListFeedbackAppNote v-if="!isPastDueVisible" />
+      <ChatListFeedbackAppNote v-if="displayNotice" />
 
       <div class="pb-1 sticky top-0 bg-white z-10 space-y-2">
-        <ChatListPastDueAppNote v-if="isPastDueVisible" />
+        <ChatListSubscriptionAppNote v-if="!displayNotice" />
 
         <form
           v-if="(chatsQuery.data.value && chatsQuery.data.value.length > 1 || chatListSearch?.trim() !== '') || (chatsQuery.isLoading.value)"

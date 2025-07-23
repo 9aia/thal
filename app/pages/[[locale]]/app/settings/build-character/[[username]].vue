@@ -1,7 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
   layout: 'settings',
-  middleware: 'premium',
+  middleware: 'auth',
   pageTransitionType: 'slide',
 })
 

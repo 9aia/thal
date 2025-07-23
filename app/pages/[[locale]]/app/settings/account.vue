@@ -3,7 +3,7 @@ import { t } from '@psitta/vue'
 
 definePageMeta({
   layout: 'settings',
-  middleware: 'premium',
+  middleware: 'auth',
   pageTransitionType: 'slide',
 })
 

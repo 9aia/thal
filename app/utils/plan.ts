@@ -1,7 +1,7 @@
 import { SubscriptionStatus, type User } from '~~/db/schema'
 
-export function isPlanActive(user: User) {
-  if (user.subscriptionStatus === null) {
+export function isPlanActive(user?: User | null) {
+  if (!user) {
     return false
   }
 
@@ -12,10 +12,6 @@ export function isPlanActive(user: User) {
 
 export function isPlanPastDue(user?: User | null) {
   if (!user) {
-    return false
-  }
-
-  if (user.subscriptionStatus === null) {
     return false
   }
 

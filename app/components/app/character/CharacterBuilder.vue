@@ -9,7 +9,7 @@ import { LEFT_SIDEBAR_PROVIDE_KEY } from '~/constants/sidebar'
 import queryKeys from '~/queryKeys'
 import { characterBuildId, characterBuildPrompt } from '~/store'
 import type { CharacterBuildApiData, CharacterBuilderEditViewMode } from '~/types'
-import { promptSchema, promptSchemaChecks } from '~~/db/schema'
+import { SubscriptionStatus, promptSchema, promptSchemaChecks } from '~~/db/schema'
 
 defineProps<{
   characterUsername?: string
@@ -159,7 +159,7 @@ const submit = form.handleSubmit(async (data) => {
   loading.value = false
 })
 
-const isPastDueVisible = computed(() => isPlanPastDue(user.value))
+const canManageCharacter = computed(() => isPlanActive(user.value))
 
 const viewMode = ref<CharacterBuilderEditViewMode>('preview')
 
@@ -201,7 +201,7 @@ function handleApproved(characterId: number) {
   characterBuildId.value = characterId
 }
 
-const isSubmitButtonDisabled = computed(() => !form.values.prompt || hasFormErrors.value || isPastDueVisible.value)
+const isSubmitButtonDisabled = computed(() => !form.values.prompt || hasFormErrors.value || !canManageCharacter.value)
 
 function onResourceFetch() {
   if (buildQuery.isError.value) {
@@ -221,9 +221,8 @@ function onResourceFetch() {
       @back="emit('back')"
     />
 
-    <CharacterBuilderPastDueAppNote
-      v-if="isPastDueVisible"
-      :editing="isEditing"
+    <CharacterBuilderSubscriptionAppNote
+      v-if="user?.subscriptionStatus !== SubscriptionStatus.active && user?.subscriptionStatus !== SubscriptionStatus.trialing"
     />
 
     <div class="pt-2 flex-1 overflow-y-auto bg-white space-y-4">
@@ -271,7 +270,7 @@ function onResourceFetch() {
             textarea-class="textarea-sm textarea-primary w-full"
             :placeholder="t('A wise elder sharing life stories')"
             :label="t('Describe your character')"
-            :disabled="isPastDueVisible"
+            :disabled="!canManageCharacter"
             :rules="yupify(promptSchema, t(
               `Prompt must contain between {min} and {max} characters.`,
               promptSchemaChecks,
@@ -330,7 +329,7 @@ function onResourceFetch() {
                 v-if="hasChanges || !isEditing"
                 class="absolute z-10 right-2 top-2"
                 :character-build-id="characterBuildId"
-                :is-past-due-visible="isPastDueVisible"
+                :is-past-due-visible="!canManageCharacter"
                 :is-editing="isEditing"
               />
 

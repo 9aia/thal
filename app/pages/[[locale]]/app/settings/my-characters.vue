@@ -5,7 +5,7 @@ import type { Character } from '~/types'
 
 definePageMeta({
   layout: 'settings',
-  middleware: 'premium',
+  middleware: 'auth',
   pageTransitionType: 'slide',
 })
 

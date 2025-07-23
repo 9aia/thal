@@ -1,7 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
   layout: 'common-sidebar-left',
-  middleware: 'premium',
+  middleware: 'auth',
   pageTransitionType: 'fade-up',
 })
 </script>
