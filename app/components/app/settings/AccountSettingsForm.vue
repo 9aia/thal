@@ -53,7 +53,7 @@ const items = computed<MenuItemType[]>(() => [
     icon: 'material-symbols:subscriptions-outline-rounded',
     action: '/api/payment/stripe/create-portal-session',
     method: 'post',
-    name: t('Manage billing information'),
+    name: t('Manage subscription'),
   },
   {
     id: 'logout',

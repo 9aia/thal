@@ -172,7 +172,7 @@ const releaseType = useReleaseType()
                 type="submit"
                 class="cursor-pointer text-left flex items-center gap-1 text-black hover:underline focus:outline-none border-y-2 border-transparent focus:border-b-blue-500 w-fit text-sm"
               >
-                {{ t('Manage billing information') }}
+                {{ t('Manage subscription') }}
               </Button>
             </form>
 
