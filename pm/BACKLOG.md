@@ -36,6 +36,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Medium priority
 
+- Add date to Whats New modal articles
 - Remove need to sign-in to access the app?
 - Create "about me" textarea in the profile page
 - Add language drawer containing UI language and translation settings
@@ -79,7 +80,6 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Medium priority
 
-- Let users click on AI feature actions and receive feedback if they can't use them because of the subscription status
 - Add social proof section to the landing page
 - Inform deleted character action such as translate, using tooltip
 - Improve SEO, robots.txt, meta tags, etc
@@ -191,7 +191,6 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Low priority
 
-- Rename `preview` to `sandbox`
 - Refactor ArkUI to RekaUI
 - Remove unnecessary `contact` from chat table?
 - Add client-side error tracking

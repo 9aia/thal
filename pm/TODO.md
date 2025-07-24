@@ -6,28 +6,38 @@ description: Tasks and items for the release.
 
 ## 0.1.0-18
 
-- Handle first access to the app (no subscription yet because webhook is not triggered yet)
+- Configure Stripe dev sandbox (products, prices, webhooks, etc.)
 - Replace checkout pages with a status modal inside the app
-  - Change payment required modal (unpaid is actually when automatic renewal was not successful)
-  - Check subscription status on message send
 - Remove plan-* middlewares
-- Create a dynamic pricing page that fetches the subscription plans from the API?
-
-- Handle "checkout success, but processing payment" in status modal
-
+- Adjust form actions, CTAs and content based on subscription status in CreateSessionForm, app notes and status modal
+- Let users click on AI feature actions and receive feedback if they can't use them because of the subscription status
 - Fix character builder catching 402 error on UI (it's not a problem, it's just a warning)
 - How to ensure the app note is up to date?
+- Create a dynamic pricing page that fetches the subscription plans from the API?
+- Check and ensure Subscription status is being set properly
 
 - ---
-- Update Whats New first release content
-- Add a safety notice below the chat input
 
-## 0.1.0
+- Activate Stripe preview sandbox (products, prices, webhooks, etc.)
+- Configure GCP prod
+- Configure Google OAuth prod
+  - Think about Google consent screen policies because it shows 9aia.com's policies
+- Pre-release
 
-- Configure GCP OAuth screen and set it to production instead of testing (requires app verification)
-- Configure Stripe to production instead of testing
-- Deploy to production
+### 0.1.0-18 (after)
+
+- Simulate all statuses Thal purchase on preview sandbox
+- Force test with ton of characters, chats, contacts and messages
+
+- Configure Stripe prod sandbox (products, prices, webhooks, etc.)
+- Configure GCP prod
+- Configure Google OAuth prod
+- Release EA (0.1.0)
+
+## 0.1.0 (after)
+
 - Create characters
+- Share Thal with friends, family, colleagues, etc.
 
 ## 0.2.0 - Language Assistance Improvements
 

@@ -23,23 +23,11 @@
   "let us know here": {
     "pt": "avise-nos aqui"
   },
-  "Your Subscription Expired": {
-    "pt": "Sua assinatura expirou"
-  },
-  "Your subscription has expired, so access to core features is currently paused. To keep learning without interruption, please renew your subscription.": {
-    "pt": "Sua assinatura expirou, então o acesso aos recursos principais está atualmente pausado. Para continuar aprendendo sem interrupção, renove sua assinatura."
-  },
-  "Renew Now": {
-    "pt": "Renovar agora"
-  },
   "The language has been updated successfully.": {
     "pt": "O idioma foi atualizado com sucesso."
   },
   "Save interface language": {
     "pt": "Salvar idioma da interface"
-  },
-  "Select the interface language": {
-    "pt": "Selecione o idioma da interface"
   },
   "Thal allows you to tailor your preferences to suit your needs, whether you prefer to navigate in your native language or challenge yourself with English.": {
     "pt": "Thal permite que você personalize suas preferências para atender às suas necessidades, seja você prefira navegar em seu idioma nativo ou se desafiar com o inglês."
@@ -339,7 +327,7 @@
     "pt": "Assistência interativa:"
   },
   "Translations, corrections, and listening while chatting.": {
-    "pt": "Traduções, correções e audição durante o bate-papo."
+    "pt": "Traduções, correções e audição durante o chat."
   },
   "Personalized Characters:": {
     "pt": "Personagens personalizados:"
@@ -395,18 +383,6 @@
   "Thal is in preview. We're not actually charging for access.": {
     "pt": "Thal está em pré-visualização. Na verdade, não estamos cobrando pelo acesso."
   },
-  "Checkout with Success!": {
-    "pt": "Compra com sucesso!"
-  },
-  "You will receive an email with your invoice. Thank you for chosing our app!": {
-    "pt": "Você receberá um e-mail com sua fatura. Obrigado por escolher nosso aplicativo!"
-  },
-  "Manage your billing information": {
-    "pt": "Gerenciar suas informações de cobrança"
-  },
-  "You will be able to access the app as soon as possible.": {
-    "pt": "Você poderá acessar o aplicativo o mais rápido possível."
-  },
   "Checkout Canceled": {
     "pt": "Compra Cancelada"
   },
@@ -415,18 +391,6 @@
   },
   "Go to pricing": {
     "pt": "Ir para preços"
-  },
-  "Your subscription is being processed yet.": {
-    "pt": "Sua assinatura ainda está sendo processada."
-  },
-  "Your free trial is being processed.": {
-    "pt": "Seu teste gratuito está sendo processado."
-  },
-  "You will receive access to the app as soon as possible.": {
-    "pt": "Você receberá acesso ao aplicativo o mais rápido possível."
-  },
-  "Try access": {
-    "pt": "Tentar acesso"
   },
   "Forget waiting for perfection. Dive into dialogue, make mistakes, be human — and let learning happen along the way.": {
     "pt": "Esqueça esperar pela perfeição. Mergulhe no diálogo, cometa erros, seja humano - e deixe a aprendizagem acontecer ao longo do caminho."
@@ -782,9 +746,6 @@
   "Last name must contain between {min} and {max} characters.": {
     "pt": "O sobrenome deve conter entre {min} e {max} caracteres."
   },
-  "If you have any problem, you can contact us at: {link}": {
-    "pt": "Se você tiver algum problema, pode entrar em contato conosco em: {link}"
-  },
   "The character {username} does not exist.": {
     "pt": "O personagem {username} não existe."
   },
@@ -824,9 +785,6 @@
   "Discover Characters": {
     "pt": "Descobrir personagens"
   },
-  "Check access to the app": {
-    "pt": "Verificar acesso ao aplicativo"
-  },
   "Interface language": {
     "pt": "Idioma da interface"
   },
@@ -864,7 +822,7 @@
     "pt": "Sua conta e todos os dados associados serão ocultados, e sua assinatura será pausada. Você também será desconectado de todos os dispositivos. Você pode reativar sua conta a qualquer momento."
   },
   "This will delete the character. Its username will become available for a new character, and it will no longer be discoverable within the app. While your and other users' existing conversations with them will remain, sending, receiving, or translating messages with this deleted character will no longer be possible to function.": {
-    "pt": "Isso excluirá o personagem. Seu nome de usuário estará disponível para um novo personagem e ele não poderá mais ser descoberto no aplicativo. Embora suas conversas existentes com eles e as de outros usuários permaneçam, o envio, recebimento ou tradução de mensagens com este personagem excluído não será mais possível de funcionar."
+    "pt": "Isso excluirá o personagem. Seu nome de usuário estará disponível para um novo personagem e ele não poderá mais ser descoberto no app. Embora suas conversas existentes com eles e as de outros usuários permaneçam, o envio, recebimento ou tradução de mensagens com este personagem excluído não será mais possível de funcionar."
   },
   "Username is already taken.": {
     "pt": "O nome de usuário já está em uso."
@@ -892,12 +850,6 @@
   },
   "Security Policy": {
     "pt": "Política de Segurança"
-  },
-  "Public Release": {
-    "pt": "Lançamento Público"
-  },
-  "Early Access Release": {
-    "pt": "Lançamento de Acesso Antecipado"
   },
   "Product": {
     "pt": "Produto"
@@ -967,21 +919,6 @@
   },
   "Continue your access": {
     "pt": "Continue seu acesso"
-  },
-  "Continue your free trial": {
-    "pt": "Continue seu teste gratuito"
-  },
-  "Continue chatting": {
-    "pt": "Continue conversando"
-  },
-  "Renew your subscription now": {
-    "pt": "Renove sua assinatura agora"
-  },
-  "Check your subscription now": {
-    "pt": "Verifique sua assinatura agora"
-  },
-  "Resume your subscription now": {
-    "pt": "Retome sua assinatura agora"
   },
   "Just Chat": {
     "pt": "Só Chat"
@@ -1056,7 +993,7 @@
     "pt": "Sejamos honestos. A maneira antiga de aprender inglês está ultrapassada."
   },
   "Courses, apps, and tutors... You've been there.": {
-    "pt": "Cursos, aplicativos e tutores... Você já passou por isso."
+    "pt": "Cursos, apps e tutores... Você já passou por isso."
   },
   "It's not you. It's the missing method. You're trying to learn a river by studying a glass of water.": {
     "pt": "Não é você. É o método que falta. Você está tentando aprender um rio estudando um copo d'água."
@@ -1074,7 +1011,7 @@
     "pt": "Você não está nervoso. Você está relaxado e se divertindo."
   },
   "More than an app. This is your new way to learn English.": {
-    "pt": "Mais do que um aplicativo. Esta é a sua nova maneira de aprender inglês."
+    "pt": "Mais do que um app. Esta é a sua nova maneira de aprender inglês."
   },
   "Find Your Interests": {
     "pt": "Encontre seus interesses"
@@ -1092,13 +1029,13 @@
     "pt": "Thal \nsurgiu para ser diferente. Ele entende você e te incentiva na medida certa para que você se desenvolva. Foi projetado não para testar sua memória, mas sim para construir sua capacidade de conversar. Estamos usando IA para criar algo incrivelmente humano."
   },
   "Screenshot of a chat interface with a character named 'Zarina\\": {
-    "pt": "Captura de tela de uma interface de bate-papo com um personagem chamado 'Zarina'"
+    "pt": "Captura de tela de uma interface de chat com um personagem chamado 'Zarina'"
   },
   "Screenshot of the 'Discover Characters' screen, showing a search bar, character categories, and a list of AI characters with their names and short descriptions.": {
     "pt": "Captura de tela da tela 'Descobrir Personagens', mostrando uma barra de pesquisa, categorias de personagens e uma lista de personagens de IA com seus nomes e descrições curtas."
   },
   "Screenshot of the Thal app's chat interface, showing a list of recent conversations on the left and an active chat with 'Supergirl' on the right, featuring conversational exchanges and AI interaction.": {
-    "pt": "Captura de tela da interface de bate-papo do aplicativo Thal, mostrando uma lista de conversas recentes à esquerda e um bate-papo ativo com 'Supergirl' à direita, com trocas de conversas e interação de IA."
+    "pt": "Captura de tela da interface de chat do app Thal, mostrando uma lista de conversas recentes à esquerda e um chat ativo com 'Supergirl' à direita, com trocas de conversas e interação de IA."
   },
   "Screenshot showing an 'Edit Character' screen for 'Bruce J.\\": {
     "pt": "Captura de tela mostrando uma tela 'Editar Personagem' para 'Bruce J.'"
@@ -1107,7 +1044,7 @@
     "pt": "Captura de tela de uma tela 'Editar Personagem', mostrando o personagem 'Batman (Cínico)' com uma descrição de um herói desiludido e instruções para interação."
   },
   "Screenshot showing a 'New Contact' form for 'Water Bottle' and the chat interface with the same character.": {
-    "pt": "Captura de tela mostrando um formulário 'Novo Contato' para 'Garrafa de Água' e a interface de bate-papo com o mesmo personagem."
+    "pt": "Captura de tela mostrando um formulário 'Novo Contato' para 'Garrafa de Água' e a interface de chat com o mesmo personagem."
   },
   "Thal - Learn English like you’re texting a friend—not studying for a test.": {
     "pt": "Thal - Aprenda inglês como se estivesse mandando mensagem para um amigo — não estudando para uma prova."
@@ -1160,37 +1097,118 @@
   "Your last payment failed. Please update your payment details.": {
     "pt": "Seu último pagamento falhou. Atualize os detalhes do seu pagamento."
   },
-  "Start Trial": {
-    "pt": "Iniciar teste"
-  },
-  "Complete": {
-    "pt": "Concluir"
-  },
   "Try Again": {
     "pt": "Tentar novamente"
   },
-  "Resume": {
-    "pt": "Retomar"
-  },
-  "Resubscribe": {
-    "pt": "Reinscrever-se"
-  },
   "Pay Now": {
     "pt": "Pagar agora"
-  },
-  "Update Payment": {
-    "pt": "Atualizar pagamento"
   },
   "We’d love to know why you decided to cancel. Please share your feedback with us. Your input helps us improve!": {
     "pt": "Adoraríamos saber por que você decidiu cancelar. Compartilhe seus comentários conosco. Sua contribuição nos ajuda a melhorar!"
   },
   "Unlock chatting with thals and all core features.": {
-    "pt": "Desbloqueie o bate-papo com thals e todos os recursos principais."
+    "pt": "Desbloqueie o chat com thals e todos os recursos principais."
   },
   "Complete payment to unlock chatting with thals and all core features.": {
-    "pt": "Conclua o pagamento para desbloquear o bate-papo com thals e todos os recursos principais."
+    "pt": "Conclua o pagamento para desbloquear o chat com thals e todos os recursos principais."
   },
   "Resume your subscription to continue chatting with thals and all core features.": {
     "pt": "Retome sua assinatura para continuar conversando com thals e todos os recursos principais."
+  },
+  "Welcome to Thal!": {
+    "pt": "Bem-vindo ao Thal!"
+  },
+  "Ready to Reconnect with English?": {
+    "pt": "Pronto para se reconectar com o inglês?"
+  },
+  "Select the Interface Language": {
+    "pt": "Selecione o idioma da interface"
+  },
+  "Oops! Almost There...": {
+    "pt": "Ops! Quase lá..."
+  },
+  "Looks like we missed you!": {
+    "pt": "Parece que sentimos sua falta!"
+  },
+  "Time to make Thal official!": {
+    "pt": "Hora de oficializar o Thal!"
+  },
+  "Your Thal subscription has been canceled": {
+    "pt": "Sua assinatura Thal foi cancelada"
+  },
+  "Your Thal subscription is unpaid": {
+    "pt": "Sua assinatura Thal está em aberto"
+  },
+  "Uh oh, looks like we missed a payment!": {
+    "pt": "Ah não, parece que perdemos um pagamento!"
+  },
+  "To get your Thal subscription up and running, we just need you to complete your payment within 23 hours. Sometimes this means a quick authentication, or your payment might still be processing. Once that's done, you'll be all set to start chatting and boosting your English!": {
+    "pt": "Para colocar sua assinatura Thal em funcionamento, só precisamos que você conclua seu pagamento dentro de 23 horas. Às vezes, isso significa uma autenticação rápida, ou seu pagamento ainda pode estar em processamento. Depois de concluído, você estará pronto para começar a conversar e aprimorar seu inglês!"
+  },
+  "It seems your Thal subscription didn't quite make it through the initial setup, and the payment wasn't completed within 23 hours. No worries, you won't be billed. If you'd like to dive into English learning with Thal, just start fresh whenever you're ready!": {
+    "pt": "Parece que sua assinatura Thal não foi totalmente concluída na configuração inicial e o pagamento não foi finalizado em 23 horas. Sem problemas, você não será cobrado. Se você quiser mergulhar no aprendizado de inglês com o Thal, basta começar de novo quando estiver pronto!"
+  },
+  "Your Thal subscription is currently paused. We miss you! Resume now to jump back into conversations with AI characters and continue building your confidence. Let's pick up where you left off!": {
+    "pt": "Sua assinatura Thal está atualmente pausada. Sentimos sua falta! Retome agora para voltar às conversas com personagens de IA e continuar construindo sua confiança. Vamos retomar de onde você parou!"
+  },
+  "Your trial has ended, and to keep chatting with thals, you just need to set up a payment method. It's quick, easy, and means you won't miss out on any more conversations!": {
+    "pt": "Seu teste terminou e, para continuar conversando com thals, você só precisa configurar um método de pagamento. É rápido, fácil e significa que você não perderá mais nenhuma conversa!"
+  },
+  "It looks like your subscription has been canceled, possibly due to issues with recent payments. You'll need to subscribe again if you'd like to continue learning English with Thal. We're ready whenever you are!": {
+    "pt": "Parece que sua assinatura foi cancelada, possivelmente devido a problemas com pagamentos recentes. Você precisará se inscrever novamente se quiser continuar aprendendo inglês com o Thal. Estamos prontos quando você estiver!"
+  },
+  "It looks like your latest invoice hasn't been paid, and your access is currently on hold. To resume chatting and improving your English, just pay your most recent invoice.": {
+    "pt": "Parece que sua última fatura não foi paga e seu acesso está atualmente suspenso. Para retomar a conversa e melhorar seu inglês, basta pagar sua fatura mais recente."
+  },
+  "It looks like your latest payment didn't go through. No worries, your subscription is still active and we'll keep trying for the next week (up to 4 times) to get it sorted. If payments don't go through, your subscription will be marked as canceled. To get things back on track right away, simply pay your most recent invoice. Once that's done, you'll be good to go!": {
+    "pt": "Parece que seu último pagamento não foi processado. Sem problemas, sua assinatura ainda está ativa e continuaremos tentando na próxima semana (até 4 vezes) para resolver isso. Se os pagamentos não forem processados, sua assinatura será marcada como cancelada. Para colocar as coisas de volta nos trilhos imediatamente, basta pagar sua fatura mais recente. Depois de feito, você estará pronto!"
+  },
+  "Unlock Thal": {
+    "pt": "Desbloquear Thal"
+  },
+  "Checkout's done. Thank you for joining! Please note that your trial may still be processing and will be active soon.": {
+    "pt": "Checkout concluído. Obrigado por participar! Observe que seu teste ainda pode estar em processamento e estará ativo em breve."
+  },
+  "Ready to learn English like you're just texting a friend? Start now and boost your English.": {
+    "pt": "Pronto para aprender inglês como se estivesse apenas mandando mensagem para um amigo? Comece agora e impulsione seu inglês."
+  },
+  "Your trial may be still being processed and it'll be active soon. We appreciate your patience!": {
+    "pt": "Seu teste ainda pode estar sendo processado e estará ativo em breve. Agradecemos sua paciência!"
+  },
+  "Start Learning": {
+    "pt": "Começar a aprender"
+  },
+  "Complete Payment": {
+    "pt": "Concluir pagamento"
+  },
+  "Resume Now": {
+    "pt": "Retomar agora"
+  },
+  "Set Payment": {
+    "pt": "Definir pagamento"
+  },
+  "Subscribe Again": {
+    "pt": "Assinar novamente"
+  },
+  "Fix Payment": {
+    "pt": "Corrigir pagamento"
+  },
+  "Start Chatting": {
+    "pt": "Começar a Conversar"
+  },
+  "This is A.I. and not a real person. Treat everything it says as fiction.": {
+    "pt": "Isso é IA e não uma pessoa real. Trate tudo o que ela diz como ficção."
+  },
+  "What is said should not be relied upon as fact or advice.": {
+    "pt": "O que é dito não deve ser considerado como fato ou conselho."
+  },
+  "Read less": {
+    "pt": "Leia menos"
+  },
+  "Read more": {
+    "pt": "Leia mais"
+  },
+  "Release": {
+    "pt": "Lançamento"
   }
 }
