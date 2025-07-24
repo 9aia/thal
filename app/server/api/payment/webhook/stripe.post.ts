@@ -1,5 +1,5 @@
 import Stripe from 'stripe'
-import { createSubscription, deletedSubscription, updateSubscription } from '~/server/services/plan'
+import { createSubscription, deletedSubscription, handleChargeRefunded, updateSubscription } from '~/server/services/plan'
 import { badRequest, internal } from '~/utils/nuxt'
 import { getStripe } from '~/utils/stripe'
 
@@ -51,6 +51,10 @@ export default eventHandler(async (event) => {
     'customer.subscription.deleted': async () => {
       const subscription = stripeEvent.data.object as Stripe.Subscription
       await deletedSubscription(orm, subscription as Stripe.Subscription)
+    },
+    'charge.refunded': async () => {
+      const charge = stripeEvent.data.object as Stripe.Charge
+      await handleChargeRefunded(event, orm, charge)
     },
   }
 

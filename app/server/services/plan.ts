@@ -1,11 +1,51 @@
 import { and, eq } from 'drizzle-orm'
 import type { DrizzleD1Database } from 'drizzle-orm/d1'
+import type { H3Event } from 'h3'
 import type Stripe from 'stripe'
 import type { CheckoutStatus, PlanSettings } from '~/types'
 import { now } from '~/utils/date'
 import { badRequest, internal } from '~/utils/nuxt'
+import { getStripe } from '~/utils/stripe'
 import type { User, UserSelect } from '~~/db/schema'
 import { PlanType, SubscriptionStatus, users } from '~~/db/schema'
+
+export async function handleChargeRefunded(
+  event: H3Event,
+  orm: DrizzleD1Database<any>,
+  charge: Stripe.Charge,
+) {
+  const { STRIPE_SECRET_KEY } = useRuntimeConfig(event)
+
+  if (!STRIPE_SECRET_KEY)
+    throw internal('STRIPE_SECRET_KEY is not set in the environment')
+
+  const customerId = charge.customer
+
+  if (!customerId) {
+    throw badRequest('Customer ID not found in charge')
+  }
+
+  const [user] = await orm.select()
+    .from(users)
+    .where(eq(users.stripeCustomerId, customerId as string))
+
+  if (!user) {
+    throw badRequest('User not found')
+  }
+
+  if (!user.subscriptionId) {
+    throw badRequest('User does not have a subscription')
+  }
+
+  const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY! })
+
+  try {
+    await stripe.subscriptions.cancel(user.subscriptionId)
+  }
+  catch (err) {
+    throw internal(`Failed to cancel subscription: ${err instanceof Error ? err.message : 'Internal server error'}`)
+  }
+}
 
 export async function updateSubscription(
   orm: DrizzleD1Database<any>,
