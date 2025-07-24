@@ -4,7 +4,7 @@ interface SeoParams {
 }
 
 export function useSeoTags({ title, description }: SeoParams) {
-  const seoMetaCookie = useCookie('seoMeta')
+  const seoMetaCookie = useCookie('thal_seo_meta')
 
   seoMetaCookie.value = JSON.stringify({
     title,

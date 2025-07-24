@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
 
-const userReactivatedCookie = useCookie('user_reactivated')
+const userReactivatedCookie = useCookie('thal_user_reactivated')
 
 function close() {
   userReactivatedCookie.value = undefined

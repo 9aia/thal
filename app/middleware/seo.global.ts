@@ -1,7 +1,7 @@
 export default defineNuxtRouteMiddleware(async () => {
   const { t } = useI18nExperimental()
 
-  const seoMetaCookie = useCookie('seoMeta')
+  const seoMetaCookie = useCookie('thal_seo_meta')
 
   const seoMeta = seoMetaCookie.value as { title?: string, description?: string } | undefined
 

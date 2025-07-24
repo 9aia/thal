@@ -4,7 +4,7 @@ const releaseType = useReleaseType()
 
 const isReleaseModalOpen = ref(false)
 
-const cookie = useCookie('release-modal-closed')
+const cookie = useCookie('thal_release_modal_closed')
 
 const icon = computed(() => {
   if (releaseType.value === 'dev') {

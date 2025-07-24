@@ -67,7 +67,7 @@ const pageAnimation = computed(() => {
   return undefined
 })
 
-const userReactivatedCookie = useCookie('user_reactivated')
+const userReactivatedCookie = useCookie('thal_user_reactivated')
 
 const router = useRouter()
 const isCheckoutCancelModalOpen = ref(route.query['checkout-cancel'] !== undefined)

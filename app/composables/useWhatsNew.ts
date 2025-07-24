@@ -5,7 +5,7 @@ function useWhatsNew() {
 
   const countQuery = useAsyncData('whats-new', () => queryContent('whats-new', locale.value).count())
 
-  const lastSavedContentCount = useCookie('lastSavedContentCount', {
+  const lastSavedContentCount = useCookie('thal_whats_new_count', {
     default: () => 0,
   })
   const hasUnreadContent = computed(() => {
