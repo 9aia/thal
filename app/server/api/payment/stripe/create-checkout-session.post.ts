@@ -19,12 +19,15 @@ export default eventHandler(async (event) => {
     return sendRedirect(event, '/sign-in')
 
   const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY! })
+  // TODO: check the usage of this endpoint even after the checkout is complete'
 
+  // TODO: check if we can do this, because this endpoint is also used inside settings
   if (user.checkoutId) {
     const checkout = await stripe.checkout.sessions.retrieve(user.checkoutId)
 
     if (checkout.status === 'complete') {
       if (user.subscriptionStatus === SubscriptionStatus.active || user.subscriptionStatus === SubscriptionStatus.trialing || user.subscriptionStatus === SubscriptionStatus.past_due) {
+        // TODO: Set this shortcut inside the landing page instead
         return sendRedirect(event, '/app')
       }
 
@@ -42,7 +45,7 @@ export default eventHandler(async (event) => {
   })
 
   const appUrl = getAppUrl(event).toString()
-  const successUrl = new URL('/checkout/success', appUrl)
+  const successUrl = new URL('/checkout/success', appUrl) // TODO: change this to /app
   const cancelUrl = new URL('/checkout/cancel', appUrl)
 
   const subscription_data: Stripe.Checkout.SessionCreateParams.SubscriptionData = {

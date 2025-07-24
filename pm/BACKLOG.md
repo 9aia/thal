@@ -79,6 +79,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Medium priority
 
+- Let users click on AI feature actions and receive feedback if they can't use them because of the subscription status
 - Add social proof section to the landing page
 - Inform deleted character action such as translate, using tooltip
 - Improve SEO, robots.txt, meta tags, etc
@@ -207,3 +208,4 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Fix codeshare perms
 - Fix codeshare checking of multiple co-authors already included in the commit message
 - Migrate to Vue Vapor when it's ready
+- Organize composables into folders

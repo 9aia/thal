@@ -6,12 +6,21 @@ description: Tasks and items for the release.
 
 ## 0.1.0-18
 
-- Recreate the checkout success and cancel pages
-- Change payment required modal (unpaid is actually when automatic renewal was not successful)
-- Check subscription status on message send
+- Handle first access to the app (no subscription yet because webhook is not triggered yet)
+- Replace checkout pages with a status modal inside the app
+  - Change payment required modal (unpaid is actually when automatic renewal was not successful)
+  - Check subscription status on message send
+- Remove plan-* middlewares
 - Create a dynamic pricing page that fetches the subscription plans from the API?
 
+- Handle "checkout success, but processing payment" in status modal
+
+- Fix character builder catching 402 error on UI (it's not a problem, it's just a warning)
+- How to ensure the app note is up to date?
+
+- ---
 - Update Whats New first release content
+- Add a safety notice below the chat input
 
 ## 0.1.0
 
