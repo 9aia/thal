@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { t, useLocale } from '@psitta/vue'
+import * as semver from 'semver'
 import { ARTICLE_TYPES } from '~/constants/content'
 
 const modelValue = defineModel<boolean>()
@@ -12,6 +13,10 @@ watch(modelValue, async (value) => {
     whatsNew.seeContent()
   }
 }, { immediate: true })
+
+function isEarlyAccess(article: any) {
+  return semver.ltr(article.version, '1.0.0')
+}
 </script>
 
 <template>
@@ -35,14 +40,36 @@ watch(modelValue, async (value) => {
             {{ article.title }}
           </h2>
 
-          <Badge
-            size="md"
-            class="mb-4 mt-2"
-          >
-            {{ ARTICLE_TYPES.find((type) => type.id === article.type)?.name }}
-          </Badge>
+          <div class="flex gap-2 mt-1 mb-2 flex-wrap">
+            <Badge
+              v-if="article.type"
+              size="sm"
+              :color="ARTICLE_TYPES.find((a) => a.id === article.type)?.color"
+              :icon="ARTICLE_TYPES.find((a) => a.id === article.type)?.icon"
+            >
+              {{ ARTICLE_TYPES.find((a) => a.id === article.type)?.name }}
+            </Badge>
 
-          <ContentRendererMarkdown :value="article" class="prose" />
+            <Badge
+              v-if="article.version"
+              size="sm"
+              icon="material-symbols:code-rounded"
+              color="neutral"
+            >
+              v{{ article.version }}
+            </Badge>
+
+            <Badge
+              v-if="article.version && isEarlyAccess(article)"
+              size="sm"
+              icon="material-symbols:rocket-outline-rounded"
+              color="warning"
+            >
+              {{ t('Early Access') }}
+            </Badge>
+          </div>
+
+          <ContentRendererMarkdown :value="article" class="prose prose-sm" />
 
           <div v-if="i !== list.length - 1" class="b-1 w-full border border-gray-400/50 my-6" />
         </div>
