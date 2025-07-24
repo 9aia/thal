@@ -4,7 +4,7 @@
 
 Estes Termos de Serviço do Thal ("Termos") regem seu acesso e uso do Thal, incluindo todo o seu conteúdo, recursos e serviços oferecidos pelo Thal, a Gaia, seus contribuidores ou qualquer outra pessoa associada ao Thal ou à Gaia (referida como "nós" ou "nosso").
 
-Ao acessar, navegar ou usar o Thal, você ("Usuário" ou "você") concorda em aceitar estes Termos de Serviço do Thal ("Termos"), bem como à nossa :content-a{href="/legal/privacy"}[Política de Privacidade] e :content-a{href="/legal/security"}[Política de Segurança], que são incorporadas a este documento por referência. Se você não concordar com qualquer parte destes termos ou da :content-a{href="/legal/privacy"}[Política de Privacidade do Thal], você não deve usar o Thal.
+Ao acessar, navegar ou usar o Thal, você ("Usuário" ou "você") concorda em aceitar estes Termos de Serviço do Thal ("Termos"), bem como à nossa :content-a{href="/legal/privacy-policy"}[Política de Privacidade] e :content-a{href="/legal/security-policy"}[Política de Segurança], que são incorporadas a este documento por referência. Se você não concordar com qualquer parte destes termos ou da :content-a{href="/legal/privacy-policy"}[Política de Privacidade do Thal], você não deve usar o Thal.
 
 ---
 
@@ -123,13 +123,13 @@ O Thal pode conter links para sites ou serviços de terceiros que não são de p
 
 ### 9. Política de Privacidade
 
-Seu uso do Thal também é regido por nossa :content-a{href="/legal/privacy"}[Política de Privacidade], que detalha como coletamos, usamos, armazenamos e divulgamos seus dados pessoais. Por favor, revise nossa :content-a{href="/legal/privacy"}[Política de Privacidade] para obter informações sobre nossas práticas de dados e seus direitos sob a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018).
+Seu uso do Thal também é regido por nossa :content-a{href="/legal/privacy-policy"}[Política de Privacidade], que detalha como coletamos, usamos, armazenamos e divulgamos seus dados pessoais. Por favor, revise nossa :content-a{href="/legal/privacy-policy"}[Política de Privacidade] para obter informações sobre nossas práticas de dados e seus direitos sob a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018).
 
 ---
 
 ### 10. Política de Segurança
 
-Você concorda em não expor publicamente vulnerabilidades de segurança descobertas no Thal. Quaisquer vulnerabilidades devem ser reportadas de forma responsável, seguindo os procedimentos detalhados em nossa :content-a{href="/legal/security"}[Política de Segurança].
+Você concorda em não expor publicamente vulnerabilidades de segurança descobertas no Thal. Quaisquer vulnerabilidades devem ser reportadas de forma responsável, seguindo os procedimentos detalhados em nossa :content-a{href="/legal/security-policy"}[Política de Segurança].
 
 ---
 
@@ -147,7 +147,7 @@ Você concorda em não expor publicamente vulnerabilidades de segurança descobe
 
 12.2. **Renúncia:** Nenhuma renúncia de qualquer termo destes Termos será considerada uma renúncia adicional ou contínua de tal termo ou de qualquer outro termo, e nossa falha em afirmar qualquer direito ou disposição sob estes Termos não constituirá uma renúncia de tal direito ou disposição.
 
-12.3. **Acordo Integral:** Estes Termos, juntamente com a :content-a{href="/legal/privacy"}[Política de Privacidade], constituem o acordo integral entre você e nós em relação ao Thal.
+12.3. **Acordo Integral:** Estes Termos, juntamente com a :content-a{href="/legal/privacy-policy"}[Política de Privacidade], constituem o acordo integral entre você e nós em relação ao Thal.
 
 ---
 

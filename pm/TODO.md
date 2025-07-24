@@ -6,19 +6,20 @@ description: Tasks and items for the release.
 
 ## 0.1.0-18
 
-- Configure Stripe dev sandbox (products, prices, webhooks, etc.)
-- Replace checkout pages with a status modal inside the app
+- Configure Stripe dev sandbox (products, prices, webhooks, billing portal, etc.)
 - Remove plan-* middlewares
 - Adjust form actions, CTAs and content based on subscription status in CreateSessionForm, app notes and status modal
 - Let users click on AI feature actions and receive feedback if they can't use them because of the subscription status
-- Fix character builder catching 402 error on UI (it's not a problem, it's just a warning)
+  - Fix character builder catching 402 error on UI (it's not a problem, it's just a warning)
 - How to ensure the app note is up to date?
 - Create a dynamic pricing page that fetches the subscription plans from the API?
+- Add error and loading handling to code that are using subscription query
 - Check and ensure Subscription status is being set properly
+- Change cookie names to thal_*
 
 - ---
 
-- Activate Stripe preview sandbox (products, prices, webhooks, etc.)
+- Activate Stripe preview sandbox (products, prices, webhooks, billing portal, etc.)
 - Configure GCP prod
 - Configure Google OAuth prod
   - Think about Google consent screen policies because it shows 9aia.com's policies
@@ -29,7 +30,7 @@ description: Tasks and items for the release.
 - Simulate all statuses Thal purchase on preview sandbox
 - Force test with ton of characters, chats, contacts and messages
 
-- Configure Stripe prod sandbox (products, prices, webhooks, etc.)
+- Configure Stripe prod sandbox (products, prices, webhooks, billing portal, etc.)
 - Configure GCP prod
 - Configure Google OAuth prod
 - Release EA (0.1.0)

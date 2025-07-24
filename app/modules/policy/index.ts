@@ -11,7 +11,7 @@ export default defineNuxtModule({
   },
   defaults: {
     rootDir: '/content',
-    pattern: /^\/policy\/([a-z]{2})\/([\w-]+)\.md$/i,
+    pattern: /^\/legal\/([a-z]{2})\/([\w-]+)\.md$/i,
     timestampFile: 'app/modules/policy/.timestamp.json',
     verbose: true,
   },

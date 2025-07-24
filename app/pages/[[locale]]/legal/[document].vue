@@ -17,8 +17,8 @@ const locale = 'pt'
     <ContentDoc
       tag="article"
       class="prose prose-slate max-w-full"
-      path="policy"
-      :where="{ _path: { $regex: `^/policy/${locale}/${route.params.document}.*$` } }"
+      path="legal"
+      :where="{ _path: { $regex: `^/legal/${locale}/${route.params.document}.*$` } }"
     >
       <template #not-found>
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full">

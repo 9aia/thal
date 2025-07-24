@@ -148,9 +148,9 @@ const legal = computed(() => {
     // { id: 'guidelines', icon: 'gavel', name: t('Guidelines')/* , href: '/guidelines' */ },
     // { id: 'reports', icon: 'flag', name: t('Reports')/* , href: '/reports' */ },
 
-    { id: 'terms', icon: 'material-symbols:gavel-rounded', name: t('Terms of Service'), href: '/legal/terms', type: 'external', newTab: true },
-    { id: 'privacy', icon: 'material-symbols:policy-outline-rounded', name: t('Privacy Policy'), href: '/legal/privacy', type: 'external', newTab: true },
-    { id: 'security', icon: 'material-symbols:security-rounded', name: t('Security Policy'), href: '/legal/security', type: 'external', newTab: true },
+    { id: 'terms', icon: 'material-symbols:gavel-rounded', name: t('Terms of Service'), href: '/legal/terms-of-service', type: 'external', newTab: true },
+    { id: 'privacy', icon: 'material-symbols:policy-outline-rounded', name: t('Privacy Policy'), href: '/legal/privacy-policy', type: 'external', newTab: true },
+    { id: 'security', icon: 'material-symbols:security-rounded', name: t('Security Policy'), href: '/legal/security-policy', type: 'external', newTab: true },
   ] satisfies MenuItemTypeOrFalse[]).filter(Boolean) as MenuItemType[]
 })
 </script>

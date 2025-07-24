@@ -120,21 +120,21 @@ const releaseType = useReleaseType()
           </h3>
           <div class="space-y-2">
             <Link
-              href="/legal/terms"
+              href="/legal/terms-of-service"
               class="text-left gap-1 text-black w-fit text-sm"
               active-class="text-gray-600"
             >
               {{ t('Terms of Service') }}
             </Link>
             <Link
-              href="/legal/privacy"
+              href="/legal/privacy-policy"
               class="text-left gap-1 text-black w-fit text-sm"
               active-class="text-gray-600"
             >
               {{ t('Privacy Policy') }}
             </Link>
             <Link
-              href="/legal/security"
+              href="/legal/security-policy"
               class="text-left gap-1 text-black w-fit text-sm"
               active-class="text-gray-600"
             >

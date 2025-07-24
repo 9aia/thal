@@ -36,7 +36,7 @@ Utilizamos as informações coletadas para as seguintes finalidades:
 * **Personalização da Experiência:** Para adaptar o conteúdo e os recursos do Thal às suas preferências, como personagens sugeridos ou tópicos de aprendizado.
 * **Suporte ao Usuário:** Para responder às suas perguntas, resolver problemas técnicos e fornecer assistência.
 * **Comunicações:** Para enviar atualizações sobre o serviço, notificações importantes, informações sobre sua assinatura e promoções (com seu consentimento, quando exigido por lei).
-* **Segurança e Conformidade Legal:** Para proteger a segurança do Thal, detectar e prevenir fraudes, atividades ilegais ou violações dos :content-a{href="/legal/terms"}[Termos de Serviço], e cumprir com as obrigações legais, como a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018).
+* **Segurança e Conformidade Legal:** Para proteger a segurança do Thal, detectar e prevenir fraudes, atividades ilegais ou violações dos :content-a{href="/legal/terms-of-service"}[Termos de Serviço], e cumprir com as obrigações legais, como a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018).
 
 ---
 
@@ -85,7 +85,7 @@ Levamos a segurança dos seus dados pessoais a sério e implementamos medidas de
 
 ## 7. Crianças e Adolescentes
 
-O Thal é destinado a usuários com idade mínima de 13 anos. Se você tiver menos de 13 anos, não poderá criar uma conta ou usar o Thal. Se você tiver entre 13 e 18 anos, você declara que seu responsável legal concordou com os :content-a{href="/legal/terms"}[Termos de Serviço] e esta Política de Privacidade. Não coletamos intencionalmente informações de crianças menores de 13 anos. Se tomarmos conhecimento de que coletamos informações pessoais de uma criança menor de 13 anos sem consentimento dos pais verificável, tomaremos medidas para remover essas informações de nossos servidores.
+O Thal é destinado a usuários com idade mínima de 13 anos. Se você tiver menos de 13 anos, não poderá criar uma conta ou usar o Thal. Se você tiver entre 13 e 18 anos, você declara que seu responsável legal concordou com os :content-a{href="/legal/terms-of-service"}[Termos de Serviço] e esta Política de Privacidade. Não coletamos intencionalmente informações de crianças menores de 13 anos. Se tomarmos conhecimento de que coletamos informações pessoais de uma criança menor de 13 anos sem consentimento dos pais verificável, tomaremos medidas para remover essas informações de nossos servidores.
 
 ---
 

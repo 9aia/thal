@@ -36,6 +36,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Medium priority
 
+- Add modal for checkout cancellation
 - Add date to Whats New modal articles
 - Remove need to sign-in to access the app?
 - Create "about me" textarea in the profile page
