@@ -23,7 +23,7 @@ const { t } = useI18nExperimental()
     </h1>
 
     <p class="text-gray-600 text-sm mb-2">
-      {{ t('An unexpected error has occurred. Please try again later.') }}
+      {{ t('An unexpected error has occurred.') }}
     </p>
 
     <div v-if="isRetryAvailable" class="mb-4">

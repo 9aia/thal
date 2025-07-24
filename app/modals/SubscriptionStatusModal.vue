@@ -6,6 +6,7 @@ import { SubscriptionStatus } from '~~/db/schema'
 const open = defineModel<boolean>()
 
 const { t } = useI18nExperimental()
+const toast = useToast()
 const user = useUser()
 const subscriptionStatusModalOpen = useCookie('thal_subscription_status_modal_opened', {
   default: () => [] as SubscriptionStatus[],
@@ -13,6 +14,14 @@ const subscriptionStatusModalOpen = useCookie('thal_subscription_status_modal_op
 
 const subscriptionQuery = useSubscriptionQuery()
 await subscriptionQuery.suspense()
+
+onMounted(() => {
+  watch(subscriptionQuery.error, (error) => {
+    if (error) {
+      toast.error(t('Something went wrong getting your subscription status.'), 0)
+    }
+  }, { immediate: true })
+})
 
 const title = computed(() => {
   if (user.value?.subscriptionStatus === null || user.value?.subscriptionStatus === SubscriptionStatus.not_subscribed) {
@@ -61,6 +70,7 @@ const title = computed(() => {
 
 <template>
   <Modal
+    v-if="subscriptionQuery.isSuccess.value"
     v-model="open"
     show-close-button
     no-scroll

@@ -9,6 +9,7 @@ const toast = useToast()
     <slot />
 
     <!-- This cannot be lazy because we need to show it when the user is offline -->
+
     <CommonToast v-if="toast.visible.value" />
   </div>
 </template>

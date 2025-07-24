@@ -45,7 +45,7 @@ export function useToast() {
     visible.value = true
     message.value = options.message
     type.value = options.type || 'success'
-    duration.value = options.duration ?? 3000
+    duration.value = options.duration ?? 5000
     position.value = options.position ?? 'end-bottom'
     actions.value = options.actions ?? []
     update.value = !update.value

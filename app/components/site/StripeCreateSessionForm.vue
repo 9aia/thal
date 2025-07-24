@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { t } from '@psitta/vue'
 import { tv } from 'tailwind-variants'
 import type { CheckoutStatus } from '~/types'
 import { SubscriptionStatus } from '~~/db/schema'
@@ -15,15 +14,18 @@ const emit = defineEmits<{
 }>()
 const user = useUser()
 const redirectUrl = useRedirectUrl()
+const toast = useToast()
+const { t } = useI18nExperimental()
 
-// TODO: fetch subscription is-trial mode
-const isLastCheckoutTrial = computed(() => {
-  return true
-})
+const subscriptionQuery = useSubscriptionQuery()
+await subscriptionQuery.suspense()
 
-// TODO: fetch checkout status as well
-const isCheckoutProcessing = computed(() => {
-  return !!user.value?.checkoutId
+onMounted(() => {
+  watch(subscriptionQuery.error, (error) => {
+    if (error) {
+      toast.error(t('Something went wrong getting your subscription status.'), 0)
+    }
+  }, { immediate: true })
 })
 
 function onSubmit(event: Event) {
@@ -48,6 +50,7 @@ const buttonStyles = tv({
 
 <template>
   <form
+    v-if="subscriptionQuery.isSuccess.value"
     action="/api/payment/stripe/create-checkout-session"
     method="post"
     class="flex flex-col gap-2"
@@ -76,7 +79,7 @@ const buttonStyles = tv({
       </template>
 
       <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.canceled">
-        <template v-if="isLastCheckoutTrial">
+        <template v-if="subscriptionQuery.data.value?.cameFromCheckoutInTrialMode">
           {{ t("Set Payment") }}
         </template>
         <template v-else>
@@ -91,20 +94,6 @@ const buttonStyles = tv({
       <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.past_due">
         {{ t("Fix Payment") }}
       </template>
-
-      <!-- TODO: add these back -->
-      <!-- <template v-if="(!user || (checkoutStatus === null && subscriptionStatus === SubscriptionStatus.not_subscribed))">
-        {{ t('Start chatting') }}
-      </template>
-
-      <template v-else-if="checkoutStatus === 'open'">
-        {{ t('Continue your checkout') }}
-      </template>
-
-      <template v-else-if="checkoutStatus === 'complete' && subscriptionStatus === SubscriptionStatus.not_subscribed">
-        {{ t('Continue your access') }}
-      </template>
-    -->
     </Button>
 
     <p

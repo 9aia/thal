@@ -365,9 +365,6 @@
   "Home": {
     "pt": "Início"
   },
-  "Start chatting": {
-    "pt": "Começar a conversar"
-  },
   "Try 1 Day Free – No Credit Card Needed": {
     "pt": "Experimente 1 dia grátis – Nenhum cartão de crédito necessário"
   },
@@ -499,9 +496,6 @@
   },
   "Oops! Something Went Wrong": {
     "pt": "Ops! Algo deu errado"
-  },
-  "An unexpected error has occurred. Please try again later.": {
-    "pt": "Ocorreu um erro inesperado. Por favor, tente novamente mais tarde."
   },
   "If the problem persists, please {reportIssue}.": {
     "pt": "Se o problema persistir, por favor, {reportIssue}."
@@ -905,12 +899,6 @@
   "Close": {
     "pt": "Fechar"
   },
-  "Continue your checkout": {
-    "pt": "Continue seu checkout"
-  },
-  "Continue your access": {
-    "pt": "Continue seu acesso"
-  },
   "Just Chat": {
     "pt": "Só Chat"
   },
@@ -1094,15 +1082,6 @@
   "Pay Now": {
     "pt": "Pagar agora"
   },
-  "Unlock chatting with thals and all core features.": {
-    "pt": "Desbloqueie o chat com thals e todos os recursos principais."
-  },
-  "Complete payment to unlock chatting with thals and all core features.": {
-    "pt": "Conclua o pagamento para desbloquear o chat com thals e todos os recursos principais."
-  },
-  "Resume your subscription to continue chatting with thals and all core features.": {
-    "pt": "Retome sua assinatura para continuar conversando com thals e todos os recursos principais."
-  },
   "Welcome to Thal!": {
     "pt": "Bem-vindo ao Thal!"
   },
@@ -1160,9 +1139,6 @@
   "Your trial may be still being processed and it'll be active soon. We appreciate your patience!": {
     "pt": "Seu teste ainda pode estar sendo processado e estará ativo em breve. Agradecemos sua paciência!"
   },
-  "Start Learning": {
-    "pt": "Começar a aprender"
-  },
   "Complete Payment": {
     "pt": "Concluir pagamento"
   },
@@ -1199,23 +1175,14 @@
   "Your subscription is paused. Resume now to keep improving your English!": {
     "pt": "Sua assinatura está pausada. Retome agora para continuar melhorando seu inglês!"
   },
-  "Your trial is activating—hang tight, you'll be chatting soon!": {
-    "pt": "Seu teste está ativando—aguarde, você estará conversando em breve!"
-  },
   "Checkout complete! Your trial is almost ready. Thanks for joining Thal!": {
     "pt": "Finalização do checkout concluído! Seu teste está quase pronto. Obrigado por se juntar ao Thal!"
-  },
-  "Start chatting and boost your English now—join Thal today!": {
-    "pt": "Comece a conversar e impulsione seu inglês agora—junte-se ao Thal hoje!"
   },
   "Almost there! Please finish your payment to unlock all Thal features.": {
     "pt": "Quase lá! Finalize seu pagamento para desbloquear todos os recursos do Thal."
   },
   "Your payment window expired. No charge—restart anytime to begin learning!": {
     "pt": "Sua janela de pagamento expirou. Sem cobrança—reinicie a qualquer momento para começar a aprender!"
-  },
-  "Your trial ended. Add a payment method to keep chatting with Thal!": {
-    "pt": "Seu teste terminou. Adicione um método de pagamento para continuar conversando com o Thal!"
   },
   "Subscription canceled. Subscribe again to continue your English journey!": {
     "pt": "Assinatura cancelada. Assine novamente para continuar sua jornada no inglês!"
@@ -1228,5 +1195,26 @@
   },
   "Looks like you didn’t finish the payment. That’s totally fine — no charges were made. If there’s something that held you back, we’d love to hear your thoughts.": {
     "pt": "Parece que você não finalizou o pagamento. Tudo bem — nenhuma cobrança foi feita. Se houver algo que o impediu, adoraríamos ouvir seus comentários."
+  },
+  "Access home page": {
+    "pt": "Acessar a página inicial"
+  },
+  "Start Trial": {
+    "pt": "Iniciar teste"
+  },
+  "Your trial is activating—hang tight, you'll be creating characters soon!": {
+    "pt": "Seu teste está ativando—aguarde, você criará personagens em breve!"
+  },
+  "Start creating characters and boost your English now—join Thal today!": {
+    "pt": "Comece a criar personagens e impulsione seu inglês agora—junte-se ao Thal hoje!"
+  },
+  "Your trial ended. Add a payment method to keep creating characters with Thal!": {
+    "pt": "Seu teste terminou. Adicione uma forma de pagamento para continuar criando personagens com o Thal!"
+  },
+  "Something went wrong getting your subscription status.": {
+    "pt": "Algo deu errado ao obter o status da sua assinatura."
+  },
+  "An unexpected error has occurred.": {
+    "pt": "Ocorreu um erro inesperado."
   }
 }
