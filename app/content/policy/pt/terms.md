@@ -59,6 +59,8 @@ Ao acessar, navegar ou usar o Thal, você ("Usuário" ou "você") concorda em ac
 
 3.4. **Ciclo de Cobrança e Renovação:** As assinaturas são cobradas em uma base mensal recorrente. O pagamento será processado automaticamente usando o método de pagamento que você forneceu. Sua assinatura será **renovada automaticamente** ao final de cada período de faturamento, a menos que você a cancele.
 
+3.4.1. **Tentativas de Cobrança e Cancelamento por Falha de Pagamento:** Caso a renovação automática da sua assinatura não seja bem-sucedida na primeira tentativa, geralmente realizamos até **4 (quatro) novas tentativas de cobrança** ao longo de **1 (uma) semana** após a primeira falha. Se, após essas 4 tentativas, o pagamento ainda não for realizado com sucesso, sua assinatura será **marcada como cancelada** e o acesso aos recursos pagos do Thal será **revogado** até que um novo pagamento seja efetuado. Você poderá reativar sua assinatura a qualquer momento regularizando o pagamento nas configurações da sua conta.
+
 3.5. **Cancelamento da Assinatura:** Você pode cancelar sua assinatura a qualquer momento através das configurações da sua conta no **Thal**. O cancelamento entrará em vigor ao final do seu período de faturamento atual, e você continuará a ter acesso aos recursos pagos até lá. Não serão concedidos reembolsos por períodos de assinatura parcialmente utilizados.
 
 3.6. **Reembolsos:** Regra geral, as taxas de assinatura não são reembolsáveis, exceto a nosso exclusivo critério ou exigido por lei, como previsto no Código de Defesa do Consumidor para compras online, que se aplica à primeira contratação do serviço.
