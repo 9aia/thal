@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { T, t, useLocale } from '@psitta/vue'
-import { PLANS } from '~/constants/payment'
+import { SUBSCRIPTION_PLANS } from '~/constants/payment'
 
 const locale = useLocale()
 
@@ -25,7 +25,7 @@ const discountPrice = computed(() => new Intl.NumberFormat(locale.value, {
   .format(0),
 )
 
-const trialPeriodDays = PLANS.allInOne.trialPeriodDays
+const trialPeriodDays = SUBSCRIPTION_PLANS.STANDARD_MONTHLY.trialPeriodDays
 </script>
 
 <template>

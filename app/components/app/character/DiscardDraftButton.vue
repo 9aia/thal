@@ -4,10 +4,10 @@ import queryKeys from '~/queryKeys'
 
 const props = defineProps<{
   characterBuildId: number | null
-  isPastDueVisible: boolean
   isEditing: boolean
 }>()
 
+const user = useUser()
 const localWithDefaultRegion = useLocaleWithDefaultRegion()
 const queryClient = useQueryClient()
 const toast = useToast()
@@ -31,6 +31,8 @@ const discardMutation = useMutation({
     toast.success(t('Character has been discarded successfully.'))
   },
 })
+
+const canManageCharacter = computed(() => canUseAIFeatures(user.value))
 </script>
 
 <template>
@@ -40,7 +42,7 @@ const discardMutation = useMutation({
     icon-class="text-xl"
     icon-position="right"
     :loading="discardMutation.isPending.value"
-    :disabled="isPastDueVisible"
+    :disabled="!canManageCharacter"
     @click="discardMutation.mutate()"
   >
     {{ t("Discard") }}

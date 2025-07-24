@@ -16,6 +16,16 @@ const emit = defineEmits<{
 const user = useUser()
 const redirectUrl = useRedirectUrl()
 
+// TODO: fetch subscription is-trial mode
+const isLastCheckoutTrial = computed(() => {
+  return true
+})
+
+// TODO: fetch checkout status as well
+const isCheckoutProcessing = computed(() => {
+  return !!user.value?.checkoutId
+})
+
 function onSubmit(event: Event) {
   emit('submit')
 
@@ -49,7 +59,41 @@ const buttonStyles = tv({
       :class="buttonStyles({ class: buttonClass })"
       @click="redirectUrl = '/app'"
     >
-      <template v-if="(!user || (checkoutStatus === null && subscriptionStatus === SubscriptionStatus.not_subscribed))">
+      <template v-if="user?.subscriptionStatus === null || user?.subscriptionStatus === SubscriptionStatus.not_subscribed">
+        {{ t("Start Chatting") }}
+      </template>
+
+      <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.incomplete">
+        {{ t("Complete Payment") }}
+      </template>
+
+      <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.incomplete_expired">
+        {{ t("Try Again") }}
+      </template>
+
+      <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.paused">
+        {{ t("Resume Now") }}
+      </template>
+
+      <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.canceled">
+        <template v-if="isLastCheckoutTrial">
+          {{ t("Set Payment") }}
+        </template>
+        <template v-else>
+          {{ t("Subscribe Again") }}
+        </template>
+      </template>
+
+      <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.unpaid">
+        {{ t("Pay Now") }}
+      </template>
+
+      <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.past_due">
+        {{ t("Fix Payment") }}
+      </template>
+
+      <!-- TODO: add these back -->
+      <!-- <template v-if="(!user || (checkoutStatus === null && subscriptionStatus === SubscriptionStatus.not_subscribed))">
         {{ t('Start chatting') }}
       </template>
 
@@ -60,38 +104,7 @@ const buttonStyles = tv({
       <template v-else-if="checkoutStatus === 'complete' && subscriptionStatus === SubscriptionStatus.not_subscribed">
         {{ t('Continue your access') }}
       </template>
-
-      <template v-else-if="subscriptionStatus === SubscriptionStatus.trialing">
-        {{ t('Continue your free trial') }}
-      </template>
-
-      <template v-else-if="subscriptionStatus === SubscriptionStatus.active">
-        {{ t('Continue chatting') }}
-      </template>
-
-      <template v-else-if="subscriptionStatus === SubscriptionStatus.canceled">
-        {{ t('Renew your subscription now') }}
-      </template>
-
-      <template v-else-if="subscriptionStatus === SubscriptionStatus.incomplete">
-        {{ t('Check your subscription now') }}
-      </template>
-
-      <template v-else-if="subscriptionStatus === SubscriptionStatus.incomplete_expired">
-        {{ t('Check your subscription now') }}
-      </template>
-
-      <template v-else-if="subscriptionStatus === SubscriptionStatus.past_due">
-        {{ t('Access app') }}
-      </template>
-
-      <template v-else-if="subscriptionStatus === SubscriptionStatus.paused">
-        {{ t('Resume your subscription now') }}
-      </template>
-
-      <template v-else-if="subscriptionStatus === SubscriptionStatus.unpaid">
-        {{ t('Check your subscription now') }}
-      </template>
+    -->
     </Button>
 
     <p

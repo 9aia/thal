@@ -1,8 +1,8 @@
 import type { PlanSettings } from '~/types'
 
-export const PLANS: Record<string, PlanSettings> = {
-  allInOne: {
-    lookupKey: 'thal_all_in_one',
+export const SUBSCRIPTION_PLANS: Record<string, PlanSettings> = {
+  STANDARD_MONTHLY: {
+    priceLookupKey: 'standard_monthly',
     trialPeriodDays: 1,
   },
 }

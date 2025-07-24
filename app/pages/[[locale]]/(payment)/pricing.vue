@@ -53,7 +53,7 @@ const featureList = computed(() => [
           <!-- Note -->
           <div class="text-gray-500 text-xs text-center mt-6">
             {{ t('No hidden fees. Cancel or pause anytime.') }}
-            <A class="underline text-brown-500 border-b-2 border-transparent focus:border-blue-500 focus:outline-none" href="/legal/terms">{{ t('Terms apply.') }}</A>
+            <A class="underline text-brown-500 border-b-2 border-transparent focus:border-blue-500 focus:outline-none" href="/legal/terms-of-service">{{ t('Terms apply.') }}</A>
           </div>
         </div>
       </div>

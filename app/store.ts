@@ -3,8 +3,7 @@ import type { InReplyTo } from '~~/db/schema'
 
 // #region Modal
 
-export const isPastDueModalOpen = ref(false)
-export const isPastDueModalAlreadyShown = ref(false)
+export const isSubscriptionStatusModalOpen = ref(false)
 
 export const isWhatsNewModalOpen = ref(false)
 

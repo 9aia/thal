@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useEventListener } from '@vueuse/core'
 import { LEFT_SIDEBAR_COMPONENTS, LEFT_SIDEBAR_PROVIDE_KEY, LEFT_SIDEBAR_ROOT_STATE } from './constants/sidebar'
-import { isPastDueModalOpen, isWhatsNewModalOpen, openContactView } from '~/store'
+import { isSubscriptionStatusModalOpen, isWhatsNewModalOpen, openContactView } from '~/store'
 import { usernameSchema } from '~~/db/schema'
 
 useInternetConnectionIndicator()
@@ -68,6 +68,17 @@ const pageAnimation = computed(() => {
 })
 
 const userReactivatedCookie = useCookie('user_reactivated')
+
+const router = useRouter()
+const isCheckoutCancelModalOpen = ref(route.query['checkout-cancel'] !== undefined)
+
+watch(isCheckoutCancelModalOpen, (value) => {
+  if (!value) {
+    const query = { ...route.query }
+    delete query['checkout-cancel']
+    router.replace({ query })
+  }
+})
 </script>
 
 <template>
@@ -97,14 +108,19 @@ const userReactivatedCookie = useCookie('user_reactivated')
       v-model="localeModalState"
     />
 
-    <LazyPastDuePlanModal
-      v-if="isPastDueModalOpen"
-      v-model="isPastDueModalOpen"
+    <LazySubscriptionStatusModal
+      v-if="isSubscriptionStatusModalOpen"
+      v-model="isSubscriptionStatusModalOpen"
     />
 
     <LazyAccountReactivatedModal
       v-if="userReactivatedCookie"
       :model-value="userReactivatedCookie"
+    />
+
+    <LazyCheckoutCancelModal
+      v-if="isCheckoutCancelModalOpen"
+      v-model="isCheckoutCancelModalOpen"
     />
   </Sidebar>
 </template>

@@ -1,7 +1,7 @@
 import { useIsMutating, useMutation, useMutationState } from '@tanstack/vue-query'
 import type { FetchError } from 'ofetch'
 import queryKeys from '~/queryKeys'
-import { edition, inReplyTos, isPastDueModalOpen } from '~/store'
+import { edition, inReplyTos, isSubscriptionStatusModalOpen } from '~/store'
 import type { History, MessageSend } from '~/types'
 import { type MessagePost, MessageStatus } from '~~/db/schema'
 
@@ -85,19 +85,13 @@ function useSendMessage(username: MaybeRef<string>, options: UseSendMessageOptio
     onError: async (e: unknown, message: MessageSend) => {
       const error = e as FetchError
       const errorStatus = error.response?.status
-      const errorMessage = await error.data?.message
 
       if (errorStatus === RATE_LIMIT_STATUS_CODE) {
         toast.error(t('You are sending messages too fast. Please wait a moment.'))
       }
 
       if (errorStatus === PAYMENT_REQUIRED_STATUS_CODE) {
-        if (errorMessage === 'PAST_DUE') {
-          isPastDueModalOpen.value = true
-        }
-        else {
-          navigateTo('/pricing')
-        }
+        isSubscriptionStatusModalOpen.value = true
       }
 
       historyClient.updateLastMessage({

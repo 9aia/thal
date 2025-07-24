@@ -53,7 +53,7 @@ export interface Item { id: keyof UserSelect, icon: string, label: string }
 // #region Payment
 export interface PlanSettings {
   trialPeriodDays: number
-  lookupKey: string
+  priceLookupKey: string
 }
 
 export type CheckoutStatus = 'open' | 'complete' | null

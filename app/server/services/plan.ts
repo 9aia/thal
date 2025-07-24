@@ -61,7 +61,7 @@ export async function updateSubscription(
     subscriptionStatus: SubscriptionStatus[subscription.status],
     stripeCustomerId: subscription.customer as string,
     subscriptionId: subscription.id,
-    plan: PlanType.ALL_IN_ONE,
+    plan: PlanType.STANDARD_MONTHLY,
     updatedAt: now(),
   }
 
@@ -89,7 +89,7 @@ export async function createSubscription(
     subscriptionStatus: SubscriptionStatus[subscription.status],
     stripeCustomerId: subscription.customer as string,
     subscriptionId: subscription.id,
-    plan: PlanType.ALL_IN_ONE,
+    plan: PlanType.STANDARD_MONTHLY,
     updatedAt: now(),
   }
 
@@ -177,7 +177,7 @@ export async function getCheckoutStatus(stripe: Stripe, user?: User | null) {
 
 export async function getPrice(stripe: Stripe, planSettings: PlanSettings) {
   const prices = await stripe.prices.list({
-    lookup_keys: [planSettings.lookupKey],
+    lookup_keys: [planSettings.priceLookupKey],
     expand: ['data.product'],
   })
 

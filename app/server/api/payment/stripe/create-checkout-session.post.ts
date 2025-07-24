@@ -1,11 +1,11 @@
 import { eq } from 'drizzle-orm'
 import type Stripe from 'stripe'
-import { SubscriptionStatus, users } from '~~/db/schema'
-import { getAppUrl } from '~/utils/h3'
-import { PLANS } from '~/constants/payment'
-import { getStripe } from '~/utils/stripe'
-import { internal } from '~/utils/nuxt'
+import { SUBSCRIPTION_PLANS } from '~/constants/payment'
 import { now } from '~/utils/date'
+import { getAppUrl } from '~/utils/h3'
+import { internal } from '~/utils/nuxt'
+import { getStripe } from '~/utils/stripe'
+import { users } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const { STRIPE_SECRET_KEY } = useRuntimeConfig(event)
@@ -19,40 +19,44 @@ export default eventHandler(async (event) => {
     return sendRedirect(event, '/sign-in')
 
   const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY! })
-  // TODO: check the usage of this endpoint even after the checkout is complete'
 
+  // TODO: check the usage of this endpoint even after the checkout is complete
   // TODO: check if we can do this, because this endpoint is also used inside settings
-  if (user.checkoutId) {
-    const checkout = await stripe.checkout.sessions.retrieve(user.checkoutId)
 
-    if (checkout.status === 'complete') {
-      if (user.subscriptionStatus === SubscriptionStatus.active || user.subscriptionStatus === SubscriptionStatus.trialing || user.subscriptionStatus === SubscriptionStatus.past_due) {
-        // TODO: Set this shortcut inside the landing page instead
-        return sendRedirect(event, '/app')
-      }
+  // TODO: Set this shortcut inside the landing page instead
+  // if (user.checkoutId) {
+  //   const checkout = await stripe.checkout.sessions.retrieve(user.checkoutId)
 
-      return sendRedirect(event, '/checkout/success')
-    }
+  //   // if (checkout.status === 'complete') {
+  //   // if (user.subscriptionStatus === SubscriptionStatus.active || user.subscriptionStatus === SubscriptionStatus.trialing || user.subscriptionStatus === SubscriptionStatus.past_due) {
+  //   //   return sendRedirect(event, '/app')
+  //   // }
 
-    if (checkout.status === 'open' && user.subscriptionStatus === SubscriptionStatus.not_subscribed) {
-      return sendRedirect(event, checkout.url!)
-    }
-  }
+  //   // return sendRedirect(event, '/checkout/success')
+  //   // }
 
-  const prices = await stripe.prices.list({
-    lookup_keys: [PLANS.allInOne.lookupKey],
-    expand: ['data.product'],
-  })
+  //   if (checkout.status === 'open' && user.subscriptionStatus === SubscriptionStatus.not_subscribed) {
+  //     return sendRedirect(event, checkout.url!)
+  //   }
+  // }
 
   const appUrl = getAppUrl(event).toString()
-  const successUrl = new URL('/checkout/success', appUrl) // TODO: change this to /app
-  const cancelUrl = new URL('/checkout/cancel', appUrl)
+  const successUrl = new URL('/app', appUrl)
+  const cancelUrl = new URL(getCookie(event, 'redirect_url') || '/app', appUrl)
+  const query = new URLSearchParams(cancelUrl.search)
+  query.set('checkout-cancel', 'true')
+  cancelUrl.search = query.toString()
 
   const subscription_data: Stripe.Checkout.SessionCreateParams.SubscriptionData = {
     metadata: {
       userId: user.id,
     },
   }
+
+  const prices = await stripe.prices.list({
+    lookup_keys: [SUBSCRIPTION_PLANS.STANDARD_MONTHLY.priceLookupKey],
+    expand: ['data.product'],
+  })
 
   const checkoutCreateParams: Stripe.Checkout.SessionCreateParams = {
     billing_address_collection: 'auto',
@@ -73,7 +77,7 @@ export default eventHandler(async (event) => {
 
   if (!hasTrialBeenUsed) {
     checkoutCreateParams.subscription_data = {
-      trial_period_days: PLANS.allInOne.trialPeriodDays,
+      trial_period_days: SUBSCRIPTION_PLANS.STANDARD_MONTHLY.trialPeriodDays,
       trial_settings: {
         end_behavior: {
           missing_payment_method: 'cancel',

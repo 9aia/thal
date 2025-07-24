@@ -1,4 +1,5 @@
-import { badRequest, internal, unauthorized } from '~/utils/nuxt'
+import { getCheckoutStatus } from '~/server/services/plan'
+import { internal, unauthorized } from '~/utils/nuxt'
 import { getStripe } from '~/utils/stripe'
 
 export default defineEventHandler(async (event) => {
@@ -15,14 +16,19 @@ export default defineEventHandler(async (event) => {
   const subscriptionId = user?.subscriptionId
 
   if (!subscriptionId) {
-    throw badRequest('User does not have a subscription')
+    return {
+      cameFromCheckoutInTrialMode: false,
+      processingTrialActivation: false,
+    }
   }
 
   const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY! })
 
   const subscription = await stripe.subscriptions.retrieve(subscriptionId)
+  const checkoutStatus = await getCheckoutStatus(stripe, user)
 
   return {
     cameFromCheckoutInTrialMode: !!subscription.trial_end,
+    processingTrialActivation: checkoutStatus === 'complete' && !user.plan && !user.freeTrialUsed,
   }
 })

@@ -13,5 +13,6 @@ export default {
   characterDraft: (locale: MaybeRef<string>) => [locale, 'character-draft'],
   characterDraftEdit: (locale: MaybeRef<string>, characterId: MaybeRef<number | null>) => [locale, 'character-draft', characterId],
   pricingData: ['pricing-data'],
+  subscriptionData: ['subscription-data'],
   messageSend: (username: MaybeRef<string>) => ['message-send', username],
 }

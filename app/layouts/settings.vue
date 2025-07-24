@@ -1,21 +1,10 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
 import AppLayout from '~/layouts/app.vue'
-import { isPastDueModalAlreadyShown, isPastDueModalOpen } from '~/store'
-import { SubscriptionStatus } from '~~/db/schema'
 
-const user = useUser()
+useSubscriptionStatusModal()
+
 const navigationDirection = useNavigationDirection()
-
-onMounted(() => {
-  const isPastDue = user.value?.subscriptionStatus === SubscriptionStatus.past_due
-
-  if (isPastDue && !isPastDueModalAlreadyShown.value) {
-    isPastDueModalOpen.value = true
-  }
-
-  isPastDueModalAlreadyShown.value = isPastDue
-})
 </script>
 
 <template>

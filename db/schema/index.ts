@@ -78,8 +78,7 @@ export enum SubscriptionStatus {
 }
 
 export enum PlanType {
-  // TODO: change to INDIVIDUAL
-  ALL_IN_ONE = 0,
+  STANDARD_MONTHLY = 0,
 }
 
 // #endregion

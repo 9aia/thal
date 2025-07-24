@@ -1,19 +1,7 @@
 <script setup lang="ts">
-import { isPastDueModalAlreadyShown, isPastDueModalOpen } from '~/store'
-import { SubscriptionStatus } from '~~/db/schema'
+useSubscriptionStatusModal()
 
-const user = useUser()
 const toast = useToast()
-
-onMounted(() => {
-  const isPastDue = user.value?.subscriptionStatus === SubscriptionStatus.past_due
-
-  if (isPastDue && !isPastDueModalAlreadyShown.value) {
-    isPastDueModalOpen.value = true
-  }
-
-  isPastDueModalAlreadyShown.value = isPastDue
-})
 </script>
 
 <template>

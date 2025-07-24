@@ -57,7 +57,7 @@ const submit = form.handleSubmit(async (data) => {
     :confirm-loading="loading"
     :confirm-text="t('Save interface language')"
     confirm-icon="material-symbols:save-outline-rounded"
-    show-close-button :title="t('Select the interface language')"
+    show-close-button :title="t('Select the Interface Language')"
     no-scroll
     @confirm="submit"
   >

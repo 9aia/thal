@@ -384,13 +384,7 @@
     "pt": "Thal está em pré-visualização. Na verdade, não estamos cobrando pelo acesso."
   },
   "Checkout Canceled": {
-    "pt": "Compra Cancelada"
-  },
-  "You canceled your subscription. We hope to see you soon!": {
-    "pt": "Você cancelou sua assinatura. Esperamos vê-lo em breve!"
-  },
-  "Go to pricing": {
-    "pt": "Ir para preços"
+    "pt": "Checkout Cancelado"
   },
   "Forget waiting for perfection. Dive into dialogue, make mistakes, be human — and let learning happen along the way.": {
     "pt": "Esqueça esperar pela perfeição. Mergulhe no diálogo, cometa erros, seja humano - e deixe a aprendizagem acontecer ao longo do caminho."
@@ -752,9 +746,6 @@
   "Rate Thal": {
     "pt": "Avaliar Thal"
   },
-  "Submit a problem or suggestion": {
-    "pt": "Enviar um problema ou sugestão"
-  },
   "Guidelines": {
     "pt": "Diretrizes"
   },
@@ -1103,9 +1094,6 @@
   "Pay Now": {
     "pt": "Pagar agora"
   },
-  "We’d love to know why you decided to cancel. Please share your feedback with us. Your input helps us improve!": {
-    "pt": "Adoraríamos saber por que você decidiu cancelar. Compartilhe seus comentários conosco. Sua contribuição nos ajuda a melhorar!"
-  },
   "Unlock chatting with thals and all core features.": {
     "pt": "Desbloqueie o chat com thals e todos os recursos principais."
   },
@@ -1147,9 +1135,6 @@
   },
   "It seems your Thal subscription didn't quite make it through the initial setup, and the payment wasn't completed within 23 hours. No worries, you won't be billed. If you'd like to dive into English learning with Thal, just start fresh whenever you're ready!": {
     "pt": "Parece que sua assinatura Thal não foi totalmente concluída na configuração inicial e o pagamento não foi finalizado em 23 horas. Sem problemas, você não será cobrado. Se você quiser mergulhar no aprendizado de inglês com o Thal, basta começar de novo quando estiver pronto!"
-  },
-  "Your Thal subscription is currently paused. We miss you! Resume now to jump back into conversations with AI characters and continue building your confidence. Let's pick up where you left off!": {
-    "pt": "Sua assinatura Thal está atualmente pausada. Sentimos sua falta! Retome agora para voltar às conversas com personagens de IA e continuar construindo sua confiança. Vamos retomar de onde você parou!"
   },
   "Your trial has ended, and to keep chatting with thals, you just need to set up a payment method. It's quick, easy, and means you won't miss out on any more conversations!": {
     "pt": "Seu teste terminou e, para continuar conversando com thals, você só precisa configurar um método de pagamento. É rápido, fácil e significa que você não perderá mais nenhuma conversa!"
@@ -1210,5 +1195,38 @@
   },
   "Release": {
     "pt": "Lançamento"
+  },
+  "Your subscription is paused. Resume now to keep improving your English!": {
+    "pt": "Sua assinatura está pausada. Retome agora para continuar melhorando seu inglês!"
+  },
+  "Your trial is activating—hang tight, you'll be chatting soon!": {
+    "pt": "Seu teste está ativando—aguarde, você estará conversando em breve!"
+  },
+  "Checkout complete! Your trial is almost ready. Thanks for joining Thal!": {
+    "pt": "Finalização do checkout concluído! Seu teste está quase pronto. Obrigado por se juntar ao Thal!"
+  },
+  "Start chatting and boost your English now—join Thal today!": {
+    "pt": "Comece a conversar e impulsione seu inglês agora—junte-se ao Thal hoje!"
+  },
+  "Almost there! Please finish your payment to unlock all Thal features.": {
+    "pt": "Quase lá! Finalize seu pagamento para desbloquear todos os recursos do Thal."
+  },
+  "Your payment window expired. No charge—restart anytime to begin learning!": {
+    "pt": "Sua janela de pagamento expirou. Sem cobrança—reinicie a qualquer momento para começar a aprender!"
+  },
+  "Your trial ended. Add a payment method to keep chatting with Thal!": {
+    "pt": "Seu teste terminou. Adicione um método de pagamento para continuar conversando com o Thal!"
+  },
+  "Subscription canceled. Subscribe again to continue your English journey!": {
+    "pt": "Assinatura cancelada. Assine novamente para continuar sua jornada no inglês!"
+  },
+  "Payment needed! Settle your invoice to restore full access to Thal.": {
+    "pt": "Pagamento necessário! Quite sua fatura para restaurar o acesso total ao Thal."
+  },
+  "Payment failed. Please update your info to keep your subscription active.": {
+    "pt": "Pagamento falhou. Atualize suas informações para manter sua assinatura ativa."
+  },
+  "Looks like you didn’t finish the payment. That’s totally fine — no charges were made. If there’s something that held you back, we’d love to hear your thoughts.": {
+    "pt": "Parece que você não finalizou o pagamento. Tudo bem — nenhuma cobrança foi feita. Se houver algo que o impediu, adoraríamos ouvir seus comentários."
   }
 }
