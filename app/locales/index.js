@@ -1055,27 +1055,6 @@
   "Contact Us": {
     "pt": "Fale Conosco"
   },
-  "Unlock creating and editing characters, and all core features.": {
-    "pt": "Desbloqueie a criação e edição de personagens e todos os recursos principais."
-  },
-  "Complete payment to unlock character creation and editing, and all core features.": {
-    "pt": "Conclua o pagamento para desbloquear a criação e edição de personagens e todos os recursos principais."
-  },
-  "Your last subscription attempt expired.": {
-    "pt": "Sua última tentativa de assinatura expirou."
-  },
-  "Resume your subscription to continue creating and editing characters, and all core features.": {
-    "pt": "Retome sua assinatura para continuar criando e editando personagens e todos os recursos principais."
-  },
-  "Your subscription is canceled.": {
-    "pt": "Sua assinatura foi cancelada."
-  },
-  "Your subscription has an unpaid balance. Access might be limited.": {
-    "pt": "Sua assinatura tem um saldo não pago. O acesso pode ser limitado."
-  },
-  "Your last payment failed. Please update your payment details.": {
-    "pt": "Seu último pagamento falhou. Atualize os detalhes do seu pagamento."
-  },
   "Try Again": {
     "pt": "Tentar novamente"
   },
@@ -1216,5 +1195,14 @@
   },
   "An unexpected error has occurred.": {
     "pt": "Ocorreu um erro inesperado."
+  },
+  "Your trial is activating—hang tight, you'll be chatting soon!": {
+    "pt": "Seu teste está ativando—aguarde, você estará conversando em breve!"
+  },
+  "Start chatting and boost your English now—join Thal today!": {
+    "pt": "Comece a conversar e impulsione seu inglês agora—junte-se ao Thal hoje!"
+  },
+  "Your trial ended. Add a payment method to keep chatting with Thal!": {
+    "pt": "Seu teste terminou. Adicione uma forma de pagamento para continuar conversando com o Thal!"
   }
 }

@@ -11,11 +11,11 @@ description: Tasks and items for the release.
 
 - Adjust form actions, CTAs and content based on subscription status in CreateSessionForm, app notes and status modal
 - Let users click on AI feature actions and receive feedback if they can't use them because of the subscription status
-  - Fix character builder catching 402 error on UI (it's not a problem, it's just a warning)
 - How to ensure the app note is up to date?
-- Create a dynamic pricing page that fetches the subscription plans from the API?
-- Add error and loading handling to code that are using subscription query
+- Handle better the error and loading states on subscription query
 - Similate all subscription statuses on stripe sandbox
+- Fix character builder catching 402 error on UI (it's not a problem, it's just a warning)
+- Create a dynamic pricing page that fetches the subscription plans from the API?
 
 - ---
 
