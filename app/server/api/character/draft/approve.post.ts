@@ -2,6 +2,7 @@ import { and, eq, isNull } from 'drizzle-orm'
 import { now } from '~/utils/date'
 import { getValidated } from '~/utils/h3'
 import { badRequest, conflict, paymentRequired, unauthorized } from '~/utils/nuxt'
+import { canUseAIFeatures } from '~/utils/plan'
 import type { CharacterGet } from '~~/db/schema'
 import { characterDraftInsertSchema, characterDraftLocalizations, characterDrafts, characterLocalizations, characters, usernames } from '~~/db/schema'
 

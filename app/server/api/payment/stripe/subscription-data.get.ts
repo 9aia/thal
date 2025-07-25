@@ -1,5 +1,5 @@
 import { getCheckoutStatus } from '~/server/services/plan'
-import { internal, unauthorized } from '~/utils/nuxt'
+import { internal } from '~/utils/nuxt'
 import { getStripe } from '~/utils/stripe'
 
 export default defineEventHandler(async (event) => {

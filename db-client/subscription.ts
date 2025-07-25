@@ -16,7 +16,7 @@ block('Update subscription status for all users', {
 
 block('Add fake plan for all users', {
   query: db => db.update(users).set({
-    plan: PlanType.ALL_IN_ONE,
+    plan: PlanType.STANDARD_MONTHLY,
     subscriptionStatus: SubscriptionStatus.active,
     updatedAt: now(),
   }).returning(),

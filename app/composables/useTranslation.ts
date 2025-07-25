@@ -17,6 +17,9 @@ function useTranslation({ messageIsBot, message, replyMessageId, chatUsername, t
   const enabled = ref(false)
   const _queryKey = queryKey || 'message-translation'
 
+  const toast = useToast()
+  const { t } = useI18nExperimental()
+
   const translationQuery = useQuery({
     queryKey: [_queryKey, toValue(message), toValue(chatUsername), toValue(toNative)],
     queryFn: async () => $fetch('/api/translate', {
@@ -27,6 +30,15 @@ function useTranslation({ messageIsBot, message, replyMessageId, chatUsername, t
         chatUsername: toValue(chatUsername),
         toNative: toValue(toNative),
         replyMessageId: toValue(replyMessageId),
+      },
+      async onResponse({ response }) {
+        if (response.status === 402) {
+          toast.error(
+            t('Trial or payment required for this feature.'),
+            undefined,
+            toastPaymentRequiredOptions({}),
+          )
+        }
       },
     }),
     enabled,

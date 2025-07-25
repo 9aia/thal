@@ -23,11 +23,23 @@ function useSpeech(text: MaybeRef<string>) {
   const isPlaying = ref(false)
   const isError = ref(false)
 
+  const { t } = useI18nExperimental()
+  const toast = useToast()
+
   const synthesize = async () => {
     try {
       const res = await $fetch('/api/synthesizeSpeech', {
         method: 'post',
         body: { text: toValue(text) },
+        onResponse({ response }) {
+          if (response.status === 402) {
+            toast.error(
+              t('Trial or payment required for this feature.'),
+              undefined,
+              toastPaymentRequiredOptions({}),
+            )
+          }
+        },
       })
 
       const audioBase64 = res.audioContent

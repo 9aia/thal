@@ -45,6 +45,15 @@ const approveMutation = useMutation({
       discoverable: values.discoverable,
       characterId: characterBuildId.value == null ? undefined : characterBuildId.value,
     },
+    onResponse({ response }) {
+      if (response.status === 402) {
+        throw toast.error(
+          t('Trial or payment required for this feature.'),
+          undefined,
+          toastPaymentRequiredOptions({}),
+        )
+      }
+    },
   }),
   onError: (error) => {
     const e = error as FetchError

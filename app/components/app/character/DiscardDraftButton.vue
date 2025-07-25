@@ -19,6 +19,15 @@ const discardMutation = useMutation({
     body: {
       characterId: props.characterBuildId || undefined,
     },
+    onResponse({ response }) {
+      if (response.status === 402) {
+        toast.error(
+          t('Trial or payment required for this feature.'),
+          undefined,
+          toastPaymentRequiredOptions({}),
+        )
+      }
+    },
   }),
   onError: () => {
     toast.error(t('An error occurred while discarding character.'))

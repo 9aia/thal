@@ -41,6 +41,10 @@ function fetchBuild() {
           resolve(null)
         }
 
+        if (response.status === 402) {
+          resolve(null)
+        }
+
         if (response.status === 200) {
           resolve(response._data)
         }
@@ -56,11 +60,7 @@ function fetchBuild() {
 
 const buildQuery = useQuery({
   queryKey: queryKeys.characterDraftEdit(localWithDefaultRegion, characterBuildId),
-  queryFn: async () => {
-    const t = await fetchBuild()
-
-    return t
-  },
+  queryFn: () => fetchBuild(),
 })
 
 await buildQuery.suspense()
@@ -97,6 +97,15 @@ const createCharacterDraft = useMutation({
         ...data,
         locale: localWithDefaultRegion.value,
       },
+      onResponse({ response }) {
+        if (response.status === 402) {
+          throw toast.error(
+            t('Trial or payment required for this feature.'),
+            undefined,
+            toastPaymentRequiredOptions({}),
+          )
+        }
+      },
     })
   },
 })
@@ -109,6 +118,15 @@ const updateCharacterDraft = useMutation({
         ...variables.data,
         characterId: variables.characterId,
         locale: localWithDefaultRegion.value,
+      },
+      onResponse({ response }) {
+        if (response.status === 402) {
+          throw toast.error(
+            t('Trial or payment required for this feature.'),
+            undefined,
+            toastPaymentRequiredOptions({}),
+          )
+        }
       },
     })
   },
