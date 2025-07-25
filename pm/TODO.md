@@ -6,11 +6,8 @@ description: Tasks and items for the release.
 
 ## 0.1.0-18
 
-- Configure Stripe preview sandbox (products, prices, webhooks, billing portal, etc.)
-- Configure Gemini preview
-- Configure GCP Text-to-Speech preview
-- Configure Google OAuth preview
 - Pre-release
+- Fix sidebar opening inside chat on mobile
 
 ### 0.1.0-18 (after)
 
@@ -23,7 +20,8 @@ description: Tasks and items for the release.
 - Configure Google OAuth prod
 - Release EA (0.1.0)
 
-- Delete GCP thal project from personal account
+- Delete old GCP thal project from personal account
+- Delete old Stripe test mode sandbox
 
 ## 0.1.0 (after)
 

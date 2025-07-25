@@ -6,6 +6,35 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Added
+
+- Introduced a comprehensive "Subscription Status" modal, providing clear messages and actions for the subscription states
+- Added a dedicated modal for users who cancel their checkout process, offering options to provide feedback or return to the home page
+- Included an expandable disclaimer about AI interactions at the bottom of chat conversations, clarifying that AI is not a real person and its responses are for learning, not fact or advice
+- Implemented standardized toast notifications for features requiring an active subscription, ensuring consistent user feedback across the app
+- The "What's New" modal now features improved visual tags (e.g., "Release", "Early Access", "Version number") with distinct colors and icons for better readability and categorization
+
+### Enhanced
+
+- Unified and improved how feature access related to your subscription is managed and communicated across the app, leading to clearer messages and smoother experiences for AI features like chatting, character creation/editing, speech synthesis, and translations
+- Call-to-action buttons on the pricing and landing pages now dynamically update their text to reflect your current subscription status, guiding you more effectively
+- In-app messages and notices related to your subscription status have been centralized and made more informative, replacing specific "past due" alerts with a broader "Subscription Status" note
+
+### Changed
+
+- Updated the "Manage billing information" label to "Manage subscription" for consistency across the app and footer
+- Updated legal documents URLs to include suffixes like `-policy` or `-of-service`
+- Revised and updated legal documents (Privacy Policy, Terms of Service, Security Policy) for clarity and accuracy
+- Refined the text for the initial "What's New" release notes for conciseness and user focus
+- Streamlined post-checkout redirects to bring you back into the app, with specific messages now handled via new in-app modals
+- Increased the default duration for toast notifications to ensure messages are visible longer
+- Implemented general wording improvements throughout the app, such as using "app" instead of "application"
+
+### Removed
+
+- Dedicated success and cancel pages after checkout have been removed, with their functionality now integrated into the main app experience via new modals
+- The specific "Past Due" modal has been removed, replaced by the more comprehensive "Subscription Status" modal
+
 ## [0.1.0-17] - 2025-07-22
 
 ### Added
