@@ -24,7 +24,7 @@ export default defineNuxtConfig({
   content: {
     watch: {
       ws: {
-        // hostname: '9aia-dev.com',
+        // hostname: 'dev.thal.9aia.com',
       },
     },
     locales: getConfig().locales,
@@ -72,13 +72,13 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     GCP_CLOUD_TTS_API_KEY: process.env.GCP_CLOUD_TTS_API_KEY,
-    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
-    GEMINI_API_KEY: process.env.GEMINI_API_KEY,
+    GCP_GOOGLE_CLIENT_SECRET: process.env.GCP_GOOGLE_CLIENT_SECRET,
+    GCP_GEMINI_API_KEY: process.env.GCP_GEMINI_API_KEY,
     GEMINI_MODEL: process.env.GEMINI_MODEL,
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
     STRIPE_ENDPOINT_SECRET: process.env.STRIPE_ENDPOINT_SECRET,
     public: {
-      GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+      GCP_GOOGLE_CLIENT_ID: process.env.GCP_GOOGLE_CLIENT_ID,
       RUNTIME_ENV: process.env.RUNTIME_ENV,
     },
   },
@@ -104,7 +104,7 @@ export default defineNuxtConfig({
       ignoreTailwindSourceMapBroken(),
     ],
     server: {
-      allowedHosts: ['9aia-dev.com'],
+      allowedHosts: ['dev.thal.9aia.com'],
     },
   },
 })

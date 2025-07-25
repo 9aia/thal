@@ -10,10 +10,10 @@ import type { MessageInsert } from '~~/db/schema'
 import { MessageStatus, characterLocalizations, chats, contacts, lastMessages, messageSchema, messages, usernameSchema, usernames } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
-  const { GEMINI_API_KEY, GEMINI_MODEL } = useRuntimeConfig(event)
+  const { GCP_GEMINI_API_KEY, GEMINI_MODEL } = useRuntimeConfig(event)
 
-  if (!GEMINI_API_KEY)
-    throw internal('GEMINI_API_KEY is not set in the environment')
+  if (!GCP_GEMINI_API_KEY)
+    throw internal('GCP_GEMINI_API_KEY is not set in the environment')
 
   if (!GEMINI_MODEL)
     throw internal('GEMINI_MODEL is not set in the environment')
@@ -152,7 +152,7 @@ export default eventHandler(async (event) => {
 
   const geminiHistory = chatHistoryToGemini(history)
   const botMessageContent = await sendGeminiTextInTextOut({
-    apiKey: GEMINI_API_KEY,
+    apiKey: GCP_GEMINI_API_KEY,
     model: GEMINI_MODEL,
     systemInstruction,
     history: geminiHistory,

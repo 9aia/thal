@@ -123,8 +123,8 @@ You will need to have installed an IDE. It's recommended to use [Vscode](https:/
 You can join a codeshare by running the following command directly:
 
 ```bash
-code --remote "ssh-remote+codeshare@9aia-dev.com:2222" ./codeshare/
-code --new-window --remote "ssh-remote+codeshare@9aia-dev.com:2222" ./codeshare/ # if you want to open a new window
+code --remote "ssh-remote+codeshare@dev.thal.9aia.com:2222" ./codeshare/
+code --new-window --remote "ssh-remote+codeshare@dev.thal.9aia.com:2222" ./codeshare/ # if you want to open a new window
 ```
 
 #### Using the `dev:cs` Script

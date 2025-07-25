@@ -8,10 +8,10 @@ import { messages } from './messages'
 import { promptGeminiJson } from '~~/app/utils/gemini'
 
 export async function translate(chunk: Chunk) {
-  const { GEMINI_API_KEY, GEMINI_MODEL } = process.env
+  const { GCP_GEMINI_API_KEY, GEMINI_MODEL } = process.env
 
-  if (!GEMINI_API_KEY)
-    throw new Error('GEMINI_API_KEY is not set in the environment')
+  if (!GCP_GEMINI_API_KEY)
+    throw new Error('GCP_GEMINI_API_KEY is not set in the environment')
 
   if (!GEMINI_MODEL)
     throw new Error('GEMINI_MODEL is not set in the environment')
@@ -46,7 +46,7 @@ export async function translate(chunk: Chunk) {
   }
 
   const geminiTranlations = await promptGeminiJson<GeminiTranslations>({
-    apiKey: GEMINI_API_KEY,
+    apiKey: GCP_GEMINI_API_KEY,
     model: GEMINI_MODEL,
     prompt,
     systemInstruction,
@@ -78,10 +78,10 @@ export async function translate(chunk: Chunk) {
 }
 
 export async function adjust(chunk: Chunk, prompt: string) {
-  const { GEMINI_API_KEY, GEMINI_MODEL } = process.env
+  const { GCP_GEMINI_API_KEY, GEMINI_MODEL } = process.env
 
-  if (!GEMINI_API_KEY)
-    throw new Error('GEMINI_API_KEY is not set in the environment')
+  if (!GCP_GEMINI_API_KEY)
+    throw new Error('GCP_GEMINI_API_KEY is not set in the environment')
 
   if (!GEMINI_MODEL)
     throw new Error('GEMINI_MODEL is not set in the environment')
@@ -124,7 +124,7 @@ export async function adjust(chunk: Chunk, prompt: string) {
   const promptText = Object.entries(chunk).map(([key, value]) => JSON.stringify({ en: key, pt: value.pt })).join('\n')
 
   const geminiAdjustments = await promptGeminiJson<GeminiTranslations>({
-    apiKey: GEMINI_API_KEY,
+    apiKey: GCP_GEMINI_API_KEY,
     model: GEMINI_MODEL,
     prompt: `${promptText}`,
     systemInstruction,

@@ -7,14 +7,14 @@ let google: ReturnType<typeof initializeGoogle>
 export default defineEventHandler(async (event) => {
   const runtimeConfig = useRuntimeConfig(event)
 
-  if (!runtimeConfig.GOOGLE_CLIENT_SECRET)
-    throw internal('GOOGLE_CLIENT_SECRET is not set in the environment')
+  if (!runtimeConfig.GCP_GOOGLE_CLIENT_SECRET)
+    throw internal('GCP_GOOGLE_CLIENT_SECRET is not set in the environment')
 
-  if (!runtimeConfig.public.GOOGLE_CLIENT_ID)
-    throw internal('GOOGLE_CLIENT_ID is not set in the environment')
+  if (!runtimeConfig.public.GCP_GOOGLE_CLIENT_ID)
+    throw internal('GCP_GOOGLE_CLIENT_ID is not set in the environment')
 
   if (!google)
-    google = initializeGoogle(runtimeConfig.public.GOOGLE_CLIENT_ID, runtimeConfig.GOOGLE_CLIENT_SECRET, getAppUrl(event))
+    google = initializeGoogle(runtimeConfig.public.GCP_GOOGLE_CLIENT_ID, runtimeConfig.GCP_GOOGLE_CLIENT_SECRET, getAppUrl(event))
 
   event.context.google = google
 })

@@ -4,15 +4,15 @@ import { encodeBase32LowerCaseNoPadding } from '@oslojs/encoding'
 import { type RandomReader, generateRandomString } from '@oslojs/crypto/random'
 
 export function initializeGoogle(
-  GOOGLE_CLIENT_ID: string,
-  GOOGLE_CLIENT_SECRET: string,
+  GCP_GOOGLE_CLIENT_ID: string,
+  GCP_GOOGLE_CLIENT_SECRET: string,
   appUrl: URL,
 ) {
   const redirectUri = new URL('/api/auth/google/callback', appUrl).toString()
 
   const google = new Google(
-    GOOGLE_CLIENT_ID!,
-    GOOGLE_CLIENT_SECRET,
+    GCP_GOOGLE_CLIENT_ID!,
+    GCP_GOOGLE_CLIENT_SECRET,
     redirectUri!,
   )
 

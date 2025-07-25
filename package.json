@@ -6,8 +6,8 @@
   "scripts": {
     "postinstall": "git config core.hooksPath ./codeshare/.githooks && nuxt prepare",
     "dev": "nuxt dev --host",
-    "dev:cs": "./codeshare/open.sh --host 9aia-dev.com",
-    "dev:cs:n": "./codeshare/open.sh --host 9aia-dev.com --new-window",
+    "dev:cs": "./codeshare/open.sh --host dev.thal.9aia.com",
+    "dev:cs:n": "./codeshare/open.sh --host dev.thal.9aia.com --new-window",
     "cs": "docker exec codeshare",
     "psitta": "bun ./psitta/main.ts",
     "lint": "eslint .",

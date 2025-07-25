@@ -9,10 +9,10 @@ import type { CharacterDraftData } from '~~/db/schema'
 import { characterDraftLocalizations, characterDraftSchema, characterDrafts } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
-  const { GEMINI_MODEL, GEMINI_API_KEY } = useRuntimeConfig(event)
+  const { GCP_GEMINI_API_KEY, GEMINI_MODEL } = useRuntimeConfig(event)
 
-  if (!GEMINI_API_KEY)
-    throw internal('GEMINI_API_KEY is not set in the environment')
+  if (!GCP_GEMINI_API_KEY)
+    throw internal('GCP_GEMINI_API_KEY is not set in the environment')
 
   if (!GEMINI_MODEL)
     throw internal('GEMINI_MODEL is not set in the environment')
@@ -54,7 +54,7 @@ export default eventHandler(async (event) => {
     ${createOutro}
   `
   const rawGeminiData = await promptGeminiJson({
-    apiKey: GEMINI_API_KEY,
+    apiKey: GCP_GEMINI_API_KEY,
     model: GEMINI_MODEL,
     prompt,
     responseSchema,

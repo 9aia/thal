@@ -8,10 +8,10 @@ import { characterLocalizations, messages, usernames } from '~~/db/schema'
 import { canUseAIFeatures } from '~/utils/plan'
 
 export default defineEventHandler(async (event) => {
-  const { GEMINI_API_KEY, GEMINI_MODEL } = useRuntimeConfig(event)
+  const { GCP_GEMINI_API_KEY, GEMINI_MODEL } = useRuntimeConfig(event)
 
-  if (!GEMINI_API_KEY)
-    throw internal('GEMINI_API_KEY is not set in the environment')
+  if (!GCP_GEMINI_API_KEY)
+    throw internal('GCP_GEMINI_API_KEY is not set in the environment')
 
   if (!GEMINI_MODEL)
     throw internal('GEMINI_MODEL is not set in the environment')
@@ -166,7 +166,7 @@ export default defineEventHandler(async (event) => {
 
   const text = await promptGeminiText({
     model: GEMINI_MODEL,
-    apiKey: GEMINI_API_KEY,
+    apiKey: GCP_GEMINI_API_KEY,
     prompt,
     systemInstruction,
   })
