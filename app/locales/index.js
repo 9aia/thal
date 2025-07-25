@@ -1204,5 +1204,8 @@
   },
   "Your trial ended. Add a payment method to keep chatting with Thal!": {
     "pt": "Seu teste terminou. Adicione uma forma de pagamento para continuar conversando com o Thal!"
+  },
+  "Continue Trial": {
+    "pt": "Continuar teste"
   }
 }
