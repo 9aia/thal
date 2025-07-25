@@ -2,7 +2,7 @@
 
 > **Status**: Preview before first production release
 > <br>
-> [🧪 **Preview v0.1.0-17**](https://preview.thal.9aia.com) | [🚀 **Production v0.1.0 (planned)**](https://thal.9aia.com)
+> [🧪 **Preview v0.1.0-18**](https://preview.thal.9aia.com) | [🚀 **Production v0.1.0 (planned)**](https://thal.9aia.com)
 
 > [!WARNING]
 > We're in active development and this is a work-in-progress. Expect potential bugs, incomplete or not yet implemented features. Read more about the project status in [Roadmap](./pm/ROADMAP.md).

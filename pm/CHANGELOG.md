@@ -6,6 +6,8 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+## [0.1.0-18] - 2025-07-25
+
 ### Added
 
 - Introduced a comprehensive "Subscription Status" modal, providing clear messages and actions for the subscription states
