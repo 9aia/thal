@@ -10,8 +10,12 @@ export default defineEventHandler(async (event) => {
 
   const user = event.context.user
 
-  if (!user)
-    throw unauthorized('User is not authenticated')
+  if (!user) {
+    return {
+      cameFromCheckoutInTrialMode: false,
+      processingTrialActivation: false,
+    }
+  }
 
   const subscriptionId = user?.subscriptionId
 
