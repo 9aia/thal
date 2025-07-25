@@ -4,9 +4,6 @@ description: Tasks and items for the release.
 
 # TODO
 
-- Configure Gemini dev
-- Configure GCP Text-to-Speech dev
-
 ## 0.1.0-18
 
 - Configure Stripe preview sandbox (products, prices, webhooks, billing portal, etc.)
@@ -25,6 +22,8 @@ description: Tasks and items for the release.
 - Configure GCP Text-to-Speech prod
 - Configure Google OAuth prod
 - Release EA (0.1.0)
+
+- Delete GCP thal project from personal account
 
 ## 0.1.0 (after)
 
