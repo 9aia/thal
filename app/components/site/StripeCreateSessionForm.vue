@@ -62,7 +62,11 @@ const buttonStyles = tv({
       :class="buttonStyles({ class: buttonClass })"
       @click="redirectUrl = '/app'"
     >
-      <template v-if="user?.subscriptionStatus === null || user?.subscriptionStatus === SubscriptionStatus.not_subscribed">
+      <template v-if="!user">
+        {{ t("Start Chatting") }}
+      </template>
+
+      <template v-else-if="user?.subscriptionStatus === null || user?.subscriptionStatus === SubscriptionStatus.not_subscribed">
         {{ t("Start Chatting") }}
       </template>
 

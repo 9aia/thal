@@ -91,7 +91,6 @@ const action = computed(() => {
       icon-position="right"
     >
       <template v-if="user?.subscriptionStatus === null || user?.subscriptionStatus === SubscriptionStatus.not_subscribed">
-        <!-- Ready to start learning -->
         {{ t("Start Trial") }}
       </template>
 
