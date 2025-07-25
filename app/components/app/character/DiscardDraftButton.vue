@@ -12,6 +12,7 @@ const localWithDefaultRegion = useLocaleWithDefaultRegion()
 const queryClient = useQueryClient()
 const toast = useToast()
 const { t } = useI18nExperimental()
+const toastPaymentRequiredOptions = useToastPaymentRequiredOptions()
 
 const discardMutation = useMutation({
   mutationFn: () => $fetch('/api/character/draft', {
@@ -24,7 +25,7 @@ const discardMutation = useMutation({
         toast.error(
           t('Trial or payment required for this feature.'),
           undefined,
-          toastPaymentRequiredOptions({}),
+          toastPaymentRequiredOptions(),
         )
       }
     },

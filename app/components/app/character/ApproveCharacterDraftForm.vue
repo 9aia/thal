@@ -37,6 +37,7 @@ const route = useRoute()
 const router = useRouter()
 const queryClient = useQueryClient()
 const localWithDefaultRegion = useLocaleWithDefaultRegion()
+const toastPaymentRequiredOptions = useToastPaymentRequiredOptions()
 
 const approveMutation = useMutation({
   mutationFn: (values: FormValues) => $fetch('/api/character/draft/approve', {
@@ -50,7 +51,7 @@ const approveMutation = useMutation({
         throw toast.error(
           t('Trial or payment required for this feature.'),
           undefined,
-          toastPaymentRequiredOptions({}),
+          toastPaymentRequiredOptions(),
         )
       }
     },

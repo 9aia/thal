@@ -25,6 +25,7 @@ function useSpeech(text: MaybeRef<string>) {
 
   const { t } = useI18nExperimental()
   const toast = useToast()
+  const toastPaymentRequiredOptions = useToastPaymentRequiredOptions()
 
   const synthesize = async () => {
     try {
@@ -36,7 +37,7 @@ function useSpeech(text: MaybeRef<string>) {
             toast.error(
               t('Trial or payment required for this feature.'),
               undefined,
-              toastPaymentRequiredOptions({}),
+              toastPaymentRequiredOptions(),
             )
           }
         },

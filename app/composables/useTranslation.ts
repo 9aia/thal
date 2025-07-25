@@ -19,6 +19,7 @@ function useTranslation({ messageIsBot, message, replyMessageId, chatUsername, t
 
   const toast = useToast()
   const { t } = useI18nExperimental()
+  const toastPaymentRequiredOptions = useToastPaymentRequiredOptions()
 
   const translationQuery = useQuery({
     queryKey: [_queryKey, toValue(message), toValue(chatUsername), toValue(toNative)],
@@ -36,7 +37,7 @@ function useTranslation({ messageIsBot, message, replyMessageId, chatUsername, t
           toast.error(
             t('Trial or payment required for this feature.'),
             undefined,
-            toastPaymentRequiredOptions({}),
+            toastPaymentRequiredOptions(),
           )
         }
       },

@@ -1207,5 +1207,8 @@
   },
   "Continue Trial": {
     "pt": "Continuar teste"
+  },
+  "Trial or payment required for this feature.": {
+    "pt": "Teste ou pagamento necessário para esta funcionalidade."
   }
 }

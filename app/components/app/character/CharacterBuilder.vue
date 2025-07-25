@@ -88,6 +88,7 @@ const user = useUser()
 const hasFormErrors = useHasFormErrors(form)
 const loading = ref(false)
 const queryClient = useQueryClient()
+const toastPaymentRequiredOptions = useToastPaymentRequiredOptions()
 
 const createCharacterDraft = useMutation({
   mutationFn: async (data: FormValues) => {
@@ -102,7 +103,7 @@ const createCharacterDraft = useMutation({
           throw toast.error(
             t('Trial or payment required for this feature.'),
             undefined,
-            toastPaymentRequiredOptions({}),
+            toastPaymentRequiredOptions(),
           )
         }
       },
@@ -124,7 +125,7 @@ const updateCharacterDraft = useMutation({
           throw toast.error(
             t('Trial or payment required for this feature.'),
             undefined,
-            toastPaymentRequiredOptions({}),
+            toastPaymentRequiredOptions(),
           )
         }
       },
