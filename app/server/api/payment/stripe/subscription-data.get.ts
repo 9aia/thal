@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
   const user = event.context.user
 
   if (!user)
-    return unauthorized('User is not authenticated')
+    throw unauthorized('User is not authenticated')
 
   const subscriptionId = user?.subscriptionId
 

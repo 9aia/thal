@@ -94,6 +94,14 @@ const buttonStyles = tv({
       <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.past_due">
         {{ t("Fix Payment") }}
       </template>
+
+      <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.trialing">
+        {{ t("Continue Trial") }}
+      </template>
+
+      <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.active">
+        {{ t("Start Chatting") }}
+      </template>
     </Button>
 
     <p
