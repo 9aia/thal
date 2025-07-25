@@ -4,25 +4,15 @@ description: Tasks and items for the release.
 
 # TODO
 
+- Configure Gemini dev
+- Configure GCP Text-to-Speech dev
+
 ## 0.1.0-18
-
-- Configure Stripe dev sandbox (products, prices, webhooks, billing portal, etc.) (x)
-
-- Adjust form actions, CTAs and content based on subscription status in CreateSessionForm, app notes and status modal
-- Let users click on AI feature actions and receive feedback if they can't use them because of the subscription status
-- How to ensure the app note is up to date?
-- Handle better the error and loading states on subscription query
-- Similate all subscription statuses on stripe sandbox
-- Fix character builder catching 402 error on UI (it's not a problem, it's just a warning)
-- Create a dynamic pricing page that fetches the subscription plans from the API?
-
-- ---
 
 - Configure Stripe preview sandbox (products, prices, webhooks, billing portal, etc.)
 - Configure Gemini preview
 - Configure GCP Text-to-Speech preview
 - Configure Google OAuth preview
-  - Think about Google consent screen policies because it shows 9aia.com's policies
 - Pre-release
 
 ### 0.1.0-18 (after)

@@ -10,6 +10,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### High priority
 
+- Show "processing" if the Stripe docker isn't running
 - Deal with long history on translate
 - Fix listening to long messages
 - Handle longer contexts
@@ -18,6 +19,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Medium priority
 
+- How to ensure the app note is up to date?
 - Allow users to use only one session
 - Handle invalid sessions
 
@@ -36,6 +38,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Medium priority
 
+- Handle better the error retry and loading states on subscription query
 - Add modal for checkout cancellation
 - Add date to Whats New modal articles
 - Remove need to sign-in to access the app?
@@ -90,6 +93,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Low priority
 
+- Let users click on AI feature actions and receive feedback if they can't use them because of the subscription status, but save it locally to be used later after they subscribe
 - Improve branding and marketing
 - Add high traffic UI alert
 - Pass user name to Stripe from Google account
@@ -184,6 +188,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Medium priority
 
+- Create a dynamic pricing page that fetches the subscription plans from the API?
 - Refactor translate endpoint into `/api/message/translate` with `messageId` param
 - Refactor synthesizeSpeech endpoint into `/api/message/synthesize-speech` with `messageId` param
 - Refactor right sidebar into its own sidebar like the left sidebar
@@ -204,7 +209,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Improve docs
   - Add docs for the difference between roadmap, changelog and "What's New"
 - Add nuxt devserver to codeshare container
-  - Pass IS_CODESHARE env var to nuxt devserver and fix sign-in redirect
+  - Pass IS_CODESHARE env var to nuxt devserver and fix sign-in redirect to dev.thal.9aia.com
 - Fix codeshare perms
 - Fix codeshare checking of multiple co-authors already included in the commit message
 - Migrate to Vue Vapor when it's ready
