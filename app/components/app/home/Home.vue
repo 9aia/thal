@@ -6,7 +6,6 @@ const whatsNew = useWhatsNew()
 
 const { t } = useI18nExperimental()
 const sidebar = useSidebar(LEFT_SIDEBAR_PROVIDE_KEY)
-const router = useRouter()
 
 async function goToDiscover() {
   sidebar.open.value = false
@@ -28,9 +27,7 @@ function addContact() {
   <div class="flex flex-col w-full h-dvh bg-white absolute overflow-y-auto">
     <Navbar
       class="bg-gray-800"
-      hide-back="on-lg"
       hide-title
-      @back="router.back()"
     >
       <div class="flex gap-1 items-center -translate-x-1.5 z-50">
         <Button

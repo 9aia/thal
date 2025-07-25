@@ -98,6 +98,13 @@ const items = computed(() => ([
     onClick: () => chatClearModalState.value = true,
   },
 ] satisfies MenuItemTypeOrFalse[]).filter(Boolean) as MenuItemType[])
+
+function openSidebar() {
+  if (import.meta.env.DEV) {
+    console.log('openSidebar', sidebar.open.value)
+  }
+  sidebar.open.value = !sidebar.open.value
+}
 </script>
 
 <template>
@@ -113,8 +120,9 @@ const items = computed(() => ([
       for="sidebar-drawer"
       class="lg:hidden btn btn-neutral btn-md btn-ghost btn-circle drawer-button"
       icon="material-symbols:arrow-back-rounded"
-      @click.stop="sidebar.open.value = true"
+      @click.stop="openSidebar()"
     />
+    asd
 
     <Avatar
       :name="contactNames.avatarName"
