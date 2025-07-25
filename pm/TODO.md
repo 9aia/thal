@@ -6,8 +6,7 @@ description: Tasks and items for the release.
 
 ## 0.1.0-18
 
-- Configure Stripe dev sandbox (products, prices, webhooks, billing portal, etc.)
-  - Update terms about the email sending from Stripe
+- Configure Stripe dev sandbox (products, prices, webhooks, billing portal, etc.) (x)
 
 - Adjust form actions, CTAs and content based on subscription status in CreateSessionForm, app notes and status modal
 - Let users click on AI feature actions and receive feedback if they can't use them because of the subscription status

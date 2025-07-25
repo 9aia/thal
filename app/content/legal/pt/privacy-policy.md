@@ -35,7 +35,7 @@ Utilizamos as informações coletadas para as seguintes finalidades:
 * **Melhoria do Serviço:** Para entender como o Thal é usado, analisar padrões de uso e desenvolver novos recursos e funcionalidades. Isso pode incluir o uso dos dados fornecidos por você (de forma anônima ou pseudônima sempre que possível) para treinar e aprimorar os modelos de IA, tornando as interações mais eficazes e precisas.
 * **Personalização da Experiência:** Para adaptar o conteúdo e os recursos do Thal às suas preferências, como personagens sugeridos ou tópicos de aprendizado.
 * **Suporte ao Usuário:** Para responder às suas perguntas, resolver problemas técnicos e fornecer assistência.
-* **Comunicações:** Para enviar atualizações sobre o serviço, notificações importantes, informações sobre sua assinatura e promoções (com seu consentimento, quando exigido por lei).
+* **Comunicações:** Para enviar atualizações sobre o serviço, notificações importantes, informações sobre sua assinatura (incluindo lembretes sobre o término do período de teste gratuito, notificações de renovação, avisos sobre cartões de pagamento prestes a expirar, notificações de falha em pagamentos com cartão ou débito em conta), e promoções (com seu consentimento, quando exigido por lei).
 * **Segurança e Conformidade Legal:** Para proteger a segurança do Thal, detectar e prevenir fraudes, atividades ilegais ou violações dos :content-a{href="/legal/terms-of-service"}[Termos de Serviço], e cumprir com as obrigações legais, como a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018).
 
 ---

@@ -65,6 +65,8 @@ Ao acessar, navegar ou usar o Thal, você ("Usuário" ou "você") concorda em ac
 
 3.6. **Reembolsos:** Regra geral, as taxas de assinatura não são reembolsáveis, exceto a nosso exclusivo critério ou exigido por lei, como previsto no Código de Defesa do Consumidor para compras online, que se aplica à primeira contratação do serviço.
 
+3.7. **Comunicações por E-mail:** Ao criar uma conta e/ou adquirir uma assinatura no Thal, você concorda que poderemos enviar comunicações por e-mail relacionadas à sua conta e à sua assinatura, incluindo, mas não se limitando a: lembretes sobre o término do período de teste gratuito (por exemplo, 7 dias antes do fim do teste), notificações sobre renovações futuras, avisos sobre cartões de pagamento prestes a expirar, notificações de falha em pagamentos com cartão ou débito em conta, e outras informações relevantes para a gestão da sua assinatura.
+
 ---
 
 ### 4. Direitos de Conteúdo e Propriedade Intelectual
