@@ -122,7 +122,6 @@ function openSidebar() {
       icon="material-symbols:arrow-back-rounded"
       @click.stop="openSidebar()"
     />
-    asd
 
     <Avatar
       :name="contactNames.avatarName"
