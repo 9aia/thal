@@ -176,7 +176,7 @@ function useSendMessage(username: MaybeRef<string>, options: UseSendMessageOptio
   }
 }
 
-export function useSendMessageMutationStatus(username: MaybeRef<string>) {
+export function useSendMessageMutationStatus(username: MaybeRef<string | null>) {
   const sendMessageStatuses = useMutationState({
     filters: { mutationKey: queryKeys.messageSend(username) },
     select: mutation => mutation.state.status,

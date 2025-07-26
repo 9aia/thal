@@ -3,7 +3,7 @@ export default {
   contactsSearch: (search: MaybeRef<string>) => ['contacts', search],
   contact: (username: MaybeRef<string | null>) => ['contact', username],
   chat: (username: MaybeRef<string>) => ['chat', username],
-  history: (username: MaybeRef<string>) => ['history', username],
+  history: (username: MaybeRef<string | null>) => ['history', username],
   chatsSearch: (locale: MaybeRef<string>, search: MaybeRef<string>) => [locale, 'chats', search],
   myCharacters: ['my-characters'],
   discoverCharacters: (locale: MaybeRef<string>) => [locale, 'discover-characters'], // TODO: remove this (instead use discoverCharactersSearch with empty search)
@@ -14,5 +14,5 @@ export default {
   characterDraftEdit: (locale: MaybeRef<string>, characterId: MaybeRef<number | null>) => [locale, 'character-draft', characterId],
   pricingData: ['pricing-data'],
   subscriptionData: ['subscription-data'],
-  messageSend: (username: MaybeRef<string>) => ['message-send', username],
+  messageSend: (username: MaybeRef<string | null>) => ['message-send', username],
 }

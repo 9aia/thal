@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
 
-function useHistoryQuery(username: MaybeRef<string>) {
+function useHistoryQuery(username: MaybeRef<string | null>) {
   const headers = useRequestHeaders(['cookie'])
 
   const sendMessageMutationStatus = useSendMessageMutationStatus(username)
@@ -12,6 +12,7 @@ function useHistoryQuery(username: MaybeRef<string>) {
       headers,
     }),
     staleTime: () => sendMessageMutationStatus.value === 'error' ? Infinity : 5000,
+    enabled: computed(() => !!unref(username)),
   })
 }
 
