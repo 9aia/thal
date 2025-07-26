@@ -52,14 +52,15 @@ description: A timeline of key milestones and upcoming features or releases.
 
 ### Fundamentals
 
-- User Accounts (Sign in, Manage Account, Subscribe)
+- User Accounts (Sign in, Manage Account)
+- Subscription
 - Character Management (Discover, Manage)
 - Chats
 - Basic Language Assistance (Message Translation, Input Fix, Listen to Message)
 - Contacts
 - Basic Moderation
-- Basic Support & Legal (Feedback Form, Terms & Privacy)
-- Site (Landing Page)
+- Basic Support & Legal (Feedback Form & Rate; Security, Terms & Privacy)
+- Site (Landing Page, Contact Us Page)
 
 ### Expansion
 

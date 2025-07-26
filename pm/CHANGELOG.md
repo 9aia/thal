@@ -6,6 +6,24 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Added
+
+* **User Accounts**: Sign in with Google; manage your profile (name, last name, username); and control your account (logout, deactivate)
+* **User Profiles**: View your name, last name, and username
+* **Subscription**: Access a pricing page, submit free trials via Stripe, manage your billing and and receive subscription status feedback for required features
+* **Localization**: Translate the UI, site content, and character data into both English and Portuguese
+* **Community Character Discovery**: Browse, search, and filter community characters by name and category, with clear badges for easy identification
+* **Sharing**: Easily share characters via their username or a direct link
+* **Character Details**: View comprehensive character profiles, including name, username, category, description, avatar, and creation date
+* **Chat Features**: List and search chats by name or username; send, reply to, copy, and receive messages; full chat history with a clear option to reset it
+* **Language Assistance**: Tools for fixing message input, translating messages, and text-to-speech
+* **Contact Management**: Add, edit, delete, search, and view contacts, and start chats directly from contact profiles
+* **Character Management**: Create, view, edit, and delete characters. This includes AI-powered categorization, options to make characters discoverable, and draft management (original vs. preview, discard, and approve)
+* **Support & Legal**: Links to report issues, submit feedback, and rate the app, along with policy pages and disclaimers
+  * **Basic Moderation**: Built-in safety handling for character content and chat interactions
+  * **Information Hubs**: Access "What's New" for updates and an "About Thal" section for app and environment details
+* **Web Presence**: A dedicated landing page and a "Contact Us" page
+
 ## [0.1.0-20] - 2025-07-26
 
 ### Fixed
