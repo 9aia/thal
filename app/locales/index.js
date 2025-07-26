@@ -941,9 +941,6 @@
   "{price} {discountPrice} for the first {x} (day|days),": {
     "pt": "{price} {discountPrice} no primeiro {x} (dia|dias),"
   },
-  "Get Thal Pro": {
-    "pt": "Obtenha Thal Pro"
-  },
   "Memorizing vocab you forget by lunch.": {
     "pt": "Memorizando vocabulário que você esquece na hora do almoço."
   },
@@ -1210,5 +1207,8 @@
   },
   "Trial or payment required for this feature.": {
     "pt": "Teste ou pagamento necessário para esta funcionalidade."
+  },
+  "Get Thal Standard": {
+    "pt": "Obter o Thal Standard"
   }
 }

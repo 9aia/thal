@@ -27,7 +27,7 @@ const featureList = computed(() => [
           <!-- Card Header -->
           <div class="text-left mb-6">
             <h1 class="text-4xl text-center text-black mb-2">
-              {{ t('Get Thal Pro') }}
+              {{ t('Get Thal Standard') }}
             </h1>
 
             <Price />

@@ -6,6 +6,10 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Changed
+
+- Changed the pricing page to "Get Thal Standard" instead of "Get Thal Pro"
+
 ## [0.1.0-19] - 2025-07-26
 
 ### Fixed
