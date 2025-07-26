@@ -31,10 +31,10 @@ function addContact() {
     >
       <div class="flex gap-1 items-center -translate-x-1.5 z-50">
         <Button
+          as="label"
+          for="sidebar-drawer"
           class="btn btn-neutral btn-circle btn-ghost lg:hidden"
           icon="material-symbols:menu-rounded"
-
-          @click="sidebar.open.value = true"
         />
       </div>
 
