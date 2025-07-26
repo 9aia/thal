@@ -29,7 +29,10 @@ const span = tv({
           @click="isWarningExpanded = !isWarningExpanded"
         >
           <Transition name="fade" mode="out-in">
-            <div v-if="isWarningExpanded">
+            <div
+              v-if="isWarningExpanded"
+              class="px-4"
+            >
               {{ initialWarning }} {{ t('What is said should not be relied upon as fact or advice.') }}
 
               <span :class="span()">
@@ -37,7 +40,10 @@ const span = tv({
               </span>
             </div>
 
-            <div v-else>
+            <div
+              v-else
+              class="px-4"
+            >
               {{ initialWarning }}
 
               <span :class="span()">
