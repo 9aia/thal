@@ -10,8 +10,15 @@ defineProps<{
   viewAllButtonClass?: string
 }>()
 
+const categoriesData = computed(() => {
+  return categories.map(category => ({
+    ...category,
+    name: t(category.name),
+  })).sort((a, b) => a.name.localeCompare(b.name))
+})
+
 const categoryId = defineModel<number>()
-const categorySlug = computed(() => categories.find(c => c.id === categoryId.value)!.slug)
+const categorySlug = computed(() => categoriesData.value.find(c => c.id === categoryId.value)!.slug)
 const categoryRouteQuery = useRouteQuery<CategorySlug>('category', '')
 
 watch(categoryId, (newValue) => {
@@ -58,7 +65,7 @@ const viewAllButtonStyles = tv({
     :class="bodyStyles({ class: bodyClass })"
   >
     <CategoryCard
-      v-for="category, index in categories"
+      v-for="category, index in categoriesData"
       v-bind="bindData"
       :id="`category-${category.id}`"
       :key="`category-${index}`"

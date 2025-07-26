@@ -19,9 +19,16 @@ const { values, setValues } = useForm({
   initialValues: { search: '' },
 })
 
+const categoriesToFilter = computed(() => {
+  return categories.map(category => ({
+    ...category,
+    name: t(category.name),
+  })).sort((a, b) => a.name.localeCompare(b.name))
+})
+
 const {
   results: filteredCategories,
-} = useFuse(toRef(() => values.search), categories, {
+} = useFuse(toRef(() => values.search), categoriesToFilter, {
   fuseOptions: {
     keys: ['name'],
   },

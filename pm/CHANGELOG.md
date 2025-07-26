@@ -6,6 +6,10 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Fixed
+
+- Sort categories in the "Discover Characters" page by name considering localization
+
 ### Changed
 
 - Changed the pricing page to "Get Thal Standard" instead of "Get Thal Pro"
