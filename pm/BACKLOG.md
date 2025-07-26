@@ -25,7 +25,6 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Low priority
 
-- Fix sidebar open with keyboard
 - Fixed speech missing speech stop on chat route leave
 - Fix DB on build pre-render
 
@@ -116,6 +115,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Low priority
 
+- Fix right sidebar overlay being open when pressing space on the left sidebar opener button after interacting with the chat header dropdown
 - Fix locale change animation glitch
 - Fix chat bubble animation glitch
 - Fix animation glitch on opening the CharacterBuilder from the chat route using the "Edit character" options for the first time

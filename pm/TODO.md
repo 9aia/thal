@@ -4,11 +4,6 @@ description: Tasks and items for the release.
 
 # TODO
 
-## 0.1.0-19
-
-- Generate changelog
-- Pre-release
-
 ### 0.1.0-19 (after)
 
 - Simulate all statuses Thal purchase on preview sandbox

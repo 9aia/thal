@@ -6,6 +6,15 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Fixed
+
+- Made the process of opening and closing the sidebar more consistent and reliable across the app, especially on mobile
+- Improved the stability of chat history data access, preventing unexpected behaviors in certain scenarios
+
+### Beautified
+
+- Improved the spacing of the AI disclaimer at the bottom of chat conversations
+
 ## [0.1.0-18] - 2025-07-25
 
 ### Added
