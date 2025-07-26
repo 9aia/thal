@@ -6,6 +6,8 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+## [0.1.0] - 2025-07-26
+
 ### Added
 
 * **User Accounts**: Sign in with Google; manage your profile (name, last name, username); and control your account (logout, deactivate)
