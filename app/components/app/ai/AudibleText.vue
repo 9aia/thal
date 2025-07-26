@@ -2,7 +2,6 @@
 import { useMutation } from '@tanstack/vue-query'
 import { RateLimitError } from '~/composables/useSpeech'
 import remarkSpanWords from '~/plugins/remark/remark-span-words'
-import { currentPlayingMessageId } from '~/store'
 
 const props = defineProps<{
   id: number
@@ -12,6 +11,8 @@ const { t } = useI18nExperimental()
 const toast = useToast()
 
 const el = ref<HTMLElement | null>(null)
+
+const currentPlayingMessageId = ref<number | null>(null)
 
 function getTtsData(element: Element) {
   const parser = new DOMParser()

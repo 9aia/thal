@@ -76,6 +76,4 @@ export const edition = reactive<Edition>({})
 export const inReplyTos = reactive<InReplyTos>({})
 export const chatListSearch = ref('')
 
-export const currentPlayingMessageId = ref<number | null>(null)
-
 // #endregion
