@@ -6,6 +6,8 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+## [0.1.1] - 2025-07-26
+
 ### Fixed
 
 - Fix stripe webhook endpoint secret to the correct value
