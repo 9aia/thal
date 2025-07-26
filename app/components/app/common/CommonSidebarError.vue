@@ -8,7 +8,7 @@ sidebar.navigationDirection.value = 'backward'
 <template>
   <div class="bg-white flex flex-col h-dvh w-full absolute">
     <Navbar
-      @click="navigateTo('/app')"
+      @back="navigateTo('/app')"
     />
 
     <div class="flex-1 overflow-y-auto bg-white pt-4 px-6">

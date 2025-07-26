@@ -22,11 +22,6 @@ const form = useForm({
 watchDebounced(toRef(() => form.values.search), () => {
   chatListSearch.value = form.values.search
 }, { debounce: 500 })
-
-function handleGoHome() {
-  sidebar.open.value = false
-  navigateTo('/app/')
-}
 </script>
 
 <template>
@@ -37,12 +32,14 @@ function handleGoHome() {
     >
       <div class="flex gap-2 items-center">
         <h1 class="flex items-center gap-2">
-          <button
+          <A
             class="text-lg text-black cursor-pointer border-y-2 border-y-transparent focus:border-b-primary focus:outline-hidden"
-            @click="handleGoHome()"
+            href="/app"
+            @click="sidebar.open.value = false"
+            @keydown.enter="sidebar.open.value = false"
           >
             {{ t('Thal') }}
-          </button>
+          </A>
 
           <ReleaseBadge />
         </h1>
@@ -52,10 +49,11 @@ function handleGoHome() {
         <CommonMenuButton />
 
         <Button
+          as="label"
+          for="sidebar-drawer"
           class="btn btn-neutral btn-circle btn-ghost lg:hidden"
           no-disable-on-loading
           icon="material-symbols:arrow-menu-close-rounded"
-          @click="sidebar.open.value = false"
         />
       </div>
     </Navbar>
