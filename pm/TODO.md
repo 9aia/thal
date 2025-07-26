@@ -4,10 +4,7 @@ description: Tasks and items for the release.
 
 # TODO
 
-## 0.1.1
-
-- Avoid duplicate customers on Stripe
-- Fix Stripe trial not activating after clicking "Start trial" button from create checkout
+## 0.1.2
 
 - Force test with ton of characters, chats, contacts and messages
 - Create characters

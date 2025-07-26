@@ -69,8 +69,16 @@ export default eventHandler(async (event) => {
     mode: 'subscription',
     success_url: successUrl.toString(),
     cancel_url: cancelUrl.toString(),
-    customer_email: user.email || undefined,
     subscription_data,
+  }
+
+  const stripeCustomerId = user.stripeCustomerId
+
+  if (stripeCustomerId) {
+    checkoutCreateParams.customer = stripeCustomerId
+  }
+  else {
+    checkoutCreateParams.customer_email = user.email || undefined
   }
 
   const hasTrialBeenUsed = user.freeTrialUsed

@@ -6,6 +6,10 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Fixed
+
+- Avoid duplicate stripe customer while creating checkout
+
 ## [0.1.1] - 2025-07-26
 
 ### Fixed
