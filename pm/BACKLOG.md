@@ -25,6 +25,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Low priority
 
+- Fix sidebar open with keyboard
 - Fixed speech missing speech stop on chat route leave
 - Fix DB on build pre-render
 
