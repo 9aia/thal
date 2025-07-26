@@ -4,15 +4,12 @@ description: Tasks and items for the release.
 
 # TODO
 
-### 0.1.0-19 (after)
+## 0.1.1
 
-- Simulate all statuses Thal purchase on preview sandbox
+- Avoid duplicate customers on Stripe
+- Fix Stripe trial not activating after clicking "Start trial" button from create checkout
+
 - Force test with ton of characters, chats, contacts and messages
-
-- Release EA (0.1.0)
-
-## 0.1.0 (after)
-
 - Create characters
 - Share Thal with friends, family, colleagues, etc.
 
