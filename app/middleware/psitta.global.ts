@@ -1,32 +1,21 @@
-import { detectLocaleFromAcceptLanguage, detectLocaleFromCookie, detectLocaleFromNavigator, detectLocaleFromPathname, getConfig } from '@psitta/core'
-import type { RouteLocationNormalized } from 'vue-router'
+import { detectLocaleFromAcceptLanguage, detectLocaleFromCookie, detectLocaleFromNavigator, getConfig } from '@psitta/core'
 
-export default defineNuxtRouteMiddleware((to: RouteLocationNormalized) => {
+export default defineNuxtRouteMiddleware(() => {
   const { defaultLocale } = getConfig()
-  const pathname = to.fullPath
 
-  const { urlWithoutLocale, locale } = detectLocaleFromPathname(pathname)
+  const cookie = useCookie('locale')
+
+  let locale = detectLocaleFromCookie(cookie.value || undefined)
 
   if (!locale) {
-    const cookie = useCookie('locale').value
+    // eslint-disable-next-line nuxt/prefer-import-meta, node/prefer-global/process
+    const acceptLanguage = process.server ? null : detectLocaleFromNavigator()?.language
 
-    let locale = detectLocaleFromCookie(cookie || undefined)
+    const header = useRequestHeader('accept-language')
+    locale = header
+      ? detectLocaleFromAcceptLanguage(header)?.language || defaultLocale
+      : acceptLanguage || defaultLocale
 
-    if (!locale) {
-      // eslint-disable-next-line nuxt/prefer-import-meta, node/prefer-global/process
-      const acceptLanguage = process.server ? null : detectLocaleFromNavigator()?.language
-
-      const header = useRequestHeader('accept-language')
-      locale = header
-        ? detectLocaleFromAcceptLanguage(header)?.language || defaultLocale
-        : acceptLanguage || defaultLocale
-    }
-
-    if (locale !== defaultLocale && pathname === urlWithoutLocale) {
-      if (pathname.startsWith('/api/'))
-        return
-
-      return navigateTo(`/${locale}${urlWithoutLocale}`, { replace: true })
-    }
+    cookie.value = locale
   }
 })

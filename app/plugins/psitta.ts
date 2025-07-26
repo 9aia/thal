@@ -11,10 +11,10 @@ export default defineNuxtPlugin((nuxtApp) => {
   store.locale = config.defaultLocale
   const locale = toRefs(store).locale
 
-  const route = useRoute()
-  watch(route, (to) => {
-    const localeParam = to.params.locale as string | undefined
-    locale.value = localeParam || config.defaultLocale
+  const cookieLocale = useCookie('locale')
+
+  watch(cookieLocale, () => {
+    locale.value = cookieLocale.value || config.defaultLocale
   }, { immediate: true })
 
   const psitta = createPsitta({

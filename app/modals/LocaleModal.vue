@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { getConfig } from '@psitta/core'
 import { useForm } from 'vee-validate'
-import { detectLocaleFromPathname, getConfig } from '@psitta/core'
 import { LOCALES } from '~/constants/base'
 
 const { defaultLocale } = getConfig()
@@ -18,25 +18,16 @@ onMounted(() => {
 const isOpen = defineModel({ default: false })
 const loading = ref(false)
 
-const route = useRoute()
-
-const { urlWithoutLocale } = detectLocaleFromPathname(route.path)
-
 const submit = form.handleSubmit(async (data) => {
   const locale = data.locale
 
-  const localeCookie = useCookie('locale', { path: '/' })
+  const localeCookie = useCookie('locale')
   localeCookie.value = locale
 
   loading.value = true
 
   const scrollX = window.scrollX
   const scrollY = window.scrollY
-
-  if (locale === defaultLocale)
-    await navigateTo(urlWithoutLocale, { replace: true })
-  else
-    await navigateTo(`/${locale}${urlWithoutLocale}`, { replace: true })
 
   requestAnimationFrame(() => {
     setTimeout(() => {

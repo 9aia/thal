@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { getConfig } from '@psitta/core'
 import { T, t, useLocale } from '@psitta/vue'
 import { AccordionRoot } from 'reka-ui'
 import { SubscriptionStatus } from '~~/db/schema'
@@ -7,11 +6,6 @@ import { SubscriptionStatus } from '~~/db/schema'
 definePageMeta({
   layout: 'site',
   layoutTransition: false,
-  validate(route) {
-    if (!route.params.locale)
-      return true
-    return getConfig().locales.includes(route.params.locale as string)
-  },
 })
 
 useAutoRedirect()

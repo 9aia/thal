@@ -8,6 +8,7 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ### Fixed
 
+- Remove URL localization
 - Sort categories in the "Discover Characters" page by name considering localization
 
 ### Changed
