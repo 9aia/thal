@@ -6,6 +6,8 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+## [0.1.3] - 2025-07-27
+
 ### Fixed
 
 - Fix share button wrong URL on share from discover character item
