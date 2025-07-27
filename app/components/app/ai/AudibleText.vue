@@ -95,7 +95,10 @@ const { data: ast } = await useAsyncData(
 </script>
 
 <template>
-  <div ref="el">
+  <div
+    ref="el"
+    translate="no"
+  >
     <MDCRenderer
       v-if="ast?.body"
       :body="ast.body"
