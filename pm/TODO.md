@@ -6,8 +6,6 @@ description: Tasks and items for the release.
 
 ## 0.1.2
 
-- Fix share button wrong URL on share from discover character item
-
 - Force test with ton of characters, chats, contacts and messages
 - Create characters
 - Share Thal with friends, family, colleagues, etc.

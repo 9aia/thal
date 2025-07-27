@@ -6,7 +6,7 @@ import { buildCharacter, closeContactView, contactViewUsername, manageContact } 
 
 const { t } = useI18nExperimental()
 const toast = useToast()
-const copyUrl = useCopyUrl()
+const copyText = useClipboard()
 const user = useUser()
 const sidebar = useSidebar(LEFT_SIDEBAR_PROVIDE_KEY)
 
@@ -102,6 +102,13 @@ function editCharacter() {
   closeContactView()
 }
 
+function copyShareCharacterUrl() {
+  const url = window.location.origin
+  const usernameUrl = `${url}/app/chat/${username.value}`
+
+  copyText(usernameUrl)
+}
+
 const items = computed(() => ([
   isCharacterFromLoggedUser.value && {
     id: 'edit-character',
@@ -113,7 +120,7 @@ const items = computed(() => ([
     id: 'share-character',
     name: t('Share character'),
     icon: 'material-symbols:ios-share-rounded',
-    onClick: () => copyUrl(),
+    onClick: () => copyShareCharacterUrl(),
   },
   isContact.value && {
     id: 'edit-contact',
@@ -207,7 +214,7 @@ const items = computed(() => ([
                 v-if="!isCharacterDeleted"
                 icon="material-symbols:ios-share-rounded"
                 :label="t('Share')"
-                @click="copyUrl()"
+                @click="copyShareCharacterUrl()"
               />
             </template>
           </ContactViewIdentifier>

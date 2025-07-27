@@ -35,7 +35,7 @@ await Promise.all(queryPromises)
 
 const sendMessageMutation = useSendMessage(username)
 const historyClient = useHistoryClient(username)
-const chatClient = await useChatClient(username)
+const chatClient = useChatClient(username)
 const copyToClipboard = useClipboard(toRef(() => props.messageContent))
 const isCharacterDeleted = computed(() => !characterQuery.data.value?.id)
 
@@ -130,7 +130,7 @@ function handleDelete() {
         :class="{ 'fine:opacity-0': !isLast }"
         icon="material-symbols:content-copy-outline-rounded"
         icon-class="text-xl"
-        @click="copyToClipboard"
+        @click="copyToClipboard()"
       />
 
       <Button

@@ -1,12 +1,12 @@
-function useClipboard(text: MaybeRef<string | undefined>) {
+function useClipboard(textBase?: MaybeRef<string | undefined>) {
   const toast = useToast()
   const { t } = useI18nExperimental()
 
-  return async () => {
+  return async (text?: MaybeRef<string | undefined>) => {
     if (!navigator.clipboard)
       toast.error(t('Clipboard API is not available'))
 
-    const _text = toValue(text)
+    const _text = toValue(text || textBase)
 
     if (!_text) {
       toast.error(t('An error occurred while copying to clipboard'))
