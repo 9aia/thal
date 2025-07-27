@@ -6,16 +6,17 @@ description: Tasks and items for the release.
 
 ## 0.1.2
 
+- Fix share button wrong URL on share from discover character item
+
 - Force test with ton of characters, chats, contacts and messages
 - Create characters
 - Share Thal with friends, family, colleagues, etc.
 
 ---
 
-- Delete old GCP thal project from personal account
-- Delete old Stripe test mode sandbox
-
 ## 0.2.0 - Language Assistance Improvements
+
+- Add a way to developers use the Thal app for free
 
 - Add text input correction confirmation popover
   - Diffing
