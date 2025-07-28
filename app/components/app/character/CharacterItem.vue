@@ -22,11 +22,18 @@ const category = computed(() => {
 })
 
 const { t } = useI18nExperimental()
-const copyUsername = useCopyUsername(toRef(() => props.username))
+const copyText = useClipboard()
+
+function copyShareCharacterUrl() {
+  const url = window.location.origin
+  const usernameUrl = `${url}/app/chat/${props.username}`
+
+  copyText(usernameUrl)
+}
 
 const items = computed<MenuItemType[]>(() => [
   { id: 'edit-character', name: t('Edit character'), icon: 'material-symbols:frame-person-outline-rounded', onClick: () => emit('edit') },
-  { id: 'share-character', name: t('Share character'), icon: 'material-symbols:ios-share-rounded', onClick: () => copyUsername() },
+  { id: 'share-character', name: t('Share character'), icon: 'material-symbols:ios-share-rounded', onClick: () => copyShareCharacterUrl() },
   { id: 'chat', name: t('Message character'), icon: 'material-symbols:chat-outline-rounded', onClick: () => emit('chat') },
   { id: 'delete-character', name: t('Delete character'), icon: 'material-symbols:delete-outline-rounded', onClick: () => emit('delete'), meaning: 'danger' },
 ])

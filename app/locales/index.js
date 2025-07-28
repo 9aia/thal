@@ -179,9 +179,6 @@
   "Create Character": {
     "pt": "Criar Personagem"
   },
-  "Open chat": {
-    "pt": "Abrir conversa"
-  },
   "A wise elder sharing life stories": {
     "pt": "Um ancião sábio compartilhando histórias de vida"
   },
@@ -535,9 +532,6 @@
   },
   "Add": {
     "pt": "Adicionar"
-  },
-  "This character uses AI to simulate interactions. Please use responsibly.": {
-    "pt": "Este personagem usa IA para simular interações. Use com responsabilidade."
   },
   "Send": {
     "pt": "Enviar"
@@ -1210,5 +1204,8 @@
   },
   "Get Thal Standard": {
     "pt": "Obter o Thal Standard"
+  },
+  "Send message": {
+    "pt": "Enviar mensagem"
   }
 }

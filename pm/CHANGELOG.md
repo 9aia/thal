@@ -6,6 +6,15 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Added
+
+- Add character URL sharing functionality in character builder
+
+### Changed
+
+- Update button labels in CharacterBuilder
+- Changed sharing button functionality to share character URL instead of username in the my characters item
+
 ### Fixed
 
 - Fix "Discover characters" in new chat view not closing sidebar

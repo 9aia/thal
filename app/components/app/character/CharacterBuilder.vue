@@ -142,6 +142,14 @@ const isEditing = computed(() => !!characterBuildId.value)
 const editingUsername = computed(() => {
   return buildQuery.data.value?.character?.username || ''
 })
+const copyText = useClipboard()
+
+function copyShareCharacterUrl() {
+  const url = window.location.origin
+  const usernameUrl = `${url}/app/chat/${editingUsername.value}`
+
+  copyText(usernameUrl)
+}
 
 const submit = form.handleSubmit(async (data) => {
   loading.value = true
@@ -244,7 +252,7 @@ function onResourceFetch() {
       v-if="user?.subscriptionStatus !== SubscriptionStatus.active && user?.subscriptionStatus !== SubscriptionStatus.trialing"
     />
 
-    <div class="pt-2 flex-1 overflow-y-auto bg-white space-y-4">
+    <div class="pt-2 flex-1 overflow-y-auto bg-white space-y-2">
       <template v-if="isEditing">
         <div class="px-6 text-xs text-gray-400 flex justify-between items-center">
           <T
@@ -252,7 +260,6 @@ function onResourceFetch() {
             :values="{ characterName: true }"
           >
             <template #characterName>
-              <br>
               <span v-if="isAlreadyChatting" class="text-blue-500">
                 {{ buildQuery.data.value?.character!.name }}
               </span>
@@ -265,6 +272,19 @@ function onResourceFetch() {
               </button>
             </template>
           </T>
+        </div>
+
+        <div class="flex flex-wrap gap-2 items-center px-6">
+          <Button
+            v-if="isEditing"
+            class="btn btn-xs btn-dash btn-warning"
+            icon="material-symbols:ios-share-rounded"
+            icon-class="text-xl"
+            :disabled="loading"
+            @click="copyShareCharacterUrl"
+          >
+            {{ t("Share") }}
+          </Button>
 
           <Button
             v-if="isEditing && !isAlreadyChatting"
@@ -274,7 +294,7 @@ function onResourceFetch() {
             :disabled="loading"
             @click="handleGoToChat"
           >
-            {{ t("Open chat") }}
+            {{ t("Send message") }}
           </Button>
         </div>
       </template>
