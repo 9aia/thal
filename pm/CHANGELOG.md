@@ -27,6 +27,7 @@ description: A detailed, chronological record of all changes made to a project, 
 - Fixed subscription status banner not showing subscription activation being processed when checkout is complete and the system did not process the subscription yet
 - The subscription status form now dynamically shows a refresh button when trial activation is pending
 - Fixed "Early Access" release type detection and release banner display
+- Fixed character editing by allowing characters to be identified and edited using their username
 
 ### Removed
 
