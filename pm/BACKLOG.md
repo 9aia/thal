@@ -116,7 +116,6 @@ description: A prioritized list of tasks, features, and ideas for future develop
 ### Low priority
 
 - Fix right sidebar overlay being open when pressing space on the left sidebar opener button after interacting with the chat header dropdown
-- Fix locale change animation glitch
 - Fix chat bubble animation glitch
 - Fix animation glitch on opening the CharacterBuilder from the chat route using the "Edit character" options for the first time
 - Rewrite Daisy dropdowns using ArkUI components (should fix the closing on click on padding bug as well)
@@ -142,7 +141,6 @@ description: A prioritized list of tasks, features, and ideas for future develop
 ### Low priority
 
 - List open source licenses
-- Improve policy content
 - Add automatic informing Thal changed (specially terms or privacy) via email
 - Handle Gemini safety errors
   - Provide feedback indicating that the sending message is not allowed.
@@ -161,24 +159,21 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Reduce the bundle size with valibot
 - Optimize invalidations (use queryClient.setQueryData)
 - Skip categorization on discoverability change
-- Implement infinite scrolls
+- Implement infinite scrolls with virtual scroll or pagination
 - Paginate contact and chat search
 - Implement `<NuxtImg>`
-- Improve data fetching (specially waterfalls)
 - Create a lazy sidebar for the right sidebar similar to the left sidebar
 - Clean up current playing message on message stop
+- Improve data fetching (specially waterfalls)
 - Pregenerate site pages
 
 ## Design
 
-### Medium priority
-
-- Add setting item type for modal openers
-- Improve scroll look and feel
-
 ### Low priority
 
 - Add respective loading states for sidebar (using the skeletons) and respective headers for each view
+- Add setting item type for modal openers
+- Improve scroll look and feel
 - Add custom payment pages
 
 ## DX
@@ -190,8 +185,8 @@ description: A prioritized list of tasks, features, and ideas for future develop
 ### Medium priority
 
 - Create a dynamic pricing page that fetches the subscription plans from the API?
-- Refactor translate endpoint into `/api/message/translate` with `messageId` param
-- Refactor synthesizeSpeech endpoint into `/api/message/synthesize-speech` with `messageId` param
+- Refactor translate endpoint into `/api/message/translate` with `messageId` param?
+- Refactor synthesizeSpeech endpoint into `/api/message/synthesize-speech` with `messageId` param?
 - Refactor right sidebar into its own sidebar like the left sidebar
 - Improve logging
 - Add auto-migration for the database on deploy

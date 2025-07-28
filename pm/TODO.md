@@ -4,7 +4,7 @@ description: Tasks and items for the release.
 
 # TODO
 
-## 0.1.2
+## 0.1.5
 
 - Force test with ton of characters, chats, contacts and messages
 - Create characters

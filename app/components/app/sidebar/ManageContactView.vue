@@ -76,20 +76,12 @@ function handleGoToChat(username: string) {
   toast.close()
 }
 
-function onError() {
-  const message = isEditing.value
-    ? t('An error occurred while editing contact.')
-    : t('An error occurred while creating contact.')
-
-  return toast.error(message)
-}
-
 const createMutation = useMutation({
   mutationFn: () => $fetch(`/api/contact`, {
     method: 'POST',
     body: form.values,
   }),
-  onError,
+  onError: () => toast.error(t('An error occurred while creating contact.')),
   onSuccess: (data) => {
     const contactsItem = {
       username: data.username,
@@ -126,7 +118,7 @@ const editMutation = useMutation({
     method: 'PATCH',
     body: form.values,
   }),
-  onError,
+  onError: () => toast.error(t('An error occurred while editing contact.')),
   onSuccess: (data) => {
     const contactsItem = {
       username: data.username,
