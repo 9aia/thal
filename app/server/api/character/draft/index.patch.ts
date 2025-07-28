@@ -8,7 +8,7 @@ import { getValidated } from '~/utils/h3'
 import { badRequest, internal, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
 import { canUseAIFeatures } from '~/utils/plan'
 import type { CharacterDraftData } from '~~/db/schema'
-import { characterDraftLocalizations, characterDraftSchema, characterDrafts } from '~~/db/schema'
+import { characterDraftLocalizations, characterDraftSchema, characterDrafts, characters, usernames } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const { GCP_GEMINI_API_KEY, GEMINI_MODEL } = useRuntimeConfig(event)
@@ -19,8 +19,9 @@ export default eventHandler(async (event) => {
   if (!GEMINI_MODEL)
     throw internal('GEMINI_MODEL is not set in the environment')
 
-  const { locale, characterId, ...data } = await getValidated(event, 'body', characterDraftSchema.extend({
+  const { locale, characterId: characterIdParam, characterUsername, ...data } = await getValidated(event, 'body', characterDraftSchema.extend({
     characterId: z.number().optional(),
+    characterUsername: z.string().optional(),
   }))
 
   const orm = event.context.orm
@@ -31,6 +32,20 @@ export default eventHandler(async (event) => {
 
   if (!canUseAIFeatures(user))
     throw paymentRequired()
+
+  let characterId: number | null = characterIdParam ?? null
+
+  if (!characterId && characterUsername) {
+    const [result] = await orm.select().from(characters)
+      .leftJoin(usernames, eq(characters.id, usernames.characterId))
+      .where(and(isNull(characters.deletedAt), eq(usernames.text, characterUsername)))
+
+    if (!result.Character.id) {
+      throw badRequest(`Character with username \`${characterUsername}\` not found`)
+    }
+
+    characterId = result.Character.id
+  }
 
   const existingDraft = await orm.query.characterDrafts.findFirst({
     where: and(

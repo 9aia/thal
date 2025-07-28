@@ -2,14 +2,14 @@ import { and, eq, isNull } from 'drizzle-orm'
 import { z } from 'zod'
 import { getCharacterCategoryName } from '~/server/services/character'
 import { getValidated } from '~/utils/h3'
-import { noContent, paymentRequired, unauthorized } from '~/utils/nuxt'
-import { canUseAIFeatures } from '~/utils/plan'
+import { noContent, unauthorized } from '~/utils/nuxt'
 import { numericString } from '~/utils/zod'
-import { characterDraftLocalizations, characterDrafts, characterLocalizations } from '~~/db/schema'
+import { characterDraftLocalizations, characterDrafts, characterLocalizations, characters, usernames } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
-  const { characterId, locale } = await getValidated(event, 'query', z.object({
+  const { characterId: characterIdParam, characterUsername, locale } = await getValidated(event, 'query', z.object({
     characterId: numericString(z.number().optional()),
+    characterUsername: z.string().optional(), // Fallback to username if characterId is not available
     locale: z.string(),
   }))
 
@@ -19,8 +19,18 @@ export default eventHandler(async (event) => {
   if (!user)
     throw unauthorized()
 
-  if (!canUseAIFeatures(user))
-    throw paymentRequired()
+  let characterId: number | null = characterIdParam
+
+  if (!characterId && characterUsername) {
+    const [result] = await orm.select().from(characters)
+      .leftJoin(usernames, eq(characters.id, usernames.characterId))
+      .where(and(isNull(characters.deletedAt), eq(usernames.text, characterUsername)))
+
+    if (!result.Character.id)
+      throw noContent('There is no character with this username, so there is no draft to edit')
+
+    characterId = result.Character.id
+  }
 
   const draftCharacter = await orm.query.characterDrafts.findFirst({
     where: and(

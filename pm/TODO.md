@@ -4,6 +4,8 @@ description: Tasks and items for the release.
 
 # TODO
 
+- Fix character builder not working when navigating to it from the my characters page (missing characterId)
+
 ## 0.1.5
 
 - Consider userId in query keys

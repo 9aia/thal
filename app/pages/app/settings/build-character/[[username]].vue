@@ -9,12 +9,13 @@ useAutoRedirect()
 
 const router = useRouter()
 const route = useRoute()
-const characterId = computed(() => route.params.username as string)
+
+const characterUsername = computed(() => route.params.username as string)
 </script>
 
 <template>
   <CharacterBuilder
-    :character-id="characterId"
+    :character-username="characterUsername"
     @back="router.back()"
   />
 </template>

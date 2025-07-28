@@ -11,7 +11,7 @@ import { characterBuildId, characterBuildPrompt } from '~/store'
 import type { CharacterBuildApiData, CharacterBuilderEditViewMode } from '~/types'
 import { SubscriptionStatus, promptSchema, promptSchemaChecks } from '~~/db/schema'
 
-defineProps<{
+const props = defineProps<{
   characterUsername?: string
 }>()
 
@@ -33,6 +33,7 @@ function fetchBuild() {
     $fetch('/api/character/build', {
       query: {
         characterId: characterBuildId.value,
+        characterUsername: props.characterUsername, // Fallback to username if characterId is not available
         locale: localWithDefaultRegion.value,
       },
       headers,
@@ -117,7 +118,8 @@ const updateCharacterDraft = useMutation({
       method: 'patch',
       body: {
         ...variables.data,
-        characterId: variables.characterId,
+        characterId: variables.characterId ?? undefined,
+        characterUsername: props.characterUsername, // Fallback to username if characterId is not available
         locale: localWithDefaultRegion.value,
       },
       onResponse({ response }) {
@@ -137,7 +139,7 @@ const isError = computed(() => {
   return createCharacterDraft.isError.value || updateCharacterDraft.isError.value || buildQuery.isError.value
 })
 
-const isEditing = computed(() => !!characterBuildId.value)
+const isEditing = computed(() => !!characterBuildId.value || !!props.characterUsername)
 
 const editingUsername = computed(() => {
   return buildQuery.data.value?.character?.username || ''

@@ -28,9 +28,9 @@ async function handleGoToChat(username: string) {
   await navigateTo(`/app/chat/${username}`)
 }
 
-function handleCreateCharacter(characterId?: number | null) {
+function handleCreateCharacter(characterId?: number | null, username?: string) {
   buildCharacter(characterId)
-  navigateTo('/app/settings/build-character')
+  navigateTo(`/app/settings/build-character/${username}`)
 }
 </script>
 
@@ -73,9 +73,9 @@ function handleCreateCharacter(characterId?: number | null) {
                     :username="character.usernames?.text || undefined"
                     :category-id="character.categoryId"
                     @delete="handleDeleteCharacter(character as unknown as Character)"
-                    @edit="handleCreateCharacter(character.id)"
+                    @edit="handleCreateCharacter(character.id, character.usernames?.text as string)"
                     @chat="handleGoToChat(character.usernames?.text as string)"
-                    @click="handleCreateCharacter(character.id)"
+                    @click="handleCreateCharacter(character.id, character.usernames?.text as string)"
                   />
                 </li>
               </ul>
