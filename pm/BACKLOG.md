@@ -96,18 +96,17 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Let users click on AI feature actions and receive feedback if they can't use them because of the subscription status, but save it locally to be used later after they subscribe
 - Improve branding and marketing
 - Add high traffic UI alert
+- Hide contact list and discover search (or other search fields) when there are no results like in the chat list
 - Pass user name to Stripe from Google account
-- Save cookie for "Continue Your Access" after once logged
-- Improve common error fallback to be more customizable, eg. contact fetching error
+- Improve toast animations and width
 - Improve error handling
+  - Improve common error fallback to be more customizable, eg. contact fetching error
+  - Improve sidebar error handling using `AsyncComponentOptions.onError`
+  - Fix error handling in the API endpoints fetched using form
 - Improve loading handling
+  - Add loading splashscreen for hydration, data loading, etc
   - Improve chat loading by rendering the skeleton on the backend and the message on the client
   - Improve chat loading and error state fallbacks
-- Fix error handling in the API endpoints fetched using form
-- Improve sidebar error handling using `AsyncComponentOptions.onError`
-- Hide contact list and discover search (or other search fields) when there are no results like in the chat list
-- Improve toast animations and width
-- Add loading splashscreen for hydration, data loading, etc
 
 ## Changes
 

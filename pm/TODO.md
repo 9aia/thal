@@ -6,6 +6,7 @@ description: Tasks and items for the release.
 
 ## 0.1.5
 
+- Consider userId in query keys
 - Force test with ton of characters, chats, contacts and messages
 - Create characters
 - Share Thal with friends, family, colleagues, etc.

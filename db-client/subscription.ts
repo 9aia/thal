@@ -1,8 +1,8 @@
 import { block } from '@9aia/castor'
 import { eq } from 'drizzle-orm'
 import { z } from 'zod'
-import { PlanType, SubscriptionStatus, users } from '~~/db/schema'
 import { now } from '~~/app/utils/date'
+import { PlanType, SubscriptionStatus, users } from '~~/db/schema'
 
 block('Update subscription status for all users', {
   schema: z.object({
@@ -20,6 +20,18 @@ block('Add fake plan for all users', {
     subscriptionStatus: SubscriptionStatus.active,
     updatedAt: now(),
   }).returning(),
+})
+
+block('Select subscription data from all users', {
+  query: db => db.select({
+    id: users.id,
+    plan: users.plan,
+    stripeCustomerId: users.stripeCustomerId,
+    subscriptionId: users.subscriptionId,
+    subscriptionStatus: users.subscriptionStatus,
+    freeTrialUsed: users.freeTrialUsed,
+    checkoutId: users.checkoutId,
+  }).from(users),
 })
 
 block('Remove plan from all users', {
