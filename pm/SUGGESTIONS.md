@@ -6,6 +6,7 @@ description: A collection of ideas and feedback from stakeholders or team member
 
 ## Features
 
+- Add a filter to What's New to show only patches
 - Add "Create another character" button for faster multiple creation
 - Add official characters
 - Add male voice
