@@ -6,6 +6,8 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+## [0.1.4] - 2025-07-28
+
 ### Added
 
 - Added the ability to share characters directly from the Character Builder page
