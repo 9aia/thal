@@ -1,3 +1,4 @@
+import * as semver from 'semver'
 import type { Release } from '~/types'
 import { version } from '~~/package.json'
 
@@ -14,14 +15,11 @@ function useReleaseType() {
     }
 
     if (runtimeConfig.public.RUNTIME_ENV === 'production') {
-      // MAJOR.MINOR.PATCH, eg. 0.1.0
-      const [major, minor] = version.split('.').map(Number)
-
-      if (major < 1) {
+      if (semver.lt(version, '1.0.0')) {
         return 'early-access'
       }
 
-      if (major === 1 && minor === 0) {
+      if (semver.gte(version, '1.0.0')) {
         return 'early-stable'
       }
     }

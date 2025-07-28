@@ -17,7 +17,8 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ### Fixed
 
-- Fix "Discover characters" in new chat view not closing sidebar
+- Fixed  "Discover characters" in new chat view not closing sidebar
+- Fixed "Early Access" release type detection and release banner display
 
 ### Removed
 
