@@ -72,55 +72,67 @@ const action = computed(() => {
 
   return '/api/payment/stripe/create-portal-session'
 })
+
+function refresh() {
+  window.location.reload()
+}
 </script>
 
 <template>
-  <form
-    v-if="subscriptionQuery.isSuccess.value"
-    :action="action"
-    method="post"
-    :class="form({ class: props.class })"
-  >
-    <Button
-      v-if="!subscriptionQuery.data.value?.processingTrialActivation"
-      type="submit"
-      :class="button({ status: user?.subscriptionStatus ?? SubscriptionStatus.not_subscribed, class: props.buttonClass })"
-      icon="material-symbols:north-west-rounded"
-      icon-class="text-base rotate-90"
-      icon-position="right"
+  <template v-if="!subscriptionQuery.data.value?.processingTrialActivation">
+    <form
+      v-if="subscriptionQuery.isSuccess.value"
+      :action="action"
+      method="post"
+      :class="form({ class: props.class })"
     >
-      <template v-if="user?.subscriptionStatus === null || user?.subscriptionStatus === SubscriptionStatus.not_subscribed">
-        {{ t("Start Trial") }}
-      </template>
-
-      <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.incomplete">
-        {{ t("Complete Payment") }}
-      </template>
-
-      <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.incomplete_expired">
-        {{ t("Try Again") }}
-      </template>
-
-      <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.paused">
-        {{ t("Resume Now") }}
-      </template>
-
-      <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.canceled">
-        <template v-if="subscriptionQuery.data.value?.cameFromCheckoutInTrialMode">
-          {{ t("Set Payment") }}
+      <Button
+        type="submit"
+        :class="button({ status: user?.subscriptionStatus ?? SubscriptionStatus.not_subscribed, class: props.buttonClass })"
+        icon="material-symbols:north-west-rounded"
+        icon-class="text-base rotate-90"
+        icon-position="right"
+      >
+        <template v-if="user?.subscriptionStatus === null || user?.subscriptionStatus === SubscriptionStatus.not_subscribed">
+          {{ t("Start Trial") }}
         </template>
-        <template v-else>
-          {{ t("Subscribe Again") }}
+
+        <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.incomplete">
+          {{ t("Complete Payment") }}
         </template>
-      </template>
 
-      <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.unpaid">
-        {{ t("Pay Now") }}
-      </template>
+        <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.incomplete_expired">
+          {{ t("Try Again") }}
+        </template>
 
-      <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.past_due">
-        {{ t("Fix Payment") }}
-      </template>
-    </Button>
-  </form>
+        <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.paused">
+          {{ t("Resume Now") }}
+        </template>
+
+        <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.canceled">
+          <template v-if="subscriptionQuery.data.value?.cameFromCheckoutInTrialMode">
+            {{ t("Set Payment") }}
+          </template>
+          <template v-else>
+            {{ t("Subscribe Again") }}
+          </template>
+        </template>
+
+        <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.unpaid">
+          {{ t("Pay Now") }}
+        </template>
+
+        <template v-else-if="user?.subscriptionStatus === SubscriptionStatus.past_due">
+          {{ t("Fix Payment") }}
+        </template>
+      </Button>
+    </form>
+  </template>
+  <template v-else>
+    <Button
+      class="btn btn-neutral btn-circle btn-sm btn-ghost"
+      icon="material-symbols:refresh"
+      @click="refresh"
+    />
+  </template>
 </template>
