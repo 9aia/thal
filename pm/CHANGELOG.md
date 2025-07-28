@@ -8,18 +8,24 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ### Added
 
-- Add character URL sharing functionality in character builder
+- Added the ability to share characters directly from the Character Builder page
 
 ### Changed
 
-- Update button labels in CharacterBuilder
-- Changed sharing button functionality to share character URL instead of username in the my characters item
+- Updated the "Open chat" button in the Character Builder to "Send message" for clarity
+- Improved the "Share character" functionality in character item menus to copy a direct chat link
+
+### Removed
+
+- Removed the "This character uses AI to simulate interactions. Please use responsibly." alert in chat conversations
 
 ### Fixed
 
+- Improved the payment flow to prevent duplicate checkout sessions
+- Ensured smoother navigation to the app for existing subscriptions
+- Improved navigation when clicking "Characters" in the new chat sidebar, which now automatically closes the sidebar
 - Fixed subscription status banner not showing subscription activation being processed when checkout is complete and the system did not process the subscription yet
-- Implemented a condition to redirect to the checkout page when the checkout is already open
-- Fixed  "Discover characters" in new chat view not closing sidebar
+- The subscription status form now dynamically shows a refresh button when trial activation is pending
 - Fixed "Early Access" release type detection and release banner display
 
 ### Removed
