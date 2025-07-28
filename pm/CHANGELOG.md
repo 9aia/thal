@@ -6,6 +6,10 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix "Discover characters" in new chat view not closing sidebar
+
 ### Removed
 
 - Removed experimental alert from chat

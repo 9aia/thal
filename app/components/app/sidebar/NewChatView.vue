@@ -32,6 +32,7 @@ const discoverItems = computed<MenuItemType[]>(() => [
     icon: 'material-symbols:person-search-outline-rounded',
     name: t('Characters'),
     href: '/app/discover',
+    onClick: () => sidebar.open.value = false,
   },
 ])
 

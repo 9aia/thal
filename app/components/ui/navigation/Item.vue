@@ -31,7 +31,7 @@ const styles = baseStyles()
 </script>
 
 <template>
-  <template v-if="!!is.onClick">
+  <template v-if="!!is.onClick && !is.href">
     <button
       :class="styles.button({ class: props.class })"
       @click="is.onClick"
@@ -107,6 +107,7 @@ const styles = baseStyles()
       :class="styles.a({ class: props.class })"
       :target="is.newTab ? '_blank' : undefined"
       :localize="is.localize ?? true"
+      @click="is.onClick"
     >
       <MenuItem :is="is">
         <template #title>
