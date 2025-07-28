@@ -6,6 +6,10 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Removed
+
+- Removed experimental alert from chat
+
 ## [0.1.3] - 2025-07-27
 
 ### Fixed

@@ -35,8 +35,6 @@ const hasMessages = computed(() => !!historyQuery.data.value?.length)
       class="mb-4"
     />
 
-    <ExperimentalAlert />
-
     <div v-if="hasMessages" class="mt-6">
       <History />
     </div>
