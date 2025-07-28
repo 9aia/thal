@@ -17,6 +17,8 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ### Fixed
 
+- Fixed subscription status banner not showing subscription activation being processed when checkout is complete and the system did not process the subscription yet
+- Implemented a condition to redirect to the checkout page when the checkout is already open
 - Fixed  "Discover characters" in new chat view not closing sidebar
 - Fixed "Early Access" release type detection and release banner display
 

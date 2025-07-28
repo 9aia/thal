@@ -88,7 +88,7 @@ const h2 = tv({
         </template>
       </h2>
 
-      <SubscriptionStatusForm button-class="btn-xs w-max" keep-cta />
+      <SubscriptionStatusForm button-class="btn-xs w-max" />
     </div>
   </AppNote>
 </template>

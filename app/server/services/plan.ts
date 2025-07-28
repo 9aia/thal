@@ -9,72 +9,6 @@ import { getStripe } from '~/utils/stripe'
 import type { User, UserSelect } from '~~/db/schema'
 import { PlanType, SubscriptionStatus, users } from '~~/db/schema'
 
-export async function handleChargeRefunded(
-  event: H3Event,
-  orm: DrizzleD1Database<any>,
-  charge: Stripe.Charge,
-) {
-  const { STRIPE_SECRET_KEY } = useRuntimeConfig(event)
-
-  if (!STRIPE_SECRET_KEY)
-    throw internal('STRIPE_SECRET_KEY is not set in the environment')
-
-  const customerId = charge.customer
-
-  if (!customerId) {
-    throw badRequest('Customer ID not found in charge')
-  }
-
-  const [user] = await orm.select()
-    .from(users)
-    .where(eq(users.stripeCustomerId, customerId as string))
-
-  if (!user) {
-    throw badRequest('User not found')
-  }
-
-  if (!user.subscriptionId) {
-    throw badRequest('User does not have a subscription')
-  }
-
-  const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY! })
-
-  try {
-    await stripe.subscriptions.cancel(user.subscriptionId)
-  }
-  catch (err) {
-    throw internal(`Failed to cancel subscription: ${err instanceof Error ? err.message : 'Internal server error'}`)
-  }
-}
-
-export async function updateSubscription(
-  orm: DrizzleD1Database<any>,
-  subscription: Stripe.Subscription,
-) {
-  const userId = subscription.metadata.userId
-
-  if (!userId) {
-    throw internal('User not found')
-  }
-
-  const subscriptionData: Partial<UserSelect> = {
-    subscriptionStatus: SubscriptionStatus[subscription.status],
-    stripeCustomerId: subscription.customer as string,
-    subscriptionId: subscription.id,
-    plan: PlanType.STANDARD_MONTHLY,
-    updatedAt: now(),
-  }
-
-  if (subscription.status === 'trialing') {
-    subscriptionData.freeTrialUsed = true
-  }
-
-  await orm
-    .update(users)
-    .set(subscriptionData)
-    .where(and(eq(users.id, userId), eq(users.subscriptionId, subscription.id)))
-}
-
 export async function createSubscription(
   orm: DrizzleD1Database<any>,
   subscription: Stripe.Subscription,
@@ -116,6 +50,34 @@ export async function createSubscription(
     .where(eq(users.id, userId))
 }
 
+export async function updateSubscription(
+  orm: DrizzleD1Database<any>,
+  subscription: Stripe.Subscription,
+) {
+  const userId = subscription.metadata.userId
+
+  if (!userId) {
+    throw internal('User not found')
+  }
+
+  const subscriptionData: Partial<UserSelect> = {
+    subscriptionStatus: SubscriptionStatus[subscription.status],
+    stripeCustomerId: subscription.customer as string,
+    subscriptionId: subscription.id,
+    plan: PlanType.STANDARD_MONTHLY,
+    updatedAt: now(),
+  }
+
+  if (subscription.status === 'trialing') {
+    subscriptionData.freeTrialUsed = true
+  }
+
+  await orm
+    .update(users)
+    .set(subscriptionData)
+    .where(and(eq(users.id, userId), eq(users.subscriptionId, subscription.id)))
+}
+
 export async function deletedSubscription(
   orm: DrizzleD1Database<any>,
   subscription: Stripe.Subscription,
@@ -137,6 +99,44 @@ export async function deletedSubscription(
       updatedAt: now(),
     })
     .where(and(eq(users.id, userId), eq(users.subscriptionId, subscription.id)))
+}
+
+export async function handleChargeRefunded(
+  event: H3Event,
+  orm: DrizzleD1Database<any>,
+  charge: Stripe.Charge,
+) {
+  const { STRIPE_SECRET_KEY } = useRuntimeConfig(event)
+
+  if (!STRIPE_SECRET_KEY)
+    throw internal('STRIPE_SECRET_KEY is not set in the environment')
+
+  const customerId = charge.customer
+
+  if (!customerId) {
+    throw badRequest('Customer ID not found in charge')
+  }
+
+  const [user] = await orm.select()
+    .from(users)
+    .where(eq(users.stripeCustomerId, customerId as string))
+
+  if (!user) {
+    throw badRequest('User not found')
+  }
+
+  if (!user.subscriptionId) {
+    throw badRequest('User does not have a subscription')
+  }
+
+  const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY! })
+
+  try {
+    await stripe.subscriptions.cancel(user.subscriptionId)
+  }
+  catch (err) {
+    throw internal(`Failed to cancel subscription: ${err instanceof Error ? err.message : 'Internal server error'}`)
+  }
 }
 
 export async function pauseStripeSubscription(stripe: Stripe, subscriptionId: string) {

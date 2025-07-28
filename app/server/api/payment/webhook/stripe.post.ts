@@ -50,7 +50,7 @@ export default eventHandler(async (event) => {
       const subscription = stripeEvent.data.object as Stripe.Subscription
       await updateSubscription(orm, subscription as Stripe.Subscription)
     },
-    // For the customer.subscription.deleted event, you can revoke access to premium features, update the user’s subscription status, or send a cancellation confirmation email.
+    // TODO: For the customer.subscription.deleted event, you can revoke access to premium features, update the user’s subscription status, or send a cancellation confirmation email.
     'customer.subscription.deleted': async () => {
       const subscription = stripeEvent.data.object as Stripe.Subscription
       await deletedSubscription(orm, subscription as Stripe.Subscription)

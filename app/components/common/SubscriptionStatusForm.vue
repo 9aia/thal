@@ -5,7 +5,6 @@ import { SubscriptionStatus } from '~~/db/schema'
 const props = defineProps<{
   class?: string
   buttonClass?: string
-  keepCta?: boolean
 }>()
 
 const user = useUser()
@@ -83,7 +82,7 @@ const action = computed(() => {
     :class="form({ class: props.class })"
   >
     <Button
-      v-if="!subscriptionQuery.data.value?.processingTrialActivation || props.keepCta"
+      v-if="!subscriptionQuery.data.value?.processingTrialActivation"
       type="submit"
       :class="button({ status: user?.subscriptionStatus ?? SubscriptionStatus.not_subscribed, class: props.buttonClass })"
       icon="material-symbols:north-west-rounded"

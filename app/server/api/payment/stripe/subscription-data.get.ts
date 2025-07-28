@@ -17,22 +17,23 @@ export default defineEventHandler(async (event) => {
     }
   }
 
+  const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY! })
+  const checkoutStatus = await getCheckoutStatus(stripe, user)
   const subscriptionId = user?.subscriptionId
+
+  const processingTrialActivation = checkoutStatus === 'complete' && !user.plan && !user.freeTrialUsed
 
   if (!subscriptionId) {
     return {
       cameFromCheckoutInTrialMode: false,
-      processingTrialActivation: false,
+      processingTrialActivation,
     }
   }
 
-  const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY! })
-
   const subscription = await stripe.subscriptions.retrieve(subscriptionId)
-  const checkoutStatus = await getCheckoutStatus(stripe, user)
 
   return {
     cameFromCheckoutInTrialMode: !!subscription.trial_end,
-    processingTrialActivation: checkoutStatus === 'complete' && !user.plan && !user.freeTrialUsed,
+    processingTrialActivation,
   }
 })

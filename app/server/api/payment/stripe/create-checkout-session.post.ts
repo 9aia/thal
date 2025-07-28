@@ -5,7 +5,7 @@ import { now } from '~/utils/date'
 import { getAppUrl } from '~/utils/h3'
 import { internal } from '~/utils/nuxt'
 import { getStripe } from '~/utils/stripe'
-import { users } from '~~/db/schema'
+import { SubscriptionStatus, users } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const { STRIPE_SECRET_KEY } = useRuntimeConfig(event)
@@ -20,25 +20,18 @@ export default eventHandler(async (event) => {
 
   const stripe = getStripe({ stripeKey: STRIPE_SECRET_KEY! })
 
-  // TODO: check the usage of this endpoint even after the checkout is complete
-  // TODO: check if we can do this, because this endpoint is also used inside settings
+  // TODO: refactor: move this condition inside the places where we redirect to the checkout page
+  if (user.checkoutId) {
+    const checkout = await stripe.checkout.sessions.retrieve(user.checkoutId)
 
-  // TODO: Set this shortcut inside the landing page instead
-  // if (user.checkoutId) {
-  //   const checkout = await stripe.checkout.sessions.retrieve(user.checkoutId)
+    if (checkout.status === 'complete') {
+      return sendRedirect(event, '/app')
+    }
 
-  //   // if (checkout.status === 'complete') {
-  //   // if (user.subscriptionStatus === SubscriptionStatus.active || user.subscriptionStatus === SubscriptionStatus.trialing || user.subscriptionStatus === SubscriptionStatus.past_due) {
-  //   //   return sendRedirect(event, '/app')
-  //   // }
-
-  //   // return sendRedirect(event, '/checkout/success')
-  //   // }
-
-  //   if (checkout.status === 'open' && user.subscriptionStatus === SubscriptionStatus.not_subscribed) {
-  //     return sendRedirect(event, checkout.url!)
-  //   }
-  // }
+    if (checkout.status === 'open' && user.subscriptionStatus === SubscriptionStatus.not_subscribed) {
+      return sendRedirect(event, checkout.url!)
+    }
+  }
 
   const appUrl = getAppUrl(event).toString()
   const successUrl = new URL('/app', appUrl)
