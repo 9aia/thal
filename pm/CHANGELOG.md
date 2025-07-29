@@ -6,6 +6,8 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+## [0.1.5] - 2025-07-28
+
 ### Fixed
 
 - Fix incorrect read of the runtime env to inform correct release banner
