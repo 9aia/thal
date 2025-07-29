@@ -6,6 +6,10 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Added
+
+- Added a new category to the discover page: Politics & Government
+
 ## [0.1.5] - 2025-07-28
 
 ### Fixed

@@ -193,6 +193,15 @@ export const categories = ([
     example: 'A quirky antique collector sharing stories behind their finds, a futuristic inventor showcasing their latest gadget, or a volunteer organizing a community event.',
     color: 'text-gray-500',
   },
+  {
+    id: 21,
+    slug: 'politics-government',
+    name: t('Politics & Government'),
+    icon: 'material-symbols:campaign-outline-rounded',
+    description: t('Characters discussing political systems, civic leadership, government services, and public policy.'),
+    example: 'A passionate senator presenting a new bill, a campaign strategist planning outreach, or a citizen debating policy at a local forum.',
+    color: 'text-red-500',
+  },
 ] as const satisfies CategoryConfig[])
   .sort((a, b) => a.name.localeCompare(b.name))
 

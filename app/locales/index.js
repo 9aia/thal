@@ -1207,5 +1207,11 @@
   },
   "Send message": {
     "pt": "Enviar mensagem"
+  },
+  "Politics & Government": {
+    "pt": "Política e Governo"
+  },
+  "Characters discussing political systems, civic leadership, government services, and public policy.": {
+    "pt": "Personagens discutindo sistemas políticos, liderança cívica, serviços governamentais e políticas públicas."
   }
 }
