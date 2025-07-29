@@ -14,7 +14,7 @@ function useReleaseType() {
       return 'preview'
     }
 
-    if (runtimeConfig.public.RUNTIME_ENV === 'production') {
+    if (runtimeConfig.public.RUNTIME_ENV === 'prod') {
       if (semver.lt(version, '1.0.0')) {
         return 'early-access'
       }
