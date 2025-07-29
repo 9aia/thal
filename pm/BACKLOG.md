@@ -10,16 +10,14 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### High priority
 
-- Show "processing" if the Stripe docker isn't running
 - Deal with long history on translate
 - Fix listening to long messages
 - Handle longer contexts
-- Use only name instead of name and last name
 - Fix error page not showing translation
+- Ensure the app note is up to date
 
 ### Medium priority
 
-- How to ensure the app note is up to date?
 - Allow users to use only one session
 - Handle invalid sessions
 
@@ -32,12 +30,13 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### High priority
 
-- Add conversation starters
+- Add conversation starters for users
 - Add follow up message suggestions
 - Implement basic analytics to track user engagement and app performance
 
 ### Medium priority
 
+- Add a system character for creating/editing/finding characters
 - Handle better the error retry and loading states on subscription query
 - Add modal for checkout cancellation
 - Add date to Whats New modal articles
@@ -52,12 +51,9 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Add calls
 - Add a "My Characters" section/accordion in the "New Chat"
 - ---
-- Add pause icon button to message listen button
 - Add audio pause/resume button to chat messages
 - Open contact view from query
 - Add chat item option "Delete chat"
-- Add button to create character in the discover characters page (aside of search field)
-- Add character search to new-chat view search
 - Add "Delete character" and "Edit character" actions to chat header options and contact view if you're the owner
 - Add query param to add contact from URL (eg. /app/chat/username?add=true and /app?add-contact=username) and others
 - Add drawer search query params when opening drawers
@@ -65,15 +61,17 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Low priority
 
-- Add character search results to chat and contact search
+- Add button to create character in the discover characters page (aside of search field)
+- Add search to "My Characters"
+- Allow users to search for characters in the chat list, "New Chat" search results
 - Add multiple message TTS player
 - Save message input state and other fields in local storage
-- Add date stamps in chat
 - Add dark theme
+- Add date stamps in chat
 - Add a deleted/non-existent section in contacts
-- Add localized forms for feedback, etc
 - Add character knowledge
 - Add media messages support, such as audio and picture
+- Add localized forms for feedback, etc
 
 ## Enhancements
 
@@ -153,8 +151,14 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## Performance
 
+### Medium priority
+
+- Save translations in the database (it will be useful for analytics as well)
+  - Refactor translate endpoint into `/api/message/translate` with `messageId` param?
+
 ### Low priority
 
+- Refactor right sidebar into its own sidebar like the left sidebar
 - Reduce the bundle size with valibot
 - Optimize invalidations (use queryClient.setQueryData)
 - Skip categorization on discoverability change
@@ -180,18 +184,17 @@ description: A prioritized list of tasks, features, and ideas for future develop
 ### High priority
 
 - Fix https://github.com/drizzle-team/drizzle-orm/issues/4640
+- Add auto-migration for the database on deploy
 
 ### Medium priority
 
-- Create a dynamic pricing page that fetches the subscription plans from the API?
-- Refactor translate endpoint into `/api/message/translate` with `messageId` param?
 - Refactor synthesizeSpeech endpoint into `/api/message/synthesize-speech` with `messageId` param?
-- Refactor right sidebar into its own sidebar like the left sidebar
 - Improve logging
-- Add auto-migration for the database on deploy
+- Create a dynamic pricing page that fetches the subscription plans from the API?
 
 ### Low priority
 
+- Implement https://code.visualstudio.com/docs/copilot/copilot-customization to improve commit messages
 - Refactor ArkUI to RekaUI
 - Remove unnecessary `contact` from chat table?
 - Add client-side error tracking

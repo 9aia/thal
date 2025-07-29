@@ -67,13 +67,21 @@ description: A timeline of key milestones and upcoming features or releases.
 #### Language Assistance
 
 - Implement message corrector
-- Add male voice
-- Add suggestions in chat
+- Add speech synthesis settings (voice and locale)
+- Add suggestions for the first message
+- Add opt-in for follow-ups
+  - Generate possible follow-ups (maybe option on the message bubble?)
 - Add modal "Dictionary"/reference (plural forms, conjugation, participles)
-- Add assistant
-  - Add a help request item in the header menu (AI-driven).
-  - Add settings to adjust AI helper responses.
+- Add AI assistant
+  - Add a help request item in the header menu (AI-driven)
+  - Add a message action to ask the AI assistant for help with the message
+  - Add settings to adjust AI helper responses
 - Stream translation
+
+#### Chats
+
+- Allow characters to send messages to users
+- Allow users to block characters
 
 #### Generative Character Building
 
@@ -85,6 +93,7 @@ description: A timeline of key milestones and upcoming features or releases.
 - Add character edit button (if its yours) to contact options
 - Add recently created section in new chat view
 - Add profile photos (generate or upload)
+- Add recent added characters section to the Discover page
 
 #### Support
 
