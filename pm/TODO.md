@@ -5,6 +5,7 @@ description: Tasks and items for the release.
 # TODO
 
 - Fix character builder not working when navigating to it from the my characters page (missing characterId)
+- Find a way to use the Thal app for free for selected users
 
 ## 0.1.5
 
