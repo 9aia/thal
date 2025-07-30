@@ -29,20 +29,8 @@ const queryPromises = [
 await Promise.all(queryPromises)
 
 const hasMessages = computed(() => !!historyQuery.data.value?.length)
-
-watch(contactQuery.error, (error) => {
-  if (error)
-    toast.error(t('Error fetching contact'))
-})
-
 const isContact = computed(() => !!contactQuery.data.value?.id)
 const isCharacterDeleted = computed(() => !characterQuery.data.value?.id)
-
-watch(characterQuery.error, (error) => {
-  if (error)
-    toast.error(t('Error fetching character'))
-})
-
 const createdAt = computed(() => {
   return characterQuery.data.value?.createdAt
     ? [
@@ -53,6 +41,16 @@ const createdAt = computed(() => {
         },
       ]
     : undefined
+})
+
+watch(contactQuery.error, (error) => {
+  if (error)
+    toast.error(t('Error fetching contact'))
+})
+
+watch(characterQuery.error, (error) => {
+  if (error)
+    toast.error(t('Error fetching character'))
 })
 
 const isLoading = computed(() => contactQuery.isLoading.value || characterQuery.isLoading.value)

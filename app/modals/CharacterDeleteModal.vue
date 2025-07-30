@@ -1,29 +1,31 @@
 <script setup lang="ts">
-import { useFieldError, useFieldValue, useForm } from 'vee-validate'
 import { T } from '@psitta/vue'
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
-import type { Character } from '~/types'
+import { useFieldError, useFieldValue, useForm } from 'vee-validate'
 import queryKeys from '~/queryKeys'
 import { chatListSearch } from '~/store'
 
 const props = defineProps<{
-  character?: Character
+  characterUsername: string
 }>()
+
+const emit = defineEmits<{
+  (e: 'delete'): void
+}>()
+
+const isOpen = defineModel({ default: false })
 
 const { t } = useI18nExperimental()
 const toast = useToast()
 const queryClient = useQueryClient()
-
-const isOpen = defineModel({ default: false })
-
-const { handleSubmit, resetForm } = useForm()
-
 const { params } = useRoute()
 const localeWithDefaultRegion = useLocaleWithDefaultRegion()
 
+const { handleSubmit, resetForm } = useForm()
+
 const deleteCharacterMutation = useMutation({
   mutationFn: async () => {
-    return $fetch(`/api/character/${props.character?.usernames?.text}` as '/api/character/:username', {
+    return $fetch(`/api/character/${props.characterUsername}` as '/api/character/:username', {
       method: 'DELETE',
     })
   },
@@ -38,7 +40,7 @@ const deleteCharacterMutation = useMutation({
       queryKey: queryKeys.discoverCharacters(localeWithDefaultRegion.value),
     })
 
-    const username = props.character!.usernames!.text
+    const username = props.characterUsername
 
     queryClient.invalidateQueries({
       queryKey: queryKeys.chatsSearch(localeWithDefaultRegion.value, chatListSearch.value),
@@ -48,6 +50,10 @@ const deleteCharacterMutation = useMutation({
       navigateTo('/app/discover')
 
     isOpen.value = false
+
+    toast.success(t('Character deleted'))
+
+    emit('delete')
   },
 })
 
@@ -66,7 +72,7 @@ function checkUsernameRule(inputValue: string) {
   if (!inputValue)
     return t('Username is required')
 
-  return inputValue === props.character?.usernames?.text || t('Username does not match')
+  return inputValue === props.characterUsername || t('Username does not match')
 }
 
 const isFieldError = useFieldError('username')
@@ -107,7 +113,7 @@ const isUsernameInvalid = computed(() => {
         <T text="To confirm, please insert {username} below:" :values="{ username: true }">
           <template #username>
             <span class="text-warning font-bold">
-              {{ character?.usernames?.text }} {{ ' ' }}
+              {{ characterUsername }} {{ ' ' }}
             </span>
           </template>
         </T>

@@ -26,7 +26,7 @@ export default eventHandler(async (event) => {
       .leftJoin(usernames, eq(characters.id, usernames.characterId))
       .where(and(isNull(characters.deletedAt), eq(usernames.text, characterUsername)))
 
-    if (!result.Character.id)
+    if (!result?.Character?.id)
       throw noContent('There is no character with this username, so there is no draft to edit')
 
     characterId = result.Character.id

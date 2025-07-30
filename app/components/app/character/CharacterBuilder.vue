@@ -22,6 +22,11 @@ const emit = defineEmits<{
 const { t } = useI18nExperimental()
 const localWithDefaultRegion = useLocaleWithDefaultRegion()
 const toast = useToast()
+const route = useRoute()
+const queryClient = useQueryClient()
+const toastPaymentRequiredOptions = useToastPaymentRequiredOptions()
+
+const usernameParam = computed(() => route.params.username as string)
 
 interface FormValues {
   prompt: string
@@ -88,8 +93,6 @@ const user = useUser()
 
 const hasFormErrors = useHasFormErrors(form)
 const loading = ref(false)
-const queryClient = useQueryClient()
-const toastPaymentRequiredOptions = useToastPaymentRequiredOptions()
 
 const createCharacterDraft = useMutation({
   mutationFn: async (data: FormValues) => {
@@ -144,14 +147,6 @@ const isEditing = computed(() => !!characterBuildId.value || !!props.characterUs
 const editingUsername = computed(() => {
   return buildQuery.data.value?.character?.username || ''
 })
-const copyText = useClipboard()
-
-function copyShareCharacterUrl() {
-  const url = window.location.origin
-  const usernameUrl = `${url}/app/chat/${editingUsername.value}`
-
-  copyText(usernameUrl)
-}
 
 const submit = form.handleSubmit(async (data) => {
   loading.value = true
@@ -214,16 +209,9 @@ const hasChanges = computed(() => {
 
 const sidebar = useSidebar(LEFT_SIDEBAR_PROVIDE_KEY)
 
-function handleGoToChat() {
-  sidebar.open.value = false
-  navigateTo(`/app/chat/${editingUsername.value}?build-character`)
-}
-
-const route = useRoute()
-const username = computed(() => route.params.username as string)
 const isAlreadyChatting = computed(() => {
   // check if username is in the url matches with the character username
-  return username.value === editingUsername.value
+  return usernameParam.value === editingUsername.value && route.path.startsWith('/app/chat/')
 })
 
 function handleApproved(characterId: number) {
@@ -240,6 +228,11 @@ function onResourceFetch() {
   if (!isSubmitButtonDisabled.value) {
     submit()
   }
+}
+
+function handleOpenChat() {
+  navigateTo(`/app/chat/${editingUsername.value}?build-character`)
+  sidebar.open.value = false
 }
 </script>
 
@@ -268,7 +261,7 @@ function onResourceFetch() {
               <button
                 v-else
                 class="text-blue-500 focus:outline-primary focus:outline-offset-4 focus:outline-2 rounded-full cursor-pointer"
-                @click="handleGoToChat"
+                @click="handleOpenChat()"
               >
                 {{ buildQuery.data.value?.character!.name }}
               </button>
@@ -276,29 +269,14 @@ function onResourceFetch() {
           </T>
         </div>
 
-        <div class="flex flex-wrap gap-2 items-center px-6">
-          <Button
-            v-if="isEditing"
-            class="btn btn-xs btn-dash btn-warning"
-            icon="material-symbols:ios-share-rounded"
-            icon-class="text-xl"
-            :disabled="loading"
-            @click="copyShareCharacterUrl"
-          >
-            {{ t("Share") }}
-          </Button>
-
-          <Button
-            v-if="isEditing && !isAlreadyChatting"
-            class="btn btn-xs btn-dash btn-secondary"
-            icon="material-symbols:chat-paste-go-outline-rounded"
-            icon-class="text-xl"
-            :disabled="loading"
-            @click="handleGoToChat"
-          >
-            {{ t("Send message") }}
-          </Button>
-        </div>
+        <CharacterBuilderActions
+          :is-editing="isEditing"
+          :is-already-chatting="isAlreadyChatting"
+          :loading="loading"
+          :editing-username="editingUsername"
+          @delete="emit('back')"
+          @message="handleOpenChat()"
+        />
       </template>
 
       <SettingSection

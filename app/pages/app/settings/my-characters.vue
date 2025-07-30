@@ -17,11 +17,11 @@ const myCharactersQuery = useCharacterListQuery()
 await myCharactersQuery.suspense()
 
 const deleteCharacter = ref(false)
-const characterToDelete = ref<Character>()
+const characterUsernameToDelete = ref<string>()
 
-function handleDeleteCharacter(character: Character) {
+function handleDeleteCharacter(username: string) {
   deleteCharacter.value = true
-  characterToDelete.value = character
+  characterUsernameToDelete.value = username
 }
 
 async function handleGoToChat(username: string) {
@@ -30,7 +30,11 @@ async function handleGoToChat(username: string) {
 
 function handleCreateCharacter(characterId?: number | null, username?: string) {
   buildCharacter(characterId)
-  navigateTo(`/app/settings/build-character/${username}`)
+
+  if (username)
+    navigateTo(`/app/settings/build-character/${username}`)
+  else
+    navigateTo(`/app/settings/build-character`)
 }
 </script>
 
@@ -72,7 +76,7 @@ function handleCreateCharacter(characterId?: number | null, username?: string) {
                     :name="character.characterLocalizations?.[0]?.name"
                     :username="character.usernames?.text || undefined"
                     :category-id="character.categoryId"
-                    @delete="handleDeleteCharacter(character as unknown as Character)"
+                    @delete="handleDeleteCharacter(character.usernames?.text as string)"
                     @edit="handleCreateCharacter(character.id, character.usernames?.text as string)"
                     @chat="handleGoToChat(character.usernames?.text as string)"
                     @click="handleCreateCharacter(character.id, character.usernames?.text as string)"
@@ -92,9 +96,10 @@ function handleCreateCharacter(characterId?: number | null, username?: string) {
             </Button>
           </div>
 
-          <CharacterDeleteModal
+          <LazyCharacterDeleteModal
+            v-if="deleteCharacter && characterUsernameToDelete"
             v-model="deleteCharacter"
-            :character="characterToDelete!"
+            :character-username="characterUsernameToDelete"
           />
         </SettingSection>
       </div>
