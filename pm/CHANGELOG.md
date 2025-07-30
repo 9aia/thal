@@ -10,6 +10,10 @@ description: A detailed, chronological record of all changes made to a project, 
 
 - Added a new category to the discover page: Politics & Government
 
+### Changed
+
+- Updated the "AI character" description to be more clear and concise
+
 ## [0.1.5] - 2025-07-28
 
 ### Fixed
