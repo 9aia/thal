@@ -8,15 +8,28 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ### Added
 
-- Added a new category to the discover page: Politics & Government
+- Introduced a new "Politics & Government" category for characters
+- Implemented a character limit for chat messages
+- Added a confirmation message after successfully deleting a character
+- Added a "Delete" option directly within the Character Builder for easier character management
 
 ### Changed
 
-- Updated the "AI character" description to be more clear and concise
+- Updated the AI disclosure message in chat conversations to provide more comprehensive information about AI interactions
+- Renamed the "Send message" button to "Message" in the Character Builder
 
 ### Enhanced
 
-- Enhanced character draft prompts with additional instructions for clarity and consistency
+- Improved the AI guidance for character creation and editing, resulting in more accurate and refined character descriptions and instructions
+- Refined AI chat behavior to ensure characters stay more consistently within their defined personalities and knowledge base
+
+### Fixed
+
+- Ensured character drafts load correctly when editing an existing character
+
+### Beautified
+
+- Redesigned character action buttons (Message, Delete, Share) in the Character Builder for a cleaner look
 
 ## [0.1.5] - 2025-07-28
 
