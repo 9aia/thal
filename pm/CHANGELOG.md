@@ -14,6 +14,10 @@ description: A detailed, chronological record of all changes made to a project, 
 
 - Updated the "AI character" description to be more clear and concise
 
+### Enhanced
+
+- Enhanced character draft prompts with additional instructions for clarity and consistency
+
 ## [0.1.5] - 2025-07-28
 
 ### Fixed

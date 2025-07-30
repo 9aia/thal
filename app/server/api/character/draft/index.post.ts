@@ -45,9 +45,11 @@ export default eventHandler(async (event) => {
   if (!generateCharacterRateLimit.success)
     throw rateLimit()
 
-  const { responseSchema, guidelines, createIntro, createOutro } = getCharacterDraftPrompt()
+  const { responseSchema, guidelines, createIntro, createOutro, createInstructions } = getCharacterDraftPrompt()
   const systemInstruction = `
     ${createIntro}
+
+    ${createInstructions}
 
     ${guidelines}
 

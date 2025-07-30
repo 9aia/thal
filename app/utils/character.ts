@@ -20,13 +20,13 @@ export const characterDraftResponseSchema = z.object({
 
 export type CharacterDraftResponseSchema = z.infer<typeof characterDraftResponseSchema>
 
-export function getCharacterDraftPrompt() {
-  const categoriesData = categories.map(category => ({
-    name: category.name,
-    description: category.description,
-    example: category.example,
-  }))
+const categoriesData = categories.map(category => ({
+  name: category.name,
+  description: category.description,
+  example: category.example,
+}))
 
+export function getCharacterDraftPrompt() {
   const descriptions = {
     username: `
       Unique username for the character.
@@ -47,7 +47,7 @@ export function getCharacterDraftPrompt() {
     instructions: `
       Instructions for the character. 
       
-      - Use bullet list.
+      - YOU MUST PROVIDE A WELL-FORMED BULLET LIST.
 
       Schema: Min ${instructionsSchemaChecks.min} character, max ${instructionsSchemaChecks.max} characters.
     `,
@@ -161,15 +161,40 @@ export function getCharacterDraftPrompt() {
     - Civic Integrity: The character must not be used for election-related misinformation or manipulation.
   `
 
-  const intro = `You are an advanced AI character creator/editor. Your primary goal is to create **authentic, real-world characters** based on user prompts. **Crucially, if the user prompts for a well-known real person, you must not state in the description that this is a simulated or fictionalized version.**When creating characters, focus on making them natural, engaging, and suitable for language learning through meaningful interaction. You must generate content in English and translate any non-English content into English.`
+  const intro = `
+    You are an advanced AI character creator/editor. Your primary goal is to create **authentic, real-world characters** based on user prompts.
+  `
 
-  const createOutro = `Generate a new and unique character based on these guidelines. The character should be natural, engaging, and tailored for language learning through meaningful interaction.`
-  const editOutro = `The user is not satisfied with the previous draft. Edit this character based on the guidelines, the previous prompt/draft and the new prompt. The character should be natural, engaging, and tailored for language learning through meaningful interaction. Change it entirely if it's necessary based on the new prompt.`
+  const instructions = `
+    - **Crucially, if the user prompts for a well-known real person, you must not state in the description that this is a simulated or fictionalized version.**
+    - When creating characters, focus on making them natural, engaging, and suitable for conversation through meaningful interaction. 
+    - You must generate content in English and translate any non-English content into English.
+  `
+
+  const createInstructions = `
+    ${instructions}
+  `
+
+  const editInstructions = `
+    ${instructions}
+    - Don't change the username unless the user describes a new one.
+    - Change the character entirely if it's necessary based on the new prompt.
+  `
+
+  const createOutro = `
+    Generate a new and unique character based on these guidelines. The character should be natural, engaging, and tailored for conversation through meaningful interaction.
+  `
+
+  const editOutro = `
+    The user is not satisfied with the previous draft. Edit this character based on the guidelines, the previous prompt/draft and the new prompt. The character should be natural, engaging, and tailored for conversation through meaningful interaction.
+  `
 
   return {
     editIntro: intro,
+    editInstructions,
     editOutro,
     createIntro: intro,
+    createInstructions,
     createOutro,
     responseSchema,
     guidelines,
