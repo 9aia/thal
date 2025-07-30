@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
 import { buildCharacter } from '~/store'
-import type { Character } from '~/types'
 
 definePageMeta({
   layout: 'settings',
