@@ -230,8 +230,8 @@
   "Share": {
     "pt": "Compartilhar"
   },
-  "Character deleted": {
-    "pt": "Personagem excluído"
+  "Character deleted.": {
+    "pt": "Personagem excluído."
   },
   "This character has been deleted.": {
     "pt": "Este personagem foi excluído."

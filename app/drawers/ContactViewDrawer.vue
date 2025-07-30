@@ -222,7 +222,7 @@ const items = computed(() => ([
           <MenuItem
             :is="{
               id: 'is-character-deleted',
-              name: t('Character deleted'),
+              name: t('Character deleted.'),
               description: t('This character has been deleted.'),
               meaning: 'warning',
               icon: 'material-symbols:warning-outline-rounded',
