@@ -9,26 +9,14 @@ description: A collection of ideas and feedback from stakeholders or team member
 ### General
 
 - Get a custom domain
+- Events? (Creates urgency) where characters and users can participate an event
+- Add statistics
+  - Core Metrics: Total Conversations, Total Messages, Total Characters Engaged, Days Active (Current Streak, Longest Streak, Total Active Days)
+  - Engagement Metrics: Average Messages per Conversation, Time Spent in Conversations, Most Used Feature, Favorite Character
 
-### Misc
+### Characters
 
-- Add a filter to What's New to show only patches
-- Add official characters
-- Add male voice
-- Implement translation mechanism fallback on deleted characters and inform bad performance
-- Add a "My Characters" link in Discover Characters
-- Add personal vocabulary lists that the chatbot can incorporate into the convo
-- Add message suggestion generator with a input to prompt (useful for generating from an idea)
-- Add next message suggestions (2-4 options)
-- Add onboarding (custom character)
-- Add active messages (characters send messages when user is offline)
-- Credit system instead of subscription
-- Add app tour (like ArkUI)
-- Add activities like minigames
-- Add actions (simulations), such as payment
-- Add basic analytics on user performance, such as words learned, conversation topics covered, and improvement over time
-- ---
-- Share chat from message, and continue
+- Add character timezone
 
 ### Character building
 
@@ -40,6 +28,11 @@ description: A collection of ideas and feedback from stakeholders or team member
 
 - Add suggested characters in "New chat" drawer
 - Discover with filter by difficulty (basic, intermediate, advanced)
+- Add a "My Characters" link in Discover Characters
+
+### New chat view
+
+- Add new chat sidebar section item at the top
 
 ### Contact view
 
@@ -58,22 +51,39 @@ description: A collection of ideas and feedback from stakeholders or team member
 
 ### Language assistance
 
+- Add male voice
 - Add dictionary modal
 - Generate vocabulary modal based on character, ongoing conversation, etc
 - Add feature to simplify the message or part of the message
+- Add message suggestion generator with a input to prompt (useful for generating from an idea)
+- Add personal vocabulary lists that the chatbot can incorporate into the convo
+- Implement translation mechanism fallback on deleted characters and inform bad performance
 
 ### Interface
 
+- Add app tour (like ArkUI)
 - Add keyboard shortcuts
 - Add setting search
+
+### Activities
+
+- Add activities like minigames
+- Add actions (simulations), such as payment
+
+### Support
+
+- Add onboarding (custom character)
+- Add a filter to What's New to show only patches
 
 ### Authentication
 
 - Add multiple authentication accounts to the same account
+- Handle multiple linked devices
 - Add login from QR code
 
 ### Chat features
 
+- Add media messages support, such as pictures/videos
 - Support multiple messages when user is offline
 - Add chat item option "Mark as unread"
 - Add "read more" to long messages
@@ -91,6 +101,7 @@ description: A collection of ideas and feedback from stakeholders or team member
 ### Subscription
 
 - Add different plans: (individual), family, business and school
+- Credit system instead of subscription
 
 ## Bugs
 

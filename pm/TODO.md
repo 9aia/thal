@@ -6,19 +6,46 @@ description: Tasks and items for the release.
 
 ## 0.1.6
 
-- Check message length using zod
-- Keep username in edition unless asked
-- Virtual scroll for chats, messages and discover
-- Add infinite queries to lists (specially chat)
-- Force test with ton of characters, chats, contacts and messages
-- Consider userId in query keys
+## 0.1.7
 
-- Find a way to use the Thal app for free for selected users
+### Issues related:
+
+- Force test with ton of characters, chats, contacts and messages
+- Virtual scroll for chats, messages and discover
+- Improve SEO, robots.txt, meta tags, etc
+  - Fix character seo tags
+- Add infinite queries to lists (specially chat)
+- Deal with long history on translate
+- Fix listening to long messages
+- Handle longer contexts
+
+### Post-release tasks:
 
 - Create characters
 - Share Thal with friends, family, colleagues, etc.
 
-## 0.1.7
+## 0.2.0
+
+- Save translations in the database (it will be useful for analytics and be used to improve the translation quality)
+  - Refactor translate endpoint into `/api/message/translate` with `messageId` param?
+
+- Allow users to see the translation on a popover by selecting a text/word on the message, also below the translation the user can COPY, LISTEN
+
+- Implement basic analytics to track user engagement and app performance
+
+## 0.3.0 - Language Assistance Improvements
+
+- Add text input correction confirmation popover
+  - Diffing
+  - Actions: "Regenerate", "Explain", "Apply", "Ignore"
+
+- Consider userId in query keys
+- Fix error page not showing translation
+- Ensure the app note is up to date
+- Add conversation starters for users
+- Add follow up message suggestions
+
+## 0.4.0
 
 - Language Practice Reminders: Send notifications encouraging users to engage in language practice with their saved characters.
   - Daily/week reminders to keep users practicing
@@ -26,14 +53,6 @@ description: Tasks and items for the release.
   - Add to terms that we can send email notifying messages of characters (after off-line daily)
 
 - After days not used the app, the character sends a message (powered by character memory to create a persuasive but with the character persnality). The idea is t ouse 1–2 facts of the user or them (e.g. name, hobby, last topic). Drop them naturally like “So, how’s your guitar practice going?” Boom—instant connection. (This improves Retention)
-
----
-
-## 0.2.0 - Language Assistance Improvements
-
-- Add text input correction confirmation popover
-  - Diffing
-  - Actions: "Regenerate", "Explain", "Apply", "Ignore"
 
 - Continue backlog
 - Look for TODOS inside the codebase

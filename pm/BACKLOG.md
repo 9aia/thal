@@ -10,12 +10,6 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### High priority
 
-- Deal with long history on translate
-- Fix listening to long messages
-- Handle longer contexts
-- Fix error page not showing translation
-- Ensure the app note is up to date
-
 ### Medium priority
 
 - Allow users to use only one session
@@ -30,37 +24,32 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### High priority
 
-- Add conversation starters for users
-- Add follow up message suggestions
-- Implement basic analytics to track user engagement and app performance
-
 ### Medium priority
 
+- Add `read` status
 - Add a system character for creating/editing/finding characters
-- Handle better the error retry and loading states on subscription query
-- Add modal for checkout cancellation
 - Add date to Whats New modal articles
-- Remove need to sign-in to access the app?
+- Remove need to sign-in to access the app
 - Create "about me" textarea in the profile page
-- Add language drawer containing UI language and translation settings
-- Add native language preference (eg. BR or PT)
-- Add English locale preference (eg. US or UK)
-- Add time zone preference
-- Implement character builder and contact manager to use sidebar param, eg. `/app/?build-character=motoko`
-- Add character unique voices
-- Add calls
+- Add locale and language configuration
+  - Add native language preference (eg. BR or PT)
+  - Add English locale preference (eg. US or UK)
+  - Add time zone preference
+- Handle better the error retry and loading states on subscription query
 - Add a "My Characters" section/accordion in the "New Chat"
-- ---
 - Add audio pause/resume button to chat messages
+- Implement character builder and contact manager to use sidebar param, eg. `/app/?build-character=motoko`
 - Open contact view from query
-- Add chat item option "Delete chat"
-- Add "Delete character" and "Edit character" actions to chat header options and contact view if you're the owner
 - Add query param to add contact from URL (eg. /app/chat/username?add=true and /app?add-contact=username) and others
-- Add drawer search query params when opening drawers
-- Add `read` status and add unread badge to chat item
 
 ### Low priority
 
+- Add curated characters
+- Add character memory
+- Add drawer search query params when opening drawers
+- Add chat item option "Delete chat"
+- Add "Unread" chat item option
+- Find a way to use the Thal app for free for selected users
 - Add button to create character in the discover characters page (aside of search field)
 - Add search to "My Characters"
 - Allow users to search for characters in the chat list, "New Chat" search results
@@ -69,30 +58,30 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Add dark theme
 - Add date stamps in chat
 - Add a deleted/non-existent section in contacts
-- Add character knowledge
-- Add media messages support, such as audio and picture
+- Allow users to send audios
+- Allow characters to send audios
+- Add calls
 - Add localized forms for feedback, etc
 
 ## Enhancements
 
 ### High priority
 
-- Add a welcome modal and add a link to it in the settings page
-  - Remove the Home page on mobile (Welcome modal will be better)
-
 ### Medium priority
 
+- Rethink welcome modal
+- Add a link to welcome modal in the settings page
 - Add social proof section to the landing page
-- Inform deleted character action such as translate, using tooltip
-- Improve SEO, robots.txt, meta tags, etc
 - Move emails to a third-party email service like Zoho Mail, Mailjet, etc. Some of them let you set branding for outgoing emails, even if it's sent programmatically.
 - Add email signature to all emails
-- Fix input autofocuses on navigate
 
 ### Low priority
 
+- Fix input autofocuses on navigate
+- Allow to save character in the character builder
 - Let users click on AI feature actions and receive feedback if they can't use them because of the subscription status, but save it locally to be used later after they subscribe
 - Improve branding and marketing
+- Inform deleted character action such as translate, using tooltip
 - Add high traffic UI alert
 - Hide contact list and discover search (or other search fields) when there are no results like in the chat list
 - Pass user name to Stripe from Google account
@@ -151,10 +140,9 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ## Performance
 
-### Medium priority
+### High priority
 
-- Save translations in the database (it will be useful for analytics as well)
-  - Refactor translate endpoint into `/api/message/translate` with `messageId` param?
+### Medium priority
 
 ### Low priority
 
