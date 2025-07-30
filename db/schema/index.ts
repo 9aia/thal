@@ -557,8 +557,14 @@ export const messageRelations = relations(messages, ({ one }) => ({
   }),
 }))
 
+export const messageContentSchema = z.string().max(1000)
+
+export const messageContentSchemaChecks = {
+  max: messageContentSchema._def.checks.find(check => check.kind === 'max')?.value,
+}
+
 export const messageSchema = z.object({
-  content: z.string(),
+  content: messageContentSchema,
   inReplyTo: inReplyToSchema.optional(),
 })
 

@@ -1210,5 +1210,8 @@
   },
   "Delete": {
     "pt": "Excluir"
+  },
+  "Message cannot be longer than {max} characters. Current length: {cur}": {
+    "pt": "A mensagem não pode ter mais de {max} caracteres. Comprimento atual: {cur}"
   }
 }

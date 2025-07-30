@@ -2,6 +2,7 @@
 import { useMagicKeys, useOnline } from '@vueuse/core'
 import { OPTIMISTIC_CHAT_ID } from '~/constants/chat'
 import { contentEditableRef, inReplyTos } from '~/store'
+import { messageContentSchema, messageContentSchemaChecks } from '~~/db/schema'
 
 const { t } = useI18nExperimental()
 const isOnline = useOnline()
@@ -26,6 +27,7 @@ await Promise.all(queryPromises)
 const chatId = computed(() => chatQuery.data.value?.id || OPTIMISTIC_CHAT_ID)
 const inReplyTo = computed(() => inReplyTos[username.value])
 const isCharacterDeleted = computed(() => !characterQuery.data.value?.id)
+const messageContentSchemaError = computed(() => !!messageContentSchema.safeParse(text.value).error)
 
 const sendMessageMutation = useSendMessage(username, {
   onMutate: ({ isRetrying }) => {
@@ -57,7 +59,7 @@ function handleSend(e: Event) {
 
   const decodedMessage = decodeHTML(text.value)
 
-  if (!decodedMessage.trim() || sendMessageMutation.isPending.value || sendMessageMutation.isError.value || shift.value) {
+  if (!decodedMessage.trim() || shift.value || sendMessageMutation.isPending.value || sendMessageMutation.isError.value || isCharacterDeleted.value || messageContentSchemaError.value) {
     return
   }
 
@@ -101,10 +103,14 @@ function handleSend(e: Event) {
         <Button
           v-if="!isEmpty"
           class="btn btn-circle btn-primary btn-ghost"
-          :disabled="sendMessageMutation.isError.value || sendMessageMutation.isPending.value || isCharacterDeleted"
+          :disabled="sendMessageMutation.isError.value || sendMessageMutation.isPending.value || isCharacterDeleted || messageContentSchemaError"
           :icon="icon"
           @click="handleSend"
         />
+      </div>
+
+      <div v-if="messageContentSchemaError" class="text-xs text-error mt-2">
+        {{ t('Message cannot be longer than {max} characters. Current length: {cur}', { max: messageContentSchemaChecks.max, cur: text.length }) }}
       </div>
     </div>
   </div>
