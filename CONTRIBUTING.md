@@ -132,6 +132,9 @@ code --new-window --remote "ssh-remote+codeshare@dev.thal.9aia.com:2222" ./codes
 > [!NOTE]
 > This is the recommended way to join a codeshare, but you will have to have the repository cloned locally.
 
+> [!WARNING]
+> Remember to set `dev.thal.9aia.com:3000` as a secure origin in `chrome://flags/#unsafely-treat-insecure-origin-as-secure` when joining the codeshare. Without this, you will not be able to authenticate to the application.
+
 To join a codeshare, you need to run the following command:
 
 ```bash
