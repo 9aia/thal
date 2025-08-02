@@ -4,9 +4,9 @@ description: Tasks and items for the release.
 
 # TODO
 
-## 0.1.6
+## 0.2.0
 
-## 0.1.7
+## 0.2.1
 
 ### Issues related:
 
@@ -24,7 +24,7 @@ description: Tasks and items for the release.
 - Create characters
 - Share Thal with friends, family, colleagues, etc.
 
-## 0.2.0
+## 0.3.0
 
 - Save translations in the database (it will be useful for analytics and be used to improve the translation quality)
   - Refactor translate endpoint into `/api/message/translate` with `messageId` param?
@@ -33,7 +33,7 @@ description: Tasks and items for the release.
 
 - Implement basic analytics to track user engagement and app performance
 
-## 0.3.0 - Language Assistance Improvements
+## 0.4.0 - Language Assistance Improvements
 
 - Add text input correction confirmation popover
   - Diffing
@@ -45,7 +45,7 @@ description: Tasks and items for the release.
 - Add conversation starters for users
 - Add follow up message suggestions
 
-## 0.4.0
+## 0.5.0
 
 - Language Practice Reminders: Send notifications encouraging users to engage in language practice with their saved characters.
   - Daily/week reminders to keep users practicing
