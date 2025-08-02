@@ -4,6 +4,7 @@ import { foreignKey, int, sqliteTable as table, text } from 'drizzle-orm/sqlite-
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
 import { z } from 'zod'
 import { createdAt, timestampOmits, timestamps, updatedAt } from '../columns.helpers'
+import type { MessageAnalyses, MessageAnalysis } from '~/types'
 
 // #region Usernames
 
@@ -536,7 +537,8 @@ export const messages = table('Message', {
   status: int('status').notNull().$type<MessageStatus>(),
   inReplyToId: int('in_reply_to_id'),
   isBot: int('is_bot', { mode: 'boolean' }).default(false).notNull(), // TODO: change to speaker username (user or bot)
-
+  analysisId: int('analysis_id')
+    .references(() => messageAnalyses.id, { onDelete: 'set null' }),
   ...timestamps,
 }, messages => ([
   foreignKey({
@@ -554,6 +556,10 @@ export const messageRelations = relations(messages, ({ one }) => ({
   inReplyTo: one(messages, {
     fields: [messages.inReplyToId],
     references: [messages.id],
+  }),
+  messageAnalysis: one(messageAnalyses, {
+    fields: [messages.id],
+    references: [messageAnalyses.id],
   }),
 }))
 
@@ -576,5 +582,12 @@ export type MessageSelect = z.infer<typeof selectMessageSchema>
 export type MessageInsert = z.infer<typeof insertMessageSchema>
 
 export type MessagePost = z.infer<typeof messageSchema>
+
+export const messageAnalyses = table('MessageAnalyses', {
+  id: int('id').primaryKey({ autoIncrement: true }),
+  data: text('data', { mode: 'json' }).$type<MessageAnalysis>().notNull(),
+  createdAt,
+  updatedAt,
+})
 
 // #endregion

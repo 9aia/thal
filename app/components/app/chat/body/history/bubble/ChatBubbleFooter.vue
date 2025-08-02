@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type { Mutation } from '@tanstack/vue-query'
 import { useQueryClient } from '@tanstack/vue-query'
+import { tv } from 'tailwind-variants'
 import type AudibleText from '~/components/app/ai/AudibleText.vue'
 import queryKeys from '~/queryKeys'
 import { edition, inReplyTos } from '~/store'
+import type { MessageAnalysis } from '~/types'
 import { type InReplyTo, MessageStatus } from '~~/db/schema'
 
 const props = defineProps<{
@@ -101,6 +103,36 @@ function handleDelete() {
     queryClient.getMutationCache().remove(mutation)
   })
 }
+
+const messageFeedback = computed<MessageAnalysis | null>(() => {
+  const feedback = [
+    { status: 'warning', text: 'You shouldn\'t be using `mayn\'t`. It\'s old English.' },
+    { status: 'error', text: 'You shouldn\'t be using `I\'ven\'t`' },
+  ]
+
+  if (feedback.length === 0) {
+    return null
+  }
+
+  const hasError = feedback.some(f => f.status === 'error')
+  const warningText = feedback.find(f => f.status === 'warning')?.text
+  const errorText = feedback.find(f => f.status === 'error')?.text
+
+  return {
+    status: hasError ? 'error' : 'warning',
+    text: errorText || warningText,
+  }
+})
+
+const messageFeedbackIcon = tv({
+  base: 'text-xl',
+  variants: {
+    status: {
+      error: 'text-error',
+      warning: 'text-warning',
+    },
+  },
+})
 </script>
 
 <template>
@@ -162,6 +194,14 @@ function handleDelete() {
         icon="material-symbols:delete-outline-rounded"
         icon-class="text-xl"
         @click="handleDelete"
+      />
+
+      <Button
+        v-if="messageFrom === 'user'"
+        class="btn btn-sm btn-circle btn-ghost btn-neutral group-hover:opacity-100! group-focus-within:opacity-100"
+        icon="material-symbols:info-outline-rounded"
+        :icon-class="messageFeedbackIcon({ status: messageFeedback?.status || 'warning' })"
+        @click="copyToClipboard()"
       />
     </div>
   </div>
