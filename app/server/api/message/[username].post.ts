@@ -1,5 +1,6 @@
 import { and, eq, isNull } from 'drizzle-orm'
 import { z } from 'zod'
+import { analyzeMessage } from '~/server/services/analyze'
 import { getHistory } from '~/server/services/messages'
 import { now } from '~/utils/date'
 import { chatHistoryToGemini, sendGeminiTextInTextOut } from '~/utils/gemini'
@@ -114,6 +115,7 @@ export default eventHandler(async (event) => {
   history.push({
     id: history.length + 1,
     from: 'user',
+    messageAnalysis: [],
     status: MessageStatus.seen,
     content,
     inReplyTo,
@@ -182,12 +184,28 @@ export default eventHandler(async (event) => {
     status: MessageStatus.seen,
   }
 
-  const [_, botMessageRecord] = await orm
+  const [userMessageRecord, botMessageRecord] = await orm
     .insert(messages)
     .values([
       userMessage,
       botMessagePayload,
     ]).returning()
+
+  // #endregion
+
+  // #region Analyze user message
+
+  const userMessageAnalysis = await analyzeMessage(event, {
+    messageId: userMessageRecord.id,
+    history,
+  })
+
+  history[history.length - 1]!.messageAnalysis = [
+    {
+      id: userMessageAnalysis.id,
+      data: userMessageAnalysis.data,
+    },
+  ]
 
   // #endregion
 
@@ -224,6 +242,7 @@ export default eventHandler(async (event) => {
     {
       id: botMessageRecord.id,
       from: 'bot',
+      messageAnalysis: [],
       status: MessageStatus.seen,
       content: botMessageContent,
       time: botMessageTime.getTime(),

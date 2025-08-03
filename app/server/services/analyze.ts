@@ -1,17 +1,24 @@
+import { and, eq, isNull } from 'drizzle-orm'
+import type { H3Event } from 'h3'
 import type { ResponseSchema } from '@google/generative-ai'
 import { SchemaType } from '@google/generative-ai'
-import { and, eq, isNull } from 'drizzle-orm'
-import { z } from 'zod'
-import { getHistory } from '~/server/services/messages'
-import type { MessageAnalysis } from '~/types'
-import { now } from '~/utils/date'
-import { promptGeminiJson } from '~/utils/gemini'
-import { getValidated } from '~/utils/h3'
 import { forbidden, internal, notFound, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
 import { canUseAIFeatures } from '~/utils/plan'
 import { characterLocalizations, messageAnalyses, messages } from '~~/db/schema'
+import type { History, MessageAnalysisData } from '~/types'
+import { promptGeminiJson } from '~/utils/gemini'
+import { now } from '~/utils/date'
 
-export default defineEventHandler(async (event) => {
+interface AnalyzeMessageOptions {
+  messageId: number
+  toNative?: boolean
+  history: History
+}
+
+export async function analyzeMessage(
+  event: H3Event,
+  { history, messageId, toNative = true }: AnalyzeMessageOptions,
+) {
   const { GCP_GEMINI_API_KEY, GEMINI_MODEL } = useRuntimeConfig(event)
 
   if (!GCP_GEMINI_API_KEY)
@@ -19,11 +26,6 @@ export default defineEventHandler(async (event) => {
 
   if (!GEMINI_MODEL)
     throw internal('GEMINI_MODEL is not set in the environment')
-
-  const { messageId, toNative } = await getValidated(event, 'body', z.object({
-    messageId: z.number(),
-    toNative: z.boolean().default(true).describe('Should translate to native language'),
-  }))
 
   const user = event.context.user
   const orm = event.context.orm
@@ -108,8 +110,6 @@ export default defineEventHandler(async (event) => {
   if (username.character && !username.character.deletedAt && !localization) {
     throw internal('Character localization not found')
   }
-
-  const history = await getHistory(orm, user, username.text!)
 
   const formattedHistory = history.map((message) => {
     if (message.from === 'user') {
@@ -212,7 +212,7 @@ export default defineEventHandler(async (event) => {
           `,
           example: 'warning',
         },
-        text: {
+        data: {
           type: SchemaType.STRING,
           description: `
             Include a summary or additional comment of the mistake.
@@ -220,11 +220,11 @@ export default defineEventHandler(async (event) => {
           example: 'Não use "fantasy" para traduzir "fantasia". O termo correto é "costume". O significado de "fantasy" é diferente e pode causar confusão.',
         },
       },
-      required: ['status', 'text'],
+      required: ['status', 'data'],
     },
   }
 
-  const data = await promptGeminiJson<MessageAnalysis>({
+  const data = await promptGeminiJson<MessageAnalysisData>({
     model: GEMINI_MODEL,
     apiKey: GCP_GEMINI_API_KEY,
     responseSchema,
@@ -236,13 +236,10 @@ export default defineEventHandler(async (event) => {
     throw internal('Gemini did not return a valid translation')
 
   const [createdMessageAnalysis] = await orm.insert(messageAnalyses).values({
+    messageId,
     data,
     createdAt: now(),
   }).returning()
 
-  await orm.update(messages).set({
-    analysisId: createdMessageAnalysis.id,
-  }).where(eq(messages.id, messageId))
-
-  return data
-})
+  return createdMessageAnalysis
+}

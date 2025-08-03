@@ -13,6 +13,7 @@ const props = defineProps<{
   messageId: number
   messageFrom: 'user' | 'bot'
   messageStatus: MessageStatus
+  messageAnalysis?: MessageAnalysis
   inReplyTo?: InReplyTo
   translation: Translation
   isEditing: boolean
@@ -44,17 +45,28 @@ const isCharacterDeleted = computed(() => !characterQuery.data.value?.id)
 type AudibleTextType = InstanceType<typeof AudibleText>
 const audiableTextRef = defineModel<AudibleTextType | null>('audiable-text')
 
-const isLastMessageError = computed(() => {
+const isAnalysisModalOpen = ref(false)
+
+const lastMessage = computed(() => {
   if (!historyQuery.data.value) {
-    return false
+    return null
   }
 
-  if (historyQuery.data.value.length === 0) {
-    return false
+  return historyQuery.data.value[historyQuery.data.value.length - 1]
+})
+
+const isLastMessageError = computed(() => {
+  return lastMessage.value?.status === MessageStatus.error
+})
+
+const messageAnalysisCompressedStatus = computed(() => {
+  if (!props?.messageAnalysis?.length) {
+    return null
   }
 
-  const lastMessage = historyQuery.data.value[historyQuery.data.value.length - 1]
-  return lastMessage.status === MessageStatus.error
+  const hasError = props.messageAnalysis[0].data.some(f => f.status === 'error')
+
+  return hasError ? 'error' : 'warning'
 })
 
 async function handleEdit() {
@@ -103,26 +115,6 @@ function handleDelete() {
     queryClient.getMutationCache().remove(mutation)
   })
 }
-
-const messageFeedback = computed<MessageAnalysis | null>(() => {
-  const feedback = [
-    { status: 'warning', text: 'You shouldn\'t be using `mayn\'t`. It\'s old English.' },
-    { status: 'error', text: 'You shouldn\'t be using `I\'ven\'t`' },
-  ]
-
-  if (feedback.length === 0) {
-    return null
-  }
-
-  const hasError = feedback.some(f => f.status === 'error')
-  const warningText = feedback.find(f => f.status === 'warning')?.text
-  const errorText = feedback.find(f => f.status === 'error')?.text
-
-  return {
-    status: hasError ? 'error' : 'warning',
-    text: errorText || warningText,
-  }
-})
 
 const messageFeedbackIcon = tv({
   base: 'text-xl',
@@ -200,11 +192,17 @@ const messageFeedbackIcon = tv({
         v-if="messageFrom === 'user'"
         class="btn btn-sm btn-circle btn-ghost btn-neutral group-hover:opacity-100! group-focus-within:opacity-100"
         icon="material-symbols:info-outline-rounded"
-        :icon-class="messageFeedbackIcon({ status: messageFeedback?.status || 'warning' })"
-        @click="copyToClipboard()"
+        :icon-class="messageFeedbackIcon({ status: messageAnalysisCompressedStatus || 'warning' })"
+        @click="isAnalysisModalOpen = true"
       />
     </div>
   </div>
+
+  <LazyMessageAnalysisModal
+    v-if="messageAnalysis?.length"
+    v-model="isAnalysisModalOpen"
+    :message-analysis="messageAnalysis"
+  />
 </template>
 
 <style lang="css" scoped>

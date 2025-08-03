@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX `MessageAnalyses_message_id_unique` ON `MessageAnalyses` (`message_id`);

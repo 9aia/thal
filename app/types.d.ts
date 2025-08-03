@@ -110,12 +110,17 @@ export interface MessageSend {
   inReplyTo?: InReplyTo
 }
 
+export type MessageAnalysisCompressed = string
+
 export interface MessageAnalysisItem {
   status: 'error' | 'warning'
-  text: string
+  data: string
 }
+export type MessageAnalysisCompressedStatus = MessageAnalysisItem['status']
 
-export type MessageAnalysis = MessageAnalysisItem[]
+export type MessageAnalysis = History[number]['messageAnalysis']
+
+export type MessageAnalysisData = MessageAnalysisItem[]
 
 // #endregion
 

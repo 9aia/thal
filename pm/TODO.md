@@ -4,6 +4,8 @@ description: Tasks and items for the release.
 
 # TODO
 
+- Fix chat layout not working on Firefox
+
 ## 0.2.0
 
 ## 0.2.1

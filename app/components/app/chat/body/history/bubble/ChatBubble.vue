@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type AudibleText from '~/components/app/ai/AudibleText.vue'
 import { edition } from '~/store'
+import type { MessageAnalysis } from '~/types'
 import type { InReplyTo, MessageStatus } from '~~/db/schema'
 
 const props = defineProps<{
@@ -10,7 +11,7 @@ const props = defineProps<{
   status: MessageStatus
   from: 'user' | 'bot'
   inReplyTo?: InReplyTo
-
+  analysis?: MessageAnalysis
   isLast: boolean
 }>()
 
@@ -67,6 +68,7 @@ const audiableTextRef = ref<AudibleTextType | null>(null)
         :message-time="time"
         :message-status="status"
         :message-content="content"
+        :message-analysis="analysis"
         :right="right"
         :is-editing="isEditing"
         :translation="translation"
@@ -79,6 +81,7 @@ const audiableTextRef = ref<AudibleTextType | null>(null)
       :message-content="content"
       :message-from="from"
       :message-status="status"
+      :message-analysis="analysis"
       :translation="translation"
       :is-editing="isEditing"
       :is-last="isLast"
