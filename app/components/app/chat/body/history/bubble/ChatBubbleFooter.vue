@@ -128,7 +128,7 @@ const messageFeedbackIcon = tv({
 </script>
 
 <template>
-  <div class="chat-footer opacity-100 flex items-center mt-1">
+  <div class="opacity-100 flex items-center mt-1">
     <div class="flex items-center min-h-8">
       <Button
         v-if="(messageFrom === 'user') && isLast && isLastMessageError && !isEditing"
