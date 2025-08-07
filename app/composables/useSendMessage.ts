@@ -69,7 +69,7 @@ function useSendMessage(username: MaybeRef<string>, options: UseSendMessageOptio
         historyClient.pushMessage({
           id: historyQueryUtils.predictMessageId.value,
           from: 'user',
-          messageAnalysis: [],
+          correctedMessage: [],
           content: message.content,
           time: message.time,
           status: MessageStatus.sending,

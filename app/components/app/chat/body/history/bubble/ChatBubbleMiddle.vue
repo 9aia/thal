@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useLocale } from '@psitta/vue'
 import type AudibleText from '~/components/app/ai/AudibleText.vue'
-import type { MessageAnalysis, MessageAnalysisCompressed } from '~/types'
 import type { MessageStatus } from '~~/db/schema'
 
 const props = defineProps<{
@@ -11,7 +10,6 @@ const props = defineProps<{
   messageContent: string
   messageStatus: MessageStatus
   messageTime: number
-  messageAnalysis?: MessageAnalysis
   translation: Translation
 }>()
 type AudibleTextType = InstanceType<typeof AudibleText>
@@ -23,10 +21,6 @@ const time = computed(() => new Intl.DateTimeFormat(locale.value, {
   hour: '2-digit',
   minute: '2-digit',
 }).format(new Date(props.messageTime)))
-
-const messageAnalysisCompressed = computed<MessageAnalysisCompressed>(() => {
-  return props.messageAnalysis?.[0]?.data.find(item => item.status === 'error')?.data || ''
-})
 </script>
 
 <template>
@@ -51,7 +45,7 @@ const messageAnalysisCompressed = computed<MessageAnalysisCompressed>(() => {
       <ChatBubbleTranslation :translation="translation" />
     </div>
 
-    <div
+    <!-- <div
       v-if="messageAnalysis"
       class="px-1 my-1"
     >
@@ -60,7 +54,7 @@ const messageAnalysisCompressed = computed<MessageAnalysisCompressed>(() => {
         :message-analysis="messageAnalysis"
         :message-analysis-compressed="messageAnalysisCompressed"
       />
-    </div>
+    </div> -->
 
     <ChatBubbleEditActions v-if="isEditing" />
 

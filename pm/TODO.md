@@ -4,6 +4,7 @@ description: Tasks and items for the release.
 
 # TODO
 
+- Save localized message analysis summary in the database
 - Add critical summary below the message?
 
 ## 0.2.0

@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { MessageCorrectionData } from '../../../../../../types'
 import type AudibleText from '~/components/app/ai/AudibleText.vue'
 import { edition } from '~/store'
-import type { MessageAnalysis } from '~/types'
+import type { History } from '~/types'
 import type { InReplyTo, MessageStatus } from '~~/db/schema'
 
 const props = defineProps<{
@@ -11,7 +12,7 @@ const props = defineProps<{
   status: MessageStatus
   from: 'user' | 'bot'
   inReplyTo?: InReplyTo
-  analysis?: MessageAnalysis
+  correctedMessage?: History[number]['correctedMessage']
   isLast: boolean
 }>()
 
@@ -33,6 +34,16 @@ const translation = useTranslation({
 
 type AudibleTextType = InstanceType<typeof AudibleText>
 const audiableTextRef = ref<AudibleTextType | null>(null)
+
+const correctedMessage = computed<MessageCorrectionData>(() => {
+  const isStatusOk = !props.correctedMessage || props.correctedMessage.length === 0 || !props.correctedMessage[0].content
+
+  return {
+    status: isStatusOk ? 'ok' : 'needs_correction',
+    severity: props.correctedMessage?.[0]?.severity || null,
+    correctedMessage: props.correctedMessage?.[0]?.content || null,
+  }
+})
 </script>
 
 <template>
@@ -68,7 +79,6 @@ const audiableTextRef = ref<AudibleTextType | null>(null)
         :message-time="time"
         :message-status="status"
         :message-content="content"
-        :message-analysis="analysis"
         :right="right"
         :is-editing="isEditing"
         :translation="translation"
@@ -81,7 +91,7 @@ const audiableTextRef = ref<AudibleTextType | null>(null)
       :message-content="content"
       :message-from="from"
       :message-status="status"
-      :message-analysis="analysis"
+      :message-correction="correctedMessage"
       :translation="translation"
       :is-editing="isEditing"
       :is-last="isLast"

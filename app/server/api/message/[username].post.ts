@@ -1,6 +1,6 @@
 import { and, eq, isNull } from 'drizzle-orm'
 import { z } from 'zod'
-import { analyzeMessage } from '~/server/services/analyze'
+import { correctMessage } from '~/server/services/assistance'
 import { getHistory } from '~/server/services/messages'
 import { now } from '~/utils/date'
 import { chatHistoryToGemini, sendGeminiTextInTextOut } from '~/utils/gemini'
@@ -115,7 +115,7 @@ export default eventHandler(async (event) => {
   history.push({
     id: history.length + 1,
     from: 'user',
-    messageAnalysis: [],
+    correctedMessage: [],
     status: MessageStatus.seen,
     content,
     inReplyTo,
@@ -193,17 +193,17 @@ export default eventHandler(async (event) => {
 
   // #endregion
 
-  // #region Analyze user message
+  // #region Correct user message
 
-  const userMessageAnalysis = await analyzeMessage(event, {
+  const userMessageCorrection = await correctMessage(event, {
     messageId: userMessageRecord.id,
-    history,
   })
 
-  history[history.length - 1]!.messageAnalysis = [
+  history[history.length - 1]!.correctedMessage = [
     {
-      id: userMessageAnalysis.id,
-      data: userMessageAnalysis.data,
+      id: userMessageCorrection.id,
+      content: userMessageCorrection.content,
+      severity: userMessageCorrection.severity,
     },
   ]
 
@@ -242,7 +242,7 @@ export default eventHandler(async (event) => {
     {
       id: botMessageRecord.id,
       from: 'bot',
-      messageAnalysis: [],
+      correctedMessage: [],
       status: MessageStatus.seen,
       content: botMessageContent,
       time: botMessageTime.getTime(),

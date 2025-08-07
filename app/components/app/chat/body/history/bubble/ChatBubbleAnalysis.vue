@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import type { MessageAnalysis, MessageAnalysisCompressed } from '~/types'
-
 defineProps<{
-  messageAnalysis: MessageAnalysis
-  messageAnalysisCompressed: MessageAnalysisCompressed
+  messageAnalysis: string
+  messageAnalysisCompressed: string
 }>()
 
 const isModalOpen = ref(false)
@@ -32,8 +30,8 @@ function closeAnalysis() {
     </div>
   </div>
 
-  <LazyMessageAnalysisModal
+  <!-- <LazyMessageAnalysisModal
     v-model="isModalOpen"
     :message-analysis="messageAnalysis"
-  />
+  /> -->
 </template>

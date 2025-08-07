@@ -1213,5 +1213,50 @@
   },
   "Message cannot be longer than {max} characters. Current length: {cur}": {
     "pt": "A mensagem não pode ter mais de {max} caracteres. Comprimento atual: {cur}"
+  },
+  "Character deleted": {
+    "pt": "Caractere excluído"
+  },
+  "Message analysis": {
+    "pt": "Análise da mensagem"
+  },
+  "Original message": {
+    "pt": "Mensagem original"
+  },
+  "Error Severity:": {
+    "pt": "Gravidade do erro:"
+  },
+  "Minor ::severity::": {
+    "pt": "Leve ::severity::"
+  },
+  "Moderate ::severity::": {
+    "pt": "Moderada ::severity::"
+  },
+  "Major ::severity::": {
+    "pt": "Grave ::severity::"
+  },
+  "Suggested correction": {
+    "pt": "Correção sugerida"
+  },
+  "Analysis summary": {
+    "pt": "Resumo da análise"
+  },
+  "Verified message": {
+    "pt": "Mensagem verificada"
+  },
+  "Verification summary": {
+    "pt": "Resumo da verificação"
+  },
+  "This message is grammatically correct and well-formed.": {
+    "pt": "Esta mensagem está gramaticalmente correta e bem-formada."
+  },
+  "Ignore": {
+    "pt": "Ignorar"
+  },
+  "Re-analyze": {
+    "pt": "Reanalisar"
+  },
+  "Explain": {
+    "pt": "Explicar"
   }
 }

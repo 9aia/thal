@@ -23,10 +23,11 @@ export async function getHistory(
             },
             where: isNull(messages.deletedAt),
             with: {
-              messageAnalysis: {
+              correctedMessage: {
                 columns: {
                   id: true,
-                  data: true,
+                  content: true,
+                  severity: true,
                 },
               },
               inReplyTo: {

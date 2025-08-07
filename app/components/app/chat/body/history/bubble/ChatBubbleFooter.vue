@@ -5,7 +5,7 @@ import { tv } from 'tailwind-variants'
 import type AudibleText from '~/components/app/ai/AudibleText.vue'
 import queryKeys from '~/queryKeys'
 import { edition, inReplyTos } from '~/store'
-import type { MessageAnalysis } from '~/types'
+import type { MessageCorrectionData } from '~/types'
 import { type InReplyTo, MessageStatus } from '~~/db/schema'
 
 const props = defineProps<{
@@ -13,7 +13,7 @@ const props = defineProps<{
   messageId: number
   messageFrom: 'user' | 'bot'
   messageStatus: MessageStatus
-  messageAnalysis?: MessageAnalysis
+  messageCorrection?: MessageCorrectionData
   inReplyTo?: InReplyTo
   translation: Translation
   isEditing: boolean
@@ -59,14 +59,16 @@ const isLastMessageError = computed(() => {
   return lastMessage.value?.status === MessageStatus.error
 })
 
-const messageAnalysisCompressedStatus = computed(() => {
-  if (!props?.messageAnalysis?.length) {
-    return null
+const messageSeverity = computed(() => {
+  if (props.messageCorrection?.severity) {
+    return props.messageCorrection.severity
   }
 
-  const hasError = props.messageAnalysis[0].data.some(f => f.status === 'error')
+  return null
+})
 
-  return hasError ? 'error' : 'warning'
+const isMessageWrong = computed(() => {
+  return props.messageCorrection?.status === 'needs_correction'
 })
 
 async function handleEdit() {
@@ -119,9 +121,10 @@ function handleDelete() {
 const messageFeedbackIcon = tv({
   base: 'text-xl',
   variants: {
-    status: {
-      error: 'text-error',
-      warning: 'text-warning',
+    severity: {
+      minor: 'text-brown-500',
+      moderate: 'text-orange-500',
+      major: 'text-red-500',
     },
   },
 })
@@ -189,19 +192,30 @@ const messageFeedbackIcon = tv({
       />
 
       <Button
-        v-if="messageFrom === 'user'"
+        v-if="messageFrom === 'user' && isMessageWrong"
         class="btn btn-sm btn-circle btn-ghost btn-neutral group-hover:opacity-100! group-focus-within:opacity-100"
         icon="material-symbols:info-outline-rounded"
-        :icon-class="messageFeedbackIcon({ status: messageAnalysisCompressedStatus || 'warning' })"
+        :class="{ 'fine:opacity-0': false }"
+        :icon-class="messageFeedbackIcon({ severity: messageSeverity || 'moderate' })"
+        @click="isAnalysisModalOpen = true"
+      />
+
+      <Button
+        v-if="messageFrom === 'user' && !isMessageWrong"
+        class="btn btn-sm btn-circle btn-ghost btn-neutral group-hover:opacity-100! group-focus-within:opacity-100"
+        icon="material-symbols:auto-awesome-outline-rounded"
+        :class="{ 'fine:opacity-0': !isLast }"
+        icon-class="text-xl"
         @click="isAnalysisModalOpen = true"
       />
     </div>
   </div>
 
   <LazyMessageAnalysisModal
-    v-if="messageAnalysis?.length"
     v-model="isAnalysisModalOpen"
-    :message-analysis="messageAnalysis"
+    :message-id="messageId"
+    :message="messageContent"
+    :message-correction="messageCorrection"
   />
 </template>
 

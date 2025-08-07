@@ -42,8 +42,7 @@ watch(showShowChatBubbleLoading, () => {
               :content="item.content"
               :time="item.time"
               :from="item.from"
-              :analysis="item.messageAnalysis"
-
+              :corrected-message="item.correctedMessage"
               :in-reply-to="item.inReplyTo ? { ...item.inReplyTo } : undefined"
               :is-last="index === (historyQuery.data.value!.length - 1)"
             />

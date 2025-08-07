@@ -1,24 +1,21 @@
-import { and, eq, isNull } from 'drizzle-orm'
-import type { H3Event } from 'h3'
 import type { ResponseSchema } from '@google/generative-ai'
 import { SchemaType } from '@google/generative-ai'
+import { and, eq, isNull } from 'drizzle-orm'
+import type { H3Event } from 'h3'
+import { getHistory } from './messages'
+import type { MessageCorrectionData } from '~/types'
+import { now } from '~/utils/date'
+import { promptGeminiJson } from '~/utils/gemini'
 import { forbidden, internal, notFound, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
 import { canUseAIFeatures } from '~/utils/plan'
-import { characterLocalizations, messageAnalyses, messages } from '~~/db/schema'
-import type { History, MessageAnalysisData } from '~/types'
-import { promptGeminiJson } from '~/utils/gemini'
-import { now } from '~/utils/date'
+import { characterLocalizations, correctedMessages, messages } from '~~/db/schema'
 
-interface AnalyzeMessageOptions {
+interface CorrectMessageOptions {
   messageId: number
   toNative?: boolean
-  history: History
 }
 
-export async function analyzeMessage(
-  event: H3Event,
-  { history, messageId, toNative = true }: AnalyzeMessageOptions,
-) {
+export async function correctMessage(event: H3Event, { messageId }: CorrectMessageOptions) {
   const { GCP_GEMINI_API_KEY, GEMINI_MODEL } = useRuntimeConfig(event)
 
   if (!GCP_GEMINI_API_KEY)
@@ -36,9 +33,9 @@ export async function analyzeMessage(
   if (!canUseAIFeatures(user))
     throw paymentRequired()
 
-  const translateRateLimit = await event.context.cloudflare.env.TRANSLATE_RATE_LIMIT.limit({ key: `translate-${user.id}` })
+  const correctionRateLimit = await event.context.cloudflare.env.CORRECTION_RATE_LIMIT.limit({ key: `correction-${user.id}` })
 
-  if (!translateRateLimit.success)
+  if (!correctionRateLimit.success)
     throw rateLimit()
 
   const message = await orm.query.messages.findFirst({
@@ -97,6 +94,9 @@ export async function analyzeMessage(
   if (!message)
     throw notFound('Message not found')
 
+  if (!message.chat.id)
+    throw notFound('Chat not found')
+
   if (message.chat.userId !== user.id)
     throw forbidden('You do not have permission to access this message')
 
@@ -110,6 +110,8 @@ export async function analyzeMessage(
   if (username.character && !username.character.deletedAt && !localization) {
     throw internal('Character localization not found')
   }
+
+  const history = await getHistory(orm, user, username.text)
 
   const formattedHistory = history.map((message) => {
     if (message.from === 'user') {
@@ -134,11 +136,6 @@ export async function analyzeMessage(
     replyMessage = sender + message.inReplyTo.content
   }
 
-  const learningLocale = 'en-US'
-  const nativeLocale = 'pt-BR'
-
-  const toLocale = toNative ? nativeLocale : learningLocale
-
   const replyMessageFormatted = replyMessage
     ? `<replying>
       ${replyMessage}
@@ -152,20 +149,18 @@ export async function analyzeMessage(
     : ``
 
   const systemInstruction = `
-    You are a message analysis assistant for a language learning app.
-    Your task is to analyze the message of the user and provide feedback about it with high accuracy and context awareness.
+    You are a message corrector for a language learning app.
+    Your task is to correct the message of the user with high accuracy and context awareness.
     The user is learning English and is a native Portuguese speaker.
 
     [Analysis Instructions]
     - Use context from <conversation-history> and <replying> (if present).
-    - Maintain tone, intent, and meaning.
-    - Do not include explanations or justifications in the response, only include the should-do and should-not-do feedback.
-    - The feedback texts must be in ${toLocale === 'pt-BR' ? 'Portuguese' : 'English'}.
-    - Be very succinct and concise in your feedback.
+    - Maintain intent and meaning.
+    - Do not include explanations or justifications in the response, only correct the user message if applicable or any mistakes were made.
 
     [Personalization Guidelines]
-    - Use <user-data> and <bot-data> to personalize analysis (e.g. pronouns, gender agreement, names).
-    - Reflect user’s communication style where possible.
+    - Use <user-data> and <bot-data> to improve the correction (e.g. pronouns, gender agreement, names).
+    - Reflect user’s communication style where possible or applicable.
 
     <context>
       <user-data>
@@ -197,34 +192,36 @@ export async function analyzeMessage(
   `
 
   const responseSchema: ResponseSchema = {
-    type: SchemaType.ARRAY,
-    items: {
-      type: SchemaType.OBJECT,
-      properties: {
-        status: {
-          type: SchemaType.STRING,
-          enum: ['error', 'warning'],
-          description: `
-            The status of the analysis.
-
-            - **error**: Indicates a critical mistake that needs to be corrected, for example grammatical errors, spelling mistakes, etc.
-            - **warning**: Indicates a mistake that should be noted but does not require immediate correction, for example incorrect punctuation or word choice.
-          `,
-          example: 'warning',
-        },
-        data: {
-          type: SchemaType.STRING,
-          description: `
-            Include a summary or additional comment of the mistake.
-          `,
-          example: 'Não use "fantasy" para traduzir "fantasia". O termo correto é "costume". O significado de "fantasy" é diferente e pode causar confusão.',
-        },
+    type: SchemaType.OBJECT,
+    description: 'An object for analyzing and correcting a user\'s message.',
+    properties: {
+      status: {
+        type: SchemaType.STRING,
+        description: 'Indicates whether the message is correct (\'ok\') or needs correction (\'needs_correction\').',
+        enum: ['ok', 'needs_correction'],
       },
-      required: ['status', 'data'],
+      severity: {
+        type: SchemaType.STRING,
+        description: `
+          A string indicating the severity of the errors found, provided only if the status is 'needs_correction'.
+
+          - **minor**: The error is small and doesn't hinder understanding (e.g., a capitalization issue, a missing comma, or a simple typo). For instance: 'i' instead of 'I', 'hte' instead of 'the', or a missing period.
+          - **moderate**: The error is noticeable and might make the text sound unnatural or slightly confusing (e.g., incorrect verb tense or a singular/plural mismatch). For instance: incorrect verb tense like 'he go' instead of 'he goes', or a plural/singular mismatch like 'a cats'.
+          - **major**: The error is significant, making the message difficult to understand or grammatically incorrect. This includes clear syntactical errors, severe spelling mistakes, or jumbled sentence structures. For instance: a missing verb like 'He to the store', a severe spelling error that makes a key word unrecognizable, or a jumbled sentence like 'to want work you?'.
+        `,
+        enum: ['minor', 'moderate', 'major'],
+        example: 'minor',
+      },
+      correctedMessage: {
+        type: SchemaType.STRING,
+        description: 'The corrected version of the user\'s message, provided only if the status is \'needs_correction\'.',
+        example: 'John is responsible.',
+      },
     },
+    required: ['status'],
   }
 
-  const data = await promptGeminiJson<MessageAnalysisData>({
+  const data = await promptGeminiJson<MessageCorrectionData>({
     model: GEMINI_MODEL,
     apiKey: GCP_GEMINI_API_KEY,
     responseSchema,
@@ -232,14 +229,17 @@ export async function analyzeMessage(
     systemInstruction,
   })
 
+  console.log(data)
+
   if (!data)
     throw internal('Gemini did not return a valid translation')
 
-  const [createdMessageAnalysis] = await orm.insert(messageAnalyses).values({
+  const [createdMessageCorrection] = await orm.insert(correctedMessages).values({
     messageId,
-    data,
+    content: data.correctedMessage,
+    severity: data.severity,
     createdAt: now(),
   }).returning()
 
-  return createdMessageAnalysis
+  return createdMessageCorrection
 }

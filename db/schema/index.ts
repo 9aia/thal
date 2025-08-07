@@ -4,7 +4,11 @@ import { foreignKey, int, sqliteTable as table, text } from 'drizzle-orm/sqlite-
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
 import { z } from 'zod'
 import { createdAt, timestampOmits, timestamps, updatedAt } from '../columns.helpers'
-import type { MessageAnalysisData } from '~/types'
+import type { MessageCorrectionData } from '~/types'
+
+export const localeSchema = z.enum(['pt-BR', 'en-US']).default('en-US')
+
+export type LocaleSchemaType = z.infer<typeof localeSchema>
 
 // #region Usernames
 
@@ -310,7 +314,7 @@ export const promptSchemaChecks = {
 
 export const characterDraftSchema = z.object({
   prompt: promptSchema,
-  locale: z.enum(['pt-BR', 'en-US']),
+  locale: localeSchema,
 })
 
 export type CharacterDraftData = z.infer<typeof characterDataSchema>
@@ -343,7 +347,7 @@ export const characterDraftLocalizations = table('CharacterDraftLocalization', {
   id: int('id').primaryKey({ autoIncrement: true }),
   characterDraftId: int('character_draft_id')
     .references(() => characterDrafts.id, { onDelete: 'cascade' }),
-  locale: text('locale').notNull(),
+  locale: text('locale').$type<LocaleSchemaType>().notNull(),
   name: text('name').notNull(),
   description: text('description').notNull(),
   instructions: text('instructions').notNull(),
@@ -555,7 +559,8 @@ export const messageRelations = relations(messages, ({ one, many }) => ({
     fields: [messages.inReplyToId],
     references: [messages.id],
   }),
-  messageAnalysis: many(messageAnalyses),
+  messageAnalysisSummaries: many(messageAnalysisSummaries),
+  correctedMessage: many(correctedMessages),
 }))
 
 export const messageContentSchema = z.string().max(1000)
@@ -578,9 +583,33 @@ export type MessageInsert = z.infer<typeof insertMessageSchema>
 
 export type MessagePost = z.infer<typeof messageSchema>
 
-export const messageAnalyses = table('MessageAnalyses', {
+// #endregion
+
+// #region Assistance
+
+export const correctedMessages = table('CorrectedMessage', {
   id: int('id').primaryKey({ autoIncrement: true }),
-  data: text('data', { mode: 'json' }).notNull().$type<MessageAnalysisData>(),
+  content: text('content'),
+  messageId: int('message_id')
+    .notNull()
+    .unique()
+    .references(() => messages.id, { onDelete: 'cascade' }),
+  severity: text('severity').$type<MessageCorrectionData['severity']>(),
+  createdAt,
+  updatedAt,
+  ignoredAt: int('ignored_at', { mode: 'timestamp_ms' }),
+})
+
+export const correctedMessageRelations = relations(correctedMessages, ({ one }) => ({
+  message: one(messages, {
+    fields: [correctedMessages.messageId],
+    references: [messages.id],
+  }),
+}))
+
+export const messageAnalysisSummaries = table('MessageAnalysisSummary', {
+  id: int('id').primaryKey({ autoIncrement: true }),
+  content: text('content').notNull(),
   messageId: int('message_id')
     .notNull()
     .unique()
@@ -589,9 +618,9 @@ export const messageAnalyses = table('MessageAnalyses', {
   updatedAt,
 })
 
-export const messageAnalysisRelations = relations(messageAnalyses, ({ one }) => ({
+export const messageAnalysisSummaryRelations = relations(messageAnalysisSummaries, ({ one }) => ({
   message: one(messages, {
-    fields: [messageAnalyses.messageId],
+    fields: [messageAnalysisSummaries.messageId],
     references: [messages.id],
   }),
 }))
