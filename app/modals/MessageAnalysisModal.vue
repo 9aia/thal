@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useLocale } from '@psitta/vue'
-import { useMutation } from '@tanstack/vue-query'
+import { useMutation, useQuery } from '@tanstack/vue-query'
 import CommonResource from '~/components/app/common/state/CommonResource.vue'
+import queryKeys from '~/queryKeys'
 import type { MessageCorrectionData } from '~/types'
 
 const props = defineProps<{
@@ -10,39 +10,39 @@ const props = defineProps<{
   messageCorrection?: MessageCorrectionData
 }>()
 
-const locale = useLocaleWithDefaultRegion()
+const localeWithDefaultRegion = useLocaleWithDefaultRegion()
 const modelValue = defineModel<boolean>()
+const toast = useToast()
 const { t } = useI18nExperimental()
 
-const messageAnalyzeSummaryMutation = useMutation({
-  mutationFn: () => $fetch(`/api/analysis/${props.messageId}/summary`, {
+const messageAnalyzeSummaryQuery = useQuery({
+  queryKey: queryKeys.messageAnalysisSummary(localeWithDefaultRegion.value, toRef(props, 'messageId')),
+  queryFn: () => $fetch(`/api/analysis/${props.messageId}/summary`, {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     query: {
-      locale: locale.value,
+      locale: localeWithDefaultRegion.value,
     },
   }),
-  onSuccess: (data) => {
-    console.log('Analysis successful:', data)
-  },
-  onError: (error) => {
-    console.error('Analysis failed:', error)
-  },
+  enabled: !!props.messageId,
+})
+await messageAnalyzeSummaryQuery.suspense()
+
+watch(messageAnalyzeSummaryQuery.error, (error) => {
+  if (error) {
+    toast.error(t('Failed to generate analysis summary.'))
+  }
 })
 
 function handleExplain() {
-  messageAnalyzeSummaryMutation.mutateAsync()
-}
-
-function handleIgnore() {
-  console.log('ignore')
+  toast.error(t('This feature is not available yet.'))
 }
 
 function handleReAnalyze() {
-  console.log('re-analyze')
+  // TODO: Implement re-analyze (regenerate the message correction and summary, and explain if applicable)
+  messageAnalyzeSummaryQuery.refetch()
 }
+
+const isSeverityOpen = ref(false)
 </script>
 
 <template>
@@ -52,140 +52,136 @@ function handleReAnalyze() {
     hide-confirm
     :title="t('Message analysis')"
   >
-    <template #default>
-      <div class="px-8 space-y-4">
-        <div>
-          <template v-if="messageCorrection?.status === 'needs_correction' && messageCorrection?.severity">
-            <div class="space-y-3">
-              <!-- Original Message Section -->
-              <div class="rounded-3xl p-6 bg-gradient-info">
-                <div class="flex items-center justify-between mb-2">
-                  <div class="flex items-center gap-2">
-                    <span class="text-xs text-black">
-                      {{ t('Original message') }}
-                    </span>
-                  </div>
-
-                  <!-- Severity Badge -->
-                  <div class="flex items-center gap-1">
-                    <span class="text-xs text-black">{{ t('Error Severity:') }}</span>
-                    <span
-                      class="badge badge-outline"
-                      :class="{
-                        'badge-primary': messageCorrection?.severity === 'minor',
-                        'badge-warning': messageCorrection?.severity === 'moderate',
-                        'badge-error': messageCorrection?.severity === 'major',
-                      }"
-                    >
-                      <template v-if="messageCorrection?.severity === 'minor'">
-                        {{ t('Minor ::severity::').replace('::severity::', '') }}
-                      </template>
-                      <template v-else-if="messageCorrection?.severity === 'moderate'">
-                        {{ t('Moderate ::severity::').replace('::severity::', '') }}
-                      </template>
-                      <template v-else-if="messageCorrection?.severity === 'major'">
-                        {{ t('Major ::severity::').replace('::severity::', '') }}
-                      </template>
-                    </span>
-                  </div>
-                </div>
-
-                <p class="text-black">
-                  {{ message }}
-                </p>
-
-                <!-- Corrected Message Section -->
-                <div class="mt-4">
-                  <div class="flex items-center gap-2 mb-2">
-                    <Icon name="material-symbols:check-circle-outline-rounded" class="text-blue-500 text-lg" />
-                    <span class="text-sm text-blue-500">
-                      {{ t('Suggested correction') }}
-                    </span>
-                  </div>
-                  <p class="text-blue-500">
-                    {{ messageCorrection.correctedMessage }}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class="py-6">
-              <h3 class="text-xs text-black mb-4">
-                {{ t('Analysis summary') }}
-              </h3>
-
-              <CommonResource
-                :for="{
-                  isLoading: messageAnalyzeSummaryMutation.isPending.value,
-                  isError: messageAnalyzeSummaryMutation.isError.value,
-                  data: messageAnalyzeSummaryMutation.data.value,
-                  refetch: messageAnalyzeSummaryMutation.mutateAsync,
-                }"
-              >
-                <article class="prose prose-sm prose-neutral">
-                  {{ messageAnalyzeSummaryMutation.data?.value?.content }}
-                </article>
-              </CommonResource>
-            </div>
-          </template>
-
-          <template v-else>
-            <div class="rounded-3xl p-6 bg-gradient-success">
-              <div class="flex items-center justify-between mb-2">
-                <div class="flex items-center gap-2">
-                  <span class="text-xs text-black">
-                    {{ t('Verified message') }}
-                  </span>
-                </div>
-              </div>
-
-              <p class="text-black">
+    <div class="sm:px-8 space-y-4">
+      <div>
+        <template v-if="messageCorrection?.status === 'needs_correction' && messageCorrection?.severity">
+          <div class="mb-4">
+            <p class="text-xl gap-2 flex items-center">
+              <span class="text-red-500 line-through">
                 {{ message }}
-              </p>
-            </div>
+              </span>
+              <span class="text-blue-500">
+                {{ messageCorrection.correctedMessage }}
+              </span>
+            </p>
+          </div>
 
-            <div class="py-6">
-              <h3 class="text-xs text-black mb-4">
-                {{ t('Verification summary') }}
-              </h3>
+          <div class="p-6 bg-gradient-info rounded-3xl">
+            <h3 class="text-xs text-black mb-4">
+              {{ t('Suggested correction') }}
+            </h3>
 
+            <CommonResource
+              :for="messageAnalyzeSummaryQuery"
+            >
               <article class="prose prose-sm prose-neutral">
-                {{ t('This message is grammatically correct and well-formed.') }}
+                {{ messageAnalyzeSummaryQuery.data?.value?.content }}
               </article>
-            </div>
-          </template>
-        </div>
+            </CommonResource>
+          </div>
+        </template>
 
-        <div v-if="messageCorrection?.status === 'needs_correction'" class="flex items-center gap-2 justify-between">
-          <div class="flex items-center gap-2">
-            <Button
+        <template v-else>
+          <div class="mb-6">
+            <p class="text-xl gap-2 flex items-center mb-6">
+              <span class="text-blue-500">
+                {{ message }}
+              </span>
+            </p>
+
+            <p class="text-xl text-black flex items-center gap-2">
+              {{ t('This message is grammatically correct, well-formed, and suitable for the context.') }}
+            </p>
+          </div>
+        </template>
+      </div>
+
+      <p class="text-sm text-black mb-2">
+        <span
+          :class="{
+            'text-brown-500': messageCorrection?.severity === 'minor',
+            'text-orange-500': messageCorrection?.severity === 'moderate',
+            'text-red-500': messageCorrection?.severity === 'major',
+          }"
+        >
+          <template v-if="messageCorrection?.severity === 'minor'">
+            {{ t('Minor mistake ::severity::').replace('::severity::', '') }}
+          </template>
+
+          <template v-else-if="messageCorrection?.severity === 'moderate'">
+            {{ t('Moderate mistake ::severity::').replace('::severity::', '') }}
+          </template>
+
+          <template v-else-if="messageCorrection?.severity === 'major'">
+            {{ t('Major mistake ::severity::').replace('::severity::', '') }}
+          </template>
+
+          <template v-if="!isSeverityOpen">
+            ...
+          </template>
+        </span>
+
+        <template v-if="isSeverityOpen">
+          <template v-if="messageCorrection?.severity === 'minor'">
+            {{ t('is a small mistake that doesn\'t hinder understanding, for example: \'i\' instead of \'I\', \'hte\' instead of \'the\', or a missing period.') }}
+          </template>
+
+          <template v-else-if="messageCorrection?.severity === 'moderate'">
+            {{ t('is a noticeable mistake that might make the text sound unnatural or slightly confusing, for example: incorrect verb tense like \'he go\' instead of \'he goes\', or a plural/singular mismatch like \'a cats\'.') }}
+          </template>
+
+          <template v-else-if="messageCorrection?.severity === 'major'">
+            {{ t('is a significant mistake that makes the message difficult to understand or grammatically incorrect. This includes clear syntactical errors, severe spelling mistakes, or jumbled sentence structures. For example: a missing verb like \'He to the store\', a severe spelling error that makes a key word unrecognizable, or a jumbled sentence like \'to want work you?\'.') }}
+          </template>
+        </template>
+
+        <span>
+          <button
+            class="ml-1 text-sm text-blue-500 text-center cursor-pointer focus:outline-none group border-y-2 border-transparent focus:border-b-blue-500"
+            type="button"
+            @click="isSeverityOpen = !isSeverityOpen"
+          >
+            {{ isSeverityOpen ? t('Read less') : t('Read more') }}
+          </button>
+        </span>
+      </p>
+
+      <div v-if="messageCorrection?.status === 'needs_correction'" class="flex items-center gap-2 justify-between">
+        <div class="flex items-center gap-2">
+          <!-- TODO: Add "Ignore" button -->
+          <!-- <Button
               class="btn btn-neutral btn-sm"
               icon="material-symbols:delete-outline-rounded"
+              type="button"
               @click="handleIgnore()"
             >
               {{ t("Ignore") }}
-            </Button>
-
-            <Button
-              icon="material-symbols:refresh-rounded"
-              class="btn btn-neutral btn-sm"
-              @click="handleReAnalyze()"
-            >
-              {{ t('Re-analyze') }}
-            </Button>
-          </div>
+            </Button> -->
 
           <Button
-            class="btn btn-primary"
-            icon="material-symbols:auto-awesome-outline-rounded"
+            icon="material-symbols:refresh-rounded"
+            class="btn btn-neutral btn-sm"
             type="button"
-            @click="handleExplain()"
+            @click="handleReAnalyze()"
           >
-            {{ t("Explain") }}
+            {{ t('Re-analyze') }}
           </Button>
         </div>
+
+        <Button
+          class="btn btn-primary"
+          icon="material-symbols:auto-awesome-outline-rounded"
+          type="button"
+          @click="handleExplain()"
+        >
+          {{ t("Explain") }}
+        </Button>
       </div>
-    </template>
+
+      <small class="flex items-center gap-2 text-xs text-gray-500">
+        {{ t('Analysis is powered by AI. The results may not be perfect.') }}
+      </small>
+    </div>
   </Modal>
 </template>
 

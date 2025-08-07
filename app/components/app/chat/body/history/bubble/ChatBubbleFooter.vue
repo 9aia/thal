@@ -212,6 +212,7 @@ const messageFeedbackIcon = tv({
   </div>
 
   <LazyMessageAnalysisModal
+    v-if="isAnalysisModalOpen"
     v-model="isAnalysisModalOpen"
     :message-id="messageId"
     :message="messageContent"

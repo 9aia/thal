@@ -90,7 +90,7 @@ watch([visible, dialog], () => {
             </div>
           </div>
 
-          <div v-if="!props.hideConfirm || props.showCancel" class="modal-action p-4">
+          <div v-if="!props.hideConfirm || props.showCancel || $slots.footer" class="modal-action p-4">
             <slot name="footer" />
 
             <slot name="actions">
