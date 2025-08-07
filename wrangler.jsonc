@@ -74,7 +74,34 @@
           "limit": 15,
           "period": 60
         }
-      }
+      },
+      {
+        "name": "ANALYSIS_RATE_LIMIT",
+        "type": "ratelimit",
+        "namespace_id": "1006",
+        "simple": {
+          "limit": 10,
+          "period": 60
+        }
+      },
+      {
+        "name": "CORRECTION_RATE_LIMIT",
+        "type": "ratelimit",
+        "namespace_id": "1007",
+        "simple": {
+          "limit": 10,
+          "period": 60
+        }
+      },
+      {
+        "name": "ANALYSIS_SUMMARY_RATE_LIMIT",
+        "type": "ratelimit",
+        "namespace_id": "1008",
+        "simple": {
+          "limit": 10,
+          "period": 60
+        }
+      },
     ]
   },
 
@@ -125,6 +152,33 @@
               "limit": 15,
               "period": 60
             }
+          },
+          {
+            "name": "ANALYSIS_RATE_LIMIT",
+            "type": "ratelimit",
+            "namespace_id": "1006",
+            "simple": {
+              "limit": 10,
+              "period": 60
+            }
+          },
+          {
+            "name": "CORRECTION_RATE_LIMIT",
+            "type": "ratelimit",
+            "namespace_id": "1007",
+            "simple": {
+              "limit": 10,
+              "period": 60
+            }
+          },
+          {
+            "name": "ANALYSIS_SUMMARY_RATE_LIMIT",
+            "type": "ratelimit",
+            "namespace_id": "1008",
+            "simple": {
+              "limit": 10,
+              "period": 60
+            }
           }
         ]
       }
@@ -173,6 +227,33 @@
             "namespace_id": "1005",
             "simple": {
               "limit": 15,
+              "period": 60
+            }
+          },
+          {
+            "name": "ANALYSIS_RATE_LIMIT",
+            "type": "ratelimit",
+            "namespace_id": "1006",
+            "simple": {
+              "limit": 10,
+              "period": 60
+            }
+          },
+          {
+            "name": "CORRECTION_RATE_LIMIT",
+            "type": "ratelimit",
+            "namespace_id": "1007",
+            "simple": {
+              "limit": 10,
+              "period": 60
+            }
+          },
+          {
+            "name": "ANALYSIS_SUMMARY_RATE_LIMIT",
+            "type": "ratelimit",
+            "namespace_id": "1008",
+            "simple": {
+              "limit": 10,
               "period": 60
             }
           }
