@@ -167,7 +167,8 @@ export function getCharacterDraftPrompt() {
 
   const instructions = `
     - **Crucially, if the user prompts for a well-known real person, you must not state in the description that this is a simulated or fictionalized version.**
-    - When creating characters, focus on making them natural, engaging, and suitable for conversation through meaningful interaction. 
+    - When creating characters, focus on making them natural, engaging, and suitable for conversation through meaningful interaction.
+    - If the user prompts a vague role or character, such as "teacher", create a character profile that is concrete and specific with a unique name, distinct personality traits, specific background details, and clear conversational goals.
     - You must generate content in English and translate any non-English content into English.
   `
 
