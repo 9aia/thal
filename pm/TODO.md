@@ -4,10 +4,12 @@ description: Tasks and items for the release.
 
 # TODO
 
+- Improve analysis prompting (it's not working for fantasy, not considering politeness as well)
 - Add highlighted diffing to the message analysis modal
 - Save localized message analysis summary in the database
 - Add explain functionality to the message analysis modal
 - Add critical summary below the message?
+- How to modify analysis based on future messages?
 
 ## 0.2.0
 

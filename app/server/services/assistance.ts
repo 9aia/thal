@@ -149,7 +149,7 @@ export async function correctMessage(event: H3Event, { messageId }: CorrectMessa
     : ``
 
   const systemInstruction = `
-    You are a message corrector for a language learning app.
+    You are a text correction assistant for a language learning app.
     Your task is to correct the message of the user with high accuracy and context awareness.
     The user is learning English and is a native Portuguese speaker.
 
@@ -157,6 +157,8 @@ export async function correctMessage(event: H3Event, { messageId }: CorrectMessa
     - Use context from <conversation-history> and <replying> (if present).
     - Maintain intent and meaning.
     - Do not include explanations or justifications in the response, only correct the user message if applicable or any mistakes were made.
+    - Pay attention to suttle mistakes, be very precise, accurate and rigorous.
+    - Consider common mistakes that users make, like spelling, grammar, punctuation, etc.
 
     [Personalization Guidelines]
     - Use <user-data> and <bot-data> to improve the correction (e.g. pronouns, gender agreement, names).

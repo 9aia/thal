@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useMutation, useQuery } from '@tanstack/vue-query'
+import { useQuery } from '@tanstack/vue-query'
+import { diff_match_patch as DiffMatchPatch } from 'diff-match-patch'
 import CommonResource from '~/components/app/common/state/CommonResource.vue'
 import queryKeys from '~/queryKeys'
 import type { MessageCorrectionData } from '~/types'
@@ -43,6 +44,25 @@ function handleReAnalyze() {
 }
 
 const isSeverityOpen = ref(false)
+
+const dmp = new (DiffMatchPatch as any)()
+
+const diffedText = computed(() => {
+  if (!props.messageCorrection?.correctedMessage) {
+    return [{ type: 'equal', text: props.message }]
+  }
+
+  const diffs = (dmp as any).diff_main(props.message, props.messageCorrection.correctedMessage)
+  ;(dmp as any).diff_cleanupSemantic(diffs)
+
+  return diffs.map(([operation, text]: [number, string]) => {
+    if (operation === 1)
+      return { type: 'insert', text }
+    if (operation === -1)
+      return { type: 'delete', text }
+    return { type: 'equal', text }
+  })
+})
 </script>
 
 <template>
@@ -56,13 +76,15 @@ const isSeverityOpen = ref(false)
       <div>
         <template v-if="messageCorrection?.status === 'needs_correction' && messageCorrection?.severity">
           <div class="mb-4">
-            <p class="text-xl gap-2 flex items-center">
-              <span class="text-red-500 line-through">
-                {{ message }}
-              </span>
-              <span class="text-blue-500">
-                {{ messageCorrection.correctedMessage }}
-              </span>
+            <p class="text-xl">
+              <span
+                v-for="(part, idx) in diffedText" :key="idx"
+                :class="{
+                  'text-blue-500 bg-blue-500/10 rounded': part.type === 'insert',
+                  'text-red-500 line-through bg-red-500/10 rounded': part.type === 'delete',
+                  '': part.type === 'equal',
+                }"
+              >{{ part.text }}</span>
             </p>
           </div>
 
@@ -96,7 +118,7 @@ const isSeverityOpen = ref(false)
         </template>
       </div>
 
-      <p class="text-sm text-black mb-2">
+      <p v-if="messageCorrection?.status === 'needs_correction'" class="text-sm text-black mb-2">
         <span
           :class="{
             'text-brown-500': messageCorrection?.severity === 'minor',
