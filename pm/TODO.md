@@ -4,7 +4,9 @@ description: Tasks and items for the release.
 
 # TODO
 
+- Add highlighted diffing to the message analysis modal
 - Save localized message analysis summary in the database
+- Add explain functionality to the message analysis modal
 - Add critical summary below the message?
 
 ## 0.2.0
