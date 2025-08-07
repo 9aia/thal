@@ -110,17 +110,14 @@ export interface MessageSend {
   inReplyTo?: InReplyTo
 }
 
-export type MessageAnalysisCompressed = string
-
-export interface MessageAnalysisItem {
-  status: 'error' | 'warning'
-  data: string
+export interface MessageCorrectionData extends MessageCorrection {
+  status: 'ok' | 'needs_correction'
 }
-export type MessageAnalysisCompressedStatus = MessageAnalysisItem['status']
 
-export type MessageAnalysis = History[number]['messageAnalysis']
-
-export type MessageAnalysisData = MessageAnalysisItem[]
+export interface MessageCorrection {
+  severity?: 'minor' | 'moderate' | 'major' | null
+  correctedMessage?: string | null
+}
 
 // #endregion
 

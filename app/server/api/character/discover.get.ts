@@ -5,13 +5,13 @@ import { calculatePagination, getPaginatedDto } from '~/utils/data'
 import { getValidated } from '~/utils/h3'
 import { unauthorized } from '~/utils/nuxt'
 import { numericString } from '~/utils/zod'
-import { characterLocalizations, characters, usernames } from '~~/db/schema'
+import { characterLocalizations, characters, localeSchema, usernames } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const query = await getValidated(event, 'query', paginationSchema().extend({
     search: z.string().optional().transform(s => s?.trim()),
     categoryId: numericString(z.number().optional()),
-    locale: z.string(),
+    locale: localeSchema,
   }))
 
   const orm = event.context.orm
@@ -37,7 +37,7 @@ export default eventHandler(async (event) => {
     .leftJoin(usernames, eq(usernames.characterId, characters.id))
     .leftJoin(characterLocalizations, and(
       eq(characterLocalizations.characterId, characters.id),
-      eq(characterLocalizations.locale, query.locale),
+      eq(characterLocalizations.locale, query.locale!),
     ))
     .where(
       and(

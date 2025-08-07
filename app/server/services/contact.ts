@@ -1,7 +1,7 @@
 import { and, eq, sql } from 'drizzle-orm'
 import type { H3EventContext } from 'h3'
 import { notFound } from '~/utils/nuxt'
-import type { User } from '~~/db/schema'
+import type { LocaleSchemaType, User } from '~~/db/schema'
 import { characterLocalizations, characters, contacts, usernames } from '~~/db/schema'
 
 export async function getContactByUsername(
@@ -76,7 +76,7 @@ export async function getContactByUser(
 export async function getContactsWithCharacterByUser(
   orm: H3EventContext['orm'],
   user: User,
-  locale: string,
+  locale: LocaleSchemaType,
   search?: string,
 ) {
   const searchLike = search ? `%${search}%` : null

@@ -4,13 +4,13 @@ import { getCharacterCategoryName } from '~/server/services/character'
 import { getValidated } from '~/utils/h3'
 import { noContent, unauthorized } from '~/utils/nuxt'
 import { numericString } from '~/utils/zod'
-import { characterDraftLocalizations, characterDrafts, characterLocalizations, characters, usernames } from '~~/db/schema'
+import { characterDraftLocalizations, characterDrafts, characterLocalizations, characters, localeSchema, usernames } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const { characterId: characterIdParam, characterUsername, locale } = await getValidated(event, 'query', z.object({
     characterId: numericString(z.number().optional()),
     characterUsername: z.string().optional(), // Fallback to username if characterId is not available
-    locale: z.string(),
+    locale: localeSchema,
   }))
 
   const orm = event.context.orm
@@ -47,7 +47,7 @@ export default eventHandler(async (event) => {
     with: {
       characterDraftLocalizations: {
         where: and(
-          eq(characterDraftLocalizations.locale, locale),
+          eq(characterDraftLocalizations.locale, locale!),
           isNull(characterDraftLocalizations.deletedAt),
         ),
       },
@@ -70,7 +70,7 @@ export default eventHandler(async (event) => {
               instructions: true,
             },
             where: and(
-              eq(characterLocalizations.locale, locale),
+              eq(characterLocalizations.locale, locale!),
               isNull(characterLocalizations.deletedAt),
             ),
           },

@@ -2,10 +2,12 @@ import { and, eq, isNull } from 'drizzle-orm'
 import { z } from 'zod'
 import { getValidated } from '~/utils/h3'
 import { unauthorized } from '~/utils/nuxt'
-import { characterLocalizations, characters } from '~~/db/schema'
+import { characterLocalizations, characters, localeSchema } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
-  const { locale } = await getValidated(event, 'query', z.object({ locale: z.string() }))
+  const { locale } = await getValidated(event, 'query', z.object({
+    locale: localeSchema,
+  }))
 
   const orm = event.context.orm
   const user = event.context.user
@@ -32,7 +34,7 @@ export default eventHandler(async (event) => {
       },
       characterLocalizations: {
         where: and(
-          eq(characterLocalizations.locale, locale),
+          eq(characterLocalizations.locale, locale!),
           isNull(characterLocalizations.deletedAt),
         ),
       },

@@ -2,14 +2,14 @@ import { and, eq, isNull } from 'drizzle-orm'
 import { z } from 'zod'
 import { getValidated } from '~/utils/h3'
 import { forbidden } from '~/utils/nuxt'
-import { characterLocalizations, usernameSchema, usernames } from '~~/db/schema'
+import { characterLocalizations, localeSchema, usernameSchema, usernames } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const { username } = await getValidated(event, 'params', z.object({
     username: usernameSchema,
   }))
   const { locale } = await getValidated(event, 'query', z.object({
-    locale: z.enum(['pt-BR', 'en-US']),
+    locale: localeSchema,
   }))
 
   const orm = event.context.orm
@@ -29,7 +29,7 @@ export default eventHandler(async (event) => {
         with: {
           characterLocalizations: {
             where: and(
-              eq(characterLocalizations.locale, locale),
+              eq(characterLocalizations.locale, locale!),
               isNull(characterLocalizations.deletedAt),
             ),
             columns: {

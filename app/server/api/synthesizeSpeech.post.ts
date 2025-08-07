@@ -4,6 +4,7 @@ import { getTts } from '~/utils/gcp'
 import { getValidated } from '~/utils/h3'
 import { internal, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
 import { canUseAIFeatures } from '~/utils/plan'
+import { localeSchema } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const { GCP_CLOUD_TTS_API_KEY } = useRuntimeConfig(event)
@@ -13,7 +14,7 @@ export default eventHandler(async (event) => {
 
   const data = await getValidated(event, 'body', z.object({
     text: z.string(),
-    locale: z.string().default('en-US'),
+    locale: localeSchema,
   }))
 
   const user = event.context.user

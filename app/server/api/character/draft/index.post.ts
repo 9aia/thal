@@ -112,7 +112,7 @@ export default eventHandler(async (event) => {
     } & {
       username: string
     } = { ...newCharacter } as any
-  const localization = geminiData.localizations[locale]
+  const localization = geminiData.localizations[locale!]
 
   dto.data.name = localization.name
   dto.data.description = localization.description
