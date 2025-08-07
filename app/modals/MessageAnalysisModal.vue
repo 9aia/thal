@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useQuery } from '@tanstack/vue-query'
-import { diff_match_patch as DiffMatchPatch } from 'diff-match-patch'
+import { diffWords } from 'diff'
 import CommonResource from '~/components/app/common/state/CommonResource.vue'
 import queryKeys from '~/queryKeys'
 import type { MessageCorrectionData } from '~/types'
@@ -45,22 +45,20 @@ function handleReAnalyze() {
 
 const isSeverityOpen = ref(false)
 
-const dmp = new (DiffMatchPatch as any)()
-
+// Use jsdiff's diffWords for word-level diffing
 const diffedText = computed(() => {
   if (!props.messageCorrection?.correctedMessage) {
     return [{ type: 'equal', text: props.message }]
   }
 
-  const diffs = (dmp as any).diff_main(props.message, props.messageCorrection.correctedMessage)
-  ;(dmp as any).diff_cleanupSemantic(diffs)
+  const diffs = diffWords(props.message, props.messageCorrection.correctedMessage)
 
-  return diffs.map(([operation, text]: [number, string]) => {
-    if (operation === 1)
-      return { type: 'insert', text }
-    if (operation === -1)
-      return { type: 'delete', text }
-    return { type: 'equal', text }
+  return diffs.map((part) => {
+    if (part.added)
+      return { type: 'insert', text: part.value }
+    if (part.removed)
+      return { type: 'delete', text: part.value }
+    return { type: 'equal', text: part.value }
   })
 })
 </script>
