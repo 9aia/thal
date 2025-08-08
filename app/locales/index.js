@@ -1220,43 +1220,25 @@
   "Message analysis": {
     "pt": "Análise da mensagem"
   },
-  "Original message": {
-    "pt": "Mensagem original"
+  "Failed to generate analysis explanation.": {
+    "pt": "Falha ao gerar explicação da análise."
   },
-  "Error Severity:": {
-    "pt": "Gravidade do erro:"
+  "This feature is not available yet.": {
+    "pt": "Este recurso ainda não está disponível."
   },
-  "Minor ::severity::": {
-    "pt": "Leve ::severity::"
+  "Regenerate explanation": {
+    "pt": "Regenerar explicação"
   },
-  "Moderate ::severity::": {
-    "pt": "Moderada ::severity::"
+  "It seems your message is already perfect! We didn't find any mistakes in grammar, vocabulary, or phrasing. Great job! Keep up the good work.": {
+    "pt": "Parece que sua mensagem já está perfeita! Não encontramos nenhum erro de gramática, vocabulário ou fraseado. Ótimo trabalho! Continue assim."
   },
-  "Major ::severity::": {
-    "pt": "Grave ::severity::"
+  "Analysis is powered by AI, so the results may not be perfect.": {
+    "pt": "A análise é alimentada por IA, então os resultados podem não ser perfeitos."
   },
-  "Suggested correction": {
-    "pt": "Correção sugerida"
+  "Re-analyze the message": {
+    "pt": "Reanalisar a mensagem"
   },
-  "Analysis summary": {
-    "pt": "Resumo da análise"
-  },
-  "Verified message": {
-    "pt": "Mensagem verificada"
-  },
-  "Verification summary": {
-    "pt": "Resumo da verificação"
-  },
-  "This message is grammatically correct and well-formed.": {
-    "pt": "Esta mensagem está gramaticalmente correta e bem-formada."
-  },
-  "Ignore": {
-    "pt": "Ignorar"
-  },
-  "Re-analyze": {
-    "pt": "Reanalisar"
-  },
-  "Explain": {
-    "pt": "Explicar"
+  "Ignore all mistakes": {
+    "pt": "Ignorar todos os erros"
   }
 }

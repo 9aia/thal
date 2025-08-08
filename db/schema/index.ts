@@ -559,7 +559,7 @@ export const messageRelations = relations(messages, ({ one, many }) => ({
     fields: [messages.inReplyToId],
     references: [messages.id],
   }),
-  messageAnalysisSummaries: many(messageAnalysisSummaries),
+  messageAnalysisExplanations: many(messageAnalysisExplanations),
   correctedMessage: many(correctedMessages),
 }))
 
@@ -607,20 +607,18 @@ export const correctedMessageRelations = relations(correctedMessages, ({ one }) 
   }),
 }))
 
-export const messageAnalysisSummaries = table('MessageAnalysisSummary', {
+export const messageAnalysisExplanations = table('MessageAnalysisExplanation', {
   id: int('id').primaryKey({ autoIncrement: true }),
   content: text('content').notNull(),
   messageId: int('message_id')
     .notNull()
-    .unique()
     .references(() => messages.id, { onDelete: 'cascade' }),
-  createdAt,
-  updatedAt,
+  ...timestamps,
 })
 
-export const messageAnalysisSummaryRelations = relations(messageAnalysisSummaries, ({ one }) => ({
+export const messageAnalysisExplanationRelations = relations(messageAnalysisExplanations, ({ one }) => ({
   message: one(messages, {
-    fields: [messageAnalysisSummaries.messageId],
+    fields: [messageAnalysisExplanations.messageId],
     references: [messages.id],
   }),
 }))

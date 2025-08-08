@@ -45,7 +45,12 @@ const showDiff = computed(() => {
     <div class="px-2">
       <template v-if="!isEditing">
         <template v-if="showDiff">
-          <CorrectedMessage :original-text="messageContent" :corrected-text="messageCorrection!.correctedMessage!" />
+          <CorrectedMessage
+            :original-text="messageContent"
+            :corrected-text="messageCorrection!.correctedMessage!"
+            :message-id="messageId"
+            :message-correction="messageCorrection"
+          />
         </template>
         <AudibleText
           v-else

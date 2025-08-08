@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import { diffWords } from 'diff'
+import type { MessageCorrectionData } from '~/types'
 
-const props = defineProps<{ originalText: string, correctedText: string }>()
+const props = defineProps<{
+  originalText: string
+  messageCorrection?: MessageCorrectionData
+  correctedText: string
+  messageId: number
+}>()
 
 interface DiffPart {
   type: 'delete' | 'equal'
@@ -27,6 +33,15 @@ const diffParts = computed(() => {
 
   return parts
 })
+
+const isMessageAnalysisModalOpen = ref(false)
+const messageAnalysisModalPart = ref<string | null>(null)
+
+function openMessageAnalysisModal(part: string) {
+  // TODO: open the message analysis modal with focus on the text part
+  messageAnalysisModalPart.value = part
+  isMessageAnalysisModalOpen.value = true
+}
 </script>
 
 <template>
@@ -35,11 +50,20 @@ const diffParts = computed(() => {
       v-for="(part, idx) in diffParts"
       :key="idx"
       :class="{
-        'underline decoration-wavy decoration-red-500': part.type === 'delete',
+        'underline decoration-wavy decoration-red-500 cursor-pointer': part.type === 'delete',
         '': part.type === 'equal',
       }"
+      @click="openMessageAnalysisModal(part.text)"
     >
       {{ part.text }}
     </span>
   </article>
+
+  <LazyMessageAnalysisModal
+    v-if="isMessageAnalysisModalOpen"
+    v-model="isMessageAnalysisModalOpen"
+    :message="originalText"
+    :message-id="messageId"
+    :message-correction="messageCorrection"
+  />
 </template>

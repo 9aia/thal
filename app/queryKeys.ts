@@ -15,5 +15,6 @@ export default {
   pricingData: ['pricing-data'],
   subscriptionData: ['subscription-data'],
   messageSend: (username: MaybeRef<string | null>) => ['message-send', username],
-  messageAnalysisSummary: (locale: MaybeRef<string>, messageId: MaybeRef<number>) => [locale, 'message-analysis-summary', messageId],
+  messageAnalysisExplanation: (locale: MaybeRef<string>, messageId: MaybeRef<number>) => [locale, 'message-analysis-explanation', messageId],
+  regenerateMessageAnalysisExplanation: (locale: MaybeRef<string>, messageId: MaybeRef<number>) => [locale, 'regenerate-message-analysis-explanation', messageId],
 }

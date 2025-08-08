@@ -4,26 +4,40 @@ description: Tasks and items for the release.
 
 # TODO
 
+## 0.2.0
+
 - Focus on grammar correction on v0.2.0
 
+- Refactor: rename summary to explanation
 - Fix corrected messages not highlighting the words on message speech
-- Save localized message analysis summary in the database
-- Add specific message mistake mode to the message analysis modal
-  - Focus in that particular part of the message
-  - Explain the mistake and why it's wrong
+- Add message analysis modal
+  - Add a overview/parts explanation below the message diff in the message analysis modal
+    - The explanation should include why it's wrong
+    - Add feature to generate (more) examples of the incorrect-correct pairs
+    - Add feature to
+  - Add "Ignore all mistakes" button and "Ignore this mistake" button
+  - Add two different modes:
+    - Add an overview
+    - Add focus mode to the message analysis modal
+      - Focus in that particular wavy underline part of the message and pass it to the assistant (it will be able to understand if the that part is associated with other parts as well!)
+      - Explain the mistake and why it's wrong
+- Add re-analyze functionality to the message analysis modal (it will regenerate the corrected message and the explanation, if applicable)
 
 - Improve analysis prompting (it's not working for fantasy, not considering politeness as well)
   - Summary should not focus on "remove this, add that" but on the actual changes in a generic/overview way, like "found typos..."
-- Add explain functionality with clicking on the diffed text parts
+- Improve the explanation prompting
 - Add highlighted diffing to the message analysis modal
 - Add explain functionality to the message analysis modal
 
 Notes:
 
+- Save localized message analysis summary in the database or will the explanation be enough?
 - How to modify analysis based on future messages?
 - Add critical summary below the message?
 
-## 0.2.0
+## 0.2.0 (2)
+
+- Add more features to the chat bubble inside the message analysis modal, such as speech, copy, etc.
 
 ## 0.2.1
 

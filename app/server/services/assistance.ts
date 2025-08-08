@@ -1,14 +1,15 @@
 import type { ResponseSchema } from '@google/generative-ai'
 import { SchemaType } from '@google/generative-ai'
 import { and, eq, isNull } from 'drizzle-orm'
-import type { H3Event } from 'h3'
+import type { H3Event, H3EventContext } from 'h3'
 import { getHistory } from './messages'
 import type { MessageCorrectionData } from '~/types'
 import { now } from '~/utils/date'
-import { promptGeminiJson } from '~/utils/gemini'
-import { forbidden, internal, notFound, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
+import { promptGeminiJson, promptGeminiText } from '~/utils/gemini'
+import { badRequest, forbidden, internal, notFound, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
 import { canUseAIFeatures } from '~/utils/plan'
-import { characterLocalizations, correctedMessages, messages } from '~~/db/schema'
+import type { LocaleSchemaType, User } from '~~/db/schema'
+import { characterLocalizations, correctedMessages, messageAnalysisExplanations, messages } from '~~/db/schema'
 
 interface CorrectMessageOptions {
   messageId: number
@@ -190,13 +191,11 @@ export async function correctMessage(event: H3Event, { messageId }: CorrectMessa
     ${historyContext}
   `
 
-  const userPrompt = `
+  const prompt = `
     ${replyMessageFormatted}
 
     User: ${message.content}
   `
-
-  console.log(userPrompt, systemInstruction)
 
   const responseSchema: ResponseSchema = {
     type: SchemaType.OBJECT,
@@ -232,7 +231,7 @@ export async function correctMessage(event: H3Event, { messageId }: CorrectMessa
     model: GEMINI_MODEL,
     apiKey: GCP_GEMINI_API_KEY,
     responseSchema,
-    prompt: userPrompt,
+    prompt,
     systemInstruction,
   })
 
@@ -249,4 +248,179 @@ export async function correctMessage(event: H3Event, { messageId }: CorrectMessa
   }).returning()
 
   return createdMessageCorrection
+}
+
+interface ExplainCorrectedMessageOptions {
+  messageId: number
+  messageContent: string
+  correctedMessageContent: string | null
+  username: any
+  inReplyTo: any
+  regenerate?: boolean
+}
+
+export async function explainCorrectedMessage(
+  event: H3Event,
+  orm: H3EventContext['orm'],
+  user: User,
+  locale: LocaleSchemaType,
+  {
+    messageId,
+    messageContent,
+    correctedMessageContent,
+    username,
+    inReplyTo,
+    regenerate,
+  }: ExplainCorrectedMessageOptions,
+) {
+  const { GCP_GEMINI_API_KEY, GEMINI_MODEL } = useRuntimeConfig(event)
+
+  if (!GCP_GEMINI_API_KEY)
+    throw internal('GCP_GEMINI_API_KEY is not set in the environment')
+
+  if (!GEMINI_MODEL)
+    throw internal('GEMINI_MODEL is not set in the environment')
+
+  if (!correctedMessageContent)
+    throw badRequest('Corrected message does not exist')
+
+  if (!username)
+    throw forbidden('Username not found')
+
+  const localization = username.character?.characterLocalizations?.[0]
+
+  if (username.character && !username.character.deletedAt && !localization) {
+    throw internal('Character localization not found')
+  }
+
+  const history = await getHistory(orm, user, username.text)
+
+  const formattedHistory = history.map((message) => {
+    if (message.from === 'user') {
+      return `User: ${message.content}`
+    }
+    return `Bot: ${message.content}`
+  }).join('\n')
+
+  const character = username.character && !username.character.deletedAt && localization
+    ? {
+        username: username.text,
+        discoverable: username.character.discoverable,
+        name: localization.name,
+        description: localization.description,
+      }
+    : null
+
+  let replyMessage = ''
+
+  if (inReplyTo?.id) {
+    const sender = inReplyTo.isBot ? 'Bot: ' : 'User: '
+    replyMessage = sender + inReplyTo.content
+  }
+
+  const replyMessageFormatted = replyMessage
+    ? `<replying>
+      ${replyMessage}
+    </replying>`
+    : ''
+
+  const historyContext = history.length
+    ? `<conversation-history>
+    ${formattedHistory}
+    </conversation-history>`
+    : ``
+
+  const userData = `
+  <user-data>
+    ${JSON.stringify({
+      name: user.name,
+      lastName: user.lastName,
+      username: user.username,
+    }, null, 2)}
+  </user-data>
+`
+  const characterData = character
+    ? `
+    <bot-data>
+      ${character.name} (@${username.text}): 
+
+      ${character.description}
+    </bot-data>
+  `
+    : ''
+
+  const example = locale === 'pt-BR'
+    ? `
+      You are on the right track! Your sentence used the verb 'to have' to talk about your age, which is a natural translation from Portuguese, but in English we use the verb 'to be' (am, is, are).
+
+      Think of the expression as "Eu sou 18 anos de idade". It's a small detail, but it makes the sentence sound much more natural for an English speaker!
+    `
+    : `
+      Você está no caminho certo! A sua frase usou o verbo 'to have' para falar da sua idade, que é uma tradução natural do português, mas em inglês usamos o verbo 'to be' (am, is, are).
+
+      Pense que a expressão é "Eu sou 18 anos de idade". É um detalhe pequeno, mas que faz a frase soar muito mais natural para um falante de inglês!
+    `
+
+  const systemInstruction = `
+    You are an English assistant inside a language learning app. Your task is to analyze the conversation from an outside perspective and generate a brief, clear, and comprehensive explanation of the English mistakes in the user's message with high accuracy and context awareness, assuming they are a native Brazilian Portuguese speaker.
+    
+    [Instructions]
+    - Your explanation will be outside the chat so do not continue the conversation.
+    - The explanation must be in ${locale === 'pt-BR' ? 'Portuguese' : 'English'}.
+    - Identify the mistake and provide a brief explanation of why it is incorrect.
+    - YOU MUST NOT say hi, hello, etc. to the user.
+    - DO NOT cite the correct message in your explanation.
+    - Be supportive and encouraging, using an educational and friendly tone.
+    - The explanation should be concise, not a formal lesson. Use analogies or simple examples where they help.
+    - Focus on common grammatical errors, vocabulary issues, and phrasing that comes from direct translation.
+    - Read the <corrected-message> to understand the corrected version and the mistakes, so you can provide a more helpful explanation.
+    - Use <user-data> and <bot-data> for context to make a more helpful explanation.
+    - Use context from <conversation-history> and <replying> (if present).
+    - Use <user-data> and <bot-data> to personalize the explanation.
+
+    [Output Example]
+    ${example}
+
+    [Context]
+
+    ${userData}
+    
+    ${characterData}
+
+    ${historyContext}
+
+    <corrected-message>
+      ${correctedMessageContent}
+    </corrected-message>
+  `
+
+  const prompt = `
+    ${replyMessageFormatted}
+
+    User: ${messageContent}
+  `
+
+  const data = await promptGeminiText({
+    model: GEMINI_MODEL,
+    apiKey: GCP_GEMINI_API_KEY,
+    prompt,
+    systemInstruction,
+  })
+
+  if (!data)
+    throw internal('Gemini did not return a valid translation')
+
+  if (regenerate) {
+    await orm.update(messageAnalysisExplanations).set({
+      deletedAt: now(),
+    }).where(eq(messageAnalysisExplanations.messageId, messageId))
+  }
+
+  const [createdMessageAnalysis] = await orm.insert(messageAnalysisExplanations).values({
+    content: data,
+    messageId,
+    createdAt: now(),
+  }).returning()
+
+  return createdMessageAnalysis
 }

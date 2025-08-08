@@ -26,6 +26,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Medium priority
 
+- Add settings for explanation generation custom instructions
 - Add `read` status
 - Add a system character for creating/editing/finding characters
 - Add date to Whats New modal articles

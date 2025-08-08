@@ -1,0 +1,1 @@
+ALTER TABLE `MessageAnalysisSummary` ADD `deleted_at` integer;
