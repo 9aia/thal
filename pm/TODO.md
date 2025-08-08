@@ -4,13 +4,24 @@ description: Tasks and items for the release.
 
 # TODO
 
+- Focus on grammar correction on v0.2.0
+
+- Fix corrected messages not highlighting the words on message speech
+- Save localized message analysis summary in the database
+- Add specific message mistake mode to the message analysis modal
+  - Focus in that particular part of the message
+  - Explain the mistake and why it's wrong
+
 - Improve analysis prompting (it's not working for fantasy, not considering politeness as well)
+  - Summary should not focus on "remove this, add that" but on the actual changes in a generic/overview way, like "found typos..."
 - Add explain functionality with clicking on the diffed text parts
 - Add highlighted diffing to the message analysis modal
-- Save localized message analysis summary in the database
 - Add explain functionality to the message analysis modal
-- Add critical summary below the message?
+
+Notes:
+
 - How to modify analysis based on future messages?
+- Add critical summary below the message?
 
 ## 0.2.0
 

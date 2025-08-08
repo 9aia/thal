@@ -82,6 +82,7 @@ const correctedMessage = computed<MessageCorrectionData>(() => {
         :right="right"
         :is-editing="isEditing"
         :translation="translation"
+        :message-correction="correctedMessage"
       />
     </div>
 

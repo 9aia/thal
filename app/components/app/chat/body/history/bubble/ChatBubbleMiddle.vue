@@ -2,6 +2,7 @@
 import { useLocale } from '@psitta/vue'
 import type AudibleText from '~/components/app/ai/AudibleText.vue'
 import type { MessageStatus } from '~~/db/schema'
+import type { MessageCorrectionData } from '~/types'
 
 const props = defineProps<{
   right: boolean
@@ -11,6 +12,7 @@ const props = defineProps<{
   messageStatus: MessageStatus
   messageTime: number
   translation: Translation
+  messageCorrection?: MessageCorrectionData
 }>()
 type AudibleTextType = InstanceType<typeof AudibleText>
 const audiableTextRef = defineModel<AudibleTextType | null>('audiable-text')
@@ -21,6 +23,18 @@ const time = computed(() => new Intl.DateTimeFormat(locale.value, {
   hour: '2-digit',
   minute: '2-digit',
 }).format(new Date(props.messageTime)))
+
+const showDiff = computed(() => {
+  if (!props.right)
+    return false
+  const mc = props.messageCorrection
+  if (!mc)
+    return false
+  const hasError = mc.status === 'needs_correction'
+  // const isNonMinor = mc.severity && mc.severity !== 'minor'
+  const hasCorrected = !!mc.correctedMessage
+  return hasError && hasCorrected
+})
 </script>
 
 <template>
@@ -29,12 +43,17 @@ const time = computed(() => new Intl.DateTimeFormat(locale.value, {
     :class="[right ? 'rounded-br-md' : 'rounded-bl-md', !isEditing ? 'max-w-[300px] sm:max-w-[400px] lg:max-w-[500px]' : 'w-full']"
   >
     <div class="px-2">
-      <AudibleText
-        v-if="!isEditing"
-        :id="messageId"
-        ref="audiableTextRef"
-        :text="messageContent"
-      />
+      <template v-if="!isEditing">
+        <template v-if="showDiff">
+          <CorrectedMessage :original-text="messageContent" :corrected-text="messageCorrection!.correctedMessage!" />
+        </template>
+        <AudibleText
+          v-else
+          :id="messageId"
+          ref="audiableTextRef"
+          :text="messageContent"
+        />
+      </template>
       <ChatBubbleEditContent v-else />
     </div>
 

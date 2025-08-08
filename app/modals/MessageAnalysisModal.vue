@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { useQuery } from '@tanstack/vue-query'
-import { diffWords } from 'diff'
-import CommonResource from '~/components/app/common/state/CommonResource.vue'
 import queryKeys from '~/queryKeys'
 import type { MessageCorrectionData } from '~/types'
 
@@ -44,23 +42,6 @@ function handleReAnalyze() {
 }
 
 const isSeverityOpen = ref(false)
-
-// Use jsdiff's diffWords for word-level diffing
-const diffedText = computed(() => {
-  if (!props.messageCorrection?.correctedMessage) {
-    return [{ type: 'equal', text: props.message }]
-  }
-
-  const diffs = diffWords(props.message, props.messageCorrection.correctedMessage)
-
-  return diffs.map((part) => {
-    if (part.added)
-      return { type: 'insert', text: part.value }
-    if (part.removed)
-      return { type: 'delete', text: part.value }
-    return { type: 'equal', text: part.value }
-  })
-})
 </script>
 
 <template>
@@ -75,14 +56,7 @@ const diffedText = computed(() => {
         <template v-if="messageCorrection?.status === 'needs_correction' && messageCorrection?.severity">
           <div class="mb-4">
             <p class="text-xl">
-              <span
-                v-for="(part, idx) in diffedText" :key="idx"
-                :class="{
-                  'text-blue-500 bg-blue-500/10 rounded': part.type === 'insert',
-                  'text-red-500 line-through bg-red-500/10 rounded': part.type === 'delete',
-                  '': part.type === 'equal',
-                }"
-              >{{ part.text }}</span>
+              <AssistanceDiff :original-text="message" :corrected-text="messageCorrection!.correctedMessage!" />
             </p>
           </div>
 
