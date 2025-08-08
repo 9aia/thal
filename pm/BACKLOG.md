@@ -45,6 +45,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Low priority
 
+- Request and allow/select testers to use for free from Gaia internal admin API
 - Add curated characters
 - Add character memory
 - Add drawer search query params when opening drawers
