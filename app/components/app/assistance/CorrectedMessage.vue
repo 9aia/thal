@@ -53,7 +53,7 @@ function openMessageAnalysisModal(part: string) {
         'underline decoration-wavy decoration-red-500 cursor-pointer': part.type === 'delete',
         '': part.type === 'equal',
       }"
-      @click="openMessageAnalysisModal(part.text)"
+      @click="part.type === 'delete' && openMessageAnalysisModal(part.text)"
     >
       {{ part.text }}
     </span>
