@@ -8,13 +8,12 @@ description: Tasks and items for the release.
 
 - Focus on grammar correction on v0.2.0
 
+- Bug: When you open the message analysis modal immediately after sending a message, the explanation does not load because the correct messageId is not passed. Fix so that the modal always receives the correct messageId on first open.
 - Refactor: rename summary to explanation
 - Fix corrected messages not highlighting the words on message speech
 - Add message analysis modal
   - Add a overview/parts explanation below the message diff in the message analysis modal
-    - The explanation should include why it's wrong
     - Add feature to generate (more) examples of the incorrect-correct pairs
-    - Add feature to
   - Add "Ignore all mistakes" button and "Ignore this mistake" button
   - Add two different modes:
     - Add an overview
@@ -26,8 +25,6 @@ description: Tasks and items for the release.
 - Improve analysis prompting (it's not working for fantasy, not considering politeness as well)
   - Summary should not focus on "remove this, add that" but on the actual changes in a generic/overview way, like "found typos..."
 - Improve the explanation prompting
-- Add highlighted diffing to the message analysis modal
-- Add explain functionality to the message analysis modal
 
 Notes:
 
