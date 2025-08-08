@@ -115,9 +115,9 @@ export async function correctMessage(event: H3Event, { messageId }: CorrectMessa
 
   const formattedHistory = history.map((message) => {
     if (message.from === 'user') {
-      return `Character 1: ${message.content}`
+      return `User: ${message.content}`
     }
-    return `Character 2: ${message.content}`
+    return `Bot: ${message.content}`
   }).join('\n')
 
   const character = username.character && !username.character.deletedAt && localization
@@ -148,50 +148,55 @@ export async function correctMessage(event: H3Event, { messageId }: CorrectMessa
     </conversation-history>`
     : ``
 
+  const userData = `
+    <user-data>
+      ${JSON.stringify({
+        name: user.name,
+        lastName: user.lastName,
+        username: user.username,
+      }, null, 2)}
+    </user-data>
+  `
+  const characterData = character
+    ? `
+      <bot-data>
+        ${character.name} (@${message.chat.username.text}): 
+
+        ${character.description}
+      </bot-data>
+    `
+    : ''
+
   const systemInstruction = `
-    You are a text correction assistant for a language learning app.
-    Your task is to correct the message of the user with high accuracy and context awareness.
-    The user is learning English and is a native Portuguese speaker.
+    You are an English correction assistant inside a language learning app where users learn English through chats with simulated characters. Your task is to identify and correct common English mistakes made by native Brazilian Portuguese speakers with high accuracy and context awareness. Analyze the following text message in the user prompt and provide a corrected version if applicable. 
 
-    [Analysis Instructions]
-    - Use context from <conversation-history> and <replying> (if present).
+    [Instructions]
+    - Pay attention to subtle mistakes, be very precise, accurate and rigorous.
+    - Consider the user's communication style where possible or applicable.
+    - Consider the <conversation-history> and <replying> (if present).
     - Maintain intent and meaning.
-    - Do not include explanations or justifications in the response, only correct the user message if applicable or any mistakes were made.
-    - Pay attention to suttle mistakes, be very precise, accurate and rigorous.
-    - Consider common mistakes that users make, like spelling, grammar, punctuation, etc.
-
-    [Personalization Guidelines]
     - Use <user-data> and <bot-data> to improve the correction (e.g. pronouns, gender agreement, names).
-    - Reflect user’s communication style where possible or applicable.
+    - Focus on grammatical errors (such as verb tense, article usage, and word order), vocabulary issues (especially false cognates), and typical phrasing that results from a direct translation (especially slangs, idioms or coloquialisms).
+    - Consider slangs, idioms or coloquialisms that are common in English that could be used for much more natural-sounding English instead of the literal translation user might be using.
+    - Consider also socio-linguistic mistakes, especially missing politeness.
+    - Avoid adding contractions to the corrected message unless it's necessary, e.g. the user is quoting inside its message for a natural-sounding English character.
+    
+    [Context]
 
-    <context>
-      <user-data>
-        ${JSON.stringify({
-          name: user.name,
-          lastName: user.lastName,
-          username: user.username,
-        }, null, 2)}
-      </user-data>
+    ${userData}
+    
+    ${characterData}
 
-      ${character
-        ? `
-          <bot-data>
-            ${character.name} (@${message.chat.username.text}): 
-
-            ${character.description}
-          </bot-data>
-      `
-        : ''}
-
-      ${historyContext}
-    </context>
+    ${historyContext}
   `
 
-  const prompt = `
+  const userPrompt = `
     ${replyMessageFormatted}
 
-    ${message.isBot ? 'Bot: ' : 'User: '} ${message.content}
+    User: ${message.content}
   `
+
+  console.log(userPrompt, systemInstruction)
 
   const responseSchema: ResponseSchema = {
     type: SchemaType.OBJECT,
@@ -227,7 +232,7 @@ export async function correctMessage(event: H3Event, { messageId }: CorrectMessa
     model: GEMINI_MODEL,
     apiKey: GCP_GEMINI_API_KEY,
     responseSchema,
-    prompt,
+    prompt: userPrompt,
     systemInstruction,
   })
 
@@ -239,7 +244,7 @@ export async function correctMessage(event: H3Event, { messageId }: CorrectMessa
   const [createdMessageCorrection] = await orm.insert(correctedMessages).values({
     messageId,
     content: data.correctedMessage,
-    severity: data.severity,
+    severity: 'major',
     createdAt: now(),
   }).returning()
 
