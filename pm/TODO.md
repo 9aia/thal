@@ -26,6 +26,9 @@ description: Tasks and items for the release.
   - Summary should not focus on "remove this, add that" but on the actual changes in a generic/overview way, like "found typos..."
 - Improve the explanation prompting
 
+- Perf: implement virtual and infinite scrolls
+- Perf: ignore too far way messages in the past (cut the history to most recent messages)
+
 Notes:
 
 - Save localized message analysis summary in the database or will the explanation be enough?
