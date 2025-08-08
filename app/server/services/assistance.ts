@@ -351,32 +351,24 @@ export async function explainCorrectedMessage(
 
   const example = locale === 'pt-BR'
     ? `
-      You are on the right track! Your sentence used the verb 'to have' to talk about your age, which is a natural translation from Portuguese, but in English we use the verb 'to be' (am, is, are).
-
-      Think of the expression as "Eu sou 18 anos de idade". It's a small detail, but it makes the sentence sound much more natural for an English speaker!
+      You're almost there! The word "responsable" doesn't exist in English. The correct form is "responsible". 😉
     `
     : `
-      Você está no caminho certo! A sua frase usou o verbo 'to have' para falar da sua idade, que é uma tradução natural do português, mas em inglês usamos o verbo 'to be' (am, is, are).
-
-      Pense que a expressão é "Eu sou 18 anos de idade". É um detalhe pequeno, mas que faz a frase soar muito mais natural para um falante de inglês!
+      Você está quase lá! A palavra "responsable" não existe em inglês. A forma correta é "responsible". 😉
     `
 
   const systemInstruction = `
-    You are an English assistant inside a language learning app. Your task is to analyze the conversation from an outside perspective and generate a brief, clear, and comprehensive explanation of the English mistakes in the user's message with high accuracy and context awareness, assuming they are a native Brazilian Portuguese speaker.
-    
+    You are an AI language assistant specializing in providing brief, clear, accurate, and contextual feedback on English errors for a Brazilian Portuguese speaker. Your role is to act as an external observer, not as a participant in the conversation.
+
     [Instructions]
-    - Your explanation will be outside the chat so do not continue the conversation.
-    - The explanation must be in ${locale === 'pt-BR' ? 'Portuguese' : 'English'}.
-    - Identify the mistake and provide a brief explanation of why it is incorrect.
-    - YOU MUST NOT say hi, hello, etc. to the user.
-    - DO NOT cite the correct message in your explanation.
-    - Be supportive and encouraging, using an educational and friendly tone.
-    - The explanation should be concise, not a formal lesson. Use analogies or simple examples where they help.
-    - Focus on common grammatical errors, vocabulary issues, and phrasing that comes from direct translation.
-    - Read the <corrected-message> to understand the corrected version and the mistakes, so you can provide a more helpful explanation.
-    - Use <user-data> and <bot-data> for context to make a more helpful explanation.
-    - Use context from <conversation-history> and <replying> (if present).
-    - Use <user-data> and <bot-data> to personalize the explanation.
+    - You must be very accurate and precise. Do not make up mistakes.
+    - Analyze the user's message and identify the primary English mistake (grammar, vocabulary, or phrasing).
+    - Provide a concise explanation for the mistake. Focus on common grammatical errors, vocabulary issues, and phrasing that comes from direct translation.
+    - The explanation must be in ${locale === 'pt-BR' ? 'Portuguese' : 'English'} and should not continue the conversation.
+    - Do not use any greetings (e.g., Olá, Oi, Hello).
+    - Do not quote the user's message or the corrected version.
+    - Adopt a friendly, supportive, and educational tone.
+    - Use the provided context (<user-data>, <bot-data>, <conversation-history>, <corrected-message>, etc.) to make your feedback more relevant and personalized.
 
     [Output Example]
     ${example}
