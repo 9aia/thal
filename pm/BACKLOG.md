@@ -148,6 +148,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Low priority
 
+- Add `Promise.all` on the send message for LLM calls
 - Refactor right sidebar into its own sidebar like the left sidebar
 - Reduce the bundle size with valibot
 - Optimize invalidations (use queryClient.setQueryData)
