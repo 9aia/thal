@@ -8,7 +8,7 @@ description: Tasks and items for the release.
 
 - Focus on grammar correction on v0.2.0
 
-- Bug: Disable Analyze button on chat button footer before response 
+- Bug: Disable Analyze button on chat button footer before response
 - Bug: When you open the message analysis modal immediately after sending a message, the explanation does not load because the correct messageId is not passed. Fix so that the modal always receives the correct messageId on first open.
 - Refactor: rename summary to explanation
 - Fix corrected messages not highlighting the words on message speech
@@ -62,6 +62,8 @@ Notes:
 
 - Save translations in the database (it will be useful for analytics and be used to improve the translation quality)
   - Refactor translate endpoint into `/api/message/translate` with `messageId` param?
+
+- Add [hint mode](./notes/hint.md)
 
 - Allow users to see the translation on a popover by selecting a text/word on the message, also below the translation the user can COPY, LISTEN
 
