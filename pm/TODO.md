@@ -8,6 +8,7 @@ description: Tasks and items for the release.
 
 - Focus on grammar correction on v0.2.0
 
+- Bug: Disable Analyze button on chat button footer before response 
 - Bug: When you open the message analysis modal immediately after sending a message, the explanation does not load because the correct messageId is not passed. Fix so that the modal always receives the correct messageId on first open.
 - Refactor: rename summary to explanation
 - Fix corrected messages not highlighting the words on message speech
