@@ -1,4 +1,4 @@
-# Contributing <!-- omit in toc -->
+# Contributing to Thal <!-- omit in toc -->
 
 Thank you for your interest in contributing to Thal! This document provides guidelines and information for contributors.
 
@@ -44,6 +44,7 @@ Thank you for your interest in contributing to Thal! This document provides guid
   - [Deploying Preview without Releasing](#deploying-preview-without-releasing)
   - [Releasing](#releasing)
 - [Marketing](#marketing)
+- [Testing and Assuring Quality](#testing-and-assuring-quality)
 - [Useful Links](#useful-links)
 - [Getting Help](#getting-help)
   - [Getting Asynchronous Help](#getting-asynchronous-help)
@@ -122,7 +123,7 @@ pnpm run dev:cs
 > [!IMPORTANT]
 > Make sure you have installed the basic environment locally. See [Preparing the Basic Environment](#preparing-the-basic-environment).
 
-3. **Clone the repository**
+1. **Clone the repository**
 
    Clone the repository to your local machine:
 
@@ -131,7 +132,7 @@ pnpm run dev:cs
    cd thal/
    ```
 
-4. **Configure the origin remote**
+2. **Configure the origin remote**
 
    To ensure your changes are synchronized across both GitHub and Gitea repositories, configure your origin remote with multiple push URLs:
 
@@ -269,7 +270,7 @@ git push --set-upstream origin main # or `git push` if you have already set up u
 
    See [Checking Code Quality](#checking-code-quality) for more information.
 
-5. **Commit your changes**. See [Committing Code](#committing-code) for more information.
+5. **Commit your changes**. See [Committing](#committing) for more information.
 
 6. **Push and create a pull request**. See [Pushing to the Repositories](#pushing-to-the-repositories) and [Creating Pull Requests](#creating-pull-requests) for more information.
 
@@ -305,11 +306,10 @@ This will stop the Stripe and codeshare containers running in the background.
 
 ### Writing Code
 
-- Follow PEP 8 guidelines
 - Use meaningful variable and function names
-- Add docstrings for public functions and classes
+- Avoid redudant comments with the code itself
 - Keep functions small and focused
-- Use type hints where appropriate
+- Use types
 
 > [!IMPORTANT]
 > Don't forget to run `pnpm cf-typegen` to generate the Cloudflare types.
@@ -498,6 +498,10 @@ pnpm run build:prod && pnpm run deploy:prod # for deploying production
 ## Marketing
 
 // TODO: Add marketing documentation
+
+## Testing and Assuring Quality
+
+// TODO: Add testing and assuring quality documentation
 
 ## Useful Links
 
