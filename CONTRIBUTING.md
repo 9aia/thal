@@ -1,5 +1,7 @@
 # Contributing <!-- omit in toc -->
 
+Thank you for your interest in contributing to Thal! This document provides guidelines and information for contributors.
+
 - [Managing the Project](#managing-the-project)
 - [Preparing the Environment Locally](#preparing-the-environment-locally)
 - [Developing](#developing)
@@ -18,17 +20,24 @@
   - [Committing Code](#committing-code)
   - [Pushing Code to the Repositories](#pushing-code-to-the-repositories)
   - [Previewing Builds](#previewing-builds)
-  - [Deploying Preview without Releasing](#deploying-preview-without-releasing)
+  - [Getting AI Assistance](#getting-ai-assistance)
+  - [Delegating Tasks to AI Software Engineers](#delegating-tasks-to-ai-software-engineers)
 - [Designing](#designing)
   - [Designing the UI](#designing-the-ui)
 - [Managing the Content](#managing-the-content)
   - [Translating the Content](#translating-the-content)
   - [Cleaning Up the Content](#cleaning-up-the-content)
   - [Adjusting Generated Content](#adjusting-generated-content)
-- [Managing the Infrastructure](#managing-the-infrastructure)
-- [Releasing](#releasing)
+- [Streamlining Operations](#streamlining-operations)
+  - [Managing the Infrastructure](#managing-the-infrastructure)
+  - [Deploying Preview without Releasing](#deploying-preview-without-releasing)
+  - [Releasing](#releasing)
+- [Marketing](#marketing)
 - [Useful Links](#useful-links)
-- [Reference](#reference)
+- [Getting Help](#getting-help)
+  - [Getting Asynchronous Help](#getting-asynchronous-help)
+  - [Getting Real-Time Help](#getting-real-time-help)
+- [License](#license)
 
 ## Managing the Project
 
@@ -238,11 +247,18 @@ pnpm cs {command} # for the codeshare container
 
 ### Pushing Code to the Repositories
 
-Once set up, you can push your changes to both repositories with a single command:
+You can push your changes to both repositories with a single command:
 
 ```bash
 git push
 ```
+
+> [!WARNING]
+> If you haven't set up upstream, you can use the following command to push your changes to the repository:
+>
+> ```bash
+> git push --set-upstream origin main # or git push -u origin main
+> ```
 
 ### Previewing Builds
 
@@ -254,18 +270,17 @@ pnpm run build:preview && pnpm run preview # for previewing preview
 pnpm run build:prod && pnpm run preview # for previewing production
 ```
 
-### Deploying Preview without Releasing
+### Getting AI Assistance
 
-> [!WARNING]
-> This is not the proper way to deploy the application, it's just here for documentation purposes. See [Releasing](#releasing) for the right way.
+We can use AI code tools to get assistance for generating code, refactoring, debugging, testing, and documentation.
 
-To deploy a version without creating a release, use the following command:
+Examples: [Copilot](https://copilot.github.com/) (IDE extension), [Cursor](https://www.cursor.com/) (IDE fork), [Gemini CLI](https://blog.google/technology/developers/introducing-gemini-cli-open-source-ai-agent/) (terminal tool)
 
-```bash
-pnpm run build && pnpm run deploy # for deploying development
-pnpm run build:preview && pnpm run deploy:preview # for deploying preview
-pnpm run build:prod && pnpm run deploy:prod # for deploying production
-```
+### Delegating Tasks to AI Software Engineers
+
+We can use AI software engineers to delegate tasks across the project to an autonomous agent in the cloud. These tools can handle complex, multi-step tasks and integrate with your workflow.
+
+Examples: [Devin](https://devin.ai/), [Codex](https://openai.com/codex/)
 
 ## Designing
 
@@ -282,7 +297,7 @@ You can find our custom UI components in the `./app/components` folder.
 
 ### Designing the UI
 
-We use can use [Stitch](https://stitch.withgoogle.com/) to design the UI.
+We can use [Stitch](https://stitch.withgoogle.com/) to design the UI.
 
 > [!NOTE]
 > Stitch is not a perfect tool, so you may need to change some things to make it better. That's why we use it as a reference, but not as the final design.
@@ -322,11 +337,26 @@ pnpm run psitta adjust <prompt>
 # For example: pnpm run psitta adjust "Make the translation a little bit more formal"
 ```
 
-## Managing the Infrastructure
+## Streamlining Operations
+
+### Managing the Infrastructure
 
 We use [Cloudflare](https://www.cloudflare.com/) to manage the infrastructure.
 
-## Releasing
+### Deploying Preview without Releasing
+
+> [!WARNING]
+> This is not the proper way to deploy the application, it's just here for documentation purposes. See [Releasing](#releasing) for the right way.
+
+To deploy a version without creating a release, use the following command:
+
+```bash
+pnpm run build && pnpm run deploy # for deploying development
+pnpm run build:preview && pnpm run deploy:preview # for deploying preview
+pnpm run build:prod && pnpm run deploy:prod # for deploying production
+```
+
+### Releasing
 
 > [!NOTE]
 > Before releasing, it's recommended to preview locally the application and to test it to ensure everything works as expected.
@@ -356,10 +386,40 @@ We use [Cloudflare](https://www.cloudflare.com/) to manage the infrastructure.
 5. **Select the Next Version**
    Choose the next version based on [semantic versioning](https://semver.org/). Make sure to determine whether it is a major, minor, or patch release based on the changes since the last release.
 
+## Marketing
+
+// TODO: Add marketing documentation
+
 ## Useful Links
 
 - [Iconify Icons](https://icon-sets.iconify.design/material-symbols/?keyword=material)
 
-## Reference
+## Getting Help
 
-For further information, please refer to the official documentation of the relevant technologies.
+> [!NOTE]
+> For human-human communication, please prioritize asynchronous communication over real-time communication when possible.
+
+### Getting Asynchronous Help
+
+If you have questions or need help, we recommend you to follow these steps in order:
+
+1. Read through this contributing guide.
+2. Check the existing documentation in the `docs/` folder.
+3. Refer to the official documentation for any relevant technologies.
+4. Examine existing code, issues, and discussions for similar problems.
+5. If you still need help, open a new issue for bugs or feature requests, or use a discussion for general questions.
+
+### Getting Real-Time Help
+
+For immediate assistance, we encourage you to use both community support and AI.
+
+* **Community**: We have a [Discord server](https://discord.gg/RsYaUn3zQa) where you can get real-time help from our community members and core team if they are available.
+* **AI Assistants:** We encourage you to leverage general-purpose AI Assistant, such as [Gemini](https://gemini.google.com/) or [ChatGPT](https://chatgpt.com/). They provide high-level, conversational help, such as explaining complex concepts, brainstorming solutions, and more.
+
+## License
+
+By contributing to this project, you agree that your contributions will be licensed under the same license as the project.
+
+---
+
+Thank you for contributing to Thal!
