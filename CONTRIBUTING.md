@@ -3,22 +3,33 @@
 Thank you for your interest in contributing to Thal! This document provides guidelines and information for contributors.
 
 - [Managing the Project](#managing-the-project)
-- [Preparing the Environment Locally](#preparing-the-environment-locally)
-- [Developing](#developing)
+- [Preparing the Environment](#preparing-the-environment)
+  - [Preparing the Basic Environment](#preparing-the-basic-environment)
   - [Joining a Codeshare](#joining-a-codeshare)
-    - [Using VSCode Directly](#using-vscode-directly)
+    - [Opening from CLI](#opening-from-cli)
     - [Using the `dev:cs` Script](#using-the-devcs-script)
-  - [Running the Development Environment Locally](#running-the-development-environment-locally)
+  - [Preparing the Local Repository](#preparing-the-local-repository)
+  - [Preparing the Full Environment Locally](#preparing-the-full-environment-locally)
+  - [Creating a Codeshare Session](#creating-a-codeshare-session)
+  - [Preparing the Network](#preparing-the-network)
+    - [Preparing the Network for Hosting a Codeshare](#preparing-the-network-for-hosting-a-codeshare)
+    - [Preparing the Network for Joining a Codeshare](#preparing-the-network-for-joining-a-codeshare)
+- [Contributing](#contributing)
+  - [Committing](#committing)
+  - [Pushing to the Repositories](#pushing-to-the-repositories)
+  - [Creating Pull Requests](#creating-pull-requests)
+  - [Submitting a Pull Request](#submitting-a-pull-request)
+- [Developing](#developing)
+  - [Running the Development Environment](#running-the-development-environment)
   - [Stopping the Development Environment](#stopping-the-development-environment)
   - [Writing Code](#writing-code)
+  - [Checking Code Quality](#checking-code-quality)
   - [Managing the Database](#managing-the-database)
     - [Migrating the Database](#migrating-the-database)
     - [Applying the Migrations](#applying-the-migrations)
   - [Interacting with the Database](#interacting-with-the-database)
   - [Interacting with the API](#interacting-with-the-api)
   - [Managing the Local Containers](#managing-the-local-containers)
-  - [Committing Code](#committing-code)
-  - [Pushing Code to the Repositories](#pushing-code-to-the-repositories)
   - [Previewing Builds](#previewing-builds)
   - [Getting AI Assistance](#getting-ai-assistance)
   - [Delegating Tasks to AI Software Engineers](#delegating-tasks-to-ai-software-engineers)
@@ -41,7 +52,7 @@ Thank you for your interest in contributing to Thal! This document provides guid
 
 ## Managing the Project
 
-> [!NOTE]
+> [!TIP]
 > You can edit the project management documents directly in the `./pm` folder via GitHub website, but it's recommended to edit the documents locally or in a codeshare.
 
 We approach the project management in a git-based way. We foster an intuitive, transparent and proactivity-driven process. You can find all the project management documents in the `./pm` folder.
@@ -57,20 +68,90 @@ Here's a brief overview of the documents:
 - **Archived**
   - **[Backlog](/pm/archived/BACKLOG.md)**: A record of ideas that have been set aside and will not be pursued.
 
-## Preparing the Environment Locally
+## Preparing the Environment
+
+### Preparing the Basic Environment
+
+Install the following tools:
+
+- [Git](https://git-scm.com/downloads)
+- [Node.js 23.8 or higher](https://nodejs.org/en)
+- [PNPM 9.10 or higher](https://pnpm.io/installation)
+- ([Vscode](https://code.visualstudio.com/download) or any Vscode compatible editor) (recommended)
+
+### Joining a Codeshare
+
+#### Opening from CLI
+
+> [!IMPORTANT]
+> Make sure you have set up the network properly. See [Preparing the Network for Joining a Codeshare](#preparing-the-network-for-joining-a-codeshare).
+
+> [!WARNING]
+> Make sure to provide properly all connection details, such as the IDE command, host, port, and root folder.
+
+> [!TIP]
+> Although this is relatively more convenient since you don't have to prepare a full environment locally, it is still recommended to do so. For a smoother and more reliable experience, refer to [Using the `dev:cs` Script](#using-the-devcs-script).
+
+Here is an example of how to join a codeshare session directly in VSCode:
+
+```bash
+code --remote "ssh-remote+codeshare@dev.thal.9aia.com:2222" ./codeshare/
+# or if you want to open it in a new window
+code --new-window --remote "ssh-remote+codeshare@dev.thal.9aia.com:2222" ./codeshare/
+```
 
 > [!NOTE]
-> If you are joining a codeshare, you can skip this section.
+> Commands may differ for other editors.
 
-You will need to have installed an IDE. It's recommended to use [Vscode](https://code.visualstudio.com/download) or any Vscode compatible editor.
+#### Using the `dev:cs` Script
+
+> [!IMPORTANT]
+> Make sure you have set up the basic environment locally. See [Preparing the Basic Environment](#preparing-the-basic-environment).
+
+> [!IMPORTANT]
+> Make sure you have set up the network properly. See [Preparing the Network for Joining a Codeshare](#preparing-the-network-for-joining-a-codeshare).
+
+To join a codeshare, you need to run the following command:
+
+```bash
+pnpm run dev:cs
+```
+
+### Preparing the Local Repository
+
+> [!IMPORTANT]
+> Make sure you have installed the basic environment locally. See [Preparing the Basic Environment](#preparing-the-basic-environment).
+
+3. **Clone the repository**
+
+   Clone the repository to your local machine:
+
+   ```sh
+   git clone https://github.com/9aia/thal.git
+   cd thal/
+   ```
+
+4. **Configure the origin remote**
+
+   To ensure your changes are synchronized across both GitHub and Gitea repositories, configure your origin remote with multiple push URLs:
+
+   ```bash
+   git remote set-url --add --push origin ssh://git@gitea.homelab.vini.center:2222/9aia/thal.git
+   git remote set-url --add --push origin git@github.com:9aia/thal.git
+   ```
+
+### Preparing the Full Environment Locally
+
+> [!IMPORTANT]
+> Make sure you have installed the basic environment locally. See [Preparing the Basic Environment Locally](#preparing-the-basic-environment-locally).
+
+> [!TIP]
+> If you are joining a codeshare, you can skip this section.
 
 1. **Install the main dependencies**
    - Ensure you have the following prerequisites installed on your system:
-      - [Git](https://git-scm.com/downloads)
       - [Docker](https://docs.docker.com/)
       - [Docker Compose](https://docs.docker.com/compose)
-      - [Node.js 23.8 or higher](https://nodejs.org/en)
-      - [PNPM 9.10 or higher](https://pnpm.io/installation)
 
 2. **Configure the IDE (recommended)**
   - For Visual Studio Code, consider installing the following extensions:
@@ -84,14 +165,7 @@ You will need to have installed an IDE. It's recommended to use [Vscode](https:/
     - [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens) (optional)
     - [Copilot](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot) (optional if you are using Cursor or another AI code assistant)
 
-3. **Clone the repository**
-
-   Clone the repository to your local machine:
-
-   ```sh
-   git clone https://github.com/9aia/thal.git
-   cd thal/
-   ```
+3. **Clone the repository**. See [Preparing the Local Repository](#preparing-the-local-repository) for more details.
 
 4. **Install the dependencies**
 
@@ -111,46 +185,97 @@ You will need to have installed an IDE. It's recommended to use [Vscode](https:/
    pnpm db:migrate
    ```
 
-6. **Configure the origin remote**
+### Creating a Codeshare Session
 
-   To ensure your changes are synchronized across both GitHub and Gitea repositories, configure your origin remote with multiple push URLs:
+> [!IMPORTANT]
+> Make sure you have prepared the full environment locally (see [Preparing the Full Environment Locally](#preparing-the-full-environment-locally)) and the network for hosting a codeshare (see [Preparing the Network for Hosting a Codeshare](#preparing-the-network-for-hosting-a-codeshare)).
 
+> [!WARNING]
+> You may have to install the Vscode extensions manually inside the codeshare container.
+
+// TODO: add more information about how to create a codeshare session
+
+### Preparing the Network
+
+> [!TIP]
+> If you are not working on a codeshare, you can skip this section.
+
+#### Preparing the Network for Hosting a Codeshare
+
+// TODO: add more information about the codeshare networking
+
+#### Preparing the Network for Joining a Codeshare
+
+> [!IMPORTANT]
+> Make sure you have set up the network properly. We recommend using [Tailscale](https://tailscale.com/) to connect to the codeshare session.
+
+> [!IMPORTANT]
+> Make sure you have configured `/etc/hosts` to point `dev.thal.9aia.com` to the host machine's IP address.
+
+// TODO: add more information about the codeshare networking
+
+> [!IMPORTANT]
+> Remember to set `dev.thal.9aia.com:3000` as a secure origin in `chrome://flags/#unsafely-treat-insecure-origin-as-secure` when joining the codeshare. Without this, you will not be able to authenticate to the application.
+
+## Contributing
+
+### Committing
+
+1. **Generate a commit message**
+   - Use the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) format, in particular the [Angular Commit Convention](https://github.com/angular/angular/blob/main/CONTRIBUTING.md#commit).
+   - It's recommended to generate a commit message using AI of the IDE you are using. For example, in VSCode, you can use the `Copilot` extension to generate a commit message.
+   - Check for warnings of already included authors in the commit message.
+
+2. **Ensure the authors are included**
+   - If your programming in a codeshare, don't forget to include the authors in the `co-authors` file.
+
+3. **Commit**
+   - Run `git commit` to commit your changes or use the IDE's commit button.
+
+### Pushing to the Repositories
+
+You can use the following command to push your changes to the repository:
+
+```bash
+git push --set-upstream origin main # or `git push` if you have already set up upstream
+```
+
+### Creating Pull Requests
+
+- Provide a clear description of the changes
+- Include any relevant issue numbers
+- Ensure all tests pass and code quality checks are satisfied
+- Update documentation if necessary
+
+### Submitting a Pull Request
+
+1. **Create a branch**:
    ```bash
-   git remote set-url --add --push origin ssh://git@gitea.homelab.vini.center:2222/9aia/thal.git
-   git remote set-url --add --push origin git@github.com:9aia/thal.git
+   git checkout -b feat/your-feature-name # or fix/your-fix-name, chore/your-chore-name, docs/your-docs-name, etc.
    ```
+
+2. **Make your changes** following the guidelines
+
+3. **Test your changes** by running the application. See [Previewing Builds](#previewing-builds) for more information.
+
+4. **Check code quality (if applicable)**:
+   ```bash
+   # Format code
+   pnpm lint
+
+   # Run type checker
+   pnpm tsc
+   ```
+
+   See [Checking Code Quality](#checking-code-quality) for more information.
+
+5. **Commit your changes**. See [Committing Code](#committing-code) for more information.
+
+6. **Push and create a pull request**. See [Pushing to the Repositories](#pushing-to-the-repositories) and [Creating Pull Requests](#creating-pull-requests) for more information.
 
 ## Developing
 
-### Joining a Codeshare
-
-#### Using VSCode Directly
-
-> [!WARNING]
-> It's not recommended. The issue with this is that you will have to manually specify all the variables, such as IDE command, host, port, root folder, etc.
-
-You can join a codeshare by running the following command directly:
-
-```bash
-code --remote "ssh-remote+codeshare@dev.thal.9aia.com:2222" ./codeshare/
-code --new-window --remote "ssh-remote+codeshare@dev.thal.9aia.com:2222" ./codeshare/ # if you want to open a new window
-```
-
-#### Using the `dev:cs` Script
-
-> [!NOTE]
-> This is the recommended way to join a codeshare, but you will have to have the repository cloned locally.
-
-> [!WARNING]
-> Remember to set `dev.thal.9aia.com:3000` as a secure origin in `chrome://flags/#unsafely-treat-insecure-origin-as-secure` when joining the codeshare. Without this, you will not be able to authenticate to the application.
-
-To join a codeshare, you need to run the following command:
-
-```bash
-pnpm run dev:cs
-```
-
-### Running the Development Environment Locally
+### Running the Development Environment
 
 1. **Start the containers**
    - To start the containers, run:
@@ -165,6 +290,9 @@ pnpm run dev:cs
      pnpm run dev
      ```
 
+> [!TIP]
+> If the network is properly set up (see [Preparing the Network](#preparing-the-network) for more details), you can access the development environment in your browsers using the URL `http://dev.thal.9aia.com:3000`. This allows seamless collaboration within the shared network during your codeshare session.
+
 ### Stopping the Development Environment
 
 To stop the development environment, you need to run the following command:
@@ -177,12 +305,21 @@ This will stop the Stripe and codeshare containers running in the background.
 
 ### Writing Code
 
-> [!NOTE]
+- Follow PEP 8 guidelines
+- Use meaningful variable and function names
+- Add docstrings for public functions and classes
+- Keep functions small and focused
+- Use type hints where appropriate
+
+> [!IMPORTANT]
 > Don't forget to run `pnpm cf-typegen` to generate the Cloudflare types.
 
-We use [Eslint](https://eslint.org/) to help us with the code quality and consistency. It's automatically fix the linting issues when you save the files. You can also run it manually with `pnpm lint` to check the issues or `pnpm lint:fix` to fix the issues.
+### Checking Code Quality
 
-We also use [Vue Tsc](https://github.com/vuejs/language-tools/tree/master/packages/tsc) to help us with the type safety. It's automatically run before the release. You can also run it manually with `pnpm tsc`.
+For keeping the code organized, we use the following tools:
+
+- [Eslint](https://eslint.org/): Used to help us with the code formatting and linting. It automatically fix the linting issues when you save the files. You can also run it manually with `pnpm lint` to check the issues or `pnpm lint:fix` to fix the issues.
+- [Vue Tsc](https://github.com/vuejs/language-tools/tree/master/packages/tsc): Used to help us with the type safety. It's automatically run before the release. You can also run it manually with `pnpm tsc`.
 
 ### Managing the Database
 
@@ -220,7 +357,7 @@ Read more about Castor [here](https://github.com/9aia/castor).
 
 For interacting with the API, we utilize the [Vscode REST Client extension](https://marketplace.visualstudio.com/items?itemName=humao.rest-client). You can find all the API requests in `./api-client` folder.
 
-> [!NOTE]
+> [!IMPORTANT]
 > Remember to set the environment by opening Command Palette and selecting `Rest Client: Switch Environment`.
 
 ### Managing the Local Containers
@@ -231,34 +368,6 @@ To execute commands in the local containers, you can run the following command:
 pnpm stripe {command} # for the Stripe container
 pnpm cs {command} # for the codeshare container
 ```
-
-### Committing Code
-
-1. **Generate a commit message**
-   - Use the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) format, in particular the [Angular Commit Convention](https://github.com/angular/angular/blob/main/CONTRIBUTING.md#commit).
-   - It's recommended to generate a commit message using AI of the IDE you are using. For example, in VSCode, you can use the `Copilot` extension to generate a commit message.
-   - Check for warnings of already included authors in the commit message.
-
-2. **Ensure the authors are included**
-   - If your programming in a codeshare, don't forget to include the authors in the `co-authors` file.
-
-3. **Commit**
-   - Run `git commit` to commit your changes or use the IDE's commit button.
-
-### Pushing Code to the Repositories
-
-You can push your changes to both repositories with a single command:
-
-```bash
-git push
-```
-
-> [!WARNING]
-> If you haven't set up upstream, you can use the following command to push your changes to the repository:
->
-> ```bash
-> git push --set-upstream origin main # or git push -u origin main
-> ```
 
 ### Previewing Builds
 
@@ -304,12 +413,12 @@ We can use [Stitch](https://stitch.withgoogle.com/) to design the UI.
 
 ## Managing the Content
 
-> [!NOTE]
+> [!TIP]
 > You can edit the content directly in the `./app/content` folder or the translations in the `./app/locales` folder via GitHub website, but it's recommended to edit the content locally or in a codeshare.
 
 To manage the content of the application, we use a Git-based CMS called [Nuxt Content](https://content.nuxt.dev/) and an AI-powered framework called [Psitta](https://github.com/9aia/psitta). You can find some of the content in `./app/content` folder and the rest in `./app/locales` folder.
 
-> [!WARNING]
+> [!NOTE]
 > Psitta is not a perfect tool, so you may need to adjust the generated content manually.
 
 ### Translating the Content
@@ -345,7 +454,7 @@ We use [Cloudflare](https://www.cloudflare.com/) to manage the infrastructure.
 
 ### Deploying Preview without Releasing
 
-> [!WARNING]
+> [!CAUTION]
 > This is not the proper way to deploy the application, it's just here for documentation purposes. See [Releasing](#releasing) for the right way.
 
 To deploy a version without creating a release, use the following command:
@@ -358,7 +467,7 @@ pnpm run build:prod && pnpm run deploy:prod # for deploying production
 
 ### Releasing
 
-> [!NOTE]
+> [!WARNING]
 > Before releasing, it's recommended to preview locally the application and to test it to ensure everything works as expected.
 
 1. **Update the Changelog**
@@ -396,7 +505,7 @@ pnpm run build:prod && pnpm run deploy:prod # for deploying production
 
 ## Getting Help
 
-> [!NOTE]
+> [!WARNING]
 > For human-human communication, please prioritize asynchronous communication over real-time communication when possible.
 
 ### Getting Asynchronous Help
