@@ -122,6 +122,8 @@ export default eventHandler(async (event) => {
     time: userMessageTime.getTime(),
   })
 
+  const userLastMessage = history[history.length - 1]
+
   // #endregion
 
   // #region Generate bot message
@@ -167,7 +169,7 @@ export default eventHandler(async (event) => {
 
   // #endregion
 
-  // #region Insert messages
+  // #region Insert messages in database
 
   const userMessage: MessageInsert = {
     chatId: chat.id,
@@ -193,13 +195,19 @@ export default eventHandler(async (event) => {
 
   // #endregion
 
+  // #region Update user last message in history array
+
+  userLastMessage.id = userMessageRecord.id
+
+  // #endregion
+
   // #region Correct user message
 
   const userMessageCorrection = await correctMessage(event, {
     messageId: userMessageRecord.id,
   })
 
-  history[history.length - 1]!.correctedMessage = [
+  userLastMessage.correctedMessage = [
     {
       id: userMessageCorrection.id,
       content: userMessageCorrection.content,
