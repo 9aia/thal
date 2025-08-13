@@ -201,7 +201,7 @@ const messageFeedbackIcon = tv({
       />
 
       <Button
-        v-if="messageFrom === 'user' && !isMessageWrong"
+        v-if="messageFrom === 'user' && !isMessageWrong && !sendMessageMutation.isPending.value && sendMessageMutation.isError.value"
         class="btn btn-sm btn-circle btn-ghost btn-neutral group-hover:opacity-100! group-focus-within:opacity-100"
         icon="material-symbols:auto-awesome-outline-rounded"
         :class="{ 'fine:opacity-0': !isLast }"
@@ -212,7 +212,7 @@ const messageFeedbackIcon = tv({
   </div>
 
   <LazyMessageAnalysisModal
-    v-if="isAnalysisModalOpen"
+    v-if="isAnalysisModalOpen && !sendMessageMutation.isError.value && !sendMessageMutation.isPending.value"
     v-model="isAnalysisModalOpen"
     :message-id="messageId"
     :message="messageContent"
