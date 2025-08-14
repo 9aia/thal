@@ -98,15 +98,7 @@ const reAnalyzeMutation = useMutation({
       return newData
     })
 
-    queryClient.setQueryData(
-      queryKeys.messageAnalysisExplanation(localeWithDefaultRegion.value, toRef(props, 'messageId')),
-      () => {
-        return {
-          id: data.messageAnalysis.id,
-          content: data.messageAnalysis.content,
-        }
-      },
-    )
+    regenerateMessageAnalysisExplanationMutation.mutate()
 
     toast.success(t('Message re-analysis started. The new analysis will be available shortly.'))
   },
@@ -115,9 +107,40 @@ const reAnalyzeMutation = useMutation({
   },
 })
 
-function ignoreAllMistakes() {
-  toast.error(t('This feature is not available yet.'))
-}
+const ignoreMistakesMutation = useMutation({
+  mutationKey: queryKeys.ignoreMessageMistakes(localeWithDefaultRegion.value, toRef(props, 'messageId')),
+  mutationFn: () => $fetch(`/api/analysis/${props.messageId}/ignore`, {
+    method: 'POST',
+  }),
+  onSuccess: () => {
+    queryClient.setQueryData(queryKeys.history(username), (oldData: History) => {
+      const newData = oldData.map((message) => {
+        if (message.id === props.messageId) {
+          return {
+            ...message,
+            correctedMessage: [
+              {
+                content: message.correctedMessage?.[0]?.content,
+                severity: message.correctedMessage?.[0]?.severity,
+                id: message.correctedMessage?.[0]?.id,
+                ignoredAt: new Date().toISOString(),
+              },
+            ],
+          }
+        }
+        return message
+      })
+
+      return newData
+    })
+
+    toast.success(t('All mistakes in this message have been ignored.'))
+    modelValue.value = false
+  },
+  onError: () => {
+    toast.error(t('Failed to ignore mistakes.'))
+  },
+})
 </script>
 
 <template>
@@ -192,14 +215,14 @@ function ignoreAllMistakes() {
           </Button>
 
           <Button
-            v-if="messageCorrection?.status === 'needs_correction'"
+            v-if="messageCorrection?.status === 'needs_correction' && !messageCorrection?.ignoredAt"
             class="btn btn-soft btn-error btn-sm"
             icon="material-symbols:delete-outline-rounded"
             type="button"
-            :loading="false"
-            @click="ignoreAllMistakes()"
+            :loading="ignoreMistakesMutation.isPending.value"
+            @click="ignoreMistakesMutation.mutate()"
           >
-            {{ t("Ignore all mistakes") }}
+            {{ t("Ignore") }}
           </Button>
         </div>
       </div>

@@ -612,7 +612,9 @@ export const messageAnalysisExplanations = table('MessageAnalysisExplanation', {
   messageId: int('message_id')
     .notNull()
     .references(() => messages.id, { onDelete: 'cascade' }),
-  ...timestamps,
+  regeneratedAt: int('regenerated_at', { mode: 'timestamp_ms' }),
+  ignoredAt: int('ignored_at', { mode: 'timestamp_ms' }),
+  createdAt,
 })
 
 export const messageAnalysisExplanationRelations = relations(messageAnalysisExplanations, ({ one }) => ({

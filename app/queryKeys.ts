@@ -18,4 +18,5 @@ export default {
   messageAnalysisExplanation: (locale: MaybeRef<string>, messageId: MaybeRef<number>) => [locale, 'message-analysis-explanation', messageId],
   regenerateMessageAnalysisExplanation: (locale: MaybeRef<string>, messageId: MaybeRef<number>) => [locale, 'regenerate-message-analysis-explanation', messageId],
   reAnalyzeMessage: (locale: MaybeRef<string>, messageId: MaybeRef<number>) => [locale, 'reanalyze-message', messageId],
+  ignoreMessageMistakes: (locale: MaybeRef<string>, messageId: MaybeRef<number>) => [locale, 'ignore-message-mistakes', messageId],
 }

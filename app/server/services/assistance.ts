@@ -413,7 +413,7 @@ export async function explainCorrectedMessage(
 
   if (regenerate) {
     await orm.update(messageAnalysisExplanations).set({
-      deletedAt: now(),
+      regeneratedAt: now(),
     }).where(eq(messageAnalysisExplanations.messageId, messageId))
   }
 

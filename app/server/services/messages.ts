@@ -28,9 +28,9 @@ export async function getHistory(
                   id: true,
                   content: true,
                   severity: true,
+                  ignoredAt: true,
                 },
                 where: and(
-                  isNull(correctedMessages.ignoredAt),
                   isNull(correctedMessages.regeneratedAt),
                 ),
               },

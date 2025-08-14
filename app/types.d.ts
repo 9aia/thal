@@ -117,6 +117,7 @@ export interface MessageCorrectionData extends MessageCorrection {
 export interface MessageCorrection {
   severity?: 'minor' | 'moderate' | 'major' | null
   correctedMessage?: string | null
+  ignoredAt?: string | null
 }
 
 // #endregion

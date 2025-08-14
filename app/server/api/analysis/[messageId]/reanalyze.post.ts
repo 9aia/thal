@@ -5,14 +5,11 @@ import { getValidated } from '~/utils/h3'
 import { badRequest, forbidden, notFound, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
 import { canUseAIFeatures } from '~/utils/plan'
 import { numericString } from '~/utils/zod'
-import { characterLocalizations, correctedMessages, localeSchema, messageAnalysisExplanations, messages } from '~~/db/schema'
+import { characterLocalizations, correctedMessages, messageAnalysisExplanations, messages } from '~~/db/schema'
 
 export default defineEventHandler(async (event) => {
   const { messageId } = await getValidated(event, 'params', z.object({
     messageId: numericString(z.number().int().positive()),
-  }))
-  const { locale } = await getValidated(event, 'query', z.object({
-    locale: localeSchema,
   }))
 
   const orm = event.context.orm
@@ -50,7 +47,7 @@ export default defineEventHandler(async (event) => {
           content: true,
           id: true,
         },
-        where: isNull(messageAnalysisExplanations.deletedAt),
+        where: isNull(messageAnalysisExplanations.ignoredAt),
       },
       chat: {
         columns: {
@@ -109,26 +106,14 @@ export default defineEventHandler(async (event) => {
     throw forbidden('You do not have permission to access this message')
 
   const correctedMessageRecord = await correctMessage(event, { messageId, regenerate: true })
-  const createdMessageAnalysis = await explainCorrectedMessage(event, orm, user, locale!, {
-    messageId,
-    messageContent: message.content,
-    correctedMessageContent: message.correctedMessage?.[0]?.content,
-    username: message.chat.username,
-    inReplyTo: message.inReplyTo,
-    regenerate: true,
-  })
-
-  // Map the correctedMessage record to expected frontend fields
-  const correctedMessage = correctedMessageRecord
-    ? {
-        content: correctedMessageRecord.content,
-        severity: correctedMessageRecord.severity,
-        id: correctedMessageRecord.id,
-      }
-    : null
 
   return {
-    correctedMessage,
-    messageAnalysis: createdMessageAnalysis,
+    correctedMessage: correctedMessageRecord
+      ? {
+          content: correctedMessageRecord.content,
+          severity: correctedMessageRecord.severity,
+          id: correctedMessageRecord.id,
+        }
+      : null,
   }
 })

@@ -40,7 +40,6 @@ export default defineEventHandler(async (event) => {
           content: true,
         },
         where: and(
-          isNull(correctedMessages.ignoredAt),
           isNull(correctedMessages.regeneratedAt),
         ),
       },
@@ -49,7 +48,7 @@ export default defineEventHandler(async (event) => {
           content: true,
           id: true,
         },
-        where: isNull(messageAnalysisExplanations.deletedAt),
+        where: isNull(messageAnalysisExplanations.ignoredAt),
       },
       chat: {
         columns: {
