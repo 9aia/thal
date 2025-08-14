@@ -1,8 +1,9 @@
-import { and, eq, isNull } from 'drizzle-orm'
+import { and, eq, inArray, isNull } from 'drizzle-orm'
 import { z } from 'zod'
-import { explainCorrectedMessage } from '~/server/services/assistance'
+import { correctMessage, explainCorrectedMessage } from '~/server/services/assistance'
 import { getValidated } from '~/utils/h3'
-import { badRequest, forbidden, notFound, unauthorized } from '~/utils/nuxt'
+import { badRequest, forbidden, notFound, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
+import { canUseAIFeatures } from '~/utils/plan'
 import { numericString } from '~/utils/zod'
 import { characterLocalizations, correctedMessages, localeSchema, messageAnalysisExplanations, messages } from '~~/db/schema'
 
@@ -14,11 +15,19 @@ export default defineEventHandler(async (event) => {
     locale: localeSchema,
   }))
 
-  const user = event.context.user
   const orm = event.context.orm
+  const user = event.context.user
 
   if (!user)
     throw unauthorized()
+
+  if (!canUseAIFeatures(user))
+    throw paymentRequired()
+
+  const analysisSummaryRateLimit = await event.context.cloudflare.env.ANALYSIS_SUMMARY_RATE_LIMIT.limit({ key: `analysis-summary-${user.id}` })
+
+  if (!analysisSummaryRateLimit.success)
+    throw rateLimit()
 
   const message = await orm.query.messages.findFirst({
     where: and(
@@ -28,6 +37,7 @@ export default defineEventHandler(async (event) => {
     with: {
       correctedMessage: {
         columns: {
+          id: true,
           content: true,
         },
         where: and(
@@ -98,20 +108,27 @@ export default defineEventHandler(async (event) => {
   if (message.chat.userId !== user.id)
     throw forbidden('You do not have permission to access this message')
 
-  if (message?.messageAnalysisExplanations?.length) {
-    const analysisSummary = message.messageAnalysisExplanations[0]
-
-    if (analysisSummary.content)
-      return analysisSummary
-  }
-
-  const explanation = await explainCorrectedMessage(event, orm, user, locale!, {
+  const correctedMessageRecord = await correctMessage(event, { messageId, regenerate: true })
+  const createdMessageAnalysis = await explainCorrectedMessage(event, orm, user, locale!, {
     messageId,
     messageContent: message.content,
     correctedMessageContent: message.correctedMessage?.[0]?.content,
     username: message.chat.username,
     inReplyTo: message.inReplyTo,
+    regenerate: true,
   })
 
-  return explanation
+  // Map the correctedMessage record to expected frontend fields
+  const correctedMessage = correctedMessageRecord
+    ? {
+        content: correctedMessageRecord.content,
+        severity: correctedMessageRecord.severity,
+        id: correctedMessageRecord.id,
+      }
+    : null
+
+  return {
+    correctedMessage,
+    messageAnalysis: createdMessageAnalysis,
+  }
 })

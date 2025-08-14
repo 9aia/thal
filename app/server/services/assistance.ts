@@ -14,9 +14,10 @@ import { characterLocalizations, correctedMessages, messageAnalysisExplanations,
 interface CorrectMessageOptions {
   messageId: number
   toNative?: boolean
+  regenerate?: boolean
 }
 
-export async function correctMessage(event: H3Event, { messageId }: CorrectMessageOptions) {
+export async function correctMessage(event: H3Event, { messageId, regenerate }: CorrectMessageOptions) {
   const { GCP_GEMINI_API_KEY, GEMINI_MODEL } = useRuntimeConfig(event)
 
   if (!GCP_GEMINI_API_KEY)
@@ -235,15 +236,23 @@ export async function correctMessage(event: H3Event, { messageId }: CorrectMessa
     systemInstruction,
   })
 
-  console.log(data)
-
   if (!data)
     throw internal('Gemini did not return a valid translation')
 
+  if (regenerate) {
+    await orm.update(correctedMessages).set({
+      regeneratedAt: now(),
+    }).where(and(
+      eq(correctedMessages.messageId, messageId),
+      isNull(correctedMessages.ignoredAt),
+      isNull(correctedMessages.regeneratedAt),
+    ))
+  }
+
   const [createdMessageCorrection] = await orm.insert(correctedMessages).values({
     messageId,
-    content: data.correctedMessage,
-    severity: 'major',
+    content: data.correctedMessage || null,
+    severity: data.severity || null,
     createdAt: now(),
   }).returning()
 

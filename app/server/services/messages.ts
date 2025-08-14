@@ -1,8 +1,8 @@
-import { eq, isNull, sql } from 'drizzle-orm'
+import { and, eq, isNull, sql } from 'drizzle-orm'
 import type { H3EventContext } from 'h3'
 import { notFound } from '~/utils/nuxt'
 import type { User } from '~~/db/schema'
-import { chats, messages, usernames } from '~~/db/schema'
+import { chats, correctedMessages, messages, usernames } from '~~/db/schema'
 
 export async function getHistory(
   orm: H3EventContext['orm'],
@@ -29,6 +29,10 @@ export async function getHistory(
                   content: true,
                   severity: true,
                 },
+                where: and(
+                  isNull(correctedMessages.ignoredAt),
+                  isNull(correctedMessages.regeneratedAt),
+                ),
               },
               inReplyTo: {
                 columns: {

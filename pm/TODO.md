@@ -19,7 +19,6 @@ description: Tasks and items for the release.
     - Add focus mode to the message analysis modal
       - Focus in that particular wavy underline part of the message and pass it to the assistant (it will be able to understand if the that part is associated with other parts as well!)
       - Explain the mistake and why it's wrong
-- Add re-analyze functionality to the message analysis modal (it will regenerate the corrected message and the explanation, if applicable)
 
 - Improve analysis prompting (it's not working for fantasy, not considering politeness as well)
   - Summary should not focus on "remove this, add that" but on the actual changes in a generic/overview way, like "found typos..."

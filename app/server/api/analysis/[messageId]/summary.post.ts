@@ -39,7 +39,10 @@ export default defineEventHandler(async (event) => {
         columns: {
           content: true,
         },
-        where: isNull(correctedMessages.ignoredAt),
+        where: and(
+          isNull(correctedMessages.ignoredAt),
+          isNull(correctedMessages.regeneratedAt),
+        ),
       },
       messageAnalysisExplanations: {
         columns: {

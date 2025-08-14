@@ -592,11 +592,10 @@ export const correctedMessages = table('CorrectedMessage', {
   content: text('content'),
   messageId: int('message_id')
     .notNull()
-    .unique()
     .references(() => messages.id, { onDelete: 'cascade' }),
   severity: text('severity').$type<MessageCorrectionData['severity']>(),
   createdAt,
-  updatedAt,
+  regeneratedAt: int('regenerated_at', { mode: 'timestamp_ms' }),
   ignoredAt: int('ignored_at', { mode: 'timestamp_ms' }),
 })
 

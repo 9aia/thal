@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useMutation, useQuery } from '@tanstack/vue-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
-import type { MessageCorrectionData } from '~/types'
+import type { History, MessageCorrectionData } from '~/types'
 
 const props = defineProps<{
   message: string
@@ -9,6 +9,10 @@ const props = defineProps<{
   messageCorrection?: MessageCorrectionData
 }>()
 
+const route = useRoute()
+
+const username = route.params.username as string
+const queryClient = useQueryClient()
 const localeWithDefaultRegion = useLocaleWithDefaultRegion()
 const modelValue = defineModel<boolean>()
 const toast = useToast()
@@ -57,7 +61,7 @@ const isError = computed(() =>
 )
 
 function refetch() {
-  regenerateMessageAnalysisExplanationMutation.refetch()
+  regenerateMessageAnalysisExplanationMutation.mutate()
   messageAnalyzeExplanationQuery.refetch()
 }
 
@@ -65,10 +69,51 @@ function regenerateExplanation() {
   regenerateMessageAnalysisExplanationMutation.mutate()
 }
 
-function reAnalyzeMessage() {
-  // TODO: Implement re-analyze (regenerate the corrected message and explanation, if applicable)
-  toast.error(t('This feature is not available yet.'))
-}
+const reAnalyzeMutation = useMutation({
+  mutationKey: queryKeys.reAnalyzeMessage(localeWithDefaultRegion.value, toRef(props, 'messageId')),
+  mutationFn: () => $fetch(`/api/analysis/${props.messageId}/reanalyze`, {
+    method: 'POST',
+    query: {
+      locale: localeWithDefaultRegion.value,
+    },
+  }),
+  onSuccess: (data) => {
+    queryClient.setQueryData(queryKeys.history(username), (oldData: History) => {
+      const newData = oldData.map((message) => {
+        if (message.id === props.messageId) {
+          return {
+            ...message,
+            correctedMessage: [
+              {
+                content: data.correctedMessage?.content,
+                severity: data.correctedMessage?.severity,
+                id: data.correctedMessage?.id,
+              },
+            ],
+          }
+        }
+        return message
+      })
+
+      return newData
+    })
+
+    queryClient.setQueryData(
+      queryKeys.messageAnalysisExplanation(localeWithDefaultRegion.value, toRef(props, 'messageId')),
+      () => {
+        return {
+          id: data.messageAnalysis.id,
+          content: data.messageAnalysis.content,
+        }
+      },
+    )
+
+    toast.success(t('Message re-analysis started. The new analysis will be available shortly.'))
+  },
+  onError: () => {
+    toast.error(t('Failed to re-analyze the message.'))
+  },
+})
 
 function ignoreAllMistakes() {
   toast.error(t('This feature is not available yet.'))
@@ -140,8 +185,8 @@ function ignoreAllMistakes() {
             icon="material-symbols:refresh-rounded"
             class="btn btn-dash btn-warning btn-sm"
             type="button"
-            :loading="false"
-            @click="reAnalyzeMessage()"
+            :loading="reAnalyzeMutation.isPending.value"
+            @click="reAnalyzeMutation.mutate()"
           >
             {{ t('Re-analyze the message') }}
           </Button>

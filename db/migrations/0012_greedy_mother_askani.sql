@@ -1,0 +1,1 @@
+DROP INDEX `CorrectedMessage_message_id_unique`;

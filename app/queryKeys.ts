@@ -17,4 +17,5 @@ export default {
   messageSend: (username: MaybeRef<string | null>) => ['message-send', username],
   messageAnalysisExplanation: (locale: MaybeRef<string>, messageId: MaybeRef<number>) => [locale, 'message-analysis-explanation', messageId],
   regenerateMessageAnalysisExplanation: (locale: MaybeRef<string>, messageId: MaybeRef<number>) => [locale, 'regenerate-message-analysis-explanation', messageId],
+  reAnalyzeMessage: (locale: MaybeRef<string>, messageId: MaybeRef<number>) => [locale, 'reanalyze-message', messageId],
 }
