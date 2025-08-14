@@ -6,14 +6,8 @@ description: Tasks and items for the release.
 
 ## 0.2.0-0 - Focus on grammar correction on v0.2.0
 
-- Save localized message analysis summary in the database or will the explanation be enough?
-- How to modify analysis based on future messages?
-
 - Check analysis content on ignore, should render the last analysis content (should render the analysis with greatest `created_at` date)
-- Add message analysis modal
-
-  - Add two different modes:
-    - Add an overview
+- Save localized message analysis summary in the database or will the explanation be enough?
 
 - Improve analysis prompting (it's not working for fantasy, not considering politeness as well)
   - Summary should not focus on "remove this, add that" but on the actual changes in a generic/overview way, like "found typos..."
@@ -29,6 +23,8 @@ description: Tasks and items for the release.
   - Focus in that particular wavy underline part of the message and pass it to the assistant (it will be able to understand if the that part is associated with other parts as well!)
   - Explain the mistake and why it's wrong
   - Add "Ignore this mistake" button
+
+- How to modify analysis based on future messages?
 
 ## 0.2.0-2
 
