@@ -4,36 +4,37 @@ description: Tasks and items for the release.
 
 # TODO
 
-## 0.2.0
-
-- Focus on grammar correction on v0.2.0
-
-- Refactor: rename summary to explanation
-- Fix corrected messages not highlighting the words on message speech
-- Add message analysis modal
-  - Add a overview/parts explanation below the message diff in the message analysis modal
-    - Add feature to generate (more) examples of the incorrect-correct pairs
-  - Add "Ignore all mistakes" button and "Ignore this mistake" button
-  - Add two different modes:
-    - Add an overview
-    - Add focus mode to the message analysis modal
-      - Focus in that particular wavy underline part of the message and pass it to the assistant (it will be able to understand if the that part is associated with other parts as well!)
-      - Explain the mistake and why it's wrong
-
-- Improve analysis prompting (it's not working for fantasy, not considering politeness as well)
-  - Summary should not focus on "remove this, add that" but on the actual changes in a generic/overview way, like "found typos..."
-- Improve the explanation prompting
-
-- Perf: implement virtual and infinite scrolls
-- Perf: ignore too far way messages in the past (cut the history to most recent messages)
-
-Notes:
+## 0.2.0-0 Focus on grammar correction on v0.2.0
 
 - Save localized message analysis summary in the database or will the explanation be enough?
 - How to modify analysis based on future messages?
 - Add critical summary below the message?
 
 - Check analysis content on ignore, should render the last analysis content (should render the analysis with greatest `created_at` date)
+- Refactor: rename summary to explanation
+- Add message analysis modal
+  - Add a overview/parts explanation below the message diff in the message analysis modal
+    - Add feature to generate (more) examples of the incorrect-correct pairs
+  - Add "Ignore all mistakes" button and "Ignore this mistake" button
+  - Add two different modes:
+    - Add an overview
+
+- Fix corrected messages not highlighting the words on message speech
+- Improve analysis prompting (it's not working for fantasy, not considering politeness as well)
+  - Summary should not focus on "remove this, add that" but on the actual changes in a generic/overview way, like "found typos..."
+- Improve the explanation prompting
+
+## 0.2.0-1
+
+- Fix (translation) prompt injection
+- Add focus mode to the message analysis modal
+  - Focus in that particular wavy underline part of the message and pass it to the assistant (it will be able to understand if the that part is associated with other parts as well!)
+  - Explain the mistake and why it's wrong
+
+## 0.2.0-2
+
+- Perf: implement virtual and infinite scrolls
+- Perf: ignore too far way messages in the past (cut the history to most recent messages)
 
 ## 0.2.0 (2)
 

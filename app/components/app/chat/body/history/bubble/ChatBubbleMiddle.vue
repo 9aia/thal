@@ -68,17 +68,6 @@ const showDiff = computed(() => {
       <ChatBubbleTranslation :translation="translation" />
     </div>
 
-    <!-- <div
-      v-if="messageAnalysis"
-      class="px-1 my-1"
-    >
-      <ChatBubbleAnalysis
-        v-if="messageAnalysisCompressed"
-        :message-analysis="messageAnalysis"
-        :message-analysis-compressed="messageAnalysisCompressed"
-      />
-    </div> -->
-
     <ChatBubbleEditActions v-if="isEditing" />
 
     <template v-else>
