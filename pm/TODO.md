@@ -33,6 +33,8 @@ Notes:
 - How to modify analysis based on future messages?
 - Add critical summary below the message?
 
+- Check analysis content on ignore, should render the last analysis content (should render the analysis with greatest `created_at` date)
+
 ## 0.2.0 (2)
 
 - Add more features to the chat bubble inside the message analysis modal, such as speech, copy, etc.
