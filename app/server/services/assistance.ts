@@ -358,7 +358,7 @@ export async function explainCorrectedMessage(
   `
     : ''
 
-  const example = locale === 'pt-BR'
+  const example = locale === 'en-US'
     ? `
       You're almost there! The word "responsable" doesn't exist in English. The correct form is "responsible". 😉
     `
