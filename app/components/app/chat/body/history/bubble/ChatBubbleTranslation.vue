@@ -17,7 +17,11 @@ const { t } = useI18nExperimental()
 </script>
 
 <template>
-  <div v-if="translation" class="bg-radial-[at_bottom] from-magenta-50 to-gray-50 text-orange-900 rounded-2xl px-3 py-2 min-h-[38px] flex items-start justify-between gap-2 group/translation">
+  <div
+    v-if="translation"
+    class="bg-radial-[at_bottom] from-magenta-50 to-gray-50 text-orange-900 rounded-2xl px-3 py-2 min-h-[38px] flex items-start justify-between gap-2 group/translation cursor-auto"
+    @click.stop
+  >
     <article class="text-magenta-500 text-sm">
       {{ translation }}
     </article>

@@ -33,19 +33,10 @@ const diffParts = computed(() => {
 
   return parts
 })
-
-const isMessageAnalysisModalOpen = ref(false)
-const messageAnalysisModalPart = ref<string | null>(null)
-
-function openMessageAnalysisModal(part: string) {
-  // TODO: open the message analysis modal with focus on the text part
-  messageAnalysisModalPart.value = part
-  isMessageAnalysisModalOpen.value = true
-}
 </script>
 
 <template>
-  <article class="prose">
+  <article class="prose !text-transparent">
     <span
       v-for="(part, idx) in diffParts"
       :key="idx"
@@ -58,12 +49,4 @@ function openMessageAnalysisModal(part: string) {
       {{ part.text }}
     </span>
   </article>
-
-  <LazyMessageAnalysisModal
-    v-if="isMessageAnalysisModalOpen"
-    v-model="isMessageAnalysisModalOpen"
-    :message="originalText"
-    :message-id="messageId"
-    :message-correction="messageCorrection"
-  />
 </template>

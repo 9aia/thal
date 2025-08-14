@@ -17,7 +17,10 @@ function handleSave() {
 </script>
 
 <template>
-  <div class="flex justify-end gap-1">
+  <div
+    class="flex justify-end gap-1"
+    @click.stop
+  >
     <Button
       class="btn btn-sm btn-ghost btn-neutral"
       icon="material-symbols:close-rounded"

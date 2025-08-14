@@ -35,29 +35,63 @@ const showDiff = computed(() => {
   const hasCorrected = !!mc.correctedMessage
   return hasError && hasCorrected
 })
+
+const isMessageAnalysisModalOpen = ref(false)
+const messageAnalysisModalPart = ref<string | null>(null)
+
+function openMessageAnalysisModal(part?: string) {
+  // TODO: open the message analysis modal with focus on the text part
+  messageAnalysisModalPart.value = part || null
+  isMessageAnalysisModalOpen.value = true
+}
+
+const hasErrorsAndNotIgnored = computed(() => {
+  return showDiff.value && !props.messageCorrection!.ignoredAt
+})
 </script>
 
 <template>
   <div
     class="chat-bubble-bg flex flex-col rounded-3xl px-2 py-2 min-w-32 bg-neutral-100 z-20"
-    :class="[right ? 'rounded-br-md' : 'rounded-bl-md', !isEditing ? 'max-w-[300px] sm:max-w-[400px] lg:max-w-[500px]' : 'w-full']"
+    :class="[
+      right ? 'rounded-br-md' : 'rounded-bl-md',
+      !isEditing ? 'max-w-[300px] sm:max-w-[400px] lg:max-w-[500px]' : 'w-full',
+      hasErrorsAndNotIgnored ? 'cursor-pointer' : '',
+    ]"
+    @click="hasErrorsAndNotIgnored && openMessageAnalysisModal()"
   >
-    <div class="px-2">
-      <template v-if="!isEditing">
-        <CorrectedMessage
-          v-if="showDiff && !messageCorrection!.ignoredAt"
-          :original-text="messageContent"
-          :corrected-text="messageCorrection!.correctedMessage!"
-          :message-id="messageId"
-          :message-correction="messageCorrection"
-        />
+    <div
+      class="px-2"
+    >
+      <div v-if="!isEditing" class="relative">
         <AudibleText
-          v-else
           :id="messageId"
           ref="audiableTextRef"
           :text="messageContent"
+          :message-correction="messageCorrection"
+          :corrected-text="messageCorrection!.correctedMessage!"
         />
-      </template>
+
+        <div
+          v-if="hasErrorsAndNotIgnored"
+          class="absolute inset-0 -z-1 select-none"
+        >
+          <CorrectedMessage
+            :original-text="messageContent"
+            :corrected-text="messageCorrection!.correctedMessage!"
+            :message-id="messageId"
+            :message-correction="messageCorrection"
+          />
+        </div>
+
+        <LazyMessageAnalysisModal
+          v-if="isMessageAnalysisModalOpen"
+          v-model="isMessageAnalysisModalOpen"
+          :message="messageContent"
+          :message-id="messageId"
+          :message-correction="messageCorrection"
+        />
+      </div>
       <ChatBubbleEditContent v-else />
     </div>
 
@@ -72,8 +106,9 @@ const showDiff = computed(() => {
 
     <template v-else>
       <div
-        class="flex items-center px-2 gap-1"
-        :class="{ 'justify-end': right }"
+        class="flex items-center px-2 gap-1 cursor-auto w-fit"
+        :class="{ 'self-end': right }"
+        @click.stop
       >
         <time class="text-gray-300 text-xs opacity-90">
           {{ time }}
