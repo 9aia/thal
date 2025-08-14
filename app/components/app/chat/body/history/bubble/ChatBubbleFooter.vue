@@ -194,14 +194,14 @@ const messageFeedbackIcon = tv({
       <Button
         v-if="messageFrom === 'user' && isMessageWrong"
         class="btn btn-sm btn-circle btn-ghost btn-neutral group-hover:opacity-100! group-focus-within:opacity-100"
-        icon="material-symbols:info-outline-rounded"
+        icon="material-symbols:problem-outline-rounded"
         :class="{ 'fine:opacity-0': false }"
         :icon-class="messageFeedbackIcon({ severity: messageSeverity || 'moderate' })"
         @click="isAnalysisModalOpen = true"
       />
 
       <Button
-        v-if="messageFrom === 'user' && !isMessageWrong && !sendMessageMutation.isPending.value && sendMessageMutation.isError.value"
+        v-if="messageFrom === 'user' && !isMessageWrong && !sendMessageMutation.isPending.value && sendMessageMutation.isError.value && !isLastMessageError"
         class="btn btn-sm btn-circle btn-ghost btn-neutral group-hover:opacity-100! group-focus-within:opacity-100"
         icon="material-symbols:auto-awesome-outline-rounded"
         :class="{ 'fine:opacity-0': !isLast }"

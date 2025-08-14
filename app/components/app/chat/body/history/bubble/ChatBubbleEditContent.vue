@@ -69,7 +69,7 @@ const content = computed({
       <ContentEditable
         is="span"
         v-model="content"
-        class="prose flex w-full !max-w-full items-center outline-hidden"
+        class="prose flex w-full !max-w-full items-center outline-hidden cursor-text"
         :placeholder="t('Type a message...')"
       />
     </label>
