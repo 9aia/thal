@@ -244,7 +244,6 @@ export async function correctMessage(event: H3Event, { messageId, regenerate }: 
       regeneratedAt: now(),
     }).where(and(
       eq(correctedMessages.messageId, messageId),
-      isNull(correctedMessages.ignoredAt),
       isNull(correctedMessages.regeneratedAt),
     ))
   }

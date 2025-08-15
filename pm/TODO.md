@@ -6,7 +6,6 @@ description: Tasks and items for the release.
 
 ## 0.2.0-0 - Focus on grammar correction on v0.2.0
 
-- Check analysis content on ignore, should render the last analysis content (should render the analysis with greatest `created_at` date)
 - Save localized message analysis summary in the database or will the explanation be enough?
 
 - Improve analysis prompting (it's not working for fantasy, not considering politeness as well)

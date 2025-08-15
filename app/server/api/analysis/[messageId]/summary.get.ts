@@ -39,7 +39,8 @@ export default defineEventHandler(async (event) => {
           content: true,
           id: true,
         },
-        where: isNull(messageAnalysisExplanations.ignoredAt),
+        orderBy: (messageAnalysisExplanations, { desc }) => [desc(messageAnalysisExplanations.createdAt)],
+        limit: 1,
       },
       chat: {
         columns: {

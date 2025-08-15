@@ -33,6 +33,8 @@ export async function getHistory(
                 where: and(
                   isNull(correctedMessages.regeneratedAt),
                 ),
+                orderBy: (correctedMessage, { desc }) => [desc(correctedMessage.createdAt)],
+                limit: 1,
               },
               inReplyTo: {
                 columns: {
