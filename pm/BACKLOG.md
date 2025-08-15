@@ -17,7 +17,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Low priority
 
-- Text to speech markdown plugin not working for messages with <h1>, eg. <h1>hello</h1>
+- Text to speech markdown plugin not working for messages with `<h1>`, eg. `<h1>hello</h1>`
 - Fixed speech missing speech stop on chat route leave
 - Fix DB on build pre-render
 
