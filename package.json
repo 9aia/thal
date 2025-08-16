@@ -28,6 +28,7 @@
     "db:load:preview": "bash devops/scripts/db-load.sh --preview",
     "db:load:prod": "bash devops/scripts/db-load.sh --prod",
     "db:client": "castor",
+    "changelog": "tarsi",
     "build": "NODE_OPTIONS='--max-old-space-size=4096' nuxt build",
     "build:preview": "NODE_OPTIONS='--max-old-space-size=4096' nuxt build --dotenv .env.preview",
     "build:prod": "NODE_OPTIONS='--max-old-space-size=4096' nuxt build --dotenv .env.prod",
@@ -99,6 +100,7 @@
     "nitropack": "^2.11.13",
     "nuxt": "^3.17.5",
     "release-it": "^18.1.2",
+    "tarsi": "^0.1.0",
     "typescript": "^5.8.3",
     "vue-tsc": "^2.2.10",
     "wrangler": "4.23.0"
