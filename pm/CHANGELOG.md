@@ -6,6 +6,8 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+## [0.2.0-0] - 2025-08-16
+
 ### Added
 
 - Introduced message correction and analysis features directly in chat conversations
