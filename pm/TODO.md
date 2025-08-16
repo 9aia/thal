@@ -4,10 +4,6 @@ description: Tasks and items for the release.
 
 # TODO
 
-## 0.2.0-0 - Overview of the message analysis
-
-- Save localized message analysis summary in the database or will the explanation be enough?
-
 ## 0.2.0-1 - Focus mode message analysis
 
 - Refactor: rename summary to explanation
