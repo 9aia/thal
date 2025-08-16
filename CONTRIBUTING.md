@@ -426,7 +426,7 @@ To manage the content of the application, we use a Git-based CMS called [Nuxt Co
 To translate the content, you need to run the following command:
 
 ```bash
-pnpm run psitta translate
+pnpm run i18n translate
 ```
 
 ### Cleaning Up the Content
@@ -434,7 +434,7 @@ pnpm run psitta translate
 To clean up Psitta unused messages, you need to run the following command:
 
 ```bash
-pnpm run psitta cleanup
+pnpm run i18n cleanup
 ```
 
 ### Adjusting Generated Content
@@ -442,8 +442,8 @@ pnpm run psitta cleanup
 To adjust the generated content, you need to run the following command:
 
 ```bash
-pnpm run psitta adjust <prompt>
-# For example: pnpm run psitta adjust "Make the translation a little bit more formal"
+pnpm run i18n adjust <prompt>
+# For example: pnpm run i18n adjust "Make the translation a little bit more formal"
 ```
 
 ## Streamlining Operations

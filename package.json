@@ -9,7 +9,7 @@
     "dev:cs": "./codeshare/open.sh --host dev.thal.9aia.com",
     "dev:cs:n": "./codeshare/open.sh --host dev.thal.9aia.com --new-window",
     "cs": "docker exec codeshare",
-    "psitta": "bun ./psitta/main.ts",
+    "i18n": "bun ./psitta/main.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "tsc": "vue-tsc --noEmit",
