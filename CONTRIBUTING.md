@@ -265,7 +265,7 @@ git push --set-upstream origin main # or `git push` if you have already set up u
    pnpm lint
 
    # Run type checker
-   pnpm tsc
+   pnpm typecheck
    ```
 
    See [Checking Code Quality](#checking-code-quality) for more information.
@@ -319,7 +319,7 @@ This will stop the Stripe and codeshare containers running in the background.
 For keeping the code organized, we use the following tools:
 
 - [Eslint](https://eslint.org/): Used to help us with the code formatting and linting. It automatically fix the linting issues when you save the files. You can also run it manually with `pnpm lint` to check the issues or `pnpm lint:fix` to fix the issues.
-- [Vue Tsc](https://github.com/vuejs/language-tools/tree/master/packages/tsc): Used to help us with the type safety. It's automatically run before the release. You can also run it manually with `pnpm tsc`.
+- [Vue Tsc](https://github.com/vuejs/language-tools/tree/master/packages/tsc): Used to help us with the type safety. It's automatically run before the release. You can also run it manually with `pnpm typecheck`.
 
 ### Managing the Database
 

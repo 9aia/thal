@@ -21,7 +21,7 @@
   },
   "hooks": {
     "before:init": [
-      "pnpm lint && pnpm tsc"
+      "pnpm lint && pnpm typecheck"
     ],
     "after:bump": "bash ./devops/scripts/after-bump.sh ${version}",
     "after:release": "echo Successfully released v${version} to ${repo.repository}."

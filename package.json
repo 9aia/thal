@@ -12,7 +12,7 @@
     "i18n": "bun ./psitta/main.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "tsc": "vue-tsc --noEmit",
+    "typecheck": "vue-tsc --noEmit",
     "cf-typegen": "wrangler types",
     "up": "docker compose up -d",
     "down": "docker compose down",
