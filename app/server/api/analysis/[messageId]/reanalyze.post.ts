@@ -127,20 +127,7 @@ export default defineEventHandler(async (event) => {
   })
 
   return {
-    correctedMessage: correctedMessageRecord
-      ? {
-          content: correctedMessageRecord.content,
-          severity: correctedMessageRecord.severity,
-          id: correctedMessageRecord.id,
-          createdAt: correctedMessageRecord.createdAt,
-        }
-      : null,
-    messageAnalysisExplanation: messageAnalysisExplanationRecord
-      ? {
-          content: messageAnalysisExplanationRecord.localizations?.[0]?.content,
-          id: messageAnalysisExplanationRecord.id,
-          createdAt: messageAnalysisExplanationRecord.createdAt,
-        }
-      : null,
+    correctedMessage: correctedMessageRecord || null,
+    messageAnalysisExplanation: messageAnalysisExplanationRecord || null,
   }
 })
