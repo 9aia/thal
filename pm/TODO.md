@@ -6,6 +6,8 @@ description: Tasks and items for the release.
 
 ## 0.2.0-1 - Focus mode message analysis
 
+- Fix Stripe webhook (incomplete status is set after the subscription is created for the first time after free trial)
+
 - Refactor: rename summary to explanation
 - Add focus mode to the message analysis modal
   - Focus in that particular wavy underline part of the message and pass it to the assistant (it will be able to understand if the that part is associated with other parts as well!)
