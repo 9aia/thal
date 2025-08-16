@@ -5,11 +5,14 @@ import { getValidated } from '~/utils/h3'
 import { badRequest, forbidden, notFound, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
 import { canUseAIFeatures } from '~/utils/plan'
 import { numericString } from '~/utils/zod'
-import { characterLocalizations, correctedMessages, localeSchema, messageAnalysisExplanations, messages } from '~~/db/schema'
+import { characterLocalizations, correctedMessages, localeSchema, messageAnalysisExplanations, messageAnalysisExplanationsLocalizations, messages } from '~~/db/schema'
 
 export default defineEventHandler(async (event) => {
   const { messageId } = await getValidated(event, 'params', z.object({
     messageId: numericString(z.number().int().positive()),
+  }))
+  const { locale } = await getValidated(event, 'query', z.object({
+    locale: localeSchema,
   }))
 
   const orm = event.context.orm
@@ -44,8 +47,15 @@ export default defineEventHandler(async (event) => {
       },
       messageAnalysisExplanations: {
         columns: {
-          content: true,
           id: true,
+        },
+        with: {
+          localizations: {
+            columns: {
+              locale: true,
+            },
+            where: eq(messageAnalysisExplanationsLocalizations.locale, locale!),
+          },
         },
         where: isNull(messageAnalysisExplanations.ignoredAt),
       },

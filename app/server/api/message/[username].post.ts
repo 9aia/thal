@@ -8,7 +8,7 @@ import { getValidated } from '~/utils/h3'
 import { internal, notFound, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
 import { canUseAIFeatures } from '~/utils/plan'
 import type { MessageInsert } from '~~/db/schema'
-import { MessageStatus, characterLocalizations, chats, contacts, lastMessages, messageSchema, messages, usernameSchema, usernames } from '~~/db/schema'
+import { MessageStatus, characterLocalizations, chats, contacts, lastMessages, localeSchema, messageSchema, messages, usernameSchema, usernames } from '~~/db/schema'
 
 export default eventHandler(async (event) => {
   const { GCP_GEMINI_API_KEY, GEMINI_MODEL } = useRuntimeConfig(event)
@@ -20,6 +20,9 @@ export default eventHandler(async (event) => {
     throw internal('GEMINI_MODEL is not set in the environment')
 
   const { username } = await getValidated(event, 'params', z.object({ username: usernameSchema }))
+  const { locale } = await getValidated(event, 'query', z.object({
+    locale: localeSchema,
+  }))
   const data = await getValidated(event, 'body', messageSchema)
 
   const user = event.context.user
@@ -203,7 +206,7 @@ export default eventHandler(async (event) => {
 
   // #region Correct user message
 
-  const userMessageCorrection = await correctMessage(event, {
+  const userMessageCorrection = await correctMessage(event, locale!, {
     messageId: userMessageRecord.id,
   })
 
@@ -212,6 +215,8 @@ export default eventHandler(async (event) => {
       id: userMessageCorrection.id,
       content: userMessageCorrection.content,
       severity: userMessageCorrection.severity,
+      ignoredAt: userMessageCorrection.ignoredAt,
+      createdAt: userMessageCorrection.createdAt,
     },
   ]
 

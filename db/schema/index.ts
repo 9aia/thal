@@ -608,7 +608,6 @@ export const correctedMessageRelations = relations(correctedMessages, ({ one }) 
 
 export const messageAnalysisExplanations = table('MessageAnalysisExplanation', {
   id: int('id').primaryKey({ autoIncrement: true }),
-  content: text('content').notNull(),
   messageId: int('message_id')
     .notNull()
     .references(() => messages.id, { onDelete: 'cascade' }),
@@ -617,11 +616,28 @@ export const messageAnalysisExplanations = table('MessageAnalysisExplanation', {
   createdAt,
 })
 
-export const messageAnalysisExplanationRelations = relations(messageAnalysisExplanations, ({ one }) => ({
+export const messageAnalysisExplanationsLocalizations = table('MessageAnalysisExplanationsLocalization', {
+  id: int('id').primaryKey({ autoIncrement: true }),
+  messageAnalysisExplanationId: int('message_analysis_explanation_id')
+    .notNull()
+    .references(() => messageAnalysisExplanations.id, { onDelete: 'cascade' }),
+  locale: text('locale').notNull(),
+  content: text('content').notNull(),
+})
+
+export const messageAnalysisExplanationsLocalizationsRelations = relations(messageAnalysisExplanationsLocalizations, ({ one }) => ({
+  messageAnalysisExplanation: one(messageAnalysisExplanations, {
+    fields: [messageAnalysisExplanationsLocalizations.messageAnalysisExplanationId],
+    references: [messageAnalysisExplanations.id],
+  }),
+}))
+
+export const messageAnalysisExplanationRelations = relations(messageAnalysisExplanations, ({ one, many }) => ({
   message: one(messages, {
     fields: [messageAnalysisExplanations.messageId],
     references: [messages.id],
   }),
+  localizations: many(messageAnalysisExplanationsLocalizations),
 }))
 
 // #endregion

@@ -9,7 +9,7 @@ import { promptGeminiJson, promptGeminiText } from '~/utils/gemini'
 import { badRequest, forbidden, internal, notFound, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
 import { canUseAIFeatures } from '~/utils/plan'
 import type { LocaleSchemaType, User } from '~~/db/schema'
-import { characterLocalizations, correctedMessages, messageAnalysisExplanations, messages } from '~~/db/schema'
+import { characterLocalizations, correctedMessages, messageAnalysisExplanations, messageAnalysisExplanationsLocalizations, messages } from '~~/db/schema'
 
 interface CorrectMessageOptions {
   messageId: number
@@ -17,7 +17,7 @@ interface CorrectMessageOptions {
   regenerate?: boolean
 }
 
-export async function correctMessage(event: H3Event, { messageId, regenerate }: CorrectMessageOptions) {
+export async function correctMessage(event: H3Event, locale: LocaleSchemaType, { messageId, regenerate }: CorrectMessageOptions) {
   const { GCP_GEMINI_API_KEY, GEMINI_MODEL } = useRuntimeConfig(event)
 
   if (!GCP_GEMINI_API_KEY)
@@ -70,7 +70,7 @@ export async function correctMessage(event: H3Event, { messageId, regenerate }: 
                     },
                     where: and(
                       isNull(characterLocalizations.deletedAt),
-                      eq(characterLocalizations.locale, 'en-US'),
+                      eq(characterLocalizations.locale, locale),
                     ),
                   },
                 },
@@ -400,9 +400,31 @@ export async function explainCorrectedMessage(
     User: ${messageContent}
   `
 
-  const data = await promptGeminiText({
+  interface ResponseData {
+    ptBrAnalysis: string
+    enUsAnalysis: string
+  }
+
+  const responseSchema: ResponseSchema = {
+    type: SchemaType.OBJECT,
+    description: 'An object for analyzing the user message and provide feedback for corrections with various localizations',
+    properties: {
+      ptBrAnalysis: {
+        type: SchemaType.STRING,
+        description: 'Should provide feedback for user in Brazilian Portuguese.',
+      },
+      enUsAnalysis: {
+        type: SchemaType.STRING,
+        description: 'Should provide feedback for user in American English.',
+      },
+    },
+    required: ['enUsAnalysis', 'ptBrAnalysis'],
+  }
+
+  const data = await promptGeminiJson<ResponseData>({
     model: GEMINI_MODEL,
     apiKey: GCP_GEMINI_API_KEY,
+    responseSchema,
     prompt,
     systemInstruction,
   })
@@ -417,10 +439,29 @@ export async function explainCorrectedMessage(
   }
 
   const [createdMessageAnalysis] = await orm.insert(messageAnalysisExplanations).values({
-    content: data,
     messageId,
     createdAt: now(),
   }).returning()
 
-  return createdMessageAnalysis
+  const createdMessageAnalysisId = createdMessageAnalysis.id
+
+  const explanationsLocalizations = await orm.batch([
+    orm.insert(messageAnalysisExplanationsLocalizations).values({
+      locale: 'en-US',
+      content: data.enUsAnalysis,
+      messageAnalysisExplanationId: createdMessageAnalysisId,
+    }).returning(),
+    orm.insert(messageAnalysisExplanationsLocalizations).values({
+      locale: 'pt-BR',
+      content: data.ptBrAnalysis,
+      messageAnalysisExplanationId: createdMessageAnalysisId,
+    }).returning(),
+  ])
+
+  return {
+    ...createdMessageAnalysis,
+    localizations: locale === 'en-US'
+      ? explanationsLocalizations[0]
+      : explanationsLocalizations[1],
+  }
 }

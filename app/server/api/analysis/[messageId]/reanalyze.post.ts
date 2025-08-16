@@ -5,7 +5,7 @@ import { getValidated } from '~/utils/h3'
 import { badRequest, forbidden, notFound, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
 import { canUseAIFeatures } from '~/utils/plan'
 import { numericString } from '~/utils/zod'
-import { characterLocalizations, correctedMessages, localeSchema, messageAnalysisExplanations, messages } from '~~/db/schema'
+import { characterLocalizations, correctedMessages, localeSchema, messageAnalysisExplanations, messageAnalysisExplanationsLocalizations, messages } from '~~/db/schema'
 
 export default defineEventHandler(async (event) => {
   const { messageId } = await getValidated(event, 'params', z.object({
@@ -48,10 +48,17 @@ export default defineEventHandler(async (event) => {
       },
       messageAnalysisExplanations: {
         columns: {
-          content: true,
           id: true,
         },
         where: isNull(messageAnalysisExplanations.ignoredAt),
+        with: {
+          localizations: {
+            columns: {
+              content: true,
+            },
+            where: eq(messageAnalysisExplanationsLocalizations.locale, locale!),
+          },
+        },
       },
       chat: {
         columns: {
@@ -109,7 +116,7 @@ export default defineEventHandler(async (event) => {
   if (message.chat.userId !== user.id)
     throw forbidden('You do not have permission to access this message')
 
-  const correctedMessageRecord = await correctMessage(event, { messageId, regenerate: true })
+  const correctedMessageRecord = await correctMessage(event, locale!, { messageId, regenerate: true })
   const messageAnalysisExplanationRecord = await explainCorrectedMessage(event, orm, user, locale!, {
     messageId,
     messageContent: message.content,
@@ -130,7 +137,7 @@ export default defineEventHandler(async (event) => {
       : null,
     messageAnalysisExplanation: messageAnalysisExplanationRecord
       ? {
-          content: messageAnalysisExplanationRecord.content,
+          content: messageAnalysisExplanationRecord.localizations?.[0]?.content,
           id: messageAnalysisExplanationRecord.id,
           createdAt: messageAnalysisExplanationRecord.createdAt,
         }

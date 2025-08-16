@@ -4,7 +4,7 @@ import { explainCorrectedMessage } from '~/server/services/assistance'
 import { getValidated } from '~/utils/h3'
 import { badRequest, forbidden, notFound, unauthorized } from '~/utils/nuxt'
 import { numericString } from '~/utils/zod'
-import { characterLocalizations, correctedMessages, localeSchema, messageAnalysisExplanations, messages } from '~~/db/schema'
+import { characterLocalizations, correctedMessages, localeSchema, messageAnalysisExplanationsLocalizations, messages } from '~~/db/schema'
 
 export default defineEventHandler(async (event) => {
   const { messageId } = await getValidated(event, 'params', z.object({
@@ -36,9 +36,13 @@ export default defineEventHandler(async (event) => {
       },
       messageAnalysisExplanations: {
         columns: {
-          content: true,
           id: true,
           createdAt: true,
+        },
+        with: {
+          localizations: {
+            where: eq(messageAnalysisExplanationsLocalizations.locale, locale!),
+          },
         },
         orderBy: (messageAnalysisExplanations, { desc }) => [desc(messageAnalysisExplanations.createdAt)],
         limit: 1,
@@ -100,9 +104,9 @@ export default defineEventHandler(async (event) => {
     throw forbidden('You do not have permission to access this message')
 
   if (message?.messageAnalysisExplanations?.length) {
-    const analysisSummary = message.messageAnalysisExplanations[0]
+    const analysisSummary = message?.messageAnalysisExplanations?.[0]
 
-    if (analysisSummary.content)
+    if (analysisSummary)
       return analysisSummary
   }
 

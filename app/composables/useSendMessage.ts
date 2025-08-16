@@ -20,17 +20,22 @@ function useSendMessage(username: MaybeRef<string>, options: UseSendMessageOptio
   const historyQueryUtils = useHistoryQueryUtils(username)
   const historyQuery = useHistoryQuery(username)
 
+  const localeWithDefaultRegion = useLocaleWithDefaultRegion()
+
   async function fetchMessage(data: MessageSend) {
     const _username = toValue(username)
 
     const message: MessagePost = {
-      content: data.content,
+      content: data.content!,
       inReplyTo: data.inReplyTo,
     }
 
     return $fetch(`/api/message/${_username}`, {
       method: 'POST',
       body: message,
+      query: {
+        locale: localeWithDefaultRegion.value,
+      },
     })
   }
 
@@ -43,14 +48,14 @@ function useSendMessage(username: MaybeRef<string>, options: UseSendMessageOptio
       options.onMutate?.({ isRetrying })
 
       chatClient.createIfNotExists({
-        messageContent: message.content,
+        messageContent: message.content!,
         messageDatetime: message.time,
         messageStatus: MessageStatus.sending,
       })
 
       if (isRetrying) {
         chatQueryUtils.updateInReplyToBeingLastMessage({
-          content: message.content,
+          content: message.content!,
           status: MessageStatus.sending,
         })
 
@@ -70,7 +75,7 @@ function useSendMessage(username: MaybeRef<string>, options: UseSendMessageOptio
           id: historyQueryUtils.predictMessageId.value,
           from: 'user',
           correctedMessage: [],
-          content: message.content,
+          content: message.content!,
           time: message.time,
           status: MessageStatus.sending,
           inReplyTo: message?.inReplyTo || null,
@@ -78,7 +83,7 @@ function useSendMessage(username: MaybeRef<string>, options: UseSendMessageOptio
       }
 
       chatClient.setLastMessage({
-        content: message.content,
+        content: message.content!,
         time: message.time,
         status: MessageStatus.sending,
       })
@@ -100,13 +105,13 @@ function useSendMessage(username: MaybeRef<string>, options: UseSendMessageOptio
       })
 
       chatClient.setLastMessage({
-        content: message.content,
+        content: message.content!,
         time: message.time,
         status: MessageStatus.error,
       })
 
       chatQueryUtils.updateInReplyToBeingLastMessage({
-        content: message.content,
+        content: message.content!,
         status: MessageStatus.error,
       }, historyQuery.data.value)
     },

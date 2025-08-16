@@ -5,7 +5,7 @@ import { getValidated } from '~/utils/h3'
 import { badRequest, forbidden, notFound, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
 import { canUseAIFeatures } from '~/utils/plan'
 import { numericString } from '~/utils/zod'
-import { characterLocalizations, correctedMessages, localeSchema, messageAnalysisExplanations, messages } from '~~/db/schema'
+import { characterLocalizations, correctedMessages, localeSchema, messageAnalysisExplanations, messageAnalysisExplanationsLocalizations, messages } from '~~/db/schema'
 
 export default defineEventHandler(async (event) => {
   const { messageId } = await getValidated(event, 'params', z.object({
@@ -45,8 +45,15 @@ export default defineEventHandler(async (event) => {
       },
       messageAnalysisExplanations: {
         columns: {
-          content: true,
           id: true,
+        },
+        with: {
+          localizations: {
+            columns: {
+              content: true,
+            },
+            where: eq(messageAnalysisExplanationsLocalizations.locale, locale!),
+          },
         },
         where: isNull(messageAnalysisExplanations.ignoredAt),
       },

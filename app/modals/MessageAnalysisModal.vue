@@ -46,9 +46,10 @@ watch(explanationQuery.error, (error) => {
 })
 
 const messageExplanation = computed(() =>
-  reExplainMutation.data?.value?.content
-  || explanationQuery.data?.value?.content,
+  reExplainMutation.data?.value?.localizations?.[0]?.content
+  || explanationQuery.data?.value?.localizations?.[0]?.content,
 )
+
 const messageExplanationDate = computed(() =>
   reExplainMutation.data?.value?.createdAt
   || explanationQuery.data?.value?.createdAt,
@@ -76,6 +77,9 @@ const ignoreMistakesMutation = useMutation({
   mutationKey: queryKeys.ignoreMessageMistakes(localeWithDefaultRegion.value, toRef(props, 'messageId')),
   mutationFn: () => $fetch(`/api/analysis/${props.messageId}/ignore`, {
     method: 'POST',
+    query: {
+      locale: localeWithDefaultRegion.value,
+    },
   }),
   onSuccess: () => {
     queryClient.setQueryData(queryKeys.history(username), (oldData: History) => {

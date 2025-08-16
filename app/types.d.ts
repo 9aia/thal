@@ -105,13 +105,13 @@ export interface InReplyTos {
 
 export interface MessageSend {
   id?: number // When it's editing, it's the message id and it means retrying
-  content: string
+  content?: string
   time: number
   inReplyTo?: InReplyTo
 }
 
 export interface MessageCorrectionData extends MessageCorrection {
-  createdAt: string
+  createdAt?: string | null
   status: 'ok' | 'needs_correction'
 }
 
@@ -125,6 +125,6 @@ export interface MessageCorrection {
 
 // #region History
 
-export type History = Awaited<ReturnType<typeof getHistory>>
+export type History = InternalApi[`/api/chat/history/:username`]['get']
 
 // #endregion
