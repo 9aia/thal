@@ -6,6 +6,21 @@ description: A detailed, chronological record of all changes made to a project, 
 
 ## [Unreleased]
 
+### Added
+
+- Introduced message correction and analysis features directly in chat conversations
+- Provided detailed explanations for message corrections through a dedicated analysis modal
+- Implemented options to re-analyze your messages or ignore detected mistakes within the analysis modal
+
+### Enhanced
+
+- Improved AI guidance for character creation, resulting in more unique and specific character profiles
+- Improved the responsiveness and interaction of chat message actions
+
+### Beautified
+
+- Updated visual feedback for text input when editing messages
+
 ## [0.1.6] - 2025-07-30
 
 ### Added
