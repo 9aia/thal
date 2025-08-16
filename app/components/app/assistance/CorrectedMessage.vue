@@ -9,6 +9,10 @@ const props = defineProps<{
   messageId: number
 }>()
 
+const emit = defineEmits<{
+  (e: 'openMessageCorrectionModal', text: string): void
+}>()
+
 interface DiffPart {
   type: 'delete' | 'equal'
   text: string
@@ -44,7 +48,7 @@ const diffParts = computed(() => {
         'underline decoration-wavy decoration-red-500 cursor-pointer': part.type === 'delete',
         '': part.type === 'equal',
       }"
-      @click="part.type === 'delete' && openMessageAnalysisModal(part.text)"
+      @click="part.type === 'delete' && emit('openMessageCorrectionModal', part.text)"
     >
       {{ part.text }}
     </span>

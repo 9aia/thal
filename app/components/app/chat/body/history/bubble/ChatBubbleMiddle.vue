@@ -81,6 +81,7 @@ const hasErrorsAndNotIgnored = computed(() => {
             :corrected-text="messageCorrection!.correctedMessage!"
             :message-id="messageId"
             :message-correction="messageCorrection"
+            @open-message-correction-modal="openMessageAnalysisModal"
           />
         </div>
 
