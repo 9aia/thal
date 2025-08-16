@@ -1,6 +1,5 @@
 import { and, eq, inArray, isNull } from 'drizzle-orm'
 import { z } from 'zod'
-import { correctMessage, explainCorrectedMessage } from '~/server/services/assistance'
 import { getValidated } from '~/utils/h3'
 import { badRequest, forbidden, notFound, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
 import { canUseAIFeatures } from '~/utils/plan'

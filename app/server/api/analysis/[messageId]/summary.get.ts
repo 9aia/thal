@@ -1,4 +1,4 @@
-import { and, eq, isNull, not } from 'drizzle-orm'
+import { and, eq, isNull } from 'drizzle-orm'
 import { z } from 'zod'
 import { explainCorrectedMessage } from '~/server/services/assistance'
 import { getValidated } from '~/utils/h3'
