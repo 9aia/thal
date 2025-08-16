@@ -4,24 +4,24 @@ description: Tasks and items for the release.
 
 # TODO
 
-## 0.2.0-0 - Focus on grammar correction on v0.2.0
+## 0.2.0-0 - Overview of the message analysis
 
 - Save localized message analysis summary in the database or will the explanation be enough?
+
+## 0.2.0-1 - Focus mode message analysis
+
+- Refactor: rename summary to explanation
+- Add focus mode to the message analysis modal
+  - Focus in that particular wavy underline part of the message and pass it to the assistant (it will be able to understand if the that part is associated with other parts as well!)
+  - Explain the mistake and why it's wrong
+  - Add "Ignore this mistake" button
 
 - Improve analysis prompting (it's not working for fantasy, not considering politeness as well)
   - Summary should not focus on "remove this, add that" but on the actual changes in a generic/overview way, like "found typos..."
 - Improve the explanation prompting
 
-## 0.2.0-1
-
 - Fix (translation) prompt injection
 - Fix double message listening
-- Refactor: rename summary to explanation
-- Add feature to generate (more) examples of the incorrect-correct pairs
-- Add focus mode to the message analysis modal
-  - Focus in that particular wavy underline part of the message and pass it to the assistant (it will be able to understand if the that part is associated with other parts as well!)
-  - Explain the mistake and why it's wrong
-  - Add "Ignore this mistake" button
 
 - How to modify analysis based on future messages?
 
@@ -30,9 +30,15 @@ description: Tasks and items for the release.
 - Perf: implement virtual and infinite scrolls
 - Perf: ignore too far way messages in the past (cut the history to most recent messages)
 
-## 0.2.0 (2)
-
 - Add more features to the chat bubble inside the message analysis modal, such as speech, copy, etc.
+
+---
+
+## 0.3.0
+
+- Add feature to generate (more) examples of the incorrect-correct pairs
+
+---
 
 ## 0.2.1
 

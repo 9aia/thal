@@ -29,6 +29,7 @@ export async function getHistory(
                   content: true,
                   severity: true,
                   ignoredAt: true,
+                  createdAt: true,
                 },
                 where: and(
                   isNull(correctedMessages.regeneratedAt),

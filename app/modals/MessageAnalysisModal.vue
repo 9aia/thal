@@ -18,7 +18,7 @@ const modelValue = defineModel<boolean>()
 const toast = useToast()
 const { t } = useI18nExperimental()
 
-const messageAnalyzeExplanationQuery = useQuery({
+const explanationQuery = useQuery({
   queryKey: queryKeys.messageAnalysisExplanation(localeWithDefaultRegion.value, toRef(props, 'messageId')),
   queryFn: () => $fetch(`/api/analysis/${props.messageId}/summary`, {
     method: 'GET',
@@ -27,9 +27,9 @@ const messageAnalyzeExplanationQuery = useQuery({
     },
   }),
 })
-await messageAnalyzeExplanationQuery.suspense()
+await explanationQuery.suspense()
 
-const regenerateMessageAnalysisExplanationMutation = useMutation({
+const reExplainMutation = useMutation({
   mutationKey: queryKeys.regenerateMessageAnalysisExplanation(localeWithDefaultRegion.value, toRef(props, 'messageId')),
   mutationFn: () => $fetch(`/api/analysis/${props.messageId}/summary`, {
     method: 'POST',
@@ -39,73 +39,38 @@ const regenerateMessageAnalysisExplanationMutation = useMutation({
   }),
 })
 
-watch(messageAnalyzeExplanationQuery.error, (error) => {
+watch(explanationQuery.error, (error) => {
   if (error) {
     toast.error(t('Failed to generate analysis explanation.'))
   }
 })
 
 const messageExplanation = computed(() =>
-  regenerateMessageAnalysisExplanationMutation.data?.value?.content
-  || messageAnalyzeExplanationQuery.data?.value?.content,
+  reExplainMutation.data?.value?.content
+  || explanationQuery.data?.value?.content,
+)
+const messageExplanationDate = computed(() =>
+  reExplainMutation.data?.value?.createdAt
+  || explanationQuery.data?.value?.createdAt,
 )
 
 const isLoading = computed(() =>
-  regenerateMessageAnalysisExplanationMutation.isPending.value
-  || messageAnalyzeExplanationQuery.isLoading.value,
+  reExplainMutation.isPending.value
+  || explanationQuery.isLoading.value,
 )
 
 const isError = computed(() =>
-  regenerateMessageAnalysisExplanationMutation.isError.value
-  || messageAnalyzeExplanationQuery.isError.value,
+  reExplainMutation.isError.value
+  || explanationQuery.isError.value,
 )
 
 function refetch() {
-  regenerateMessageAnalysisExplanationMutation.mutate()
-  messageAnalyzeExplanationQuery.refetch()
+  reExplainMutation.mutate()
 }
 
 function regenerateExplanation() {
-  regenerateMessageAnalysisExplanationMutation.mutate()
+  reExplainMutation.mutate()
 }
-
-const reAnalyzeMutation = useMutation({
-  mutationKey: queryKeys.reAnalyzeMessage(localeWithDefaultRegion.value, toRef(props, 'messageId')),
-  mutationFn: () => $fetch(`/api/analysis/${props.messageId}/reanalyze`, {
-    method: 'POST',
-    query: {
-      locale: localeWithDefaultRegion.value,
-    },
-  }),
-  onSuccess: (data) => {
-    queryClient.setQueryData(queryKeys.history(username), (oldData: History) => {
-      const newData = oldData.map((message) => {
-        if (message.id === props.messageId) {
-          return {
-            ...message,
-            correctedMessage: [
-              {
-                content: data.correctedMessage?.content,
-                severity: data.correctedMessage?.severity,
-                id: data.correctedMessage?.id,
-              },
-            ],
-          }
-        }
-        return message
-      })
-
-      return newData
-    })
-
-    regenerateMessageAnalysisExplanationMutation.mutate()
-
-    toast.success(t('Message re-analysis started. The new analysis will be available shortly.'))
-  },
-  onError: () => {
-    toast.error(t('Failed to re-analyze the message.'))
-  },
-})
 
 const ignoreMistakesMutation = useMutation({
   mutationKey: queryKeys.ignoreMessageMistakes(localeWithDefaultRegion.value, toRef(props, 'messageId')),
@@ -140,6 +105,52 @@ const ignoreMistakesMutation = useMutation({
   onError: () => {
     toast.error(t('Failed to ignore mistakes.'))
   },
+})
+
+const reAnalyzeMutation = useMutation({
+  mutationKey: queryKeys.reAnalyzeMessage(localeWithDefaultRegion.value, toRef(props, 'messageId')),
+  mutationFn: () => $fetch(`/api/analysis/${props.messageId}/reanalyze`, {
+    method: 'POST',
+    query: {
+      locale: localeWithDefaultRegion.value,
+    },
+  }),
+  onSuccess: (data) => {
+    queryClient.setQueryData(queryKeys.history(username), (oldData: History) => {
+      const newData = oldData.map((message) => {
+        if (message.id === props.messageId) {
+          return {
+            ...message,
+            correctedMessage: [
+              {
+                content: data.correctedMessage?.content,
+                severity: data.correctedMessage?.severity,
+                id: data.correctedMessage?.id,
+                createdAt: data.correctedMessage?.createdAt,
+              },
+            ],
+          }
+        }
+        return message
+      })
+
+      return newData
+    })
+
+    queryClient.setQueryData(queryKeys.messageAnalysisExplanation(localeWithDefaultRegion.value, toRef(props, 'messageId')), data.messageAnalysisExplanation)
+  },
+  onError: () => {
+    toast.error(t('Failed to re-analyze the message.'))
+  },
+})
+
+const explanationDate = computed(() => {
+  const dateFormatter = new Intl.DateTimeFormat(localeWithDefaultRegion.value, {
+    timeStyle: 'short',
+    dateStyle: 'short',
+  })
+
+  return dateFormatter.format(new Date(messageExplanationDate.value ?? Date.now()))
 })
 </script>
 
@@ -178,16 +189,41 @@ const ignoreMistakesMutation = useMutation({
               </article>
             </CommonResource>
 
-            <Button
-              v-if="!isError"
-              class="btn btn-neutral btn-sm w-fit"
-              icon="material-symbols:auto-awesome-outline-rounded"
-              type="button"
-              :disabled="isLoading"
-              @click="regenerateExplanation()"
-            >
-              {{ t("Regenerate explanation") }}
-            </Button>
+            <div class="flex items-center justify-end gap-2 mt-1">
+              <Button
+                v-if="!isError && !messageCorrection?.ignoredAt"
+                class="btn btn-neutral btn-sm w-fit"
+                icon="material-symbols:auto-awesome-outline-rounded"
+                type="button"
+                :disabled="isLoading"
+                @click="regenerateExplanation()"
+              >
+                {{ t("Regenerate explanation") }}
+              </Button>
+
+              <Button
+                v-if="messageCorrection?.status === 'needs_correction' && !messageCorrection?.ignoredAt"
+                class="btn btn-error btn-soft btn-sm w-fit"
+                icon="material-symbols:delete-outline-rounded"
+                type="button"
+                :disabled="isLoading"
+                :loading="ignoreMistakesMutation.isPending.value"
+                @click="ignoreMistakesMutation.mutate()"
+              >
+                {{ t("Ignore mistakes") }}
+              </Button>
+
+              <Button
+                v-else
+                icon="material-symbols:refresh-rounded"
+                class="btn btn-soft btn-warning btn-sm"
+                type="button"
+                :loading="reAnalyzeMutation.isPending.value"
+                @click="reAnalyzeMutation.mutate()"
+              >
+                {{ t('Re-analyze the message') }}
+              </Button>
+            </div>
           </template>
 
           <template v-else>
@@ -198,34 +234,14 @@ const ignoreMistakesMutation = useMutation({
         </div>
       </div>
 
-      <small class="flex items-center gap-2 text-xs text-gray-500">
-        {{ t('Analysis is powered by AI, so the results may not be perfect.') }}
-      </small>
-
-      <div class="flex items-center gap-2 justify-end">
-        <div class="flex items-center gap-2">
-          <Button
-            icon="material-symbols:refresh-rounded"
-            class="btn btn-dash btn-warning btn-sm"
-            type="button"
-            :loading="reAnalyzeMutation.isPending.value"
-            @click="reAnalyzeMutation.mutate()"
-          >
-            {{ t('Re-analyze the message') }}
-          </Button>
-
-          <Button
-            v-if="messageCorrection?.status === 'needs_correction' && !messageCorrection?.ignoredAt"
-            class="btn btn-soft btn-error btn-sm"
-            icon="material-symbols:delete-outline-rounded"
-            type="button"
-            :loading="ignoreMistakesMutation.isPending.value"
-            @click="ignoreMistakesMutation.mutate()"
-          >
-            {{ t("Ignore") }}
-          </Button>
-        </div>
-      </div>
+      <ExpandableWarning
+        type="button"
+        class="text-xs text-gray-300 text-left px-0"
+        :initial-text="t('Analysis from {time}. AI results may vary.', {
+          time: explanationDate,
+        })"
+        :expanded-text="t('If you\'ve sent more messages since this analysis was created, try regenerating it for improved accuracy and context.')"
+      />
     </div>
   </Modal>
 </template>

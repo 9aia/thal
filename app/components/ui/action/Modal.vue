@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { tv } from 'tailwind-variants'
 import Button from './Button.vue'
 
 const props = withDefaults(
@@ -8,6 +9,8 @@ const props = withDefaults(
     // header
     title?: string
     showCloseButton?: boolean
+    titleClass?: string
+    headerClass?: string
 
     // content
     contentClass?: string
@@ -47,6 +50,14 @@ watch([visible, dialog], () => {
   else
     dialog.value?.close()
 })
+
+const titleStyles = tv({
+  base: 'mb-4 text-sm text-black',
+})
+
+const headerStyles = tv({
+  base: 'sticky top-0 px-8 pt-6 pb-4 bg-white z-10',
+})
 </script>
 
 <template>
@@ -78,8 +89,8 @@ watch([visible, dialog], () => {
                 'max-h-128 overflow-auto': !noScroll,
               }"
             >
-              <header class="sticky top-0 px-8 pt-6 pb-4 bg-white z-10">
-                <h1 v-if="title" class="mb-4 text-sm text-black">
+              <header :class="headerStyles({ class: headerClass })">
+                <h1 v-if="title" :class="titleStyles({ class: titleClass })">
                   {{ title }}
                 </h1>
 

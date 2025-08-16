@@ -111,6 +111,7 @@ export interface MessageSend {
 }
 
 export interface MessageCorrectionData extends MessageCorrection {
+  createdAt: string
   status: 'ok' | 'needs_correction'
 }
 

@@ -1,15 +1,18 @@
-import { and, eq, inArray, isNull } from 'drizzle-orm'
+import { and, eq, isNull } from 'drizzle-orm'
 import { z } from 'zod'
 import { correctMessage, explainCorrectedMessage } from '~/server/services/assistance'
 import { getValidated } from '~/utils/h3'
 import { badRequest, forbidden, notFound, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
 import { canUseAIFeatures } from '~/utils/plan'
 import { numericString } from '~/utils/zod'
-import { characterLocalizations, correctedMessages, messageAnalysisExplanations, messages } from '~~/db/schema'
+import { characterLocalizations, correctedMessages, localeSchema, messageAnalysisExplanations, messages } from '~~/db/schema'
 
 export default defineEventHandler(async (event) => {
   const { messageId } = await getValidated(event, 'params', z.object({
     messageId: numericString(z.number().int().positive()),
+  }))
+  const { locale } = await getValidated(event, 'query', z.object({
+    locale: localeSchema,
   }))
 
   const orm = event.context.orm
@@ -36,6 +39,7 @@ export default defineEventHandler(async (event) => {
         columns: {
           id: true,
           content: true,
+          createdAt: true,
         },
         where: and(
           isNull(correctedMessages.ignoredAt),
@@ -106,6 +110,14 @@ export default defineEventHandler(async (event) => {
     throw forbidden('You do not have permission to access this message')
 
   const correctedMessageRecord = await correctMessage(event, { messageId, regenerate: true })
+  const messageAnalysisExplanationRecord = await explainCorrectedMessage(event, orm, user, locale!, {
+    messageId,
+    messageContent: message.content,
+    correctedMessageContent: correctedMessageRecord.content,
+    username: message.chat.username,
+    inReplyTo: message.inReplyTo,
+    regenerate: true,
+  })
 
   return {
     correctedMessage: correctedMessageRecord
@@ -113,6 +125,14 @@ export default defineEventHandler(async (event) => {
           content: correctedMessageRecord.content,
           severity: correctedMessageRecord.severity,
           id: correctedMessageRecord.id,
+          createdAt: correctedMessageRecord.createdAt,
+        }
+      : null,
+    messageAnalysisExplanation: messageAnalysisExplanationRecord
+      ? {
+          content: messageAnalysisExplanationRecord.content,
+          id: messageAnalysisExplanationRecord.id,
+          createdAt: messageAnalysisExplanationRecord.createdAt,
         }
       : null,
   }

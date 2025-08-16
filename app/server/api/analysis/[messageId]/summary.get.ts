@@ -38,6 +38,7 @@ export default defineEventHandler(async (event) => {
         columns: {
           content: true,
           id: true,
+          createdAt: true,
         },
         orderBy: (messageAnalysisExplanations, { desc }) => [desc(messageAnalysisExplanations.createdAt)],
         limit: 1,

@@ -43,6 +43,7 @@ const correctedMessage = computed<MessageCorrectionData>(() => {
     severity: props.correctedMessage?.[0]?.severity || null,
     correctedMessage: props.correctedMessage?.[0]?.content || null,
     ignoredAt: props.correctedMessage?.[0]?.ignoredAt?.toString() || null,
+    createdAt: props.correctedMessage?.[0]?.createdAt || null,
   }
 })
 </script>
