@@ -2,7 +2,7 @@
 
 > **Status**: [Early Access](https://github.com/9aia/thal/blob/main/pm/ROADMAP.md#early-access-releases)
 > <br>
-> [🧪 **Preview v0.1.0-20**](https://preview.thal.9aia.com) | [🚀 **Production v0.1.6**](https://thal.9aia.com)
+> [🧪 **Preview v0.2.0-0**](https://preview.thal.9aia.com) | [🚀 **Production v0.1.6**](https://thal.9aia.com)
 
 > [!WARNING]
 > We're in active development and this is a work-in-progress. Expect potential bugs, incomplete or not yet implemented features. Read more about the project status in [Roadmap](./pm/ROADMAP.md).
