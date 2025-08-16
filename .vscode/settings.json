@@ -107,10 +107,7 @@
   },
   "editor.bracketPairColorization.enabled": true,
   "editor.guides.bracketPairs":"active",
-  "tailwindCSS.experimental.classRegex": [
-    ["([\"'`][^\"'`]*.*?[\"'`])", "[\"'`]([^\"'`]*).*?[\"'`]"]
-  ],
-  
+
   "files.associations": {
 		"wrangler.json": "jsonc",
     "**/app/content/**/*.md": "mdc",

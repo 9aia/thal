@@ -186,6 +186,7 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 ### Low priority
 
+- Setup Tailwind intellisense in JS/TS files
 - Implement https://code.visualstudio.com/docs/copilot/copilot-customization to improve commit messages
 - Refactor ArkUI to RekaUI
 - Remove unnecessary `contact` from chat table?
