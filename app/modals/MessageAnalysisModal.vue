@@ -20,7 +20,7 @@ const { t } = useI18nExperimental()
 
 const explanationQuery = useQuery({
   queryKey: queryKeys.messageAnalysisExplanation(localeWithDefaultRegion.value, toRef(props, 'messageId')),
-  queryFn: () => $fetch(`/api/analysis/${props.messageId}/summary`, {
+  queryFn: () => $fetch(`/api/analysis/${props.messageId}/explain`, {
     method: 'GET',
     query: {
       locale: localeWithDefaultRegion.value,
@@ -31,7 +31,7 @@ await explanationQuery.suspense()
 
 const reExplainMutation = useMutation({
   mutationKey: queryKeys.regenerateMessageAnalysisExplanation(localeWithDefaultRegion.value, toRef(props, 'messageId')),
-  mutationFn: () => $fetch(`/api/analysis/${props.messageId}/summary`, {
+  mutationFn: () => $fetch(`/api/analysis/${props.messageId}/explain`, {
     method: 'POST',
     query: {
       locale: localeWithDefaultRegion.value,

@@ -94,7 +94,7 @@
         }
       },
       {
-        "name": "ANALYSIS_SUMMARY_RATE_LIMIT",
+        "name": "ANALYSIS_EXPLANATION_RATE_LIMIT",
         "type": "ratelimit",
         "namespace_id": "1008",
         "simple": {
@@ -172,7 +172,7 @@
             }
           },
           {
-            "name": "ANALYSIS_SUMMARY_RATE_LIMIT",
+            "name": "ANALYSIS_EXPLANATION_RATE_LIMIT",
             "type": "ratelimit",
             "namespace_id": "1008",
             "simple": {
@@ -249,7 +249,7 @@
             }
           },
           {
-            "name": "ANALYSIS_SUMMARY_RATE_LIMIT",
+            "name": "ANALYSIS_EXPLANATION_RATE_LIMIT",
             "type": "ratelimit",
             "namespace_id": "1008",
             "simple": {

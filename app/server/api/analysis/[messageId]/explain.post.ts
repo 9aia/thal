@@ -2,9 +2,10 @@ import { and, eq, isNull } from 'drizzle-orm'
 import { z } from 'zod'
 import { explainCorrectedMessage } from '~/server/services/assistance'
 import { getValidated } from '~/utils/h3'
-import { badRequest, forbidden, notFound, unauthorized } from '~/utils/nuxt'
+import { badRequest, forbidden, notFound, paymentRequired, rateLimit, unauthorized } from '~/utils/nuxt'
+import { canUseAIFeatures } from '~/utils/plan'
 import { numericString } from '~/utils/zod'
-import { characterLocalizations, correctedMessages, localeSchema, messageAnalysisExplanationsLocalizations, messages } from '~~/db/schema'
+import { characterLocalizations, correctedMessages, localeSchema, messageAnalysisExplanations, messageAnalysisExplanationsLocalizations, messages } from '~~/db/schema'
 
 export default defineEventHandler(async (event) => {
   const { messageId } = await getValidated(event, 'params', z.object({
@@ -14,11 +15,19 @@ export default defineEventHandler(async (event) => {
     locale: localeSchema,
   }))
 
-  const user = event.context.user
   const orm = event.context.orm
+  const user = event.context.user
 
   if (!user)
     throw unauthorized()
+
+  if (!canUseAIFeatures(user))
+    throw paymentRequired()
+
+  const analysisExplanationRateLimit = await event.context.cloudflare.env.ANALYSIS_EXPLANATION_RATE_LIMIT.limit({ key: `analysis-explanation-${user.id}` })
+
+  if (!analysisExplanationRateLimit.success)
+    throw rateLimit()
 
   const message = await orm.query.messages.findFirst({
     where: and(
@@ -37,15 +46,16 @@ export default defineEventHandler(async (event) => {
       messageAnalysisExplanations: {
         columns: {
           id: true,
-          createdAt: true,
         },
         with: {
           localizations: {
+            columns: {
+              content: true,
+            },
             where: eq(messageAnalysisExplanationsLocalizations.locale, locale!),
           },
         },
-        orderBy: (messageAnalysisExplanations, { desc }) => [desc(messageAnalysisExplanations.createdAt)],
-        limit: 1,
+        where: isNull(messageAnalysisExplanations.ignoredAt),
       },
       chat: {
         columns: {
@@ -103,19 +113,13 @@ export default defineEventHandler(async (event) => {
   if (message.chat.userId !== user.id)
     throw forbidden('You do not have permission to access this message')
 
-  if (message?.messageAnalysisExplanations?.length) {
-    const analysisSummary = message?.messageAnalysisExplanations?.[0]
-
-    if (analysisSummary)
-      return analysisSummary
-  }
-
   const explanation = await explainCorrectedMessage(event, orm, user, locale!, {
     messageId,
     messageContent: message.content,
     correctedMessageContent: message.correctedMessage?.[0]?.content,
     username: message.chat.username,
     inReplyTo: message.inReplyTo,
+    regenerate: true,
   })
 
   return explanation

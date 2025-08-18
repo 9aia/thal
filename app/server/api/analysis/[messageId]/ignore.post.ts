@@ -23,9 +23,9 @@ export default defineEventHandler(async (event) => {
   if (!canUseAIFeatures(user))
     throw paymentRequired()
 
-  const analysisSummaryRateLimit = await event.context.cloudflare.env.ANALYSIS_SUMMARY_RATE_LIMIT.limit({ key: `analysis-summary-${user.id}` })
+  const analysisExplanationRateLimit = await event.context.cloudflare.env.ANALYSIS_EXPLANATION_RATE_LIMIT.limit({ key: `analysis-explanation-${user.id}` })
 
-  if (!analysisSummaryRateLimit.success)
+  if (!analysisExplanationRateLimit.success)
     throw rateLimit()
 
   const message = await orm.query.messages.findFirst({
