@@ -4,25 +4,23 @@ description: Tasks and items for the release.
 
 # TODO
 
-## 0.2.0-1 - Focus mode message analysis
+## 0.2.0-2 - Focus mode message analysis
 
-- Fix Stripe webhook (incomplete status is set after the subscription is created for the first time after free trial)
+- Improve analysis prompting (it's not working for fantasy, not considering politeness as well)
+  - Summary should not focus on "remove this, add that" but on the actual changes in a generic/overview way, like "found typos..."
+- Improve the explanation prompting
 
 - Add focus mode to the message analysis modal
   - Focus in that particular wavy underline part of the message and pass it to the assistant (it will be able to understand if the that part is associated with other parts as well!)
   - Explain the mistake and why it's wrong
   - Add "Ignore this mistake" button
 
-- Improve analysis prompting (it's not working for fantasy, not considering politeness as well)
-  - Summary should not focus on "remove this, add that" but on the actual changes in a generic/overview way, like "found typos..."
-- Improve the explanation prompting
+## 0.2.0-3
 
 - Fix (translation) prompt injection
 - Fix double message listening
 
 - How to modify analysis based on future messages?
-
-## 0.2.0-2
 
 - Perf: implement virtual and infinite scrolls
 - Perf: ignore too far way messages in the past (cut the history to most recent messages)
