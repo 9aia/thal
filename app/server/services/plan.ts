@@ -9,47 +9,6 @@ import { getStripe } from '~/utils/stripe'
 import type { User, UserSelect } from '~~/db/schema'
 import { PlanType, SubscriptionStatus, users } from '~~/db/schema'
 
-export async function createSubscription(
-  orm: DrizzleD1Database<any>,
-  subscription: Stripe.Subscription,
-) {
-  const userId = subscription.metadata.userId
-
-  if (!userId) {
-    throw internal('User not found')
-  }
-
-  const subscriptionData: Partial<UserSelect> = {
-    subscriptionStatus: SubscriptionStatus[subscription.status],
-    stripeCustomerId: subscription.customer as string,
-    subscriptionId: subscription.id,
-    plan: PlanType.STANDARD_MONTHLY,
-    updatedAt: now(),
-  }
-
-  if (subscription.status === 'trialing') {
-    subscriptionData.freeTrialUsed = true
-  }
-
-  const [user] = await orm.select()
-    .from(users)
-    .where(eq(users.id, userId))
-
-  if (!user) {
-    throw badRequest('User not found')
-  }
-
-  if (user.subscriptionId && user.subscriptionId === subscription.id) {
-    console.log(`Subscription ${subscription.id} already exists, skipping`)
-    return
-  }
-
-  await orm
-    .update(users)
-    .set(subscriptionData)
-    .where(eq(users.id, userId))
-}
-
 export async function updateSubscription(
   orm: DrizzleD1Database<any>,
   subscription: Stripe.Subscription,
@@ -75,7 +34,7 @@ export async function updateSubscription(
   await orm
     .update(users)
     .set(subscriptionData)
-    .where(and(eq(users.id, userId), eq(users.subscriptionId, subscription.id)))
+    .where(eq(users.id, userId))
 }
 
 export async function deletedSubscription(
