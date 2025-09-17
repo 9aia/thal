@@ -4,6 +4,8 @@ description: Tasks and items for the release.
 
 # TODO
 
+- Fix: trial is infinitely being processed
+
 ## 0.2.0-2 - Focus mode message analysis
 
 - Improve analysis prompting (it's not working for fantasy, not considering politeness as well)
