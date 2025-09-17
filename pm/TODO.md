@@ -4,7 +4,7 @@ description: Tasks and items for the release.
 
 # TODO
 
-- Fix: trial is infinitely being processed
+- Fix tsconfig on nuxt v4 - typecheck not working properly
 
 ## 0.2.0-2 - Focus mode message analysis
 
