@@ -6,6 +6,6 @@ export default function useLocaleWithDefaultRegion() {
   const locale = useLocale()
 
   return computed(() => {
-    return localeDefaultRegionMap[locale.value] || localeDefaultRegionMap.en
+    return localeDefaultRegionMap[locale.value] || localeDefaultRegionMap.en!
   })
 }

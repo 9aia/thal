@@ -5,7 +5,7 @@ import type { Locale, Text } from '@psitta/core'
 import { cache } from './cache'
 import type { Chunk } from './types'
 import { messages } from './messages'
-import { promptGeminiJson } from '~~/app/utils/gemini'
+import { promptGeminiJson } from '~~/server/utils/gemini'
 
 export async function translate(chunk: Chunk) {
   const { GCP_GEMINI_API_KEY, GEMINI_MODEL } = process.env

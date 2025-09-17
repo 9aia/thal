@@ -5,4 +5,4 @@ export const SUBSCRIPTION_PLANS: Record<string, PlanSettings> = {
     priceLookupKey: 'standard_monthly',
     trialPeriodDays: 1,
   },
-}
+} as const

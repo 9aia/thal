@@ -7,9 +7,7 @@ import './psitta.config'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2025-05-15',
-
-  srcDir: './app',
+  compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   modules: ['nitro-cloudflare-dev', '@nuxt/eslint', '@nuxtjs/mdc', '@nuxt/image', '@nuxt/fonts', '@nuxt/content', '@nuxt/icon', 'reka-ui/nuxt'],
   css: ['~/assets/css/main.css'],

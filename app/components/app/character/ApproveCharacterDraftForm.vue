@@ -69,7 +69,7 @@ const approveMutation = useMutation({
   onSuccess: (data) => {
     // TODO: optimize invalidations (use queryClient.setQueryData)
     queryClient.resetQueries({
-      queryKey: queryKeys.characterDraft(localWithDefaultRegion),
+      queryKey: queryKeys.characterDraft(localWithDefaultRegion.value),
     })
     queryClient.invalidateQueries({
       queryKey: queryKeys.myCharacters,

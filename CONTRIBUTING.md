@@ -414,9 +414,9 @@ We can use [Stitch](https://stitch.withgoogle.com/) to design the UI.
 ## Managing the Content
 
 > [!TIP]
-> You can edit the content directly in the `./app/content` folder or the translations in the `./app/locales` folder via GitHub website, but it's recommended to edit the content locally or in a codeshare.
+> You can edit the content directly in the `./content` folder or the translations in the `./app/locales` folder via GitHub website, but it's recommended to edit the content locally or in a codeshare.
 
-To manage the content of the application, we use a Git-based CMS called [Nuxt Content](https://content.nuxt.dev/) and an AI-powered framework called [Psitta](https://github.com/9aia/psitta). You can find some of the content in `./app/content` folder and the rest in `./app/locales` folder.
+To manage the content of the application, we use a Git-based CMS called [Nuxt Content](https://content.nuxt.dev/) and an AI-powered framework called [Psitta](https://github.com/9aia/psitta). You can find some of the content in `./content` folder and the rest in `./app/locales` folder.
 
 > [!NOTE]
 > Psitta is not a perfect tool, so you may need to adjust the generated content manually.

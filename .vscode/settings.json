@@ -110,7 +110,7 @@
 
   "files.associations": {
 		"wrangler.json": "jsonc",
-    "**/app/content/**/*.md": "mdc",
+    "**/content/**/*.md": "mdc",
     "**/*.md": "markdown"
   },
   "sqltools.connections": [

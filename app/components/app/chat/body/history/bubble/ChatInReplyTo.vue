@@ -55,7 +55,7 @@ function scrollToMessage() {
 
   const observer = new IntersectionObserver(
     ([entry]) => {
-      if (entry.isIntersecting) {
+      if (entry?.isIntersecting) {
         highlightBubble(bubble)
         observer.disconnect()
       }
