@@ -65,7 +65,7 @@
     "reka-ui": "^2.5.0",
     "remark-emoji": "^5.0.2",
     "semver": "^7.7.2",
-    "stripe": "^14.25.0",
+    "stripe": "^18.5.0",
     "tailwind-variants": "^0.2.1",
     "tailwindcss": "^4.1.13",
     "unified": "^11.0.5",

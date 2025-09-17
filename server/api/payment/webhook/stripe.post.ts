@@ -39,6 +39,20 @@ export default eventHandler(async (event) => {
   // For the invoice.payment_succeeded event, you can update the subscription status in your database, grant access to premium features, or notify the user about the successful payment.
 
   switch (stripeEvent.type) {
+    case 'invoice.paid': {
+      const invoice = stripeEvent.data.object as Stripe.Invoice
+
+      const subscriptionId = invoice.parent?.subscription_details?.subscription as string
+
+      if (!subscriptionId) {
+        throw internal('No subscription ID found in invoice')
+      }
+
+      const subscription = await stripe.subscriptions.retrieve(subscriptionId)
+
+      await updateSubscription(orm, subscription)
+      break
+    }
     case 'customer.subscription.updated':
     case 'customer.subscription.trial_will_end': {
       const subscription = stripeEvent.data.object as Stripe.Subscription
