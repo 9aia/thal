@@ -1,8 +1,8 @@
-import tailwindcss from '@tailwindcss/vite'
 import process from 'node:process'
+import tailwindcss from '@tailwindcss/vite'
 import { defineNuxtConfig } from 'nuxt/config'
 import ignoreTailwindSourceMapBroken from './app/plugins/vite/ignoreTailwindSourceMapBroken'
-//import './psitta.config'
+// import './psitta.config'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -19,7 +19,7 @@ export default defineNuxtConfig({
     '@nuxt/scripts',
     '@nuxt/test-utils',
     '@nuxtjs/mdc',
-    'reka-ui/nuxt'
+    'reka-ui/nuxt',
   ],
 
   components: [
@@ -52,7 +52,15 @@ export default defineNuxtConfig({
     layoutTransition: { name: 'fade' },
     head: {
       meta: [
+        { name: 'apple-mobile-web-app-title', content: 'Thal' },
         { name: 'viewport', content: 'width=device-width,initial-scale=1,shrink-to-fit=yes,user-scalable=0' },
+      ],
+      link: [
+        { rel: 'icon', type: 'image/png', href: '/favicon/favicon-96x96.png', sizes: '96x96' },
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon/favicon.svg' },
+        { rel: 'shortcut icon', href: '/favicon/favicon.ico' },
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/favicon/apple-touch-icon.png' },
+        { rel: 'manifest', href: '/favicon/site.webmanifest' },
       ],
     },
   },
@@ -64,8 +72,8 @@ export default defineNuxtConfig({
       },
     },
     // TODO: fix this
-    //locales: getConfig().locales,
-    //defaultLocale: getConfig().defaultLocale,
+    // locales: getConfig().locales,
+    // defaultLocale: getConfig().defaultLocale,
   },
 
   eslint: {
