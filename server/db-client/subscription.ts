@@ -1,8 +1,8 @@
 import { block } from '@9aia/castor'
 import { eq } from 'drizzle-orm'
 import { z } from 'zod'
-import { now } from '~~/app/utils/date'
-import { PlanType, SubscriptionStatus, users } from '~~/db/schema'
+import { now } from '#shared/utils/date'
+import { PlanType, SubscriptionStatus, users } from '~~/server/db/schema'
 
 block('Update subscription status for all users', {
   schema: z.object({

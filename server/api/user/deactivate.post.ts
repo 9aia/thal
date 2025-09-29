@@ -2,10 +2,10 @@ import process from 'node:process'
 import { eq } from 'drizzle-orm'
 import { invalidateSessions } from '~~/server/services/auth'
 import { pauseStripeSubscription } from '~~/server/services/plan'
-import { now } from '~~/shared/utils/date'
+import { now } from '#shared/utils/date'
 import { internal, unauthorized } from '~~/server/utils/nuxt'
 import { getStripe } from '~~/server/utils/stripe'
-import { users } from '~~/db/schema'
+import { users } from '~~/server/db/schema'
 
 export default defineEventHandler(async (event) => {
   const orm = event.context.orm

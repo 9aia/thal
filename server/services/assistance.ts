@@ -3,13 +3,13 @@ import { SchemaType } from '@google/generative-ai'
 import { and, eq, isNull } from 'drizzle-orm'
 import type { H3Event, H3EventContext } from 'h3'
 import { getHistory } from './messages'
-import type { MessageCorrectionData } from '~/types'
-import { now } from '~~/shared/utils/date'
+import type { MessageCorrectionData } from '~~/shared/types'
+import { now } from '#shared/utils/date'
 import { promptGeminiJson } from '~~/server/utils/gemini'
 import { badRequest, forbidden, internal, notFound, paymentRequired, rateLimit, unauthorized } from '~~/server/utils/nuxt'
 import { canUseAIFeatures } from '~~/shared/utils/plan'
-import type { LocaleSchemaType, User } from '~~/db/schema'
-import { characterLocalizations, correctedMessages, messageAnalysisExplanations, messageAnalysisExplanationsLocalizations, messages } from '~~/db/schema'
+import type { LocaleSchemaType, User } from '~~/server/db/schema'
+import { characterLocalizations, correctedMessages, messageAnalysisExplanations, messageAnalysisExplanationsLocalizations, messages } from '~~/server/db/schema'
 
 interface CorrectMessageOptions {
   messageId: number

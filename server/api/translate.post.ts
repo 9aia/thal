@@ -4,7 +4,7 @@ import { getHistory } from '../services/messages'
 import { promptGeminiText } from '~~/server/utils/gemini'
 import { getValidated } from '~~/server/utils/h3'
 import { forbidden, internal, paymentRequired, rateLimit, unauthorized } from '~~/server/utils/nuxt'
-import { characterLocalizations, messages, usernames } from '~~/db/schema'
+import { characterLocalizations, messages, usernames } from '~~/server/db/schema'
 import { canUseAIFeatures } from '~~/shared/utils/plan'
 
 export default defineEventHandler(async (event) => {

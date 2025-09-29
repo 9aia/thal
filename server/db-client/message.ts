@@ -1,5 +1,5 @@
 import { block } from '@9aia/castor'
-import { messages } from '~~/db/schema'
+import { messages } from '~~/server/db/schema'
 
 block('List all messages', {
   query: db => db.select().from(messages),

@@ -1,8 +1,8 @@
 import { and, eq, sql } from 'drizzle-orm'
 import type { H3EventContext } from 'h3'
 import type { OAuthProviderParams } from '../types'
-import type { UserInsert } from '~~/db/schema'
-import { oAuthAccounts, usernames, users } from '~~/db/schema'
+import type { UserInsert } from '~~/server/db/schema'
+import { oAuthAccounts, usernames, users } from '~~/server/db/schema'
 import { generateId } from '~~/server/utils/auth'
 
 export async function createUser(

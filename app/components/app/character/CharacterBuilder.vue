@@ -8,8 +8,8 @@ import type { MenuItemType } from '~/components/ui/navigation/types'
 import { LEFT_SIDEBAR_PROVIDE_KEY } from '~/constants/sidebar'
 import queryKeys from '~/queryKeys'
 import { characterBuildId, characterBuildPrompt } from '~/store'
-import type { CharacterBuildApiData, CharacterBuilderEditViewMode } from '~/types'
-import { SubscriptionStatus, promptSchema, promptSchemaChecks } from '~~/db/schema'
+import type { CharacterBuildApiData, CharacterBuilderEditViewMode } from '~~/shared/types'
+import { SubscriptionStatus, promptSchema, promptSchemaChecks } from '~~/server/db/schema'
 
 const props = defineProps<{
   characterUsername?: string

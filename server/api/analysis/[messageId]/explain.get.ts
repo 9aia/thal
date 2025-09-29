@@ -4,7 +4,7 @@ import { explainCorrectedMessage } from '~~/server/services/assistance'
 import { getValidated } from '~~/server/utils/h3'
 import { badRequest, forbidden, notFound, unauthorized } from '~~/server/utils/nuxt'
 import { numericString } from '~~/shared/utils/zod'
-import { characterLocalizations, correctedMessages, localeSchema, messageAnalysisExplanationsLocalizations, messages } from '~~/db/schema'
+import { characterLocalizations, correctedMessages, localeSchema, messageAnalysisExplanationsLocalizations, messages } from '~~/server/db/schema'
 
 export default defineEventHandler(async (event) => {
   const { messageId } = await getValidated(event, 'params', z.object({

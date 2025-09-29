@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { T } from '@psitta/vue'
 import Link from '~/components/ui/navigation/Link.vue'
-import { SubscriptionStatus } from '~~/db/schema'
+import { SubscriptionStatus } from '~~/server/db/schema'
 
 const open = defineModel<boolean>()
 

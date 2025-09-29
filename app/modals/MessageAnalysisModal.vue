@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
-import type { History, MessageCorrectionData } from '~/types'
+import type { History, MessageCorrectionData } from '~~/shared/types'
 
 const props = defineProps<{
   message: string

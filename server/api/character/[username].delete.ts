@@ -1,9 +1,9 @@
 import { eq } from 'drizzle-orm'
 import { z } from 'zod'
-import { now } from '~~/shared/utils/date'
+import { now } from '#shared/utils/date'
 import { getValidated } from '~~/server/utils/h3'
 import { forbidden, notFound, unauthorized } from '~~/server/utils/nuxt'
-import { characterLocalizations, characters, usernameSchema, usernames } from '~~/db/schema'
+import { characterLocalizations, characters, usernameSchema, usernames } from '~~/server/db/schema'
 
 export default eventHandler(async (event) => {
   const { username } = await getValidated(event, 'params', z.object({ username: usernameSchema }))

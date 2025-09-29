@@ -1,5 +1,5 @@
 import { block } from '@9aia/castor'
-import { characterDraftLocalizations, characterDrafts } from '~~/db/schema'
+import { characterDraftLocalizations, characterDrafts } from '~~/server/db/schema'
 
 block('List all drafts', {
   query: db => db.select({

@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { getValidated } from '~~/server/utils/h3'
 import { unauthorized } from '~~/server/utils/nuxt'
-import { usernameSchema } from '~~/db/schema'
+import { usernameSchema } from '~~/server/db/schema'
 
 export default defineEventHandler(async (event) => {
   const { username } = await getValidated(event, 'params', z.object({

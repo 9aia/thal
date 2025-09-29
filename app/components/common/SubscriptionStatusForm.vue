@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { tv } from 'tailwind-variants'
-import { SubscriptionStatus } from '~~/db/schema'
+import { SubscriptionStatus } from '~~/server/db/schema'
 
 const props = defineProps<{
   class?: string

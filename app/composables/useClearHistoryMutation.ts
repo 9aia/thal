@@ -2,7 +2,7 @@ import type { Mutation } from '@tanstack/vue-query'
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
 import { edition, inReplyTos } from '~/store'
-import { MessageStatus } from '~~/db/schema'
+import { MessageStatus } from '~~/server/db/schema'
 
 export default function useClearHistoryMutation(username: MaybeRef<string>, options?: {
   onSuccess?: () => void

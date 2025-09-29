@@ -5,8 +5,8 @@ import { promptGeminiJson } from '~~/server/utils/gemini'
 import { getValidated } from '~~/server/utils/h3'
 import { badRequest, internal, paymentRequired, rateLimit, unauthorized } from '~~/server/utils/nuxt'
 import { canUseAIFeatures } from '~~/shared/utils/plan'
-import type { CharacterDraftData } from '~~/db/schema'
-import { characterDraftLocalizations, characterDraftSchema, characterDrafts } from '~~/db/schema'
+import type { CharacterDraftData } from '~~/server/db/schema'
+import { characterDraftLocalizations, characterDraftSchema, characterDrafts } from '~~/server/db/schema'
 
 export default eventHandler(async (event) => {
   const { GCP_GEMINI_API_KEY, GEMINI_MODEL } = useRuntimeConfig(event)

@@ -1,6 +1,6 @@
 import { useDebounceFn } from '@vueuse/core'
 import type { useForm } from 'vee-validate'
-import { usernameSchema, usernameSchemaChecks } from '~~/db/schema'
+import { usernameSchema, usernameSchemaChecks } from '~~/server/db/schema'
 
 function useUsernameValidation(form: ReturnType<typeof useForm>, options?: {
   fieldName?: string

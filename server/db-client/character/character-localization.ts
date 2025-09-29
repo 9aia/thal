@@ -1,7 +1,7 @@
 import { block } from '@9aia/castor'
 import { and, eq, sql } from 'drizzle-orm'
 import { z } from 'zod'
-import { characterLocalizations, characters, usernames } from '~~/db/schema'
+import { characterLocalizations, characters, usernames } from '~~/server/db/schema'
 
 block('List character localizations', {
   query: db => db.select().from(characterLocalizations),

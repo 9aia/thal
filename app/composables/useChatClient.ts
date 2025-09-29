@@ -1,8 +1,8 @@
 import { useQueryClient } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
 import { chatListSearch } from '~/store'
-import type { Chats } from '~/types'
-import type { MessageStatus } from '~~/db/schema'
+import type { Chats } from '~~/shared/types'
+import type { MessageStatus } from '~~/server/db/schema'
 
 function useChatClient(username: MaybeRef<string>) {
   const queryClient = useQueryClient()

@@ -3,8 +3,8 @@ import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { useForm } from 'vee-validate'
 import type { MenuItemType } from '~/components/ui/navigation/types'
 import queryKeys from '~/queryKeys'
-import type { User } from '~~/db/schema'
-import { userLastNameSchema, userLastNameSchemaChecks, userNameSchema, userNameSchemaChecks } from '~~/db/schema'
+import type { User } from '~~/server/db/schema'
+import { userLastNameSchema, userLastNameSchemaChecks, userNameSchema, userNameSchemaChecks } from '~~/server/db/schema'
 
 const { t } = useI18nExperimental()
 const toast = useToast()

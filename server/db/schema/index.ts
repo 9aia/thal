@@ -4,7 +4,7 @@ import { foreignKey, int, sqliteTable as table, text } from 'drizzle-orm/sqlite-
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
 import { z } from 'zod'
 import { createdAt, timestampOmits, timestamps, updatedAt } from '../columns.helpers'
-import type { MessageCorrectionData } from '~/types'
+import type { MessageCorrectionData } from '#shared/types'
 
 export const localeSchema = z.enum(['pt-BR', 'en-US']).default('en-US')
 

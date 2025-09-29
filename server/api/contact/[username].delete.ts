@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { getContactByUsername } from '~~/server/services/contact'
 import { getValidated } from '~~/server/utils/h3'
 import { notFound, unauthorized } from '~~/server/utils/nuxt'
-import { contacts, usernameSchema } from '~~/db/schema'
+import { contacts, usernameSchema } from '~~/server/db/schema'
 
 export default eventHandler(async (event) => {
   const { username } = await getValidated(event, 'params', z.object({ username: usernameSchema }))

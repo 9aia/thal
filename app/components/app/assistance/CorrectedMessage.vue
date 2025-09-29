@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { diffWords } from 'diff'
-import type { MessageCorrectionData } from '~/types'
+import type { MessageCorrectionData } from '~~/shared/types'
 
 const props = defineProps<{
   originalText: string

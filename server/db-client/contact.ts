@@ -1,5 +1,5 @@
 import { block } from '@9aia/castor'
-import { contacts } from '~~/db/schema'
+import { contacts } from '~~/server/db/schema'
 
 block('List all contacts', {
   query: db => db.select().from(contacts),

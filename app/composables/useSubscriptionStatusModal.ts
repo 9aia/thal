@@ -1,5 +1,5 @@
 import { isSubscriptionStatusModalOpen } from '~/store'
-import { SubscriptionStatus } from '~~/db/schema'
+import { SubscriptionStatus } from '~~/server/db/schema'
 
 function useSubscriptionStatusModal() {
   const user = useUser()

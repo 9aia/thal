@@ -2,7 +2,7 @@
 import { useCountdown, useEventListener } from '@vueuse/core'
 import { tv } from 'tailwind-variants'
 import type { ButtonHTMLAttributes } from 'vue'
-import type { SafeProps } from '~/types'
+import type { SafeProps } from '~~/shared/types'
 
 const props = withDefaults(defineProps<Props & {
   as?: string

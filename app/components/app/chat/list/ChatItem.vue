@@ -2,7 +2,7 @@
 import { t } from '@psitta/vue'
 import { LEFT_SIDEBAR_PROVIDE_KEY } from '~/constants/sidebar'
 import { openContactView } from '~/store'
-import { MessageStatus } from '~~/db/schema'
+import { MessageStatus } from '~~/server/db/schema'
 
 const props = defineProps<{
   username: string

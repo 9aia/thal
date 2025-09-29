@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { T, t, useLocale } from '@psitta/vue'
 import { AccordionRoot } from 'reka-ui'
-import { SubscriptionStatus } from '~~/db/schema'
+import { SubscriptionStatus } from '~~/server/db/schema'
 
 definePageMeta({
   layout: 'site',

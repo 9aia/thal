@@ -5,7 +5,7 @@ import { calculatePagination, getPaginatedDto } from '~~/server/utils/pagination
 import { getValidated } from '~~/server/utils/h3'
 import { unauthorized } from '~~/server/utils/nuxt'
 import { numericString } from '~~/shared/utils/zod'
-import { characterLocalizations, characters, localeSchema, usernames } from '~~/db/schema'
+import { characterLocalizations, characters, localeSchema, usernames } from '~~/server/db/schema'
 
 export default eventHandler(async (event) => {
   const query = await getValidated(event, 'query', paginationSchema().extend({

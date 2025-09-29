@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
 import { tv } from 'tailwind-variants'
-import { SubscriptionStatus } from '~~/db/schema'
+import { SubscriptionStatus } from '~~/server/db/schema'
 
 const user = useUser()
 

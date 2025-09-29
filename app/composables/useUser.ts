@@ -1,4 +1,4 @@
-import type { User } from '~~/db/schema'
+import type { User } from '~~/server/db/schema'
 
 function useUser() {
   const user = useState<User | null>('user', () => null)

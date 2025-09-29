@@ -2,8 +2,8 @@ import { sql } from 'drizzle-orm'
 import { z } from 'zod'
 import { getValidated } from '~~/server/utils/h3'
 import { unauthorized } from '~~/server/utils/nuxt'
-import type { MessageStatus } from '~~/db/schema'
-import { characterLocalizations, characters, chats, contacts, lastMessages, localeSchema, usernames } from '~~/db/schema'
+import type { MessageStatus } from '~~/server/db/schema'
+import { characterLocalizations, characters, chats, contacts, lastMessages, localeSchema, usernames } from '~~/server/db/schema'
 
 export default defineEventHandler(async (event) => {
   const { search, locale } = await getValidated(event, 'query', z.object({

@@ -1,10 +1,10 @@
 import { and, eq, isNull } from 'drizzle-orm'
 import { z } from 'zod'
-import { now } from '~~/shared/utils/date'
+import { now } from '#shared/utils/date'
 import { getValidated } from '~~/server/utils/h3'
 import { badRequest, paymentRequired, unauthorized } from '~~/server/utils/nuxt'
 import { canUseAIFeatures } from '~~/shared/utils/plan'
-import { characterDraftLocalizations, characterDrafts, characters } from '~~/db/schema'
+import { characterDraftLocalizations, characterDrafts, characters } from '~~/server/db/schema'
 
 export default eventHandler(async (event) => {
   const { characterId } = await getValidated(event, 'body', z.object({

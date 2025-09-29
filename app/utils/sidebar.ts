@@ -1,5 +1,5 @@
 import type { LocationQuery } from 'vue-router'
-import type { SidebarFullPath, SidebarPathWithParam, SidebarState, SidebarView } from '~/types'
+import type { SidebarFullPath, SidebarPathWithParam, SidebarState, SidebarView } from '~~/shared/types'
 
 export function sidebarStateToFullPath<T extends SidebarView>(state: SidebarState<T>) {
   if (state.param)

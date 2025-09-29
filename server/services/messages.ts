@@ -1,8 +1,8 @@
 import { and, eq, isNull, sql } from 'drizzle-orm'
 import type { H3EventContext } from 'h3'
 import { notFound } from '~~/server/utils/nuxt'
-import type { User } from '~~/db/schema'
-import { chats, correctedMessages, messages, usernames } from '~~/db/schema'
+import type { User } from '~~/server/db/schema'
+import { chats, correctedMessages, messages, usernames } from '~~/server/db/schema'
 
 export async function getHistory(
   orm: H3EventContext['orm'],

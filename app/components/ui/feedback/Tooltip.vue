@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Popover } from '@ark-ui/vue'
 import { type VariantProps, tv } from 'tailwind-variants'
-import type { SafeVariantProps } from '~/types'
+import type { SafeVariantProps } from '~~/shared/types'
 
 defineProps<SafeVariantProps<VariantProps<typeof styles>>>()
 

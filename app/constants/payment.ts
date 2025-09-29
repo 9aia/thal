@@ -1,4 +1,4 @@
-import type { PlanSettings } from '~/types'
+import type { PlanSettings } from '~~/shared/types'
 
 export const SUBSCRIPTION_PLANS: Record<string, PlanSettings> = {
   STANDARD_MONTHLY: {

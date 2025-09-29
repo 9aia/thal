@@ -1,8 +1,8 @@
 import { eq } from 'drizzle-orm'
-import { now } from '~~/shared/utils/date'
+import { now } from '#shared/utils/date'
 import { getValidated } from '~~/server/utils/h3'
 import { unauthorized } from '~~/server/utils/nuxt'
-import { profileUpdateSchema, usernames, users } from '~~/db/schema'
+import { profileUpdateSchema, usernames, users } from '~~/server/db/schema'
 
 export default eventHandler(async (event) => {
   const data = await getValidated(event, 'body', profileUpdateSchema)

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SubscriptionStatus } from '~~/db/schema'
+import { SubscriptionStatus } from '~~/server/db/schema'
 
 definePageMeta({
   title: 'Pricing',

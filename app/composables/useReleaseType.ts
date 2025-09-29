@@ -1,5 +1,5 @@
 import * as semver from 'semver'
-import type { Release } from '~/types'
+import type { Release } from '~~/shared/types'
 import { version } from '~~/package.json'
 
 function useReleaseType() {

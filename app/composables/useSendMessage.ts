@@ -2,8 +2,8 @@ import { useIsMutating, useMutation, useMutationState } from '@tanstack/vue-quer
 import type { FetchError } from 'ofetch'
 import queryKeys from '~/queryKeys'
 import { edition, inReplyTos, isSubscriptionStatusModalOpen } from '~/store'
-import type { History, MessageSend } from '~/types'
-import { type MessagePost, MessageStatus } from '~~/db/schema'
+import type { History, MessageSend } from '~~/shared/types'
+import { type MessagePost, MessageStatus } from '~~/server/db/schema'
 
 export interface UseSendMessageOptions {
   onMutate?: ({ isRetrying }: { isRetrying: boolean }) => void

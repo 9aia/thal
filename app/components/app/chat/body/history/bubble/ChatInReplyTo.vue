@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { InReplyTo } from '~~/db/schema'
+import type { InReplyTo } from '~~/server/db/schema'
 
 const props = defineProps<{
   is: InReplyTo

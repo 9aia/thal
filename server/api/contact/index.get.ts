@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { getContactsWithCharacterByUser } from '~~/server/services/contact'
 import { getValidated } from '~~/server/utils/h3'
 import { unauthorized } from '~~/server/utils/nuxt'
-import { localeSchema } from '~~/db/schema'
+import { localeSchema } from '~~/server/db/schema'
 
 export default eventHandler(async (event) => {
   const { search, locale } = await getValidated(event, 'query', z.object({

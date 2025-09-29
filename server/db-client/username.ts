@@ -1,7 +1,7 @@
 import { block } from '@9aia/castor'
 import { isNotNull, isNull, sql } from 'drizzle-orm'
-import { now } from '~~/app/utils/date'
-import { usernames } from '~~/db/schema'
+import { now } from '#shared/utils/date'
+import { usernames } from '~~/server/db/schema'
 
 block('List all usernames', {
   query: db => db.select().from(usernames),

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { contentEditableRef, inReplyTos } from '~/store'
-import type { MessageStatus } from '~~/db/schema'
+import type { MessageStatus } from '~~/server/db/schema'
 
 const props = defineProps<{
   right: boolean

@@ -2,7 +2,7 @@ import { and, eq, isNull } from 'drizzle-orm'
 import { z } from 'zod'
 import { getValidated } from '~~/server/utils/h3'
 import { unauthorized } from '~~/server/utils/nuxt'
-import { characterLocalizations, characters, localeSchema } from '~~/db/schema'
+import { characterLocalizations, characters, localeSchema } from '~~/server/db/schema'
 
 export default eventHandler(async (event) => {
   const { locale } = await getValidated(event, 'query', z.object({

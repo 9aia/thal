@@ -2,13 +2,13 @@ import { and, eq, isNull } from 'drizzle-orm'
 import { z } from 'zod'
 import { correctMessage } from '~~/server/services/assistance'
 import { getHistory } from '~~/server/services/messages'
-import { now } from '~~/shared/utils/date'
+import { now } from '#shared/utils/date'
 import { chatHistoryToGemini, sendGeminiTextInTextOut } from '~~/server/utils/gemini'
 import { getValidated } from '~~/server/utils/h3'
 import { internal, notFound, paymentRequired, rateLimit, unauthorized } from '~~/server/utils/nuxt'
 import { canUseAIFeatures } from '~~/shared/utils/plan'
-import type { MessageInsert } from '~~/db/schema'
-import { MessageStatus, characterLocalizations, chats, contacts, lastMessages, localeSchema, messageSchema, messages, usernameSchema, usernames } from '~~/db/schema'
+import type { MessageInsert } from '~~/server/db/schema'
+import { MessageStatus, characterLocalizations, chats, contacts, lastMessages, localeSchema, messageSchema, messages, usernameSchema, usernames } from '~~/server/db/schema'
 
 export default eventHandler(async (event) => {
   const { GCP_GEMINI_API_KEY, GEMINI_MODEL } = useRuntimeConfig(event)

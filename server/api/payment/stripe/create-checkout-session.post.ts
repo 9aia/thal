@@ -1,11 +1,11 @@
 import { eq } from 'drizzle-orm'
 import type Stripe from 'stripe'
 import { SUBSCRIPTION_PLANS } from '~/constants/payment'
-import { now } from '~~/shared/utils/date'
+import { now } from '#shared/utils/date'
 import { getAppUrl } from '~~/server/utils/h3'
 import { internal } from '~~/server/utils/nuxt'
 import { getStripe } from '~~/server/utils/stripe'
-import { SubscriptionStatus, users } from '~~/db/schema'
+import { SubscriptionStatus, users } from '~~/server/db/schema'
 
 export default eventHandler(async (event) => {
   const { STRIPE_SECRET_KEY } = useRuntimeConfig(event)

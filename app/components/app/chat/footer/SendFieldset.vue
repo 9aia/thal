@@ -2,7 +2,7 @@
 import { useMagicKeys, useOnline } from '@vueuse/core'
 import { OPTIMISTIC_CHAT_ID } from '~/constants/chat'
 import { contentEditableRef, inReplyTos } from '~/store'
-import { messageContentSchema, messageContentSchemaChecks } from '~~/db/schema'
+import { messageContentSchema, messageContentSchemaChecks } from '~~/server/db/schema'
 
 const { t } = useI18nExperimental()
 const isOnline = useOnline()

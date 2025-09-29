@@ -7,7 +7,6 @@ export default defineNuxtModule({
     configKey: 'layerOptions',
     compatibility: {
       nuxt: '^4.0.0',
-      bridge: false,
     },
   },
   defaults: {},

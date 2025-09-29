@@ -4,7 +4,7 @@ import { watchDebounced } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import { LEFT_SIDEBAR_PROVIDE_KEY } from '~/constants/sidebar'
 import { chatListSearch } from '~/store'
-import { SubscriptionStatus } from '~~/db/schema'
+import { SubscriptionStatus } from '~~/server/db/schema'
 
 const user = useUser()
 const sidebar = useSidebar(LEFT_SIDEBAR_PROVIDE_KEY)

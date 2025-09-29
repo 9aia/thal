@@ -1,7 +1,7 @@
 import { type ResponseSchema, SchemaType } from '@google/generative-ai'
 import { z } from 'zod'
 import { categories } from '~/constants/discover'
-import { descriptionSchema, descriptionSchemaChecks, instructionsSchema, instructionsSchemaChecks, nameSchema, nameSchemaChecks, usernameSchema, usernameSchemaChecks } from '~~/db/schema'
+import { descriptionSchema, descriptionSchemaChecks, instructionsSchema, instructionsSchemaChecks, nameSchema, nameSchemaChecks, usernameSchema, usernameSchemaChecks } from '~~/server/db/schema'
 
 export const characterLocalizationSchema = z.object({
   name: nameSchema,

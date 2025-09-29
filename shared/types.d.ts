@@ -2,7 +2,7 @@ import type { InternalApi } from 'nitropack'
 import type { VariantProps } from 'tailwind-variants'
 import type { HTMLAttributes } from 'vue'
 import type { getHistory } from './server/services/messages'
-import type { InReplyTo, UserSelect } from '~~/db/schema'
+import type { InReplyTo, UserSelect } from '~~/server/db/schema'
 
 export interface SafeProps<T extends HTMLAttributes> extends /* @vue-ignore */ T {}
 export interface SafeVariantProps<T extends VariantProps> extends /* @vue-ignore */ T {}

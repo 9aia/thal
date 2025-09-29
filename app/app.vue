@@ -2,7 +2,7 @@
 import { useEventListener } from '@vueuse/core'
 import { LEFT_SIDEBAR_COMPONENTS, LEFT_SIDEBAR_PROVIDE_KEY, LEFT_SIDEBAR_ROOT_STATE } from './constants/sidebar'
 import { isSubscriptionStatusModalOpen, isWhatsNewModalOpen, openContactView } from '~/store'
-import { usernameSchema } from '~~/db/schema'
+import { usernameSchema } from '~~/server/db/schema'
 
 useInternetConnectionIndicator()
 useAppSeo()

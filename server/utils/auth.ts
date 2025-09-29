@@ -3,9 +3,6 @@ import * as _ from 'lodash-es'
 import { encodeBase32LowerCaseNoPadding } from '@oslojs/encoding'
 import { type RandomReader, generateRandomString } from '@oslojs/crypto/random'
 
-const a: number = ''
-console.log(a)
-
 export function initializeGoogle(
   GCP_GOOGLE_CLIENT_ID: string,
   GCP_GOOGLE_CLIENT_SECRET: string,

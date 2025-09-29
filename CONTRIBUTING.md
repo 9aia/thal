@@ -343,7 +343,7 @@ pnpm db:migrate
 
 ### Interacting with the Database
 
-We don't use a DB studio to interact with the database. We actually write SQL queries using Typescript files with [Castor](https://github.com/9aia/castor). You can find all the SQL queries in `./db-client` folder.
+We don't use a DB studio to interact with the database. We actually write SQL queries using Typescript files with [Castor](https://github.com/9aia/castor). You can find all the SQL queries in `./server/db-client` folder.
 
 To interact with the database, you can run the following command:
 
@@ -355,7 +355,7 @@ Read more about Castor [here](https://github.com/9aia/castor).
 
 ### Interacting with the API
 
-For interacting with the API, we utilize the [Vscode REST Client extension](https://marketplace.visualstudio.com/items?itemName=humao.rest-client). You can find all the API requests in `./api-client` folder.
+For interacting with the API, we utilize the [Vscode REST Client extension](https://marketplace.visualstudio.com/items?itemName=humao.rest-client). You can find all the API requests in `./shared/api-client` folder.
 
 > [!IMPORTANT]
 > Remember to set the environment by opening Command Palette and selecting `Rest Client: Switch Environment`.

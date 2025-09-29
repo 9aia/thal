@@ -5,9 +5,9 @@ import { useForm } from 'vee-validate'
 import { LEFT_SIDEBAR_PROVIDE_KEY } from '~/constants/sidebar'
 import queryKeys from '~/queryKeys'
 import { manageContactName, manageContactUsername } from '~/store'
-import type { Contact } from '~/types'
+import type { Contact } from '~~/shared/types'
 import yupify from '~/utils/yupify'
-import { nameSchema, nameSchemaChecks, usernameSchema, usernameSchemaChecks } from '~~/db/schema'
+import { nameSchema, nameSchemaChecks, usernameSchema, usernameSchemaChecks } from '~~/server/db/schema'
 
 const { t } = useI18nExperimental()
 const toast = useToast()

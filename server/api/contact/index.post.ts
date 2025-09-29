@@ -1,8 +1,8 @@
 import { and, eq } from 'drizzle-orm'
-import { now } from '~~/shared/utils/date'
+import { now } from '#shared/utils/date'
 import { getValidated } from '~~/server/utils/h3'
 import { badRequest, notFound, unauthorized } from '~~/server/utils/nuxt'
-import { chats, contactInsertSchema, contacts, usernames } from '~~/db/schema'
+import { chats, contactInsertSchema, contacts, usernames } from '~~/server/db/schema'
 
 export default eventHandler(async (event) => {
   const data = await getValidated(event, 'body', contactInsertSchema)

@@ -2,12 +2,12 @@ import { and, eq } from 'drizzle-orm'
 import type { DrizzleD1Database } from 'drizzle-orm/d1'
 import type { H3Event } from 'h3'
 import type Stripe from 'stripe'
-import type { CheckoutStatus, PlanSettings } from '~/types'
-import { now } from '~~/shared/utils/date'
+import type { CheckoutStatus, PlanSettings } from '~~/shared/types'
+import { now } from '#shared/utils/date'
 import { badRequest, internal } from '~~/server/utils/nuxt'
 import { getStripe } from '~~/server/utils/stripe'
-import type { User, UserSelect } from '~~/db/schema'
-import { PlanType, SubscriptionStatus, users } from '~~/db/schema'
+import type { User, UserSelect } from '~~/server/db/schema'
+import { PlanType, SubscriptionStatus, users } from '~~/server/db/schema'
 
 export async function updateSubscription(
   orm: DrizzleD1Database<any>,

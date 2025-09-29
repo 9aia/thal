@@ -2,7 +2,7 @@
 import type { RuleExpression } from 'vee-validate'
 import { useField } from 'vee-validate'
 import type { InputHTMLAttributes, MaybeRef } from 'vue'
-import type { SafeProps } from '~/types'
+import type { SafeProps } from '~~/shared/types'
 
 type Props = SafeProps<InputHTMLAttributes> & {
   disabled?: boolean

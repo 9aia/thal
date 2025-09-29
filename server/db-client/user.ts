@@ -1,6 +1,6 @@
 import { block } from '@9aia/castor'
 import { sql } from 'drizzle-orm'
-import { oAuthAccounts, sessions, users } from '~~/db/schema'
+import { oAuthAccounts, sessions, users } from '~~/server/db/schema'
 
 block('Drop user tables', {
   danger: true,

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { tv } from 'tailwind-variants'
-import { MessageStatus } from '~~/db/schema'
+import { MessageStatus } from '~~/server/db/schema'
 
 const props = defineProps<{
   status: MessageStatus

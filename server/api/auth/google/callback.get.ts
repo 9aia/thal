@@ -6,8 +6,8 @@ import { createSession, setSessionTokenCookie } from '~~/server/services/auth'
 import type { OAuthProviderParams } from '~~/server/types'
 import { generateSessionToken, generateUsernameByEmail } from '~~/server/utils/auth'
 import { badRequest, internal } from '~~/server/utils/nuxt'
-import { type UserInsert, users } from '~~/db/schema'
-import { now } from '~~/shared/utils/date'
+import { type UserInsert, users } from '~~/server/db/schema'
+import { now } from '#shared/utils/date'
 
 export default defineEventHandler(async (event) => {
   const google = event.context.google!

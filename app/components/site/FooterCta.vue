@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
-import { SubscriptionStatus } from '~~/db/schema'
+import { SubscriptionStatus } from '~~/server/db/schema'
 
 const RUNTIME_ENV = useRuntimeConfig().public.RUNTIME_ENV
 

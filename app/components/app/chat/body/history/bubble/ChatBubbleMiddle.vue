@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useLocale } from '@psitta/vue'
 import type AudibleText from '~/components/app/ai/AudibleText.vue'
-import type { MessageStatus } from '~~/db/schema'
-import type { MessageCorrectionData } from '~/types'
+import type { MessageStatus } from '~~/server/db/schema'
+import type { MessageCorrectionData } from '~~/shared/types'
 
 const props = defineProps<{
   right: boolean

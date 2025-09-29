@@ -1,8 +1,8 @@
 import { block } from '@9aia/castor'
 import { eq, isNotNull } from 'drizzle-orm'
 import { z } from 'zod'
-import { now } from '~~/app/utils/date'
-import { characterDraftLocalizations, characterDrafts, characterLocalizations, characters, usernames } from '~~/db/schema'
+import { now } from '#shared/utils/date'
+import { characterDraftLocalizations, characterDrafts, characterLocalizations, characters, usernames } from '~~/server/db/schema'
 
 block('List all characters', {
   query: db => db.select().from(characters),

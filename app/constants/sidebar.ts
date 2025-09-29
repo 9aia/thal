@@ -1,7 +1,7 @@
 import type { AsyncComponentOptions } from 'vue'
 import { hydrateOnVisible } from 'vue'
 import CommonSidebarError from '~/components/app/common/CommonSidebarError.vue'
-import type { SidebarState } from '~/types'
+import type { SidebarState } from '~~/shared/types'
 
 const config: Partial<AsyncComponentOptions> = {
   hydrate: hydrateOnVisible(),

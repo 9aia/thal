@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { MessageCorrectionData } from '../../../../../../types'
+import type { MessageCorrectionData } from '../../../../../../../shared/types'
 import type AudibleText from '~/components/app/ai/AudibleText.vue'
 import { edition } from '~/store'
-import type { History } from '~/types'
-import type { InReplyTo, MessageStatus } from '~~/db/schema'
+import type { History } from '~~/shared/types'
+import type { InReplyTo, MessageStatus } from '~~/server/db/schema'
 
 const props = defineProps<{
   id: number

@@ -1,4 +1,4 @@
-import { SubscriptionStatus, type User } from '~~/db/schema'
+import { SubscriptionStatus, type User } from '~~/server/db/schema'
 
 export function canUseAIFeatures(user?: User | null) {
   if (!user) {

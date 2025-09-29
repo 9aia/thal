@@ -1,10 +1,10 @@
 import { and, eq } from 'drizzle-orm'
 import { z } from 'zod'
 import { getContactByUser } from '~~/server/services/contact'
-import { now } from '~~/shared/utils/date'
+import { now } from '#shared/utils/date'
 import { getValidated } from '~~/server/utils/h3'
 import { unauthorized } from '~~/server/utils/nuxt'
-import { contactUpdateSchema, contacts, usernameSchema } from '~~/db/schema'
+import { contactUpdateSchema, contacts, usernameSchema } from '~~/server/db/schema'
 
 export default eventHandler(async (event) => {
   const { username } = await getValidated(event, 'params', z.object({ username: usernameSchema }))

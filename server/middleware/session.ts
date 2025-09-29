@@ -1,5 +1,5 @@
 import { setSessionTokenCookie, validateSessionToken } from '../services/auth'
-import type { Session, User } from '~~/db/schema'
+import type { Session, User } from '~~/server/db/schema'
 
 export default defineEventHandler(async (event) => {
   if (event.path === '/api/payment/webhook/stripe') {

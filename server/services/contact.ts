@@ -1,8 +1,8 @@
 import { and, eq, sql } from 'drizzle-orm'
 import type { H3EventContext } from 'h3'
 import { notFound } from '~~/server/utils/nuxt'
-import type { LocaleSchemaType, User } from '~~/db/schema'
-import { characterLocalizations, characters, contacts, usernames } from '~~/db/schema'
+import type { LocaleSchemaType, User } from '~~/server/db/schema'
+import { characterLocalizations, characters, contacts, usernames } from '~~/server/db/schema'
 
 export async function getContactByUsername(
   orm: H3EventContext['orm'],

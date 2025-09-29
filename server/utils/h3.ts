@@ -1,5 +1,4 @@
 import type { H3Event } from 'h3'
-import type { RouteLocationNormalized } from 'vue-router'
 import type { SafeParseError, SafeParseSuccess, ZodSchema } from 'zod'
 import { internal, unprocessableEntity } from '~~/server/utils/nuxt'
 
@@ -54,11 +53,4 @@ export function getAppUrl(event: H3Event) {
     : event.headers.get('host')!
 
   return new URL(`${protocol}${host}`)
-}
-
-export function saveRouteAndNavigateTo(from: RouteLocationNormalized, redirectUrl: string | null) {
-  const url = useRedirectUrl()
-  url.value = from.fullPath
-
-  return navigateTo(redirectUrl)
 }
