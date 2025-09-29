@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { getTts } from '~~/server/utils/gcp'
 import { getValidated } from '~~/server/utils/h3'
 import { internal, paymentRequired, rateLimit, unauthorized } from '~~/server/utils/nuxt'
-import { canUseAIFeatures } from '~~/shared/utils/plan'
+import { canUseAIFeatures } from '#shared/utils/plan'
 import { localeSchema } from '~~/server/db/schema'
 
 export default eventHandler(async (event) => {

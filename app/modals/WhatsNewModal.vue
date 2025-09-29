@@ -17,6 +17,8 @@ watch(modelValue, async (value) => {
 function isEarlyAccess(article: any) {
   return semver.ltr(article.version, '1.0.0')
 }
+
+// TODO: fix nuxt content usage
 </script>
 
 <template>

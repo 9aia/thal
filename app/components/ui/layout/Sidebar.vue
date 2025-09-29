@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SidebarState } from '~~/shared/types'
+import type { SidebarState } from '#shared/types'
 
 const props = defineProps<{
   provideKey: string

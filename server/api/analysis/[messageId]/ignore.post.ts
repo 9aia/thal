@@ -2,8 +2,8 @@ import { and, eq, inArray, isNull } from 'drizzle-orm'
 import { z } from 'zod'
 import { getValidated } from '~~/server/utils/h3'
 import { badRequest, forbidden, notFound, paymentRequired, rateLimit, unauthorized } from '~~/server/utils/nuxt'
-import { canUseAIFeatures } from '~~/shared/utils/plan'
-import { numericString } from '~~/shared/utils/zod'
+import { canUseAIFeatures } from '#shared/utils/plan'
+import { numericString } from '#shared/utils/zod'
 import { characterLocalizations, correctedMessages, localeSchema, messageAnalysisExplanations, messageAnalysisExplanationsLocalizations, messages } from '~~/server/db/schema'
 
 export default defineEventHandler(async (event) => {

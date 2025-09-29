@@ -2,7 +2,7 @@
 import { T } from '@psitta/vue'
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
-import type { Contact } from '~~/shared/types'
+import type { Contact } from '#shared/types'
 
 const props = defineProps<{
   contactUsername: string

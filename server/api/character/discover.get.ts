@@ -1,10 +1,10 @@
 import { and, eq, isNull, like } from 'drizzle-orm'
 import z from 'zod'
-import { paginationSchema } from '~~/shared/schemas/pagination'
+import { paginationSchema } from '#shared/schemas/pagination'
 import { calculatePagination, getPaginatedDto } from '~~/server/utils/pagination'
 import { getValidated } from '~~/server/utils/h3'
 import { unauthorized } from '~~/server/utils/nuxt'
-import { numericString } from '~~/shared/utils/zod'
+import { numericString } from '#shared/utils/zod'
 import { characterLocalizations, characters, localeSchema, usernames } from '~~/server/db/schema'
 
 export default eventHandler(async (event) => {

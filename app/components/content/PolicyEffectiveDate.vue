@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { v } from '@psitta/vue'
-import timestampJson from '~/modules/policy/.timestamp.json'
+import timestampJson from '~~/modules/policy/.timestamp.json'
 
 defineProps<{
+  // TODO: fix id is not being passed because __file is now undefined in new nuxt content version
   id: string
 }>()
 

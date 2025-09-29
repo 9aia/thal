@@ -1,4 +1,4 @@
-import type { InReplyTos } from '~~/shared/types'
+import type { InReplyTos } from '#shared/types'
 import type { InReplyTo } from '~~/server/db/schema'
 
 // #region Modal

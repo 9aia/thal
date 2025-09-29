@@ -1,6 +1,6 @@
 ## Política de Privacidade do Thal
 
-**Data de Vigência**: :policy-effective-date{:id="_file"}
+**Data de Vigência**: :policy-effective-date{:id="legal/pt/privacy-policy.md"}
 
 Esta Política de Privacidade ("Política de Privacidade") descreve como o Thal, operado dentro da Gaia (referida como "nós", "nosso" ou "nossa"), coleta, usa, armazena e divulga suas informações pessoais quando você utiliza nosso serviço (o "Thal"). Ao acessar e usar o Thal, você concorda com as práticas descritas nesta política.
 

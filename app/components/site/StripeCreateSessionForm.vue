@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { tv } from 'tailwind-variants'
-import type { CheckoutStatus } from '~~/shared/types'
+import type { CheckoutStatus } from '#shared/types'
 import { SubscriptionStatus } from '~~/server/db/schema'
 
 const props = defineProps<{

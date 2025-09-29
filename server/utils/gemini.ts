@@ -1,6 +1,6 @@
 import type { Content, GenerationConfig, ResponseSchema } from '@google/generative-ai'
 import { internal } from './nuxt'
-import type { Message } from '~~/shared/types'
+import type { Message } from '#shared/types'
 import { getFullMessage } from '~~/server/utils/chat'
 
 export function chatHistoryToGemini(history: Message[]): Content[] {

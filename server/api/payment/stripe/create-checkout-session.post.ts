@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm'
 import type Stripe from 'stripe'
-import { SUBSCRIPTION_PLANS } from '~/constants/payment'
+import { SUBSCRIPTION_PLANS } from '#shared/constants/payment'
 import { now } from '#shared/utils/date'
 import { getAppUrl } from '~~/server/utils/h3'
 import { internal } from '~~/server/utils/nuxt'

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useField } from 'vee-validate'
 import type { InputHTMLAttributes } from 'vue'
-import type { SafeProps } from '~~/shared/types'
+import type { SafeProps } from '#shared/types'
 
 type Props = SafeProps<InputHTMLAttributes> & {
   path: string

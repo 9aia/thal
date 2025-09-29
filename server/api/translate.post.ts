@@ -5,7 +5,7 @@ import { promptGeminiText } from '~~/server/utils/gemini'
 import { getValidated } from '~~/server/utils/h3'
 import { forbidden, internal, paymentRequired, rateLimit, unauthorized } from '~~/server/utils/nuxt'
 import { characterLocalizations, messages, usernames } from '~~/server/db/schema'
-import { canUseAIFeatures } from '~~/shared/utils/plan'
+import { canUseAIFeatures } from '#shared/utils/plan'
 
 export default defineEventHandler(async (event) => {
   const { GCP_GEMINI_API_KEY, GEMINI_MODEL } = useRuntimeConfig(event)

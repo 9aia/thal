@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { tv } from 'tailwind-variants'
 import type { HTMLAttributes } from 'vue'
-import type { SafeProps } from '~~/shared/types'
+import type { SafeProps } from '#shared/types'
 
 type Props = SafeProps<HTMLAttributes> & {
   name?: string

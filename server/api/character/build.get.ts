@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { getCharacterCategoryName } from '~~/server/services/character'
 import { getValidated } from '~~/server/utils/h3'
 import { noContent, unauthorized } from '~~/server/utils/nuxt'
-import { numericString } from '~~/shared/utils/zod'
+import { numericString } from '#shared/utils/zod'
 import { characterDraftLocalizations, characterDrafts, characterLocalizations, characters, localeSchema, usernames } from '~~/server/db/schema'
 
 export default eventHandler(async (event) => {

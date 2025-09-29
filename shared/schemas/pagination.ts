@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { numericString } from '~~/shared/utils/zod'
+import { numericString } from '#shared/utils/zod'
 
 export interface PaginationOptions {
   defaultPage?: number

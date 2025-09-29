@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
-import type { History, Message } from '~~/shared/types'
+import type { History, Message } from '#shared/types'
 
 function useHistoryClient(username: MaybeRef<string>) {
   const queryClient = useQueryClient()

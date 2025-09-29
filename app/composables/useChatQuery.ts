@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/vue-query'
 import queryKeys from '~/queryKeys'
 import { inReplyTos } from '~/store'
-import type { History } from '~~/shared/types'
+import type { History } from '#shared/types'
 import type { MessageStatus } from '~~/server/db/schema'
 
 function useChatQuery(username: MaybeRef<string>) {

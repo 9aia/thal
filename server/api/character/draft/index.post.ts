@@ -4,7 +4,7 @@ import { characterDraftResponseSchema, getCharacterDraftPrompt } from '~~/server
 import { promptGeminiJson } from '~~/server/utils/gemini'
 import { getValidated } from '~~/server/utils/h3'
 import { badRequest, internal, paymentRequired, rateLimit, unauthorized } from '~~/server/utils/nuxt'
-import { canUseAIFeatures } from '~~/shared/utils/plan'
+import { canUseAIFeatures } from '#shared/utils/plan'
 import type { CharacterDraftData } from '~~/server/db/schema'
 import { characterDraftLocalizations, characterDraftSchema, characterDrafts } from '~~/server/db/schema'
 

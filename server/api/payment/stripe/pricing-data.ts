@@ -1,4 +1,4 @@
-import { SUBSCRIPTION_PLANS } from '~/constants/payment'
+import { SUBSCRIPTION_PLANS } from '#shared/constants/payment'
 import { getCheckoutStatus, getPrice } from '~~/server/services/plan'
 import { internal } from '~~/server/utils/nuxt'
 import { getStripe } from '~~/server/utils/stripe'

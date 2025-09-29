@@ -34,9 +34,9 @@ block('Head tables', {
     const result = await db.run(
       sql`SELECT name FROM sqlite_master WHERE type = 'table' AND name NOT LIKE '_cf_METADATA' AND name NOT LIKE 'd1_migrations' AND name NOT LIKE 'sqlite_%'`,
     )
-    const tableNames = result.results.map((t: any) => t.name)
+    const tableNames = result.results.map((t: any) => t.name as string)
 
-    const data = await Promise.all(tableNames.map(async tableName => ({
+    const data = await Promise.all(tableNames.map(async (tableName: string) => ({
       name: tableName,
       columns: await db.run(sql`SELECT * FROM ${sql.identifier(tableName)} LIMIT ${limit}`),
     })))

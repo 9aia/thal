@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { t } from '@psitta/vue'
-import type { CharacterShowcase } from '~~/shared/types'
+import type { CharacterShowcase } from '#shared/types'
 
 const props = defineProps<{
   data: CharacterShowcase

@@ -6,7 +6,7 @@ import { now } from '#shared/utils/date'
 import { chatHistoryToGemini, sendGeminiTextInTextOut } from '~~/server/utils/gemini'
 import { getValidated } from '~~/server/utils/h3'
 import { internal, notFound, paymentRequired, rateLimit, unauthorized } from '~~/server/utils/nuxt'
-import { canUseAIFeatures } from '~~/shared/utils/plan'
+import { canUseAIFeatures } from '#shared/utils/plan'
 import type { MessageInsert } from '~~/server/db/schema'
 import { MessageStatus, characterLocalizations, chats, contacts, lastMessages, localeSchema, messageSchema, messages, usernameSchema, usernames } from '~~/server/db/schema'
 

@@ -1,4 +1,4 @@
-import { type NuxtError } from "nuxt/app"
+import type { NuxtError } from 'nuxt/app'
 
 export function error(
   statusCode: number,

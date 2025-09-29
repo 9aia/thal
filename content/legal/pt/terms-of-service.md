@@ -1,6 +1,6 @@
 ## Termos de Serviço do Thal
 
-**Data Efetiva**: :policy-effective-date{:id="_file"}
+**Data Efetiva**: :policy-effective-date{:id="legal/pt/terms-of-service.md"}
 
 Estes Termos de Serviço do Thal ("Termos") regem seu acesso e uso do Thal, incluindo todo o seu conteúdo, recursos e serviços oferecidos pelo Thal, a Gaia, seus contribuidores ou qualquer outra pessoa associada ao Thal ou à Gaia (referida como "nós" ou "nosso").
 

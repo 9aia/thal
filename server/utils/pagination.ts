@@ -1,5 +1,4 @@
-import type { InfiniteData } from '@tanstack/vue-query'
-import type { Pagination } from '~~/shared/schemas/pagination'
+import type { Pagination } from '#shared/schemas/pagination'
 
 export function calculatePagination<T extends Pagination>(query: T) {
   const { page, perPage } = query

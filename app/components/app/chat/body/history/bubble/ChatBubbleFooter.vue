@@ -5,7 +5,7 @@ import { tv } from 'tailwind-variants'
 import type AudibleText from '~/components/app/ai/AudibleText.vue'
 import queryKeys from '~/queryKeys'
 import { edition, inReplyTos } from '~/store'
-import type { MessageCorrectionData } from '~~/shared/types'
+import type { MessageCorrectionData } from '#shared/types'
 import { type InReplyTo, MessageStatus } from '~~/server/db/schema'
 
 const props = defineProps<{

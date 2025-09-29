@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { T, t, useLocale } from '@psitta/vue'
-import { SUBSCRIPTION_PLANS } from '~/constants/payment'
+import { SUBSCRIPTION_PLANS } from '#shared/constants/payment'
 
 const locale = useLocale()
 
