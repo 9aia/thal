@@ -6,11 +6,9 @@ RUN mkdir /var/run/sshd /codeshare
 
 RUN chmod -R 777 /codeshare
 
-# Allow the root login via SSH
 RUN echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config
 RUN echo "Port 2222" >> /etc/ssh/sshd_config
 
-# Add a startup script to configure the user and password
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
