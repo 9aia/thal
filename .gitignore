@@ -30,8 +30,8 @@ db.sqlite
 
 .wrangler/state/v3
 
-# Codeshare
-codeshare/user
+# delphis
+delphis/user
 co-authors
 
 # DB dumps

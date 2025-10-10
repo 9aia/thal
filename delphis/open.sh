@@ -6,7 +6,7 @@ EDITOR_CMD=""
 WINDOW_FLAG="--reuse-window"
 HOST=""
 PORT="2222"
-ROOT="./codeshare"
+ROOT="./delphis"
 
 # TODO: read from .env
 
@@ -61,4 +61,4 @@ if [[ -z "$HOST" || -z "$PORT" ]]; then
 fi
 
 # Run the editor
-$EDITOR_CMD $WINDOW_FLAG --remote "ssh-remote+codeshare@${HOST}:${PORT}" "$ROOT"
+$EDITOR_CMD $WINDOW_FLAG --remote "ssh-remote+delphis@${HOST}:${PORT}" "$ROOT"

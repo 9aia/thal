@@ -5,15 +5,15 @@ services:
     network_mode: host
     container_name: stripe-cli
     command: "listen --forward-to localhost:3000/api/payment/webhook/stripe --api-key ${STRIPE_SECRET_KEY}"
-  codeshare:
+  delphis:
     build:
-      context: ./codeshare
+      context: ./delphis
       dockerfile: ./dockerfile
-    container_name: codeshare
+    container_name: delphis
     network_mode: host
     environment:
-      - USER=$CODESHARE_USER
-      - PASSWORD=$CODESHARE_PASSWORD
+      - USER=$DELPHIS_USER
+      - PASSWORD=$DELPHIS_PASSWORD
     volumes:
-      - ~/.gitconfig:/home/$CODESHARE_USER/.gitconfig:ro
-      - ./:/codeshare
+      - ~/.gitconfig:/home/$DELPHIS_USER/.gitconfig:ro
+      - ./:/delphis

@@ -5,15 +5,15 @@ Thank you for your interest in contributing to Thal! This document provides guid
 - [Managing the Project](#managing-the-project)
 - [Preparing the Environment](#preparing-the-environment)
   - [Preparing the Basic Environment](#preparing-the-basic-environment)
-  - [Joining a Codeshare](#joining-a-codeshare)
+  - [Joining a Collaborative Coding Session](#joining-a-collaborative-coding-session)
     - [Opening from CLI](#opening-from-cli)
     - [Using the `dev:cs` Script](#using-the-devcs-script)
   - [Preparing the Local Repository](#preparing-the-local-repository)
   - [Preparing the Full Environment Locally](#preparing-the-full-environment-locally)
-  - [Creating a Codeshare Session](#creating-a-codeshare-session)
+  - [Creating a Collaborative Coding Session](#creating-a-collaborative-coding-session)
   - [Preparing the Network](#preparing-the-network)
-    - [Preparing the Network for Hosting a Codeshare](#preparing-the-network-for-hosting-a-codeshare)
-    - [Preparing the Network for Joining a Codeshare](#preparing-the-network-for-joining-a-codeshare)
+    - [Preparing the Network for Hosting a Collaborative Coding Session](#preparing-the-network-for-hosting-a-collaborative-coding-session)
+    - [Preparing the Network for Joining a Collaborative Coding Session](#preparing-the-network-for-joining-a-collaborative-coding-session)
 - [Contributing](#contributing)
   - [Committing](#committing)
   - [Pushing to the Repositories](#pushing-to-the-repositories)
@@ -80,7 +80,7 @@ Install the following tools:
 - [PNPM 9.10 or higher](https://pnpm.io/installation)
 - ([Vscode](https://code.visualstudio.com/download) or any Vscode compatible editor) (recommended)
 
-### Joining a Codeshare
+### Joining a Collaborative Coding Session
 
 #### Opening from CLI
 
@@ -186,7 +186,7 @@ pnpm run dev:cs
    pnpm db:migrate
    ```
 
-### Creating a Codeshare Session
+### Creating a Collaborative Coding Session
 
 > [!IMPORTANT]
 > Make sure you have prepared the full environment locally (see [Preparing the Full Environment Locally](#preparing-the-full-environment-locally)) and the network for hosting a codeshare (see [Preparing the Network for Hosting a Codeshare](#preparing-the-network-for-hosting-a-codeshare)).
@@ -201,11 +201,11 @@ pnpm run dev:cs
 > [!TIP]
 > If you are not working on a codeshare, you can skip this section.
 
-#### Preparing the Network for Hosting a Codeshare
+#### Preparing the Network for Hosting a Collaborative Coding Session
 
 // TODO: add more information about the codeshare networking
 
-#### Preparing the Network for Joining a Codeshare
+#### Preparing the Network for Joining a Collaborative Coding Session
 
 > [!IMPORTANT]
 > Make sure you have set up the network properly. We recommend using [Tailscale](https://tailscale.com/) to connect to the codeshare session.
