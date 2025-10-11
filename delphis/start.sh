@@ -6,7 +6,7 @@ PASSWORD=${PASSWORD:-password}
 
 # Set the root password or create a new user
 if [ "$USER" == "root" ]; then
-    echo "Root cannot be used as user to codeshare!"
+    echo "Root cannot be used as user to delphis!"
 
     exit 1;
 else

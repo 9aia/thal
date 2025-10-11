@@ -199,9 +199,9 @@ description: A prioritized list of tasks, features, and ideas for future develop
 - Remove unused files/code
 - Improve docs
   - Add docs for the difference between roadmap, changelog and "What's New"
-- Add nuxt devserver to codeshare container
-  - Pass IS_CODESHARE env var to nuxt devserver and fix sign-in redirect to dev.thal.9aia.com
-- Fix codeshare perms
-- Fix codeshare checking of multiple co-authors already included in the commit message
+- Add nuxt devserver to delphis container
+  - Pass IS_DELPHIS env var to nuxt devserver and fix sign-in redirect to dev.thal.9aia.com
+- Fix delphis perms
+- Fix delphis checking of multiple co-authors already included in the commit message
 - Migrate to Vue Vapor when it's ready
 - Organize composables into folders

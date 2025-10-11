@@ -4,10 +4,10 @@ Thank you for your interest in contributing to Thal! This document provides guid
 
 - [Managing the Project](#managing-the-project)
 - [Preparing the Environment](#preparing-the-environment)
-  - [Preparing the Basic Environment](#preparing-the-basic-environment)
   - [Joining a Collaborative Coding Session](#joining-a-collaborative-coding-session)
-    - [Opening from CLI](#opening-from-cli)
-    - [Using the `dev:cs` Script](#using-the-devcs-script)
+    - [Option 1: Opening from CLI](#option-1-opening-from-cli)
+    - [Option 2: Using the `dev:cs` Script](#option-2-using-the-devcs-script)
+  - [Preparing the Basic Environment](#preparing-the-basic-environment)
   - [Preparing the Local Repository](#preparing-the-local-repository)
   - [Preparing the Full Environment Locally](#preparing-the-full-environment-locally)
   - [Creating a Collaborative Coding Session](#creating-a-collaborative-coding-session)
@@ -54,7 +54,7 @@ Thank you for your interest in contributing to Thal! This document provides guid
 ## Managing the Project
 
 > [!TIP]
-> You can edit the project management documents directly in the `./pm` folder via GitHub website, but it's recommended to edit the documents locally or in a codeshare.
+> You can edit the project management documents directly in the `./pm` folder via GitHub website, but it's recommended to edit the documents locally or in a collaborative coding session.
 
 We approach the project management in a git-based way. We foster an intuitive, transparent and proactivity-driven process. You can find all the project management documents in the `./pm` folder.
 
@@ -71,21 +71,14 @@ Here's a brief overview of the documents:
 
 ## Preparing the Environment
 
-### Preparing the Basic Environment
-
-Install the following tools:
-
-- [Git](https://git-scm.com/downloads)
-- [Node.js 23.8 or higher](https://nodejs.org/en)
-- [PNPM 9.10 or higher](https://pnpm.io/installation)
-- ([Vscode](https://code.visualstudio.com/download) or any Vscode compatible editor) (recommended)
-
 ### Joining a Collaborative Coding Session
 
-#### Opening from CLI
-
 > [!IMPORTANT]
-> Make sure you have set up the network properly. See [Preparing the Network for Joining a Codeshare](#preparing-the-network-for-joining-a-codeshare).
+> Make sure you have set up the network properly. See [Preparing the Network for Joining a Collaborative Coding Session](#preparing-the-network-for-joining-a-collaborative-coding-session).
+
+There are two options to join a collaborative coding session:
+
+#### Option 1: Opening from CLI
 
 > [!WARNING]
 > Make sure to provide properly all connection details, such as the IDE command, host, port, and root folder.
@@ -93,30 +86,36 @@ Install the following tools:
 > [!TIP]
 > Although this is relatively more convenient since you don't have to prepare a full environment locally, it is still recommended to do so. For a smoother and more reliable experience, refer to [Using the `dev:cs` Script](#using-the-devcs-script).
 
-Here is an example of how to join a codeshare session directly in VSCode:
+Here is an example of how to join a collaborative coding session directly in VSCode:
 
 ```bash
-code --remote "ssh-remote+codeshare@dev.thal.9aia.com:2222" ./codeshare/
+code --remote "ssh-remote+delphis@dev.thal.9aia.com:2222" ./delphis/
 # or if you want to open it in a new window
-code --new-window --remote "ssh-remote+codeshare@dev.thal.9aia.com:2222" ./codeshare/
+code --new-window --remote "ssh-remote+delphis@dev.thal.9aia.com:2222" ./delphis/
 ```
 
 > [!NOTE]
 > Commands may differ for other editors.
 
-#### Using the `dev:cs` Script
+#### Option 2: Using the `dev:cs` Script
 
 > [!IMPORTANT]
 > Make sure you have set up the basic environment locally. See [Preparing the Basic Environment](#preparing-the-basic-environment).
 
-> [!IMPORTANT]
-> Make sure you have set up the network properly. See [Preparing the Network for Joining a Codeshare](#preparing-the-network-for-joining-a-codeshare).
-
-To join a codeshare, you need to run the following command:
+To join a collaborative coding session, you need to run the following command:
 
 ```bash
 pnpm run dev:cs
 ```
+
+### Preparing the Basic Environment
+
+If you need to prepare the basic environment locally, install the following tools:
+
+- [Git](https://git-scm.com/downloads)
+- [Node.js 23.8 or higher](https://nodejs.org/en)
+- [PNPM 9.10 or higher](https://pnpm.io/installation)
+- ([Vscode](https://code.visualstudio.com/download) or any Vscode compatible editor) (recommended)
 
 ### Preparing the Local Repository
 
@@ -147,7 +146,7 @@ pnpm run dev:cs
 > Make sure you have installed the basic environment locally. See [Preparing the Basic Environment Locally](#preparing-the-basic-environment-locally).
 
 > [!TIP]
-> If you are joining a codeshare, you can skip this section.
+> If you are joining a collaborative coding session, you can skip this section. See [Joining a Collaborative Coding Session](#joining-a-collaborative-coding-session) for more information.
 
 1. **Install the main dependencies**
    - Ensure you have the following prerequisites installed on your system:
@@ -189,34 +188,36 @@ pnpm run dev:cs
 ### Creating a Collaborative Coding Session
 
 > [!IMPORTANT]
-> Make sure you have prepared the full environment locally (see [Preparing the Full Environment Locally](#preparing-the-full-environment-locally)) and the network for hosting a codeshare (see [Preparing the Network for Hosting a Codeshare](#preparing-the-network-for-hosting-a-codeshare)).
+> Make sure you have prepared the full environment locally (see [Preparing the Full Environment Locally](#preparing-the-full-environment-locally)) and the network for hosting a collaborative coding session (see [Preparing the Network for Hosting a Collaborative Coding Session](#preparing-the-network-for-hosting-a-collaborative-coding-session)).
 
 > [!WARNING]
-> You may have to install the Vscode extensions manually inside the codeshare container.
+> You may have to install the Vscode extensions manually inside the Delphis container.
 
-// TODO: add more information about how to create a codeshare session
+A collaborative coding session is started automatically when you launch the infrastructure using `pnpm run up:cs` instead of the usual `pnpm run up`.
+
+// TODO: add more information about how to create a collaborative coding session
 
 ### Preparing the Network
 
 > [!TIP]
-> If you are not working on a codeshare, you can skip this section.
+> If you are not working on a collaborative coding session, you can skip this section.
 
 #### Preparing the Network for Hosting a Collaborative Coding Session
 
-// TODO: add more information about the codeshare networking
+// TODO: add more information about the collaborative coding session networking
 
 #### Preparing the Network for Joining a Collaborative Coding Session
 
 > [!IMPORTANT]
-> Make sure you have set up the network properly. We recommend using [Tailscale](https://tailscale.com/) to connect to the codeshare session.
+> Make sure you have set up the network properly. We recommend using [Tailscale](https://tailscale.com/) to connect to the collaborative coding session.
 
 > [!IMPORTANT]
 > Make sure you have configured `/etc/hosts` to point `dev.thal.9aia.com` to the host machine's IP address.
 
-// TODO: add more information about the codeshare networking
+// TODO: add more information about the collaborative coding session networking
 
 > [!IMPORTANT]
-> Remember to set `dev.thal.9aia.com:3000` as a secure origin in `chrome://flags/#unsafely-treat-insecure-origin-as-secure` when joining the codeshare. Without this, you will not be able to authenticate to the application.
+> Remember to set `dev.thal.9aia.com:3000` as a secure origin in `chrome://flags/#unsafely-treat-insecure-origin-as-secure` when joining the collaborative coding session. Without this, you will not be able to authenticate to the application.
 
 ## Contributing
 
@@ -228,7 +229,7 @@ pnpm run dev:cs
    - Check for warnings of already included authors in the commit message.
 
 2. **Ensure the authors are included**
-   - If your programming in a codeshare, don't forget to include the authors in the `co-authors` file.
+   - If your programming in a collaborative coding session, don't forget to include the authors in the `co-authors` file.
 
 3. **Commit**
    - Run `git commit` to commit your changes or use the IDE's commit button.
@@ -276,14 +277,18 @@ git push --set-upstream origin main # or `git push` if you have already set up u
 
 ## Developing
 
+> [!IMPORTANT]
+> Before developing, make sure to you are already in a collaborative coding session or have the full environment locally prepared. See [Joining a Collaborative Coding Session](#joining-a-collaborative-coding-session) and [Preparing the Full Environment Locally](#preparing-the-full-environment-locally) for more information.
+
 ### Running the Development Environment
 
 1. **Start the containers**
    - To start the containers, run:
      ```bash
      pnpm run up
+     pnpm run up:cs # if you want to host a collaborative coding session
      ```
-   - This will start the Stripe container and the codeshare container.
+   - This will start the Stripe container (and the Delphis container if you are running `pnpm run up:cs`).
 
 2. **Start the development server**
    - Start the development server on `http://localhost:3000`
@@ -292,7 +297,7 @@ git push --set-upstream origin main # or `git push` if you have already set up u
      ```
 
 > [!TIP]
-> If the network is properly set up (see [Preparing the Network](#preparing-the-network) for more details), you can access the development environment in your browsers using the URL `http://dev.thal.9aia.com:3000`. This allows seamless collaboration within the shared network during your codeshare session.
+> If the network is properly set up (see [Preparing the Network](#preparing-the-network) for more details), you can access the development environment in your browsers using the URL `http://dev.thal.9aia.com:3000`. This allows seamless collaboration within the shared network during your collaborative coding session.
 
 ### Stopping the Development Environment
 
@@ -302,7 +307,7 @@ To stop the development environment, you need to run the following command:
 pnpm run down
 ```
 
-This will stop the Stripe and codeshare containers running in the background.
+This will stop the Stripe and Delphis containers running in the background.
 
 ### Writing Code
 
@@ -366,7 +371,7 @@ To execute commands in the local containers, you can run the following command:
 
 ```bash
 pnpm stripe {command} # for the Stripe container
-pnpm cs {command} # for the codeshare container
+pnpm delphis {command} # for the Delphis container
 ```
 
 ### Previewing Builds
@@ -414,7 +419,7 @@ We can use [Stitch](https://stitch.withgoogle.com/) to design the UI.
 ## Managing the Content
 
 > [!TIP]
-> You can edit the content directly in the `./content` folder or the translations in the `./app/locales` folder via GitHub website, but it's recommended to edit the content locally or in a codeshare.
+> You can edit the content directly in the `./content` folder or the translations in the `./app/locales` folder via GitHub website, but it's recommended to edit the content locally or in a collaborative coding session.
 
 To manage the content of the application, we use a Git-based CMS called [Nuxt Content](https://content.nuxt.dev/) and an AI-powered framework called [Psitta](https://github.com/9aia/psitta). You can find some of the content in `./content` folder and the rest in `./app/locales` folder.
 
