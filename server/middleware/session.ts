@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
     return
   }
 
-  if (!isMethod(event, 'GET')) {
+  if (!isMethod(event, 'GET') && event.path.startsWith('/api/')) {
     const originHeader = getHeader(event, 'Origin') ?? null
     const hostHeader = getHeader(event, 'Host') ?? null
 

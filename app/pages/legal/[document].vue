@@ -9,19 +9,19 @@ definePageMeta({
 useAutoRedirect()
 
 const route = useRoute()
-// const locale = useLocale()
-const locale = ref('pt')
+
+const localeWithDefaultRegion = useLocaleWithDefaultRegion()
 
 async function fetchLegalContent() {
-  // Build collection name based on current locale
-  const content = await queryCollection('content')
-    .path(`/legal/${locale.value}/${route.params.document}`)
-    .first()
-  return content
+  return $fetch(`/api/content/legal/${route.params.document}`, {
+    query: {
+      locale: localeWithDefaultRegion.value,
+    },
+  })
 }
 
 const contentQuery = useQuery({
-  queryKey: ['content', 'legal', locale.value, route.params.document],
+  queryKey: ['content', 'legal', localeWithDefaultRegion.value, route.params.document],
   queryFn: fetchLegalContent,
 })
 await contentQuery.suspense()

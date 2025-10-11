@@ -1,6 +1,6 @@
 ## Termos de Serviço do Thal
 
-**Data Efetiva**: :policy-effective-date{:id="legal/pt/terms-of-service.md"}
+**Data Efetiva**: :policy-effective-date
 
 Estes Termos de Serviço do Thal ("Termos") regem seu acesso e uso do Thal, incluindo todo o seu conteúdo, recursos e serviços oferecidos pelo Thal, a Gaia, seus contribuidores ou qualquer outra pessoa associada ao Thal ou à Gaia (referida como "nós" ou "nosso").
 
@@ -22,7 +22,7 @@ Ao acessar, navegar ou usar o Thal, você ("Usuário" ou "você") concorda em ac
     * Períodos prolongados de inatividade.
 
 1.5. **Encerramento de Conta pelo Usuário:** Você pode encerrar sua conta a qualquer momento entrando em contato conosco através do nosso e-mail: [suporte@thal.9aia.com](mailto:suporte@thal.9aia.com).
-
+asdasda
 ---
 
 ### 2. Uso do Serviço

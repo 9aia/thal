@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { v } from '@psitta/vue'
-import timestampJson from '~~/modules/policy/.timestamp.json'
+import timestampJson from '~~/content/.timestamp.json'
 
-defineProps<{
-  // TODO: fix id is not being passed because __file is now undefined in new nuxt content version
-  id: string
-}>()
+const route = useRoute()
+const document = computed(() => route.params.document)
+
+const id = computed(() => `/legal/pt-BR/${document.value}.md`)
 
 const timestampData = timestampJson as Record<string, number>
 </script>

@@ -1,9 +1,10 @@
 ## Política de Segurança do Thal
 
-**Data Efetiva**: :policy-effective-date{:id="_file"}
+**Data Efetiva**: :policy-effective-date
 
 ### 1. Introdução
 
+{{$doc.path}}
 No Thal, a segurança dos seus dados e a integridade da nossa plataforma são prioridades absolutas. Estamos profundamente **comprometidos em proteger suas informações** e proporcionar um ambiente online seguro para todos os nossos usuários.
 Esta política de segurança detalha as práticas, procedimentos e responsabilidades que empregamos para garantir essa segurança.
 
