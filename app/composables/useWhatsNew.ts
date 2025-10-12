@@ -1,9 +1,15 @@
-import { useLocale } from '@psitta/vue'
-
 function useWhatsNew() {
-  const locale = useLocale()
+  const localeWithDefaultRegion = useLocaleWithDefaultRegion()
 
-  const countQuery = useAsyncData('whats-new', () => queryContent('whats-new', locale.value).count())
+  const fetcher = () => {
+    return $fetch('/api/content/whats-new/count', {
+      params: {
+        locale: localeWithDefaultRegion.value,
+      },
+    })
+  }
+
+  const countQuery = useAsyncData('whats-new', () => fetcher())
 
   const lastSavedContentCount = useCookie('thal_whats_new_count', {
     default: () => 0,
@@ -11,13 +17,14 @@ function useWhatsNew() {
   const hasUnreadContent = computed(() => {
     if (!countQuery.data.value)
       return false
-    return countQuery.data.value > lastSavedContentCount.value
+    return countQuery.data.value.count > lastSavedContentCount.value
   })
 
   const seeContent = async () => {
-    const contentAmount = await queryContent('whats-new', locale.value).count()
+    const contentAmount = await fetcher()
+
     if (hasUnreadContent.value) {
-      lastSavedContentCount.value = contentAmount
+      lastSavedContentCount.value = contentAmount.count
     }
   }
 
