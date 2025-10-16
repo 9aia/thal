@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Menu } from '@ark-ui/vue/menu'
 import type { MenuItemType } from '~/components/ui/navigation/types'
-import { categories } from '~/constants/discover'
+import { categories } from '#shared/constants/discover'
 
 const props = defineProps<{
   name: string

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { MenuItemType, MenuItemTypeOrFalse } from '~/components/ui/navigation/types'
-import { categories } from '~/constants/discover'
+import { categories } from '#shared/constants/discover'
 import { LEFT_SIDEBAR_PROVIDE_KEY } from '~/constants/sidebar'
 import { buildCharacter, closeContactView, contactViewUsername, manageContact } from '~/store'
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
-import type { Category } from '~/constants/discover'
+import type { Category } from '#shared/constants/discover'
 
 const props = defineProps<{
   categories: Category[]

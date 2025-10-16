@@ -1,4 +1,4 @@
-import { categories } from '~/constants/discover'
+import { categories } from '#shared/constants/discover'
 import { internal } from '~~/server/utils/nuxt'
 
 export function getCharacterCategoryId(categoryName: string) {

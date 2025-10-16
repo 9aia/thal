@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { getCategoryById } from '#shared/utils/character'
+
 const props = defineProps<{
   search: string
   categoryId?: number

@@ -1,6 +1,6 @@
 import { type ResponseSchema, SchemaType } from '@google/generative-ai'
 import { z } from 'zod'
-import { categories } from '~/constants/discover'
+import { categories } from '#shared/constants/discover'
 import { descriptionSchema, descriptionSchemaChecks, instructionsSchema, instructionsSchemaChecks, nameSchema, nameSchemaChecks, usernameSchema, usernameSchemaChecks } from '~~/server/db/schema'
 
 export const characterLocalizationSchema = z.object({
@@ -200,13 +200,4 @@ export function getCharacterDraftPrompt() {
     responseSchema,
     guidelines,
   }
-}
-
-export function getCategoryById(categoryId: number) {
-  const category = categories.find(category => category.id === categoryId)
-
-  if (!category)
-    return
-
-  return category
 }

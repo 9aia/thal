@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
-import { categories } from '~/constants/discover'
+import { categories } from '#shared/constants/discover'
 import { LEFT_SIDEBAR_PROVIDE_KEY } from '~/constants/sidebar'
 import { openContactView } from '~/store'
 

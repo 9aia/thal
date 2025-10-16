@@ -2,8 +2,8 @@
 import { t } from '@psitta/vue'
 import { useForm } from 'vee-validate'
 import { useFuse } from '@vueuse/integrations/useFuse'
-import type { Category } from '~/constants/discover'
-import { categories } from '~/constants/discover'
+import type { Category } from '#shared/constants/discover'
+import { categories } from '#shared/constants/discover'
 
 defineProps<{
   selectedCategoryId?: number

@@ -2,7 +2,7 @@
 import { t } from '@psitta/vue'
 import { useRouteQuery } from '@vueuse/router'
 import { tv } from 'tailwind-variants'
-import { type CategorySlug, categories } from '~/constants/discover'
+import { type CategorySlug, categories } from '#shared/constants/discover'
 
 defineProps<{
   headerClass?: string

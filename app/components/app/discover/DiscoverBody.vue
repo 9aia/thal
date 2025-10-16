@@ -3,7 +3,7 @@ import { t } from '@psitta/vue'
 import { refDebounced } from '@vueuse/core'
 import { useForm } from 'vee-validate'
 import { useRouteQuery } from '@vueuse/router'
-import { type CategorySlug, categories } from '~/constants/discover'
+import { type CategorySlug, categories } from '#shared/constants/discover'
 import { buildCharacter, isWhatsNewModalOpen } from '~/store'
 import { LEFT_SIDEBAR_PROVIDE_KEY } from '~/constants/sidebar'
 
