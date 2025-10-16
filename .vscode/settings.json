@@ -11,6 +11,7 @@
     "**/dist": true,
     "**/.output": true,
     ".nuxt": true,
+    ".data": true,
     ".vscode": false
   },
   "explorer.fileNesting.enabled": true,

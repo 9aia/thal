@@ -2,9 +2,7 @@ import process from 'node:process'
 import tailwindcss from '@tailwindcss/vite'
 import { defineNuxtConfig } from 'nuxt/config'
 import ignoreTailwindSourceMapBroken from './app/plugins/vite/ignoreTailwindSourceMapBroken'
-// import './psitta.config'
 
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },

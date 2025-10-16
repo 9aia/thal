@@ -24,7 +24,7 @@ export default withNuxt(
   }),
   {
     ignores: [
-      'worker-configuration.d.ts',
+      'server/worker-configuration.d.ts',
     ],
   },
 )

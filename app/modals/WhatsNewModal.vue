@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { t, useLocale } from '@psitta/vue'
+import { t } from '@psitta/vue'
 import { useQuery } from '@tanstack/vue-query'
 import * as semver from 'semver'
 import { ARTICLE_TYPES } from '~/constants/content'
