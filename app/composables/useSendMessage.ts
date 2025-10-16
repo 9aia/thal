@@ -119,15 +119,18 @@ function useSendMessage(username: MaybeRef<string>, options: UseSendMessageOptio
       historyClient.set(newHistory)
 
       const lastMessageFromHistory = newHistory[newHistory.length - 1]
-      chatClient.setLastMessage({
-        content: lastMessageFromHistory.content,
-        time: lastMessageFromHistory.time,
-        status: lastMessageFromHistory.status,
-      })
+      if (lastMessageFromHistory) {
+        chatClient.setLastMessage({
+          content: lastMessageFromHistory.content,
+          time: lastMessageFromHistory.time,
+          status: lastMessageFromHistory.status,
+        })
+      }
+
       const userLastMessage = newHistory[newHistory.length - 2]
 
       const isRetrying = !!message.id
-      if (isRetrying) {
+      if (isRetrying && userLastMessage) {
         chatQueryUtils.updateInReplyToBeingLastMessage({
           content: userLastMessage.content,
           status: MessageStatus.seen,

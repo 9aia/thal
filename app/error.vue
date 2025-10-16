@@ -11,7 +11,7 @@ function handleError() {
 <template>
   <div class="flex flex-col w-full h-dvh justify-center items-center bg-white p-4">
     <CommonRouteError
-      :error="error?.statusCode"
+      :error="error?.statusCode ?? 500"
       @error="handleError"
     />
   </div>

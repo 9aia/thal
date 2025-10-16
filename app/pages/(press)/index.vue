@@ -23,6 +23,8 @@ function scrollToLastItem(value: string[]) {
   if (value.length === 0)
     return
   const lastItem = value[value.length - 1]
+  if (!lastItem)
+    return
   const item = document.getElementById(lastItem)
   if (item) {
     item.scrollIntoView({ behavior: 'smooth' })
@@ -128,7 +130,7 @@ const quotes = computed(() => [
         >
           <StripeCreateSessionForm
             :checkout-status="pricingQuery.data.value?.checkoutStatus || null"
-            :subscription-status="pricingQuery.data.value?.subscriptionStatus || SubscriptionStatus.not_subscribed"
+            :subscription-status="(pricingQuery.data.value as any)?.subscriptionStatus || SubscriptionStatus.not_subscribed"
             class="flex w-full items-center md:items-start justify-center z-10"
             button-class="md:mx-0"
             @submit="() => redirectUrl = '/app'"

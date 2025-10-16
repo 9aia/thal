@@ -23,7 +23,7 @@ const contactNames = computed(() => getContactName({
   characterName: characterQuery.data.value?.name,
 }))
 
-const displayName = computed(() => inReplyTo.value.from === 'user'
+const displayName = computed(() => inReplyTo.value?.from === 'user'
   ? t('You')
   : contactNames.value.displayName,
 )
@@ -46,7 +46,7 @@ function removeReply() {
       </h3>
 
       <p class="text-xs text-blue-500 line-clamp-3">
-        {{ inReplyTo.content }}
+        {{ inReplyTo?.content }}
       </p>
 
       <Button

@@ -438,10 +438,13 @@ export async function explainCorrectedMessage(
     }).where(eq(messageAnalysisExplanations.messageId, messageId))
   }
 
-  const [createdMessageAnalysis] = await orm.insert(messageAnalysisExplanations).values({
+  const createdMessageAnalysis = await orm.insert(messageAnalysisExplanations).values({
     messageId,
     createdAt: now(),
-  }).returning()
+  }).returning().get()
+
+  if (!createdMessageAnalysis)
+    throw internal('Failed to create message analysis')
 
   const createdMessageAnalysisId = createdMessageAnalysis.id
 

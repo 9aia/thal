@@ -117,6 +117,10 @@ export default defineEventHandler(async (event) => {
     throw forbidden('You do not have permission to access this message')
 
   const correctedMessageRecord = await correctMessage(event, locale!, { messageId, regenerate: true })
+  if (!correctedMessageRecord) {
+    throw badRequest('Corrected message not found')
+  }
+
   const messageAnalysisExplanationRecord = await explainCorrectedMessage(event, orm, user, locale!, {
     messageId,
     messageContent: message.content,

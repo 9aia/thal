@@ -352,8 +352,24 @@ function handleOpenChat() {
                 :is-editing="isEditing"
               />
 
-              <CharacterShowcase v-if="viewMode === 'preview'" :data="buildQuery.data.value?.draft!" />
-              <CharacterShowcase v-if="viewMode === 'original'" :data="buildQuery.data.value?.character!" />
+              <CharacterShowcase
+                v-if="viewMode === 'preview'" :data="{
+                  name: buildQuery.data.value?.draft?.name || '',
+                  username: buildQuery.data.value?.draft?.username || '',
+                  description: buildQuery.data.value?.draft?.description || '',
+                  instructions: buildQuery.data.value?.draft?.instructions || '',
+                  categoryName: buildQuery.data.value?.draft?.categoryName || '',
+                }"
+              />
+              <CharacterShowcase
+                v-if="viewMode === 'original'" :data="{
+                  name: buildQuery.data.value?.character?.name || '',
+                  username: buildQuery.data.value?.character?.username || '',
+                  description: buildQuery.data.value?.character?.description || '',
+                  instructions: buildQuery.data.value?.character?.instructions || '',
+                  categoryName: buildQuery.data.value?.character?.categoryName || '',
+                }"
+              />
 
               <ApproveCharacterDraftForm
                 :is-editing="isEditing"

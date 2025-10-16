@@ -20,7 +20,7 @@ await pricingQuery.suspense()
   <div class="flex flex-col items-center justify-center h-fit mt-4 gap-2">
     <StripeCreateSessionForm
       :checkout-status="pricingQuery.data.value?.checkoutStatus || null"
-      :subscription-status="pricingQuery.data.value?.subscriptionStatus || SubscriptionStatus.not_subscribed"
+      :subscription-status="(pricingQuery.data.value as any)?.subscriptionStatus || SubscriptionStatus.not_subscribed"
     />
 
     <div v-if="RUNTIME_ENV === 'dev' || RUNTIME_ENV === 'preview'" class="text-blue-500 text-xs flex mt-2 justify-center text-center">

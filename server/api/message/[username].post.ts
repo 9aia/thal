@@ -127,6 +127,9 @@ export default eventHandler(async (event) => {
 
   const userLastMessage = history[history.length - 1]
 
+  if (!userLastMessage)
+    throw internal('User last message not found')
+
   // #endregion
 
   // #region Generate bot message
@@ -137,6 +140,9 @@ export default eventHandler(async (event) => {
   })
 
   const localization = character.characterLocalizations[0]
+
+  if (!localization)
+    throw internal('Character localization not found')
 
   const systemInstruction = `
     You are ${localization.name}.
@@ -174,6 +180,9 @@ export default eventHandler(async (event) => {
 
   // #region Insert messages in database
 
+  if (!chat)
+    throw internal('Chat not found')
+
   const userMessage: MessageInsert = {
     chatId: chat.id,
     content,
@@ -200,6 +209,12 @@ export default eventHandler(async (event) => {
 
   // #region Update user last message in history array
 
+  if (!userMessageRecord)
+    throw internal('Failed to insert user message')
+
+  if (!botMessageRecord)
+    throw internal('Failed to insert bot message')
+
   userLastMessage.id = userMessageRecord.id
 
   // #endregion
@@ -210,15 +225,17 @@ export default eventHandler(async (event) => {
     messageId: userMessageRecord.id,
   })
 
-  userLastMessage.correctedMessage = [
-    {
-      id: userMessageCorrection.id,
-      content: userMessageCorrection.content,
-      severity: userMessageCorrection.severity,
-      ignoredAt: userMessageCorrection.ignoredAt,
-      createdAt: userMessageCorrection.createdAt,
-    },
-  ]
+  if (userMessageCorrection) {
+    userLastMessage.correctedMessage = [
+      {
+        id: userMessageCorrection.id,
+        content: userMessageCorrection.content,
+        severity: userMessageCorrection.severity,
+        ignoredAt: userMessageCorrection.ignoredAt,
+        createdAt: userMessageCorrection.createdAt,
+      },
+    ]
+  }
 
   // #endregion
 
@@ -250,6 +267,9 @@ export default eventHandler(async (event) => {
   // #endregion
 
   // #region Push bot message
+
+  if (!botMessageRecord)
+    throw internal('Failed to insert bot message')
 
   history.push(
     {

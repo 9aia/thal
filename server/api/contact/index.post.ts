@@ -34,7 +34,7 @@ export default eventHandler(async (event) => {
   if (contact)
     throw badRequest('Contact already added')
 
-  const [newContact] = await orm
+  const newContact = await orm
     .insert(contacts)
     .values({
       name: data.name,
@@ -42,6 +42,10 @@ export default eventHandler(async (event) => {
       usernameId,
     })
     .returning()
+    .get()
+
+  if (!newContact)
+    throw internal('Failed to create contact')
 
   await orm
     .update(chats)

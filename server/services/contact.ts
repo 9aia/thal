@@ -37,11 +37,13 @@ export async function getContactByUsername(
     }
   }
 
+  const contact = result.contacts[0]!
+
   return {
-    id: result.contacts[0].id,
-    name: result.contacts[0].name,
-    createdAt: result.contacts[0].createdAt,
-    updatedAt: result.contacts[0].updatedAt,
+    id: contact.id,
+    name: contact.name,
+    createdAt: contact.createdAt,
+    updatedAt: contact.updatedAt,
     username,
   }
 }

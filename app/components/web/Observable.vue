@@ -22,7 +22,7 @@ const timer = useIntervalFn(() => {
 
 function setupObserver() {
   observer.value = new IntersectionObserver(([entry]) => {
-    visible.value = entry.isIntersecting
+    visible.value = entry?.isIntersecting ?? false
   }, { threshold: 1.0 })
 }
 

@@ -19,10 +19,14 @@ export default eventHandler(async (event) => {
   if (!contact.id)
     throw notFound('Contact not found')
 
-  const [deletedContact] = await orm
+  const deletedContact = await orm
     .delete(contacts)
     .where(and(eq(contacts.userId, user.id), eq(contacts.id, contact.id)))
     .returning()
+    .get()
+
+  if (!deletedContact)
+    throw internal('Failed to delete contact')
 
   const deletedContactDto = {
     id: deletedContact.id,

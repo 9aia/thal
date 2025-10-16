@@ -141,7 +141,8 @@ export async function getPrice(stripe: Stripe, planSettings: PlanSettings) {
   })
 
   if (prices.data.length) {
-    return (prices.data[0].unit_amount || 0) / 100
+    const price = prices.data[0]!
+    return (price.unit_amount || 0) / 100
   }
 
   return null

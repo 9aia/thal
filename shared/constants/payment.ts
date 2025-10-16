@@ -1,8 +1,8 @@
 import type { PlanSettings } from '#shared/types'
 
-export const SUBSCRIPTION_PLANS: Record<string, PlanSettings> = {
+export const SUBSCRIPTION_PLANS = {
   STANDARD_MONTHLY: {
     priceLookupKey: 'standard_monthly',
     trialPeriodDays: 1,
   },
-} as const
+} satisfies Record<string, PlanSettings>

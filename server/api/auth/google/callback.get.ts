@@ -64,15 +64,17 @@ export default defineEventHandler(async (event) => {
       const session = await createSession(orm, token, existingUser.userId)
       setSessionTokenCookie(event, token, session.expiresAt)
 
-      const [user] = await orm.select().from(users).where(eq(users.id, existingUser.userId))
+      const user = await orm.select().from(users).where(eq(users.id, existingUser.userId)).get()
 
-      setCookie(event, 'user_reactivated', user.deactivatedAt ? '1' : '')
+      if (user) {
+        setCookie(event, 'user_reactivated', user.deactivatedAt ? '1' : '')
 
-      if (user.deactivatedAt) {
-        await orm.update(users).set({
-          deactivatedAt: null,
-          updatedAt: now(),
-        }).where(eq(users.id, user.id))
+        if (user.deactivatedAt) {
+          await orm.update(users).set({
+            deactivatedAt: null,
+            updatedAt: now(),
+          }).where(eq(users.id, user.id))
+        }
       }
 
       return sendRedirect(event, redirectUrl)

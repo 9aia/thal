@@ -59,7 +59,7 @@ function handleSend(e: Event) {
 
   const decodedMessage = decodeHTML(text.value)
 
-  if (!decodedMessage.trim() || shift.value || sendMessageMutation.isPending.value || sendMessageMutation.isError.value || isCharacterDeleted.value || messageContentSchemaError.value) {
+  if (!decodedMessage.trim() || shift?.value || sendMessageMutation.isPending.value || sendMessageMutation.isError.value || isCharacterDeleted.value || messageContentSchemaError.value) {
     return
   }
 

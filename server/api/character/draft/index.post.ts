@@ -76,7 +76,7 @@ export default eventHandler(async (event) => {
     categoryId,
   }
 
-  const [newCharacter] = await orm
+  const newCharacter = await orm
     .insert(characterDrafts)
     .values({
       data: draftData,
@@ -84,6 +84,10 @@ export default eventHandler(async (event) => {
       creatorId: user.id,
     })
     .returning()
+    .get()
+
+  if (!newCharacter)
+    throw internal('Failed to create character draft')
 
   await orm.batch([
     orm.insert(characterDraftLocalizations).values({

@@ -51,11 +51,13 @@ export default eventHandler(async (event) => {
     expand: ['data.product'],
   })
 
+  const price = prices.data[0]!
+
   const checkoutCreateParams: Stripe.Checkout.SessionCreateParams = {
     billing_address_collection: 'auto',
     line_items: [
       {
-        price: prices.data[0].id,
+        price: price.id,
         quantity: 1,
       },
     ],

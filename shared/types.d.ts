@@ -2,7 +2,7 @@ import type { InternalApi } from 'nitropack'
 import type { VariantProps } from 'tailwind-variants'
 import type { HTMLAttributes } from 'vue'
 import type { DrizzleD1Database } from 'drizzle-orm/d1'
-import type { getHistory } from './server/services/messages'
+import type { getHistory } from '~~/server/services/messages'
 import type { InReplyTo, UserSelect } from '~~/server/db/schema'
 import type * as schema from '~~/server/db/schema'
 

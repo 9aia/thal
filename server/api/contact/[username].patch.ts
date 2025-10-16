@@ -18,7 +18,7 @@ export default eventHandler(async (event) => {
 
   const contact = await getContactByUser(orm, user, username)
 
-  const [updatedContact] = await orm
+  const updatedContact = await orm
     .update(contacts)
     .set({ ...data, updatedAt: now() })
     .where(and(
@@ -26,6 +26,10 @@ export default eventHandler(async (event) => {
       eq(contacts.usernameId, contact.usernameId!),
     ))
     .returning()
+    .get()
+
+  if (!updatedContact)
+    throw internal('Failed to update contact')
 
   const contactUpdateDto = {
     id: updatedContact.id,

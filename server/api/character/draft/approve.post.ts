@@ -66,12 +66,16 @@ export default eventHandler(async (event) => {
 
   if (isEdition) {
     // Update character from draft
-    const [updatedCharacter] = await orm.update(characters).set({
+    const updatedCharacter = await orm.update(characters).set({
       discoverable: data.discoverable,
       prompt: existingDraft.prompt,
       categoryId: draftData.categoryId,
       updatedAt: now(),
-    }).where(eq(characters.id, data.characterId!)).returning()
+    }).where(eq(characters.id, data.characterId!)).returning().get()
+
+    if (!updatedCharacter) {
+      throw internal('Failed to update character')
+    }
 
     await orm.update(usernames)
       .set({ text: draftData.username, updatedAt: now() })
@@ -92,12 +96,15 @@ export default eventHandler(async (event) => {
   }
   else {
     // Create character from draft
-    const [newCharacter] = await orm.insert(characters).values({
+    const newCharacter = await orm.insert(characters).values({
       discoverable: data.discoverable,
       creatorId: user.id,
       prompt: existingDraft.prompt,
       categoryId: draftData.categoryId,
-    }).returning()
+    }).returning().get()
+
+    if (!newCharacter)
+      throw internal('Failed to create character')
 
     character = newCharacter
 

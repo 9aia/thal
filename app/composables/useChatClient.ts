@@ -21,10 +21,16 @@ function useChatClient(username: MaybeRef<string>) {
       const chatIndex = newChats.findIndex(chat => chat.username === _username)
 
       if (chatIndex === -1) {
+        const characterData = characterQuery.data.value
+        if (!characterData?.name) {
+          throw new Error('Character data is required to create a chat')
+        }
+        // You can't create a chat without a character
+
         newChats.unshift({
           chatId: newChats.length + 1,
           username: _username,
-          characterName: characterQuery.data.value!.name!, // You can't create a chat without a character
+          characterName: characterData.name,
           contactName: contactQuery.data.value?.name || undefined,
           lastMessageContent: data.messageContent,
           lastMessageDatetime: data.messageDatetime,
@@ -47,11 +53,14 @@ function useChatClient(username: MaybeRef<string>) {
       const chatIndex = newChats.findIndex(chat => chat.username === _username)
 
       if (chatIndex !== -1) {
-        newChats[chatIndex] = {
-          ...newChats[chatIndex],
-          lastMessageContent: lastMessage.content,
-          lastMessageDatetime: lastMessage.time,
-          lastMessageStatus: lastMessage.status,
+        const existingChat = newChats[chatIndex]
+        if (existingChat) {
+          newChats[chatIndex] = {
+            ...existingChat,
+            lastMessageContent: lastMessage.content,
+            lastMessageDatetime: lastMessage.time,
+            lastMessageStatus: lastMessage.status,
+          }
         }
       }
 
@@ -70,11 +79,14 @@ function useChatClient(username: MaybeRef<string>) {
       const chatIndex = newChats.findIndex(chat => chat.username === _username)
 
       if (chatIndex !== -1) {
-        newChats[chatIndex] = {
-          ...newChats[chatIndex],
-          lastMessageContent: '',
-          lastMessageDatetime: undefined,
-          lastMessageStatus: undefined,
+        const existingChat = newChats[chatIndex]
+        if (existingChat) {
+          newChats[chatIndex] = {
+            ...existingChat,
+            lastMessageContent: '',
+            lastMessageDatetime: undefined,
+            lastMessageStatus: undefined,
+          }
         }
       }
 

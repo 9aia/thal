@@ -46,7 +46,7 @@ const featureList = computed(() => [
 
           <StripeCreateSessionForm
             :checkout-status="pricingQuery.data.value?.checkoutStatus || null"
-            :subscription-status="pricingQuery.data.value?.subscriptionStatus || SubscriptionStatus.not_subscribed"
+            :subscription-status="(pricingQuery.data.value as any)?.subscriptionStatus || SubscriptionStatus.not_subscribed"
             class="flex flex-col items-center gap-4"
           />
 

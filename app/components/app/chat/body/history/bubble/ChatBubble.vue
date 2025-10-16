@@ -36,7 +36,7 @@ type AudibleTextType = InstanceType<typeof AudibleText>
 const audiableTextRef = ref<AudibleTextType | null>(null)
 
 const correctedMessage = computed<MessageCorrectionData>(() => {
-  const isStatusOk = !props.correctedMessage || props.correctedMessage.length === 0 || !props.correctedMessage[0].content
+  const isStatusOk = !props.correctedMessage || props.correctedMessage.length === 0 || !props.correctedMessage[0]?.content
 
   return {
     status: isStatusOk ? 'ok' : 'needs_correction',

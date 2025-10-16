@@ -36,11 +36,12 @@ export default eventHandler(async (event) => {
   let characterId: number | null = characterIdParam ?? null
 
   if (!characterId && characterUsername) {
-    const [result] = await orm.select().from(characters)
+    const result = await orm.select().from(characters)
       .leftJoin(usernames, eq(characters.id, usernames.characterId))
       .where(and(isNull(characters.deletedAt), eq(usernames.text, characterUsername)))
+      .get()
 
-    if (!result.Character.id) {
+    if (!result?.Character?.id) {
       throw badRequest(`Character with username \`${characterUsername}\` not found`)
     }
 
@@ -91,7 +92,7 @@ export default eventHandler(async (event) => {
     ${editOutro}
   `
 
-  const promptLocalization = existingDraft.characterDraftLocalizations[0]
+  const promptLocalization = existingDraft.characterDraftLocalizations[0]!
 
   const prompt = !characterId
     ? data.prompt
@@ -168,6 +169,8 @@ export default eventHandler(async (event) => {
   ])
 
   const updatedDraft = result[0][0]
+  if (!updatedDraft)
+    throw internal('Failed to update draft')
 
   const dto:
     typeof updatedDraft & {

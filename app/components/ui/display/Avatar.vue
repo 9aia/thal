@@ -20,7 +20,7 @@ const props = withDefaults(defineProps<{
 })
 
 const placeholder = computed(() => {
-  return props.placeholder || props.name?.[0].toUpperCase() || 'U'
+  return props.placeholder || props.name?.[0]?.toUpperCase() || 'U'
 })
 
 const avatar = tv({

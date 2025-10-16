@@ -20,7 +20,7 @@ export function initializeGoogle(
 }
 
 export function generateUsernameByEmail(email: string) {
-  const username = email.split('@')[0]
+  const username = email.split('@')[0]!
   const suffix = _.random(1000, 9999)
 
   return username + suffix

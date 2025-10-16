@@ -84,12 +84,17 @@ export default eventHandler(async (event) => {
 
   const existingDraft = draftCharacter.data
 
+  const draftLocalization = draftCharacter.characterDraftLocalizations?.[0]
+  if (!draftLocalization) {
+    throw noContent('Character draft localization not found')
+  }
+
   return {
     draft: {
       username: existingDraft.username,
-      name: draftCharacter.characterDraftLocalizations?.[0]?.name,
-      description: draftCharacter.characterDraftLocalizations?.[0]?.description,
-      instructions: draftCharacter.characterDraftLocalizations?.[0]?.instructions,
+      name: draftLocalization.name,
+      description: draftLocalization.description,
+      instructions: draftLocalization.instructions,
       prompt: draftCharacter.prompt,
       categoryName: getCharacterCategoryName(existingDraft.categoryId),
     },

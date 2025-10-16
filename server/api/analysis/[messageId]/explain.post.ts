@@ -116,7 +116,7 @@ export default defineEventHandler(async (event) => {
   const explanation = await explainCorrectedMessage(event, orm, user, locale!, {
     messageId,
     messageContent: message.content,
-    correctedMessageContent: message.correctedMessage?.[0]?.content,
+    correctedMessageContent: message.correctedMessage?.[0]?.content ?? null,
     username: message.chat.username,
     inReplyTo: message.inReplyTo,
     regenerate: true,
