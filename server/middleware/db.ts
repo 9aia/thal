@@ -1,5 +1,5 @@
 import process from 'node:process'
-import { type DrizzleD1Database, drizzle as initializeDrizzle } from 'drizzle-orm/d1'
+import { drizzle as initializeDrizzle } from 'drizzle-orm/d1'
 import * as schema from '~~/server/db/schema'
 
 export default defineEventHandler(async (event) => {
@@ -10,9 +10,3 @@ export default defineEventHandler(async (event) => {
     schema,
   })
 })
-
-declare module 'h3' {
-  interface H3EventContext {
-    orm: DrizzleD1Database<typeof schema>
-  }
-}

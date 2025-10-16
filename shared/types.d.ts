@@ -1,8 +1,10 @@
 import type { InternalApi } from 'nitropack'
 import type { VariantProps } from 'tailwind-variants'
 import type { HTMLAttributes } from 'vue'
+import type { DrizzleD1Database } from 'drizzle-orm/d1'
 import type { getHistory } from './server/services/messages'
 import type { InReplyTo, UserSelect } from '~~/server/db/schema'
+import type * as schema from '~~/server/db/schema'
 
 export interface SafeProps<T extends HTMLAttributes> extends /* @vue-ignore */ T {}
 export interface SafeVariantProps<T extends VariantProps> extends /* @vue-ignore */ T {}
@@ -128,3 +130,9 @@ export interface MessageCorrection {
 export type History = InternalApi[`/api/chat/history/:username`]['get']
 
 // #endregion
+
+declare module 'h3' {
+  interface H3EventContext {
+    orm: DrizzleD1Database<typeof schema>
+  }
+}
