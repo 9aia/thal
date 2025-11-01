@@ -4,6 +4,11 @@ description: A collection of ideas and feedback from stakeholders or team member
 
 # Suggestions
 
+- Characters have a fluency point (FP);
+- No leaderboard for now;
+- Error modal for message input helper;
+- Create characters and user embeddings for searching and novelty rewarding.
+
 ## Features
 
 ### General
