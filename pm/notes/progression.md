@@ -1,9 +1,4 @@
-That’s a great foundation — you’re basically describing the full **progression system** for Thal’s *fluency gamification*, with both reward and decay mechanics.
-Let’s organize and refine your concept so it’s consistent, cheat-resistant, and psychologically effective:
-
----
-
-## 🧭 Thal: Points & Levels System (Refined Design)
+## Progression System
 
 ### ⚙️ Entities
 

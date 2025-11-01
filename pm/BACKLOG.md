@@ -177,6 +177,9 @@ description: A prioritized list of tasks, features, and ideas for future develop
 
 - Fix https://github.com/drizzle-team/drizzle-orm/issues/4640
 - Add auto-migration for the database on deploy
+- Refactor to shadcn/vue
+- Refactor to ai-sdk/vue
+- Fix castor not working with Nuxt4
 
 ### Medium priority
 
