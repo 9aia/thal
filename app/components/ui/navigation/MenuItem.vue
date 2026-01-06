@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
 import { tv } from 'tailwind-variants'
-import Icon from '../display/Icon.vue'
+import Icon from '../../icon/Icon.vue'
 import ChevronRight from './ChevronRight.vue'
 import type { MenuItemType } from './types'
 

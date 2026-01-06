@@ -221,7 +221,7 @@ const messageFeedbackIcon = tv({
 </template>
 
 <style lang="css" scoped>
-@reference '~/assets/css/main.css';
+@reference '~/assets/css/tailwind.css';
 
 @media (pointer: fine) {
   .fine\:opacity-0 {

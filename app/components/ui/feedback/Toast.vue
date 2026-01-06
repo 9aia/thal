@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { tv } from 'tailwind-variants'
 import { computed, effect, ref } from 'vue'
-import Icon from '../display/Icon.vue'
+import Icon from '../../icon/Icon.vue'
 
 const styles = tv({
   base: 'alert border-0 flex justify-between w-full relative',
@@ -126,7 +126,7 @@ watch(toast.update, () => {
 </template>
 
 <style scoped>
-@reference '~/assets/css/main.css';
+@reference '~/assets/css/tailwind.css';
 
 .animate-progress {
   animation: fill-progress linear;

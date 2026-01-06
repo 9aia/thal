@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { t } from '@psitta/vue'
-import Icon from '../display/Icon.vue'
+import Icon from '../../icon/Icon.vue'
 import type { BreadcrumbItem } from './types'
 import { A } from '#components'
 

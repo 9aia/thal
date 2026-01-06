@@ -18,6 +18,8 @@ export default defineNuxtConfig({
     '@nuxt/test-utils',
     '@nuxtjs/mdc',
     'reka-ui/nuxt',
+    'shadcn-nuxt',
+    '@nuxtjs/color-mode',
   ],
 
   components: [
@@ -34,7 +36,7 @@ export default defineNuxtConfig({
       pathPrefix: false,
     },
   ],
-  css: ['~/assets/css/main.css'],
+  css: ['~/assets/css/tailwind.css'],
 
   vite: {
     plugins: [
@@ -89,6 +91,15 @@ export default defineNuxtConfig({
       collections: ['material-symbols'],
     },
     componentName: 'NuxtIcon',
+  },
+
+  shadcn: {
+    prefix: 'U',
+    componentDir: '~/components/ui',
+  },
+
+  colorMode: {
+    classSuffix: '',
   },
 
   runtimeConfig: {
